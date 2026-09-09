@@ -14,6 +14,8 @@
 
 新增文档和工具通过普通 Git 跟踪。后续增加大数据快照时创建新的 Release 和文件索引，不用同名附件覆盖已经发布的冻结材料。索引应说明源路径、大小、SHA-256、存储位置和包含理由，并验证每个附件与源文件的映射。
 
+发布索引更新后，运行 `python tools/repository/update_ignore_rules.py` 生成相应的还原路径忽略规则。它会使用Git逐条验证Release路径与Git源文件路径，避免还原后的批量数据被再次纳入普通Git提交。
+
 ## 本地验证
 
 📁 `tools/repository/snapshot.py`（在仓库根目录的 PowerShell 执行）
