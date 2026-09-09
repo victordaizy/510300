@@ -1,0 +1,2320 @@
+{
+  "status": "PASS",
+  "study_id": "510300_MACRO_STRESS_AVOIDANCE_V1",
+  "scope": "仅2021-01-01至2026-08-25；未采集2016-2020",
+  "data_start": "2021-01-01",
+  "data_end": "2026-08-25",
+  "latest_complete_month": "2026-07",
+  "retrieved_at": "2026-08-30T01:03:59.861192+08:00",
+  "tls_verification": "ENABLED_NO_BYPASS",
+  "daily_publication_clock": {
+    "FDR007": "11:30 Asia/Shanghai，来自中国货币网页面发布说明",
+    "USD/CNY": "09:15 Asia/Shanghai，冻结为开盘前官方中间价发布时间"
+  },
+  "monthly_revision_policy": "交易研究只使用逐月首发正文；未单独取得的后续修订值保留为空，不得用最新修订表回填首发值",
+  "series": {
+    "fdr007": {
+      "rows": 1407,
+      "first": "2021-01-04",
+      "last": "2026-08-25",
+      "duplicate_keys": 0,
+      "missing_first_release_values": 0,
+      "minimum": 1.25,
+      "maximum": 3.19
+    },
+    "usdcny_midpoint": {
+      "rows": 1369,
+      "first": "2021-01-04",
+      "last": "2026-08-25",
+      "duplicate_keys": 0,
+      "missing_first_release_values": 0,
+      "minimum": 6.3014,
+      "maximum": 7.2555
+    },
+    "pmi_new_orders": {
+      "rows": 67,
+      "first": "2021-01",
+      "last": "2026-07",
+      "duplicate_keys": 0,
+      "missing_first_release_values": 0,
+      "minimum": 42.6,
+      "maximum": 54.1
+    },
+    "tsf_stock_yoy": {
+      "rows": 67,
+      "first": "2021-01",
+      "last": "2026-07",
+      "duplicate_keys": 0,
+      "missing_first_release_values": 0,
+      "minimum": 7.4,
+      "maximum": 13.3
+    }
+  },
+  "output_hashes": {
+    "data/raw/macro/fdr007_daily.parquet": "cf46d66001dc15570b0d90dd1a2ad1c03d0c8cdf8d35c97c8f78855f72cb66dc",
+    "data/raw/macro/usdcny_midpoint_daily.parquet": "a3779e83148ea1de13c4755cc8c63cde5e184d6a4983494c8fb7b7a7283e829a",
+    "data/raw/macro/pmi_new_orders_release_vintage.parquet": "ec72ffc6d095eb2430c809d4458e77c227d463474b31ca21b1e3dee3ab929304",
+    "data/raw/macro/tsf_stock_yoy_release_vintage.parquet": "846550bfc7302b6d274d53bdbc3d116e21fed08c1e12b7535f50b092d9d6b83f"
+  },
+  "raw_evidence_count": 250,
+  "raw_evidence": [
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_fdr007_20210101_20211231.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/FrrHis?lang=CN&startDate=2021-01-01&endDate=2021-12-31",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 101105,
+      "sha256": "64ee036d3d345d77ecadef75304766e4aca0ead12a5e5dd931a968d6897590d8"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_fdr007_20220101_20221231.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/FrrHis?lang=CN&startDate=2022-01-01&endDate=2022-12-31",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 100702,
+      "sha256": "eab9c3c8796ed15ada704645e94c6e7afcc8f395e3dd10a823511545cc69e321"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_fdr007_20230101_20231231.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/FrrHis?lang=CN&startDate=2023-01-01&endDate=2023-12-31",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 100702,
+      "sha256": "3b3de57344016f794d9da80cfc188ea0638be13a52a5505ebcc1b84a642aea2e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_fdr007_20240101_20241231.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/FrrHis?lang=CN&startDate=2024-01-01&endDate=2024-12-31",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 101508,
+      "sha256": "71c29a7e83ac67793b46032a7ec3239fed5ccb223bf4f441891ff14a8b9c091a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_fdr007_20250101_20251231.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/FrrHis?lang=CN&startDate=2025-01-01&endDate=2025-12-31",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 100299,
+      "sha256": "1f6952dfff39600dbf8d0c2cbbda280ebfbfa2b941c541915621729072d5eb15"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_fdr007_20260101_20260825.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/FrrHis?lang=CN&startDate=2026-01-01&endDate=2026-08-25",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 64835,
+      "sha256": "0e822ca0746490c76c72c848a7b077ce80e2c16a29b61c5cb98a238648aaff07"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20210101_20211231_page_01.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2021-01-01&endDate=2021-12-31&pageNum=1&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "b9e35b83e08492bcb5955301b6405672662c3441f236b24f4d748e69770605f4"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20210101_20211231_page_02.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2021-01-01&endDate=2021-12-31&pageNum=2&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "b9bb0f78517536352889da6b899293b21eea5e759fbe420653f042d54fde810f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20210101_20211231_page_03.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2021-01-01&endDate=2021-12-31&pageNum=3&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "c9ddcd67d57afa9ec4e90ce6f513ddb7cd60faf61d6c22bef0c54f4a29e33dc2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20210101_20211231_page_04.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2021-01-01&endDate=2021-12-31&pageNum=4&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "e3b66f46397fd7c818e80655819342b268d910d9f1045ca6491ad3a33e1bae35"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20210101_20211231_page_05.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2021-01-01&endDate=2021-12-31&pageNum=5&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 12147,
+      "sha256": "de9b6cfbd3dd271828d2b79d54662dbd40fe5efc3498fb90ae2f2b7781de30c2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20220101_20221231_page_01.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2022-01-01&endDate=2022-12-31&pageNum=1&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13942,
+      "sha256": "72df4c7d5e56bc84393903ea83c5b425faee8c36932e16d098ef2bbb656ccc93"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20220101_20221231_page_02.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2022-01-01&endDate=2022-12-31&pageNum=2&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13938,
+      "sha256": "cd37b870f46add27079a78ffca6f4a471af9128ad515407e22aef2e5eff370ca"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20220101_20221231_page_03.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2022-01-01&endDate=2022-12-31&pageNum=3&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13938,
+      "sha256": "c4ef4e691cd964571d3eb1703c88a85d5fb80b9abe6582b5af6cf3f82bfc71da"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20220101_20221231_page_04.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2022-01-01&endDate=2022-12-31&pageNum=4&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13977,
+      "sha256": "9e17211eba7ee50b7e36550500110dea1747c3870e130ea959433ebaf874677f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20220101_20221231_page_05.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2022-01-01&endDate=2022-12-31&pageNum=5&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 11884,
+      "sha256": "93ad484996d201f225362c6b8fdc6b78ef923dcb321324184edd71a5a6306f01"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20230101_20231231_page_01.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2023-01-01&endDate=2023-12-31&pageNum=1&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "cee4a084af288a5790f35c51c95026eef8e3da812d26a4917ca0d7fd83a44703"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20230101_20231231_page_02.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2023-01-01&endDate=2023-12-31&pageNum=2&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "b4ae74ed7912f38198ae4b5ffa91d186e65fc8813b1874a981f2d50e14ccad37"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20230101_20231231_page_03.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2023-01-01&endDate=2023-12-31&pageNum=3&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "054ce51251bfc365b47dc96d5626f832a48c3f2f8b3a9cd3296d48e62f9c8005"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20230101_20231231_page_04.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2023-01-01&endDate=2023-12-31&pageNum=4&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 13988,
+      "sha256": "91d4cf5b5f251ac23e3858940cea5000c05e93264d1ba8246328650adbbd52e7"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20230101_20231231_page_05.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2023-01-01&endDate=2023-12-31&pageNum=5&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 11884,
+      "sha256": "1835398ef7db7fd5d35b4cbdcb20e69a4e4bdbc4501bc3199e678d69d82e791f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20240101_20241231_page_01.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2024-01-01&endDate=2024-12-31&pageNum=1&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "5342f43f6603131041a876ca48af0bdb35a1733a61546507a08224ae4a31f372"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20240101_20241231_page_02.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2024-01-01&endDate=2024-12-31&pageNum=2&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "d84d54b50b6dcdc18abcccac0958c2b480360c8c2e20f5fe99abf4228d376753"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20240101_20241231_page_03.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2024-01-01&endDate=2024-12-31&pageNum=3&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "591a988a2371a0b20ada32d8514bfdf03e6a783edea7eb318d5ad5bdb18248a3"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20240101_20241231_page_04.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2024-01-01&endDate=2024-12-31&pageNum=4&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "c87081d9380ee1613292b903d986ddb5ed194649253add66cba87b57725dcdb9"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20240101_20241231_page_05.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2024-01-01&endDate=2024-12-31&pageNum=5&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 12276,
+      "sha256": "6df691ae6ef59e883c9d250d6b09c4bf975ccf7abb1c72c0bbd9bb2de2e78a27"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20250101_20251231_page_01.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2025-01-01&endDate=2025-12-31&pageNum=1&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "e4ee20953d46dd675ff63c680389bf103148f0a5fd9922c0778040643a6c4217"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20250101_20251231_page_02.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2025-01-01&endDate=2025-12-31&pageNum=2&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "0bbd946e653a40eb11a8b37eeb67310ef6702b8771beb97a34b01a6f60cd5434"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20250101_20251231_page_03.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2025-01-01&endDate=2025-12-31&pageNum=3&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "207f883449ef44d8015e5b10a231843d63bf19cd9644b85cb0d5016cad35c21e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20250101_20251231_page_04.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2025-01-01&endDate=2025-12-31&pageNum=4&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "a3c61ab9a44538f5c06d9b5a31321f23494867d95ec594d3873d1a914ff43731"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20250101_20251231_page_05.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2025-01-01&endDate=2025-12-31&pageNum=5&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 12276,
+      "sha256": "d7c13e67de0aa6bbaacd4e4fa86e2b8d63a2be4d4bc931862cd3210aacec5584"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20260101_20260825_page_01.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2026-01-01&endDate=2026-08-25&pageNum=1&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "107683e26dc91f372cadb28ac796c44e98f8ffd2148bdce44699b3c220c7b118"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20260101_20260825_page_02.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2026-01-01&endDate=2026-08-25&pageNum=2&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "ce5f455660c7064cb5624b290e836c0519d19f6d833ea80adfd8abd810ec32de"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20260101_20260825_page_03.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2026-01-01&endDate=2026-08-25&pageNum=3&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 14138,
+      "sha256": "74f4b68ab3a2cbc173a5f0c3045f5981c592a06ad6b8f3481a89f98260b25a14"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/chinamoney_usdcny_20260101_20260825_page_04.json",
+      "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-ccpr/CcprHisNew?startDate=2026-01-01&endDate=2026-08-25&pageNum=4&pageSize=50",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json;charset=UTF-8",
+      "size_bytes": 2434,
+      "sha256": "8f0385647836edf95eb5456c87228ac100ff25e3e2070042a1477f7509a63c51"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_search_page_01.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 101798,
+      "sha256": "43c5d893b4ac8b306c5af871560344c422bd75e71ad7281e59da054c5c4a782f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_search_page_02.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 85079,
+      "sha256": "9fcd3fc88e78def65ac2dd22352cdf3903b6bdab2c01f87851a88d53ef2cdd16"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_search_page_03.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 80905,
+      "sha256": "4e62ba8e3c641c3df1650575209702425dc4a5185389968769ba25ac7608e5b2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_search_page_04.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 79877,
+      "sha256": "6bc752464f34e4a08f4ff3ea891fabe418d0f94c5a7f83e41d2a790350f0332c"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_search_page_05.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 79552,
+      "sha256": "7908693390fe0b7add9d44ce6f92f12f61fca93a9c10f864555fe3dafc323ccc"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2022-03.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 108498,
+      "sha256": "a0f48a87e53e38c9b548aaf8687e53d6153878b4235acc586e0e4e5367ee3e49"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2022-05.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 108135,
+      "sha256": "1c14272aa4f03ca21b34095cdf65810db2773da112df01814e8061297164be4a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2022-06.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 108572,
+      "sha256": "caa2792ea101b7db68aad2725ced5402a007911865a3a25eaf9751f9e3028c8f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2022-08.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 107898,
+      "sha256": "0b8a0114989e0883afbdbf96dba43c61efbaa01cf62ebf442dfe65380a0674c6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2022-09.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 108402,
+      "sha256": "306aca73cfd4fc179561f4e97673e032f47a8e89a4de88d4920724d00a5d06db"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2023-02.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 112492,
+      "sha256": "9bdbd4c4c2abf66e29bba4d1dcd8a9724aef0a8de681f77ce792f26b6a21e5f6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2023-05.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 115268,
+      "sha256": "60798159dcb6806c7c2375aa65d89b2e99b008c40abf9077fc8337ebf306d443"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_targeted_2025-08.json",
+      "url": "https://api.so-gov.cn/query/s",
+      "method": "POST",
+      "http_status": 200,
+      "content_type": "application/json",
+      "size_bytes": 111434,
+      "sha256": "e7a3e4f63aa99a56f097291e47dc3b3751c6d5ccfcb8837108d9c4505dd35f04"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-01_55127d02fbfa.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202101/t20210131_1812932.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 254608,
+      "sha256": "1b3b8f8b8b42373eb39dd68fbbe13570d9181e369af12c39a106fda97a1ffabb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-02_0f0fb4bc60a5.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901006.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 553619,
+      "sha256": "227393ef9f5df4bd6cf60a3c3b703dabccecdcdd8599ab334eed82ef167f9c8f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-03_6a9e97bdd4a8.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202103/t20210331_1815839.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 252376,
+      "sha256": "58cc8c6dce3a7479f24b3bd33382c04b9e2b9c84efb99db6bd16d6378f8c86f9"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-04_38018f6ef252.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202104/t20210430_1816913.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 252132,
+      "sha256": "4ae984de34749feb244755b82be4d6c4ead1f6e69b06b2bd75a7b34d8e2a78e6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-05_4901e76043cd.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202105/t20210531_1818004.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 252202,
+      "sha256": "bae7e96ebef27011e1c047649354d70c3c3af317a91335311df80acc7313f020"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-06_abd7508a92d8.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901142.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 552777,
+      "sha256": "78d424d63e0928f34e4e9f98e2e666140d5f7486448b1e8d499589d328398ab2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-07_3fc6a7d5eb12.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202107/t20210731_1820132.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 254382,
+      "sha256": "8cd676c26d654e56899d1d4dd01f77886ea9a1769fa973c2df85096f9c004bb2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-08_f9285424195f.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901208.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 557109,
+      "sha256": "ca322a68b1e94f7322dadd66887bba0404e1e8fc1a0e0766f50e21bca79788be"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-09_5fec7f18d6eb.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202109/t20210930_1822659.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 252567,
+      "sha256": "77d2dd27d39d48857ebbf3bbe67a085abdeba29a19b8b67a633cb7aa10279a5f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-10_b4adfa7a731a.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202110/t20211031_1824004.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 255467,
+      "sha256": "805cd42d4254157947609b1a3a562f8afc16e3a8ec75a286a2045e8f299e3b99"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-11_b0eb7db94bc2.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202111/t20211130_1824943.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 254304,
+      "sha256": "e6d7b60d2a723fb64065c4ae495ab32b2bdb3ce23350b58e8d92ea9d6f8342a1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2021-12_be523f668da1.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202112/t20211231_1825800.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 253802,
+      "sha256": "d770cf77993ff8a7b26c3b4640471b0f38a87d91acb0942238e02bf7ec3acd91"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-01_ba3374fc8cdc.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901362.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 558259,
+      "sha256": "de36ee7e2a638f3898955cc9f3afc44986284c21989d0d5ccc838557cc4cbc17"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-02_b741d1a41581.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901395.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 560437,
+      "sha256": "8dfb036b7b9e5a8eeeb1621f8f0dafd4174c26324c0a463e14a30eeafc958510"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-03_bf2c56b3d8c9.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901418.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 556323,
+      "sha256": "81727e39c7fc20d3a667e02dc353cdb309ad4cd18cbdf11047e4886107428c27"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-04_50b30632fab6.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202204/t20220430_1830179.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 253411,
+      "sha256": "32445c3b7dbfa411371dc68eafc47652f16d87102bdbfa8e96a82cf36c62bd71"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-05_510b16e01964.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901479.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 556609,
+      "sha256": "4aea568901f663d11785b4ed1388fa50ebfc433052b072e00d13d2775e70f989"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-06_decb32fbab89.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901501.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 556797,
+      "sha256": "0b51612b2583ac94ee387c39e16c9411e52142f84415520c71f4dbff3e5c1d82"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-07_c45e61de4c08.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202207/t20220731_1886937.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 256730,
+      "sha256": "932ae800d7279fd4b2859b2071680bb4e1ed846b22f515c5eebaa385c6fa92e7"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-08_0ad799f7a685.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901567.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 558595,
+      "sha256": "a3703292446dc3350287cedcc9cad0e1a286b9000f70336297d8cc4ed84f0647"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-09_65643c80e0e7.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901601.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 559811,
+      "sha256": "db5eca690a644208ec0e953ce4e83ec5924eb1757920cf07c0645c6e449b27f1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-10_1203af8132c5.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901644.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 559482,
+      "sha256": "ddd0ab8936627c5ecb1b55f16049e7f7df222da9ed78855e3c15a4f2e7c886d5"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-11_2556a83998ff.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202211/t20221130_1890716.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 254967,
+      "sha256": "399ae534018ebe1e487e4c1d75a38a415a3d5fd7fbb5f447b866158df633d402"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2022-12_3a9c411c0337.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202212/t20221231_1891401.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 239493,
+      "sha256": "ce3d1b6ffa2d2e531acbfd123f4956c2062f0adcf4c3840a2775527b117387e7"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-01_408d29a8bf7c.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901737.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 558809,
+      "sha256": "9445a4ec08943e94a9f8c0ebc3d0dd5b00e4fdd48765237dcab6dcd8c89f64f6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-02_eb420e07d240.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202303/t20230301_1919045.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 558093,
+      "sha256": "196226c74d2a945bada53012fc8626e0bab18a1650d2ba7348cbd0f857c6243a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-03_18eb4d901627.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202303/t20230331_1938273.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 255227,
+      "sha256": "899a8c8fd05f4efff7c7bdfc1acd502364378da88b38e3ac9337a2309de8e375"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-04_40e7ce0f5fe4.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202304/t20230429_1939136.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 598059,
+      "sha256": "cfb8a6a0b4b469eb9314d06b1fa60355e53ddc38ee1dd8267c3da960393edf20"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-05_6a6a887d23a4.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202305/t20230531_1940272.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 275400,
+      "sha256": "9e84a44d346604d924fc38a286ff099d84fc8458e5c988c693fffafbf8f5c902"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-06_3e72220f0a63.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202306/t20230630_1940935.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 576653,
+      "sha256": "8a55094299df18bd5c7b05e5c2b12a78d5b32d5be522132edbf4f25107ee5c72"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-07_a81fcc6e7a46.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202307/t20230731_1941625.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 274512,
+      "sha256": "bf84b2aa88192ed23d3324d2b8f07a722e6d0ccdb55244c2af46edc8062e26e8"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-08_b7612ba3f2c1.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202308/t20230831_1942431.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 263419,
+      "sha256": "1c2b933966f37aa29f54d6a2bb38fbad655a97098e7657076499d24ea661cd13"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-09_78a862771d1b.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202309/t20230930_1943293.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 263939,
+      "sha256": "32bf9a9ded4d307be2ea628bc1037847fd8c36893d63d015b3e479acfab58761"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-10_ee02e85ac66a.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202310/t20231031_1944039.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 264543,
+      "sha256": "9bac23f098540183cc0b215d76297892987a9d296785608d085839203f9e65a6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-11_6aae9c82a32c.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202311/t20231130_1945022.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 264304,
+      "sha256": "7885271fb0a36441e382fe8ce4ce8c00916e6fff6d9932b309291f2b3b838dbd"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2023-12_a451465aef0f.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202312/t20231231_1946106.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 263354,
+      "sha256": "be2ebfd21b17e1f901a42c627dfa80dd5415143fa70e46a855c1e80e93e9e006"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-01_9b51e5ba6646.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202401/t20240131_1947012.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 264192,
+      "sha256": "4e9a5aae1e4124b5a6549513d9b37fd1f59a2f4004baf35a97682be3dbf5a6e4"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-02_12c90632c766.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202403/t20240301_1947971.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 574069,
+      "sha256": "7d0f0092ce0de3d5b8f4f12856da7910d0990df0c795ea251ad0a550043bcdcf"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-03_a476dc24eac7.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202404/t20240411_1948446.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 396949,
+      "sha256": "379d3a7a6ae0db1ad221c4fb554d44e9c1a0b62b4a69c16b0ca21b3224b1ae1d"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-04_0b0d68a978fd.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202404/t20240430_1948787.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399412,
+      "sha256": "1bcdd0994a7560efe3c8e228c021da7b6374e2aa8d65b10205cb8b91161a7118"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-05_be0a36152c67.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202405/t20240531_1954176.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 174558,
+      "sha256": "bcb7aeb7c57f78811272c115dc428f70716f3b2d0f0f4868c8981825d13ab7f4"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-06_f9386ee95c50.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202406/t20240630_1955251.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 398921,
+      "sha256": "8ff0aeed443742020fc22727cf0b1d0b3859f18b04d2c13b137a40db1bb7353f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-07_661056e114b6.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202407/t20240731_1955901.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399503,
+      "sha256": "6b8e3553853e42674fb2357f69b2019952738085c6ae934e6912dce921595ac2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-08_aa85221eb459.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202408/t20240831_1956161.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 486387,
+      "sha256": "2ae1871f300dc87af8612bcd608ba19c22de6236b04f07da6df7652c0cb06451"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-09_ccceec4d0f8b.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202409/t20240930_1956798.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 486007,
+      "sha256": "775167727ed3d668c2ff872f582fbae1be32049782cc3c72132e1eb5e2ad3da6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-10_8bdf3f47eb56.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202410/t20241031_1957214.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 218928,
+      "sha256": "932ad20d7441a42acdd09bdd110460f9fcfa1c51a98332a23906731e21fedb6b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-11_aafb052e697d.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202411/t20241130_1957624.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 485940,
+      "sha256": "02757871f581c935114c4556119c4dbd17be18bf75c4eaaa690a1d6152a2d60f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-12_b508ae3393fa.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202412/t20241231_1958118.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 218898,
+      "sha256": "eca636ed673f1e79d5fa02dbbbb39ebaa0a89b04bb68fac64140542e75783edb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-01_1e6dc5765e26.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202501/t20250127_1958493.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 218656,
+      "sha256": "85367750e9a97bf84cd6e2989ef321657af0999fd3d102d80c23167e6000a5a1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-02_7d39b31546c2.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202503/t20250301_1958837.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399312,
+      "sha256": "10a8223085e9fd8fa3f5da8d2c238b6ce379d249f191cb9ff57060019018713e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-03_4bdcd5225c80.html",
+      "url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202503/t20250331_1959176.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 175465,
+      "sha256": "76355e096ffeec0f22e933f7c588f806dcdeb1cb2045b0d47c26b2cd91486b4a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-04_e942ab68745b.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202504/t20250430_1959521.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 511382,
+      "sha256": "618974507edb00338b07e897f5ba0b3ad500652d246246a3598b0be1d45542e8"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-05_c0e618bf1465.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202505/t20250531_1959985.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 504136,
+      "sha256": "81017fab6ebc9e290ac6acffc7dc872217cab9dd60c25db6ef4aa38d3886c395"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-06_c7b05af08b21.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202506/t20250630_1960283.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399558,
+      "sha256": "98084f5319dbd803824aaf120e15615dc01d744251dd571cedb2343866436078"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-07_f614a7b96ea7.html",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202507/t20250731_1960551.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399277,
+      "sha256": "612970ffd57649de42d0bd0d150c10641a46a4c39350632c07e0b049295161c0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-08_697ac9ea0f59.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202508/t20250831_1960937.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399450,
+      "sha256": "83490e266e9135f6b611ece6076469e42632869738296368854a73de3de82e30"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-09_74811c734f89.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202509/t20250930_1961438.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 422760,
+      "sha256": "8c0f9ed515de9f4a6fc6aedbf5b11e4b12e04ca8ae1d41eebaade80533c45499"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-10_a7881652dfa0.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202510/t20251031_1961740.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 421800,
+      "sha256": "98ca301f397da6ae47228f2292dcf861de2daabad1de2efc78865ce657c6bbae"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-11_730d66cd2edb.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202511/t20251130_1961945.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 398754,
+      "sha256": "614dd2493810bd71001459b3b5c98ea1e83d0878c163bc8cb9d31a5dbc827e00"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-12_87d6815c2f35.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202512/t20251231_1962218.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 422992,
+      "sha256": "c0ddfab5bf8aba69ac58403c3bc514c5d2a8dac060b4fb26337d75a421c6a249"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-01_764012c3df0b.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202601/t20260131_1962416.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 399277,
+      "sha256": "6ef53006136e5a396533fe406f620e1799e7b0bc4246b380fb18e6294edab423"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-02_7d70dc686f66.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202603/t20260304_1962699.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 406069,
+      "sha256": "2d5629a61b4ed28718746b3b2559505ba4162612891f5352604a7c1f2a9075ba"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-03_ee9bc2ccf46c.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202603/t20260331_1962889.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 422725,
+      "sha256": "31fc72c16f315e6da565e3cc2fac132d8b3a883878e84e302bbe68b2aad1acfa"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-04_d7cb76143f80.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202604/t20260430_1963473.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 422339,
+      "sha256": "83ee41d92e01359a9397413cc26b6db9088d1d61e05db19a7eae147b946b4aa0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-05_0e10171ab466.html",
+      "url": "https://www.stats.gov.cn/sj/zxfbhjd/202605/t20260531_1963824.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 422322,
+      "sha256": "daebb76580c75749d1fec10f602df360c611988296130715bf717006ae7b5f73"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-06_221de9f83d9c.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202606/t20260630_1964032.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 422863,
+      "sha256": "f0cc6558252e9d754645aaaedcd8bd5f20f04cc1de5765ba2c6761d4222e159c"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2026-07_979ded8ae536.html",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202607/t20260731_1964253.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 398889,
+      "sha256": "fff072e83f897a0a9e981e147105ecb81535958dfeaeafcf7881c24ede2a10d6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_01.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39215,
+      "sha256": "1834edb81f5cd804ec4efe35046b142102663df0d736835e66290a0b0cf4973e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_02.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-2.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39701,
+      "sha256": "8e807015da656836780a20475737bf8b75cdc2b4003ff8d21048a7b0e2018fce"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_03.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-3.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39887,
+      "sha256": "ccc0046a30953560a3b9d50ea83fafd578118eeff202da5c13de1d6615eb7a35"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_04.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-4.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39858,
+      "sha256": "cfd86e714928c2948bdd35268ef5c35fe7bf92e0710484e8ceee368fc907db77"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_05.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-5.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39880,
+      "sha256": "c87b9cb4952642942b2fc63bfad4169a035b828e4d493e752a961202ebbb1f1a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_06.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-6.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 40011,
+      "sha256": "21c03fc96ceb1daaa39fc9dd8f4e996a973751b8a96b007aab4065ce74804046"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_07.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-7.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39950,
+      "sha256": "0fa63e23a79308b694f7a69a394a5a1fe229fb5729a784d376411672f61ffab9"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_08.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-8.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 40052,
+      "sha256": "2fcca0b089398818eccf583eab2651c293f33c8f5ba1b6ed134955aafe605bf9"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_09.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-9.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 40032,
+      "sha256": "0ae34c489dc4441cccb7f80d82e0d5a35c12bb3d507ac358dc61875e7c2255b7"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_10.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-10.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39971,
+      "sha256": "b0f906850ab8fc609e6e2a1f9a62497f6f9c9b1a7de7fcfb95b42ff3d96269f0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_11.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-11.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 40009,
+      "sha256": "df72a0b7dc5faee23be7ee064ed0be90252c219aa8d5d56f3aeb547015cb1f77"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_statistics_index_page_12.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11871-12.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 39933,
+      "sha256": "7941cf868cf44ed5de36b178a43b4119cadaddd30564a98ddedcf4b5c1d2d103"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_targeted_search_2025-01.html",
+      "url": "https://wzdig.pbc.gov.cn/search/pcRender?pageId=c177a85bd02b4114bebebd210809f691&sr=score+desc&pNo=1&q=2025%E5%B9%B41%E6%9C%88%E7%A4%BE%E4%BC%9A%E8%9E%8D%E8%B5%84%E8%A7%84%E6%A8%A1%E5%AD%98%E9%87%8F%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%91%8A",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "size_bytes": 38396,
+      "sha256": "bd262db3f1cc47943635211b3bcfa4f3250320f0c43c987d7ce4c82906efc24f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-01_01_a0f81bb0bd67.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5b94798c99f34e6d9cf5f00a662288ff/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28827,
+      "sha256": "1bfec3dd7c4a88de81773a79a0449bfdb55a03faa363ce8a3b799bf84cce3cbb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-01_02_b9db5772645f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/de29861e7a2848368ce269dfc31e6be6/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29906,
+      "sha256": "d035e332be31a9268dbe493b74cc5ceab5330f85b482de6c7057ed097c35f348"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-02_01_1d93f79eac82.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/680259d2f51442f9b09def97aac9b4d5/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28820,
+      "sha256": "99337c84497f22efe5da9bb57012814fd23d1b143e31d0c27c119b105b164eba"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-02_02_e20944ca1259.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/e8f0ed951dcb44aca265fb31ff7eeff6/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29885,
+      "sha256": "ec188bfeff3b263c1dd55a573b8dd3cc5682fc7b4b195a443e985a3a1f616630"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-03_01_16c49c6705a1.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/df99386e79c249e8b077322beb45c109/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28835,
+      "sha256": "1addd891cfeb23f1202efb3746b1a5364369a9dd2f6906d28ea3f3384411117d"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-03_02_260f9d80818f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/565787bbb7074e018bdee0080de52024/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30454,
+      "sha256": "978f23e2ad659b46c7e3eebff16f752ef2eacf09f01cea9a33812a54e18dadbf"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-04_01_f97ed26951ad.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/9526cc10ab124976b60f79c65ed8b1d5/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28837,
+      "sha256": "44f4d15248f1445ce1928c4cb366606b5a698f1560ca52858a81c09351966ca3"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-04_02_79f564ac017d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/11a114b756b34c2dbf62b7ccebf6f8a9/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29877,
+      "sha256": "33d38b9c5e42d09dab058781deeb13353abd906af727c7175a1f402a6f4db40b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-05_01_079960056857.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/c178277d2cee4281876fdfd673b0f5f9/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28825,
+      "sha256": "c22c7c6b140e2324e23cce08ed87a14da3c50f85daae195bb0b35c0120b84cb1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-05_02_f0eeb7fcf1ef.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8547a25bf7384b908b4679dd352cee24/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29882,
+      "sha256": "f6b9871154561655045929e64b49ab32d969eac722b332ad28f642566a75d367"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-06_01_49512d220281.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4984d0332dfa4db080058c355a3d8c8e/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28817,
+      "sha256": "d1a2adf6fcf627b298f30915045cdb115d8d8b546cc8c5a6e19b9fe6e0e3e7a6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-06_02_0a7767f5f83e.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/d3af357ad35b4fb78426c435987af0aa/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30744,
+      "sha256": "7ebf31bf81d02207f730e4684cf241ea02d18b5e1fefe9ded5bec3fc70bcf598"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-07_01_a8d818f26d6c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/de3ef518f75e4ea1823eed8096a95c3b/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28824,
+      "sha256": "8b9d339c502921682a821952ab78a5ae1bf3f42ae640534a68cdcad193b08f58"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-07_02_c7bb4ec291de.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/cbf663c7555049f291d3f8e0e2bae83f/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29854,
+      "sha256": "66bdf5389bb593133bdcbc219a1f55665a9a347a849a1e8aa247c08dd97b8818"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-08_01_7b0dfeb4cdff.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/bb22df0187ab474aaacfa4cb20bd37fc/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28781,
+      "sha256": "e6edbcbc7adb3d7c0c533ccaf0b1f5a899f21517f98196506a6a45cc67efc8f1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-08_02_0525be0e40b5.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/6ad95be1e9524d7f857544a295f07c82/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29770,
+      "sha256": "6505e539411477fed090c4cfe0935f55aa8417126211bc21663af1f68f2f2cd6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-09_01_d77a954cb63a.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/b53c42aefcb34dccaafd77e1b6339429/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28767,
+      "sha256": "4d558a8e6394443078aea3d110580e17e11ca0fd20f21bafa1cdeed24132d558"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-09_02_593b0efcf532.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4eb6a532bbe14e14924f09dac64d6d0e/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30467,
+      "sha256": "4ea50933a26bddb163d6f47fc5b372768575b647015ee3060deed0073746de2b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-10_01_677d7cdd5ae6.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/f856e828ff0f40c0a6a2b57baf1b7eb3/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28777,
+      "sha256": "6bdac4cbcf6098e55c56cd3995ff18c3388938e9db1131a057007f5271646080"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-10_02_929604926f6c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/49c49e1c0f3945a58821af20b1d49e7b/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29806,
+      "sha256": "7db976d4b2f63bd6f6ab30890f2d0400dc1f5fb42169a1ac3d7716514146935a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-11_01_43374329d422.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/46f1dae80c5b4452bc4d2a5e12cfd525/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28778,
+      "sha256": "39e5912b98dd0a5b20968dc0d7a04d853db0a0a5843da92b6c8da29b9e991550"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-11_02_d88c78ec2c0d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/28034b83163d40d2bf5aacb2112e2062/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29823,
+      "sha256": "1bd74a9ca3787ed3999f462fe9ab637354d30f06219277d8f2197561c2dde70e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-12_01_f9c70744d063.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/cd7b8e7499964bf895939d9c25160cc1/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28748,
+      "sha256": "3778c1b55ef3a99633e7fe549be65f6e5fba82eb9526115ec758090a59832fe2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2021-12_02_2188f6918509.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/216996c140a74b30a2595ec8a8f58ce3/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30361,
+      "sha256": "9d7bd56db49dab868961a33b8279a6aa2daf951a7ce2d32b19b749a47b4dcf2a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-01_01_4f219a06ce2c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/6a396a524e194b28a4ac26e43bab72f4/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28831,
+      "sha256": "ccb26eed725a565203ce8c277103a326f891c9ce01d20d1a35aa245967aef905"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-01_02_2244bdda152f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/03855a5cd8494b8fa37f81b058a844fd/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30195,
+      "sha256": "9583455fddba859addbdafeebdf07e2a5c2ff689f67575cf1b575507ced96bdb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-02_01_60fce305b1a9.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/ecb845b69c5f454e9579873d385eb856/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28815,
+      "sha256": "d100e524ce7f2dfd1fd68d2333808575c3afc3a8aea9c3ce6ca71b1297e887b2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-02_02_e277d9c7e1cb.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/f8157ada86814e82a99d8629e07e0cba/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29789,
+      "sha256": "2c76ad6f8a0696b81acc93a0a0608c6933a26e3752afbb1821e07571ba601f5d"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-03_01_a566746e9d43.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/9b464214288743c39453eb0667a576ca/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28821,
+      "sha256": "b49b38a92977cfa96439f083e3d0b1486a0025c3ec01b902eefa8dc55c3af42d"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-03_02_bdcae8ea0c95.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/b120f9b0d55f4bf995f9b77bcce41757/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30409,
+      "sha256": "21358a98713acf4883f51ab9e00b4183afdb36d5b25ddfd3b77237d7de838dfa"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-04_01_356072f75bbe.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/13152c6f6c3249daab3f6bb52684895f/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28820,
+      "sha256": "608d4f8ece2073541d6d4746ada8a194e0866eb4c7f116559bc982c2704eab4b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-04_02_15f70eb05001.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/356bd109230b48ae9013b790520a3425/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30651,
+      "sha256": "15f13e3181bf3be208a0a40ab43a8f3b4a649e1fd91f100b5ea814e5602b541b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-05_01_e4c9693eda48.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4b1928b179cc44e59677e29e95f3d095/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28806,
+      "sha256": "9c92885811f41861f4a5ae4f720a1b3490d2ce21896e6a789b830fb16f6f217e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-05_02_17dd044c42aa.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/adc58e98876a43ac8f9a3f3ae9020178/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30088,
+      "sha256": "008200a0241eae57d1cf508b33b72dfbce439a2292327be2b6554d9bd5e19ac0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-06_01_3526760bd098.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/013350cf90b3457bb2fe1cc87201297e/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28821,
+      "sha256": "3690ea7f2365f84d02d705ef76ca444246c76c3c901feb2f2fb443d3d49ea5cd"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-06_02_027ac7923066.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5e5f733aaa0f44228c7a1aa1d807871d/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30455,
+      "sha256": "10aed68ddec3a0e78def8f85dd8add2ed004d02f3fef2821b3240aad91f8f840"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-07_01_04346f525d0f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/689a13d5f84c4df3bc699dccea575190/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28851,
+      "sha256": "ff81cea0b4c7609ca406488dfcdd0825a186c3649b88ab4066c0e8d77e52f34d"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-07_02_b6ba5ac01d8b.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/89a04f538b414573a827dd0666294e69/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29977,
+      "sha256": "f8f203d70a57566ad11f64f849a602a5f669835c1fe21663a74d4aa76eb393ba"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-08_01_df75e51a80dd.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/9d1774ca36ef49d9b340696a6bf39f12/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28827,
+      "sha256": "c1e71a761a6cd8db4863914532c4582420b89e4dd674564ef38685fd342eec7e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-08_02_ffb74854343f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/b2dfd3ad0adc4d3ca62f1adacea5fc09/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30003,
+      "sha256": "e96056f2f59b53ec243c879319c5d5981c06d67b6e170e0e4dd2af9fda1b6427"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-09_01_06c519f8f2ad.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1da4d3e592a842789438683f9edf5c1f/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28822,
+      "sha256": "26dc376657e70990ae6b5f5bc2c2f28f324aa4570ec024dbb7891e916ab7a2c6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-09_02_c16e42aa880a.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/fb30cb8791924291b5365d3e092bc803/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 30092,
+      "sha256": "3efa89b11f732297cfa98120c0f81bc1c22639fc65ea8d51324896701e415fb1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-10_01_9cdf410121b6.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/ccf42a3544a54780a7ea31e6de181a99/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28837,
+      "sha256": "767928ae1949485b528b7209df2e30eb0b7fb1a970881324aebf7a95de4ff368"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-10_02_78f6e775daea.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/e15a1be918ed495488bf16af0fb7214f/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29997,
+      "sha256": "3902891b3302de8fff3cf3231be7e3e8175b230806798d4751ea279cb266f397"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-11_01_3b66a2c68083.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/708d5dd012744ead95a53fe8c58cacbd/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28830,
+      "sha256": "5783115ccd4f81c5d477ed11cdf53315b9abfb1f7379ecbb6c9065f8a559e98b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-11_02_4e39eff4f344.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/a0e7f0189181456d9fcde9ee5e423584/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 29544,
+      "sha256": "6f919be1b766c93c38de5307c5130a640caf57084ff867fd25a2a418c40b8afd"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-12_01_df7894dfeceb.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/54aa3f53ef374d53a4ad4f86753ab3b0/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28018,
+      "sha256": "b049e5b3cfd37f0adf730ced8a6aa728e2ca045aa744a8a2a6c4caf93ab5b423"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2022-12_02_5027d7d9e4be.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/568387ff70be457590732b5e044f8e18/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37841,
+      "sha256": "6061c0028cace705425b7b0d7b7f0075aca4e5e0ddc95042bb049367b2120ca1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-01_01_a2e0d0f73eb4.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/b18b9809242245ebbd594f3380862d5b/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28487,
+      "sha256": "a27176748e23c4c84aedb6586787144c73d92b3ac83f8e9b6cdbb372b772d240"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-01_02_a64ef59d1dd3.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1421ef5774954fd795d2e2312daf0470/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37581,
+      "sha256": "8779a48f0b358491bfc6045d9b076be06dacfbf3bf4afcd4fc6568de867d641d"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-02_01_82b6506269e6.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/6c813ffa481e407bb7a42052cedb0dd4/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28471,
+      "sha256": "f50bb562997a214916de1b227edb19c81f1821ef609fc5aa96d5c116c0fe32f6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-02_02_771f6c80e1b1.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/588b2401df5344f68b78d51b7396d743/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37547,
+      "sha256": "806c03f7d9facde119c76b299408b7f5ee6ae537f9f36d778ecee2ac930b1ee0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-03_01_fd88115ca9a9.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/369d4ffc82a6446ea356b571029c4951/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28451,
+      "sha256": "b9342952e6fb5a82e8e88aa49932b30d95bc7ab6ef04e524475fbd7c0d4a5f05"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-03_02_9d90dd039d56.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/532709cd6dc346c6abd925556437511d/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38248,
+      "sha256": "78235b37d49da0de67b734c2f4bde85f6f52b5da309849a793866206b2c7a9e9"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-04_01_92256b61effc.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8fa958b90e6644ef8f209316f9665174/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28465,
+      "sha256": "d08a55adb09aed9d020062c703b3d05f489407a2657dacc928d9d162dee83ccc"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-04_02_542b88e93c63.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1bb8759c90de4353b2a93e00438375e3/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37549,
+      "sha256": "a48db0d71709831a9292c6aa6e1684d7b34ab8b4efb509a8f17b7763015aad69"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-05_01_ddb62d60dceb.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4559dc18c87b4b88b779001dfb2218d8/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28463,
+      "sha256": "2bb3e8ae863b5ee01d5c1edecc55ce8e9637bf6c130edd77e98208b2162e812a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-05_02_347656e94853.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/0755aafdab32428daa12f2cf682c81ba/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37743,
+      "sha256": "31c4d3f99601b711ef3772670e2aeb5d4bab0bf851e1d109b8f480892a4cec18"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-06_01_77dd3a7af3c2.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/305c194d33c5458d9c9f17e8d7e2e130/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28447,
+      "sha256": "f76a54252bee2e6f787ba1c11067a30e02b36a74664ef4e9b837e8c8b7b1d7c1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-06_02_f76f28ffa8bc.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/33ed4f226f484e66a50446175026c639/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38159,
+      "sha256": "633005d7cb86259172bca7fbdf4b19ce00eb676f6b65e06b87b1a7627a8c9038"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-07_01_9ed6f17a8ac8.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/a277a71d6e5d436fabb53029fc2c51e6/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28468,
+      "sha256": "4f160d594dff2ea9f0e91c2770e0bec8a3e830b825224f92b68e60926d45ac11"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-07_02_8d11a661fef9.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/88fe2f6caa7d46e8ba029def777c7831/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37870,
+      "sha256": "e61f59508c264b023ebe26eb07cbd7dbd71e51e7ef3006a94e84ffedc12d628e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-08_01_c329ee7a6e4d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8c86d4d42f4649fab6b8087f5f8ae74b/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28475,
+      "sha256": "596508c23fda00057798363c9efa297286e67aa35707a37b2ba8a511f8a99326"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-08_02_b958c7f2b330.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/f30cb865aa774555bccb5ae49470007c/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37829,
+      "sha256": "06afa7188db6d59cfa54b43a9fbfe44716f85e9641629e86002d3675a1a1a5be"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-09_01_f74c9cfec513.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8e5312084c0040a2b8dadae2badf1e63/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28513,
+      "sha256": "e6e0ce4d3df7964e87da5dddfb14c2928889bb709b53f868b6522cf7f2229159"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-09_02_eb02a6f7d29d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/13726e91dd8d4423b12ec14955d6601a/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38284,
+      "sha256": "69da8217eb1b5993021c1a94d7c17cfc32014523e6ca9e728a973d39480f5270"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-10_01_02b71629324d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/f75e8897cc0c4408ae0f3037fdbd48b4/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28466,
+      "sha256": "37023bef69c50f481e01a187b174144110bfcc1013f57f1c20ecc198b2fb0693"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-10_02_3f205728aa62.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8393556d383747a3bc6ad513618ae523/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37862,
+      "sha256": "bdc8ad4a48e35e8d3d2d9eba9596a7223f7574fd7447b76d64d587becbf67425"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-11_01_05efc3699810.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1046bc429f1745ffb1d8ddbc0d53fd4d/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28466,
+      "sha256": "42bc57bb5f48a4a09ef75d5edc65c91ea83203093e03aee3eaf090032cfbf1d9"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-11_02_01205113420e.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/b21be1ab65c94424a612a7666d605a1b/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37921,
+      "sha256": "3d5ff1cd071a9150b6eea9b70860700170ca962fa536d6641edf90304324e027"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-12_01_ef2d53ddff97.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5cfb772209e24a818f816b5a4301d2f8/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28452,
+      "sha256": "c5823ec73c8a2fd82f0ab7755be06efe229b7bfc6ffce2a20f45598e6fc0faea"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2023-12_02_72f30d009f88.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1a6fe9c99e0b4b3ba35bbd038ef8535c/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37846,
+      "sha256": "6ea1bc81cd6df9e4d63e35575ddef81ffbd4c618dc4c4d7b4ddde568c5d978cb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-01_01_c1d81937da4a.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/29d3365dfab04cc0a1e50bf0df41bae4/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28469,
+      "sha256": "42312d6054e2df029dfeeba68c7c60fc4bc45934cb72bdd739c143e1c9f02243"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-01_02_2cdc3bac516d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/a46e2ace126b4c4391b512bf4bde01f9/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38345,
+      "sha256": "1fc855817f7e1676ab49ab3b3b43cfb42e125ec5542387a87bfdd21b6fe9feb4"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-02_01_5ffb78fc74e4.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5dc0e2cd02a44d65a66956de35df38d2/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28446,
+      "sha256": "0ef1002641631790dbbcba5303f793a3cebffb014a28ac3afbc6f6c88dcacc76"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-02_02_7aaed95cff4a.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/92d0ec2dadd140219750ffd27571ca1a/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38387,
+      "sha256": "8c7fa06c588887b088a8b82c254e112744f8c3f7058061bc08f5fa156bc3f2e6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-03_01_02a2fd239411.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/6bcffbb8a7ab48cba539485196d0f8eb/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28483,
+      "sha256": "aeaba667ec8c8203d85155fdae3cc1bdee27cbe38f656c71c168ff73af1fa607"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-03_02_2167f2fc3dc8.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5e836772302043d99354efa62c01029d/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38588,
+      "sha256": "de360412abe85b7c6ec3b39f0236b713afbb5c91f1d3210e5fb9fe4a8d7814a2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-04_01_617cb8755836.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/ea01726dee194ec0bd95add708232c45/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28479,
+      "sha256": "88f2166f81a9cd04ec6c420234c4c4b0f05cd64bf42d8c082f73adf1d3e3135b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-04_02_c58af85ecf92.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/755eb247554443c3aea852f0f11546a2/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 37904,
+      "sha256": "6bfbeab346d36b1823018407f581e675c6b9845afe4dc03a98a273771d93aa43"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-05_01_a489b05c506c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2936e6c5389f4d7784611350ba44c952/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28583,
+      "sha256": "71c21dd44be5b1091ad5646ca58a7483192b612e527e2fc691ca3f8a55345001"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-05_02_fd11b5ce8530.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/b59c04b2e581418f9109dcdff76de699/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38536,
+      "sha256": "c0a4cda42f7d42b3e0cc0ee9ea0560c9eb02760d313a4e1529c987bb6719e63c"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-06_01_a936cfe799bf.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1778643a232c44e4af332031fd86186c/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28587,
+      "sha256": "315bf6badee00f54831dd435cb69d46ad897d83b6c37b8b21c1d5bb3bf93e637"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-06_02_181f02d1559c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/25bd40fd26ae4b1488369f7df33ffc94/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38760,
+      "sha256": "1eb7aa1eab315a47fd50b554aaddf00aba969ddca0c4ece042b5bc26ecff2858"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-07_01_b32146b3074c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/1e20eedcca8c41d4aecdcf9470e57f5c/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28575,
+      "sha256": "c71bb0b19724dbd8e0d13277602cc4c6eb96c363ea1210712378bc5e9eedb3c2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-07_02_f057db8dd7d0.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/8980a8a6f1414f649d3443cc09352c2b/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38553,
+      "sha256": "8658c76f6a2746ed12f3c570f5250bbabef62ba180ff042f336d3241f94be03b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-08_01_08b607a1c91c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/eac7a4dd09d3436e8420c5980528c888/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28586,
+      "sha256": "80331aa5b897259bfb9ed1947321456450a9f787d36eed6c3edff60b5f217ac1"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-08_02_0d46980aee2e.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/41425ee3179143a29c4656e31b6df3d8/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38553,
+      "sha256": "6a73b31453129d53f6aedaa6fc11c78e856904665fa7f275367a9530d0ce30f8"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-09_01_b85fcec9e115.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/def82c466abf44b8b4c750b93e0dc657/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28480,
+      "sha256": "2574d552d99bf51c0b935c26e7dea68ee6a6717b12d061bd22eb5d31ed74a4b0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-09_02_0357dc9553f3.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/02a6abaaea894de8b591846e295826e6/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38789,
+      "sha256": "56defe8d4373b64d43bb57b54ebce1ef7adc308cb07bd8d9953c3e0b1a7a1bc5"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-10_01_4b1ecbe03cd7.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5fe98a9deabd41e6a3e5e25896965984/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28476,
+      "sha256": "9f06e5af37c8fb1edddc8d0e55b95d5419076a1d2b9316e6b95aaebd9af8beb5"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-10_02_c824a692b535.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/6a9d1d8c3460445bb190bff0d58e4484/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38519,
+      "sha256": "5beb398f6e37c20312003b6fb85f914d90c3a390d769e90e8161914d245c465a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-11_01_7de599295f54.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/0503511b427f4c78bc8cd577cc1888b3/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28488,
+      "sha256": "540d4dba621723337bf650517d2e28a331542673271145fa9917075a03689b5b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-11_02_cd1b3160c730.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/6bfd794fa2a0407d9a1dbddb6fa3f77f/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38555,
+      "sha256": "5ef05d405e9a4e6af58c98389360912d0087e57d5cf1d1afa0fbfe013070a6ab"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-12_01_ca6817b35116.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/a11eac6f438f498796e58609b5014d6c/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28464,
+      "sha256": "b49e75993eab79c6bd8919e12275346b48b54e1baba208c646bda6e55d67ffbf"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2024-12_02_b745fec65a67.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/5fb867cbec1b4772b8f6f98b5d0ede52/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 38697,
+      "sha256": "2e77920bd183a9099e0939cb011ac3d9a09924be1fdc06add914a18e258db264"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-01_01_20ec998b613d.html",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/2025092212554511660/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 25006,
+      "sha256": "cc6625821fcecffb2042901fdac0db1b7f97391a6b845e1fb101134bda1a4257"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-02_01_7fee815d281f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505073824/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28246,
+      "sha256": "2fdb7247c4c27f0ccc497f36e498e42f84748efbe8abb134dcd82a64891287a8"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-02_02_33d69c6283b5.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505068053/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41348,
+      "sha256": "099bef22626630ef7b93129bc02d02119f5cf23423d1e5c8352b07d6e3c16e80"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-03_01_936bb00bb197.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505015531/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28264,
+      "sha256": "710b7be402e9f55fa2782a7ac24d3ca788272955f3d4c37ce63c4d9207978230"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-03_02_1fe5885d4a9d.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505039987/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41560,
+      "sha256": "6d3500a14c1602edcaace8469e0018485714a6c7931bbcbc53ff82c176b69f17"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-04_01_fc9b77a147e4.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505089313/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28263,
+      "sha256": "48110997855d0f0ff35f2993e9109183eca44e75444bb2d6565d60a507fb86cb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-04_02_bf95a620de6a.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505010475/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41353,
+      "sha256": "54e2d8a768f0e9f16abf1e82ef8a5d3acbc3373434fa389a10a432913ab5fd98"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-05_01_cb181bc07b29.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505022412/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28261,
+      "sha256": "1b535e5d00fba0d58ab5db7627601c533960a2918d05f0aa0fe65fe5e8e10445"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-05_02_fc04981d9d0e.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505081124/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41355,
+      "sha256": "5f4a4e3ac36cae871ab683de3e067abd98d3640fbeadb24bcce60c74c39d5eed"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-06_01_1aa1814e49f5.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505078072/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28259,
+      "sha256": "236644a4ab58701bb4cfbf587ef9e28d31db4309b2d7d8e6eb97827cadf454b2"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-06_02_241cf7ff5bd0.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025080618505071886/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41600,
+      "sha256": "cf31e072f283a84717a8e63bdb22ef47a229e82d378e829d7bc13bc55481f96f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-07_01_d215bff5406c.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4405816f165642d8b7d9ece44ea6f88a/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28277,
+      "sha256": "b137eea74d9a9ebd2607953359693a83fc1f36b9bcb649cad56f49012e3fece6"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-07_02_36a1309ccaf7.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2972dbe4d53540e5a9d0b5781c71480d/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41406,
+      "sha256": "910cd3161aa2c0af086e00f820366878366269db4bee55a9064cb5fd8099f95b"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-08_01_9426ed99a265.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/35ec0aa27604417888826e7ff128cc4a/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 28276,
+      "sha256": "2a15ffe708dcb4a2afbbe17ee0086029baf18c6d4a59e8e84a91ec9cec8e88ec"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-08_02_c3c4c344ddf2.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/e3120f58ec724fe1811d9dadf67232d2/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 41428,
+      "sha256": "a3e044cb1cb5c2d4e548339b355449e7b0871eb8f3e87c150024a30fc3363482"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-09_01_445b351bc564.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/dded7449c74144a19171f582bec9ed36/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44461,
+      "sha256": "b3c5ecfe4fb6599279e3401b3ce0ef25dc5745a8f77cff7e84c9a14e1a4cd157"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-10_01_e8736c4a66a8.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/f294561578884c22878d115780ba7c08/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44174,
+      "sha256": "72d75cc14f8c6e7649d2deaec386b6b8252aeb8232a0e3586cdcffc365b3778a"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-11_01_3b13cce497ed.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2025121217132789688/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 45807,
+      "sha256": "86dac86009ce1615c6cec1293dbf036603fbd6fdf0f52417e1fb9fcb0902089f"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2025-12_01_d167b4374622.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026011515015720511/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44707,
+      "sha256": "47761677bcf626cfe3ab7ab444940e9c0bdcb4326621edfe7e4e54192ee0bb33"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-01_01_527eacfa6b0e.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026021317031040775/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44631,
+      "sha256": "e5e5bcd61b540d1c7c4e4d68c2a6350bf090bb37c381fec2a9de359487705ad0"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-02_01_668a1c04646f.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026031317020260950/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44639,
+      "sha256": "377f455aa92273c23d57540d2b33e5b4b99f01e6ebfa7beacae157c21c5632cc"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-03_01_0b6ef7f5c06b.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026041317011944771/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44833,
+      "sha256": "0d50495161d327868abe90f1a3d084249145fd63318ce0f7eaaafd00da830abb"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-04_01_88a29db41802.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026051417030520490/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44650,
+      "sha256": "4434210d0447e96bcbeab8f02d6ac0436fb76a28e41a66f4f133ff46d8b1182e"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-05_01_6c1ab4c988d8.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026061217051611931/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44651,
+      "sha256": "8f71dd1e651d2e5d8e7120555a000c54a517c41fb01d94b39948183badab9769"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-06_01_dac04c4c0232.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026071515025183948/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44903,
+      "sha256": "9ebce7e21c93d92980814be8f754dcc255ebe29dbbdf2531973e09361832c168"
+    },
+    {
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/pbc_tsf_2026-07_01_24c3d71810bc.html",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2026081416320925645/index.html",
+      "method": "GET",
+      "http_status": 200,
+      "content_type": "text/html",
+      "size_bytes": 44692,
+      "sha256": "933f3546fc3f8232014dc9e2cab854a331ff5da5a9509d3063ada2d3678dfcef"
+    }
+  ],
+  "governance": {
+    "performance_returns_read": false,
+    "backtest_run": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false
+  }
+}

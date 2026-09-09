@@ -1,0 +1,128 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "study_id": "510300_SIMPLE_INTRADAY_PROTECTION_V1",
+  "round": 30,
+  "registered_at": "2026-09-07T14:00:51.545201+08:00",
+  "primary": "S1_TREND_REBOUND__TRIGGER",
+  "candidate_names": {
+    "S1_TREND_REBOUND": "趋势突破与震荡反弹切换",
+    "R2_Z_CONFIRM": "偏离均值后首日回升",
+    "D60_INTRA": "六十日日内强于隔夜"
+  },
+  "candidate_configurations": 3,
+  "candidate_specs": {
+    "S1_TREND_REBOUND": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.08,
+          "trail": 0.08,
+          "take": null,
+          "days": null
+        },
+        "2": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "R2_Z_CONFIRM": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "D60_INTRA": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.06,
+          "trail": 0.08,
+          "take": null,
+          "days": 60
+        }
+      }
+    }
+  },
+  "assumptions": [
+    "TRIGGER",
+    "DAY_LOW"
+  ],
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "rules": "docs/510300_INTRADAY_PROTECTIVE_EXIT_V1.md",
+  "goal_achieved": false,
+  "evidence_class": "PREVIOUSLY_OBSERVED_HISTORY_WITH_CONDITIONAL_INTRADAY_FILLS",
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "research\\simple_intraday_protection_v1.py",
+      "sha256": "ac6bdee0269638142c19a68c4562e927adce6a0bedadbe3e0e220d310f6b993b"
+    },
+    {
+      "path": "docs\\510300_INTRADAY_PROTECTIVE_EXIT_V1.md",
+      "sha256": "73523a73ea757806c5ad5b76d6c3eb18075074567b69962db35b1d6dd15aaf24"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "research\\intraday_protective_exit_v1.py",
+      "sha256": "22a4cc2d6e6e5f97beb164b383925e2a02776aff3c6523290ddfe711d5aaf779"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "tests\\test_intraday_protective_exit_v1.py",
+      "sha256": "5593e16374f58e2b38dd9d79e6c4000e3524ca2efd0f05385369c077bdb394f6"
+    }
+  ]
+}

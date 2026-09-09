@@ -1,0 +1,167 @@
+{
+  "status": "FAILED_FEATURE_CONSTRUCTION_STOP",
+  "project_id": "510300_OPTION_CASH_BASIS_FEATURE_AUDIT_V1",
+  "checked_at": "2026-08-28T18:07:58.135164+08:00",
+  "scope": {
+    "underlying": "510300.SH",
+    "feature_only": true,
+    "future_return_files_read": false,
+    "strategy_defined": false
+  },
+  "date_coverage": {
+    "first_feature_date": "2019-12-23",
+    "last_feature_date": "2026-08-14",
+    "feature_days": 1611,
+    "option_trading_days": 1611,
+    "missing_feature_dates": []
+  },
+  "input_artifacts": {
+    "option_eod": {
+      "path": "data/raw/return_tail/options/510300_tushare_eod.parquet",
+      "sha256": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064"
+    },
+    "option_risk_indicators": {
+      "path": "data/raw/return_tail/options/510300_sse_risk_indicators.parquet",
+      "sha256": "e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035"
+    },
+    "government_bond_short_curve": {
+      "path": "data/raw/macro/china_government_bond_short_curve_v1.parquet",
+      "sha256": "8ce76001fa741de9c8aea6f86d4a808019b259c0bb26e2d4c93059c336e52603"
+    }
+  },
+  "construction_counts": {
+    "raw_option_rows": 194040,
+    "rows_inside_date_contract": 194040,
+    "base_valid_rows": 185532,
+    "unique_contract_rows": 185532,
+    "potential_matched_pairs": 92561,
+    "underlying_or_dte_mismatch_pairs": 0,
+    "economically_identical_pairs": 92561,
+    "pairs_without_backward_rate": 0,
+    "pairs_with_rate": 92561,
+    "no_arbitrage_rejected_pairs": 22298,
+    "zero_combined_open_interest_pairs": 0,
+    "final_valid_pairs": 70263,
+    "pairs_with_valid_exchange_ivs": 65466
+  },
+  "daily_summary": {
+    "obasis": {
+      "minimum": -0.1337558072746815,
+      "p01": -0.09236949045696116,
+      "p05": -0.04785283098707189,
+      "median": -0.007697840827615783,
+      "p95": 0.006738773704847729,
+      "p99": 0.01044470213241618,
+      "maximum": 0.02455311646348108,
+      "mean": -0.012717576212704099,
+      "standard_deviation": 0.01926914894197367
+    },
+    "exchange_ivs": {
+      "minimum": -0.40011259505335117,
+      "p01": -0.15744833715984863,
+      "p05": -0.12159387488870173,
+      "median": -0.040549431713581496,
+      "p95": 0.015124757856096476,
+      "p99": 0.03303932328796203,
+      "maximum": 0.10898898935217731,
+      "mean": -0.046040336410215946,
+      "standard_deviation": 0.043572124044337864
+    },
+    "valid_pairs_per_day": {
+      "minimum": 16.0,
+      "p01": 21.0,
+      "p05": 25.0,
+      "median": 42.0,
+      "p95": 69.0,
+      "p99": 76.0,
+      "maximum": 84.0,
+      "mean": 43.614525139664806,
+      "standard_deviation": 13.086848457664308
+    },
+    "combined_open_interest": {
+      "minimum": 146811.0,
+      "p01": 399061.9,
+      "p05": 686338.0,
+      "median": 1239632.0,
+      "p95": 1916120.5,
+      "p99": 2233295.2000000007,
+      "maximum": 2584225.0,
+      "mean": 1262712.3680943514,
+      "standard_deviation": 375219.2735762201
+    },
+    "oi_weighted_dte_calendar_days": {
+      "minimum": 28.133687601044926,
+      "p01": 29.981406957713766,
+      "p05": 32.44359405387128,
+      "median": 43.81463533414646,
+      "p95": 61.657624269651436,
+      "p99": 71.62254259439764,
+      "maximum": 93.75604394746294,
+      "mean": 45.201095818477306,
+      "standard_deviation": 9.284828111877838
+    }
+  },
+  "independent_direction_check": {
+    "common_days": 1611,
+    "daily_pearson_correlation": 0.5517172763946846,
+    "yearly_correlations": {
+      "2019": 0.9756485469456189,
+      "2020": 0.8254460533230166,
+      "2021": 0.42917781205024996,
+      "2022": 0.336302012052162,
+      "2023": 0.5886082660001816,
+      "2024": 0.4810882875682674,
+      "2025": 0.5895981679717831,
+      "2026": 0.14748225351858157
+    }
+  },
+  "quality_gates": {
+    "minimum_feature_days": {
+      "actual": 1611,
+      "required": 1500,
+      "pass": true
+    },
+    "minimum_median_valid_pairs_per_day": {
+      "actual": 42.0,
+      "required": 20,
+      "pass": true
+    },
+    "maximum_missing_option_trading_days": {
+      "actual": 0,
+      "required_maximum": 5,
+      "pass": true
+    },
+    "minimum_common_ivs_days": {
+      "actual": 1611,
+      "required": 1000,
+      "pass": true
+    },
+    "minimum_obasis_ivs_correlation": {
+      "actual": 0.5517172763946846,
+      "required": 0.8,
+      "pass": false
+    }
+  },
+  "output_artifacts": {
+    "feature_parquet": {
+      "path": "data/features/510300_option_cash_basis_feature_audit_v1.parquet",
+      "sha256": "c2426f6bef5ee4059c10c4b347cfa106e03d682275c87bcb7860e96bc675d150",
+      "rows": 1611
+    },
+    "pair_parquet": {
+      "path": "data/audit/510300_option_cash_basis_pairs_v1.parquet",
+      "sha256": "8c69f187d74457c51cfdd8cda5fc86933bcaca8d98de5380ca4cea94393a980a",
+      "rows": 70263
+    }
+  },
+  "decision": "特征构造未通过；禁止把该变量送入策略筛选。",
+  "governance": {
+    "future_return_input": "FORBIDDEN",
+    "strategy_rule": "NOT_DEFINED",
+    "parameter_search": "FORBIDDEN",
+    "position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading": "NOT_AUTHORIZED"
+  }
+}

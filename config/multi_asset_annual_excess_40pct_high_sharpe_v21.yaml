@@ -1,0 +1,78 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V21"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V20"
+  status: "FROZEN_BEFORE_CURRENT_QUARTER_BASIS_FACTOR_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v20_manifest.json"
+  v10_manifest: "config/digital_asset_spot_low_volatility_stop_loss_v10_manifest.json"
+  v10_visible_report: "reports/research/digital_asset_spot_low_volatility_stop_loss_v10_visible.json"
+
+registered_v10_failure:
+  candidate_id: "DIGITAL_ASSET_SPOT_LOW_VOLATILITY_STOP_LOSS_V10"
+  required_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  required_error_type: "DataContractError"
+  required_error: "2020-11-01 00:00:00 V10现货毛敞口超过冻结上限"
+  performance_metrics_available: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "DIGITAL_ASSET_CURRENT_QUARTER_BASIS_FACTOR_REPLICATION"
+  candidate_id: "DIGITAL_ASSET_CURRENT_QUARTER_BASIS_FACTOR_V11"
+  empirical_reference: "CHI_HAO_HU_RAN_2023_JOURNAL_OF_FUTURES_MARKETS_DOI_10_1002_FUT_22425"
+  venue: "BINANCE_USDS_MARGINED_FUTURES_AND_SPOT_PUBLIC_API"
+  fixed_spot_symbols: ["BTCUSDT", "ETHUSDT"]
+  fixed_current_quarter_pairs: ["BTCUSDT", "ETHUSDT"]
+  acquisition_start: "2021-08-25 00:00:00"
+  visible_start: "2021-09-01"
+  visible_end: "2026-08-14"
+  spot_signal_price: "DAILY_23UTC_CLOSE"
+  current_quarter_signal_price: "DAILY_23UTC_CLOSE"
+  basis_formula: "LOG_SPOT_CLOSE_DIV_CURRENT_QUARTER_FUTURES_CLOSE"
+  basis_lookback_calendar_days: 5
+  basis_aggregation: "ARITHMETIC_MEAN_OF_FIVE_DAILY_LOG_BASIS_VALUES"
+  ranking: "DESCENDING_MEAN_BASIS_THEN_PAIR_ASCENDING"
+  long_rule: "HIGHER_MEAN_BASIS_PAIR"
+  short_rule: "LOWER_MEAN_BASIS_PAIR"
+  signal_time: "23UTC"
+  execution_time: "NEXT_DAY_00UTC"
+  holding_period_calendar_days: 1
+  target_long_gross: 0.45
+  target_short_gross: 0.45
+  target_total_gross: 0.90
+  target_net: 0.0
+  delivery_day_policy: "ZERO_POSITION_FROM_00UTC_UNTIL_NEXT_DAY_00UTC"
+  delivery_calendar: "LAST_FRIDAY_OF_MARCH_JUNE_SEPTEMBER_DECEMBER"
+  turnover_lookback_observed_venue_hours: 168
+  maximum_order_fraction: 0.001
+  terminal_winddown_calendar_days: 7
+  maximum_actual_gross: 1.05
+  maximum_absolute_actual_net: 0.10
+  base_total_futures_cost_bps_per_leg: 8.0
+  stress_total_futures_cost_bps_per_leg: 30.0
+  parameter_grid_search_allowed: false
+
+governance:
+  v9_remains_frozen_failure: true
+  v10_remains_frozen_failure: true
+  v9_or_v10_files_may_be_modified: false
+  candidate_must_freeze_before_basis_rank_or_return_outcome: true
+  data_availability_probe_used_only_to_fix_two_supported_pairs: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

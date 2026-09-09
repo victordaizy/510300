@@ -1,0 +1,57 @@
+{
+  "generated_at": "2026-08-14T20:27:55.968982+08:00",
+  "strategy": {
+    "strategy_id": "510300_SMALL_ACCOUNT_PAPER_V1",
+    "name": "510300两万元五档库存纸面执行",
+    "instrument": "510300.SH",
+    "evidence_scope": "估值模型仅作已有慢速底仓输入；申赎与IOPV覆盖层仍处前向数据积累期"
+  },
+  "base_signal_date": "2026-08-12",
+  "quote_exchange_timestamp": "2026-08-14 13:00:58",
+  "reference_price_cny": 4.714,
+  "reference_iopv": 4.7199,
+  "premium_discount_bps": -12.500264836118324,
+  "base_model": {
+    "continuous_model_position": 0.3824227553241377,
+    "target_position": 0.30000000000000004,
+    "signal_reason": "非复核日维持"
+  },
+  "small_account_target": {
+    "raw_target_position": 0.30000000000000004,
+    "target_position_grid": 0.25,
+    "target_shares": 1000,
+    "target_notional_cny": 4714.0,
+    "effective_target_position": 0.2357,
+    "current_shares": null,
+    "paper_action": "TARGET_ONLY_NO_HOLDINGS",
+    "paper_trade_shares": null,
+    "automatic_ordering_authorized": false
+  },
+  "primary_market_overlay": {
+    "status": "DATA_COLLECTION_ONLY",
+    "maximum_position_delta": 0.25,
+    "enabled_for_position_mapping": false,
+    "readiness_status": "COLLECTING",
+    "full_coverage_days": 0,
+    "minimum_full_coverage_days": 20,
+    "position_delta": 0.0,
+    "reason": "PCF与IOPV只处于前向数据积累期，尚未通过仓位映射门槛"
+  },
+  "cost_assumptions": {
+    "minimum_commission_cny": 5.0,
+    "commission_rate": 0.0003,
+    "slippage_bps_per_leg": 5.0
+  },
+  "governance": {
+    "paper_only": true,
+    "automatic_ordering_authorized": false,
+    "requires_current_shares_before_action": true,
+    "note": "不得将纸面动作当作券商委托；须手工提供当前持仓后才能计算买卖差额。"
+  },
+  "input_hashes": {
+    "round5_latest_signal.json": "081107b9ca57f7f7c8f2bc14aec5912fbf22a265343a9f0b5496bd7adefa46e1",
+    "510300_iopv_snapshots.parquet": "c32db234fb4f98f34d36ee9704f4346a2dc0dcfe3174bfad5a365413a6d4d11a",
+    "small_account_20000.yaml": "bde51999b04ecbca508cb6a08b8ddcce9cec3fb00db096963095fd6e88c349e1",
+    "510300_primary_market_readiness.json": "187a5fcdece272f250a3332a7710e878a41f9551f041cb4f5f5dae3c15b5a9e8"
+  }
+}

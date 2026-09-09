@@ -1,0 +1,734 @@
+{
+  "project_id": "000300_POINT_IN_TIME_VALUATION_V2_RECONSTRUCTIBILITY",
+  "version": "1.1.0",
+  "generated_at": "2026-08-18T23:15:28.021037+08:00",
+  "overall_status": "RAW_EY_5Y_DATA_GATE_PASS_NORMALIZED_MODELS_STILL_BLOCKED",
+  "formal_valuation_run_status": "NO_VIEW_EXCEPT_RAW_EY_MODEL_CARD_MAY_NOW_BE_FROZEN",
+  "governance": {
+    "return_calculation_performed": false,
+    "ic_calculation_performed": false,
+    "position_mapping_performed": false,
+    "order_generation_performed": false,
+    "broker_connection_performed": false,
+    "prior_v1_0_files_mutated": false
+  },
+  "hash_audit": {
+    "status": "PASS",
+    "checked_file_count": 14,
+    "rows": [
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "exists": true,
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "point_in_time_financials",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time.parquet",
+        "exists": true,
+        "expected_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "actual_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "matches": true
+      },
+      {
+        "dataset": "current_constituent_daily",
+        "file": "data/raw/constituents/000300_constituent_daily.parquet",
+        "exists": true,
+        "expected_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "actual_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "matches": true
+      },
+      {
+        "dataset": "pre_tushare_constituent_backup",
+        "file": "data/raw/constituents/000300_constituent_daily_pre_tushare_backfill.parquet",
+        "exists": true,
+        "expected_sha256": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+        "actual_sha256": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+        "matches": true
+      },
+      {
+        "dataset": "index_daily",
+        "file": "data/raw/market/000300_daily_feature_warmup.parquet",
+        "exists": true,
+        "expected_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "actual_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "matches": true
+      },
+      {
+        "dataset": "vendor_valuation",
+        "file": "data/raw/valuation/000300_valuation_daily_raw.parquet",
+        "exists": true,
+        "expected_sha256": "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3",
+        "actual_sha256": "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3",
+        "matches": true
+      },
+      {
+        "dataset": "official_pe",
+        "file": "data/raw/valuation/000300_pe_official_raw.parquet",
+        "exists": true,
+        "expected_sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73",
+        "actual_sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73",
+        "matches": true
+      },
+      {
+        "dataset": "government_bond_yields",
+        "file": "data/raw/macro/china_government_bond_yields_daily.parquet",
+        "exists": true,
+        "expected_sha256": "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d",
+        "actual_sha256": "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d",
+        "matches": true
+      },
+      {
+        "dataset": "existing_monthly_fundamental_panel",
+        "file": "data/features/000300_point_in_time_fundamental_monthly.parquet",
+        "exists": true,
+        "expected_sha256": "c964b18a4d1716fc82587f91d7e1150e0528fc61615b971eb5bc32caab895121",
+        "actual_sha256": "c964b18a4d1716fc82587f91d7e1150e0528fc61615b971eb5bc32caab895121",
+        "matches": true
+      },
+      {
+        "dataset": "existing_monthly_status",
+        "file": "reports/data_quality/000300_point_in_time_fundamental_status.json",
+        "exists": true,
+        "expected_sha256": "12819b084bbd94c5beda74ebc3d9071ebef385984137aa8831b3bcc85e143e14",
+        "actual_sha256": "12819b084bbd94c5beda74ebc3d9071ebef385984137aa8831b3bcc85e143e14",
+        "matches": true
+      },
+      {
+        "dataset": "stale_constituent_status",
+        "file": "reports/data_quality/000300_constituent_daily_status.json",
+        "exists": true,
+        "expected_sha256": "cbae229ce23d4e75582f321521ce9a434d8ed93462a7ef9b5a2e934942eb329b",
+        "actual_sha256": "cbae229ce23d4e75582f321521ce9a434d8ed93462a7ef9b5a2e934942eb329b",
+        "matches": true
+      },
+      {
+        "dataset": "stale_vendor_metadata",
+        "file": "data/raw/valuation/000300_valuation_daily_raw.metadata.json",
+        "exists": true,
+        "expected_sha256": "63803e1fca1b5d7c9ea596bc2d92a517997178917fff9e89a88bb791f5ff0671",
+        "actual_sha256": "63803e1fca1b5d7c9ea596bc2d92a517997178917fff9e89a88bb791f5ff0671",
+        "matches": true
+      },
+      {
+        "dataset": "r5_config",
+        "file": "config/round5_defensive_valuation_timing.yaml",
+        "exists": true,
+        "expected_sha256": "dbe073815eb4a3f2f05af3cbe8fc1af7287315095f2b4e7f771d75f2e988e033",
+        "actual_sha256": "dbe073815eb4a3f2f05af3cbe8fc1af7287315095f2b4e7f771d75f2e988e033",
+        "matches": true
+      },
+      {
+        "dataset": "preserved_r5_enhanced_signals",
+        "file": "data/processed/round5_defensive_valuation_timing/enhanced_signals.parquet",
+        "exists": true,
+        "expected_sha256": "59d5016e42aec972dd6a0f7e2aa972bfa04ac87205f5026f5f4f1b7d2a1ea289",
+        "actual_sha256": "59d5016e42aec972dd6a0f7e2aa972bfa04ac87205f5026f5f4f1b7d2a1ea289",
+        "matches": true
+      }
+    ]
+  },
+  "datasets": {
+    "weights": {
+      "status": "PASS",
+      "rows": 36000,
+      "snapshot_count": 120,
+      "first_date": "2016-08-31",
+      "last_date": "2026-07-31",
+      "unique_constituent_count": 622,
+      "minimum_constituents": 300,
+      "maximum_constituents": 300,
+      "minimum_weight_sum_pct": 99.988,
+      "maximum_weight_sum_pct": 100.011,
+      "duplicate_key_count": 0,
+      "sources": [
+        "tushare.index_weight"
+      ],
+      "retrieved_at_min": "2026-08-13 15:57:09.141806+08:00",
+      "retrieved_at_max": "2026-08-13 16:02:30.485351+08:00",
+      "unit": "percent",
+      "point_in_time_semantics": "权重仅从trade_date收盘数据可得后使用；retrieved_at不等于生效日"
+    },
+    "financials": {
+      "status": "PASS_PIT_RECONSTRUCTION_WITH_CURRENT_ARCHIVE_CAVEAT",
+      "rows": 39158,
+      "symbol_count": 927,
+      "report_period_count": 44,
+      "first_report_period": "2015-09-30",
+      "last_report_period": "2026-06-30",
+      "first_available_at": "2015-10-10",
+      "last_available_at": "2026-08-11",
+      "duplicate_event_key_count": 0,
+      "multi_version_company_report_pairs": 592,
+      "multi_version_pairs_with_value_changes": 154,
+      "announcement_after_available_count": 0,
+      "available_before_report_period_count": 0,
+      "availability_delay_days": {
+        "median": 40,
+        "p95": 120,
+        "maximum": 2402
+      },
+      "field_non_null_ratio": {
+        "revenue_cny": 0.9841667092292763,
+        "net_profit_parent_cny": 0.9846519229787016,
+        "equity_parent_cny": 0.9801317738393176,
+        "total_shares": 0.9778844680525053,
+        "bps": 0.9885847081056234
+      },
+      "sources": [
+        "tushare.income_vip+balancesheet_vip+fina_indicator_vip"
+      ],
+      "retrieved_at_min": "2026-08-13 16:03:21.823871+08:00",
+      "retrieved_at_max": "2026-08-13 16:03:21.823871+08:00",
+      "checkpoint_directory": "data/raw/fundamentals/vip_checkpoints",
+      "checkpoint_file_count": 132,
+      "checkpoint_expected_file_count": 132,
+      "checkpoint_content_sha256": "e9ae8ebcf4e75dabe76104b20a71240a029f70557cf4270da49cda54b49594d3",
+      "checkpoint_by_api": {
+        "income_vip": {
+          "file_count": 44,
+          "first_period": "20150930",
+          "last_period": "20260630",
+          "expected_file_count": 44,
+          "count_matches": true
+        },
+        "balancesheet_vip": {
+          "file_count": 44,
+          "first_period": "20150930",
+          "last_period": "20260630",
+          "expected_file_count": 44,
+          "count_matches": true
+        },
+        "fina_indicator_vip": {
+          "file_count": 44,
+          "first_period": "20150930",
+          "last_period": "20260630",
+          "expected_file_count": 44,
+          "count_matches": true
+        }
+      },
+      "units": {
+        "revenue_cny": "CNY",
+        "net_profit_parent_cny": "CNY",
+        "equity_parent_cny": "CNY",
+        "total_shares": "shares",
+        "bps": "CNY_per_share"
+      },
+      "archive_caveat": "原始季度表于2026-08-13统一回取；available_at可重建当时可得信息，但未取得逐日不可变供应商快照来独立证明历史值从未被供应商修订。"
+    },
+    "current_constituents": {
+      "label": "current_tushare_panel",
+      "rows": 483300,
+      "trading_day_count": 1611,
+      "symbol_count": 493,
+      "first_date": "2019-12-23",
+      "last_date": "2026-08-14",
+      "minimum_members_per_day": 300,
+      "maximum_members_per_day": 300,
+      "raw_close_non_null_ratio": 1.0,
+      "market_cap_non_null_ratio": 0.0,
+      "market_cap_positive_ratio": 0.0,
+      "market_cap_all_null_day_count": 1611
+    },
+    "backup_constituents": {
+      "label": "pre_tushare_sina_backup",
+      "rows": 387900,
+      "trading_day_count": 1293,
+      "symbol_count": 459,
+      "first_date": "2021-04-14",
+      "last_date": "2026-08-12",
+      "minimum_members_per_day": 300,
+      "maximum_members_per_day": 300,
+      "raw_close_non_null_ratio": 0.9999871100799175,
+      "market_cap_non_null_ratio": 0.9939829853054911,
+      "market_cap_positive_ratio": 0.9939829853054911,
+      "market_cap_all_null_day_count": 0
+    },
+    "vendor_valuation": {
+      "rows": 5191,
+      "first_date": "2005-04-08",
+      "last_date": "2026-08-18",
+      "point_in_time_vintage_proven": false
+    },
+    "official_pe": {
+      "rows": 3752,
+      "first_date": "2011-06-28",
+      "last_date": "2026-08-12",
+      "point_in_time_vintage_proven": false
+    },
+    "government_bonds": {
+      "rows": 2504,
+      "first_date": "2016-08-12",
+      "last_date": "2026-08-18"
+    }
+  },
+  "history_gates": {
+    "five_year": {
+      "required_snapshot_count": 60,
+      "local_weight_snapshot_count": 60,
+      "missing_weight_months": [],
+      "price_coverage_failed_months": [],
+      "ttm_coverage_failed_months": [],
+      "normalized_coverage_failed_months": [
+        "2016-08",
+        "2016-09",
+        "2016-10",
+        "2016-11",
+        "2016-12",
+        "2017-01",
+        "2017-02",
+        "2017-03",
+        "2017-04"
+      ],
+      "cgb_10y_exact_date_failed_months": [],
+      "raw_ey_status": "PASS_LOCAL_RECONSTRUCTIBLE",
+      "normalized_ey_status": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+      "normalized_ey_spread_status": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+      "minimum_local_coverages": {
+        "price_weight_coverage": 0.9999,
+        "ttm_metric_weight_coverage": 0.98573,
+        "normalized_metric_weight_coverage": 0,
+        "raw_ey_ready_weight_coverage": 0.98573,
+        "normalized_ey_ready_weight_coverage": 0
+      }
+    },
+    "seven_year": {
+      "required_snapshot_count": 84,
+      "local_weight_snapshot_count": 60,
+      "missing_weight_months": [
+        "2014-08",
+        "2014-09",
+        "2014-10",
+        "2014-11",
+        "2014-12",
+        "2015-01",
+        "2015-02",
+        "2015-03",
+        "2015-04",
+        "2015-05",
+        "2015-06",
+        "2015-07",
+        "2015-08",
+        "2015-09",
+        "2015-10",
+        "2015-11",
+        "2015-12",
+        "2016-01",
+        "2016-02",
+        "2016-03",
+        "2016-04",
+        "2016-05",
+        "2016-06",
+        "2016-07"
+      ],
+      "price_coverage_failed_months": [],
+      "ttm_coverage_failed_months": [],
+      "normalized_coverage_failed_months": [
+        "2016-08",
+        "2016-09",
+        "2016-10",
+        "2016-11",
+        "2016-12",
+        "2017-01",
+        "2017-02",
+        "2017-03",
+        "2017-04"
+      ],
+      "cgb_10y_exact_date_failed_months": [],
+      "raw_ey_status": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+      "normalized_ey_status": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+      "normalized_ey_spread_status": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+      "minimum_local_coverages": {
+        "price_weight_coverage": 0.9999,
+        "ttm_metric_weight_coverage": 0.98573,
+        "normalized_metric_weight_coverage": 0,
+        "raw_ey_ready_weight_coverage": 0.98573,
+        "normalized_ey_ready_weight_coverage": 0
+      }
+    },
+    "expanding": {
+      "local_snapshot_count_before_evaluation": 60,
+      "first_local_snapshot": "2016-08-31",
+      "last_local_snapshot_before_evaluation": "2021-07-30",
+      "raw_ey_ready_snapshot_count": 60,
+      "normalized_ey_ready_snapshot_count": 51,
+      "status": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+      "reason": "扩展窗口起点已由最早官方权重固定，但早期价格与标准化盈利覆盖尚未通过，禁止从较晚的有利日期重新选择起点。"
+    }
+  },
+  "cross_checks": {
+    "status": "PASS_CROSS_CHECK_ONLY_NON_VINTAGE",
+    "official_vs_vendor": {
+      "overlap_rows": 3609,
+      "first_date": "2011-06-28",
+      "last_date": "2026-08-12",
+      "pearson_correlation": 0.9750405408881788,
+      "median_absolute_relative_error": 0.07894736842105265
+    },
+    "official_vs_existing_component_panel": {
+      "overlap_rows": 60,
+      "pearson_correlation": 0.9488568246638794,
+      "median_absolute_relative_error": 0.07421567272473861
+    },
+    "governance": "三条序列均为2026年事后回取或事后重建，只能证明口径大体一致，不能把交叉相关性当作历史点时版本证明。"
+  },
+  "r5_replay": {
+    "engineering_replay_status": "PASS_ENGINEERING_REPLAY_ONLY",
+    "comparison_rows": 1211,
+    "calendar_exact_match": true,
+    "numeric_field_errors": {
+      "raw_continuous_position": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      },
+      "strategic_position": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      },
+      "trend_score": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      },
+      "risk_penalty": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      },
+      "continuous_model_position": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      },
+      "discrete_model_position": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      },
+      "target_position": {
+        "maximum_absolute_difference": 0,
+        "missingness_mismatch_count": 0
+      }
+    },
+    "boolean_field_mismatch_counts": {
+      "trade_allowed": 0,
+      "risk_off_override": 0
+    },
+    "backup_market_cap_non_null_ratio_evaluation": 0.9899139786526016,
+    "current_market_cap_non_null_ratio_evaluation": 0.0,
+    "current_all_null_market_cap_day_count": 1211,
+    "current_zero_aggregate_from_all_null_day_count": 1211,
+    "algebraic_market_cap_cancellation": {
+      "status": "PROVEN",
+      "maximum_absolute_error": 1.4432899320127035e-15,
+      "reduced_formula": "clip((fair_high_12m-index_close)/(fair_high_12m-fair_low_12m),0,1)",
+      "interpretation": "聚合市值在R5连续估值仓位公式中完全抵消，只承担非空闸门作用，没有提供独立的估值尺度。"
+    },
+    "economic_evidence_status": "NO_VIEW_NON_VINTAGE_VENDOR_PE_PB_AND_CAP_CANCELLATION",
+    "return_or_position_evaluation_performed": false
+  },
+  "stale_metadata": {
+    "status": "STALE_METADATA_DETECTED",
+    "rows": [
+      {
+        "artifact": "reports/data_quality/000300_constituent_daily_status.json",
+        "recorded_input_or_output_hash": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+        "current_target_hash": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "stale": true,
+        "meaning": "状态文件描述的是覆盖了流通市值的旧新浪版本；当前同路径已被Tushare价格面板替换。"
+      },
+      {
+        "artifact": "reports/data_quality/000300_point_in_time_fundamental_status.json",
+        "recorded_input_or_output_hash": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+        "current_target_hash": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "stale": true,
+        "meaning": "既有60月面板仍可由保留备份解释，但无法用当前主路径原样复算。"
+      },
+      {
+        "artifact": "data/raw/valuation/000300_valuation_daily_raw.metadata.json",
+        "recorded_input_or_output_hash": "119f009a7045f8b50b1eae3a3f2d7d1f394c372d4723cfd54d2ba348ae66ad52",
+        "current_target_hash": "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3",
+        "stale": true,
+        "meaning": "估值Parquet已扩展历史，但metadata仍记录旧行数、旧日期范围和旧哈希。"
+      }
+    ],
+    "mutation_performed": false
+  },
+  "acquisition_requirements": [
+    {
+      "priority": 1,
+      "gate": "VAL01_RAW_EY_5Y",
+      "action": "补采官方权重快照成分在早期月份的未复权日线，并按停牌规则仅向前填充。",
+      "required_months": [
+        "2016-08",
+        "2016-09",
+        "2016-10",
+        "2016-11",
+        "2016-12",
+        "2017-01",
+        "2017-02",
+        "2017-03",
+        "2017-04",
+        "2017-05",
+        "2017-06",
+        "2017-07",
+        "2017-08",
+        "2017-09",
+        "2017-10",
+        "2017-11",
+        "2017-12",
+        "2018-01",
+        "2018-02",
+        "2018-03",
+        "2018-04",
+        "2018-05",
+        "2018-06",
+        "2018-07",
+        "2018-08",
+        "2018-09",
+        "2018-10",
+        "2018-11",
+        "2018-12",
+        "2019-01",
+        "2019-02",
+        "2019-03",
+        "2019-04",
+        "2019-05",
+        "2019-06",
+        "2019-07",
+        "2019-08",
+        "2019-09",
+        "2019-10",
+        "2019-11"
+      ],
+      "required_symbol_count": 437,
+      "recommended_raw_date_range": "2016-07-01至2019-12-20",
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "source": "tushare.daily或更高等级可审计源",
+      "acceptance": "每个2016-08至2021-07官方权重快照的价格权重覆盖>=99%，停牌填充值不得来自未来日期。"
+    },
+    {
+      "priority": 2,
+      "gate": "VAL01_NORM_EY_5Y_AND_VAL02_5Y",
+      "action": "补采2015-09以前的季度利润表、资产负债表和财务指标，消除标准化盈利在历史起点的截断偏差。",
+      "current_first_report_period": "2015-09-30",
+      "first_local_snapshot_with_normalized_coverage_at_least_90pct": "2017-05-31",
+      "minimum_target_start_for_four_ttm_observations": "2014-06-30",
+      "preferred_target_start_for_full_three_year_normalization_at_2016-08": "2012-06-30",
+      "fields": [
+        "ann_date",
+        "f_ann_date",
+        "end_date",
+        "revenue",
+        "n_income_attr_p",
+        "total_hldr_eqy_exc_min_int",
+        "total_share",
+        "bps"
+      ],
+      "acceptance": "逐快照available_at过滤后，标准化盈利权重覆盖>=90%，并报告使用完整3年还是最少4个TTM观察的固定规则。"
+    },
+    {
+      "priority": 3,
+      "gate": "VAL01_7Y_AND_VAL02_7Y",
+      "action": "补采2014-08至2016-07共24个月官方历史权重及相应价格；VAL-02另补同区间10年国债收益率。",
+      "missing_weight_months": [
+        "2014-08",
+        "2014-09",
+        "2014-10",
+        "2014-11",
+        "2014-12",
+        "2015-01",
+        "2015-02",
+        "2015-03",
+        "2015-04",
+        "2015-05",
+        "2015-06",
+        "2015-07",
+        "2015-08",
+        "2015-09",
+        "2015-10",
+        "2015-11",
+        "2015-12",
+        "2016-01",
+        "2016-02",
+        "2016-03",
+        "2016-04",
+        "2016-05",
+        "2016-06",
+        "2016-07"
+      ],
+      "financial_lookback_note": "若7年标准化盈利从2014-08开始且要求完整三年公司历史，财务原始期至少需追溯至2010-06。",
+      "acceptance": "首个评价日前恰有84个经审计月度状态，所有月份同时通过成分、权重、价格、财务和利率闸门。"
+    },
+    {
+      "priority": 4,
+      "gate": "INDEPENDENT_SOURCE_VALIDATION",
+      "action": "保留中证官方滚动PE为只读交叉核验，并新增原始响应/取得时刻/接口语义快照；不得将其替代成分股点时主链。",
+      "acceptance": "交叉核验差异阈值在正式模型卡中预先冻结，且任何不一致均先归因到口径而非策略表现。"
+    }
+  ],
+  "source_documents": {
+    "tushare_index_weight": "https://tushare.pro/document/2?doc_id=96",
+    "tushare_daily": "https://tushare.pro/document/2?doc_id=27",
+    "tushare_income": "https://tushare.pro/document/2?doc_id=33",
+    "tushare_balancesheet": "https://tushare.pro/document/2?doc_id=36",
+    "tushare_fina_indicator": "https://tushare.pro/document/2?doc_id=79",
+    "csindex_pe_endpoint": "https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000300"
+  },
+  "artifacts": {
+    "snapshot_coverage": "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage_v1_1.parquet",
+    "report_json": "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json",
+    "report_markdown": "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.md",
+    "manifest": "config/point_in_time_valuation_v2_audit_v1_1_manifest.json",
+    "snapshot_coverage_sha256": "0f0f6eceeb4bb543b5212d042ab55c30cd73327a85f943943937a799a2bd555a"
+  },
+  "hash_audit_v1_1": {
+    "status": "PASS",
+    "rows": [
+      {
+        "dataset": "prior_audit_report",
+        "file": "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility.json",
+        "expected_sha256": "f646a7fac9ec76834e6115ead593fa2441dff0775b1ddbf3c28172d4649f459e",
+        "actual_sha256": "f646a7fac9ec76834e6115ead593fa2441dff0775b1ddbf3c28172d4649f459e",
+        "matches": true
+      },
+      {
+        "dataset": "prior_snapshot_coverage",
+        "file": "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage.parquet",
+        "expected_sha256": "997414214217f1abb3d995a25b006361a39cfbbe5dc21136c839c23cdf94466d",
+        "actual_sha256": "997414214217f1abb3d995a25b006361a39cfbbe5dc21136c839c23cdf94466d",
+        "matches": true
+      },
+      {
+        "dataset": "price_acquisition_report",
+        "file": "reports/data_quality/000300_valuation_price_backfill.json",
+        "expected_sha256": "b377351f8f9892d5cb7a51a65ec5a92610eb531cc27c7a6fbf0289acbd4ce4e7",
+        "actual_sha256": "b377351f8f9892d5cb7a51a65ec5a92610eb531cc27c7a6fbf0289acbd4ce4e7",
+        "matches": true
+      },
+      {
+        "dataset": "snapshot_prices",
+        "file": "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet",
+        "expected_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "actual_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "matches": true
+      },
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "point_in_time_financials",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time.parquet",
+        "expected_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "actual_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "matches": true
+      },
+      {
+        "dataset": "current_constituent_daily",
+        "file": "data/raw/constituents/000300_constituent_daily.parquet",
+        "expected_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "actual_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "matches": true
+      },
+      {
+        "dataset": "index_daily",
+        "file": "data/raw/market/000300_daily_feature_warmup.parquet",
+        "expected_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "actual_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "matches": true
+      },
+      {
+        "dataset": "government_bond_yields",
+        "file": "data/raw/macro/china_government_bond_yields_daily.parquet",
+        "expected_sha256": "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d",
+        "actual_sha256": "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d",
+        "matches": true
+      }
+    ]
+  },
+  "price_acquisition": {
+    "status": "PASS_FIVE_YEAR_SNAPSHOT_PRICES",
+    "checked_at": "2026-08-18T23:05:32.999378+08:00",
+    "proxy_host": "fast.xiaodefa.cn",
+    "token_persisted_in_outputs": false,
+    "download_start": "2016-07-01",
+    "download_end": "2019-12-31",
+    "failed_month_count": 40,
+    "required_symbol_count": 437,
+    "downloaded_symbol_count": 0,
+    "reused_cache_symbol_count": 437,
+    "supplemental_prehistory_symbol_count": 6,
+    "cache_file_count": 437,
+    "snapshot_validation": {
+      "status": "PASS",
+      "snapshot_count": 60,
+      "row_count": 18000,
+      "first_date": "2016-08-31",
+      "last_date": "2021-07-30",
+      "minimum_constituents": 300,
+      "maximum_constituents": 300,
+      "minimum_price_weight_coverage": 0.9998999999999999,
+      "maximum_price_weight_coverage": 1.00011,
+      "failed_snapshot_count": 0,
+      "missing_price_row_count": 0,
+      "stale_price_row_count": 388,
+      "maximum_price_age_calendar_days": 524,
+      "future_price_row_count": 0
+    },
+    "cross_source_overlap": {
+      "overlap_row_count": 1998,
+      "first_overlap_date": "2019-12-23",
+      "last_overlap_date": "2019-12-31",
+      "maximum_absolute_close_difference": 0.0,
+      "exact_match_ratio": 1.0
+    },
+    "inputs": {
+      "data/raw/constituents/000300_historical_weights.parquet": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+      "data/raw/constituents/000300_constituent_daily.parquet": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+      "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage.parquet": "997414214217f1abb3d995a25b006361a39cfbbe5dc21136c839c23cdf94466d"
+    },
+    "output_file": "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet",
+    "output_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+    "source_documentation": "https://tushare.pro/document/2?doc_id=27",
+    "governance": {
+      "current_constituent_file_mutated": false,
+      "return_calculation_performed": false,
+      "ic_calculation_performed": false,
+      "position_mapping_performed": false,
+      "order_generation_performed": false
+    }
+  },
+  "branch_status": {
+    "VAL01_RAW_EY_5Y": "PASS_LOCAL_RECONSTRUCTIBLE_DATA_ONLY",
+    "VAL01_NORM_EY_5Y": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+    "VAL02_NORM_EY_SPREAD_5Y": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+    "VAL01_RAW_EY_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+    "VAL01_NORM_EY_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+    "VAL02_NORM_EY_SPREAD_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED"
+  },
+  "completed_acquisition": {
+    "gate": "VAL01_RAW_EY_5Y_PRICE_HISTORY",
+    "status": "PASS",
+    "snapshot_count": 60,
+    "minimum_price_weight_coverage": 0.9998999999999999,
+    "missing_price_row_count": 0,
+    "future_price_row_count": 0,
+    "cross_source_exact_match_ratio": 1.0
+  },
+  "remaining_blockers": [
+    "2016-08至2017-04标准化盈利权重覆盖低于90%",
+    "七年版缺2014-08至2016-07共24个月权重、价格、财务和国债历史",
+    "正式收益检验前仍须冻结VAL01_RAW_EY_5Y模型卡、月度信号可得时点和扩展窗口规则"
+  ]
+}

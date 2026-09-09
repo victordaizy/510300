@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.10.1",
+  "deployment_id": "PRIORITY_FORWARD_V1_10_1_WINDOWS_MODULE_ENTRYPOINT_DEPLOYMENT",
+  "status": "PASS_DEPLOYED_AWAITING_FIRST_ELIGIBLE_WINDOW",
+  "observed_at": "2026-08-29T04:26:27.4032461+08:00",
+  "research_runtime": {
+    "manifest_id": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1_10",
+    "manifest_path": "config/priority_forward_research_operations_v1_10_manifest.json",
+    "manifest_sha256": "fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94",
+    "manifest_verification_status": "PASS_V1_10_FROZEN_ENTRYPOINT_VERIFIED",
+    "tracked_file_count": 49,
+    "runtime_patch_id": "PCF_IOPV_STRICT_TLS_ROUTE_V1_3_AND_STATUS_MODULE_ENTRYPOINT_V1_8_1"
+  },
+  "deployment_patch": {
+    "deployment_patch_id": "WINDOWS_SCHEDULER_ORCHESTRATOR_MODULE_ENTRYPOINT_V1_10_1",
+    "reason": "The frozen Python runtime imports project packages and must be launched as a module from the project working directory",
+    "rejected_file_path_probe": {
+      "invocation": "python scripts/run_priority_forward_codex_automation_v1_10.py --verify-only",
+      "status": "PROGRAM_FAILED",
+      "failure_type": "ModuleNotFoundError",
+      "failure_message": "No module named 'scripts'",
+      "research_collection_triggered": false,
+      "atomic_claim_created": false,
+      "immutable_task_receipt_created": false,
+      "quality_day_created": false
+    },
+    "accepted_module_probe": {
+      "invocation": "python -m scripts.run_priority_forward_codex_automation_v1_10 --verify-only",
+      "status": "PASS_V1_10_FROZEN_ENTRYPOINT_VERIFIED",
+      "failure_count": 0,
+      "research_collection_triggered": false,
+      "atomic_claim_created": false,
+      "immutable_task_receipt_created": false,
+      "quality_day_created": false
+    },
+    "installer_path": "scripts/install_priority_forward_morning_task_v1_10_1.ps1",
+    "installer_sha256": "8f07b044ef58383cba4f3d722d26f3fbf24239ea330f0515953c38b9d7270de5"
+  },
+  "windows_task": {
+    "task_name": "Codex-510300-Primary-Market-Collector",
+    "state": "Ready",
+    "next_run_time": "2026-08-31T09:25:00+08:00",
+    "action_execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+    "action_arguments": "-m scripts.run_priority_forward_codex_automation_v1_10 --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_6.yaml\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_research_operations_v1_10_manifest.json\" --expected-manifest-sha256 fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94",
+    "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8",
+    "weekdays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "weeks_interval": 1,
+    "wake_to_run": true,
+    "multiple_instances": "IgnoreNew",
+    "execution_time_limit": "PT8H",
+    "restart_count": 0,
+    "start_when_available": false,
+    "principal_logon_type": "Interactive",
+    "principal_run_level": "Limited",
+    "persistence_capability": "LOGGED_IN_SESSION_ONLY",
+    "logout_reboot_verified": false,
+    "exact_match": true
+  },
+  "no_run_during_deployment": {
+    "v1_10_atomic_claim_count": 0,
+    "v1_10_orchestrator_receipt_count": 0,
+    "v1_3_collection_receipt_count": 0,
+    "same_day_backfill_performed": false,
+    "rerun_2026_08_28_performed": false,
+    "research_collection_triggered": false
+  },
+  "research_state_after_deployment": {
+    "authority_report_path": "reports/audit/priority_forward_authoritative_status_v1_8_1.json",
+    "authority_report_sha256": "5f412b604dacadfd49bce402f9944bd62c8763fb167c2e901459b3facf6a51f4",
+    "overall_status": "NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET",
+    "pcf_deployment_status": "DEPLOYED_AWAITING_FIRST_ELIGIBLE_WINDOW",
+    "full_quality_days": 2,
+    "last_observed_trade_date": "2026-08-18",
+    "latest_direct_collection_status": "EXTERNAL_FREE_SOURCE_FAILED",
+    "latest_quality_day_counted": false
+  },
+  "validation_runs": [
+    {
+      "scope": "PCF transport, providers, runtime and predecessor compatibility",
+      "passed": 46,
+      "failed": 0
+    },
+    {
+      "scope": "V1.10 frozen entrypoint, authority status and PCF runtime",
+      "passed": 25,
+      "failed": 0
+    },
+    {
+      "scope": "V1.10.1 Windows module deployment entrypoint",
+      "passed": 3,
+      "failed": 0
+    }
+  ],
+  "transport_contract": {
+    "name": "SSE_STRICT_TRANSPORT_CONTRACT_V1",
+    "environment_route_first": true,
+    "strict_direct_fallback_only_on_certificate_verification_failure": true,
+    "strict_direct_fallback_limit_per_request": 1,
+    "tls_verification_required": true,
+    "insecure_tls_allowed": false
+  },
+  "research_only": true,
+  "shadow_enabled": false,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_enabled": false
+}

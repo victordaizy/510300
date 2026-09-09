@@ -1,0 +1,151 @@
+{
+  "remediation_id": "510300_CSI300_PIT_MEMBERSHIP_WEIGHTS_SOURCE_REMEDIATION_V1",
+  "version": "1.0.2-with-2015-extension-reference",
+  "checked_at": "2026-08-30T22:27:02.233017+08:00",
+  "overall_status": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_PRIMARY_2021_WINDOW_ONLY_WEIGHTS_PENDING",
+  "membership_admission": {
+    "status": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_PRIMARY_2021_WINDOW_ONLY_WEIGHTS_PENDING",
+    "primary_start_date": "2021-01-01",
+    "primary_end_date": "2026-08-14",
+    "primary_open_session_count": 1361,
+    "primary_row_count": 408300,
+    "active_constituent_count_each_open_session": 300,
+    "duplicate_date_symbol_rows": 0,
+    "regular_cycle_count": 21,
+    "special_cycle_count": 3,
+    "monthly_independent_snapshot_count_primary": 67,
+    "monthly_independent_snapshot_set_difference_count": 0,
+    "current_official_anchor_set_difference_count": 0,
+    "deterministic_replay_match": true
+  },
+  "best_effort_extension": {
+    "status": "PASS_FROM_2016_06_13_WITH_INDEPENDENT_MONTH_END_CHECKS_FROM_2016_08_31",
+    "start_date": "2016-06-13",
+    "end_date": "2026-08-14",
+    "open_session_count": 2473,
+    "row_count": 741900,
+    "independent_monthly_snapshot_count": 120,
+    "independent_monthly_snapshot_mismatch_count": 0
+  },
+  "conditional_2015_extension": {
+    "status": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION",
+    "start_contract_date": "2015-01-01",
+    "first_open_session": "2015-01-05",
+    "end_date": "2026-08-14",
+    "open_session_count": 2823,
+    "row_count": 846900,
+    "independent_official_snapshot_mismatch_count": 0,
+    "handover_set_difference_count": 0,
+    "admission_manifest_path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_admission_manifest.json",
+    "admission_manifest_sha256": "4bf2f455ae71b77b158042729ce8a5c8f4d9db0b2b1c87480f90fd952fdbf550",
+    "combined_daily_membership_path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+    "combined_daily_membership_sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b",
+    "blocks_primary_2021_admission": false
+  },
+  "weight_admission": {
+    "status": "BLOCKED_NO_VERSION_PROVEN_PIT_CSI300_WEIGHTS",
+    "structural_gate_pass": true,
+    "version_or_as_of_provenance_gate_pass": false,
+    "snapshot_count_all": 120,
+    "snapshot_count_primary": 67,
+    "minimum_constituent_count": 300,
+    "maximum_constituent_count": 300,
+    "minimum_weight_sum_pct": 99.988,
+    "maximum_weight_sum_pct": 100.011,
+    "strict_prior_coverage": {
+      "open_session_count": 1361,
+      "admitted_session_count": 1361,
+      "coverage_ratio": 1.0,
+      "maximum_observed_snapshot_age_calendar_days": 33,
+      "uncovered_examples": []
+    },
+    "source_evidence_manifest": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/pit_weight_source_evidence_manifest.json",
+    "source_evidence_sha256": "df9959b5d6ee92a4510453d62a5261318a514a798c410a451c990c3d0a8df4aa",
+    "remaining_blocker": "公开留存仅形成少量官方历史版本锚点；现有 Tushare 兼容来源不在中证官网列示的授权代理商或授权用户名称中，且没有每一期历史版本或 as-of 凭证。二次抓取又因代理凭据过期而失败，因此不能越过冻结硬门槛。"
+  },
+  "candidate_boundary": {
+    "candidate_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+    "authoritative_candidate_status_unchanged": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS",
+    "remaining_data_blocker": "BLOCKED_NO_VERSION_PROVEN_PIT_CSI300_WEIGHTS",
+    "model_action": "ABSTAIN",
+    "portfolio_evaluation": "NOT_ALLOWED",
+    "paper_or_shadow_signal_allowed": false,
+    "trading_authorization": false
+  },
+  "protocol": {
+    "path": "config/510300_csi300_pit_membership_weights_source_remediation_v1_protocol_manifest.json",
+    "sha256": "9d42049265071aff30bf3a1217eb931eca3e664a3ab90b3e3cd1969cb12c838f",
+    "clock_correction_path": "config/510300_csi300_pit_membership_weights_source_remediation_v1_0_1_clock_correction.json",
+    "clock_correction_sha256": "971535096ef81c54bfce9da1510cf53c62af1f0e54c2a981407e673f1c99b152"
+  },
+  "verified_frozen_inputs": [
+    {
+      "path": "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/official_announcement_manifest.json",
+      "sha256": "58cc57d9a0eb23ac95ca8e68db85108207684df59cabc78ba9fb3c017c836f4d",
+      "bytes": 104323,
+      "allowed_use": "OFFICIAL_REBALANCE_CYCLES_AND_RAW_ARCHIVE_INDEX"
+    },
+    {
+      "path": "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/event_ledger_without_returns.parquet",
+      "sha256": "e3eafbaa8fafa3a3e0c0f2d40b573e623c450c8271151f2521746346bf8cb292",
+      "bytes": 35669,
+      "allowed_use": "OFFICIAL_ADDITION_EVENT_RECONCILIATION_ONLY"
+    },
+    {
+      "path": "data/raw/constituents/000300_historical_weights.parquet",
+      "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+      "bytes": 80108,
+      "allowed_use": "VENDOR_SNAPSHOT_CROSS_CHECK_PENDING_VERSION_PROVENANCE"
+    },
+    {
+      "path": "data/raw/constituents/000300_current_weights.parquet",
+      "sha256": "52366da5e55c053618c874a5e853726a0b621a2d2aa7787126648b75445fcdea",
+      "bytes": 15092,
+      "allowed_use": "CURRENT_OFFICIAL_SET_ANCHOR_CROSS_CHECK"
+    },
+    {
+      "path": "data/raw/constituents/000300_official_snapshot_raw.json",
+      "sha256": "8aabfa5d699641bfe23e13971eb0d436938dcf5b91123759178e13520f49c6d4",
+      "bytes": 661945,
+      "allowed_use": "OFFICIAL_CURRENT_SNAPSHOT_RAW_PROVENANCE"
+    },
+    {
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+      "sha256": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd",
+      "bytes": 59861,
+      "allowed_use": "EVENT_CLOCK_ONLY"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20160613_20260814.parquet",
+      "sha256": "b15aeab6f6caf4855146786b3110202eb3a65e3a768c95fbc430186c39bee2cd",
+      "bytes": 121706
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_membership_transition_ledger.parquet",
+      "sha256": "31357d9bde25ccd14b4a2f1cedaa967adc5d62db7c8d2cd68c5330d126f54af7",
+      "bytes": 26684
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_membership_replay_audit.json",
+      "sha256": "72f4caf046b8438c3ea52a2d00673c45358b6b52e4062f9f21005868eb600bb4",
+      "bytes": 20037
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/monthly_snapshot_membership_comparison.parquet",
+      "sha256": "ea6c6b9e498f91f4b4b5cee9b909398127ba96b70534a02cfff924b7e37c5ac3",
+      "bytes": 4980
+    }
+  ],
+  "market_price_read": false,
+  "future_return_read": false,
+  "future_label_created": false,
+  "model_read": false,
+  "portfolio_evaluation": "NOT_ALLOWED",
+  "trading_authorization": false,
+  "admission_manifest": {
+    "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/source_remediation_admission_manifest.json",
+    "sha256": "fca9177a7543176de6de19a68626f90e2a49947a8d77b70b6975a2f731964bb7"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "qualification_status": "BLOCKED_ZERO_COST_SOURCE_UNAVAILABLE",
+  "branch_status": "CLOSED_NO_20D_TRIAL",
+  "audited_at": "2026-08-26T03:35:57.141466+08:00",
+  "policy": "CONDITIONAL_FORWARD_ONLY",
+  "data_purchase_budget_cny": 0,
+  "external_request_attempted": false,
+  "paid_source_called": false,
+  "supplier_contacted": false,
+  "qualification_gates": {
+    "dynamic_contract_master_zero_cost_access_proven": false,
+    "dynamic_contract_master_core_fields_proven": false,
+    "orderbook_core_fields_declared": true,
+    "orderbook_raw_response_archiving_implemented": false,
+    "source_terms_and_archive_rights_proven": false,
+    "source_stability_proven": false,
+    "frozen_protocol_hashes_exact": false,
+    "twenty_day_trial_complete": false
+  },
+  "blocking_reasons": [
+    "DYNAMIC_CONTRACT_MASTER_ZERO_COST_ACCESS_NOT_PROVEN",
+    "DYNAMIC_CONTRACT_MASTER_REQUIRED_FIELDS_NOT_PROVEN",
+    "ORDERBOOK_RAW_RESPONSE_ARCHIVE_NOT_IMPLEMENTED",
+    "SOURCE_TERMS_AND_ARCHIVE_RIGHTS_NOT_PROVEN",
+    "SOURCE_STABILITY_NOT_PROVEN",
+    "FROZEN_PROTOCOL_HASH_DRIFT"
+  ],
+  "source_assessment": {
+    "dynamic_contract_master": {
+      "source_id": "TUSHARE_PROXY_OPT_BASIC",
+      "provider": "Tushare代理合约主表",
+      "access_cost_cny": 0.0,
+      "admission_status": "BLOCKED_ZERO_COST_NOT_PROVEN",
+      "quality_status": "BLOCKED",
+      "failure_reason": "免费可用性和官方替代源尚未证明",
+      "required_by_frozen_protocol": "tushare_proxy.opt_basic"
+    },
+    "orderbook_quote": {
+      "source_id": "SINA_OPTION_SSE_SPOT_PRICE",
+      "provider": "新浪公开期权行情",
+      "access_cost_cny": 0.0,
+      "admission_status": "CONDITIONAL_AUDIT_REQUIRED",
+      "quality_status": "NO_VIEW_PROTOCOL_INTEGRITY_FAILURE",
+      "failure_reason": "旧冻结协议哈希漂移且尚无20交易日免费源试运行",
+      "raw_response_archiving_implemented": false
+    }
+  },
+  "protocol_integrity": {
+    "manifest_path": "config/510300_option_forward_orderbook_v1_protocol_manifest.json",
+    "manifest_sha256": "6e602f189ed2ed4b9dbbdaf75889abc5572f480840b53a687ee59a269255f53e",
+    "frozen_file_count": 10,
+    "matching_count": 9,
+    "mismatch_count": 1,
+    "mismatches": [
+      {
+        "path": "tests/test_510300_option_forward_orderbook_v1.py",
+        "expected_sha256": "6781cfd7772e7ff2015be3f22c9878240c793b0e40f3322a1a7476457004b14b",
+        "actual_sha256": "793d5686da31d9cf21fea5ed88f53f5e6f63431083fe036bcf9caf24a004cded",
+        "matches": false
+      }
+    ]
+  },
+  "forward_evidence": {
+    "forward_start_exists": false,
+    "snapshot_count": 0,
+    "master_snapshot_count": 0,
+    "qualified_trial_days": 0,
+    "required_trial_days_before_long_run": 20
+  },
+  "closure": {
+    "active_supervisor_task": false,
+    "scheduled_trial_enabled": false,
+    "historical_backfill_enabled": false,
+    "daily_proxy_enabled": false,
+    "signal_calculation_enabled": false,
+    "return_test_enabled": false,
+    "next_action": "CLOSED_PRESERVE_EVIDENCE"
+  },
+  "evidence": {
+    "config": {
+      "path": "config/510300_option_forward_orderbook_v1.yaml",
+      "sha256": "dd339c61eb6bb74c148b2e881b8060b70e6ae534a1fbc065d5c02c5d778d35ac"
+    },
+    "collector": {
+      "path": "scripts/collect_510300_option_forward_orderbook_v1.py",
+      "sha256": "5cb39252f3c15d2091a9f314a3968aa410812fcd5ba667b31803b823fa620d51"
+    },
+    "source_registry": {
+      "path": "data/governance/FREE_SOURCE_REGISTRY_V1_1.csv",
+      "sha256": "13e37ed91ea25148b7f94565881bfa6cc1a6a7e59bf022c3b657ef8602338d7b"
+    },
+    "supervisor": {
+      "path": "config/priority_forward_supervisor_v1_2.yaml",
+      "sha256": "4452f565e499daf1f11c1833ab4ea77e595eb701be2cc8fc9d3115508448783b"
+    }
+  }
+}

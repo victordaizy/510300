@@ -1,0 +1,126 @@
+protocol:
+  study_id: 510300_CROSS_ETF_FORCED_FLOW_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: CANDIDATE_FAMILY_FIXED_BEFORE_SSE_WEEKLY_HISTORY_COLLECTION
+  candidate_family_size: 5
+  no_parameter_rescue: true
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+
+scope:
+  signal_funds_not_limited_to_execution_asset: true
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  leverage_allowed: false
+  shorting_allowed: false
+  derivatives_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+
+economic_hypothesis:
+  statement: 大型ETF份额增加或减少对应一级市场创造或赎回，可能迫使大资金交付或接收A股篮子；小资金只在公开份额变化之后反应
+  limitation: ETF份额变化是已实现创造赎回的代理，不保证授权参与人一定在公开市场同步买卖全部篮子
+  directional_relevance: 指数定期换样本身主要是篮子内部相对调仓，因此不单独作为510300方向信号
+
+universe_freeze:
+  selection_information_end: '2020-12-31'
+  price_panel: data/raw/all_etf_momentum_v1r/etf_total_return_panel_tushare_adj.parquet
+  benchmark_panel: data/raw/all_etf_momentum_v1/H00300_total_return.parquet
+  return_correlation_period: ['2020-01-01', '2020-12-31']
+  minimum_return_overlap_days: 200
+  minimum_h00300_return_correlation: 0.80
+  liquidity_period: ['2020-10-01', '2020-12-31']
+  minimum_liquidity_days: 40
+  minimum_average_daily_amount_cny: 100000000.0
+  minimum_last_trade_date: '2020-12-25'
+  exchange_suffix: .SH
+  excluded_cross_border_code_prefixes: ['513']
+  broad_pool_expected_symbols:
+    - 510050.SH
+    - 510300.SH
+    - 510310.SH
+    - 510330.SH
+    - 510500.SH
+    - 510880.SH
+    - 512000.SH
+    - 512500.SH
+    - 512880.SH
+    - 515000.SH
+  hs300_pool_symbols:
+    - 510300.SH
+    - 510310.SH
+    - 510330.SH
+  later_funds_may_not_enter: true
+  outcome_data_used_for_universe_selection: false
+
+official_share_collection:
+  source: sse.COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L
+  source_url: https://query.sse.com.cn/commonQuery.do
+  sampling: 每个ISO周在冻结价格面板中出现的最后交易日
+  first_possible_snapshot: '2021-01-04'
+  last_possible_snapshot: '2026-08-14'
+  raw_response_preserved: true
+  missing_snapshot_fill: FORBIDDEN
+  missing_symbol_fill: FORBIDDEN
+
+information_clock:
+  historical_publication_timestamp: NOT_AVAILABLE_PER_SNAPSHOT
+  conservative_signal_cutoff: T_PLUS_1_CLOSE
+  execution_time: T_PLUS_2_OPEN
+  same_day_or_t_plus_1_open_execution_forbidden: true
+  prospective_upgrade_requires_timestamped_official_snapshot: true
+
+features:
+  weekly_flow_cny_per_fund: 当周份额减前一周份额乘当周收盘价
+  pool_flow_ratio_1w: 池内weekly_flow_cny之和除以池内前周份额乘当周收盘价之和
+  pool_flow_ratio_4w: 最近4个有限周度pool_flow_ratio_1w之和
+  rolling_percentile_window_weeks: 104
+  rolling_percentile_minimum_weeks: 52
+  percentile_definition: 当前值在包含当前值的最近104个有限周度观测中的小于等于比例
+  parameter_search: FORBIDDEN
+
+candidates:
+  - candidate_id: BROAD_FLOW1W_BOTTOM10_CASH_WEEK
+    rule: broad_pool一周流量比滚动分位不高于0.10时，T+2开盘转空仓并保持到下一周决策；否则满仓
+    mechanism: 广泛ETF极端赎回后的价格压力延续
+  - candidate_id: BROAD_FLOW4W_BOTTOM10_CASH_WEEK
+    rule: broad_pool四周累计流量比滚动分位不高于0.10时，T+2开盘转空仓并保持到下一周决策；否则满仓
+    mechanism: 跨ETF持续赎回压力延续
+  - candidate_id: BROAD_FLOW1W_DUALTAIL_HYSTERESIS
+    rule: broad_pool一周流量比分位不高于0.10时转空仓，不低于0.90时转满仓，中间区间保持原状态
+    mechanism: 极端赎回退出，极端申购确认后再进入
+  - candidate_id: HS300_FLOW1W_DUALTAIL_HYSTERESIS
+    rule: 三只纯沪深300ETF一周流量比分位不高于0.10时转空仓，不低于0.90时转满仓，中间区间保持原状态
+    mechanism: 同篮子被迫卖出与买入的双尾状态机
+  - candidate_id: BROAD_HS300_DUAL_CONFIRM_20_80_HYSTERESIS
+    rule: broad_pool与hs300_pool一周流量比分位均不高于0.20时转空仓，均不低于0.80时转满仓，其余保持原状态
+    mechanism: 广泛A股ETF与沪深300同篮子资金同时确认后才切换
+
+objective:
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  minimum_rolling_excess_median: 0.20
+  rolling_window_trading_days: 242
+  hard_gate: 每个压力成本时期和每个起点扰动均同时通过双20门槛
+
+evaluation:
+  cost_scenarios: [BASE, STRESS]
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: POST2021_EARLY_2022_2023
+      start_date: '2022-02-07'
+      end_date: '2023-12-29'
+    - id: POST2021_LATE_2024_2026
+      start_date: '2024-01-02'
+      end_date: '2026-08-25'
+    - id: COMBINED_POST2021_2022_2026
+      start_date: '2022-02-07'
+      end_date: '2026-08-25'
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

@@ -1,0 +1,159 @@
+protocol:
+  project_id: 510300_FIXED_EXPERT_DUAL_SHADOW_UNION_DISCOVERY_V1
+  state: DISCOVERY_PROTOCOL_FROZEN_BEFORE_DAILY_STATE_VALUES_READ_FOR_THIS_UNION
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+  created_at_asia_shanghai: '2026-08-28T12:20:00+08:00'
+  purpose: 将三个既有固定专家的原始空仓状态套用同一反事实双影子门，寻找正交且少误空仓的新候选
+  strategy_candidate_created_before_run: false
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  allowed_states:
+    - 0
+    - 1
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  information_only_assets:
+    - 510300期权
+    - IF0股指期货
+    - 全A市场宽度
+    - 全球股指与VIX
+    - 沪深融资融券
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+
+periods:
+  shadow_warmup_start: '2021-08-12'
+  common_discovery_start: '2022-03-09'
+  common_discovery_end: '2025-12-31'
+  reason: 三个专家共同具备固定逐日状态的完整比较区间
+  post_2025_values_for_multi_expert_run: forbidden
+  future_evidence_requirement: 任一通过者只可登记为发现候选，必须另做2026补数固定规则诊断和冻结后真正前瞻
+
+inputs:
+  microstructure_states:
+    path: data/forward/510300_etf_microstructure_dual_shadow_v1/runs/20260828T115133+0800/daily_features_and_states.parquet
+    sha256: 64ecebeac6a38a167bf6f7774a348a69aa537a366d2b5f8470a104efb3da77ab
+    date_column: date
+    raw_cash_column: cash_raw
+    upstream_final_cash_column: cash_final
+    upstream_status: FROZEN_RESEARCH_CANDIDATE
+  option_futures_breadth_states:
+    path: data/validation/510300_option_futures_breadth_domain_union_v1/daily_states.parquet
+    sha256: f8d784b555ada756e4ed41c23d512d4b9aa1a04fb9c76b1f397b79784b941118
+    date_column: date
+    raw_cash_definition: final_state等于0
+    upstream_status: FIXED_RULE_VALIDATION_REJECTED_NO_PARAMETER_RESCUE
+  daily_consensus_states:
+    path: data/validation/510300_daily_consensus_catchup_v1/validation_daily_states.parquet
+    sha256: 8d3ef011783d6ce78caa3d957a170769dae33484bcaee2f6a32cfd1e4bacfe78
+    date_column: signal_date
+    raw_cash_column: cash_signal
+    row_selection: start_perturbation等于0
+    upstream_status: FROZEN_CANDIDATE_REJECTED_CONTINUE_SEARCH
+  etf_execution:
+    path: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+    benchmark_id: H00300
+  cash_distributions:
+    path: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+  upstream_reports:
+    daily_consensus:
+      path: reports/validation/510300_daily_consensus_catchup_v1_validation.json
+      sha256: ddb6fedd0d74912304ccab117136238f81cbe54c2eee7ab3eb36715f65d3921f
+    option_futures_breadth:
+      path: reports/validation/510300_option_futures_breadth_domain_union_v1_validation.json
+      sha256: e92b6d55da6baf64382441e86f29d759d54c65c0fd8fcfcfee073f85307a4a47
+    microstructure_forward:
+      path: reports/forward/510300_etf_microstructure_dual_shadow_v1_status.json
+      sha256: 5ded3b78b4f699a5963e1b70f15f8b4275b87d59ff358f5e7c40cccff5282170
+
+raw_experts:
+  micro:
+    definition: microstructure_states.cash_raw
+  option_domain:
+    definition: option_futures_breadth_states.final_state等于0
+  consensus:
+    definition: daily_consensus_states中start_perturbation等于0的cash_signal
+  missing_policy: 任一专家在共同发现区间缺失即拒绝运行，不做前值填充
+
+dual_shadow_gate:
+  counterfactual: 每个原始专家持续独立影子运行，不受最终仓位是否采用该专家影响
+  one_day_target: T日信号对应T+1开盘至T+2开盘的510300含现金分红总收益
+  cash_return_daily: 0.015/242
+  stress_cost_per_raw_transition: 0.0016
+  maturity_lag_signal_rows: 2
+  long_window:
+    matured_signal_rows: 242
+    minimum_matured_rows: 20
+    active_when_net_sum_above: 0.0
+  short_window:
+    matured_signal_rows: 60
+    minimum_matured_rows: 10
+    active_when_net_sum_above: -0.01
+  insufficient_history: 对应影子门保持开启
+  threshold_search: forbidden
+
+predeclared_policies:
+  - name: MICRO_DUAL_REFERENCE
+    final_cash: micro原始空仓且micro双影子门开启
+  - name: OPTION_DOMAIN_DUAL
+    final_cash: option_domain原始空仓且option_domain双影子门开启
+  - name: CONSENSUS_DUAL
+    final_cash: consensus原始空仓且consensus双影子门开启
+  - name: INDIVIDUAL_GATED_UNION
+    final_cash: 三个专家各自过门后的空仓条件任一成立
+  - name: INDIVIDUAL_GATED_VOTE2
+    final_cash: 三个专家各自过门后的空仓条件至少两个成立
+  - name: RAW_UNION_SHARED_DUAL
+    final_cash: 三个原始空仓条件的并集成立且该并集自身双影子门开启
+post_result_policy_addition: forbidden
+
+account:
+  initial_capital_cny: 500000.0
+  lot_size_shares: 100
+  paid_dividends_reinvested_at_earliest_next_open: true
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+objective:
+  benchmark: H00300_TOTAL_RETURN
+  primary_metric: strategy_net_cagr_minus_benchmark_cagr
+  minimum_annualized_net_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_242d_excess_median: 0.20
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  every_start_must_pass_both_gates: true
+  minimum_common_signal_rows: 900
+
+governance:
+  formula_change_after_run: forbidden
+  threshold_change_after_run: forbidden
+  cost_change_after_run: forbidden
+  benchmark_change_after_run: forbidden
+  failed_policy_rescue: forbidden
+  current_state_signal_created: false
+  paper_or_shadow_position_mapping: disabled
+  order_generation: disabled
+  broker_connection: disabled
+  live_trading: not_authorized

@@ -1,0 +1,24 @@
+{
+  "model_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1",
+  "record_type": "ADDITIVE_EVIDENCE_CORRECTION_NO_FROZEN_RESULT_MUTATION",
+  "created_at": "2026-09-04T20:59:52.2285630+08:00",
+  "supersedes_assertion_only": "reports/data_quality/510300_option_implied_downside_risk_budget_v1/sse_underlying_cross_check.json",
+  "original_raw_relative_path": "data/raw/official/sse/510300_option_listing/retrieved_at=20260904T205552177948+0800/listing_page.html",
+  "original_response_sha256": "b4872f6326f62171c100e3bd8bf96fc69586d3b5357889ea156bf7e49450b031",
+  "diagnosis": "HTTP 响应字节是 UTF-8；requests 在缺少明确 charset 时使用了错误的 response.text 编码，导致两个中文包含断言假阴性。原始字节和冻结裁决文件均未修改。",
+  "verification_method": "对原始不可变响应字节执行严格 UTF-8 解码后做精确字符串包含检查",
+  "corrected_assertions": {
+    "http_200": true,
+    "contains_510300": true,
+    "contains_listing_date_2019_12_23": true,
+    "contains_underlying_name_huatai_pinebridge_csi300_etf": true
+  },
+  "corrected_official_underlying_cross_check": "PASS",
+  "remaining_g0_failure_after_this_correction": "FUND_DIV_DUPLICATE_PRIMARY_KEY_ROWS_16",
+  "g1_result_changed": false,
+  "valid_surface_days": 347,
+  "overall_valid_coverage": 0.2134071340713407,
+  "future_return_reads": 0,
+  "portfolio_evaluation_run": false,
+  "position_impact": 0
+}

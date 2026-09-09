@@ -1,0 +1,94 @@
+research:
+  challenger_id: "INTRADAY_CLOSE_PRESSURE_DIRECTION_2D_V1"
+  registered_at: "2026-08-13"
+  status: "PRE_REGISTERED_BEFORE_OUTCOME_INSPECTION"
+  evidence_scope: "RETROSPECTIVE_PSEUDO_OUT_OF_SAMPLE_NO_STRICT_HOLDOUT"
+  objective: "检验收盘前机构性成交压力是否对510300随后两日可执行净收益具有延续预测力"
+
+universe:
+  tradable_symbol: "510300.SH"
+  allowed_assets:
+    - "510300.SH"
+    - "CASH"
+  long_only: true
+  leverage_allowed: false
+  shorting_allowed: false
+  derivatives_allowed: false
+
+data:
+  minute_file: "data/raw/market/510300_1m_tushare_raw.parquet"
+  minute_quality_file: "reports/data_quality/510300_1m_tushare_quality.json"
+  daily_file: "data/raw/market/510300_daily_raw.parquet"
+  dividend_file: "data/reference/510300_dividends.csv"
+  expected_records_per_day: 241
+  signal_asof: "T_DAY_15_00_RECORD_CLOSE"
+  earliest_execution: "T_PLUS_1_DAY_OPEN"
+
+feature:
+  feature_id: "CLOSE_PRESSURE_30M_60D"
+  output_column: "close_pressure_30m_60d"
+  late_window: "14:31:00_TO_15:00:00_INCLUSIVE"
+  late_return_definition: "close_15_00 / close_14_30 - 1"
+  late_amount_share_definition: "amount_14_31_to_15_00 / full_day_amount"
+  normalization: "late_amount_share / prior_60_trading_day_median_late_amount_share"
+  composite_definition: "late_return_30m * normalized_late_amount_share"
+  expected_sign: "positive"
+  economic_hypothesis: "被动资金、组合再平衡与大额执行常集中于收盘前；若收盘压力来自跨日拆单而非一次性冲击，方向应在随后两日延续。"
+  lookback_trading_days: 60
+  minimum_history_trading_days: 60
+  alternative_windows_allowed: false
+
+target:
+  name: "exec_total_return_2d_net"
+  entry: "T_PLUS_1_OPEN"
+  exit: "T_PLUS_2_CLOSE"
+  t_plus_one_compliant: true
+  dividend_treatment: "INCLUDE_CASH_DIVIDENDS_WHEN_RECORD_DATE_IS_ON_OR_AFTER_ENTRY_AND_ON_OR_BEFORE_EXIT"
+  initial_cash_cny: 20000.0
+  lot_size: 100
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  slippage_bps_per_leg: 5.0
+  stamp_duty_rate: 0.0
+  positive_label: "exec_total_return_2d_net > 0"
+
+model:
+  estimator: "STANDARDIZED_L2_LOGISTIC"
+  features:
+    - "close_pressure_30m_60d"
+  logistic_c: 0.1
+  hyperparameter_search_allowed: false
+  training_window: "EXPANDING"
+  minimum_training_samples: 504
+  refit_interval_trading_days: 5
+  label_availability_rule: "TRAIN_ONLY_WHEN_LABEL_END_DATE_LE_SIGNAL_DATE"
+  probability_baseline: "EXPANDING_REALIZED_POSITIVE_RATE_USING_SAME_AVAILABLE_LABELS"
+
+evaluation:
+  minimum_realized_forecasts: 500
+  primary_metrics:
+    auc_minimum: 0.54
+    brier_skill_score_strictly_positive: true
+    calibration_slope_minimum: 0.50
+    calibration_slope_maximum: 1.50
+    top_minus_bottom_mean_net_return_strictly_positive: true
+    fitted_coefficient_expected_sign_required: "MEDIAN_STANDARDIZED_COEFFICIENT_POSITIVE_AND_POSITIVE_SHARE_AT_LEAST_60_PERCENT"
+  temporal_stability:
+    chronological_half_auc_minimum: 0.52
+    chronological_half_brier_skill_strictly_positive: true
+    both_halves_must_pass: true
+  overlap_diagnostic:
+    non_overlapping_offset_count: 2
+    median_auc_minimum: 0.52
+    auc_above_half_share_minimum: 1.0
+  decision_rule: "ALL_GATES_MUST_PASS"
+
+anti_overfitting:
+  research_family: "INTRADAY_DAILY_AGGREGATE_CHALLENGER_1"
+  registered_variant_count: 1
+  no_grid_search: true
+  no_window_search: true
+  no_direction_flip_after_result: true
+  no_same_sample_retuning: true
+  if_rejected: "ARCHIVE_RESULT_AND_STOP_THIS_FEATURE_FAMILY"
+  trading_use_before_all_gates_pass: false

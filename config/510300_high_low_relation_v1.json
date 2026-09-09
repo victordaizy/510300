@@ -1,0 +1,90 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "study_id": "510300_HIGH_LOW_RELATION_V1",
+  "round": 35,
+  "registered_at": "2026-09-07T15:19:20.204868+08:00",
+  "primary": "H2_QUALITY",
+  "candidate_configurations": 3,
+  "candidate_names": {
+    "H1_Z": "高低价斜率标准分",
+    "H2_QUALITY": "拟合质量调整的标准分",
+    "H3_RIGHT": "斜率与质量共同调整"
+  },
+  "regression_window": 20,
+  "normalization_history": 242,
+  "entry_threshold": 0.7,
+  "exit_threshold": -0.7,
+  "nonpositive_slope_exit": true,
+  "new_predictive_model_fits": 0,
+  "specification": {
+    "cooldown": 0,
+    "modes": {
+      "1": {
+        "loss": null,
+        "trail": null,
+        "take": null,
+        "days": null
+      }
+    }
+  },
+  "rules": "docs/510300_HIGH_LOW_RELATION_V1.md",
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "research\\high_low_relation_v1.py",
+      "sha256": "132b5ba5839355f23664663c121e321f08b58d1af12af50786fd9a4b1345b5d9"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "docs\\510300_HIGH_LOW_RELATION_V1.md",
+      "sha256": "602955b35f5eda8fac5954a8f7bbd866f6e9d7ed24ba5574d40fa73c13b20dd2"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "tests\\test_high_low_relation_v1.py",
+      "sha256": "91b82b9f1fd249d92c9dd696433195e69da890e8f60d69ac3a348d18df35d9da"
+    }
+  ]
+}

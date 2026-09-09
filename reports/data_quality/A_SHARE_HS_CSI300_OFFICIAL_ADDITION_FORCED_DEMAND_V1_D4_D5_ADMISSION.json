@@ -1,0 +1,221 @@
+{
+  "decision": "STOP_NO_HISTORICAL_RETURN_EVALUATION",
+  "event_count": 425,
+  "event_status_artifact": {
+    "columns": [
+      "event_key",
+      "cycle_id",
+      "ts_code",
+      "entry_date",
+      "effective_date",
+      "holding_open_day_count",
+      "market_row_coverage",
+      "raw_open_coverage",
+      "raw_close_coverage",
+      "amount_coverage",
+      "suspension_coverage",
+      "market_available_at_coverage",
+      "price_limit_phase_coverage",
+      "linked_adjustment_factor_coverage",
+      "corporate_action_query_covered",
+      "entry_execution_status",
+      "exit_resolution_status",
+      "resolved_exit_date",
+      "data_admission_status",
+      "return_evaluation"
+    ],
+    "path": "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/data_admission_event_status_without_prices.parquet",
+    "rows": 425,
+    "sha256": "7f42e74f0af8df5fdd719a2f89351e034ecd91932e40911adac84d57d0204fb9"
+  },
+  "expected_event_day_rows": 4102,
+  "gates": {
+    "D4": {
+      "component_rule": "EACH_COMPONENT_MUST_MEET_MINIMUM_NOT_AGGREGATE_AVERAGE",
+      "components": {
+        "amount": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "corporate_action_query": {
+          "coverage": 0.09067357512953368,
+          "covered": 35,
+          "required": 386,
+          "status": "FAIL"
+        },
+        "linked_adjustment_factor": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "market_available_at": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "market_rows": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "price_limit_rule_and_fields": {
+          "coverage": 0.0988235294117647,
+          "covered": 84,
+          "required": 850,
+          "status": "FAIL"
+        },
+        "raw_close": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "raw_open": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "suspension": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        }
+      },
+      "failed_components": [
+        "price_limit_rule_and_fields",
+        "corporate_action_query"
+      ],
+      "minimum_coverage": 0.98,
+      "status": "FAIL"
+    },
+    "D5": {
+      "minimum_resolution": 1.0,
+      "required_events": 425,
+      "resolution_fraction": 0.9882352941176471,
+      "resolved_events": 420,
+      "status": "FAIL",
+      "unresolved_status_counts": {
+        "NO_VIEW_EXIT_MARKET_ROW_MISSING": 5
+      }
+    },
+    "D8": {
+      "event_status_output_columns": [
+        "event_key",
+        "cycle_id",
+        "ts_code",
+        "entry_date",
+        "effective_date",
+        "holding_open_day_count",
+        "market_row_coverage",
+        "raw_open_coverage",
+        "raw_close_coverage",
+        "amount_coverage",
+        "suspension_coverage",
+        "market_available_at_coverage",
+        "price_limit_phase_coverage",
+        "linked_adjustment_factor_coverage",
+        "corporate_action_query_covered",
+        "entry_execution_status",
+        "exit_resolution_status",
+        "resolved_exit_date",
+        "data_admission_status",
+        "return_evaluation"
+      ],
+      "forbidden_market_columns_read": [],
+      "price_values_output": false,
+      "return_columns_read": [],
+      "status": "PASS"
+    }
+  },
+  "generated_at": "2026-08-29T03:23:26.570512+08:00",
+  "historical_return_attempts_used": 0,
+  "inputs": {
+    "corporate_action_success_receipts": [
+      {
+        "bytes": 20985,
+        "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_corporate_action_audit/corporate_action_fetch_receipt.json",
+        "sha256": "104c44363cd121901624cfc784a9d4debcb1b2c3721cf58e5deea0ea6bd58299"
+      },
+      {
+        "bytes": 20802,
+        "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_1_corporate_action_audit_calendar_corrected/corporate_action_fetch_receipt.json",
+        "sha256": "4476d846092536bd4d00b2423048137d39104d811ac81fd928422dc655f56ed4"
+      },
+      {
+        "bytes": 26572,
+        "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_2_corporate_action_audit_daily_coverage_corrected/corporate_action_fetch_receipt.json",
+        "sha256": "43cd8f4fd484474316a3d599d545d976a1b63e1ee3326c82f558ca1e6aaa6f6d"
+      }
+    ],
+    "market_input_manifest": {
+      "bytes": 2797,
+      "path": "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/input_manifest.json",
+      "sha256": "3daade13d46baa11c6479e530725e1b7b9c257a0fb8d077bbf62265506c3b4c3"
+    },
+    "market_panel": {
+      "bytes": 574127754,
+      "path": "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet",
+      "sha256": "e7552c0c4ee8c8755e91e8dc2fda6233f4a23ac6e59de633d87ea0b8860312b9"
+    },
+    "market_panel_receipt": {
+      "bytes": 2098,
+      "path": "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/research_panel_receipt.json",
+      "sha256": "e11f90178e9e46a86383a94e32515c93114fc71298aa74f91b77e13301c4524b"
+    },
+    "security_master": {
+      "bytes": 195263,
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/security_master_history.parquet",
+      "sha256": "1032c9521ed9c0c0efb0b23539593082d6ea19dc87525414740692c6d2f78276"
+    },
+    "security_status_intervals": {
+      "bytes": 221444,
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit/security_status_intervals.parquet",
+      "sha256": "ee908ae1479df318fcf449726755b9e911fc8d29df78d9942dffe4c0c730ed50"
+    },
+    "trading_calendar": {
+      "bytes": 59861,
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+      "sha256": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd"
+    }
+  },
+  "market_columns_explicitly_not_read": [
+    "pct_chg",
+    "total_return_open",
+    "total_return_high",
+    "total_return_low",
+    "total_return_close",
+    "return_scale_applied",
+    "return_scale_bridge_applied"
+  ],
+  "market_columns_read": [
+    "con_code",
+    "date",
+    "pre_close",
+    "raw_open",
+    "raw_high",
+    "raw_low",
+    "raw_close",
+    "amount",
+    "volume",
+    "is_suspended",
+    "observed_traded_row",
+    "observation_status",
+    "available_at",
+    "linked_adjustment_factor",
+    "exchange",
+    "market_day_index"
+  ],
+  "return_evaluation": "NOT_ALLOWED",
+  "schema_version": "1.0.0",
+  "source_rescue_allowed": false,
+  "status": "NO_VIEW_DATA_CONTRACT_FAILED",
+  "strategy_id": "A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1",
+  "unique_candidate_security_count": 386
+}

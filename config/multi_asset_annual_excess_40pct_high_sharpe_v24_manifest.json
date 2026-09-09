@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V24_MANIFEST",
+  "status": "FROZEN_BEFORE_FUNDING_MARK_FALLBACK_FACTOR_OUTCOME",
+  "frozen_at": "2026-08-27T09:02:24.193667+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V24",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V23",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v24.yaml": "e505eef4cc791d65263555db1584095a266a9472d72acd54b0f1668988bac47d",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V24_SPEC.md": "73df3c08123cc2abcc9e2500094529102e62015cd77f1441c0e42ed260ba5173",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v24.py": "9bd0038115c5ede29549b95c5670148314589e152aa0c69ce47f8fffc93e2687"
+  },
+  "tracked_content_sha256": "95691bb2d52522351e394c53bc65ccbc25830a56bfdba3741c93d1a2b309e75b",
+  "parent_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V23_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v23_manifest.json",
+    "manifest_sha256": "c90dcef11e832953a7b9bb93f96efbab013e1d3ee903d9e03d904f8f226e8f83",
+    "tracked_content_sha256": "95602329905489c016fe8ba112b67bd547a9e3d47c4c94e559f5cfe0a8cf5322"
+  },
+  "v13_verification": {
+    "status": "PASS_CURRENT_QUARTER_SIGNAL_PERPETUAL_FACTOR_V13_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/digital_asset_current_quarter_signal_perpetual_factor_v13_manifest.json",
+    "manifest_sha256": "6b24de0f9783619a66c688ffa262de259911664a5fc4345a3eef7b580b7cb6da",
+    "tracked_content_sha256": "8fe8784cda5457be58db5572bb640595130341475e28a90a9cdb81811774f38d",
+    "tracked_file_count": 6,
+    "dependency_statuses": {
+      "parent": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V23_MANIFEST_VERIFIED",
+      "v11_signal_engine": "PASS_CURRENT_QUARTER_BASIS_FACTOR_V11_MANIFEST_VERIFIED",
+      "v9_perpetual_engine": "PASS_CROSS_SECTIONAL_PERPETUAL_BASIS_V9_MANIFEST_VERIFIED",
+      "evaluator": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+    }
+  },
+  "v13_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "error_type": true,
+      "error": true,
+      "no_performance": true,
+      "manifest_status": true,
+      "tracked_hash": true,
+      "v13_manifest_verified": true
+    },
+    "all_checks_pass": true,
+    "report_sha256": "d65f4cc53dc537fd9a4befa0156258c3b603008536b4509b8d0c5dd120be7777",
+    "manifest_sha256": "6b24de0f9783619a66c688ffa262de259911664a5fc4345a3eef7b580b7cb6da",
+    "performance_metrics_available": false
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DIGITAL_ASSET_CURRENT_QUARTER_SIGNAL_PERPETUAL_FUNDING_MARK_FALLBACK",
+    "candidate_id": "DIGITAL_ASSET_CURRENT_QUARTER_SIGNAL_PERPETUAL_FACTOR_V14",
+    "fixed_symbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "visible_start": "2021-09-01",
+    "visible_end": "2026-08-14",
+    "signal": "FIVE_DAY_MEAN_LOG_SPOT_DIV_CURRENT_QUARTER_FUTURES_BASIS",
+    "long_rule": "LONG_HIGHER_MEAN_BASIS_PERPETUAL",
+    "short_rule": "SHORT_LOWER_MEAN_BASIS_PERPETUAL",
+    "target_long_gross": 0.45,
+    "target_short_gross": 0.45,
+    "target_total_gross": 0.9,
+    "delivery_day_policy": "CASH_FROM_00UTC_THROUGH_23UTC",
+    "actual_funding_rate_history_required": true,
+    "funding_notional_price_policy": "OFFICIAL_MARK_PRICE_ELSE_SAME_SETTLEMENT_HOUR_PERPETUAL_OPEN",
+    "turnover_lookback_observed_venue_hours": 168,
+    "maximum_order_fraction": 0.001,
+    "terminal_winddown_calendar_days": 7,
+    "base_total_perpetual_cost_bps_per_leg": 4.0,
+    "stress_total_perpetual_cost_bps_per_leg": 16.0,
+    "base_funding_receipt_multiplier": 1.0,
+    "base_funding_payment_multiplier": 1.0,
+    "stress_funding_receipt_multiplier": 0.75,
+    "stress_funding_payment_multiplier": 1.25,
+    "parameter_grid_search_allowed": false
+  },
+  "basis_rank_or_return_computed_during_freeze": false,
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

@@ -1,0 +1,220 @@
+{
+  "program_id": "510300_CONDITIONAL_MECHANISM_MAP_V1",
+  "version": "1.0.0",
+  "status": "STAGE_2_COMPLETE_CONDITIONAL_MAP_DESCRIPTIVE_ONLY",
+  "completed_at": "2026-08-31T19:05:44.740004+08:00",
+  "protocol_manifest_payload_sha256": "4b14f716ada01ca3067e0c18c7e007af6e58dc466a1f2d05ad48e98b3c1fd9e7",
+  "condition_state_receipt_payload_sha256": "80faba94eba684fd152a77406cda54b63bf5922814acba69d0db4542cce0237f",
+  "condition_state_panel_sha256": "95e6e725df3fcbe40ed91a1d06e11049f0fd8fe269aca2aa77ce95bfb398d5a8",
+  "evaluated_observations": {
+    "path": "reports/research/510300_conditional_mechanism_map_v1_observations.parquet",
+    "sha256": "3ba62da2ac1feba050554a372e61249907ca8a2c0edc023c928ab3595f5f6e0f",
+    "rows": 140,
+    "future_return_observed_counts": {
+      "20D": 138,
+      "60D": 137,
+      "120D": 134
+    }
+  },
+  "condition_map": {
+    "path": "reports/research/510300_conditional_mechanism_map_v1.parquet",
+    "sha256": "8788860e074ff8cc93f23586f9bb078a9582baaa6e23a5dc0dfee9cf47b056ca",
+    "rows": 126,
+    "reliability_counts": {
+      "PASS_DESCRIPTIVE_COVERAGE": 39,
+      "NO_VIEW_NO_OBSERVED_CONDITION_ORIGINS": 24,
+      "PARTIAL_DESCRIPTIVE_COVERAGE_SMALL_SAMPLE": 24,
+      "NO_VIEW_INSUFFICIENT_CONDITION_OBSERVATIONS": 21,
+      "PARTIAL_DESCRIPTIVE_COVERAGE_PARENT_STATE_LIMITATIONS_AND_SMALL_SAMPLE": 10,
+      "PARTIAL_DESCRIPTIVE_COVERAGE_PARENT_STATE_LIMITATIONS": 7,
+      "PARTIAL_DESCRIPTIVE_COVERAGE_CENSORED_FORWARD_COVERAGE_AND_SMALL_SAMPLE": 1
+    }
+  },
+  "archetype_origin_counts": {
+    "MOMENTUM_FUNDAMENTAL_SUPPORT": 13,
+    "REVERSAL_ECONOMIC_BASIS": 5,
+    "VALUE_SAFETY_MARGIN": 6,
+    "TRUE_CONTRACTION_DECLINE": 11,
+    "TEMPORARY_LIQUIDITY_SHOCK_CANDIDATE": 10
+  },
+  "archetype_conclusions": [
+    {
+      "archetype_id": "MOMENTUM_FUNDAMENTAL_SUPPORT",
+      "frozen_definition": "TRAILING_60D_POSITIVE_AND_CF_IMPROVING_DR_EASING_AND_RC_SUPPORTIVE",
+      "primary_evaluation_horizon_market_days": 60,
+      "expected_forward_direction": "POSITIVE",
+      "conclusion": "NOT_STABLE_ACROSS_FROZEN_SCOPES",
+      "scope_evidence": {
+        "FULL_2015_TO_CUTOFF": {
+          "observed_origin_count": 13,
+          "distinct_calendar_years": 7,
+          "mean_total_return": -0.006127253335766392,
+          "median_total_return": -0.04689242794748982,
+          "reliability_status": "PARTIAL_DESCRIPTIVE_COVERAGE_PARENT_STATE_LIMITATIONS",
+          "directional_result": "OPPOSITE_TO_EXPECTED_DIRECTION"
+        },
+        "USER_PRIMARY_2021_TO_CUTOFF": {
+          "observed_origin_count": 7,
+          "distinct_calendar_years": 4,
+          "mean_total_return": -0.05828147917996234,
+          "median_total_return": -0.053383502851431563,
+          "reliability_status": "PARTIAL_DESCRIPTIVE_COVERAGE_PARENT_STATE_LIMITATIONS_AND_SMALL_SAMPLE",
+          "directional_result": "OPPOSITE_TO_EXPECTED_DIRECTION"
+        }
+      },
+      "strategy_claim_allowed": false
+    },
+    {
+      "archetype_id": "REVERSAL_ECONOMIC_BASIS",
+      "frozen_definition": "TRAILING_60D_NEGATIVE_AND_CF_IMPROVING_DR_EASING_AND_RC_SUPPORTIVE",
+      "primary_evaluation_horizon_market_days": 60,
+      "expected_forward_direction": "POSITIVE",
+      "conclusion": "NO_VIEW_INSUFFICIENT_RELIABLE_OBSERVATIONS",
+      "scope_evidence": {
+        "FULL_2015_TO_CUTOFF": {
+          "observed_origin_count": 5,
+          "distinct_calendar_years": 3,
+          "mean_total_return": 0.03745683201489314,
+          "median_total_return": 0.028505822399711667,
+          "reliability_status": "NO_VIEW_INSUFFICIENT_CONDITION_OBSERVATIONS",
+          "directional_result": "ALIGNED_WITH_EXPECTED_DIRECTION"
+        },
+        "USER_PRIMARY_2021_TO_CUTOFF": {
+          "observed_origin_count": 3,
+          "distinct_calendar_years": 2,
+          "mean_total_return": 0.029463251242722716,
+          "median_total_return": 0.02383104551239268,
+          "reliability_status": "NO_VIEW_INSUFFICIENT_CONDITION_OBSERVATIONS",
+          "directional_result": "ALIGNED_WITH_EXPECTED_DIRECTION"
+        }
+      },
+      "strategy_claim_allowed": false
+    },
+    {
+      "archetype_id": "VALUE_SAFETY_MARGIN",
+      "frozen_definition": "ERP_EXPANDING_Z_NONNEGATIVE_AND_CF_IMPROVING_DR_EASING_AND_RC_NOT_CONSTRAINING",
+      "primary_evaluation_horizon_market_days": 120,
+      "expected_forward_direction": "POSITIVE",
+      "conclusion": "NO_VIEW_INSUFFICIENT_RELIABLE_OBSERVATIONS",
+      "scope_evidence": {
+        "FULL_2015_TO_CUTOFF": {
+          "observed_origin_count": 6,
+          "distinct_calendar_years": 3,
+          "mean_total_return": 0.039116860115058584,
+          "median_total_return": 0.019869973933030805,
+          "reliability_status": "PARTIAL_DESCRIPTIVE_COVERAGE_SMALL_SAMPLE",
+          "directional_result": "ALIGNED_WITH_EXPECTED_DIRECTION"
+        },
+        "USER_PRIMARY_2021_TO_CUTOFF": {
+          "observed_origin_count": 1,
+          "distinct_calendar_years": 1,
+          "mean_total_return": -0.074418972097823,
+          "median_total_return": -0.074418972097823,
+          "reliability_status": "NO_VIEW_INSUFFICIENT_CONDITION_OBSERVATIONS",
+          "directional_result": "OPPOSITE_TO_EXPECTED_DIRECTION"
+        }
+      },
+      "strategy_claim_allowed": false
+    },
+    {
+      "archetype_id": "TRUE_CONTRACTION_DECLINE",
+      "frozen_definition": "TRAILING_20D_NEGATIVE_AND_CF_DETERIORATING_DR_TIGHTENING_AND_RC_CONSTRAINING",
+      "primary_evaluation_horizon_market_days": 60,
+      "expected_forward_direction": "NEGATIVE",
+      "conclusion": "NOT_STABLE_ACROSS_FROZEN_SCOPES",
+      "scope_evidence": {
+        "FULL_2015_TO_CUTOFF": {
+          "observed_origin_count": 11,
+          "distinct_calendar_years": 7,
+          "mean_total_return": 0.040137211672050005,
+          "median_total_return": 0.04361738241223079,
+          "reliability_status": "PARTIAL_DESCRIPTIVE_COVERAGE_SMALL_SAMPLE",
+          "directional_result": "OPPOSITE_TO_EXPECTED_DIRECTION"
+        },
+        "USER_PRIMARY_2021_TO_CUTOFF": {
+          "observed_origin_count": 7,
+          "distinct_calendar_years": 4,
+          "mean_total_return": 0.04214953899638331,
+          "median_total_return": 0.06855553015800453,
+          "reliability_status": "PARTIAL_DESCRIPTIVE_COVERAGE_SMALL_SAMPLE",
+          "directional_result": "OPPOSITE_TO_EXPECTED_DIRECTION"
+        }
+      },
+      "strategy_claim_allowed": false
+    },
+    {
+      "archetype_id": "TEMPORARY_LIQUIDITY_SHOCK_CANDIDATE",
+      "frozen_definition": "TRAILING_20D_NEGATIVE_AND_CF_IMPROVING_DR_TIGHTENING_AND_RC_CONSTRAINING",
+      "primary_evaluation_horizon_market_days": 60,
+      "expected_forward_direction": "POSITIVE",
+      "conclusion": "NO_VIEW_INSUFFICIENT_RELIABLE_OBSERVATIONS",
+      "scope_evidence": {
+        "FULL_2015_TO_CUTOFF": {
+          "observed_origin_count": 10,
+          "distinct_calendar_years": 6,
+          "mean_total_return": 0.008455418709942219,
+          "median_total_return": -0.007390482800403164,
+          "reliability_status": "PARTIAL_DESCRIPTIVE_COVERAGE_SMALL_SAMPLE",
+          "directional_result": "MIXED_MEAN_MEDIAN_DIRECTION"
+        },
+        "USER_PRIMARY_2021_TO_CUTOFF": {
+          "observed_origin_count": 5,
+          "distinct_calendar_years": 3,
+          "mean_total_return": -0.00681917275301851,
+          "median_total_return": 0.0020880429343042017,
+          "reliability_status": "NO_VIEW_INSUFFICIENT_CONDITION_OBSERVATIONS",
+          "directional_result": "MIXED_MEAN_MEDIAN_DIRECTION"
+        }
+      },
+      "strategy_claim_allowed": false
+    }
+  ],
+  "latest_state": {
+    "latest_state_origin": {
+      "origin": "2026-08-14",
+      "origin_completion_status": "PARTIAL_MONTH_STATE_ONLY",
+      "cf_dr_quadrant": "CF_DETERIORATING_DR_TIGHTENING",
+      "rc_direction": "RC_SUPPORTIVE",
+      "rc_interaction_role": "WEAKENS_TRUE_CONTRACTION",
+      "condition_quality_status": "PARTIAL_PARENT_STATE_LIMITATION_CURRENT_PARTIAL_MONTH",
+      "cf_news": -0.5317190561436208,
+      "discount_rate_easing_news": -0.05916526186512616,
+      "risk_capacity_news": 0.1762272666120488
+    },
+    "latest_complete_eligible_origin": {
+      "origin": "2026-07-31",
+      "origin_completion_status": "COMPLETE_CALENDAR_MONTH_LAST_TRADING_SESSION",
+      "cf_dr_quadrant": "CF_DETERIORATING_DR_EASING",
+      "rc_direction": "RC_CONSTRAINING",
+      "rc_interaction_role": "WEAKENS_DISCOUNT_RATE_REPAIR",
+      "condition_quality_status": "PASS_FROZEN_PARENT_STATES",
+      "cf_news": -0.2778320754822242,
+      "discount_rate_easing_news": 0.14262461761642975,
+      "risk_capacity_news": -0.38821841907075805
+    },
+    "model_position_target": "UNSET"
+  },
+  "parent_limitations_propagated": {
+    "financial_revision": "CURRENT_SECONDARY_AGGREGATOR_VALUES_MAY_REFLECT_LATER_REVISIONS_NOTICE_DATE_IS_PRIMARY_CLOCK",
+    "operating_cashflow_crosscheck": "NO_INDEPENDENT_LOCAL_CROSSCHECK",
+    "historical_index_weights": "MARKET_CAP_PROXY_PRIMARY_OFFICIAL_HISTORICAL_WEIGHT_NOT_VERSION_PROVEN",
+    "component_dividend_yield": "NO_VIEW",
+    "cashflow_duration": "PROXY_ONLY",
+    "risk_capacity_clocks": "CREDIT_SPREAD_AND_ETF_SHARE_HISTORY_NOT_FULLY_VERSION_PROVEN",
+    "overlapping_forward_returns": "MONTHLY_ORIGINS_WITH_60D_AND_120D_OVERLAP_NOT_INDEPENDENT",
+    "archetype_semantics": "MECHANISM_CANDIDATES_NOT_CAUSAL_IDENTIFICATION_OR_TRADING_RULES"
+  },
+  "next_stage_status": "ALLOWED_TO_PREREGISTER_STAGE_3_PER_USER_DIRECTION_WITHOUT_PROMOTING_PARTIAL_OR_NO_VIEW_RESULTS",
+  "predictive_model_validated": false,
+  "strategy_validated": false,
+  "return_evaluation": "DESCRIPTIVE_CONDITIONAL_TOTAL_RETURN_ONLY",
+  "portfolio_evaluation_allowed": false,
+  "nav_calculated": false,
+  "sharpe_calculated": false,
+  "sharpe_target_1_2_achieved": false,
+  "model_position_target": "UNSET",
+  "order_generation_allowed": false,
+  "paper_shadow_authorized": false,
+  "live_authorized": false,
+  "status_payload_sha256": "3d2f547f93e666e5bcaa111cc261547729d610898ed0c5b7d83c20fa813eb951"
+}

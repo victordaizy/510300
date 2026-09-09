@@ -1,0 +1,120 @@
+{
+  "project_id": "510300_INDEX_DRIVER_ATTRIBUTION_V1_3",
+  "version": "1.3.0",
+  "status": "PASS_ATTRIBUTION_ONLY_WITH_NO_VIEW_DAYS",
+  "generated_at": "2026-08-18T01:47:06.336806+08:00",
+  "data_start": "2019-12-23",
+  "data_cutoff": "2026-08-14",
+  "evidence_scope": "ATTRIBUTION_ONLY_NOT_PREDICTION",
+  "row_counts": {
+    "cross_section": 483300,
+    "industry": 44296,
+    "daily": 1611,
+    "valid_attribution_days": 1489,
+    "no_view_days": 122
+  },
+  "quality_summary": {
+    "minimum_price_coverage_weight": 0.97159,
+    "minimum_return_coverage_weight": 0.0,
+    "minimum_industry_coverage_weight": 0.97861,
+    "maximum_weight_snapshot_age_calendar_days": 35,
+    "maximum_contribution_identity_absolute_error": 1.3877787807814457e-17,
+    "failure_category_counts": {
+      "PRICE_COVERAGE_BELOW_GATE": 121,
+      "PRICE_COVERAGE_BELOW_GATE|RETURN_COVERAGE_BELOW_GATE|CONTRIBUTION_IDENTITY_UNAVAILABLE": 1
+    }
+  },
+  "latest_attribution": {
+    "date": "2026-08-14",
+    "output": "ATTRIBUTION",
+    "failure_category": "PASS",
+    "weight_snapshot_date": "2026-07-31",
+    "weight_snapshot_age_calendar_days": 14,
+    "leading_industry_l1": "通信",
+    "leading_industry_contribution_1d": 0.00249230065204565,
+    "snapshot_weighted_constituent_return_1d": -4.044097052562415e-05,
+    "unattributed_contribution_1d": -3.971313417991396e-06,
+    "top_drivers": [
+      {
+        "industry_l1": "通信",
+        "industry_weight": 0.08549,
+        "industry_return_1d": 0.029153124950820564,
+        "weighted_return_contribution_1d": 0.00249230065204565
+      },
+      {
+        "industry_l1": "电子",
+        "industry_weight": 0.17492,
+        "industry_return_1d": 0.005363173389854759,
+        "weighted_return_contribution_1d": 0.0009381262893533944
+      },
+      {
+        "industry_l1": "有色金属",
+        "industry_weight": 0.05924,
+        "industry_return_1d": 0.01022201145373802,
+        "weighted_return_contribution_1d": 0.0006055519585194403
+      },
+      {
+        "industry_l1": "计算机",
+        "industry_weight": 0.03756999999999999,
+        "industry_return_1d": 0.006447236308171713,
+        "weighted_return_contribution_1d": 0.0002422226680980112
+      },
+      {
+        "industry_l1": "建材",
+        "industry_weight": 0.0052,
+        "industry_return_1d": 0.03744054511256299,
+        "weighted_return_contribution_1d": 0.00019469083458532755
+      }
+    ]
+  },
+  "taxonomy": {
+    "path": "data/raw/reference/a_share_citic_industry_point_in_time.parquet",
+    "required_columns": [
+      "con_code",
+      "industry_l1",
+      "in_date",
+      "out_date",
+      "classification_usage",
+      "source"
+    ],
+    "taxonomy": "CITIC_L1_POINT_IN_TIME",
+    "interval_rule": "in_date <= date < out_date；out_date为空表示持续有效",
+    "same_l1_overlap_rule": "同证券、同一级行业、同来源、同分类用途的重叠或相邻区间合并",
+    "conflicting_l1_overlap_rule": "最新in_date优先，旧一级行业在新一级行业in_date截断",
+    "same_latest_in_date_conflict_rule": "窗口内硬失败",
+    "fallback_taxonomy": null,
+    "current_snapshot_backfill_allowed": false,
+    "research_window_prefilter_rule": "in_date <= data_cutoff 且 (out_date为空或out_date > data_start)"
+  },
+  "semantics": {
+    "component_contribution": "snapshot_weight_decimal * constituent_total_return_1d",
+    "industry_contribution": "同一行业有效成分贡献之和",
+    "driver": "当日快照加权贡献最大的一级行业；不是未来预测",
+    "no_view": "数据门槛失败；不得解释为看空或交易动作",
+    "official_index_return_claim_allowed": false
+  },
+  "governance": {
+    "future_return_targets_defined": false,
+    "future_return_reading_allowed": false,
+    "predictive_threshold_search_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false,
+    "missing_input_output": "NO_VIEW"
+  },
+  "manifest_sha256": "ee0eb66a6afa7fcfe9503b6ebca1677d5583929ab87168914fd7a73463c2056f",
+  "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+  "input_hashes": {
+    "data/raw/constituents/000300_historical_weights.parquet": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+    "data/raw/constituents/000300_constituent_daily.parquet": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+    "data/raw/reference/a_share_citic_industry_point_in_time.parquet": "773364a72bced848b5cc54ba1e95360a729686954c6e435e07972faaf8f795ce"
+  },
+  "output_hashes": {
+    "data/features/000300_point_in_time_index_cross_section_daily_v1_3.parquet": "7dcdac53fded656cfc428b666d71081c4013ea415c13606afa30d7cae3879032",
+    "data/features/000300_industry_driver_attribution_daily_v1_3.parquet": "a3b744c6350f284fda0fc78615fe57b0a2aacc8bad473166f22550de2549707f",
+    "data/features/000300_index_driver_summary_daily_v1_3.parquet": "b84d9c4b4bbdbe1d423b939bb1fa9c2377b6b4f6ae618353fe799f7665019d38"
+  },
+  "parent_manifest_sha256": "bcbb4f41f757917cf474dd6ecd738113b0a8cf64b4c117d0e7c669bb36a15426",
+  "implementation_revision": "RESEARCH_WINDOW_FILTER_THEN_LATEST_EFFECTIVE_CITIC_L1"
+}

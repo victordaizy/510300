@@ -1,0 +1,29 @@
+symbol: "510300.SH"
+frequency_minutes: 15
+adjustment: "raw"
+start_date: "2021-08-12"
+end_date: null
+timezone: "Asia/Shanghai"
+
+tdx:
+  servers:
+    - host: "180.153.18.172"
+      port: 80
+    - host: "180.153.18.170"
+      port: 7709
+  direct_page_size: 800
+  transaction_page_size: 2000
+  maximum_pages: 40
+  timeout_seconds: 8
+  price_divisor: 10
+  volume_multiplier: 100
+  worker_count: 4
+  checkpoint_batch_days: 48
+  maximum_retries_per_day: 3
+
+construction_policy:
+  recent: "使用通达信原生15分钟K线"
+  older: "超出原生K线保留窗口的日期，由通达信历史成交记录重建15分钟OHLCV"
+  amount: "重建区间的成交额为逐条成交价乘成交量之和，属于估算字段"
+  post_close: "15分钟主序列止于15:00，不混入15:05至15:30盘后固定价格成交"
+

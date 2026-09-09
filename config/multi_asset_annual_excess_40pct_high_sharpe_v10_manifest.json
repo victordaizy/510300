@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10_MANIFEST",
+  "status": "FROZEN_BEFORE_TERMINAL_CAPACITY_WINDDOWN_OUTCOME",
+  "frozen_at": "2026-08-27T05:41:02.477228+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v10.yaml": "79cc567761fae3b2ce14260605bc533c8d58a5ae06d66e7643595e963ac29605",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10_SPEC.md": "0d1a4f9ad96b6ac68ea650eb4f2ad8b82f1792e8f1a6537e39f57c0d5688559c",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v10.py": "64d4c04e5a9d8c1073bb32efbd2ae52962e158c4420c5c0a671d8ab47faf0d59"
+  },
+  "tracked_content_sha256": "8aea1649cd48f194b7d5bb1987c600366211ffdc97f847e500517807653ae624",
+  "parent_manifest_sha256": "3464d7020762a5fea9dd3f78d2bec7f7c8d25e141a8c19fa0aac443a180a1b21",
+  "v3_manifest_sha256": "d9741aab1b2a4253e7bdb2540d6a06f7d37a5be046e8e06385c734e2f2945e8c",
+  "parent_manifest_verification_at_freeze": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V9_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v9_manifest.json",
+    "manifest_sha256": "3464d7020762a5fea9dd3f78d2bec7f7c8d25e141a8c19fa0aac443a180a1b21",
+    "tracked_content_sha256": "f63ddc378a20650ac1512b6cd164b83b13f44c84cf128663bfb470b6519949c1",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V8_MANIFEST_VERIFIED",
+    "v2_manifest_status": "PASS_US_LIQUID_TREASURY_V2_MANIFEST_VERIFIED"
+  },
+  "v3_manifest_verification_at_freeze": {
+    "status": "PASS_US_CAPACITY_AWARE_V3_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/us_multi_asset_capacity_aware_absolute_momentum_v3_manifest.json",
+    "manifest_sha256": "d9741aab1b2a4253e7bdb2540d6a06f7d37a5be046e8e06385c734e2f2945e8c",
+    "tracked_content_sha256": "0ea6c93300dc0417a57278d3c470296909f676f5731fe618a662fc9f55e3d37e",
+    "tracked_file_count": 6,
+    "dependency_statuses": {
+      "parent": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V9_MANIFEST_VERIFIED",
+      "v2": "PASS_US_LIQUID_TREASURY_V2_MANIFEST_VERIFIED",
+      "evaluator": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+    }
+  },
+  "v3_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "error": true,
+      "performance_unavailable": true,
+      "replication_closed": true
+    },
+    "report_path": "reports/research/us_multi_asset_capacity_aware_absolute_momentum_v3_visible.json",
+    "report_sha256": "2ccd7b533eef9ff257a68f0c38f20494f8b6994161010d6e9a475ba4cb80bd89",
+    "error": "评价期末容量内无法完整退出美国ETF持仓：UPRO"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_tickers": [
+      "UPRO",
+      "TQQQ",
+      "TLT",
+      "UGL"
+    ],
+    "selection_formula_unchanged_from_v3": true,
+    "maximum_order_fraction_unchanged": 0.0005,
+    "terminal_winddown_common_trading_days": 20,
+    "stop_new_entries_at_winddown_start": true,
+    "daily_capacity_slices_until_visible_end": true,
+    "terminal_positions_must_be_zero": true
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

@@ -1,0 +1,111 @@
+{
+  "incident_id": "V3_FORWARD_2_20260818_FINGERPRINT",
+  "investigated_at": "2026-08-19",
+  "model_id": "V3_FORWARD_2",
+  "run_date": "2026-08-18",
+  "incident_status": "FAILED_FINGERPRINT_SEMANTIC_CHANGE_REQUIRES_NEW_MODEL_ID",
+  "equivalence_certificate": false,
+  "recommended_successor_model_id": "V3_FORWARD_3",
+  "old_manifest": {
+    "path": "config/v3_forward_2_manifest.json",
+    "sha256": "7622574c550cf9993bbd3736c6030df5fbcd8960bb801f9a22af6d97d9e88d35",
+    "modified_by_incident_response": false,
+    "matches_head": true,
+    "matches_frozen_baseline_commit": true
+  },
+  "git_evidence": {
+    "frozen_baseline_commit": "bab9147d8695cf9919d6a3aa5b398eaeebcb6276",
+    "post_freeze_observability_commit": "ffcb02cb7ff2d54722f0a424394ae58ea5a612eb",
+    "investigation_head": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2"
+  },
+  "frozen_object_summary": {
+    "total": 11,
+    "matching": 8,
+    "mismatching": 3,
+    "byte_only_non_semantic_mismatches": 0,
+    "engineering_semantic_mismatches": 2,
+    "model_semantic_mismatches": 1
+  },
+  "mismatches": [
+    {
+      "path": "scripts/refresh_v3_forward_2_inputs.py",
+      "expected_sha256": "803a179788a16f0c28905904bfc54c16d627376c1df58e3e7c14441244128852",
+      "actual_sha256": "332e77accb7bb529619c2a4000dec7a0045eadf766ea03bc9ed08f5d2295741d",
+      "classification": "COLLECTION_ENGINEERING_SEMANTIC_CHANGE",
+      "source": "git commit ffcb02cb7ff2d54722f0a424394ae58ea5a612eb",
+      "description": "新增原子进度状态、分步计时及财务断点遥测。"
+    },
+    {
+      "path": "scripts/run_v3_forward_2_daily.py",
+      "expected_sha256": "4753694d8769fabe025428a3b3f845448a6405f901e1abec24c2ed240ba9434a",
+      "actual_sha256": "999d7fedeabd2297ffcf7bb0e9a90c5ddf7ca84e98848eb905007582a318f2f5",
+      "classification": "RUNNER_ENGINEERING_SEMANTIC_CHANGE",
+      "source": "git commit ffcb02cb7ff2d54722f0a424394ae58ea5a612eb",
+      "description": "新增外层运行状态、分步计时及失败传播。"
+    },
+    {
+      "path": "data/raw/reference/a_share_sw_industry_static.parquet",
+      "expected_sha256": "ffb84191ea84a3a86b7acfb6df5242267630ad54cf17146a8570352c69649bd3",
+      "actual_sha256": "dac8502137bc6dd651300eb86d11d5412cec9ef2de700286513207f7c11b52b6",
+      "classification": "MODEL_INPUT_SEMANTIC_CHANGE",
+      "source": "scripts/download_return_tail_auxiliary_data.py:290-293",
+      "source_report": "reports/data_quality/return_tail_auxiliary_acquisition.json",
+      "source_report_sha256": "f7b0aff40c4608041159f039deb6ff99f58cd4698c60856abf59aacfaf8f797f",
+      "original_backup_path": "data/raw/reference/a_share_sw_industry_static_pre_pit.parquet",
+      "original_backup_sha256": "ffb84191ea84a3a86b7acfb6df5242267630ad54cf17146a8570352c69649bd3",
+      "before": {
+        "rows": 4430,
+        "columns": 10,
+        "unique_symbols": 4430,
+        "classification_usage": "EXPLANATORY_STATIC_CLASSIFICATION"
+      },
+      "after": {
+        "rows": 1298,
+        "columns": 13,
+        "unique_symbols": 947,
+        "duplicate_symbol_rows": 631,
+        "classification_usage": "POINT_IN_TIME_INTERVAL"
+      },
+      "model_relevance": {
+        "common_symbols": 886,
+        "changed_level_1_industry_symbols": 41,
+        "latest_weight_date": "2026-07-31",
+        "latest_weight_symbols": 300,
+        "latest_weight_common_symbols": 276,
+        "latest_weight_changed_level_1_industry_symbols": 6,
+        "latest_weight_missing_in_new_mapping": 24,
+        "downstream_use": "一级行业决定 FINANCIAL_ROE、CYCLICAL_MARGIN 或 OTHER_BLEND 正常化方法。"
+      }
+    }
+  ],
+  "failed_run": {
+    "started_at": "2026-08-18T20:07:06.382395+08:00",
+    "duration_seconds": 1482.9539769999974,
+    "status": "FAILED",
+    "failed_step": "ridge_and_forward_output",
+    "error": "ValueError: 冻结文件指纹不一致：scripts/refresh_v3_forward_2_inputs.py；必须创建新模型版本",
+    "daily_status_path": "paper/v3_forward_2_daily_run_status.json",
+    "daily_status_sha256": "0856752613fcc978d45810d8145297e426506782950f42bc78c6af769da9fbdb",
+    "input_refresh_status": "SUCCESS",
+    "input_refresh_status_path": "paper/v3_forward_2_input_refresh_status.json",
+    "input_refresh_status_sha256": "6644502d81f3f7dc2818f5e945156c2669f93badb27ffe1d0bfeeedb1d88cdf2"
+  },
+  "output_presence_at_investigation": {
+    "data_forward_v3_forward_2_directory": false,
+    "paper_v3_forward_2_latest_status": false,
+    "reports_forward_v3_forward_2_directory": false,
+    "consumable_signal": false,
+    "outcome": false,
+    "shadow_position": false,
+    "monitor_report": false
+  },
+  "safety_disposition": {
+    "old_manifest_modified": false,
+    "frozen_objects_restored_or_modified": false,
+    "historical_signal_backfilled": false,
+    "equivalence_claimed": false,
+    "new_manifest_created": false,
+    "live_trading_authorized": false,
+    "required_next_step": "仅在新协议、独立不可变输入路径及完整 manifest 于首个可捕获市场数据前冻结后，方可启动 V3_FORWARD_3。"
+  }
+}

@@ -1,0 +1,118 @@
+protocol:
+  formal_candidate_id: 510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1
+  data_correction_id: 510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1_0_3
+  diagnostic_id: 510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_DIAGNOSTIC_PROXY_2021_V1
+  version: 1.0.0
+  research_stage: DIAGNOSTIC_ONLY_UNRELIABLE_INPUTS
+  evidence_cutoff: '2026-08-14'
+  outcome_blind_panel_start: '2015-01-05'
+  diagnostic_training_start: '2016-10-10'
+  oos_start: '2021-01-01'
+  oos_end: '2026-08-14'
+  trade_assets_if_ever_promoted: [510300.SH, CASH_CNY]
+  formal_candidate_status_may_be_promoted: false
+  paper_signal_allowed: false
+  shadow_signal_allowed: false
+  position_mapping_allowed: false
+  portfolio_evaluation_allowed: false
+  order_generation_allowed: false
+  broker_connection_allowed: false
+  live_trading_authorized: false
+
+inputs:
+  facts: data/staging/a_share_hs_first_preliminary_core_earnings_surprise_drift_v1/preliminary_earnings_facts_v1.parquet
+  facts_receipt: data/raw/cninfo/a_share_hs_first_preliminary_core_earnings_facts_v1_receipt.json
+  official_daily_membership: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+  membership_independent_audit: reports/audit/510300_csi300_pit_membership_weights_source_remediation_v1_independent_audit.json
+  monthly_weights: data/raw/constituents/000300_historical_weights.parquet
+  monthly_weights_status: reports/data_quality/000300_point_in_time_weights_status.json
+  trading_calendar: data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet
+  etf_daily: data/raw/market/510300_daily_2015_v2.parquet
+  dividends: data/reference/510300_dividends.csv
+
+outcome_blind_contract:
+  notice_clock: official_publication_date
+  availability_rule: FIRST_OPEN_SESSION_STRICTLY_AFTER_NOTICE_DATE
+  membership_rule: EXACT_OFFICIAL_REPLAY_MEMBERSHIP_ON_AVAILABILITY_DATE
+  weight_rule: LATEST_MONTH_END_SNAPSHOT_STRICTLY_BEFORE_NOTICE_DATE
+  maximum_weight_age_calendar_days: 45
+  first_public_required_status: PASS_FIRST_NUMERIC_CORE_EVENT
+  fact_required_status: PASS_COMPLETE_CUMULATIVE_CORE_PARENT_NET_PROFIT_FACT
+  negative_fact_rule: CORE_PROFIT_RANGE_UPPER_BOUND_STRICTLY_BELOW_ZERO
+  ambiguous_sign_rule: NO_VIEW
+  rolling_feature_windows_trading_days: [5, 20]
+  missing_fact_rule: EXPLICIT_ZERO_EVENT_COUNT_WITH_COVERAGE_FIELDS
+  market_price_reads_allowed: false
+  future_return_reads_allowed: false
+
+formal_hard_gates:
+  required_fact_automation_status: PASS_OFFICIAL_TARGET_PDF_AND_CORE_FACT_AUTOMATION_V1_HUMAN_REVIEW_PENDING
+  minimum_fact_extraction_success_rate: 0.90
+  formal_dual_human_review_required: true
+  minimum_first_public_weighted_fact_count: 300
+  minimum_years_with_20_first_public_weighted_facts: 8
+  version_proven_pit_weights_required: true
+
+diagnostic_proxy_model:
+  future_label_horizon_trading_days: 10
+  future_label_rule: NEXT_OPEN_TO_TENTH_FOLLOWING_OPEN_TOTAL_RETURN_STRICTLY_BELOW_ZERO
+  initial_training_observations: 504
+  refit_frequency: CALENDAR_QUARTER
+  calibration_observations: 126
+  label_embargo_trading_days: 10
+  test_mode: ANCHORED_EXPANDING_WALK_FORWARD
+  base_model: LOGISTIC_REGRESSION_L2_FIXED_C_1
+  probability_calibration: LOGISTIC_SIGMOID_FIXED_C_1
+  random_seed: 510300
+  threshold_grid:
+    start: 0.01
+    stop: 0.99
+    step: 0.01
+  threshold_selection: MAX_PRECISION_SUBJECT_TO_RECALL_FPR_ELSE_MIN_NORMALIZED_VIOLATION
+  price_baseline_features:
+    - trailing_5d_total_return
+    - trailing_20d_realized_volatility
+    - trailing_20d_downside_semideviation
+  earnings_increment_features:
+    - first_public_fact_count_5d
+    - negative_fact_count_5d
+    - first_public_weight_share_20d
+    - negative_weight_share_20d
+    - negative_fact_breadth_20d
+    - negative_weight_breadth_20d
+  prediction_gates:
+    oos_event_recall_min: 0.75
+    oos_false_positive_rate_max: 0.20
+    oos_precision_min: 0.60
+    brier_skill_vs_price_baseline_strictly_positive: true
+    loss_weighted_recall_min: 0.70
+    top_upside_miss_ratio_max: 0.20
+    annual_round_trips_max: 10
+    minimum_positive_brier_improvement_years: 3
+    maximum_single_year_positive_improvement_share: 0.40
+  bootstrap:
+    block_length_trading_days: 10
+    replicates: 2000
+    seed: 510300
+
+reliability_quarantine:
+  required_labels:
+    - UNVERIFIED_HISTORICAL_WEIGHT_REVISION_VINTAGE
+    - FACT_A3_BELOW_FROZEN_MINIMUM
+    - DUAL_HUMAN_REVIEW_NOT_COMPLETE
+    - FIRST_PUBLIC_MEMBER_FACTS_TOO_SPARSE
+    - DIAGNOSTIC_ONLY_NOT_FORMAL_CANDIDATE_EVIDENCE
+  result_status: DIAGNOSTIC_COMPLETED_UNRELIABLE_INPUTS_NOT_ADMISSIBLE
+  even_if_prediction_metrics_pass: DO_NOT_PROMOTE_DO_NOT_BACKTEST_PORTFOLIO
+
+paths:
+  source_manifest: config/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3_source_manifest.json
+  diagnostic_manifest: config/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_manifest.json
+  member_event_panel: data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/member_first_public_facts.parquet
+  daily_outcome_blind_features: data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/daily_outcome_blind_features.parquet
+  data_result_json: reports/data_quality/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3.json
+  data_result_markdown: reports/data_quality/510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1_0_3.md
+  prediction_rows: reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_predictions.parquet
+  refit_rows: reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_refits.parquet
+  diagnostic_result_json: reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1.json
+  diagnostic_result_markdown: reports/research/510300_PIT_EARNINGS_INFORMATION_DIFFUSION_DIAGNOSTIC_PROXY_2021_V1.md

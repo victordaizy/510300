@@ -1,0 +1,36 @@
+version: DATA_FRESHNESS_CONTRACT_V1
+timezone: Asia/Shanghai
+
+contracts:
+  round5_daily_signal:
+    target_status_on_mismatch: FAILED_INPUT_DATE_MISMATCH
+    required_inputs:
+      "510300":
+        path: data/raw/market/510300_daily_raw.parquet
+        date_column: date
+        alignment: EXACT_TARGET_DATE
+        maximum_calendar_age_days: 0
+      "000300":
+        path: data/raw/market/000300_daily_feature_warmup.parquet
+        date_column: date
+        alignment: EXACT_TARGET_DATE
+        maximum_calendar_age_days: 0
+      "H00300":
+        path: data/raw/market/H00300_total_return_daily_raw.parquet
+        date_column: date
+        alignment: EXACT_TARGET_DATE
+        maximum_calendar_age_days: 0
+      "valuation":
+        path: data/raw/valuation/000300_valuation_daily_raw.parquet
+        date_column: date
+        alignment: AT_OR_BEFORE_TARGET_DATE
+        maximum_calendar_age_days: 7
+    core_market_same_date_group:
+      - "510300"
+      - "000300"
+      - "H00300"
+    failure_contract:
+      paper_signal_consumable: false
+      preserve_old_target_as_current: false
+      write_failure_tombstone: true
+      automatic_ordering_authorized: false

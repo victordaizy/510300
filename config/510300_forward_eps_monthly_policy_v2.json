@@ -1,0 +1,99 @@
+{
+  "study_id": "510300_FORWARD_EPS_MONTHLY_POLICY_V2",
+  "version": "2.0.0",
+  "evidence_class": "PREQUENTIAL_REPLAY_OF_ALREADY_OBSERVED_HISTORY",
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "gamma": 4.0,
+  "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "weight_band": 0.1,
+  "minimum_train_samples": 12,
+  "random_seed": 20260906,
+  "primary": "E1_PRICE_FORWARD_EPS",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "bootstrap_repetitions": 2000,
+  "bootstrap_day_block": 20,
+  "inputs": {
+    "prices": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "original_prices": "data/raw/r6/510300_daily.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "calendar": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+    "price_receipt": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "dividend_coverage": "reports/research/510300_adaptive_allocation_v1/frozen_inputs/dividend_coverage.json",
+    "corrections": "data/reference/510300_downside_risk_price_corrections_v1.csv"
+  },
+  "scope": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "live_trading_authorized": false,
+  "position_impact": 0,
+  "future_service_started": false,
+  "one_historical_run": true,
+  "authorization": "config/510300_research_authority_v6.json",
+  "primary_scope": "csi",
+  "diagnostic_scope": "financial",
+  "ridge_alpha": 10.0,
+  "horizon": 60,
+  "models": {
+    "E1_PRICE_FORWARD_EPS": [
+      "mom60",
+      "sma120",
+      "vol60",
+      "forward_eps_growth_median",
+      "same_year_profit_revision_90_median",
+      "reported_forward_earnings_yield_median"
+    ],
+    "E2_MATCHED_PRICE": [
+      "mom60",
+      "sma120",
+      "vol60"
+    ],
+    "E3_FORWARD_EPS": [
+      "forward_eps_growth_median",
+      "same_year_profit_revision_90_median",
+      "reported_forward_earnings_yield_median"
+    ]
+  },
+  "rule": "E4_EARNINGS_AND_PRICE_REGIME",
+  "max_report_age_calendar_days": 180,
+  "revision_calendar_days": 90,
+  "minimum_companies": {
+    "financial": {
+      "growth_and_pe": 5,
+      "revision": 3
+    },
+    "csi": {
+      "growth_and_pe": 30,
+      "revision": 15
+    }
+  },
+  "eps_cross_report_raw_revision_in_primary": false,
+  "annual_eps_not_exact_ntm": true,
+  "source_fact_version": "v2",
+  "source_layout_correction_only": true
+}

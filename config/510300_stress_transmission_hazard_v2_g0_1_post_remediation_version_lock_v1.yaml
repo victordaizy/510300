@@ -1,0 +1,157 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  execution_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_G0_1_POST_REMEDIATION_VERSION_LOCK_V1
+  version: 1.0.0
+  historical_cutoff: "2026-08-14"
+  executable_assets: [510300.SH, CASH_CNY]
+
+authorization:
+  purpose: LOCK_POST_REMEDIATION_VERSION_AND_REPLAY_G1_ONLY
+  formal_g2_allowed: false
+  b1_or_b2_model_fit_allowed: false
+  b3_allowed: false
+  return_or_portfolio_read_allowed: false
+  broker_paper_shadow_position_or_order_allowed: false
+
+immutable_parent:
+  prior_g0_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_g0_status_v1_0_1.json
+    bytes: 1210
+    sha256: bc97330090ad56bc1322395c7409d85f628b32524aea5203ca4f45a3aee85bf7
+    required_fields:
+      G0_ENGINEERING_AND_CONTRACT: PASS
+      return_evaluation: NOT_ALLOWED
+      position_impact: 0
+  remediation_config:
+    path: config/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1.yaml
+    bytes: 9696
+    sha256: 78c34df1bde42abfbac5fd52c8c894141e381238a0bd85e15a74390f7ae1d755
+  remediation_manifest:
+    path: config/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1_manifest.json
+    bytes: 8679
+    sha256: 5149f71e29b42f0facab28759e9f214fc7524a8806d0d883b57bba9110226618
+    required_fields:
+      status: FROZEN_RESULT_BLIND_FULL_SCOPE_HISTORICAL_REMEDIATION
+      model_trained: false
+      position_impact: 0
+  remediation_build_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_build_v1.json
+    bytes: 7106
+    sha256: c825d179dc47c77cc13babbd3c3290e1ef5415f404566728d3d5df81ed0fcfe9
+    required_fields:
+      status: PASS_G1_REMEDIATION_BUILD_PENDING_FRESH_PROCESS_REPLAY
+      g2_run: false
+      model_trained: false
+      position_impact: 0
+  remediation_replay_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_replay_v1.json
+    bytes: 6985
+    sha256: c89c7caadcfb2dade37523a200aba569c1fe117a20513df3de3160c567cd1bb4
+    required_fields:
+      status: PASS_FRESH_PROCESS_FULL_SCOPE_REMEDIATION_AND_G1_REPLAY
+      g2_run: false
+      model_trained: false
+      position_impact: 0
+  corrected_g1_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1_0_1.json
+    bytes: 2045
+    sha256: 0af62d367b00d022ceb9d34351ea75290bba4b3c9742d9eacdd9353b5eca29ee
+    required_fields:
+      G1_DATA_AND_EVENTS: PASS_B2_MECHANISM_ONLY_B3_NOT_IDENTIFIABLE
+      B2_MECHANISM_G1: PASS_MECHANISM_DISCOVERY_PREREQUISITE
+      B3_FULL_MODEL_G1: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+      G2: NOT_RUN_REQUIRES_NEW_EXPLICIT_AUTHORIZATION
+      mechanism_discovery_prerequisite_passed: true
+      full_three_coefficient_model_prerequisite_passed: false
+      model_trained: false
+      position_impact: 0
+  status_correction_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.json
+    bytes: 1150
+    sha256: 3776855c0c757e6482e4043cbd1b2c079d7992f74f0d859beb2e462337a10c6e
+    required_fields:
+      status: PASS_APPEND_ONLY_STATUS_CORRECTION_WITH_NO_DATA_OR_GATE_CHANGE
+      g2_run: false
+      model_trained: false
+      position_impact: 0
+  collection_receipt:
+    path: data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/collection_receipt.json
+    bytes: 1337
+    sha256: cabfe6b3f4f59b0b6c40b854d6b9cb5dab72a4c9dc1449bbc5597927bc3279d6
+    required_fields:
+      status: PASS_FULL_SCOPE_EXCHANGE_OFFICIAL_SUSPENSION_COLLECTION
+      event_or_label_file_read: false
+      model_trained: false
+      position_impact: 0
+
+git_scope_contract:
+  roots:
+    - config
+    - docs
+    - research
+    - scripts
+    - tests
+    - reports/audit
+    - reports/research
+    - reports/data_quality
+  filename_regex: "(?i)stress_transmission_hazard_v2"
+  allowed_suffixes: [.py, .yaml, .json, .md, .csv]
+  explicit_paths:
+    - .gitattributes
+    - research/project_evidence_contract_v1.py
+    - data/reference/510300_dividends.csv
+    - data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/collection_receipt.json
+  excluded_paths: []
+
+git_contract:
+  local_commit_required: true
+  remote_push_required: false
+  branch_required: codex/510300-v2-g0-1-g1b-v1
+  clean_commit_worktree_required: true
+  detached_clean_worktree_allowed: true
+  materialized_untracked_data_allowed: true
+  tracked_file_change_after_checkout_allowed: false
+
+expected_replay:
+  g1_state: PASS_B2_MECHANISM_ONLY_B3_NOT_IDENTIFIABLE
+  b2_identifiable_event_count: 31
+  b2_eligible_non_event_risk_day_count: 1102
+  b2_common_sample_day_count: 1279
+  b2_view_day_count: 1279
+  event_era_distribution:
+    2015-2017:
+      total_events: 10
+      b2_identifiable_events: 0
+      b3_identifiable_events: 0
+    2018-2020:
+      total_events: 15
+      b2_identifiable_events: 5
+      b3_identifiable_events: 5
+    2021-2023:
+      total_events: 22
+      b2_identifiable_events: 19
+      b3_identifiable_events: 19
+    2024-2026:
+      total_events: 11
+      b2_identifiable_events: 7
+      b3_identifiable_events: 7
+
+additional_data_files: []
+
+outputs:
+  manifest: config/510300_stress_transmission_hazard_v2_g0_1_post_remediation_version_lock_v1_manifest.json
+  freeze_receipt: reports/audit/510300_stress_transmission_hazard_v2_g0_1_post_remediation_version_lock_v1_freeze_receipt.json
+  clean_replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_g0_1_post_remediation_clean_worktree_replay_v1.json
+  status: reports/research/510300_stress_transmission_hazard_v2_g0_1_post_remediation_status_v1.json
+
+forbidden_actions:
+  - STAGE_OR_COMMIT_UNRELATED_DIRTY_WORKTREE_FILES
+  - REMOTE_PUSH
+  - OVERWRITE_PRIOR_STATUS_MANIFEST_OR_RECEIPT
+  - LOWER_30_40_750_G1_GATES
+  - CHANGE_FIXED_ERAS
+  - TRAIN_B1_B2_OR_B3
+  - RUN_FORMAL_OR_COUNTERFACTUAL_G2
+  - READ_RETURN_NAV_SHARPE_DRAWDOWN_OR_POSITION
+  - CREATE_PAPER_SHADOW_BROKER_POSITION_ORDER_OR_LIVE_ACTION
+

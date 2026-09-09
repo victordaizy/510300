@@ -1,0 +1,262 @@
+{
+  "project_id": "510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_REVERSE_VALIDATION_V1_0_2",
+  "status": "TIME_REVERSED_EXTERNAL_VALIDATION_REJECTED_NO_RESCUE",
+  "passed": false,
+  "candidate_policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+  "evidence_class": "TIME_REVERSED_FIXED_RULE_EXTERNAL_HISTORICAL_VALIDATION",
+  "interpretation": "候选规则已在2021年8月以后数据上冻结，本项目把同一规则原样应用到更早历史；不是严格前瞻样本，也不是重新发现参数",
+  "config_sha256": "68a16b2fc6692ff600d8a432f82ee6adf1653e29c9271e3d289c7dbfa020848c",
+  "freeze_manifest_sha256": "e95400ebdf53a2e616f373c0a2ca8a3d428c730df0629f9a7ffeef11090d4d25",
+  "candidate_config_sha256": "5e418c583e19f060ea43eb4dd67b33f96451ddfe7e2962e925900fc0cf721fe8",
+  "candidate_validator_sha256": "4dd37f6627304697988460b95741b6df1c341a74faecebbe9a9b3436767ba4c9",
+  "snapshot": {
+    "run_id": "20260828T125705_0800",
+    "manifest_file": "data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/snapshots/20260828T125705_0800/snapshot_manifest.json",
+    "manifest_sha256": "f22f330d8248d9c3c8c93dc527ac48aa521b66bbf8887964b6423f045baa2387",
+    "collection_status": "PASS_COMPLETE_EXTERNAL_SIGNAL_SNAPSHOT",
+    "seam_crosscheck": {
+      "status": "PASS",
+      "date": "2021-08-12",
+      "nav_close_premium_absolute_difference": 0.0,
+      "fund_shares_absolute_difference": 0.0,
+      "direct_margin_absolute_difference": {
+        "rzye": 0.0,
+        "rzmre": 0.0,
+        "rqyl": 0.0,
+        "rzche": 0.0,
+        "rqchl": 0.0,
+        "rqmcl": 0.0
+      },
+      "derived_margin_absolute_difference": {
+        "rqye": 1.1920928955078125e-07,
+        "rzrqye": 0.0
+      }
+    }
+  },
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "allowed_states": [
+      0,
+      1
+    ],
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘",
+    "benchmark": "H00300_TOTAL_RETURN",
+    "derivatives_execution_allowed": false,
+    "leverage_allowed": false,
+    "short_selling_allowed": false
+  },
+  "objective_contract_verified_equal_to_candidate": {
+    "initial_capital_cny": 500000.0,
+    "cash_annual_rate": 0.015,
+    "annualization_trading_days": 242,
+    "lot_size_shares": 100,
+    "commission_rate_per_leg": 0.0001,
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 15.0,
+    "minimum_annualized_net_excess": 0.2,
+    "rolling_window_trading_days": 242,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "start_perturbations_trading_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "periods": {
+    "EARLY_2013_07_TO_2017": {
+      "start": "2013-07-01",
+      "end": "2017-12-29"
+    },
+    "LATE_2018_TO_2021_08_11": {
+      "start": "2018-01-02",
+      "end": "2021-08-11"
+    },
+    "COMBINED_2013_07_TO_2021_08_11": {
+      "start": "2013-07-01",
+      "end": "2021-08-11"
+    }
+  },
+  "required_pass_periods": [
+    "EARLY_2013_07_TO_2017",
+    "LATE_2018_TO_2021_08_11",
+    "COMBINED_2013_07_TO_2021_08_11"
+  ],
+  "aggregates": [
+    {
+      "period": "EARLY_2013_07_TO_2017",
+      "start_count": 5,
+      "stress_annualized_excess_minimum": -0.0722753308688167,
+      "stress_annualized_excess_median": -0.07072744712299009,
+      "stress_rolling_242d_excess_minimum": -0.06621765721647524,
+      "stress_rolling_242d_excess_median_across_starts": -0.06600527669737638,
+      "stress_start_pass_count": 0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false,
+      "cash_day_share_minimum": 0.13805631244323344,
+      "cash_day_share_maximum": 0.13883847549909256
+    },
+    {
+      "period": "LATE_2018_TO_2021_08_11",
+      "start_count": 5,
+      "stress_annualized_excess_minimum": -0.05145830014334844,
+      "stress_annualized_excess_median": -0.050814996979941435,
+      "stress_rolling_242d_excess_minimum": -0.06040251485817821,
+      "stress_rolling_242d_excess_median_across_starts": -0.060389225400862376,
+      "stress_start_pass_count": 0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false,
+      "cash_day_share_minimum": 0.05466970387243736,
+      "cash_day_share_maximum": 0.05491990846681922
+    },
+    {
+      "period": "COMBINED_2013_07_TO_2021_08_11",
+      "start_count": 5,
+      "stress_annualized_excess_minimum": -0.06220264493022179,
+      "stress_annualized_excess_median": -0.06136284839909342,
+      "stress_rolling_242d_excess_minimum": -0.05557170966868301,
+      "stress_rolling_242d_excess_median_across_starts": -0.05538557355776186,
+      "stress_start_pass_count": 0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false,
+      "cash_day_share_minimum": 0.10106114199090449,
+      "cash_day_share_maximum": 0.10151515151515152
+    }
+  ],
+  "calendar_year_feature_diagnostics": [
+    {
+      "calendar_year": 2013,
+      "signal_rows": 125,
+      "raw_cash_days": 54,
+      "raw_cash_share": 0.432,
+      "final_cash_days": 28,
+      "final_cash_share": 0.224,
+      "shadow_gate_active_share": 0.528,
+      "vote_count_mean": 2.424
+    },
+    {
+      "calendar_year": 2014,
+      "signal_rows": 245,
+      "raw_cash_days": 75,
+      "raw_cash_share": 0.30612244897959184,
+      "final_cash_days": 25,
+      "final_cash_share": 0.10204081632653061,
+      "shadow_gate_active_share": 0.2163265306122449,
+      "vote_count_mean": 1.8775510204081634
+    },
+    {
+      "calendar_year": 2015,
+      "signal_rows": 244,
+      "raw_cash_days": 37,
+      "raw_cash_share": 0.15163934426229508,
+      "final_cash_days": 14,
+      "final_cash_share": 0.05737704918032787,
+      "shadow_gate_active_share": 0.4713114754098361,
+      "vote_count_mean": 1.7377049180327868
+    },
+    {
+      "calendar_year": 2016,
+      "signal_rows": 244,
+      "raw_cash_days": 224,
+      "raw_cash_share": 0.9180327868852459,
+      "final_cash_days": 85,
+      "final_cash_share": 0.3483606557377049,
+      "shadow_gate_active_share": 0.3770491803278688,
+      "vote_count_mean": 3.1352459016393444
+    },
+    {
+      "calendar_year": 2017,
+      "signal_rows": 244,
+      "raw_cash_days": 117,
+      "raw_cash_share": 0.47950819672131145,
+      "final_cash_days": 0,
+      "final_cash_share": 0.0,
+      "shadow_gate_active_share": 0.0,
+      "vote_count_mean": 1.6844262295081966
+    },
+    {
+      "calendar_year": 2018,
+      "signal_rows": 243,
+      "raw_cash_days": 75,
+      "raw_cash_share": 0.30864197530864196,
+      "final_cash_days": 25,
+      "final_cash_share": 0.102880658436214,
+      "shadow_gate_active_share": 0.39094650205761317,
+      "vote_count_mean": 1.213991769547325
+    },
+    {
+      "calendar_year": 2019,
+      "signal_rows": 244,
+      "raw_cash_days": 197,
+      "raw_cash_share": 0.8073770491803278,
+      "final_cash_days": 12,
+      "final_cash_share": 0.04918032786885246,
+      "shadow_gate_active_share": 0.10245901639344263,
+      "vote_count_mean": 2.6557377049180326
+    },
+    {
+      "calendar_year": 2020,
+      "signal_rows": 243,
+      "raw_cash_days": 135,
+      "raw_cash_share": 0.5555555555555556,
+      "final_cash_days": 11,
+      "final_cash_share": 0.04526748971193416,
+      "shadow_gate_active_share": 0.22633744855967078,
+      "vote_count_mean": 2.168724279835391
+    },
+    {
+      "calendar_year": 2021,
+      "signal_rows": 148,
+      "raw_cash_days": 69,
+      "raw_cash_share": 0.46621621621621623,
+      "final_cash_days": 0,
+      "final_cash_share": 0.0,
+      "shadow_gate_active_share": 0.0,
+      "vote_count_mean": 2.3986486486486487
+    }
+  ],
+  "input_audit": {
+    "signal_rows": 2220,
+    "signal_first_date": "2012-07-02",
+    "signal_last_date": "2021-08-12",
+    "market_rows": 2221,
+    "market_first_date": "2012-07-02",
+    "market_last_date": "2021-08-13",
+    "complete_required_fields": true
+  },
+  "adjudication": {
+    "rule": "三个预声明期间的五个起点在压力成本下必须全部同时通过年化净超额20个百分点和滚动242日净超额中位数20个百分点",
+    "result": "REJECT",
+    "parameter_rescue_allowed": false,
+    "failed_period_averaging_allowed": false,
+    "candidate_action": "反向外部历史验证拒绝；保留失败证据，不修改当前前瞻规则，不以调参救回"
+  },
+  "evidence": {
+    "daily_features": "data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/evaluations/20260828T125705_0800/daily_features.parquet",
+    "daily_features_sha256": "301c90b45d18290ea91add802df17583eaa3e0c6470260238d63b0fbad73a2eb",
+    "start_perturbation_metrics": "data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/evaluations/20260828T125705_0800/start_perturbation_metrics.parquet",
+    "start_perturbation_metrics_sha256": "931d7c020d77e3e30ef5e3eb39170544229414d44b91c14fbec7a6a705beeff7",
+    "evaluator": "research/evaluate_510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2.py",
+    "evaluator_sha256": "b347234f2cd70bbfd95eae4df62ab9dfc15d0087d96e46a5446782898550c36f"
+  },
+  "boundaries": {
+    "candidate_formula_changed": false,
+    "thresholds_changed": false,
+    "costs_changed": false,
+    "benchmark_changed": false,
+    "time_reversed_external_historical_validation": true,
+    "pristine_prospective_holdout": false,
+    "strict_prospective_validation_still_required": true,
+    "research_only": true,
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

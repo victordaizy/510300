@@ -1,0 +1,188 @@
+protocol:
+  project_id: 510300_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1
+  candidate_model_id: 510300_DUAL_ENGINE_SHARPE_1P2_V1
+  state: PROTOCOL_DRAFT_BEFORE_FIRST_RESULT
+  evidence_class: RETROSPECTIVE_ONE_SHOT_MECHANISM_PREFLIGHT
+  purpose: 验证MACD负柱收敛是否只有在官方权重广度改善且下行波动降温时才对510300未来收益具有增量信息
+  registration_date: '2026-08-30'
+  timezone: Asia/Shanghai
+  one_shot: true
+  parameter_rescue_after_result: forbidden
+  reverse_direction_after_result: forbidden
+  alternate_window_after_result: forbidden
+  sharpe_target_is_acceptance_gate_not_optimization_objective: true
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  auxiliary_information:
+    - CSI300_POINT_IN_TIME_OFFICIAL_WEIGHTED_BREADTH
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: T日收盘后
+  earliest_execution_time: T+1交易日开盘
+  live_trading_authorized: false
+
+dates:
+  feature_warmup_start: '2016-08-12'
+  evaluation_start: '2021-08-12'
+  evaluation_end: '2026-08-12'
+  structural_split_date: '2023-01-01'
+  period_early:
+    start: '2021-08-12'
+    end: '2022-12-31'
+  period_late:
+    start: '2023-01-01'
+    end: '2026-08-12'
+
+inputs:
+  etf_daily:
+    path: data/raw/market/510300_daily_raw.parquet
+    symbol: 510300.SH
+    required_columns: [date, open, high, low, close, volume, amount]
+  dividends:
+    path: data/reference/510300_dividends.csv
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+  official_weighted_breadth:
+    path: data/features/000300_official_weighted_breadth_daily.parquet
+    required_columns:
+      - date
+      - weight_snapshot_date
+      - weight_snapshot_age_calendar_days
+      - component_count
+      - weight_sum
+      - ma20_weight_coverage
+      - ma60_weight_coverage
+      - official_weighted_above_ma20_share
+      - official_weighted_above_ma60_share
+      - official_weighted_above_ma20_share_change_5d
+      - valid_for_direction_model
+  etf_minute_audit_only:
+    path: data/raw/market/510300_1m_tushare_raw.parquet
+    use_in_preflight_features: false
+    reason: 本阶段只验证日线MACD乘官方权重广度乘日线下行波动；分钟路径只在预检通过后进入独立模块
+  benchmark_audit_only:
+    path: data/raw/market/H00300_total_return_daily_raw.parquet
+    use_in_preflight_returns: false
+
+data_contract:
+  calendar: 510300交易日
+  duplicate_policy: reject
+  missing_policy: reject_evaluation_row
+  price_adjustment: 因果现金分红总收益价格
+  total_return_formula: (close_t + ex_date_cash_dividend_t) / close_t_minus_1
+  synthetic_total_return_ohlc: 本预检不用于成交回报，避免用当日收盘确定的缩放因子回填当日开盘
+  breadth_point_in_time_rule: 仅使用当日及以前最近的官方月度权重，不向快照日前回填
+  minimum_breadth_weight_coverage: 0.99
+  maximum_weight_snapshot_age_calendar_days: 35
+  expected_evaluation_rows: 1211
+  expected_component_count: 300
+
+features:
+  return_definition: total_return_close.pct_change
+  volatility_for_macd:
+    window: 20
+    annualization_days: 242
+    lag_days: 1
+  macd:
+    input: daily_total_return / lagged_realized_volatility_20d
+    fast_ema: 12
+    slow_ema: 26
+    signal_ema: 9
+    histogram: macd_line_minus_signal_line
+    velocity_lag_days: 3
+    acceleration_lag_days: 3
+  breadth:
+    level_20: official_weighted_above_ma20_share
+    level_60: official_weighted_above_ma60_share
+    thrust_5: official_weighted_above_ma20_share_change_5d
+    improving_rule: thrust_5 > 0
+  downside_risk:
+    estimator: EWM_ROOT_MEAN_SQUARE_OF_NEGATIVE_TOTAL_RETURN
+    short_span: 5
+    long_span: 20
+    cooling_rule: DD5 / DD20 < 1
+  group_axes:
+    macd_transition:
+      converging: histogram < 0 and velocity_3d > 0
+      expanding: histogram < 0 and velocity_3d <= 0
+    breadth:
+      improving: breadth_thrust_5d > 0
+      weakening: breadth_thrust_5d <= 0
+    downside:
+      cooling: downside_vol_ratio_5_20 < 1
+      rising: downside_vol_ratio_5_20 >= 1
+
+outcomes:
+  execution_entry: next_trading_day_raw_open
+  horizons_trading_days: [5, 10, 20]
+  exit: horizon_day_raw_close_plus_entry后至退出日按record_date形成的每份现金分红应收
+  maximum_adverse_excursion: 每日raw_close加累计分红应收除以next_open减1的最小值
+  dividends: 信号日后、退出日及以前record_date形成的现金分红应收；避免在除息日开盘买入却错误取得前一记录日分红
+
+event_sampling:
+  event_definition: 负MACD柱状态中converging与expanding类别发生切换后的首日
+  minimum_gap_within_class_trading_days: 10
+  primary_horizon_trading_days: 10
+  minimum_events_per_primary_class: 30
+  conditional_high_quality: converging and breadth_improving and downside_cooling
+  conditional_low_quality: converging and breadth_weakening and downside_rising
+  minimum_events_per_conditional_class: 12
+
+bootstrap:
+  method: CIRCULAR_MOVING_BLOCK_OVER_NONOVERLAPPING_EVENT_SEQUENCE
+  repetitions: 5000
+  block_length_events: 3
+  confidence_level: 0.90
+  random_seed: 20260830
+
+gates:
+  primary_h1:
+    description: MACD负柱收敛事件未来10日表现优于负柱继续扩张事件
+    minimum_event_count_each: 30
+    mean_return_difference_must_be_positive: true
+    median_return_difference_must_be_positive: true
+    positive_return_rate_difference_minimum: 0.05
+    bootstrap_90pct_lower_bound_must_be_positive: true
+    both_structural_periods_mean_difference_must_be_positive: true
+    delete_best_converging_event_mean_difference_must_be_positive: true
+  conditional_confirmation:
+    description: 收敛事件中广度改善且下行波动降温优于广度弱化且下行波动上升
+    minimum_event_count_each: 12
+    mean_return_difference_must_be_positive: true
+    median_return_difference_must_be_positive: true
+    positive_return_rate_difference_must_be_positive: true
+    bootstrap_90pct_lower_bound_must_be_positive: true
+    both_structural_periods_mean_difference_must_be_positive: true
+    five_and_twenty_day_mean_differences_must_be_positive: true
+  pass_requires_all_primary_and_conditional_gates: true
+
+adjudication:
+  pass_status: PASS_MECHANISM_PREFLIGHT_CORE_MODEL_IMPLEMENTATION_ALLOWED
+  fail_status: REJECTED_FROZEN_MACD_BREADTH_DOWNSIDE_PREFLIGHT_NO_RESCUE
+  data_fail_status: NO_VIEW_DATA_CONTRACT_FAILED
+  return_evaluation_if_pass: CORE_MODEL_NOT_YET_RUN
+  return_evaluation_if_fail: NOT_ALLOWED
+  sharpe_if_preflight_only: NOT_COMPUTED
+  target_net_sharpe: 1.20
+  target_is_not_claimed_by_preflight: true
+
+governance:
+  research_only: true
+  paper_or_shadow_position_mapping: disabled
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  manifest: config/510300_macd_breadth_downside_preflight_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_macd_breadth_downside_preflight_v1_freeze_receipt.json
+  result_json: reports/research/510300_macd_breadth_downside_preflight_v1.json
+  result_markdown: reports/research/510300_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1.md
+  feature_table: data/research/510300_macd_breadth_downside_preflight_v1/daily_features.parquet
+  event_table: data/research/510300_macd_breadth_downside_preflight_v1/events.parquet

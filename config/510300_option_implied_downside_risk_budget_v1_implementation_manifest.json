@@ -1,0 +1,75 @@
+{
+  "model_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1",
+  "version": "1.0.0",
+  "freeze_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1_IMPLEMENTATION_20260904T203143+0800",
+  "freeze_state": "IMPLEMENTATION_FROZEN_BEFORE_FIRST_API_PROBE",
+  "frozen_at": "2026-09-04T20:31:43.9721002+08:00",
+  "timezone": "Asia/Shanghai",
+  "protocol_manifest_path": "config/510300_option_implied_downside_risk_budget_v1_manifest.json",
+  "protocol_manifest_sha256": "53e7605e3ed321ec20b38ee910fc3ad2a22bb965e4ed2221cf563993c41c6d91",
+  "implementation_files": {
+    "research/option_implied_downside_risk_budget_v1.py": "25cb317eabd4da59f53aaa55242f4132f3bcf380665733c25e6272b5feca781a",
+    "scripts/run_510300_option_implied_downside_risk_budget_v1.py": "00695afe9d2c860aae75f5893e1b9d6b9a82b9c08881e217793fff4e89dc2055",
+    "tests/test_510300_option_implied_downside_risk_budget_v1.py": "6d52f4d1abd56e03d1e0b6763fc4e5a417bee070f276bf0e9ed99a8419c40192"
+  },
+  "implementation_scope": [
+    "G0_PERMISSION_PROBE",
+    "B_IMMUTABLE_RAW_ACQUISITION",
+    "C_510300_EXACT_CONTRACT_MAPPING",
+    "C_OPTION_SURFACE_CONSTRUCTION",
+    "C_G0_G1_DATA_ADMISSION",
+    "C_CLEAN_NEW_PROCESS_REPLAY"
+  ],
+  "explicit_non_scope": [
+    "FUTURE_VARIANCE_LABEL",
+    "TAIL_LABEL",
+    "B0_B1_B2_C1_C2_MODEL",
+    "FORECAST",
+    "POSITION_MAPPING",
+    "PORTFOLIO_RETURN",
+    "NET_VALUE",
+    "SHARPE",
+    "ORDER",
+    "BROKER_CONNECTION",
+    "LIVE_TRADE"
+  ],
+  "implementation_decisions": {
+    "transport": "HTTPS POST to frozen root endpoint with x-api-key header and gzip acceptance",
+    "rate_limit": "request start interval at least 0.65 seconds in one sequential client",
+    "raw_storage": "exact response bytes plus receipt and derivative parquet in append-only retrieval directories",
+    "resume_authority": "receipt fields plus raw and parquet SHA-256; checkpoint alone is never proof",
+    "opt_daily_scope": "entire SSE response is stored before exact 510300 filtering",
+    "parity_forward_strikes": "up to five paired strikes nearest the underlying close",
+    "iv_surface_strikes": "all valid paired strikes inside absolute log-moneyness 0.12, not only the five parity strikes",
+    "no_arbitrage_bounds": "discounted Black-76 intrinsic and upper bounds with only 1e-12 scale numerical epsilon",
+    "iv_solver": "Brent root on frozen 0.01 to 2.00 interval",
+    "rate_extrapolation": "none outside 7 to 90 calendar days",
+    "missing_data": "explicit NO_VIEW states, no forward fill and no cross-date interpolation",
+    "clean_replay": "second fresh process must reproduce the canonical decision fingerprint from immutable local inputs"
+  },
+  "offline_validation": {
+    "command": ".venv\\Scripts\\python.exe -m pytest -q tests/test_510300_option_implied_downside_risk_budget_v1.py --basetemp .pytest-tmp-option-risk-budget-v1-2",
+    "result": "10_PASSED",
+    "duration_seconds": 2.34,
+    "syntax_compile": "PASS",
+    "tests_cover": [
+      "credential excluded from request body and persisted outputs",
+      "immutable capture and hash-validated resume",
+      "Black-76 call and put IV round trip",
+      "SHIBOR interpolation without extrapolation",
+      "total variance interpolation without extrapolation",
+      "exact OP510300.SH contract mapping and adjusted-row preservation",
+      "legal 30-day and 60-day synthetic surface brackets",
+      "missing same-day SHIBOR remains NO_VIEW"
+    ]
+  },
+  "pre_freeze_attestations": {
+    "credentialed_api_probe_run": false,
+    "new_option_surface_metrics_read": false,
+    "future_return_reads": 0,
+    "portfolio_evaluation_run": false,
+    "position_impact": 0,
+    "credential_persisted": false
+  },
+  "drift_rule": "任何 implementation_files 或协议清单哈希不匹配都以 ProtocolIntegrityError 停止，不允许在本版本中继续调用供应商或读取曲面结果。"
+}

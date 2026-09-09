@@ -1,0 +1,324 @@
+protocol:
+  project_id: 510300_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1
+  version: 1.0.0
+  state: READY_TO_FREEZE_BEFORE_FIRST_NEW_ATLAS_OUTCOME_READ
+  registration_date: '2026-08-30'
+  timezone: Asia/Shanghai
+  research_stage: MECHANISM_DISCOVERY_ONLY
+  evidence_class: RETROSPECTIVE_HISTORICALLY_CONTAMINATED_EVENT_ATLAS
+  one_shot: true
+  new_atlas_outcome_read_before_freeze: false
+  parameter_search: forbidden
+  threshold_rescue_after_result: forbidden
+  event_redefinition_after_result: forbidden
+  source_relabel_after_result: forbidden
+  alternate_outcome_after_result: forbidden
+  year_deletion_after_result: forbidden
+  strategy_backtest_allowed: false
+
+upstream_boundaries:
+  rejected_router:
+    project_id: 510300_REGIME_TRANSITION_ROUTER_V1
+    required_status: REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE
+    result_path: reports/research/510300_regime_transition_router_v1.json
+    manifest_path: config/510300_regime_transition_router_v1_manifest.json
+    state_panel_path: data/research/510300_regime_transition_router_v1/state_panel.parquet
+    episodes_path: data/research/510300_regime_transition_router_v1/state_episodes.csv
+    output_audit_path: reports/audit/510300_regime_transition_router_v1_output_audit.json
+    required_output_audit_status: PASS_INDEPENDENT_OUTPUT_RECOMPUTATION
+    allowed_reuse: 点时特征和61个完整压力区间仅作为等权事件采样单位
+    forbidden_reuse: 旧状态含义、阈值裁决、仓位映射、cash规则、策略收益及任何改名营救
+  mechanism_atlas:
+    project_id: 510300_MECHANISM_ATLAS_V1
+    required_status: MECHANISM_ATLAS_DISCOVERY_COMPLETE_NO_STRATEGY_AUTHORIZATION
+    result_path: reports/research/510300_mechanism_atlas_v1.json
+    allowed_reuse: H3作为待检验的同步或领先风险通道及IF原始基差语义限制
+    forbidden_reuse: 将H3或既有病例解释为策略授权
+  systemic_sell_pressure:
+    project_id: 510300_SYSTEMIC_SELL_PRESSURE_CASCADE_V1
+    required_status: VISIBLE_REJECTED_FROZEN_REPLICATION_UNREAD
+    result_path: reports/research/510300_systemic_sell_pressure_cascade_v1.json
+    allowed_reuse: 无
+    forbidden_reuse: 旧风险分数、95%阈值、次日空仓规则及未读复制面板
+
+scope:
+  execution_asset_if_any_in_future: 510300.SH
+  allowed_future_holdings: [510300.SH, CASH_CNY]
+  observational_assets:
+    - 510050.SH
+    - 510500.SH
+    - 159915.SZ
+    - 159919.SZ
+    - CFFEX_IF_RAW_TERM_STRUCTURE
+    - CSI300_POINT_IN_TIME_EQUAL_WEIGHT_BREADTH
+  primary_economic_quantities:
+    - PRESSURE_SOURCE
+    - TRANSMISSION_INTENSITY
+    - ABSORPTION_EXHAUSTION
+  return_backtest_allowed: false
+  portfolio_mapping: disabled
+  paper_signal: disabled
+  shadow_signal: disabled
+  current_signal: NOT_CREATED
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+clocks:
+  etf_fund_share_margin_breadth_price: T日15:00后
+  if_raw_term_structure: T日15:15后
+  cgb_curve: T日17:30后
+  unified_observation_time: T日18:00后
+  earliest_hypothetical_execution: T+1交易日开盘
+  future_outcomes: 与机制面板物理分离，不得进入特征、事件触发或点时耗竭候选
+  retrospective_phase_landmarks: 只允许形态描述，不得进入预测模型或通过门
+
+dates:
+  evaluation_start: '2015-01-05'
+  signal_cutoff: '2026-08-12'
+  outcome_market_cutoff: '2026-08-14'
+  eras:
+    ERA_2015_2016: ['2015-01-05', '2016-12-30']
+    ERA_2017_2019: ['2017-01-03', '2019-12-31']
+    ERA_2020_2021: ['2020-01-02', '2021-12-31']
+    ERA_2022_2023: ['2022-01-04', '2023-12-29']
+    ERA_2024_2026: ['2024-01-02', '2026-08-12']
+
+inputs:
+  router_result:
+    path: reports/research/510300_regime_transition_router_v1.json
+  router_manifest:
+    path: config/510300_regime_transition_router_v1_manifest.json
+  router_state_panel:
+    path: data/research/510300_regime_transition_router_v1/state_panel.parquet
+    required_columns: [date, total_return_index, total_return_1d, price_ma20_total_return, price_log_slope20, downside_vol_ratio_5_20, liquidity_stress_score, fund_share_log_change20, total_margin_log_change3, equal_above_ma60_share, breadth_change5, discount_rate_pressure, state]
+  router_episodes:
+    path: data/research/510300_regime_transition_router_v1/state_episodes.csv
+    required_columns: [episode_id, state, start_date, end_date, signal_rows, left_censored, right_censored]
+  router_output_audit:
+    path: reports/audit/510300_regime_transition_router_v1_output_audit.json
+  early_equal_weight_breadth:
+    path: data/features/000300_external_equal_weight_breadth_2015_2021.parquet
+    required_columns: [date, equal_above_ma60_share, member_count]
+  current_equal_weight_breadth:
+    path: data/features/000300_equal_weight_breadth_daily.parquet
+    required_columns: [date, equal_above_ma60_share, component_count, valid_for_price_breadth]
+  mechanism_atlas_result:
+    path: reports/research/510300_mechanism_atlas_v1.json
+  systemic_sell_pressure_result:
+    path: reports/research/510300_systemic_sell_pressure_cascade_v1.json
+  etf_market:
+    path: data/raw/r6/510300_daily.parquet
+    required_columns: [date, open, high, low, close, volume, amount, symbol]
+  dividends:
+    path: data/reference/510300_dividends.csv
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+  if_daily_features:
+    path: data/research/510300_if_true_term_structure_binary_screen_v1_0_1/daily_features.parquet
+    required_columns: [date, eligible_contract_count, annualized_oi_weighted_basis, near_symbol, feature_asof]
+    semantic_limit: RAW_ANNUALIZED_BASIS_NOT_FAIR_BASIS
+  if_acquisition_audit:
+    path: reports/data_quality/cffex_if_true_term_structure_inputs_v1_0_1.json
+    required_status: SUCCESS_CFFEX_IF_CONTRACT_HISTORY_ACQUIRED
+  broad_etf_data_quality:
+    path: reports/data_quality/csi300_all_etf_momentum_v1r_status.json
+    required_status: PASS
+  etf_510050:
+    path: data/raw/all_etf_momentum_v1r/fund_daily_checkpoints/510050_SH.parquet
+    required_code: 510050.SH
+    required_columns: [ts_code, date, pre_close, ts_open, ts_high, ts_low, ts_close, pct_chg, vol, amount]
+  etf_510500:
+    path: data/raw/all_etf_momentum_v1r/fund_daily_checkpoints/510500_SH.parquet
+    required_code: 510500.SH
+    required_columns: [ts_code, date, pre_close, ts_open, ts_high, ts_low, ts_close, pct_chg, vol, amount]
+  etf_159915:
+    path: data/raw/all_etf_momentum_v1r/fund_daily_checkpoints/159915_SZ.parquet
+    required_code: 159915.SZ
+    required_columns: [ts_code, date, pre_close, ts_open, ts_high, ts_low, ts_close, pct_chg, vol, amount]
+  etf_159919:
+    path: data/raw/all_etf_momentum_v1r/fund_daily_checkpoints/159919_SZ.parquet
+    required_code: 159919.SZ
+    required_columns: [ts_code, date, pre_close, ts_open, ts_high, ts_low, ts_close, pct_chg, vol, amount]
+
+known_data_limits:
+  point_in_time_fundamental_expectation_2015_onward: NO_VIEW_INCOMPLETE_CONTRACT
+  if_fair_basis: NO_VIEW_NO_COMPLETE_POINT_IN_TIME_CARRY
+  all_a_share_late_replication_panel: NOT_OPENED_PRESERVE_PRIOR_HOLDOUT
+  interpretation: 未观察到的压力来源必须保留UNRESOLVED，不用新闻、年份或未来收益补标签
+
+data_gates:
+  expected_signal_rows: 2821
+  expected_complete_router_stress_events: 61
+  required_first_date: '2015-01-05'
+  required_last_date: '2026-08-12'
+  minimum_broad_etf_calendar_coverage: 0.995
+  minimum_if_calendar_coverage: 0.995
+  future_columns_forbidden_in_mechanism_panel: true
+  duplicate_policy: REJECT
+  missing_primary_feature_policy: REJECT_EXCEPT_FROZEN_FIVE_ROW_PREFIX_WARMUP
+  maximum_leading_feature_warmup_rows: 5
+  warmup_missing_rows_must_be_prefix: true
+  current_constituent_backfill: forbidden
+  future_source_classification: forbidden
+
+feature_construction:
+  causal_percentile:
+    prior_rows: 252
+    minimum_prior_rows: 126
+    current_observation_excluded_from_reference: true
+  pressure_source:
+    leverage_liquidity_component: upstream_liquidity_stress_score
+    discount_rate_component: upstream_discount_rate_pressure
+    score: 两项等权平均
+    source_active_threshold: 0.67
+    source_dominance_margin: 0.15
+    classes: [LEVERAGE_LIQUIDITY, DISCOUNT_RATE, MULTI_SOURCE, MIXED_BALANCED, UNRESOLVED]
+    fundamental_source_class: NO_VIEW_INCOMPLETE_CONTRACT
+  transmission_intensity:
+    components:
+      - CSI300_EQUAL_WEIGHT_BREADTH_DAMAGE
+      - CROSS_INDEX_ETF_DIFFUSION
+      - IF_RAW_BASIS_DETERIORATION
+      - H3_DOWNSIDE_PRESSURE
+    score: 四项等权平均
+    severe_evidence_threshold: 0.80
+  absorption_exhaustion:
+    pressure_memory_rows: 10
+    pressure_memory_minimum_available_rows: 1
+    components:
+      - H3_DOWNSIDE_RELIEF_FROM_PRIOR20_PEAK
+      - PRICE_3D_RESILIENCE_CAUSAL_PERCENTILE
+      - BREADTH_5D_STABILIZATION_CAUSAL_PERCENTILE
+      - INVERSE_SCALE_NORMALIZED_MARGINAL_PRICE_IMPACT
+    score: 四项等权平均乘过去10日传导强度峰值
+    point_in_time_candidate_pressure_memory_at_least: 0.80
+    point_in_time_candidate_score_at_least: 0.60
+    candidate_must_be_rising: true
+
+event_definitions:
+  router_stress_events:
+    source: 上游完整STRESS_DELEVERAGING区间
+    expected_count: 61
+    event_weighting: 每个事件权重相同
+    interpretation: 采样单位，不接受旧状态经济含义
+  price_damage_events:
+    trigger: 510300总回报指数相对过去20日峰值首次跌至或低于-5%
+    drawdown_threshold: -0.05
+    rolling_peak_rows: 20
+    cooldown_trading_rows: 20
+    leading_lookback_rows: 20
+    lagging_followup_rows: 10
+    minimum_complete_future_rows: 20
+    trigger_uses_only_current_and_past: true
+  morphology:
+    pre_event_rows: 5
+    post_event_rows: 20
+    acceleration_landmark: 区间内传导分数3日增量最大日_RETROSPECTIVE_ONLY
+    maximum_price_shock_landmark: 区间结束后最多10日内总回报指数最低日_RETROSPECTIVE_ONLY
+    independent_repair_anchor_rule: 从事件起点至事件结束后20日内首次由不满足转为同时满足3日收益为正、广度5日变化为正、总回报指数高于MA20
+    exhaustion_timing_rule: 独立修复锚点减事件起点至结束后20日内第一个耗竭候选；正值领先、零同步、负值滞后
+    fast_shock_repair_morphology: 最大冲击距事件起点不超过5日且独立修复锚点在最大冲击后0至10日
+    persistent_transmission_morphology: 事件至少10日且后3日平均传导强度不低于前3日
+    morphology_is_retrospective_and_noncausal: true
+
+prediction_questions:
+  question_a_left_tail:
+    sample: 每个完整路由器压力事件的首日一行
+    predictors: [pressure_source_score, transmission_score]
+    outcome: T+1开盘后未来10日最大不利幅度不低于5%
+    major_mae_threshold: 0.05
+    horizon_trading_days: 10
+  question_b_exhaustion:
+    sample: 每个路由器压力事件内第一个点时耗竭候选，最多一行
+    predictors: [transmission_score, exhaustion_score]
+    outcome: T+1开盘后未来20日终值收益不低于3%、正财富路径天数比例不低于60%、MAE不高于5%
+    terminal_return_threshold: 0.03
+    positive_wealth_fraction_threshold: 0.60
+    maximum_mae_threshold: 0.05
+    horizon_trading_days: 20
+  estimation:
+    model: UNPENALIZED_LOGISTIC_REGRESSION
+    hyperparameter_search: forbidden
+    bootstrap_repetitions: 1000
+    bootstrap_seed: 20260830
+    directional_confidence_level: 0.90
+    cross_validation: LEAVE_ONE_ERA_OUT
+    auc_threshold: 0.60
+    minimum_evaluable_eras: 3
+
+gates:
+  leading_gate:
+    channel_crossing_threshold: 0.80
+    minimum_valid_price_damage_events: 12
+    minimum_median_lead_trading_rows: 1
+    minimum_positive_lead_fraction: 0.60
+    maximum_one_sided_sign_test_pvalue: 0.10
+    timing_classification:
+      positive: LEADING
+      zero: SYNCHRONOUS
+      negative: LAGGING
+      left_censored: EXCLUDED
+    question_a_minimum_rows: 50
+    question_a_minimum_each_class: 8
+    question_b_minimum_rows: 15
+    question_b_minimum_each_class: 5
+    require_question_a_transmission_positive_90pct_ci: true
+    require_question_b_exhaustion_positive_90pct_ci: true
+    require_leave_era_out_median_auc_at_least: 0.60
+  event_gate:
+    minimum_complete_router_events: 50
+    maximum_rows_per_event_per_question: 1
+    every_event_equal_weight: true
+    delete_any_single_event_preserves_primary_coefficient_direction: true
+  mechanism_gate:
+    minimum_events_full_sample: 40
+    minimum_events_per_era: 5
+    transmission_onset_delta_expected: positive
+    exhaustion_late_minus_early_expected: positive
+    marginal_price_impact_late_minus_early_expected: negative
+    minimum_direction_fraction: 0.60
+    maximum_one_sided_sign_test_pvalue: 0.10
+    minimum_eras_transmission_direction: 4
+    minimum_eras_exhaustion_direction: 3
+  external_replication_gate:
+    channels: [CROSS_INDEX_ETF, SAME_INDEX_ETF, CSI300_COMPONENT_BREADTH, IF_RAW_BASIS]
+    minimum_channels_passing_leading_rule: 3
+    cross_index_etf_must_pass: true
+    csi300_component_breadth_must_pass: true
+    if_semantic_limit_preserved: true
+  pass_requires_all_four_gates: true
+
+adjudication:
+  if_data_gate_fails: NO_VIEW_STRESS_TRANSMISSION_DATA_CONTRACT_FAILED_RETURN_EVALUATION_NOT_ALLOWED
+  if_leading_gate_fails: EXPLANATORY_ONLY_SYNCHRONOUS_OR_LAGGING_NO_STRATEGY_PROMOTION_NO_RESCUE
+  if_other_gate_fails: DISCOVERY_COMPLETE_MECHANISM_GATES_FAILED_NO_STRATEGY_PROMOTION_NO_RESCUE
+  if_all_four_pass: PASS_DISCOVERY_MECHANISM_EVIDENCE_NEW_STRATEGY_STUDY_MAY_BE_PREREGISTERED
+  program_failure: PROGRAM_FAILED_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1
+  strategy_return_evaluation: NOT_ALLOWED
+  current_signal: NOT_CREATED
+  no_trade: true
+
+paths:
+  spec: docs/510300_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1_SPEC.md
+  manifest: config/510300_stress_transmission_and_exhaustion_atlas_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_stress_transmission_and_exhaustion_atlas_v1_freeze_receipt.json
+  input_audit: reports/data_quality/510300_stress_transmission_and_exhaustion_atlas_v1_input_audit.json
+  mechanism_panel: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/mechanism_panel.parquet
+  outcome_panel: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/outcome_panel.parquet
+  router_event_atlas: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/router_event_atlas.csv
+  price_damage_events: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/price_damage_events.csv
+  phase_landmarks: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/phase_landmarks.csv
+  event_trajectories: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/event_trajectories.csv
+  event_period_summary: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/event_period_summary.csv
+  event_source_summary: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/event_source_summary.csv
+  leading_results: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/leading_results.csv
+  question_a_rows: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/question_a_event_rows.csv
+  question_b_rows: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/question_b_event_rows.csv
+  model_results: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/model_results.csv
+  era_mechanism_results: data/research/510300_stress_transmission_and_exhaustion_atlas_v1/era_mechanism_results.csv
+  result_json: reports/research/510300_stress_transmission_and_exhaustion_atlas_v1.json
+  result_markdown: reports/research/510300_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1.md
+  output_audit_json: reports/audit/510300_stress_transmission_and_exhaustion_atlas_v1_output_audit.json
+  output_audit_markdown: reports/audit/510300_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1_OUTPUT_AUDIT.md
+  program_failure_json: reports/audit/510300_stress_transmission_and_exhaustion_atlas_v1_program_failure.json

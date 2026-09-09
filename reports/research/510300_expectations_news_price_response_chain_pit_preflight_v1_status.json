@@ -1,0 +1,81 @@
+{
+  "program_id": "510300_EXPECTATIONS_NEWS_PRICE_RESPONSE_CHAIN_PIT_PREFLIGHT_V1",
+  "version": "1.0.0",
+  "status": "NO_VIEW_PIT_CHAIN_INPUT_ADMISSION_FAILED",
+  "completed_at": "2026-08-31T23:52:51.186736+08:00",
+  "protocol_manifest_payload_sha256": "5b2f704f79e65b439ef7b2b7662b3b489f44fca8e03fb19297484b627692abf5",
+  "gate_table": {
+    "path": "reports/data_quality/510300_expectations_news_price_response_chain_pit_preflight_v1_gates.parquet",
+    "sha256": "46595ee6e822e790aa88667e20b2a82451b924fe4d2762363c85d0294db2579b",
+    "rows": 7,
+    "passed_gate_count": 1,
+    "failed_gate_count": 6
+  },
+  "metrics": {
+    "component_state_rows": 42000,
+    "component_state_origins": 140,
+    "component_state_symbols": 667,
+    "official_pit_weight_rows": 0,
+    "official_pit_weight_row_share": 0.0,
+    "income_availability_date_nonnull_share": 0.9996904761904762,
+    "periodic_event_rows": 173449,
+    "periodic_event_symbols": 5435,
+    "periodic_event_archive_pass": true,
+    "periodic_exact_timestamp_rows": 51,
+    "periodic_exact_timestamp_share": 0.000294034557708606,
+    "periodic_unique_symbol_period_keys": 173449,
+    "preliminary_metadata_rows": 106455,
+    "preliminary_metadata_symbols": 5187,
+    "preliminary_exact_timestamp_rows": 31061,
+    "preliminary_exact_timestamp_share": 0.29177586773754166,
+    "official_fact_extraction_success_count": 900,
+    "official_fact_extraction_denominator": 1624,
+    "official_fact_extraction_success_rate": 0.5541871921182266,
+    "first_public_fact_pass_count": 852,
+    "first_public_fact_coverage": 0.5246305418719212,
+    "official_fact_contract_pass": false,
+    "complete_event_clustering_universe": false,
+    "event_price_clock_admitted": false,
+    "market_price_value_read": false
+  },
+  "failed_gates": [
+    {
+      "gate_id": "G1_OFFICIAL_PIT_MEMBERSHIP_AND_WEIGHT_VINTAGE",
+      "gate_status": "BLOCKED_NO_OFFICIAL_HISTORICAL_WEIGHT_VINTAGE"
+    },
+    {
+      "gate_id": "G3_EXACT_FIRST_PUBLICATION_TIMESTAMP",
+      "gate_status": "BLOCKED_PERIODIC_PUBLICATION_TIME_DATE_ONLY"
+    },
+    {
+      "gate_id": "G4_OFFICIAL_CORE_FACT_EXTRACTION",
+      "gate_status": "BLOCKED_OFFICIAL_FACT_EXTRACTION_COVERAGE"
+    },
+    {
+      "gate_id": "G5_FIRST_PUBLIC_FACT_AND_NO_REVISED_VALUE_AS_PIT",
+      "gate_status": "BLOCKED_FIRST_PUBLIC_FACT_OR_REVISION_CONTROL"
+    },
+    {
+      "gate_id": "G6_COMPLETE_EVENT_CLUSTERING_UNIVERSE",
+      "gate_status": "BLOCKED_INCOMPLETE_CLUSTERING_UNIVERSE"
+    },
+    {
+      "gate_id": "G7_CLOCK_ALIGNED_EVENT_PRICE_RESPONSE",
+      "gate_status": "BLOCKED_EVENT_PRICE_CLOCK"
+    }
+  ],
+  "next_research_action": "REMEDIATE_PIT_MEMBERSHIP_TIMESTAMP_FACT_AND_CLUSTERING_CONTRACTS",
+  "market_price_value_read": false,
+  "price_response_measurement_allowed": false,
+  "current_forecast_specification": "REJECTED_FROZEN",
+  "portfolio_action": "ABSTAIN",
+  "position_state": "POSITION_UNSET",
+  "current_investable_strategy": "NONE",
+  "return_prediction_allowed": false,
+  "portfolio_evaluation_allowed": false,
+  "model_position_target": "UNSET",
+  "order_generation_allowed": false,
+  "paper_shadow_authorized": false,
+  "live_authorized": false,
+  "status_payload_sha256": "72e7b24167ae78432f0754703c84bfa59192dcf6d9b28deaeda90bfb87e56073"
+}

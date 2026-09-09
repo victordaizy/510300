@@ -1,0 +1,213 @@
+{
+  "status": "DEVELOPMENT_CANDIDATE_FOUND_FREEZE_REQUIRED_NO_VALIDATION_READ",
+  "project_id": "510300_OPTION_FUTURES_BREADTH_DOMAIN_UNION_DISCOVERY_V4",
+  "parent_v3": {
+    "status": "DEVELOPMENT_REJECTED_3_OF_5_STARTS_PASSED",
+    "report": "reports\\discovery\\510300_option_futures_breadth_union_discovery_v3.json",
+    "report_sha256": "c2c852d286ee97c2efc795181d5c5c7b29a7bb7e416bbf583d299898cf2fa387"
+  },
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "information_only_assets": [
+      "510300期权",
+      "IF0股指期货",
+      "全A横截面"
+    ],
+    "benchmark": "H00300_TOTAL_RETURN",
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘"
+  },
+  "development_contract": {
+    "data_ceiling": "2023-12-31",
+    "selection_period": [
+      "2022-03-09",
+      "2023-12-29"
+    ],
+    "start_perturbations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "candidate_count": 5,
+    "primary_rule": "期权Gamma滞回制度为空仓，或四个正交风险域至少两票触发",
+    "domain_definitions": {
+      "breadth": "全A头部成交集中度滚动低20%",
+      "basis": "IF基差水平滚动低10%或五日变化滚动低5%，合并只计一票",
+      "futures_open_interest": "IF五日持仓变化滚动低15%",
+      "option_put_call_volume": "期权认沽认购成交量比滚动低10%"
+    },
+    "stress_costs": {
+      "commission_rate_per_leg": 0.0001,
+      "slippage_bps_per_leg": 15.0,
+      "cash_annual_rate": 0.015,
+      "lot_size": 100
+    },
+    "gate": "五个起点在压力成本下年化净超额和滚动242日超额中位数均不低于20%"
+  },
+  "passed_candidate_count": 1,
+  "best_candidate": {
+    "policy": "OPTION_OR_FOUR_DOMAIN_VOTE2",
+    "minimum_orthogonal_domain_votes": 2,
+    "include_option_state": true,
+    "base_annualized_excess_minimum": 0.2419327339225045,
+    "base_annualized_excess_median": 0.2539505938200687,
+    "base_rolling_242d_excess_minimum": 0.2543860937652799,
+    "stress_annualized_excess_minimum": 0.20229535165327542,
+    "stress_annualized_excess_median": 0.21328939319805107,
+    "stress_annualized_excess_maximum": 0.2174801659889634,
+    "stress_rolling_242d_excess_minimum": 0.217327826086752,
+    "stress_rolling_242d_excess_median": 0.21740255678231896,
+    "cash_day_share_median": 0.37188208616780044,
+    "stress_trade_leg_count_median": 64.0,
+    "stress_perturbation_pass_ratio": 1.0,
+    "development_gate": true
+  },
+  "passed_candidates": [
+    {
+      "policy": "OPTION_OR_FOUR_DOMAIN_VOTE2",
+      "minimum_orthogonal_domain_votes": 2,
+      "include_option_state": true,
+      "base_annualized_excess_minimum": 0.2419327339225045,
+      "base_annualized_excess_median": 0.2539505938200687,
+      "base_rolling_242d_excess_minimum": 0.2543860937652799,
+      "stress_annualized_excess_minimum": 0.20229535165327542,
+      "stress_annualized_excess_median": 0.21328939319805107,
+      "stress_annualized_excess_maximum": 0.2174801659889634,
+      "stress_rolling_242d_excess_minimum": 0.217327826086752,
+      "stress_rolling_242d_excess_median": 0.21740255678231896,
+      "cash_day_share_median": 0.37188208616780044,
+      "stress_trade_leg_count_median": 64.0,
+      "stress_perturbation_pass_ratio": 1.0,
+      "development_gate": true
+    }
+  ],
+  "frontier": [
+    {
+      "policy": "OPTION_OR_FOUR_DOMAIN_VOTE2",
+      "minimum_orthogonal_domain_votes": 2,
+      "include_option_state": true,
+      "base_annualized_excess_minimum": 0.2419327339225045,
+      "base_annualized_excess_median": 0.2539505938200687,
+      "base_rolling_242d_excess_minimum": 0.2543860937652799,
+      "stress_annualized_excess_minimum": 0.20229535165327542,
+      "stress_annualized_excess_median": 0.21328939319805107,
+      "stress_annualized_excess_maximum": 0.2174801659889634,
+      "stress_rolling_242d_excess_minimum": 0.217327826086752,
+      "stress_rolling_242d_excess_median": 0.21740255678231896,
+      "cash_day_share_median": 0.37188208616780044,
+      "stress_trade_leg_count_median": 64.0,
+      "stress_perturbation_pass_ratio": 1.0,
+      "development_gate": true
+    },
+    {
+      "policy": "OPTION_OR_FOUR_DOMAIN_VOTE1",
+      "minimum_orthogonal_domain_votes": 1,
+      "include_option_state": true,
+      "base_annualized_excess_minimum": 0.21754178690255824,
+      "base_annualized_excess_median": 0.22972818152516558,
+      "base_rolling_242d_excess_minimum": 0.17295087540375328,
+      "stress_annualized_excess_minimum": 0.1582994289160224,
+      "stress_annualized_excess_median": 0.16965929808402652,
+      "stress_annualized_excess_maximum": 0.17353817641684216,
+      "stress_rolling_242d_excess_minimum": 0.12159781917211798,
+      "stress_rolling_242d_excess_median": 0.12219478320756114,
+      "cash_day_share_median": 0.6818181818181818,
+      "stress_trade_leg_count_median": 97.0,
+      "stress_perturbation_pass_ratio": 0.0,
+      "development_gate": false
+    },
+    {
+      "policy": "OPTION_OR_FOUR_DOMAIN_VOTE3",
+      "minimum_orthogonal_domain_votes": 3,
+      "include_option_state": true,
+      "base_annualized_excess_minimum": 0.1547570495187165,
+      "base_annualized_excess_median": 0.16738844354109317,
+      "base_rolling_242d_excess_minimum": 0.15830505113170143,
+      "stress_annualized_excess_minimum": 0.13890002058861367,
+      "stress_annualized_excess_median": 0.15045407906884423,
+      "stress_annualized_excess_maximum": 0.1542376181328694,
+      "stress_rolling_242d_excess_minimum": 0.14340446393945389,
+      "stress_rolling_242d_excess_median": 0.14554072114052463,
+      "cash_day_share_median": 0.30839002267573695,
+      "stress_trade_leg_count_median": 28.0,
+      "stress_perturbation_pass_ratio": 0.0,
+      "development_gate": false
+    },
+    {
+      "policy": "OPTION_HYSTERESIS_ONLY",
+      "minimum_orthogonal_domain_votes": null,
+      "include_option_state": true,
+      "base_annualized_excess_minimum": 0.12683706302943995,
+      "base_annualized_excess_median": 0.13962279303241584,
+      "base_rolling_242d_excess_minimum": 0.10730027203990633,
+      "stress_annualized_excess_minimum": 0.11479243616422587,
+      "stress_annualized_excess_median": 0.12650105823538318,
+      "stress_annualized_excess_maximum": 0.13018803047132588,
+      "stress_rolling_242d_excess_minimum": 0.09914393014739464,
+      "stress_rolling_242d_excess_median": 0.10132544287542977,
+      "cash_day_share_median": 0.29931972789115646,
+      "stress_trade_leg_count_median": 22.0,
+      "stress_perturbation_pass_ratio": 0.0,
+      "development_gate": false
+    },
+    {
+      "policy": "FOUR_DOMAIN_VOTE2_ONLY",
+      "minimum_orthogonal_domain_votes": 2,
+      "include_option_state": false,
+      "base_annualized_excess_minimum": 0.12740655649609173,
+      "base_annualized_excess_median": 0.14408703815030172,
+      "base_rolling_242d_excess_minimum": 0.19417105777168014,
+      "stress_annualized_excess_minimum": 0.09092327161260234,
+      "stress_annualized_excess_median": 0.10723408445067364,
+      "stress_annualized_excess_maximum": 0.10831058291974519,
+      "stress_rolling_242d_excess_minimum": 0.1481379205759017,
+      "stress_rolling_242d_excess_median": 0.1485015170960399,
+      "cash_day_share_median": 0.12244897959183673,
+      "stress_trade_leg_count_median": 65.0,
+      "stress_perturbation_pass_ratio": 0.0,
+      "development_gate": false
+    }
+  ],
+  "frame_audit": {
+    "futures_rows_read": 579,
+    "common_feature_rows": 579,
+    "common_first_date": "2021-08-12",
+    "common_last_date": "2023-12-29",
+    "rank_window": 252,
+    "rank_minimum_history": 126,
+    "post_2023_rows_read": 0,
+    "input_sha256": {
+      "config\\510300_futures_option_bridge_v1.yaml": "b5d7da6e277f25fe2bdf5ec47ff235fca800c79d0d03d36ed3badb52fba807b0",
+      "data\\raw\\futures\\IF0_daily_raw.parquet": "6a361e083fb7e20595aee55f0455680dd5a2577ac872dc7436a083a45f2c8f92",
+      "data\\raw\\market\\000300_daily_raw.parquet": "cb2fee88cf69a756e3078956f4bb9bec8e7cce6ceb62f910343436ba68dd8a8d",
+      "data\\raw\\return_tail\\options\\510300_sse_daily_statistics.parquet": "a504a4b9aaa84603949d8312c65126b9e47be8ea4d1c4f8bb3bd48d0157cd75e",
+      "data\\raw\\market\\H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+      "data\\validation\\510300_daily_consensus_catchup_v1\\all_a_features_2016_2025.parquet": "a901625e7431e520a515cf713699b91a53328d32423cd675fdc3e4ac7f074a8b"
+    },
+    "option_state_decision_rows": 853,
+    "selection_rows": 443,
+    "domain_count": 4,
+    "basis_signals_count_as_one_domain": true,
+    "v3_report_sha256": "c2c852d286ee97c2efc795181d5c5c7b29a7bb7e416bbf583d299898cf2fa387"
+  },
+  "artifacts": {
+    "features": "data\\features\\510300_option_futures_breadth_domain_union_discovery_v4.parquet",
+    "metrics": "data\\research\\510300_option_futures_breadth_domain_union_discovery_v4\\start_perturbation_metrics.parquet",
+    "decisions": "data\\research\\510300_option_futures_breadth_domain_union_discovery_v4\\daily_decisions.parquet",
+    "report": "reports\\discovery\\510300_option_futures_breadth_domain_union_discovery_v4.json"
+  },
+  "evidence_limit": "历史研究输入已被多轮查看；开发通过只允许冻结并进入前向Shadow，不能直接授权实盘。",
+  "boundaries": {
+    "post_2023_rows_read": 0,
+    "position_mapping": "DISABLED",
+    "orders": "DISABLED",
+    "broker": "DISABLED",
+    "live_trading": "NOT_AUTHORIZED"
+  }
+}

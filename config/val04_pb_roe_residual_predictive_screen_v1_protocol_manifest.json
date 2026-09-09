@@ -1,0 +1,119 @@
+{
+  "project_id": "VAL04_PB_ROE_RESIDUAL_PREDICTIVE_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_PREDICTIVE_SCREEN_PROTOCOL",
+  "frozen_at": "2026-08-19T04:32:12.720088+08:00",
+  "frozen_files": {
+    "config/val04_pb_roe_residual_predictive_screen_v1.yaml": {
+      "sha256": "e8e72d0111116e8b945568d8e2944d6b884c6b522e9bd735805d1fe5765ec39a",
+      "size_bytes": 5474
+    },
+    "docs/VAL04_PB_ROE_RESIDUAL_PREDICTIVE_SCREEN_V1_PROTOCOL.md": {
+      "sha256": "dbdb93c2ecce4e406a9e5901cf68c88a3eddac1696a22455746a5f1245ae584f",
+      "size_bytes": 2238
+    },
+    "research/val04_pb_roe_residual_predictive_screen_v1.py": {
+      "sha256": "79a35a1e1c4916e5e1ea95e2740928fac9dd99af88de0b1a7e02e2ba5f1982c6",
+      "size_bytes": 8593
+    },
+    "scripts/freeze_val04_pb_roe_residual_predictive_screen_v1_protocol.py": {
+      "sha256": "28e5c28b550bc78c223d01ea784b4ffa47bea9fcc691bafc79a161322373500e",
+      "size_bytes": 4610
+    },
+    "scripts/run_val04_pb_roe_residual_predictive_screen_v1.py": {
+      "sha256": "51857350e7f810ef132b7b8d609d1275be3afb50f8aa81f09fceb8da6cacaef3",
+      "size_bytes": 2595
+    },
+    "tests/test_val04_pb_roe_residual_predictive_screen_v1.py": {
+      "sha256": "1052f569cf5fc0f33986bd3201b41cb6290b140c84b79c70ef79abbd23e06302",
+      "size_bytes": 2488
+    }
+  },
+  "input_hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "val04_model_manifest",
+        "file": "config/val04_pb_roe_residual_v1_manifest.json",
+        "expected_sha256": "3d413e9865d5832dcc632d455ceafbbb62a4bcccd8d3a1b26250b36fa185912f",
+        "actual_sha256": "3d413e9865d5832dcc632d455ceafbbb62a4bcccd8d3a1b26250b36fa185912f",
+        "matches": true
+      },
+      {
+        "dataset": "val04_signal_inputs",
+        "file": "data/features/000300_val04_pb_roe_residual_v1_signal_inputs.parquet",
+        "expected_sha256": "77a5bc1da4493733420d3254c936c3dddfa754432b7ad3cb7287fe99faa78ff4",
+        "actual_sha256": "77a5bc1da4493733420d3254c936c3dddfa754432b7ad3cb7287fe99faa78ff4",
+        "matches": true
+      },
+      {
+        "dataset": "frozen_forward_labels",
+        "file": "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet",
+        "expected_sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+        "actual_sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+        "matches": true
+      },
+      {
+        "dataset": "forward_label_manifest",
+        "file": "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json",
+        "expected_sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f",
+        "actual_sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f",
+        "matches": true
+      }
+    ]
+  },
+  "primary_target": "etf_total_return",
+  "primary_horizon_trading_days": 242,
+  "primary_predictive_gate": {
+    "minimum_matured_observations": 36,
+    "minimum_observations_per_bucket": 5,
+    "spearman_ic_strictly_positive": true,
+    "both_chronological_half_ics_strictly_positive": true,
+    "bucket_mean_returns_nondecreasing": true,
+    "cheapest_minus_expensive_mean_return_strictly_positive": true,
+    "cheapest_minus_expensive_median_return_strictly_positive": true,
+    "h00300_spearman_confirmation_strictly_positive": true,
+    "h00300_cheapest_minus_expensive_mean_return_strictly_positive": true,
+    "familywise_hac_method": "HOLM_BONFERRONI",
+    "familywise_alpha": 0.05,
+    "family_size": 1,
+    "pass_status": "HISTORICAL_PREDICTIVE_SCREEN_PASS_STRATEGY_EVALUATION_NOT_RUN",
+    "fail_status": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+  },
+  "trial_and_multiplicity": {
+    "registered_trials": [
+      "VAL04_PB_ROE_RESIDUAL"
+    ],
+    "primary_test_count": 1,
+    "family_controller": "HOLM_BONFERRONI_ALPHA_0_05",
+    "global_research_ledger_still_required": true,
+    "secondary_horizons_are_decision_gates": false,
+    "forbidden_after_result": [
+      "把60日或120日改为主要期限",
+      "改分档边界、合并样本不足分档或删月份",
+      "改变行业、增长、回归权重、截断边界或60月窗口",
+      "主要屏幕失败后运行仓位回测",
+      "把未经校正的相关系数或短期限结果称为通过"
+    ]
+  },
+  "test_result": {
+    "command": [
+      "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_val04_pb_roe_residual_predictive_screen_v1.py",
+      "-q"
+    ],
+    "return_code": 0,
+    "stdout": "...                                                                      [100%]\n3 passed in 1.70s"
+  },
+  "governance": {
+    "real_label_values_read": false,
+    "predictive_ic_calculated": false,
+    "strategy_returns_calculated": false,
+    "positions_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false
+  },
+  "manifest_content_sha256": "380db2ff913bbda1faed28c6f8ebf5a188b3ef63defbb577972185ab0268a5e3"
+}

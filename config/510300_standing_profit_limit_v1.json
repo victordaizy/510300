@@ -1,0 +1,158 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "study_id": "510300_STANDING_PROFIT_LIMIT_V1",
+  "round": 110,
+  "registered_at": "2026-09-08T20:18:54.418746+08:00",
+  "primary": "PANIC_PROFIT_LIMIT_THROUGH",
+  "candidate_configurations": 1,
+  "daily_volume_cap": 0.01,
+  "execution_assumptions": {
+    "PANIC_PROFIT_LIMIT_THROUGH": "THROUGH_PRICE",
+    "PANIC_PROFIT_LIMIT_CLOSE_CONFIRM": "CLOSE_STILL_ABOVE"
+  },
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.04,
+        "trail": null,
+        "take": 0.06,
+        "days": 10
+      }
+    }
+  },
+  "rules": "docs/510300_STANDING_PROFIT_LIMIT_V1.md",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "execution_evidence": "DAILY_BAR_CONDITIONAL_PROXIES_NOT_TRADE_PROOF",
+  "previous_goal_turn_classification": "PROGRESS_ROUNDS108_AND109_COMPLETED",
+  "frozen_files": [
+    {
+      "path": "research\\standing_profit_limit_v1.py",
+      "sha256": "bfbeb17b83a2d32fb4f7e1b4e9994b4c38da44b4388726cc8bf6c7a925e871e1"
+    },
+    {
+      "path": "research\\standing_profit_limit_account_v1.py",
+      "sha256": "fc9d85ec8e511349373e7f3cdc7f85c58a36b33edb5d30c47fc1f0cc72f7a301"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "tests\\test_standing_profit_limit_v1.py",
+      "sha256": "7bb6b8d3b0131a7dc4c46319fcf6e4bef1a2d79ddb8a9fd578fd912914cbd2c3"
+    },
+    {
+      "path": "reports\\research\\510300_standing_profit_limit_v1\\tests_receipt.json",
+      "sha256": "658f0499ff0a45d3bd19b0a8679b8da7360bc92d8a56deae569d745bfaabb048"
+    },
+    {
+      "path": "docs\\510300_STANDING_PROFIT_LIMIT_V1.md",
+      "sha256": "ea4aa1ae38dd164b9c9a010be9c254a9c3885296c91203c3b790eaf70461a983"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "config\\510300_simple_volume_reversal_v1.json",
+      "sha256": "f169dbe7614f7e26b19ca2731d52a47db115f511cb966fa99bb8f56dfd0dc9b4"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "reports\\research\\510300_simple_volume_reversal_v1\\evaluation\\BASE\\V6_PANIC_RECOVERY_ledger.parquet",
+      "sha256": "338a83ac5186f6364a5bcf0c091596a4c5f0dfc17990c3c1c15002669b98fff5"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "864a38a3e707c277b4079cb9ce20648e4bd2409e801682da84187aa2c39d123e"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_simple_volume_reversal_v1\\evaluation\\STRESS\\V6_PANIC_RECOVERY_ledger.parquet",
+      "sha256": "7e8dc28d84107480d841ee9c80a2c335bfee7221b58135f5fcd54d5d04f4732a"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "e7371121c04f2af078ee69e36a4bebc6b9d8690767c3da1bda3fd83d9dca9f2f"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_simple_panic_earlier_history_v1\\BASE\\V6_PANIC_RECOVERY_ledger.parquet",
+      "sha256": "e69e1dd7c515f13a8f67452f88e99e0ebd3f3a5960abe7d56218e12e7c4c1e73"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "84627b8d8b953d14c5aa196a04a153da9db8d66bd0e9bcc0d1cb7628b21564fd"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_simple_panic_earlier_history_v1\\STRESS\\V6_PANIC_RECOVERY_ledger.parquet",
+      "sha256": "3e5edc00afcef4945f4703df1ee5983b507e584af36c0255ed2e35debf43450b"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "5b7e0cc9a843c888ea3262615d102a8b16ba511f235d278b2f882a00ce013c81"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    }
+  ]
+}

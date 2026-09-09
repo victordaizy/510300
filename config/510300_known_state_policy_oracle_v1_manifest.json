@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_KNOWN_STATE_POLICY_ORACLE_V1",
+  "state": "FROZEN_BEFORE_ORACLE_OUTCOME_CALCULATION",
+  "frozen_at_asia_shanghai": "2026-08-31T14:10:37.217089+08:00",
+  "config_path": "config/510300_known_state_policy_oracle_v1.yaml",
+  "config_sha256": "576956314e3520cdb1fb6dc6679f7f311efa0affd3ffb7696fa1de12746d8398",
+  "oracle_outcomes_read_before_freeze": false,
+  "state_predictability_evaluated": false,
+  "oracle_future_information_declared": true,
+  "tracked_files": {
+    "config/510300_known_state_policy_oracle_v1.yaml": "576956314e3520cdb1fb6dc6679f7f311efa0affd3ffb7696fa1de12746d8398",
+    "docs/510300_KNOWN_STATE_POLICY_ORACLE_V1_SPEC.md": "b552b2c819af79cb22db320665747e8b37bdc820c0bd3b2253a4721840f11daa",
+    "research/known_state_policy_oracle_v1.py": "7f46c2e9dfb5cf714ff99afb2b04ba29d7d38de860624af73be08f162c2e574a",
+    "research/three_state_trend_router_v1_0_1.py": "b44bc3e3b71aac1f0ee6d941ef968a8913da4a08b5186463c4ed97c5c1c3703b",
+    "scripts/freeze_510300_known_state_policy_oracle_v1.py": "671dfa1d6553882531a272443e4bff4cafa759ab8fe61b7fdf8bbf57d11deea3",
+    "scripts/run_510300_known_state_policy_oracle_v1.py": "d9faf66277d00d114d8a0bc06b46260c96fcf1d2b88d3d6b1b3a98db5f5fcef7",
+    "tests/test_510300_known_state_policy_oracle_v1.py": "360e610248af5778604d67b87d193186efc0ab74a815192fa4fed8457448778f",
+    "reports/data_quality/510300_causal_gaussian_hmm_regime_router_v1_inputs.json": "460fdc1b4972241ee4f34cbaa9a08f2fa9504d0d797f1e8baf987341e655ef1a",
+    "backtest/engine.py": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc"
+  },
+  "input_files": {
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/000300_daily.parquet": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "selection_bias_control": {
+    "prior_manifest_count": 349,
+    "non_manifest_prefreeze_failed_attempt_count": 1,
+    "total_trial_count_including_current": 351,
+    "diagnostic_oracle_not_promoted_to_strategy": true
+  },
+  "fixed_oracle": {
+    "horizon_trading_days": 20,
+    "primary_threshold": 0.05,
+    "robustness_thresholds": [
+      0.03,
+      0.07
+    ],
+    "primary_policy": {
+      "BULL_TREND": 1.0,
+      "BEAR_TREND": 0.0,
+      "RANGE": 0.0
+    },
+    "account_cny": 20000.0,
+    "base_slippage_bps": 5.0,
+    "stress_slippage_bps": 10.0
+  },
+  "no_rescue": {
+    "threshold": true,
+    "horizon": true,
+    "policy_mapping": true,
+    "range_strategy": true
+  }
+}

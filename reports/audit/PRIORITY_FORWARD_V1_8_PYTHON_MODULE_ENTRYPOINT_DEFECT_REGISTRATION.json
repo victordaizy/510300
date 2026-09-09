@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "PRIORITY_FORWARD_V1_8_PYTHON_MODULE_ENTRYPOINT_DEFECT_REGISTRATION",
+  "registered_at": "2026-08-26T09:35:18+08:00",
+  "status": "FROZEN_DEFECT_REGISTERED_NO_SAME_DAY_RETRY",
+  "failed_window": {
+    "target_date": "2026-08-26",
+    "scheduled_window": "09:25-09:35 Asia/Shanghai",
+    "claim_count": 1,
+    "actual_launcher_count": 1,
+    "deduplicated_launcher_count": 1,
+    "task_run_status": "FAILED",
+    "collection_status": "PROGRAM_FAILED",
+    "task_exit_code": 1,
+    "same_day_retry_performed": false,
+    "same_day_backfill_performed": false
+  },
+  "immutable_evidence": [
+    {
+      "role": "atomic_claim",
+      "path": "reports/audit/priority_forward_task_claims_v1_7/20260826_PRIMARY_MARKET_PCF_IOPV.json",
+      "sha256": "868c7c04aae2da38fd94fd9b01003cfc93c8e0b32088cae6c88499eccf527113"
+    },
+    {
+      "role": "actual_launcher_codex_receipt",
+      "path": "reports/audit/priority_forward_codex_runs_v1_7/20260826T012138769537Z_9156_ad1635fda8da_morning.json",
+      "sha256": "1a787dbd1590bcabde4472636e593c3097454df24db248b1da1c65fa9f00bbdb"
+    },
+    {
+      "role": "atomic_deduplication_codex_receipt",
+      "path": "reports/audit/priority_forward_codex_runs_v1_7/20260826T012502583068Z_7288_4fc6107dd7fa_morning.json",
+      "sha256": "65b6c7fd3b1ddddb0d68e8311887c8ca7021dc629799120f857a2ecc03c09940"
+    },
+    {
+      "role": "failed_task_receipt",
+      "path": "reports/data_quality/primary_market_task_runs_v1_2/20260826T0125005282393Z_11696.json",
+      "sha256": "6ec2e049842d584fdd0da31830cd0a4e609a32009d4962313157c910029ed249"
+    },
+    {
+      "role": "task_log",
+      "path": "output/primary_market_forward_logs_v1_2/20260826.task.log",
+      "sha256": "5acecc218e82e1dc85592580c2cb2ae6694f1a1ca47e998bd4d5f7d26c25d425"
+    }
+  ],
+  "defect": {
+    "exception_type": "ModuleNotFoundError",
+    "exception_message": "No module named 'market_data'",
+    "failed_file": "scripts/collect_510300_primary_market_v1_2.py",
+    "failed_import": "market_data.etf_daily_crosscheck_v1_2",
+    "root_cause": "V1.2 PowerShell runner passed the collector as a script pathname. Python therefore used the scripts directory as sys.path[0], so the sibling market_data package was not importable.",
+    "v1_7_manifest_modified": false,
+    "v1_7_runtime_files_modified": false,
+    "v1_7_receipts_modified": false
+  },
+  "correction": {
+    "runtime_patch_id": "PCF_IOPV_PYTHON_MODULE_ENTRYPOINT_V1_2_1",
+    "change_class": "OPERATIONAL_PYTHON_MODULE_ENTRYPOINT_CORRECTION",
+    "collector_invocation": "python -m scripts.collect_510300_primary_market_v1_2",
+    "analyzer_invocation": "python -m scripts.analyze_510300_primary_market_readiness_v1_2",
+    "working_directory": "project_root",
+    "new_forward_runner": {
+      "path": "scripts/run_510300_primary_market_forward_v1_2_1.ps1",
+      "sha256": "f42b048e87c89fe731dce4a5e6bee7fc8f922e482d3ccdfba243df946491843a"
+    },
+    "new_task_runner": {
+      "path": "scripts/run_510300_primary_market_collection_task_v1_2_1.ps1",
+      "sha256": "fd13825993a7b0cd670438f0fa753a19d05448bb7c3c85f04b9e538bc65bb13b"
+    },
+    "new_supervisor_config": {
+      "path": "config/priority_forward_supervisor_v1_4.yaml",
+      "sha256": "9ca4c51dc625e4c5d61acd4009a2f354bfca1f09a2bb92c085b30fe2378c343f"
+    },
+    "new_entrypoint": {
+      "path": "scripts/run_priority_forward_codex_automation_v1_8.py",
+      "sha256": "aa0b834422cc8251327f9120c09d412f8fcb500beee52941e870bfb2a38f34f1"
+    },
+    "new_installer": {
+      "path": "scripts/install_priority_forward_morning_task_v1_8.ps1",
+      "sha256": "adbf8d0cf1bed91e7151a8101709cd640e5d85df52100151d3b074b6077a5355"
+    },
+    "effective_from": "2026-08-27T09:20:00+08:00",
+    "deploy_before_current_close_acceptance": false,
+    "research_protocol_changed": false,
+    "model_or_candidate_changed": false,
+    "historical_signal_changed": false,
+    "source_contract_changed": false,
+    "maturity_thresholds_changed": false,
+    "data_purchase_budget_cny": 0,
+    "maximum_active_research_streams": 2,
+    "late_backfill_enabled": false
+  },
+  "verification": {
+    "module_import_smoke_test": "PASS",
+    "powershell_5_parse": "PASS",
+    "success_exit_code_preserved": true,
+    "external_failure_exit_code_3_preserved": true,
+    "patched_task_receipt_binds_runtime_patch": true,
+    "focused_tests_passed": 5,
+    "focused_tests_failed": 0
+  },
+  "deployment_status": "PREPARED_NOT_ACTIVE_UNTIL_AFTER_2026_08_26_CLOSE_ACCEPTANCE"
+}

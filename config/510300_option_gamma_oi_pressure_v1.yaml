@@ -1,0 +1,107 @@
+protocol:
+  project_id: 510300_OPTION_GAMMA_OI_PRESSURE_V1
+  state: DISCOVERY_EXTERNAL_FORMULA_TRANSFER_PRE_OUTCOME_FREEZE
+  purpose: 将公开论文GammaOIPressure横截面因子迁移为2万元账户可执行的单合约只做多策略
+  deployable_strategy: false
+  historical_execution_proof: false
+  factor_count: 1
+
+external_source:
+  title: Option Return Predictability via Large Language Models
+  url: https://doi.org/10.13140/RG.2.2.27377.03683
+  source_market: 中国ETF期权横截面
+  source_portfolio: 每日做多因子前10%并进行Delta对冲
+  source_out_of_sample_start: '2024-09-30'
+  transfer_warning: 本协议改为单合约只做多且不做Delta对冲，属于迁移检验而非原论文复制
+
+dates:
+  feature_start: '2020-01-02'
+  development_end: '2023-12-29'
+  reserved_validation_start: '2024-01-01'
+  reserved_validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  validation_or_holdout_read_authorized: false
+
+inputs:
+  option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    sha256: 6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064
+  option_risk:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    sha256: e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035
+  benchmark:
+    path: data/raw/market/H00300_total_return_daily_raw.parquet
+    sha256: 90ded420f641f05a8ab8c9cfeb6f8df4172e9e1ea43995005df1cdecd5e9c5ab
+
+factor:
+  name: GammaOIPressure
+  epsilon: 1.0e-12
+  formula: >-
+    -((high-low)/(turnover_cny+epsilon))
+    *tanh((open_interest-lag1_open_interest)/(volume+1))
+    *tanh(delta)
+    *log(1+underlying_close^2*abs(gamma))
+    /(sqrt(1+abs(theta))*sqrt(1+dte_years))
+  direction: 每个信号日选择因子值最高的合约
+  lag_rule: lag1_open_interest必须是同一合约在上一基准交易日的值
+  missing_policy: 任一输入缺失则该合约当日无信号
+
+schedule:
+  signal_time: t日收盘后
+  entry_time: t+1交易日
+  exit_time: t+2交易日
+  holding_trading_days: 1
+  overlap_allowed: false
+  next_signal_may_use_exit_day_close: true
+
+contract_selection:
+  adjusted_contracts_allowed: false
+  contract_unit_required: 10000
+  minimum_calendar_days_to_expiry: 5
+  maximum_calendar_days_to_expiry: 60
+  minimum_moneyness: 0.80
+  maximum_moneyness: 1.20
+  minimum_signal_day_volume: 100
+  minimum_signal_day_open_interest: 100
+  minimum_signal_premium_per_contract_cny: 500
+  maximum_signal_premium_per_contract_cny: 10000
+  target_signal_notional_cny: 7000
+  maximum_contracts: 10
+  tie_break:
+    - factor_descending
+    - volume_descending
+    - contract_code_ascending
+
+execution_envelope:
+  entry_price: 次一交易日该合约日内最高成交价
+  exit_price: 再下一交易日该合约日内最低成交价
+  missing_entry_trade: 不成交并持有现金
+  missing_exit_trade: 退出价值按零计
+  option_fee_cny_per_contract_per_leg: 5.0
+  initial_cash_cny: 20000
+  minimum_opening_trade_notional_cny: 5000
+  insufficient_cash: 订单拒绝并持有现金
+  small_opening_trade: 订单拒绝并持有现金
+  cash_interest_rate: 0.0
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  metric: 几何年化策略收益率减几何年化基准收益率
+  annualized_excess_threshold: 0.20
+  minimum_executed_trades: 100
+  minimum_entry_notional_gate: true
+
+paths:
+  manifest: config/510300_option_gamma_oi_pressure_v1_manifest.json
+  result_json: reports/discovery/510300_option_gamma_oi_pressure_v1_dev.json
+  result_markdown: reports/discovery/510300_option_gamma_oi_pressure_v1_dev.md
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  parameter_search: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

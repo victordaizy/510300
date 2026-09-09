@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V3_MANIFEST",
+  "status": "FROZEN_BEFORE_A_SHARE_LIMIT_UP_CANDIDATE_OUTCOME",
+  "frozen_at": "2026-08-27T02:31:02.437207+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V3",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v3.yaml": "29dc2315803a2d76378397b0ed683500e278318aca75b3442cc506d48ad43e54",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V3_SPEC.md": "4114ceb6b11b5f6f1aca401801aaa6cc6a67e213e9f3ab1c684e2305f7ea8bb0",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v3.py": "1a3b69213746b176fea9966d8f8f4b8dd2d8210949630708340f68d555260efb"
+  },
+  "tracked_content_sha256": "cb137dc31b7e5801656b6a283737d901d270172ba05d9f2ae40b95d6a4797167",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V2_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v2_manifest.json",
+    "manifest_sha256": "a5bcbbead84e3c353f25298be5cf563c761826437b26073762fab6397efa5832",
+    "tracked_content_sha256": "54a41994b3d912fc4311310e58603eb01c6dc6c94fa739ad0e87c0f6361e5fdf",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_MANIFEST_VERIFIED"
+  },
+  "qdii_v1_manifest_verification": {
+    "status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_V1_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/qdii_cross_market_discount_reversion_v1_manifest.json",
+    "manifest_sha256": "aaf93911506f45d80e4c2c1c7f26a98a1b842ece212816dbbb92ec727b71d8e6",
+    "tracked_content_sha256": "5d26be7fccda02d3d93a3186516c19bf4b5aa2fa379c3a0c230c29816d7a95fd",
+    "tracked_file_count": 6,
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V2_MANIFEST_VERIFIED"
+  },
+  "qdii_v2_manifest_verification": {
+    "status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/qdii_cross_market_discount_reversion_zero_variance_v2_manifest.json",
+    "manifest_sha256": "dc45af14480c378ed51675088d29d6f808b8d78ec651dc86df8ea4b1bae9b8c6",
+    "tracked_content_sha256": "2e48c2554f35cd3e78c63cfd4165ef1d6c3179bd47fdce094226be7968559488",
+    "tracked_file_count": 5,
+    "v1_manifest_status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_V1_MANIFEST_VERIFIED",
+    "v1_failure_preservation_status": "PASS_V1_FAILURE_PRESERVED"
+  },
+  "qdii_rejection": {
+    "checks": {
+      "v1_failure_preserved": true,
+      "v1_performance_unavailable": true,
+      "v2_rejected": true,
+      "v2_all_visible_gates_failed": true,
+      "v2_sealed_closed": true
+    },
+    "v1_report_path": "reports/research/qdii_cross_market_discount_reversion_v1_visible.json",
+    "v1_report_sha256": "36cc05dfb76eff20ec8f4e80b07dc40c6c218ed7ab25784cc2f29570d8a9fd51",
+    "v2_report_path": "reports/research/qdii_cross_market_discount_reversion_zero_variance_v2_visible.json",
+    "v2_report_sha256": "b1f811cd0f1e3c42b2a386d22ff324b0e1e60cd60f52064780db057a5ea1d545"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true,
+    "rolling_and_bootstrap_gates_unchanged": true,
+    "forward_726_day_requirement_unchanged": true
+  },
+  "new_lane": {
+    "lane": "A_SHARE_PRICE_LIMIT_CONTINUATION",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "permitted_mechanism": "普通A股收盘封住法定涨停后，在下一交易日开盘确实可成交时买入并固定持有五个开盘周期",
+    "prohibited_reuse": [
+      "ETF_MOMENTUM_OR_ROTATION",
+      "ETF_LIQUIDITY_SHOCK_REVERSAL",
+      "CROSS_BORDER_QDII_DISCOUNT_REVERSION",
+      "A_SHARE_LOW_VOLATILITY_OR_SIZE_VALUE",
+      "A_SHARE_RESIDUAL_TREND_OR_SHORT_TERM_REVERSAL",
+      "A_SHARE_SUE_OR_OFFICIAL_REPORT_ORJ"
+    ],
+    "short_sale_allowed": false,
+    "leverage_allowed": false,
+    "same_close_signal_and_execution_allowed": false,
+    "next_open_must_be_observed_and_below_upper_limit": true
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

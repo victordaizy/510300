@@ -1,0 +1,101 @@
+protocol:
+  study_id: 510300_MACRO_SURPRISE_EVENT_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: CANDIDATE_FAMILY_FIXED_BEFORE_EVENT_DATA_ACQUISITION
+  candidate_family_size: 8
+  no_parameter_rescue: true
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  leverage_allowed: false
+  shorting_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+
+event_contract:
+  series:
+    - {series_id: PMI, source_function: macro_china_pmi_yearly, direction: HIGHER_IS_GROWTH_POSITIVE}
+    - {series_id: M2, source_function: macro_china_m2_yearly, direction: HIGHER_IS_LIQUIDITY_POSITIVE}
+    - {series_id: EXPORTS, source_function: macro_china_exports_yoy, direction: HIGHER_IS_GROWTH_POSITIVE}
+    - {series_id: IMPORTS, source_function: macro_china_imports_yoy, direction: HIGHER_IS_GROWTH_POSITIVE}
+    - {series_id: INDUSTRIAL_PRODUCTION, source_function: macro_china_industrial_production_yoy, direction: HIGHER_IS_GROWTH_POSITIVE}
+  usable_event: 公布日、实际值、预期值均有限；缺任一字段即排除且不补值
+  raw_surprise: actual_minus_forecast
+  standardized_surprise: 原始意外除以该序列仅含此前事件的最近36次原始意外样本标准差
+  standardization_window_events: 36
+  standardization_minimum_prior_events: 12
+  current_event_excluded_from_scale: true
+  same_day_multiple_series: 保留每个序列并按公布日聚合
+  forecast_revision_or_missing_actual_rows: EXCLUDED
+  point_in_time_limitation: 当前历史经济日历快照，不是逐次不可变公告快照，仅限发现
+
+timing:
+  release_date: A
+  first_effective_state_date: 首个严格晚于A的510300交易日D
+  decision_information_cutoff: D_OPEN_BEFORE_ORDER_SUBMISSION
+  execution_time: D_OPEN
+  same_release_date_execution_forbidden: true
+  missing_event_state: 1
+  holding_days_are_china_trading_days: true
+  overlapping_cash_events: UNION
+
+candidates:
+  - candidate_id: MACRO_ANY_NEG_HOLD1
+    rule: 任一可用宏观实际值低于预期，下一交易日空仓1日
+    mechanism: 广义负面宏观意外的即时风险规避
+  - candidate_id: MACRO_ANY_NEG_HOLD3
+    rule: 任一可用宏观实际值低于预期，下一交易日起空仓3日
+    mechanism: 广义负面宏观意外的短期价格消化
+  - candidate_id: MACRO_ANY_NEG_HOLD5
+    rule: 任一可用宏观实际值低于预期，下一交易日起空仓5日
+    mechanism: 广义负面宏观意外的一周价格消化
+  - candidate_id: MACRO_SEVERE_ZLE_M1_HOLD3
+    rule: 任一标准化意外不高于负1，下一交易日起空仓3日
+    mechanism: 尺度可比的严重负面意外
+  - candidate_id: MACRO_BREADTH_TWO_NEG_HOLD3
+    rule: 同一公布日至少两个序列实际值低于预期，下一交易日起空仓3日
+    mechanism: 多项宏观数据同步低于预期
+  - candidate_id: MACRO_COMPOSITE_ZLE_M0P5_HOLD3
+    rule: 同一公布日有限标准化意外均值不高于负0.5，下一交易日起空仓3日
+    mechanism: 聚合尺度后的显著负面宏观意外
+  - candidate_id: MACRO_PMI_NEG_HOLD5
+    rule: 官方制造业PMI实际值低于预期，下一交易日起空仓5日
+    mechanism: 高频增长景气负面意外
+  - candidate_id: MACRO_M2_NEG_HOLD5
+    rule: M2同比实际值低于预期，下一交易日起空仓5日
+    mechanism: 流动性增长负面意外
+
+objective:
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  minimum_rolling_excess_median: 0.20
+  rolling_window_trading_days: 242
+  hard_gate: 每个压力成本时期和每个起点扰动均同时通过双20门槛
+
+evaluation:
+  cost_scenarios: [BASE, STRESS]
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_2017_2019
+      start_date: '2017-07-03'
+      end_date: '2019-12-31'
+    - id: MID_2020_2022
+      start_date: '2020-01-02'
+      end_date: '2022-12-30'
+    - id: LATE_2023_2025
+      start_date: '2023-01-03'
+      end_date: '2025-09-30'
+    - id: COMBINED_2017_2025
+      start_date: '2017-07-03'
+      end_date: '2025-09-30'
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "PRIORITY_FORWARD_ACTIVE_SCHEDULE_SURFACE_V1",
+  "generated_at": "2026-08-26T07:19:54.0173416+08:00",
+  "status": "PASS_UNAUTHORIZED_SCHEDULES_PAUSED_OR_DISABLED",
+  "frozen_manifest": {
+    "path": "config/priority_forward_research_operations_v1_7_manifest.json",
+    "sha256": "50d40ecefd3fdf8aa7f6de1f5db11c37edfa41ff04f75fe3edb295800a93aa49"
+  },
+  "codex_automations": {
+    "authorized_active": [
+      {
+        "id": "510300-pcf-iopv",
+        "runner": "run_priority_forward_codex_automation_v1_7.py",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "510300",
+        "runner": "run_priority_forward_codex_automation_v1_7.py",
+        "status": "ACTIVE"
+      }
+    ],
+    "paused_by_this_correction": [
+      {
+        "id": "510300-2",
+        "branch": "OPTION_ORDERBOOK",
+        "previous_status": "ACTIVE",
+        "current_status": "PAUSED",
+        "toml_sha256": "9cd7995aedeacf774007a5cff5dfa783f84c8041e3af992e228c7e4db549cb46"
+      },
+      {
+        "id": "v3-forward-1",
+        "branch": "V3_FORWARD_2",
+        "previous_status": "ACTIVE",
+        "current_status": "PAUSED",
+        "toml_sha256": "6edec1a9c802d4c782ba6a7cbc470ef10415f7723e9d48ec6f769844825cbda8"
+      }
+    ]
+  },
+  "windows_tasks": {
+    "authorized_enabled": [
+      "Codex-510300-Primary-Market-Collector",
+      "Codex-510300-T-Only-Forward-V1"
+    ],
+    "disabled_by_this_correction": [
+      {
+        "task_name": "Codex-Industry-Expectation-Gap-Forward-Operations-V1",
+        "previous_state": "Ready",
+        "current_state": "Disabled",
+        "legacy_restart_count": 3,
+        "legacy_start_when_available": true
+      },
+      {
+        "task_name": "Codex-Priority-Forward-Research-Daily-Status",
+        "previous_state": "Ready",
+        "current_state": "Disabled",
+        "legacy_restart_count": 2,
+        "legacy_start_when_available": true
+      }
+    ]
+  },
+  "actions": {
+    "automations_deleted": false,
+    "windows_tasks_deleted": false,
+    "research_run_triggered": false,
+    "historical_evidence_modified": false,
+    "reason": "关闭已终止期权分支、隔离V3分支和旧版重复任务的活动调度，只保留冻结授权的V1.7与T-only入口。"
+  }
+}

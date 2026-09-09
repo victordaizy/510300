@@ -1,0 +1,93 @@
+protocol:
+  project_id: "CSI300_SMALL_ACCOUNT_ALPHA_V2_EXTERNAL_2015_2021"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "EXTERNAL_PERIOD_VALIDATION"
+  parent_project_id: "CSI300_SMALL_ACCOUNT_ALPHA_V2"
+  parent_formula_frozen: true
+  benchmark: "H00300沪深300全收益指数"
+  acceptance_metric: "策略几何年化收益率减基准几何年化收益率"
+  acceptance_minimum: 0.20
+
+inputs:
+  parent_config: "config/csi300_small_account_alpha_v2.yaml"
+  parent_manifest: "config/csi300_small_account_alpha_v2_manifest.json"
+  parent_result: "reports/backtest/csi300_small_account_alpha_v2.json"
+  external_data_status: "reports/data_quality/csi300_external_validation_2014_2021_status.json"
+  external_member_panel: "data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet"
+  external_price_index: "data/raw/external_validation/csi300_2014_2021/000300_price_index_2014_2021.parquet"
+  external_benchmark: "data/raw/external_validation/csi300_2014_2021/H00300_total_return_2014_2021.parquet"
+  parent_factor_implementation: "backtest/run_final_alpha_strategy.py"
+  parent_execution_implementation: "research/small_account_cross_sectional.py"
+
+schedule:
+  start_date: "2015-01-05"
+  end_date: "2021-08-11"
+  rebalance_every_trading_days: 10
+  signal_time: "t日收盘后"
+  execution_time: "t+1交易日开盘"
+
+universe:
+  minimum_20d_average_amount_cny: 50000000
+  maximum_open_total_return_gap_for_trade: 0.095
+  point_in_time_members: 300
+
+factor_budget:
+  maximum: 10
+  used: 8
+  parent_formula_unchanged: true
+
+selection:
+  holdings: 3
+  bull_score: "0.50*Rank(MOM60)+0.30*Rank(MOM20)+0.20*Rank(DD60)"
+  defensive_score: "0.60*(1-Rank(VOL60))+0.20*(1-Rank(VOL20))+0.20*Rank(DD60)"
+  parameter_search_allowed: false
+
+account:
+  initial_cash_cny: 20000
+  maximum_positions: 3
+  minimum_trade_notional_cny: 5000
+  lot_size: 100
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0005
+  stamp_duty_sell_rate_before_reduction: 0.001
+  stamp_duty_reduction_effective_date: "2023-08-28"
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+evaluation:
+  annualized_excess_minimum: 0.20
+  stress_annualized_excess_minimum: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  bootstrap_lower_bound_strictly_above: 0.0
+  predefined_periods:
+    - {id: "P1_2015_2016", start: "2015-01-05", end: "2016-12-30"}
+    - {id: "P2_2017_2018", start: "2017-01-03", end: "2018-12-28"}
+    - {id: "P3_2019_2021", start: "2019-01-02", end: "2021-08-11"}
+  positive_predefined_periods_minimum: 2
+  random_seed: 20260818
+
+governance:
+  external_period_not_used_by_parent_formula: true
+  result_may_authorize_live: false
+  paper_signal_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  parameter_rescue_after_result_forbidden: true
+
+outputs:
+  breadth: "data/features/000300_external_equal_weight_breadth_2015_2021.parquet"
+  base_ledger: "data/processed/csi300_small_account_external_2015_2021/base_ledger.parquet"
+  base_trades: "data/processed/csi300_small_account_external_2015_2021/base_trades.parquet"
+  stress_ledger: "data/processed/csi300_small_account_external_2015_2021/stress_ledger.parquet"
+  stress_trades: "data/processed/csi300_small_account_external_2015_2021/stress_trades.parquet"
+  result_json: "reports/backtest/csi300_small_account_external_2015_2021.json"
+  result_markdown: "reports/backtest/csi300_small_account_external_2015_2021.md"
+

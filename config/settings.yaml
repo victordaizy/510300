@@ -1,0 +1,81 @@
+project:
+  name: "沪深300ETF五年低成本研究"
+  timezone: "Asia/Shanghai"
+  lookback_years: 5
+  start_date: "2021-08-12"
+  end_date: "2026-08-12"
+  backtest_frequency: "daily"
+  feature_warmup_start: "2016-08-12"
+
+symbols:
+  etf: "510300.SH"
+  index: "000300.SH"
+  futures_prefix: "IF"
+  futures_research_symbol: "IF0"
+
+data:
+  primary_source: "akshare"
+  raw_format: "parquet"
+  processed_format: "parquet"
+  minute_frequency: "1min"
+  minute_collection_start: "2026-08-12"
+  download_after: "15:30"
+  minute_lookback_window_days: 5
+  preserve_raw: true
+
+quality:
+  price_tick: 0.001
+  max_price_error_ticks: 1
+  volume_warning_ratio: 0.01
+  volume_fail_ratio: 0.03
+  amount_warning_ratio: 0.01
+  amount_fail_ratio: 0.03
+  require_ohlc_consistency: true
+  require_no_duplicate_timestamps: true
+
+backtest:
+  base_currency: "CNY"
+  direction: "long_only"
+  enforce_t_plus_one: true
+  initial_cash: 100000
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_rate: 0.0
+  slippage_bps_base: 5
+  slippage_bps_stress: 15
+  lot_size: 100
+  cash_annual_rate: 0.0
+  signal_time: "close"
+  earliest_entry: "next_open"
+
+objective:
+  annual_excess_minimum: 0.10
+  annual_excess_challenge: 0.15
+  annual_excess_definition: "策略净CAGR减H00300沪深300全收益指数CAGR；10个百分点为最低线，15个百分点为挑战线"
+  optimization_metrics:
+    - "样本外超额收益"
+    - "Sharpe"
+    - "Calmar"
+    - "最大回撤"
+  prohibit_direct_target_optimization: true
+
+research_split:
+  development_start: "2021-08-12"
+  development_end: "2024-06-28"
+  validation_start: "2024-08-01"
+  validation_end: "2025-06-30"
+  final_holdout_start: "2025-08-01"
+  final_holdout_end: "2026-08-11"
+  purge_embargo_trading_days: 20
+  final_holdout_locked: false
+  final_holdout_status: "contaminated_by_exploratory_inspection"
+  true_forward_start: null
+  true_forward_status: "等待正式候选冻结；旧2026-08-13起点已失效"
+
+runtime:
+  data_dir: "data"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  features_dir: "data/features"
+  logs_dir: "logs"
+  reports_dir: "reports"

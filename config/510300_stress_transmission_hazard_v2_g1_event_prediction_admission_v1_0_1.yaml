@@ -1,0 +1,96 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  execution_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1_0_1
+  version: 1.0.1
+  stage_id: G1_EVENT_PREDICTION_ADMISSION_CLEAN_REPLAY_CORRECTION
+  research_state: DISCOVERY_ONLY
+  return_evaluation: NOT_ALLOWED
+  model_training_allowed: false
+  probability_generation_allowed: false
+  portfolio_evaluation_allowed: false
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+
+immutable_parent:
+  original_config:
+    path: config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.yaml
+    bytes: 10508
+    sha256: 811ff0f8d3597a855546ef0eacf8bc9783fa057efb27302dba1cea3b674b1334
+  original_manifest:
+    path: config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_manifest.json
+    bytes: 10232
+    sha256: 457e6c6073fd7b7eb6dd8fb62bc95e8965fa5997ed8f833acd020eec98ec81ee
+  original_freeze_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_freeze_receipt.json
+    bytes: 735
+    sha256: e6eab49a3ec7e7a6c4ab897c25ad1e746fe4cb1977db08fd857e3279ab56ddbf
+  original_build_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_build_v1.json
+    bytes: 4912
+    sha256: 0fefea5793506f05f663bf78af86964c9251babfcd4c30da9322cf78dea69da9
+    required_status: PASS_G1_COMMON_SAMPLE_AND_IDENTIFIABILITY_COUNTS_PENDING_CLEAN_REPLAY
+  original_clean_replay_failure:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_failure.json
+    bytes: 781
+    sha256: 9a0db2c986d1f1f29a76d201b9e0a42859045d08396107e3d353743d6711b770
+    required_status: FAIL_G1_CLEAN_REPLAY_NO_GATE_PROMOTION
+    required_exception_type: EvidenceContractError
+    required_message_fragment: 文件身份漂移
+
+correction_contract:
+  scope: FILE_EVIDENCE_COMPARISON_SUBSET_ONLY
+  original_defect: FILE_EVIDENCE_WAS_COMPARED_TO_METADATA_OBJECT_CONTAINING_NON_IDENTITY_FIELDS
+  exact_file_identity_fields: [path, bytes, sha256]
+  non_identity_fields_verified_separately: [row_count, persisted_semantic_sha256]
+  table_values_changed: false
+  table_files_rewritten: false
+  feature_formula_changed: false
+  b1_formula_changed: false
+  label_definition_changed: false
+  common_sample_rule_changed: false
+  event_weight_rule_changed: false
+  g1_thresholds_changed: false
+  actual_future_path_value_read_allowed: false
+  model_training_allowed: false
+  prediction_metric_generation_allowed: false
+  performance_read_allowed: false
+
+expected_gate_result:
+  G1_DATA_AND_EVENTS: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  mechanism_discovery_prerequisite_passed: false
+  full_three_coefficient_model_prerequisite_passed: false
+  next_allowed_step: STOP_V2_NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  b2_identifiable_event_count: 23
+  b3_identifiable_event_count: 23
+
+outputs:
+  clean_replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_0_1.json
+  clean_replay_failure_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_0_1_failure.json
+  status: reports/research/510300_stress_transmission_hazard_v2_g1_status_v1_0_1.json
+
+targeted_test_files:
+  - tests/test_510300_stress_transmission_hazard_v2.py
+  - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py
+  - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py
+  - tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+  - tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py
+
+freeze_contract:
+  implementation_files:
+    - scripts/freeze_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py
+    - scripts/replay_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1_0_1_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1_manifest.json
+  freeze_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_OR_OVERWRITE_V1_CONFIG_MANIFEST_CODE_TEST_OUTPUT_OR_FAILURE_RECEIPT
+  - CHANGE_ANY_G1_INPUT_TABLE_OR_VALUE
+  - CHANGE_B1_LABEL_COMMON_SAMPLE_EVENT_WEIGHT_OR_GATE_RULE
+  - READ_MINIMUM_PATH_RETURN_OR_OTHER_ACTUAL_FUTURE_PATH_VALUE
+  - TRAIN_OR_PREDICT_B0_B1_B2_OR_B3
+  - GENERATE_PREDICTION_OR_PORTFOLIO_METRICS
+  - CREATE_POSITION_ORDER_BROKER_PAPER_SHADOW_OR_LIVE_ACTION

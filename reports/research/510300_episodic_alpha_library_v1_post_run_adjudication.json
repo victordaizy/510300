@@ -1,0 +1,94 @@
+{
+  "schema_version": "510300_EPISODIC_ALPHA_LIBRARY_POST_RUN_ADJUDICATION_V1",
+  "project_id": "510300_EPISODIC_ALPHA_LIBRARY_V1",
+  "adjudicated_at_utc": "2026-08-31T11:46:14.0734533Z",
+  "status": "PROGRAM_RESULT_STATUS_CORRECTED_NO_PROTOCOL_OR_THRESHOLD_CHANGE",
+  "parent_manifest_content_sha256": "5576c79749c4c07b21338b37145194248324dbae145d30d0fb3893825b4a7079",
+  "parent_manifest_file_sha256": "cfc1bb8838bd03fa952f55450b9b086f124bc55a49967bded29066630c04ecac",
+  "historical_evidence_label": "RESEARCH_OBSERVED_DISCOVERY",
+  "forward_start_resolution": {
+    "frozen_rule": "2026-09-01_OR_NEXT_SSE_TRADING_DAY",
+    "resolved_trade_date": "2026-09-01",
+    "status": "CONFIRMED_SSE_TRADING_DAY",
+    "source": "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml",
+    "historical_events_count_toward_forward_activation": 0
+  },
+  "authoritative_status": {
+    "510300_20D_REGIME_TIMING_FAMILY": "CLOSED_REJECTED_FROZEN",
+    "510300_EPISODIC_ALPHA_LIBRARY_V1": "AUTHORIZED_FOR_DISCOVERY",
+    "510300_INFORMED_CREATION_PREMIUM_V1": "NO_VIEW_DATA_CONTRACT_FAILED",
+    "510300_DERIVATIVE_PRESSURE_RELEASE_V1": "NO_VIEW_FEATURE_CONSTRUCTION_FAILED_FROZEN_252D_WINDOW",
+    "510300_OPENING_DISCOUNT_RECOVERY_V1": "RESEARCH_OBSERVED_DISCOVERY_INSUFFICIENT_EVENTS",
+    "510300_ALPHA_LIFECYCLE_GOVERNOR_V1": "AUTHORIZED_FOR_DESIGN_NO_ACTIVE_STRATEGY",
+    "CURRENT_VALIDATED_HIGH_SHARPE_STRATEGY": "NONE",
+    "CURRENT_HOLDING_ROUTE": "CASH_CNY",
+    "POSITION_IMPACT": 0.0,
+    "LIVE_TRADING_AUTHORIZED": false
+  },
+  "corrections": [
+    {
+      "model_id": "510300_DERIVATIVE_PRESSURE_RELEASE_V1",
+      "original_generated_status": "RESEARCH_OBSERVED_DISCOVERY_INSUFFICIENT_EVENTS",
+      "corrected_status": "NO_VIEW_FEATURE_CONSTRUCTION_FAILED_FROZEN_252D_WINDOW",
+      "return_evaluation": "NOT_ALLOWED",
+      "reason": "零候选不是合法的稀有事件结果。冻结协议要求每个标准z分量都使用此前252个交易日且至少252个有效历史值；近月IF同合约持仓量变化在每次移仓日必然缺失，因此任一252日窗口最多只有240个有效DELTA_FRONT_OI，DELTA_OI_Z与PRESSURE均无有效行。",
+      "evidence": {
+        "derivative_feature_rows": 2427,
+        "date_start": "2016-08-12",
+        "date_end": "2026-08-12",
+        "delta_front_oi_nonnull_rows": 2306,
+        "maximum_delta_front_oi_nonnull_in_any_prior_252_trading_day_window": 240,
+        "delta_oi_z_nonnull_rows": 0,
+        "put_skew_z_nonnull_rows": 38,
+        "vrp_z_nonnull_rows": 59,
+        "joint_raw_component_nonnull_rows": 1363,
+        "joint_z_component_nonnull_rows": 0,
+        "pressure_nonnull_rows": 0,
+        "candidate_preconfirmation_rows": 0
+      },
+      "forbidden_post_result_rescues": [
+        "不得把252日最少历史值降为240",
+        "不得改成最后252个非缺失观察值",
+        "不得事后改用跨合约总持仓量、连续合约或其他移仓口径",
+        "不得把0个候选解释为策略历史上没有压力事件"
+      ],
+      "allowed_next_state": "保留CANDIDATE数据准备状态；只有另行预冻结新版本的数据合同后才可重新构造，V1结果不得覆盖"
+    }
+  ],
+  "creation_data_reconciliation": {
+    "strict_new_branch_complete_iopv_days": 1,
+    "legacy_readiness_report_complete_days": 2,
+    "explanation": "旧readiness把2026-08-17计为legacy完整日，但该日最后快照仅到13:37:40；本分支按冻结的完整日要求需要收盘覆盖，因此只有2026-08-18通过。旧报告保留，不重写。",
+    "additional_blockers": [
+      "实际份额历史缺少原始available_at及修订/拆分字段",
+      "份额历史为事后抓取，不能把feature_asof当作历史可见时刻",
+      "IOPV快照缺少bid_price_1与ask_price_1"
+    ]
+  },
+  "opening_branch_observation": {
+    "candidate_preconfirmation_count": 26,
+    "mature_event_count": 8,
+    "mean_gross_bps": -55.687874159650455,
+    "mean_stress_net_bps": -69.60503842288607,
+    "stress_net_mean_lcb_bps": -228.05408233114653,
+    "conservative_net_sharpe": -0.48594609417424794,
+    "decision": "RESEARCH_OBSERVED_DISCOVERY_INSUFFICIENT_EVENTS",
+    "why_not_rejected": "冻结裁决规定少于40个成熟事件时保持样本不足；不得因结果很弱而事后改写该门槛。",
+    "forward_mature_events": 0,
+    "position_impact": 0.0
+  },
+  "artifact_hashes": {
+    "reports/data_quality/510300_episodic_alpha_library_v1_data_admission.json": "587f5f624f0d4e01cbcd9b8f8165650bb1762ac9fa61dfe8cbfa5057e26560e0",
+    "reports/research/510300_episodic_alpha_library_v1.json": "486e1accf927353cf053e9346bffad4a51b2c3edfdec7a837a90197540eaa61a",
+    "data/research/510300_episodic_alpha_library_v1/derivative_pressure_features.parquet": "b5a4948ac2a6e306dd2303d6e30df3680cdff6c2d302de10f7b232827ffc7a67",
+    "data/research/510300_episodic_alpha_library_v1/derivative_pressure_release_events.parquet": "44e834815443ff65aa80e3adc081872d56e9e6be8a8f273ad9a552b1cc7da009",
+    "data/research/510300_episodic_alpha_library_v1/opening_discount_recovery_events.parquet": "c99e1057e1a1bb5dd9810249371310172ba9530593a3a6d3b67353c62cc93587"
+  },
+  "boundaries": {
+    "position_mapping_enabled": false,
+    "paper_or_shadow_position_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  }
+}

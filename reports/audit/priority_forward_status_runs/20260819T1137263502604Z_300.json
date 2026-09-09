@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "report_version": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1",
+  "generated_at": "2026-08-19T19:37:26.871772+08:00",
+  "overall_status": "COLLECTING_FORWARD_WITH_BLOCKERS",
+  "directions": {
+    "primary_market_pcf_iopv": {
+      "priority": 1,
+      "status": "COLLECTING_NOT_ELIGIBLE",
+      "stage": "STAGE_0_19_COLLECTION",
+      "latest_observed_trade_date": "2026-08-18",
+      "observed_trading_days": 4,
+      "full_coverage_days": 2,
+      "task_evidence": {
+        "path": "reports/data_quality/510300_primary_market_task_status_20260819.json",
+        "run_status": "FAILED",
+        "collection_status": "FAILED_SUPPLIER_TIMEOUT",
+        "error": "HTTPSConnectionPool(host='query.sse.com.cn', port=443): Read timed out. (read timeout=15.0)"
+      },
+      "gates": {
+        "quality_audit": {
+          "required": 20,
+          "eligible": false
+        },
+        "feature_freeze": {
+          "required": 40,
+          "eligible": false
+        },
+        "first_unseen_evaluation": {
+          "required": 80,
+          "eligible": false
+        },
+        "replication": {
+          "required": 120,
+          "eligible": false
+        }
+      },
+      "next_action": "CONTINUE_STRICT_FORWARD_COLLECTION"
+    },
+    "industry_expectation_gap": {
+      "priority": 2,
+      "status": "COLLECTING_FORWARD",
+      "origin_collection_status": "WAITING_FOR_NEXT_ORIGIN_EVIDENCE",
+      "outcome_collection_status": "READY_TO_REFRESH_APPEND_ONLY_EVALUATION",
+      "origin_cluster_count": 1,
+      "mature_origin_cluster_count": 0,
+      "non_overlapping_60d_block_count": 0,
+      "origin_blockers": [
+        "CURRENT_MONTH_ALREADY_HAS_ORIGIN",
+        "SOURCE_REGISTRY_CUTOFF_NOT_ADVANCED",
+        "SECTOR_PANEL_MONTH_NOT_ADVANCED",
+        "NEW_OFFICIAL_RELEASES_BELOW_MINIMUM"
+      ],
+      "outcome_blockers": [],
+      "task_run_status": "SUCCESS",
+      "task_evidence_path": "reports/forward/industry_expectation_gap_v1_evaluation/task_runs/20260819T1134372163085Z_4800.json",
+      "calibration": {
+        "minimum_origin_clusters": 20,
+        "minimum_non_overlapping_60d_blocks": 4,
+        "eligible": false
+      },
+      "model_comparison": {
+        "minimum_origin_clusters": 40,
+        "minimum_non_overlapping_60d_blocks": 8,
+        "eligible": false
+      },
+      "next_action": "WAIT_FOR_NEW_OFFICIAL_PACKAGE_AND_CURRENT_OUTCOME_INPUTS"
+    },
+    "orthogonal_low_vol_replication": {
+      "priority": 3,
+      "status": "NOT_STARTED_GOVERNANCE_GATE_BLOCKED",
+      "required_governance_status": "PASS",
+      "actual_governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "eligible_to_start": false,
+      "next_action": "WAIT_FOR_GOVERNANCE_PASS"
+    }
+  },
+  "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+  "alerts": [
+    {
+      "severity": "WARNING",
+      "direction": "PRIMARY_MARKET_PCF_IOPV",
+      "code": "FAILED_SUPPLIER_TIMEOUT",
+      "message": "HTTPSConnectionPool(host='query.sse.com.cn', port=443): Read timed out. (read timeout=15.0)"
+    },
+    {
+      "severity": "BLOCK",
+      "direction": "ORTHOGONAL_LOW_VOL_REPLICATION",
+      "code": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "message": "治理未通过，禁止启动正交低波复制。"
+    }
+  ],
+  "safety": {
+    "research_only": true,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "threshold_events": {
+    "ledger_path": "reports/audit/priority_forward_threshold_events.jsonl",
+    "total_event_count": 0,
+    "new_event_count": 0,
+    "new_event_ids": [],
+    "all_event_ids": [],
+    "next_thresholds": {
+      "primary_market_remaining_full_coverage_days": {
+        "quality_audit": 18,
+        "feature_freeze": 38,
+        "first_unseen_evaluation": 78,
+        "replication": 118
+      },
+      "industry_calibration_remaining": {
+        "mature_origin_clusters": 20,
+        "non_overlapping_60d_blocks": 4
+      },
+      "industry_model_comparison_remaining": {
+        "mature_origin_clusters": 40,
+        "non_overlapping_60d_blocks": 8
+      },
+      "orthogonal_low_vol_governance_gate_passed": false
+    }
+  }
+}

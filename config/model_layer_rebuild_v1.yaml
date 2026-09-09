@@ -1,0 +1,149 @@
+protocol:
+  project_id: "510300_MODEL_LAYER_REBUILD_V1"
+  version: "1.0.1"
+  protocol_date: "2026-08-18"
+  state: "RESEARCH_ONLY_HISTORICALLY_CONTAMINATED"
+  evaluation_start: "2021-08-12"
+  evaluation_end: "2026-08-12"
+  true_forward_start: null
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  reporting_revision: 1
+  reporting_fix_only: true
+  reporting_fix_reason: "中文图形字体与详细表格补全；不改变信号、执行、统计或决策逻辑"
+
+execution:
+  initial_cash_cny: 20000.0
+  theoretical_initial_wealth: 1.0
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  slippage_bps_per_leg: 5.0
+  stress_multiplier: 2.0
+  lot_size_shares: 100
+  minimum_ordinary_trade_shares: 1000
+  allowed_position_grid: [0.0, 0.25, 0.50, 0.75, 1.0]
+
+r5_decomposition:
+  component_ids: ["V", "T", "R"]
+  variants:
+    - {id: "R5_000_BUY_HOLD", valuation: false, trend: false, risk: false}
+    - {id: "R5_100_VALUATION_ONLY", valuation: true, trend: false, risk: false}
+    - {id: "R5_010_TREND_ONLY", valuation: false, trend: true, risk: false}
+    - {id: "R5_001_RISK_ONLY", valuation: false, trend: false, risk: true}
+    - {id: "R5_110_VALUATION_TREND", valuation: true, trend: true, risk: false}
+    - {id: "R5_101_VALUATION_RISK", valuation: true, trend: false, risk: true}
+    - {id: "R5_011_TREND_RISK", valuation: false, trend: true, risk: true}
+    - {id: "R5_111_FULL", valuation: true, trend: true, risk: true}
+
+technical_models:
+  - id: "TECH_01_TSMOM_63_126_252"
+    family: "TIME_SERIES_MOMENTUM"
+    review_every_trading_days: 5
+    lookbacks: [63, 126, 252]
+  - id: "TECH_03_DONCHIAN_55_20"
+    family: "DONCHIAN"
+    entry_days: 55
+    exit_days: 20
+    cash_state_position: 0.0
+  - id: "TECH_03_DONCHIAN_55_20_25_FLOOR"
+    family: "DONCHIAN_FIXED_FLOOR"
+    entry_days: 55
+    exit_days: 20
+    cash_state_position: 0.25
+  - id: "TECH_03_DONCHIAN_100_50_ROBUSTNESS"
+    family: "DONCHIAN_FIXED_ROBUSTNESS"
+    entry_days: 100
+    exit_days: 50
+    cash_state_position: 0.0
+  - id: "TECH_05_TREND_PULLBACK"
+    family: "TREND_PULLBACK"
+    ma_long_days: 120
+    slope_days: 60
+    z_days: 20
+    first_layer: 0.25
+    second_layer: 0.50
+    first_zone_upper: -1.0
+    second_zone_upper: -2.0
+    exit_z: 0.0
+    maximum_holding_days: 10
+  - id: "TECH_08_BREADTH_TREND"
+    family: "POINT_IN_TIME_BREADTH_TREND"
+    trend_ma_days: 60
+    trend_ma_slope_days: 20
+    breadth_confirm: 0.55
+    breadth_weak: 0.40
+
+valuation_models:
+  formal_status: "NO_VIEW_BLOCKED_NON_VINTAGE_HISTORY"
+  normalized_growth_lag_days: 242
+  normalized_growth_median_days: 252
+  normalized_growth_minimum_observations: 126
+  normalized_growth_clip: [-0.30, 0.30]
+  review_every_trading_days: 20
+  percentile_windows_days: {five_year: 1210, seven_year: 1694, expanding_minimum: 1210}
+  val01_registered_trials:
+    - "VAL01_RAW_EY_5Y"
+    - "VAL01_RAW_EY_7Y"
+    - "VAL01_RAW_EY_EXPANDING"
+    - "VAL01_NORM_EY_5Y"
+    - "VAL01_NORM_EY_7Y"
+    - "VAL01_NORM_EY_EXPANDING"
+  val02_registered_trials:
+    - "VAL02_NORM_EY_SPREAD_5Y"
+    - "VAL02_NORM_EY_SPREAD_EXPANDING"
+  point_in_time_minimum_history_months: 84
+  forward_horizons_trading_days: [60, 120, 242]
+
+evaluation:
+  rolling_windows_trading_days: [242, 484]
+  historical_gates:
+    annualized_active_return_minimum: 0.015
+    information_ratio_minimum: 0.35
+    both_chronological_halves_positive: true
+    stress_active_return_positive: true
+    remove_best_year_active_return_positive: true
+    positive_year_ratio_minimum: 0.50
+    maximum_positive_year_contribution_share: 0.50
+  risk_overlay_gates:
+    sharpe_improvement_minimum: 0.15
+    drawdown_reduction_minimum: 0.20
+    upside_capture_minimum: 0.70
+  multiple_testing:
+    registered_technical_trial_count: 7
+    return_tested_technical_candidate_count: 6
+    random_seed: 20260818
+    repetitions: 5000
+    circular_block_length_trading_days: 20
+    cscv_slices: 8
+    significance_level: 0.05
+    deflated_sharpe_probability_minimum: 0.95
+    pbo_maximum: 0.25
+
+data_contracts:
+  etf_market: {file: "data/raw/market/510300_daily_raw.parquet", sha256: "ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61"}
+  price_index: {file: "data/raw/market/000300_daily_feature_warmup.parquet", sha256: "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec"}
+  total_return_index: {file: "data/raw/market/H00300_total_return_daily_raw.parquet", sha256: "90ded420f641f05a8ab8c9cfeb6f8df4172e9e1ea43995005df1cdecd5e9c5ab"}
+  vendor_valuation: {file: "data/raw/valuation/000300_valuation_daily_raw.parquet", sha256: "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3", point_in_time_vintage_proven: false}
+  constituents: {file: "data/raw/constituents/000300_constituent_daily.parquet", sha256: "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0"}
+  official_breadth: {file: "data/features/000300_official_weighted_breadth_daily.parquet", sha256: "6b4cc869d48cc31c9a2426bafd4f9074f9a3929fd0832a680b18e139d5f650d6"}
+  point_in_time_fundamental_monthly: {file: "data/features/000300_point_in_time_fundamental_monthly.parquet", sha256: "c964b18a4d1716fc82587f91d7e1150e0528fc61615b971eb5bc32caab895121"}
+  point_in_time_financial_records: {file: "data/raw/fundamentals/csi300_financials_point_in_time.parquet", sha256: "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92"}
+  government_bond_yields: {file: "data/raw/macro/china_government_bond_yields_daily.parquet", sha256: "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d"}
+  dividends: {file: "data/reference/510300_dividends.csv", sha256: "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"}
+  dividend_coverage: {file: "data/reference/510300_dividends_coverage.json", sha256: "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"}
+  r5_config: {file: "config/round5_defensive_valuation_timing.yaml", sha256: "dbe073815eb4a3f2f05af3cbe8fc1af7287315095f2b4e7f771d75f2e988e033"}
+  small_account_config: {file: "config/small_account_20000.yaml", sha256: "df0e59636ea820170918af4b28c707409afbe06279018f80301785a8ab6a2ceb"}
+  frozen_tech03_report: {file: "reports/backtest/tech_03_donchian_55_20_v1.json", sha256: "2411aea6036011ef986fb2d3a430ee0de33ff02cc276a032ab2fbaf9d7f09841"}
+  preserved_r5_enhanced_signals: {file: "data/processed/round5_defensive_valuation_timing/enhanced_signals.parquet", sha256: "59d5016e42aec972dd6a0f7e2aa972bfa04ac87205f5026f5f4f1b7d2a1ea289"}
+  preserved_r5_baseline_signals: {file: "data/processed/round5_defensive_valuation_timing/baseline_signals.parquet", sha256: "54363bd4b4a42da4b5763f1bad6c0f84c2d00498babf690632ed3dcff672c3a6"}
+  preserved_r5_report: {file: "reports/backtest/round5_defensive_valuation_timing.json", sha256: "bc47766bc29dc119f059c40f9174e79c6fa91d04de5a12b734f62640d7d50195"}
+
+artifacts:
+  processed_directory: "data/processed/model_layer_rebuild_v1"
+  data_gate_json: "reports/data_quality/model_layer_rebuild_v1_data_gate.json"
+  report_json: "reports/backtest/model_layer_rebuild_v1.json"
+  report_markdown: "reports/backtest/model_layer_rebuild_v1.md"
+  figure: "reports/figures/model_layer_rebuild_v1.png"

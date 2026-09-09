@@ -1,0 +1,74 @@
+protocol:
+  project_id: 510300_OPTION_TECHNICAL_RULE_DISCOVERY_V1
+  state: FROZEN_BEFORE_RULE_DISCOVERY_OUTCOMES
+  evidence_stage: DISCOVERY_SELECTION_ONLY
+  deployable_strategy: false
+  upstream_vehicle_manifest: config/510300_option_trade_envelope_v1_manifest.json
+  upstream_vehicle_manifest_sha256: 85f17e9598757189fc8fa59875341a8bd44c652eda7807caa60a046651bdcb54
+
+dates:
+  first_signal: '2021-08-12'
+  discovery_end: '2022-12-30'
+  pseudo_confirmation_start: '2023-01-01'
+  pseudo_confirmation_end: '2023-12-29'
+  validation_start: '2024-01-01'
+  validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  post_discovery_access_authorized: false
+
+factor_budget:
+  maximum: 10
+  distinct_used: 5
+  factors:
+    - total_return_momentum_120d
+    - ma20_minus_ma120
+    - prior_donchian_high_55d
+    - prior_donchian_low_20d
+    - macd_histogram_12_26_9
+
+candidates:
+  R1_TSMOM_120:
+    rule: H00300[t]/H00300[t-120]-1大于等于0则认购，否则认沽
+    factor_count: 1
+  R2_MA_20_120:
+    rule: H00300_MA20[t]大于等于MA120[t]则认购，否则认沽
+    factor_count: 1
+  R3_DONCHIAN_55_20:
+    rule: 突破此前55日最高转认购，跌破此前20日最低转认沽，否则保持上一状态
+    initial_state: 首次具备MA120时按收盘相对MA120确定
+    factor_count: 2
+  R4_MACD_12_26_9:
+    rule: MACD(12,26,9)柱大于等于0则认购，否则认沽
+    factor_count: 1
+
+selection:
+  primary_metric: 开发期策略几何年化减H00300几何年化
+  direction: descending
+  tie_break: rule_id_ascending
+  annualized_excess_minimum: 0.20
+  minimum_opening_trade_gate: true
+  candidate_family_size: 4
+  multiple_testing_disclosed: true
+
+execution:
+  inherit_all_rules_from: 510300_OPTION_TRADE_ENVELOPE_V1
+  holding_trading_days: 10
+  entry_price: NEXT_DAY_DAILY_HIGH
+  exit_price: EXIT_DAY_DAILY_LOW
+  initial_cash_cny: 20000
+
+paths:
+  manifest: config/510300_option_technical_rule_discovery_v1_manifest.json
+  result_json: reports/discovery/510300_option_technical_rule_discovery_v1.json
+  result_markdown: reports/discovery/510300_option_technical_rule_discovery_v1.md
+
+governance:
+  post_discovery_access: FORBIDDEN
+  candidate_addition_after_freeze: FORBIDDEN
+  rule_parameter_rescue: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

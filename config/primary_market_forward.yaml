@@ -1,0 +1,59 @@
+collector:
+  collector_id: "510300_PRIMARY_SECONDARY_FORWARD_V1"
+  symbol: "510300.SH"
+  fund_code: "510300"
+  timezone: "Asia/Shanghai"
+  timeout_seconds: 15
+  observation_interval_seconds: 60
+  retry_delay_seconds: 15
+  maximum_consecutive_failures: 5
+  collection_start_time: "09:30:00"
+  collection_end_time: "15:00:00"
+  collection_sessions:
+    - ["09:30:00", "11:30:00"]
+    - ["13:00:00", "15:00:00"]
+  evidence_scope: "仅从实际接入日起的前向数据，不回填历史IOPV"
+
+outputs:
+  pcf_daily_file: "data/raw/primary_market/510300_pcf_daily.parquet"
+  iopv_snapshot_file: "data/raw/primary_market/510300_iopv_snapshots.parquet"
+  raw_response_directory: "data/raw/primary_market/raw"
+  source_receipt_directory: "reports/data_quality/free_source_acquisitions/primary_market"
+  quality_report_file: "reports/data_quality/510300_primary_market_forward_status.json"
+  readiness_report_file: "reports/data_quality/510300_primary_market_readiness.json"
+  task_status_file: "reports/data_quality/510300_primary_market_task_status.json"
+
+source_contract:
+  schema_version: "FREE_SOURCE_ACQUISITION_RECEIPT_V1"
+  sources:
+    pcf:
+      source_id: "SSE_PCF_COMMON_QUERY"
+      source_url_or_endpoint: "https://query.sse.com.cn/commonQuery.do"
+      parser_version: "SsePcfProvider@1"
+      fallback_source: ""
+      access_cost_cny: 0
+    iopv:
+      source_id: "SSE_YUNHQ_IOPV_SNAPSHOT"
+      source_url_or_endpoint: "https://yunhq.sse.com.cn:32042/v1/sh1/snap/{fund_code}"
+      parser_version: "SseIopvSnapshotProvider@1"
+      fallback_source: "SECOND_FREE_ETF_QUOTE_PENDING"
+      access_cost_cny: 0
+
+quality:
+  require_iopv_publication: true
+  maximum_pcf_nav_relative_error: 0.01
+  maximum_clock_delay_seconds_during_session: 180
+  maximum_negative_clock_skew_seconds: 5
+
+readiness:
+  minimum_full_coverage_days: 20
+  recommended_full_coverage_days: 40
+  first_unseen_evaluation_full_coverage_days: 80
+  replication_full_coverage_days: 120
+  minimum_snapshots_per_day: 120
+  day_cluster_unit: "trade_date"
+
+governance:
+  use_as_trading_signal: false
+  automatic_ordering_authorized: false
+  note: "当前只采集和纸面验证；未通过前向门槛前不得映射实盘仓位。"

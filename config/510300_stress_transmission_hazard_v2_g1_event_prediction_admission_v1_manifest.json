@@ -1,0 +1,212 @@
+{
+  "actual_future_path_value_read": false,
+  "actual_label_artifact_parsed": false,
+  "b1_feature_contract": {
+    "absent_dividend_event_amount": 0.0,
+    "causal_percentile": "EMPIRICAL_MIDRANK_AGAINST_STRICTLY_PRIOR_VALID_OBSERVATIONS_ONLY",
+    "daily_total_shareholder_return_formula": "UNADJUSTED_CLOSE_T_PLUS_CASH_DIVIDEND_ON_EX_DATE_T_DIVIDED_BY_UNADJUSTED_CLOSE_T_MINUS_1_MINUS_1",
+    "decision_clock": "T_CLOSE_15_00_ASIA_SHANGHAI",
+    "downside_return_market_days": 5,
+    "drawdown_market_days": 20,
+    "feature_columns": [
+      "b1_realized_vol20_risk_percentile",
+      "b1_drawdown20_risk_percentile",
+      "b1_downside_return5_risk_percentile"
+    ],
+    "first_missing_previous_close_state": "NO_VIEW",
+    "future_close_use_allowed": false,
+    "h00300_execution_or_b1_proxy_allowed": false,
+    "missing_price_return_zero_fill_allowed": false,
+    "realized_volatility_market_days": 20,
+    "required_complete_trailing_returns": true
+  },
+  "common_sample_contract": {
+    "B1": {
+      "eligible_when": "B1_STATE_VIEW_ALLOWED_AND_ALL_THREE_B1_FEATURES_FINITE"
+    },
+    "B2_VS_B1": {
+      "common_sample_required": true,
+      "eligible_when": "B1_ELIGIBLE_AND_B2_FEATURE_STATE_VIEW_ALLOWED_AND_T_AND_T_X_F_FINITE"
+    },
+    "B3_VS_B2": {
+      "common_sample_required": true,
+      "eligible_when": "B2_VS_B1_ELIGIBLE_AND_B3_FEATURE_STATE_VIEW_ALLOWED_AND_M_AND_T_X_M_FINITE"
+    },
+    "feature_information_cutoff": "T_CLOSE",
+    "join_key": "origin_date_equals_feature_date",
+    "negative_weight_rule": "EACH_ELIGIBLE_NON_EVENT_RISK_DAY_EQUALS_ONE",
+    "no_view_rule": "RETAIN_ROW_WITH_NULL_MODEL_WEIGHT_AND_EXPLICIT_REASON",
+    "positive_event_inclusion_rule": "AT_LEAST_ONE_ELIGIBLE_POSITIVE_ORIGIN",
+    "positive_weight_rule": "RENORMALIZE_ELIGIBLE_POSITIVE_ORIGINS_TO_SUM_ONE_WITHIN_EACH_EVENT_AND_MODEL_SAMPLE",
+    "prediction_or_fit_allowed": false,
+    "split_assignment": "UNASSIGNED_PRE_MODEL_FREEZE"
+  },
+  "config_bytes": 10508,
+  "config_canonical_sha256": "91a7c5ecb113d0ec5b225b3b20867af143e28e36884b2b63487e113de1c13f95",
+  "config_file": "config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.yaml",
+  "config_sha256": "811ff0f8d3597a855546ef0eacf8bc9783fa057efb27302dba1cea3b674b1334",
+  "execution_id": "510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1",
+  "forbidden_actions": [
+    "MODIFY_OR_OVERWRITE_ANY_PARENT_FREEZE_OR_OUTPUT",
+    "READ_ACTUAL_LABEL_BEFORE_THIS_MANIFEST_IS_FROZEN_AND_VERIFIED",
+    "READ_MINIMUM_PATH_RETURN_OR_OTHER_ACTUAL_FUTURE_PATH_VALUE",
+    "CHANGE_BAD10_THRESHOLD_OR_HORIZON",
+    "USE_LABEL_TO_SELECT_FEATURE_AVAILABILITY_OR_COMMON_SAMPLE_RULE",
+    "INCLUDE_INDUSTRY_SECTOR_OR_SHENWAN_FIELDS",
+    "TRAIN_OR_PREDICT_B0_B1_B2_OR_B3_IN_G1_ADMISSION",
+    "SELECT_PROBABILITY_THRESHOLD_OR_GENERATE_ALERTS",
+    "READ_OR_GENERATE_AUC_PR_AUC_BRIER_LOG_LOSS_OR_CALIBRATION",
+    "READ_OR_GENERATE_PORTFOLIO_NAV_RETURN_SHARPE_DRAWDOWN",
+    "CREATE_POSITION_ORDER_BROKER_PAPER_SHADOW_OR_LIVE_ACTION"
+  ],
+  "frozen_at": "2026-09-03T17:25:57.718002+08:00",
+  "g1_gate_contract": {
+    "full_three_coefficient_model": {
+      "minimum_independent_events": 40,
+      "minimum_non_event_risk_days": 750,
+      "sample": "B3_VS_B2_COMMON_SAMPLE"
+    },
+    "if_full_model_passes_additional_step": "FREEZE_B3_VS_B2_EVENT_LEVEL_PREDICTION_EXECUTION",
+    "if_mechanism_fails_next_step": "STOP_V2_NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY",
+    "if_mechanism_passes_next_step": "FREEZE_B2_VS_B1_EVENT_LEVEL_PREDICTION_EXECUTION",
+    "insufficient_state": "NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY",
+    "mechanism_discovery": {
+      "minimum_independent_events": 30,
+      "minimum_non_event_risk_days": 750,
+      "sample": "B2_VS_B1_COMMON_SAMPLE"
+    }
+  },
+  "governance_files": {
+    "config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.yaml": {
+      "bytes": 10508,
+      "sha256": "811ff0f8d3597a855546ef0eacf8bc9783fa057efb27302dba1cea3b674b1334"
+    },
+    "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1_20260903.md": {
+      "bytes": 4418,
+      "sha256": "ef9af82643fb1bb9a30ce93657937c13b4dabc324f6b5517524471c57aa42c98"
+    },
+    "tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py": {
+      "bytes": 10088,
+      "sha256": "f451a1ddae4e7380ddd1c7452f43787ca15095340d14cdb65313d71e3737d359"
+    }
+  },
+  "implementation_files": {
+    "research/stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py": {
+      "bytes": 27872,
+      "sha256": "5ab77b4b4291e90c52243546a7b95a6ee75027092238d25952cb3eab66e77735"
+    },
+    "scripts/build_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py": {
+      "bytes": 11107,
+      "sha256": "b378182cae5111434271a93feac848506cd52851a2f25a94c4d24cd20ef0f877"
+    },
+    "scripts/freeze_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py": {
+      "bytes": 18207,
+      "sha256": "985b43a347660464a03470694a2c05e1efdf340ea1180844bccd756e5cb48209"
+    },
+    "scripts/replay_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py": {
+      "bytes": 12255,
+      "sha256": "5d52b517f88027b02e8130913a165cf6326ec2248f393d5f9ce1d952f0afc996"
+    }
+  },
+  "input_files": {
+    "bad10_events": {
+      "bytes": 9001,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_bad10_events.csv",
+      "sha256": "500211e77463b4e1017df32eecd0b482b6a0d5986910161cb4ce2231fa477d40"
+    },
+    "bad10_samples": {
+      "bytes": 386019,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_bad10_sample_ledger.csv",
+      "sha256": "7a73e2d52b7edecf039ba9d277b581d65994aa05a80f1cd9ce4518aa104281a5"
+    },
+    "etf_cash_dividends": {
+      "bytes": 2021,
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    "etf_unadjusted_daily": {
+      "bytes": 116186,
+      "path": "data/raw/market/510300_daily_2015_v2.parquet",
+      "sha256": "8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948"
+    },
+    "mft_feature_panel": {
+      "bytes": 787941,
+      "path": "data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/mft_feature_panel_20150105_20260814.parquet",
+      "sha256": "5f8128031ee8c7f8e5699e74aa9c52a9047ed29a4f9b187486fc4ba53ac7deae"
+    }
+  },
+  "label_read_contract": {
+    "actual_future_path_value_columns_may_be_read": false,
+    "allowed_only_after_frozen_manifest_verifies": true,
+    "allowed_source": "bad10_samples",
+    "allowed_value_column": "bad10",
+    "horizon_market_days": 10,
+    "label_id": "BAD10",
+    "label_may_enter_features": false,
+    "label_may_select_feature_availability": false,
+    "label_may_select_probability_threshold": false,
+    "threshold": -0.04,
+    "threshold_or_horizon_search_allowed": false
+  },
+  "manifest_payload_sha256": "ccbc129fd5959157151edaf5fa705ea4936e951107baf4ad774d5dfc348315f5",
+  "model_trained": false,
+  "outputs": {
+    "b1_feature_panel": "data/curated/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1/etf_b1_feature_panel_20150105_20260814.parquet",
+    "build_receipt": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_build_v1.json",
+    "clean_replay_failure_receipt": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_failure.json",
+    "clean_replay_receipt": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1.json",
+    "curated_root": "data/curated/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1",
+    "event_eligibility_ledger": "reports/data_quality/510300_stress_transmission_hazard_v2_g1_event_eligibility_v1.parquet",
+    "report": "reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1.md",
+    "sample_eligibility_ledger": "reports/data_quality/510300_stress_transmission_hazard_v2_g1_sample_eligibility_v1.parquet",
+    "status": "reports/research/510300_stress_transmission_hazard_v2_g1_status_v1.json"
+  },
+  "parent_chain": {
+    "bad10_ledger_receipt": {
+      "bytes": 2015,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_bad10_ledger_receipt.json",
+      "sha256": "d2840e0bdc2c73759041a99af5a6b9062fadfa475930a2b98a8220f9a4f3f2f2"
+    },
+    "g0_status": {
+      "bytes": 1210,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_g0_status_v1_0_1.json",
+      "sha256": "bc97330090ad56bc1322395c7409d85f628b32524aea5203ca4f45a3aee85bf7"
+    },
+    "mft_build_receipt": {
+      "bytes": 7633,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_feature_build_v1.json",
+      "sha256": "1ba2d56c10c069b4764f18b80e5131b55a6e295535eef4b68946136d93a8f8c7"
+    },
+    "mft_clean_replay_receipt": {
+      "bytes": 4669,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1_0_1.json",
+      "sha256": "2e8692e8aaa72fe362dfcafe6d774779cfbfefecf75c039d47be60a44c8d9dab"
+    },
+    "mft_correction_manifest": {
+      "bytes": 5842,
+      "path": "config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1_manifest.json",
+      "sha256": "b6878c07522a5a0243ccf46ea488939730044bc74c6a91b5b64a3f7de8577ae4"
+    },
+    "v2_protocol_manifest": {
+      "bytes": 17838,
+      "path": "config/510300_stress_transmission_hazard_v2_manifest.json",
+      "sha256": "4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be"
+    }
+  },
+  "performance_artifact_read": false,
+  "position_impact": 0,
+  "probability_generated": false,
+  "sequential_stop_contract": {
+    "fit_B0_B1_B2_B3_in_this_execution": false,
+    "generate_alert_or_threshold_in_this_execution": false,
+    "generate_auc_pr_auc_brier_log_loss_in_this_execution": false,
+    "generate_portfolio_nav_return_sharpe_drawdown_in_this_execution": false,
+    "generate_probability_in_this_execution": false,
+    "run_order": [
+      "G1_COMMON_SAMPLE_COUNTS",
+      "STOP_OR_FREEZE_NEXT_PREDICTION_PROTOCOL"
+    ]
+  },
+  "status": "FROZEN_BEFORE_FIRST_G1_ACTUAL_LABEL_READ",
+  "version": "1.0.0"
+}

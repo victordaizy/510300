@@ -1,0 +1,103 @@
+program:
+  program_id: 510300_CF_DR_RC_OWN_OBJECT_MEASUREMENT_VALIDITY_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_OWN_OBJECT_MEASUREMENT_FREEZE
+  research_stage: TARGET_MEASUREMENT_VALIDITY_ONLY
+  origin_start: 2015-01-01
+  observation_cutoff: 2026-08-14
+  horizons_market_days: [60, 120]
+  return_prediction_allowed: false
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+
+parent_contract:
+  ledger_manifest: config/510300_total_return_component_ledger_v1_manifest.json
+  ledger_status: reports/research/510300_total_return_component_ledger_v1_status.json
+  ledger_panel: data/processed/510300_total_return_component_ledger_v1/ledger_panel.parquet
+  ledger_coverage: reports/data_quality/510300_total_return_component_ledger_v1_coverage.parquet
+  expected_manifest_payload_sha256: f32e6a66c0bcdd3f73331c3fe3cef38d829463e6f4367dffc47710bfaff0e277
+  expected_status_payload_sha256: 216e48ad5fd3e8c093dab030a03f5c3a738d561c4033ec2375426d5bf0d1c633
+  expected_status: LEDGER_COMPLETE_EXACT_IDENTITIES_WITH_EXPLICIT_SOURCE_LIMITATIONS
+  expected_ledger_sha256: fb980f45c4680c1c0d243892b8d12b3a9a81bd08fb03d084499b867484e8bf01
+  expected_coverage_sha256: 53dbb0fc0fa24adf6af4278948199f89bba304af42c9714f96f7f8a99bc72db6
+
+source_contract:
+  cf_state:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_pit_cashflow_state_panel_v1.parquet
+    expected_sha256: 0cb29c90e87bcfcac4908267154f68e88521e40217754b9733e485bdefa4f884
+    availability_clock: NOTICE_DATE_PRIMARY_UPDATE_DATE_DIAGNOSTIC_ONLY
+  present_value_state:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_cross_sectional_present_value_panel_v1.parquet
+    expected_sha256: 59cef86158c8d64398a530157bf0707a76197ce1a3d0c0186a1e08611b1ddb10
+    availability_clock: ORIGIN_POINT_IN_TIME_WITH_SECONDARY_FINANCIAL_VALUE_REVISION_LIMITATION
+  risk_capacity_daily:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_risk_bearing_capacity_panel_v1.parquet
+    expected_sha256: 59beb4ed79db240ba6d78679cce801d93cb710df1f489fb88b80498ce8e2a181
+    availability_clock: DAILY_MARKET_CLOSE_AND_REGISTERED_STATE_AVAILABILITY
+  total_return_index:
+    path: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    expected_sha256: 5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c
+    role: REALIZED_RISK_TARGET_ONLY
+
+object_contracts:
+  CF:
+    EARNINGS_GROWTH:
+      source: FIXED_FINANCIAL_COHORT_LEDGER
+      value: earnings_growth_component_factor_minus_one
+      maximum_reliability: PARTIAL_PIT_VALUE_REVISION_AND_PROXY_WEIGHT_LIMITATION
+    OPERATING_CASHFLOW_GROWTH:
+      source: CF_TARGET_SNAPSHOT
+      value: weighted_operating_cashflow_yoy
+      minimum_weight_coverage: 0.90
+      maximum_reliability: PARTIAL_PIT_VALUE_REVISION_AND_PROXY_WEIGHT_LIMITATION
+    EARNINGS_CASHFLOW_BREADTH:
+      source: CF_TARGET_SNAPSHOT
+      value: cf_breadth
+      minimum_weight_coverage: 0.90
+      maximum_reliability: PARTIAL_PIT_VALUE_REVISION_AND_PROXY_WEIGHT_LIMITATION
+  DR:
+    VALUATION_MULTIPLE_CHANGE:
+      source: FIXED_FINANCIAL_COHORT_LEDGER
+      value: multiple_repricing_component_factor_minus_one
+      maximum_reliability: PARTIAL_PIT_VALUE_REVISION_AND_PROXY_WEIGHT_LIMITATION
+    EQUITY_RISK_PREMIUM_GAP_CHANGE:
+      source: PRESENT_VALUE_TARGET_MINUS_ORIGIN
+      value: equity_risk_premium_state_change
+      maximum_reliability: PARTIAL_PIT_VALUE_REVISION_AND_PROXY_WEIGHT_LIMITATION
+  RC:
+    REALIZED_VOLATILITY:
+      source: H00300_FORWARD_DAILY_TOTAL_RETURN
+      annualization_days: 252
+    DOWNSIDE_SEMIVARIANCE:
+      source: H00300_FORWARD_DAILY_TOTAL_RETURN
+      annualization_days: 252
+    MEMBER_CORRELATION:
+      source: DAILY_RISK_CAPACITY_TARGET_STATE
+      value: member_average_pairwise_correlation_60d
+    LIQUIDITY_SHOCK:
+      source: DAILY_RISK_CAPACITY_FORWARD_WINDOW
+      value: maximum_log_etf_amihud_20d_vs_origin
+
+measurement_gates:
+  target_snapshot_rule: LATEST_REGISTERED_ORIGIN_ON_OR_BEFORE_EXACT_TARGET_DATE
+  minimum_object_observed_share: 0.90
+  minimum_object_pass_share: 0.80
+  minimum_distinct_calendar_years: 5
+  exact_forward_daily_count_required: true
+  revised_financial_value_as_pit_allowed: false
+  direct_total_return_target_allowed: false
+
+adjudication:
+  direct_total_return_forecast_allowed: false
+  portfolio_evaluation_allowed: false
+  portfolio_action: ABSTAIN
+  position_state: POSITION_UNSET
+  current_investable_strategy: NONE
+
+artifacts:
+  protocol_manifest: config/510300_cf_dr_rc_own_object_measurement_validity_v1_manifest.json
+  object_measurement_panel: data/processed/510300_cf_dr_rc_own_object_measurement_validity_v1/object_measurement_panel.parquet
+  object_summary: reports/research/510300_cf_dr_rc_own_object_measurement_validity_v1_summary.parquet
+  measurement_json: reports/research/510300_cf_dr_rc_own_object_measurement_validity_v1.json
+  final_report: reports/research/510300_CF_DR_RC_OWN_OBJECT_MEASUREMENT_VALIDITY_V1.md
+  authoritative_status: reports/research/510300_cf_dr_rc_own_object_measurement_validity_v1_status.json

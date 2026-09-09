@@ -1,0 +1,696 @@
+protocol:
+  model_id: 510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1
+  version: 1.0.0
+  state: PROTOCOL_FROZEN_BEFORE_FIRST_API_PROBE
+  research_stage: DATA_ADMISSION_ONLY
+  historical_evaluation_label: RESEARCH_OBSERVED_HISTORICAL
+  validated_alpha: false
+  live_trading_authorized: false
+  position_impact: 0
+  tradable_universe:
+    - 510300.SH
+    - CASH_CNY
+  source_text_cash_alias: CNY_CASH_ONLY
+  options_role: SIGNAL_ONLY_NOT_TRADABLE
+  start_date: '2019-12-23'
+  end_date_rule: LAST_COMPLETED_SSE_TRADING_DAY_AVAILABLE_AFTER_ALL_FROZEN_SOURCE_CLOCKS
+  timezone: Asia/Shanghai
+  daily_signal_formation_not_before: '20:15:00'
+  future_return_reads_allowed_during_phases_a_to_e: false
+  portfolio_return_reads_allowed_before_g0_to_g3_pass: false
+  broker_connection_enabled: false
+  order_generation_enabled: false
+
+source_contract:
+  provider: TUSHARE_COMPATIBLE_PROXY
+  transport: HTTPS_POST_JSON
+  authentication: X_API_KEY_HEADER_EPHEMERAL_ONLY
+  accept_encoding: gzip
+  endpoint_allowlist:
+    - https://fast.xiaodefa.cn
+    - https://tt.xiaodefa.cn
+  selected_endpoint: https://tt.xiaodefa.cn
+  endpoint_selection_evidence: LOWEST_READ_ONLY_ROOT_GET_LATENCY_AT_2026_09_04_PREFLIGHT
+  token_rules:
+    allowed_inputs:
+      - interactive_hidden_prompt
+      - TUSHARE_PROXY_TOKEN_environment_variable
+    persist_token: false
+    include_in_logs: false
+    include_in_receipts: false
+    include_in_reports: false
+    include_in_manifests: false
+    include_in_commits: false
+  minimum_request_interval_seconds: 0.65
+  connect_timeout_seconds: 15
+  read_timeout_seconds: 90
+  maximum_attempts: 5
+  retry_delays_seconds:
+    - 2
+    - 4
+    - 8
+    - 16
+  retry_only:
+    - CONNECTION_ERROR
+    - TIMEOUT
+    - HTTP_429
+    - HTTP_500
+    - HTTP_502
+    - HTTP_503
+    - HTTP_504
+  no_retry:
+    - AUTHENTICATION_FAILURE
+    - ENTITLEMENT_FAILURE
+    - INVALID_PARAMETER
+    - EMPTY_SUCCESS_RESPONSE
+  documentation_checked_at: '2026-09-04T20:11:45+08:00'
+  documentation:
+    proxy_usage: https://www.yuque.com/aimiao-ke7gj/vosp6x/tsdwcwttw15976iv
+    trade_cal: https://tushare.pro/document/2?doc_id=26
+    fund_daily: https://tushare.pro/document/2?doc_id=127
+    fund_div: https://tushare.pro/document/2?doc_id=120
+    opt_basic: https://tushare.pro/document/2?doc_id=158
+    opt_daily: https://tushare.pro/document/2?doc_id=159
+    etf_mins: https://tushare.pro/document/2?doc_id=387
+    shibor: https://tushare.pro/document/2?doc_id=149
+    permission_timetable: https://tushare.pro/document/1?doc_id=108
+    sse_510300_option_listing: https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250611_10781547.shtml
+    sse_etf_faq: https://www.sse.com.cn/assortment/fund/etf/question/
+  source_clock:
+    trade_cal: PERIODIC
+    fund_daily: DAILY_POST_CLOSE
+    fund_div: PERIODIC
+    opt_basic: DAILY_20_00_APPROX
+    opt_daily: DAILY_17_00_APPROX
+    shibor: DAILY_11_00_APPROX
+    etf_mins: HISTORICAL_ON_DEMAND
+  availability_rule:
+    signal_date_inputs: SAME_TRADE_DATE_DATA_RETRIEVED_NOT_BEFORE_20_15_ASIA_SHANGHAI
+    latest_end_date: MINIMUM_COMMON_AVAILABLE_COMPLETED_TRADE_DATE_ACROSS_REQUIRED_DAILY_INPUTS
+    missing_same_day_shibor: NO_VIEW
+    forward_fill_allowed: false
+    cross_date_interpolation_allowed: false
+
+api_contracts:
+  trade_cal:
+    required_for_g0: true
+    probe_params:
+      exchange: SSE
+      start_date: '20191223'
+      end_date: '20191231'
+    full_params:
+      exchange: SSE
+      start_date: '20191223'
+      end_date: END_DATE
+    required_columns:
+      - exchange
+      - cal_date
+      - is_open
+      - pretrade_date
+    primary_key:
+      - exchange
+      - cal_date
+  fund_daily:
+    required_for_g0: true
+    probe_params:
+      ts_code: 510300.SH
+      start_date: '20191223'
+      end_date: '20191231'
+    full_params:
+      ts_code: 510300.SH
+      start_date: '20191223'
+      end_date: END_DATE
+    required_columns:
+      - ts_code
+      - trade_date
+      - open
+      - high
+      - low
+      - close
+      - pre_close
+      - vol
+      - amount
+    primary_key:
+      - ts_code
+      - trade_date
+  fund_div:
+    required_for_g0: true
+    probe_params:
+      ts_code: 510300.SH
+    full_params:
+      ts_code: 510300.SH
+    required_columns:
+      - ts_code
+      - ann_date
+      - imp_anndate
+      - base_date
+      - div_proc
+      - record_date
+      - ex_date
+      - pay_date
+      - earpay_date
+      - net_ex_date
+      - div_cash
+      - base_unit
+      - ear_distr
+      - ear_amount
+      - account_date
+      - base_year
+    primary_key:
+      - ts_code
+      - ann_date
+      - ex_date
+      - div_proc
+      - div_cash
+  opt_basic:
+    required_for_g0: true
+    probe_params:
+      exchange: SSE
+    full_params:
+      exchange: SSE
+    required_columns:
+      - ts_code
+      - symbol
+      - exchange
+      - name
+      - per_unit
+      - opt_code
+      - opt_type
+      - call_put
+      - exercise_type
+      - exercise_price
+      - opt_multiplier
+      - s_month
+      - maturity_date
+      - list_price
+      - list_date
+      - delist_date
+      - last_edate
+      - last_ddate
+      - quote_unit
+      - min_price_chg
+    primary_key:
+      - ts_code
+  opt_daily:
+    required_for_g0: true
+    probe_params:
+      exchange: SSE
+      trade_date: '20191223'
+    full_iteration:
+      one_request_per_open_trade_date: true
+      params:
+        exchange: SSE
+        trade_date: TRADE_DATE
+    required_columns:
+      - ts_code
+      - trade_date
+      - exchange
+      - pre_settle
+      - pre_close
+      - open
+      - high
+      - low
+      - close
+      - settle
+      - vol
+      - amount
+      - oi
+    primary_key:
+      - ts_code
+      - trade_date
+    documented_single_request_max_rows: 15000
+    overflow_rule: STOP_BLOCKED_RESPONSE_AT_OR_ABOVE_DOCUMENTED_LIMIT_NO_SILENT_TRUNCATION
+  shibor:
+    required_for_g0: true
+    probe_params:
+      start_date: '20191223'
+      end_date: '20191231'
+    full_params:
+      start_date: '20191223'
+      end_date: END_DATE
+    required_columns:
+      - date
+      - 1w
+      - 2w
+      - 1m
+      - 3m
+    primary_key:
+      - date
+    documented_single_request_max_rows: 2000
+    full_download_chunking: BY_CALENDAR_YEAR
+  etf_mins:
+    required_for_core_prediction_g0: false
+    required_for_final_execution_backtest_g0: true
+    probe_params:
+      ts_code: 510300.SH
+      freq: 1min
+      start_date: '2020-01-02 09:00:00'
+      end_date: '2020-01-02 15:30:00'
+    full_iteration:
+      chunking: CALENDAR_MONTH
+      params:
+        ts_code: 510300.SH
+        freq: 1min
+        start_date: MONTH_START_00_00_00
+        end_date: MONTH_END_23_59_59
+    required_columns:
+      - ts_code
+      - trade_time
+      - open
+      - high
+      - low
+      - close
+      - vol
+      - amount
+    primary_key:
+      - ts_code
+      - trade_time
+    documented_single_request_max_rows: 8000
+    fallback_api_allowed: false
+    note: STK_MINS_IS_NOT_AN_ALLOWED_SUBSTITUTE_FOR_THE_FROZEN_ETF_MINS_CONTRACT
+
+permission_probe:
+  output: reports/data_quality/510300_option_implied_downside_risk_budget_v1/permission_probe.json
+  request_receipt_fields:
+    - api_name
+    - request_parameters
+    - request_started_at
+    - response_received_at
+    - success
+    - row_count
+    - returned_columns
+    - error_code
+    - error_message
+    - response_sha256
+    - endpoint_origin
+  endpoint_origin_rule: SCHEME_AND_HOST_ONLY_NO_CREDENTIALS
+  core_strategy_blocked_if_any_fail:
+    - trade_cal
+    - fund_daily
+    - fund_div
+    - opt_basic
+    - opt_daily
+    - shibor
+  etf_mins_failure_state: PREDICTION_RESEARCH_ALLOWED_FINAL_EXECUTION_BACKTEST_BLOCKED
+  overall_pass_state: PASS_G0_PERMISSION_PROBE
+  core_failure_state: CORE_STRATEGY_BLOCKED
+
+raw_storage:
+  root: data/raw/tushare/510300_option_implied_downside_risk_budget_v1
+  immutable_raw_response: true
+  normalized_parquet_is_derivative: true
+  overwrite_existing_raw: false
+  atomic_write_then_rename: true
+  response_receipt_required: true
+  receipt_fields:
+    - source
+    - api
+    - request_parameters
+    - request_started_at
+    - retrieved_at
+    - row_count
+    - columns
+    - response_bytes
+    - response_sha256
+    - raw_relative_path
+    - endpoint_origin
+  prohibited_receipt_fields:
+    - token
+    - x-api-key
+    - authorization
+  layout:
+    trade_cal: trade_cal
+    fund_daily: fund_daily/510300.SH
+    fund_div: fund_div/510300.SH
+    etf_mins: etf_mins/510300.SH/1min
+    opt_basic: opt_basic/SSE
+    opt_daily: opt_daily/SSE/trade_date=YYYYMMDD
+    shibor: shibor
+  checkpoint: reports/data_quality/510300_option_implied_downside_risk_budget_v1/acquisition_checkpoint.json
+  acquisition_summary: reports/data_quality/510300_option_implied_downside_risk_budget_v1/acquisition_summary.json
+
+contract_mapping:
+  exchange: SSE
+  official_underlying_name: 华泰柏瑞沪深300交易型开放式指数证券投资基金
+  official_underlying_security_code: '510300'
+  official_listing_date: '2019-12-23'
+  tushare_target_opt_code: OP510300.SH
+  fuzzy_name_filter_allowed: false
+  include_if_all:
+    - exchange == SSE
+    - opt_code == OP510300.SH
+    - list_date <= trade_date
+    - trade_date <= delist_date
+    - call_put in [C, P]
+    - exercise_price > 0
+    - maturity_date is valid
+  raw_adjusted_contracts_preserved: true
+  surface_standard_multiplier: 10000
+  nonstandard_adjusted_contracts_in_main_surface: false
+  output: data/curated/510300_option_contract_map/510300_option_contract_map.parquet
+  official_cross_check_receipt: reports/data_quality/510300_option_implied_downside_risk_budget_v1/sse_underlying_cross_check.json
+
+surface:
+  option_price_field: settle
+  close_usage: QUALITY_COMPARISON_ONLY
+  settle_close_switching_allowed: false
+  day_count: ACTUAL_365_FIXED
+  single_contract_day_requirements:
+    settle_strictly_positive: true
+    volume_strictly_positive: true
+    open_interest_strictly_positive: true
+    minimum_dte_calendar_days: 5
+    maximum_dte_calendar_days: 120
+    duplicate_ts_code_trade_date_allowed: false
+    no_arbitrage_bounds_required: true
+  shibor_rate:
+    input_unit: PERCENT_PER_ANNUM
+    internal_unit: DECIMAL_PER_ANNUM
+    tenors_calendar_days:
+      1w: 7
+      2w: 14
+      1m: 30
+      3m: 90
+    interpolation: LINEAR_BY_CALENDAR_DAYS
+    extrapolation_allowed: false
+    dte_outside_rate_nodes_state: NO_VIEW_RATE_TENOR_OUT_OF_RANGE
+    missing_same_date_state: NO_VIEW
+  call_put_pair_key:
+    - trade_date
+    - maturity_date
+    - exercise_price
+    - opt_multiplier
+  nearest_pairs_to_underlying_close_maximum: 5
+  minimum_pairs_per_expiry: 3
+  forward_from_parity: K_PLUS_EXP_RT_TIMES_CALL_MINUS_PUT
+  forward_aggregation: MEDIAN
+  maximum_parity_mad_over_forward: 0.005
+  parity_failure_state: NO_VIEW_PARITY_DISPERSION
+  log_moneyness: LN_K_OVER_FORWARD
+  otm_price_choice:
+    k_below_zero: PUT
+    k_at_or_above_zero: CALL
+  implied_volatility_model: BLACK_76
+  implied_volatility_solver: BRENT_BOUNDED
+  minimum_log_moneyness: -0.12
+  maximum_log_moneyness: 0.12
+  minimum_implied_volatility: 0.01
+  maximum_implied_volatility: 2.0
+  minimum_valid_strikes_per_expiry: 5
+  require_strikes_both_sides_of_zero: true
+  required_strike_targets:
+    - 0.0
+    - -0.05
+  strike_interpolation_variable: TOTAL_VARIANCE
+  strike_interpolation_method: LINEAR_BETWEEN_ADJACENT_STRIKES
+  strike_extrapolation_allowed: false
+  maturity_targets_calendar_days:
+    - 30
+    - 60
+  maturity_interpolation_variable: TOTAL_VARIANCE
+  maturity_interpolation_method: LINEAR_BETWEEN_BRACKETING_EXPIRIES
+  maturity_extrapolation_allowed: false
+  missing_maturity_bracket_state: NO_VIEW_NO_MATURITY_BRACKET
+  outputs:
+    contract_map: data/curated/510300_option_contract_map/510300_option_contract_map.parquet
+    quality_ledger: data/curated/510300_option_surface/510300_option_surface_quality_ledger.parquet
+    daily_surface: data/curated/510300_option_surface/510300_option_surface_daily.parquet
+
+features:
+  total_wealth_return:
+    unadjusted_close_plus_cash_dividend: true
+    adjusted_price_input_allowed: false
+  b1_price_features:
+    - LOG_RV5
+    - LOG_RV20
+    - NEG_RETURN5
+    - DRAWDOWN20_RISK
+    - DOWNSIDE_SHARE20
+  b2_option_incremental_features:
+    - LOG_IV30
+    - PUT_SKEW30
+    - TERM_INVERSION30_60
+    - IV_SHOCK5
+    - SKEW_SHOCK5
+  prohibited_features:
+    - OPTION_VOLUME_DIRECTION
+    - OPTION_OPEN_INTEREST_DIRECTION
+    - PCR
+    - MACD
+    - MOVING_AVERAGE
+    - RSI
+    - NORTHBOUND_FLOW
+    - PMI
+    - SOCIAL_FINANCING
+    - M1
+    - NEWS_SENTIMENT
+    - 510050_OPTION
+    - IF_BASIS
+    - CONSTITUENT_BREADTH
+    - PCF
+    - IOPV
+    - RETURN_SELECTED_FEATURES
+
+labels:
+  execution_price:
+    date: NEXT_TRADING_DAY
+    window_start: '09:35:00'
+    window_end: '09:39:59'
+    method: ONE_MINUTE_AMOUNT_WEIGHTED_VWAP
+  primary:
+    name: V5
+    horizon_trading_days: 5
+    definition: ANNUALIZED_SUM_OF_FIVE_FORWARD_LOG_TOTAL_RETURN_SQUARES_DIVIDED_BY_5_TIMES_252
+    matured_at: FIFTH_FUTURE_TRADING_DAY_AFTER_CLOSE
+  optional_tail:
+    name: TAIL5
+    threshold: -0.03
+    horizon_trading_days: 5
+    overlapping_positive_labels_merge_to_events: true
+    minimum_independent_events: 40
+    minimum_events_per_era: 5
+    insufficient_event_state: NO_VIEW
+  output_variance: data/curated/510300_future_risk_labels/510300_future_variance_5d.parquet
+  output_tail_events: data/curated/510300_future_risk_labels/510300_tail5_event_ledger.parquet
+
+models:
+  b0:
+    type: EXPANDING_MATURED_LABEL_MEAN
+  b1:
+    type: EXP_LINK_NONNEGATIVE_QLIKE_RIDGE
+    inputs: B1_PRICE_FEATURES
+  b2:
+    type: EXP_LINK_NONNEGATIVE_QLIKE_RIDGE
+    inputs: B1_PLUS_B2_FEATURES
+  variance_loss: QLIKE
+  l2_lambda: 1.0
+  coefficient_lower_bound: 0.0
+  standardization: TRAINING_SAMPLE_MEAN_AND_STANDARD_DEVIATION_ONLY
+  training_window: EXPANDING
+  minimum_matured_training_days: 504
+  refit: FIRST_TRADING_DAY_OF_EACH_MONTH
+  coefficient_hold: CONSTANT_WITHIN_MONTH
+  label_lag_trading_days_minimum: 5
+  forbidden_model_selection:
+    - LAMBDA_GRID_SEARCH
+    - FEATURE_SELECTION
+    - SIGN_REVERSAL
+    - RANDOM_FOREST
+    - XGBOOST
+    - NEURAL_NETWORK
+    - SHARPE_BASED_MODEL_SELECTION
+  tail_model:
+    type: NONNEGATIVE_LOGISTIC_RIDGE
+    l2_lambda: 1.0
+    daily_natural_frequency_weights: true
+    event_reweighting_allowed: false
+    inference_clusters:
+      - EVENT
+      - CALENDAR_MONTH
+
+position_mapping:
+  risk_reference: EXPANDING_MEDIAN_OF_SQRT_MATURED_V5
+  volatility_weight: MIN_1_SIGMA_REFERENCE_OVER_PREDICTED_SIGMA
+  tail_weight: MIN_1_BASE_RATE_OVER_PREDICTED_TAIL_PROBABILITY
+  tail_weight_if_tail_model_disabled: 1.0
+  raw_weight: MIN_VOLATILITY_WEIGHT_AND_TAIL_WEIGHT
+  discrete_levels:
+    - 0.0
+    - 0.25
+    - 0.5
+    - 0.75
+    - 1.0
+  discretization: FLOOR_TO_QUARTER
+  decrease_rule: NEXT_TRADING_DAY_IMMEDIATE_TO_TARGET
+  increase_rule: MAXIMUM_0_25_PER_TRADING_DAY
+
+execution:
+  initial_capital_cny: 200000
+  commission_rate: 0.0002
+  minimum_commission_cny: 5
+  lot_size_shares: 100
+  t_plus_one: true
+  cash_return: 0.0
+  base_slippage_per_leg: 0.0005
+  stress_slippage_per_leg: 0.0010
+  execution: NEXT_DAY_09_35_TO_09_39_VWAP
+  leverage_allowed: false
+  shorting_allowed: false
+  option_trading_allowed: false
+  intraday_t_allowed: false
+  stop_loss_take_profit_allowed: false
+  theoretical_mid_execution_allowed: false
+
+evaluation:
+  eras:
+    count: 4
+    boundary_rule: FOUR_CONTIGUOUS_NEAR_EQUAL_VALID_PREDICTION_DATE_COUNTS_AFTER_FIRST_504_DAY_TRAINING_POINT
+    freeze_before_prediction_results: true
+  prediction_scheme: STRICT_PREQUENTIAL_MATURED_INFORMATION_ONLY
+  random_kfold_allowed: false
+  bootstrap_units:
+    - CALENDAR_MONTH
+    - FIVE_DAY_OVERLAPPING_LABEL_BLOCK
+    - TAIL_EVENT_BLOCK
+  portfolios:
+    p0: 510300_TOTAL_RETURN_BUY_AND_HOLD
+    p1: CONSTANT_510300_CASH_MATCHED_AVERAGE_EXPOSURE
+    p2: B1_PRICE_RISK_BUDGET
+    p3: B2_OPTION_ENHANCED_RISK_BUDGET
+  deflated_sharpe_trial_count_scope: ENTIRE_510300_PROJECT_CUMULATIVE_EXPERIMENT_COUNT
+
+gates:
+  g0:
+    required_core_apis:
+      - fund_daily
+      - fund_div
+      - opt_basic
+      - opt_daily
+      - shibor
+      - trade_cal
+    official_underlying_cross_check: true
+    immutable_raw_hashes_complete: true
+    duplicate_primary_keys_maximum: 0
+    clean_new_process_replay: true
+    final_portfolio_additional_requirements:
+      etf_mins_available: true
+      execution_window_coverage_minimum: 0.98
+  g1:
+    minimum_valid_surface_days: 1000
+    minimum_overall_valid_coverage: 0.80
+    minimum_each_complete_calendar_year_coverage: 0.65
+    legal_30d_and_60d_interpolation: true
+    no_arbitrage_pass: true
+    put_call_parity_pass: true
+    missing_state_preserved_as_no_view: true
+  g2:
+    b1_vs_b0_prequential_qlike_improvement_strictly_positive: true
+    minimum_positive_eras: 3
+    one_sided_block_bootstrap_90pct_lower_bound_strictly_positive: true
+  g3:
+    b2_vs_b1_qlike_improvement_minimum: 0.05
+    log_variance_mse_improvement_strictly_positive: true
+    minimum_positive_eras: 3
+    one_sided_block_bootstrap_90pct_lower_bound_strictly_positive: true
+    minimum_prequential_prediction_days: 750
+    calibration_slope_minimum: 0.75
+    calibration_slope_maximum: 1.25
+    mean_predicted_to_realized_variance_minimum: 0.85
+    mean_predicted_to_realized_variance_maximum: 1.15
+    failure_state: MODEL_STATE_REJECTED_FROZEN_NO_RESCUE
+    portfolio_evaluation_if_fail: NOT_ALLOWED
+  g4:
+    c2_vs_c1_brier_improvement_minimum: 0.02
+    c2_vs_c1_log_loss_improvement_minimum: 0.02
+    minimum_eras_improving_both: 3
+    one_sided_event_block_bootstrap_90pct_lower_bound_strictly_positive: true
+    calibration_slope_minimum: 0.70
+    calibration_slope_maximum: 1.30
+    failure_state: TAIL_CAP_DISABLED
+  g5:
+    base_cost_net_sharpe_minimum: 1.20
+    p3_minus_p2_net_sharpe_minimum: 0.20
+    p3_minus_same_exposure_sharpe_strictly_positive: true
+    maximum_drawdown_reduction_vs_buy_hold_minimum: 0.30
+    net_cagr_minimum: 0.04
+    net_cagr_vs_buy_hold_shortfall_maximum: 0.02
+    upside_capture_minimum: 0.70
+    downside_capture_maximum: 0.60
+    average_510300_weight_minimum: 0.40
+    average_510300_weight_maximum: 0.90
+    annualized_equivalent_round_trips_maximum: 8
+    minimum_eras_p3_excess_vs_p2_positive: 3
+    maximum_single_stress_episode_total_excess_contribution: 0.30
+    stress_slippage_net_sharpe_minimum: 0.90
+    stress_slippage_net_excess_strictly_positive: true
+    equivalent_round_trip_definition: HALF_SUM_ABSOLUTE_WEIGHT_CHANGES
+
+phase_state_machine:
+  a_freeze:
+    reads_future_labels: false
+    reads_portfolio_returns: false
+  b_raw_download:
+    order:
+      - trade_cal
+      - fund_daily
+      - fund_div
+      - opt_basic
+      - opt_daily
+      - shibor
+      - etf_mins
+    reads_future_labels: false
+    reads_portfolio_returns: false
+  c_data_admission:
+    allowed_outputs:
+      - CONTRACT_MAP
+      - SURFACE_QUALITY_LEDGER
+      - DAILY_SURFACE
+      - G0_G1_ADJUDICATION
+    stop_if_g1_fails: true
+  d_labels:
+    allowed_only_after_g0_g1_pass: true
+    freeze_era_boundaries_before_label_distribution_read: true
+  e_prediction:
+    order:
+      - B0
+      - B1
+      - B2
+      - C1_C2_IF_EVENT_GATE
+    portfolio_outputs_allowed: false
+  f_model_freeze:
+    b2_fail: STOP_BRANCH
+    b2_pass_c2_fail: VOLATILITY_WEIGHT_ONLY
+    b2_pass_c2_pass: MIN_VOLATILITY_AND_TAIL_WEIGHT
+  g_one_shot_portfolio:
+    allowed_only_after_g0_g1_g2_g3_pass: true
+    run_limit: 1
+  h_forward:
+    entry_state: SHADOW_ONLY_FORWARD
+    first_stage_new_trading_days: 252
+    formal_stage_new_trading_days: 504
+    real_position_impact: 0
+
+no_rescue:
+  terminal_core_failure_state: HISTORICAL_REJECTED_FROZEN_NO_RESCUE
+  forbidden_changes_after_result_read:
+    - HORIZON_5_TO_OTHER
+    - TAIL_THRESHOLD_MINUS_3_PERCENT_TO_OTHER
+    - IV_TARGET_30D_TO_OTHER
+    - PUT_MONEYNESS_5_PERCENT_TO_OTHER
+    - PARITY_DISPERSION_0_5_PERCENT_TO_OTHER
+    - SETTLE_TO_CLOSE
+    - ADD_PCR_OI_VOLUME
+    - ADD_TECHNICAL_OR_VALUATION_FILTER
+    - YEAR_SUBSELECTION
+    - SIDE_SUBSELECTION
+    - ADD_510050_OPTION_HISTORY
+    - LOWER_COSTS
+    - EXECUTION_MINUTE_SELECTION
+    - POSITION_GRID_CHANGE
+    - RECOVERY_SPEED_CHANGE
+    - LAMBDA_SELECTION_BY_SHARPE
+
+planned_outputs:
+  g0_g1_adjudication: reports/data_quality/510300_option_implied_downside_risk_budget_v1/G0_G1_ADJUDICATION.json
+  protocol_receipt: reports/data_quality/510300_option_implied_downside_risk_budget_v1/protocol_receipt.json
+  no_trade_status: DISCOVERY_ONLY_NO_TRADE

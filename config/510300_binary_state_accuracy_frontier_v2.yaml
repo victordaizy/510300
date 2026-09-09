@@ -1,0 +1,77 @@
+protocol:
+  study_id: "510300_BINARY_STATE_ACCURACY_FRONTIER_V2"
+  version: "2.0.0"
+  state: "PREFREEZE_IMPLEMENTATION_COMPLETE"
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED_PERFECT_FORESIGHT_DIAGNOSTIC_ONLY"
+  historical_cutoff: "2026-08-14"
+  purpose: "量化1日与5日二元择时达到相对H00300年化净超额20个百分点所需的坏块识别能力与误退出容忍度"
+  is_strategy_candidate: false
+  is_trading_signal: false
+  live_trading_authorized: false
+
+scope:
+  execution_asset: "510300.SH"
+  allowed_holdings: ["510300.SH", "CASH_CNY"]
+  allowed_target_states: [0, 1]
+  initial_capital_cny: 500000.0
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_allowed: false
+  signal_time: "T日收盘后"
+  execution_time: "T+1交易日开盘"
+  full_state_reinvests_paid_cash_dividends: true
+
+objective:
+  benchmark_id: "H00300"
+  benchmark_return_type: "TOTAL_RETURN"
+  primary_metric: "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR"
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_excess_median: 0.20
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+
+source_contract:
+  v1_config: "config/510300_binary_state_feasibility_v1.yaml"
+  v1_manifest: "config/510300_binary_state_feasibility_v1_manifest.json"
+  v1_engine: "research/binary_state_feasibility_v1.py"
+  etf_market: "data/raw/r6/510300_daily.parquet"
+  benchmark_total_return: "data/raw/r6/H00300_total_return_daily.parquet"
+  cash_distributions: "data/reference/510300_dividends.csv"
+
+accuracy_frontier:
+  block_horizons_trading_days: [1, 5]
+  evaluate_all_calendar_offsets: true
+  final_incomplete_block_policy: "EXCLUDE"
+  block_label: "FULL当且仅当从块首日开盘到块末日收盘的510300含分红毛终值高于同期现金终值"
+  label_ignores_costs_but_realized_path_charges_costs: true
+  cost_scenario: "STRESS"
+  random_exact_count_errors:
+    bad_block_recall_grid: [0.50, 0.60, 0.70, 0.75, 0.80, 0.85, 0.90, 0.925, 0.95, 0.975, 1.00]
+    false_exit_rate_grid: [0.00, 0.01, 0.02, 0.05, 0.10, 0.20]
+    repetitions: 100
+    random_seed: 20260828
+    count_rounding: "ROUND_HALF_UP"
+  severity_ranked_oracle:
+    bad_block_coverage_grid: [0.00, 0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]
+    ranking_key: "CASH_GROSS_FACTOR_MINUS_FULL_GROSS_FACTOR_DESC"
+    false_exit_rate: 0.0
+  primary_offset_rule: "EVERY_CALENDAR_OFFSET_MEDIAN_TRIAL_METRICS_MUST_PASS"
+  secondary_offset_rule: "MEDIAN_CALENDAR_OFFSET_MEDIAN_TRIAL_METRICS_MUST_PASS"
+
+artifacts:
+  report_json: "reports/research/510300_binary_state_accuracy_frontier_v2.json"
+  report_markdown: "reports/research/510300_BINARY_STATE_ACCURACY_FRONTIER_V2.md"
+  output_directory: "data/research/510300_binary_state_accuracy_frontier_v2"
+  random_trials_parquet: "data/research/510300_binary_state_accuracy_frontier_v2/random_exact_count_trials.parquet"
+  random_aggregates_parquet: "data/research/510300_binary_state_accuracy_frontier_v2/random_exact_count_aggregates.parquet"
+  severity_frontier_parquet: "data/research/510300_binary_state_accuracy_frontier_v2/severity_ranked_oracle.parquet"
+  block_labels_parquet: "data/research/510300_binary_state_accuracy_frontier_v2/block_labels_1d_5d.parquet"

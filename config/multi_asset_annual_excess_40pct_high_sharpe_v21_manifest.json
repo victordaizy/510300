@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V21_MANIFEST",
+  "status": "FROZEN_BEFORE_CURRENT_QUARTER_BASIS_FACTOR_OUTCOME",
+  "frozen_at": "2026-08-27T08:10:44.026730+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V21",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V20",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v21.yaml": "bfb01d2b6a16075f625c059959b092caab4190be87cd8a26c2268499f1c0bcf6",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V21_SPEC.md": "7fde7b99894034a29b0a250e28f5300c5fe0cf130cfc6487cef7014b959fb2eb",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v21.py": "8d58a37ead4704609f735578b50ebc547aa2a5d44d1a674be2fa3286bc85c2c2"
+  },
+  "tracked_content_sha256": "68f7abe8fb6428aed9c04f7c4ce53028afe9dcdcb9633f038da456dbfaf2f888",
+  "parent_manifest_sha256": "cf56fe1d97211074c412941aaf769e2bd7ec1b66d84746110c8a233ef1ab538c",
+  "v10_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "error_type": true,
+      "error": true,
+      "performance_unavailable": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true,
+      "replication_closed": true
+    },
+    "manifest_sha256": "ef1123ee52f702fa00399070e107d07ec8ceb841936838439458245c16840b86",
+    "report_sha256": "15f72a0c3b02c7b72395a8fba56202d0b4ecbbd98d7082f163e1e55cf8da754e",
+    "tracked_content_sha256": "dcb34cb53636ab9dd4037609246b9b9b3a7f0be7850507683951ee53eef9d8cf",
+    "error_type": "DataContractError",
+    "error": "2020-11-01 00:00:00 V10现货毛敞口超过冻结上限",
+    "performance_metrics_available": false
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DIGITAL_ASSET_CURRENT_QUARTER_BASIS_FACTOR_REPLICATION",
+    "candidate_id": "DIGITAL_ASSET_CURRENT_QUARTER_BASIS_FACTOR_V11",
+    "empirical_reference": "CHI_HAO_HU_RAN_2023_JOURNAL_OF_FUTURES_MARKETS_DOI_10_1002_FUT_22425",
+    "venue": "BINANCE_USDS_MARGINED_FUTURES_AND_SPOT_PUBLIC_API",
+    "fixed_spot_symbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "fixed_current_quarter_pairs": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "acquisition_start": "2021-08-25 00:00:00",
+    "visible_start": "2021-09-01",
+    "visible_end": "2026-08-14",
+    "spot_signal_price": "DAILY_23UTC_CLOSE",
+    "current_quarter_signal_price": "DAILY_23UTC_CLOSE",
+    "basis_formula": "LOG_SPOT_CLOSE_DIV_CURRENT_QUARTER_FUTURES_CLOSE",
+    "basis_lookback_calendar_days": 5,
+    "basis_aggregation": "ARITHMETIC_MEAN_OF_FIVE_DAILY_LOG_BASIS_VALUES",
+    "ranking": "DESCENDING_MEAN_BASIS_THEN_PAIR_ASCENDING",
+    "long_rule": "HIGHER_MEAN_BASIS_PAIR",
+    "short_rule": "LOWER_MEAN_BASIS_PAIR",
+    "signal_time": "23UTC",
+    "execution_time": "NEXT_DAY_00UTC",
+    "holding_period_calendar_days": 1,
+    "target_long_gross": 0.45,
+    "target_short_gross": 0.45,
+    "target_total_gross": 0.9,
+    "target_net": 0.0,
+    "delivery_day_policy": "ZERO_POSITION_FROM_00UTC_UNTIL_NEXT_DAY_00UTC",
+    "delivery_calendar": "LAST_FRIDAY_OF_MARCH_JUNE_SEPTEMBER_DECEMBER",
+    "turnover_lookback_observed_venue_hours": 168,
+    "maximum_order_fraction": 0.001,
+    "terminal_winddown_calendar_days": 7,
+    "maximum_actual_gross": 1.05,
+    "maximum_absolute_actual_net": 0.1,
+    "base_total_futures_cost_bps_per_leg": 8.0,
+    "stress_total_futures_cost_bps_per_leg": 30.0,
+    "parameter_grid_search_allowed": false
+  },
+  "basis_rank_or_return_computed_during_freeze": false,
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

@@ -1,0 +1,100 @@
+protocol:
+  project_id: 510300_CREATION_DATA_READINESS_LEDGER_V1
+  version: 1.0.0
+  state: PRE_DATA_ONLY_FREEZE
+  created_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  research_mode: FORWARD_DATA_BUILD_ONLY
+  return_view: FORBIDDEN
+  strategy_code: FORBIDDEN
+  parent_strategy_id: 510300_INFORMED_CREATION_PREMIUM_V1
+  parent_strategy_status: NO_VIEW_DATA_CONTRACT_FAILED
+  parent_strategy_protocol_change: FORBIDDEN
+  maturity_complete_days: 120
+  forward_start_rule: '2026-09-01_OR_FIRST_LATER_COMPLIANT_SSE_TRADING_DAY'
+  pre_start_admission_period: ['2026-07-06', '2026-08-31']
+  pre_start_use: DATA_FORMAT_AND_TIMESTAMP_ADMISSION_ONLY
+  backfill_allowed: false
+
+strict_day_contract:
+  actual_share_available_at: VERIFIED
+  raw_source_document_id: PRESENT
+  raw_document_sha256: PRESENT
+  revision_flag: PRESENT
+  split_flag: PRESENT
+  bid_price_1: PRESENT
+  ask_price_1: PRESENT
+  iopv_minimum_valid_snapshots: 120
+  iopv_first_snapshot_no_later_than: '09:31:00'
+  iopv_last_snapshot_no_earlier_than: '14:59:00'
+  iopv_valid_fraction_minimum: 0.95
+  bid_ask_coverage_minimum: 0.95
+  strict_complete_day_rule: ALL_FIELDS_AND_COVERAGE_GATES_PASS
+
+required_forward_receipt_fields:
+  - trade_date
+  - observed_at
+  - actual_fund_shares
+  - actual_share_available_at
+  - actual_share_available_at_verified
+  - actual_share_raw_source_document_id
+  - actual_share_raw_document_sha256
+  - revision_flag
+  - split_flag
+  - iopv_snapshot_count
+  - iopv_valid_snapshot_count
+  - iopv_first_exchange_timestamp
+  - iopv_last_exchange_timestamp
+  - bid_ask_valid_snapshot_count
+  - iopv_raw_source_document_id
+  - iopv_raw_document_sha256
+  - source_status
+  - trading_calendar_status
+
+required_status_values:
+  source_status: RAW_SOURCE_RECEIPTS_PRESENT
+  trading_calendar_status: SSE_TRADING_DAY
+
+admission_inputs:
+  retrospective_actual_share_candidate:
+    path: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    qualification: ADMISSION_DIAGNOSTIC_ONLY_NO_HISTORICAL_AVAILABLE_AT
+  legacy_iopv_snapshots:
+    path: data/raw/primary_market/510300_iopv_snapshots.parquet
+    qualification: ADMISSION_DIAGNOSTIC_ONLY_MISSING_BID_ASK
+
+artifacts:
+  freeze_manifest: config/510300_creation_data_readiness_ledger_v1_manifest.json
+  readiness_ledger: data/forward/510300_creation_data_readiness_ledger_v1/readiness_ledger.parquet
+  status_json: reports/data_quality/510300_creation_data_readiness_ledger_v1_status.json
+  status_markdown: reports/data_quality/510300_CREATION_DATA_READINESS_LEDGER_V1_STATUS.md
+
+immutable_dependencies:
+  - path: config/510300_episodic_alpha_library_v1_manifest.json
+    role: PARENT_STRATEGY_FROZEN_MANIFEST_REFERENCE
+  - path: reports/research/510300_episodic_alpha_library_v1_post_run_adjudication.json
+    role: PARENT_STRATEGY_POST_RUN_ADJUDICATION_REFERENCE
+  - path: data/reference/sse_trade_calendar_2026.csv
+    role: OFFICIAL_SSE_2026_TRADING_CALENDAR
+  - path: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    role: PRE_START_ACTUAL_SHARE_FORMAT_ADMISSION_SNAPSHOT
+  - path: data/raw/primary_market/510300_iopv_snapshots.parquet
+    role: PRE_START_IOPV_FORMAT_ADMISSION_SNAPSHOT
+
+boundaries:
+  strategy_return_columns_allowed: false
+  candidate_signal_generation_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+
+freeze:
+  files:
+    - config/510300_creation_data_readiness_ledger_v1.yaml
+    - docs/510300_CREATION_DATA_READINESS_LEDGER_V1_SPEC.md
+    - research/frozen_protocol_support_v1.py
+    - research/creation_data_readiness_ledger_v1.py
+    - scripts/freeze_510300_creation_data_readiness_ledger_v1.py
+    - scripts/run_510300_creation_data_readiness_ledger_v1.py
+    - tests/test_510300_creation_data_readiness_ledger_v1.py

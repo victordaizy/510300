@@ -1,0 +1,238 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  execution_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURE_EXECUTION_V1
+  version: 1.0.0
+  stage_id: POINT_IN_TIME_M_F_T_FEATURE_BUILD
+  research_state: DISCOVERY_ONLY
+  current_stage: FEATURE_CONSTRUCTION_AND_NO_FUTURE_VALIDATION_ONLY
+  return_evaluation: NOT_ALLOWED
+  label_read_allowed: false
+  model_training_allowed: false
+  portfolio_evaluation_allowed: false
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+  observation_start: "2015-01-05"
+  observation_cutoff: "2026-08-14"
+  timezone: Asia/Shanghai
+
+parent_chain:
+  v2_protocol_manifest:
+    path: config/510300_stress_transmission_hazard_v2_manifest.json
+    bytes: 17838
+    sha256: 4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be
+  four_state_execution_manifest:
+    path: config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1_manifest.json
+    bytes: 6799
+    sha256: a39acf5e861a800601a6b0dfb4b5641c3d746df307febe018fe555caceefd89b
+  four_state_ledger_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_four_state_ledger_v1_0_1.json
+    bytes: 3459
+    sha256: 1bf9abe220b74a60203221d87a53e7c248c5e236be5c128cfdb1f23fc0a03193
+    required_status: PASS_FOUR_STATE_LEDGER_WITH_EXPLICIT_NO_VIEW_CHAIN_AFTER_SELECTOR_CORRECTION
+  four_state_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_four_state_ledger_status_v1_0_1.json
+    bytes: 874
+    sha256: 0e200bc3e5044139006b4814c4bafe618ae507ae9f4ed24911a4ced275f1c107
+    required_next_step: FREEZE_POINT_IN_TIME_M_F_T_FEATURE_BUILD
+
+inputs:
+  point_in_time_membership:
+    path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    bytes: 139181
+    sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+    date_column: membership_date
+    expected_index_code: "000300"
+    expected_members_per_session: 300
+    reliable_point_in_time_weight_available: false
+  classified_constituent_returns:
+    path: data/curated/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/classified_constituent_returns_20141103_20260814.parquet
+    bytes: 18973979
+    sha256: 3a03e9064a94ca2ce928e276f48550c3c1cdec2971beee2c8bd57d342c62b5d0
+    usable_states: [TRADED_VALID, OFFICIAL_SUSPENSION]
+    missing_or_unresolved_zero_fill_allowed: false
+  four_state_daily_coverage:
+    path: reports/data_quality/510300_stress_transmission_hazard_v2_four_state_daily_coverage_v1_0_1.parquet
+    bytes: 37367
+    sha256: f6a48081c34d6a806bb5c81469dc69cbe3b3f64efe9312ac40a1753768cda0c8
+    required_view_state: VIEW_ALLOWED
+  h00300_total_return_close:
+    path: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    bytes: 130830
+    sha256: 5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c
+    symbol: H00300
+    value_column: close
+    role: F2_POINT_IN_TIME_INDEX_STRUCTURE_COMPARISON_ONLY
+    execution_proxy_allowed: false
+  csi300_official_pe:
+    path: data/raw/valuation/000300_pe_official_raw.parquet
+    bytes: 45675
+    sha256: 613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73
+    index_code: "000300"
+    value_column: pe_official
+    provider_original_field: peg
+    source_identity: csindex.indexCsiDsPe
+  china_10y_yield:
+    path: data/raw/macro/china_government_bond_yields_daily.parquet
+    bytes: 58269
+    sha256: 091f51fa55a1ddfdbf99dd715d1086c1f5d9bc086589de7b2938e66fd1b6952f
+    value_column: cgb_10y
+    unit: PERCENT
+    source_identity: chinabond.via_akshare.bond_china_yield
+  dr007:
+    path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_daily_20150105_20260814.parquet
+    bytes: 55355
+    sha256: 710268140f0ea4dae28520c9497e1b0f98877a4af7f27191aa85e8e8b3354957
+    value_column: dr007
+    ts_code: DR007.IB
+    provider_value_field: weight
+    unit: PERCENT
+    required_availability_rule: NEXT_TRADING_DAY_OPEN_AFTER_RATE_DATE
+  reverse_repo_7d_policy_rate:
+    path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_published_rates_anchor_20150105_20260814.parquet
+    bytes: 297424
+    sha256: 33d8f1cd8fb10269aefd89dd7f5f0978e7b293bc9a1e44df7b180f67b59bc1f0
+    observation_date_column: notice_date
+    available_at_column: published_at
+    value_column: seven_day_rate_percent
+    required_parse_status: PUBLISHED_7D_OPERATION_RATE
+    source_identity: PBOC_OPEN_MARKET_OPERATION_ANNOUNCEMENT_ARCHIVE
+
+information_clock:
+  decision_clock: T_CLOSE_15_00_ASIA_SHANGHAI
+  market_close_local_time: "15:00:00"
+  conservative_next_session_open_local_time: "09:30:00"
+  required_release_columns: [observation_date, available_at, value]
+  csi300_official_pe:
+    rule: NEXT_PIT_MARKET_SESSION_OPEN_AFTER_OBSERVATION_DATE
+    same_observation_date_use_allowed: false
+    revision_policy: FROZEN_HASHED_SERIES_NO_POST_FREEZE_BACKFILL
+  china_10y_yield:
+    rule: NEXT_PIT_MARKET_SESSION_OPEN_AFTER_OBSERVATION_DATE
+    same_observation_date_use_allowed: false
+    revision_policy: FROZEN_HASHED_SERIES_NO_POST_FREEZE_BACKFILL
+  dr007:
+    rule: NEXT_PIT_MARKET_SESSION_OPEN_AFTER_RATE_DATE
+    same_observation_date_use_allowed: false
+    revision_policy: FROZEN_HASHED_SERIES_NO_POST_FREEZE_BACKFILL
+  reverse_repo_7d_policy_rate:
+    rule: EXACT_ARCHIVED_PUBLISHED_AT_ASIA_SHANGHAI
+    same_day_use_allowed_only_when_published_at_not_after_t_close: true
+  h00300_total_return_close:
+    rule: T_MARKET_CLOSE_OBSERVATION_AVAILABLE_AT_T_CLOSE
+    future_session_close_use_allowed: false
+  missing_release_rule: NO_VIEW_NO_INTERPOLATION_NO_ZERO_FILL
+
+feature_contract:
+  causal_percentile: EMPIRICAL_MIDRANK_AGAINST_STRICTLY_PRIOR_VALID_OBSERVATIONS_ONLY
+  channel_missing_rule: NO_VIEW_NO_INTERPOLATION_NO_ZERO_FILL
+  member_coverage_minimum: 0.98
+  comovement_member_ratio_minimum: 0.90
+  comovement_minimum_valid_observations: 15
+  lookback_market_days: 20
+  change_market_days: 5
+  tail_volatility_market_days: 60
+  tail_sigma_multiple: 1.5
+  reliable_point_in_time_weight_used: false
+  M:
+    M1_EY_RATE_BUFFER:
+      formula: 100_DIV_CSI300_OFFICIAL_PE_MINUS_CHINA_10Y_YIELD_PERCENT
+      risk_transform: NEGATIVE_VALUE_CAUSAL_MIDRANK
+    M2_FUNDING_SPREAD:
+      formula: DR007_PERCENT_MINUS_7D_REVERSE_REPO_POLICY_RATE_PERCENT
+      smoothing: FIVE_MARKET_DAY_MEAN
+      risk_transform: POSITIVE_VALUE_CAUSAL_MIDRANK
+    aggregation: MEDIAN_REQUIRING_BOTH_CHANNELS
+  F:
+    F1_BREADTH20: LOWER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    F2_LEADERSHIP_GAP20: HIGHER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    F3_COMOVEMENT20: HIGHER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    aggregation: MEDIAN_REQUIRING_ALL_THREE_CHANNELS
+  T:
+    T1_BREADTH_DROP5: HIGHER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    T2_TAIL_DIFFUSION5: HIGHER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    T3_COMOVEMENT_ACCEL5: HIGHER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    T4_FUNDING_SHOCK5: HIGHER_VALUE_CAUSAL_MIDRANK_HIGHER_RISK
+    aggregation: MEDIAN_REQUIRING_ALL_FOUR_CHANNELS
+
+new_member_history_contract:
+  current_member_identity: POINT_IN_TIME_MEMBERSHIP_ON_EACH_SESSION
+  price_history_before_index_entry:
+    allowed: true
+    rationale: SECURITY_PRICE_HISTORY_WAS_PUBLIC_BY_T_AND_DOES_NOT_BACKFILL_MEMBERSHIP_IDENTITY
+    future_price_allowed: false
+    synthetic_history_allowed: false
+    complete_return_window_required: true
+  comovement_history:
+    scoring_days: POINT_IN_TIME_MEMBER_DAYS_WITH_VALID_MEMBER_AND_LEAVE_ONE_OUT_PEER_RETURNS_ONLY
+    trailing_market_day_window: 20
+    minimum_valid_member_days: 15
+    nonmember_days_count_as_valid: false
+    current_constituent_backfill_allowed: false
+
+no_view_chain:
+  four_state_daily_coverage_failure: NO_VIEW
+  internal_return20_tail_or_comovement_failure: NO_VIEW
+  macro_M_channel_failure: NO_VIEW
+  T4_funding_channel_failure: NO_VIEW
+  incomplete_causal_percentile_history: NO_VIEW
+  final_model_state_requires: [M, F, T]
+  abstain_implies_position: false
+
+outputs:
+  curated_root: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1
+  earnings_yield_release_ledger: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/csi300_earnings_yield_release_ledger.parquet
+  china_10y_release_ledger: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/china_10y_yield_release_ledger.parquet
+  dr007_release_ledger: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/dr007_release_ledger.parquet
+  reverse_repo_7d_release_ledger: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/reverse_repo_7d_release_ledger.parquet
+  internal_features: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/internal_F_T_features.parquet
+  macro_features: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/macro_M_T4_features.parquet
+  mft_feature_panel: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/mft_feature_panel_20150105_20260814.parquet
+  member_history_ledger: reports/data_quality/510300_stress_transmission_hazard_v2_mft_member_history_v1.parquet
+  macro_availability_ledger: reports/data_quality/510300_stress_transmission_hazard_v2_mft_macro_availability_v1.parquet
+  coverage_ledger: reports/data_quality/510300_stress_transmission_hazard_v2_mft_coverage_v1.parquet
+  report: reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURES_V1.md
+  receipt: reports/audit/510300_stress_transmission_hazard_v2_mft_feature_build_v1.json
+  status: reports/research/510300_stress_transmission_hazard_v2_mft_feature_status_v1.json
+  replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1.json
+  g0_status: reports/research/510300_stress_transmission_hazard_v2_g0_status_v1.json
+
+clean_replay_contract:
+  rebuild_in_fresh_process: true
+  semantic_frame_equality_required: true
+  frozen_manifest_verification_required: true
+  targeted_test_files:
+    - tests/test_510300_stress_transmission_hazard_v2.py
+    - tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1.py
+    - tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1.py
+    - tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.py
+    - tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.py
+    - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py
+  actual_label_artifact_read_allowed: false
+  actual_performance_artifact_read_allowed: false
+
+freeze_contract:
+  implementation_files:
+    - research/stress_transmission_hazard_v2_mft_features_v1.py
+    - scripts/freeze_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py
+    - scripts/build_510300_stress_transmission_hazard_v2_mft_features_v1.py
+    - scripts/replay_510300_stress_transmission_hazard_v2_mft_features_v1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURE_EXECUTION_V1_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_manifest.json
+  freeze_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_ANY_PARENT_FREEZE_OR_FOUR_STATE_OUTPUT
+  - USE_CURRENT_CONSTITUENTS_TO_BACKFILL_HISTORY
+  - USE_SAME_DAY_PE_BOND_OR_DR007_OBSERVATION
+  - USE_RELEASE_PUBLISHED_AFTER_T_CLOSE
+  - USE_NONMEMBER_DAYS_AS_COMOVEMENT_MEMBER_HISTORY
+  - INTERPOLATE_OR_ZERO_FILL_MISSING_FEATURE_CHANNELS
+  - INCLUDE_INDUSTRY_SECTOR_OR_SHENWAN_FIELDS_IN_CORE
+  - READ_BAD10_LABEL_OR_ANY_FUTURE_RETURN_ARTIFACT
+  - TRAIN_B0_B1_B2_OR_B3
+  - READ_OR_GENERATE_AUC_LOG_LOSS_BRIER_OR_ALERT_RESULTS
+  - READ_OR_GENERATE_SHARPE_DRAWDOWN_NAV_POSITION_OR_ORDER
+  - CONNECT_BROKER_OR_AUTHORIZE_PAPER_SHADOW_OR_LIVE_TRADING

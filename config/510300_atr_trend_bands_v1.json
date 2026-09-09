@@ -1,0 +1,160 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_ATR_TREND_BANDS_V1",
+  "round": 66,
+  "registered_at": "2026-09-07T23:34:17.845931+08:00",
+  "primary": "ATR_TREND_BANDS",
+  "candidate_configurations": 1,
+  "atr_window": 10,
+  "band_multiplier": 3.0,
+  "seed": "MEAN_FIRST_TEN_CONSECUTIVE_TRUE_RANGES_THEN_WILDER",
+  "first_mature_direction": "DOWN",
+  "missing": "NO_VIEW_RESET_FULL_WARMUP_KEEP_ACTUAL_SHARES",
+  "signal_update": "EVERY_CLOSE_NEXT_OPEN_ACTUAL_ACCOUNT",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "rules": "docs/510300_ATR_TREND_BANDS_V1.md",
+  "previous_goal_turn_classification": "PROGRESS_ROUNDS64_65_COMPLETED",
+  "position_impact": 0,
+  "goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "frozen_files": [
+    {
+      "path": "research\\atr_trend_bands_v1.py",
+      "sha256": "5bc0a5701294007e21c90b89e48ca047e6cd378aa0148213dbfbaf424cf84069"
+    },
+    {
+      "path": "research\\atr_trend_bands_inputs_v1.py",
+      "sha256": "19eb11ab82e204b291d96a5409fdcbe96b5fd9c01e99514a369df02384a07d94"
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_ATR_TREND_BANDS_V1.md",
+      "sha256": "e3c315e46fed5ec4d2446bdd6f67246a04c90f04b03a4d00009d8fa5ac4d8b2b"
+    },
+    {
+      "path": "tests\\test_atr_trend_bands_v1.py",
+      "sha256": "9232c4561d9b84dc23be01a2ca6b6b082a6beba5c21b9ba35acb2f053d2e8aaf"
+    },
+    {
+      "path": "reports\\research\\510300_atr_trend_bands_v1\\tests_receipt.json",
+      "sha256": "5a0cfce45710f659bbb13e8be61a69e11d72c1fba403db0bbfcd407df7ed652a"
+    },
+    {
+      "path": "reports\\research\\510300_atr_trend_bands_v1\\wealth_scale_receipt.json",
+      "sha256": "acab084c6b52355133b2d761e320981ab0c9feb03878cb2cc0e7bbf841416577"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "9e057b46a57b8bf8c843bbc19da8b990bffc4cb2c4b2dddf122a36c94cdddfd2"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "47328ffcbb2a67ad7ae2af51204c66bd23a8c0f2b9c8950b9498a4d79a5060b5"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\BASE\\PANIC_ONLY_ledger.parquet",
+      "sha256": "338a83ac5186f6364a5bcf0c091596a4c5f0dfc17990c3c1c15002669b98fff5"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "5576e8e5b7286d1bf8486356223a4576ca9a8f77fa61500affdce5ccfe1f2a7b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "b7aa5bd819ef522cffcd6e6a09a9ae7601449748355d8eacf83300084170bded"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\STRESS\\PANIC_ONLY_ledger.parquet",
+      "sha256": "7e8dc28d84107480d841ee9c80a2c335bfee7221b58135f5fcd54d5d04f4732a"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "942f26e0431eb1b0273d59bf3b152516e648ddee1cd5aa242a05767d5170b298"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "1413b70183eeae7136150eba5bc874210c3c4385ee8de4e19d0eb5a4492fa555"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\BASE\\PANIC_ONLY_ledger.parquet",
+      "sha256": "e69e1dd7c515f13a8f67452f88e99e0ebd3f3a5960abe7d56218e12e7c4c1e73"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "debb0bd6bbfe47cce41cd9863ccbf41edfe1c13f01df6d607179bd7d07642a5b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "36141ad66ed2e9378c45664f9e8181cd693f1245158f240367abf8bac190407a"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\STRESS\\PANIC_ONLY_ledger.parquet",
+      "sha256": "3e5edc00afcef4945f4703df1ee5983b507e584af36c0255ed2e35debf43450b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    }
+  ]
+}

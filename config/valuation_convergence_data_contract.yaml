@@ -1,0 +1,84 @@
+contract_version: 1
+registered_on: "2026-08-13"
+objective: "只交易510300现货且无杠杆，构建指定未来时点合理价值分布与短周期收敛模型"
+
+datasets:
+  index_price:
+    path: "data/raw/market/000300_daily_raw.parquet"
+    required_fields: ["date", "close", "source", "retrieved_at"]
+    date_field: "date"
+    minimum_start_date: "2021-08-12"
+    minimum_end_date: "2026-08-12"
+  benchmark_total_return:
+    path: "data/raw/market/H00300_total_return_daily_raw.parquet"
+    required_fields: ["date", "close", "source", "retrieved_at"]
+    date_field: "date"
+    minimum_start_date: "2021-08-12"
+    minimum_end_date: "2026-08-12"
+  index_valuation:
+    path: "data/raw/valuation/000300_valuation_daily_raw.parquet"
+    required_fields: ["date", "index_close_pe_source", "pe_ttm", "pb", "source", "retrieved_at"]
+    date_field: "date"
+    minimum_start_date: "2021-08-12"
+    minimum_end_date: "2026-08-12"
+  historical_membership:
+    path: "data/raw/constituents/000300_historical_membership_intervals.parquet"
+    required_fields: ["symbol", "opt_in", "opt_out", "source"]
+  constituent_daily:
+    path: "data/raw/constituents/000300_constituent_daily.parquet"
+    required_fields: ["date", "con_code", "is_index_member", "raw_close", "total_return_close", "total_market_cap_cny", "market_cap_asof_date"]
+    date_field: "date"
+    minimum_start_date: "2021-08-12"
+    minimum_end_date: "2026-08-12"
+  historical_official_weights:
+    path: "data/raw/constituents/000300_historical_weights.parquet"
+    required_fields: ["trade_date", "con_code", "weight", "source", "retrieved_at"]
+    date_field: "trade_date"
+    minimum_start_date: "2016-08-12"
+    minimum_end_date: "2026-08-12"
+    maximum_start_lag_calendar_days: 31
+    maximum_end_lag_calendar_days: 45
+  point_in_time_financials:
+    path: "data/raw/fundamentals/csi300_financials_point_in_time.parquet"
+    required_fields: ["con_code", "report_period", "announcement_date", "available_at", "revenue_cny", "net_profit_parent_cny", "equity_parent_cny", "total_shares", "source", "retrieved_at"]
+    date_field: "announcement_date"
+    minimum_start_date: "2015-09-01"
+    minimum_end_date: "2026-08-12"
+    maximum_start_lag_calendar_days: 45
+    maximum_end_lag_calendar_days: 45
+  china_government_bond_yields:
+    path: "data/raw/macro/china_government_bond_yields_daily.parquet"
+    required_fields: ["date", "cgb_1y", "cgb_10y", "source", "retrieved_at"]
+    date_field: "date"
+    minimum_start_date: "2016-08-12"
+    minimum_end_date: "2026-08-12"
+
+weight_reconstruction:
+  allowed_only_when_official_history_missing: true
+  official_top10_path: "data/raw/constituents/000300_top10_weights_history.parquet"
+  official_top10_required_fields: ["effective_date", "con_code", "weight", "source", "retrieved_at"]
+  constituent_required_fields_any_of:
+    - ["adjusted_free_float_market_cap_cny", "free_float_asof_date"]
+    - ["adjusted_free_float_shares", "raw_close", "free_float_asof_date"]
+  source_labels: ["OFFICIAL", "RECONSTRUCTED", "APPROXIMATED"]
+  validation:
+    minimum_daily_return_correlation: 0.99
+    maximum_weight_sum_absolute_error: 0.000001
+    maximum_snapshot_age_calendar_days: 45
+    tracking_error_threshold_must_be_preregistered: true
+
+capabilities:
+  historical_unconditional_baseline:
+    required_datasets: ["index_price", "benchmark_total_return", "index_valuation"]
+  conditional_index_mvp:
+    required_datasets: ["index_price", "benchmark_total_return", "index_valuation", "china_government_bond_yields"]
+  component_aggregate_model:
+    required_datasets: ["index_price", "benchmark_total_return", "historical_membership", "constituent_daily", "point_in_time_financials"]
+    requires_weight_source: true
+
+governance:
+  current_history_is_retrospective: true
+  automatic_ordering_authorized: false
+  options_futures_leverage_prohibited: true
+  missing_dataset_rule: "缺失输入对应的模型能力必须标记为未就绪，不得用当前截面静默回填历史"
+  total_market_cap_rule: "total_market_cap_cny不能冒充调整自由流通市值或官方指数权重"

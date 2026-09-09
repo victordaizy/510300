@@ -1,0 +1,66 @@
+{
+  "project_id": "510300_MACRO_01_M2_ACCEL_TREND_V1",
+  "version": "1.0.0",
+  "frozen_at": "2026-08-19T02:56:50.936392+08:00",
+  "protocol_state": "DISCOVERY_ONLY_CURRENT_VINTAGE",
+  "frozen_file_sha256": {
+    "config/macro_01_m2_accel_trend_v1.yaml": "4f31920b1bc2842e8d70a8ce86d901db8686f9662120161ab1d2451720e76698",
+    "docs/510300_MACRO_01_M2_ACCEL_TREND_V1_SPEC.md": "03500edd6bb938f05e01a9ee0fe4916e48ecad5d47f89678ecd78f8359e43991",
+    "research/daily_macro_01_m2_accel_trend_v1.py": "ba1433647c6fc10428425ef30e29cdec236a0ee51e8cf2560f4e12bd91962730",
+    "scripts/download_china_money_supply_monthly.py": "f528afa86fdcfca8d38ab8e7e8dae6faed94176f8524e86bbea8a2e9f8876bc6",
+    "scripts/run_macro_01_m2_accel_trend_v1.py": "d3d13db27ad5da62771b26f0f59232ccbf4bdf0e20928e6f6cad060f4358a613",
+    "tests/test_macro_01_m2_accel_trend_v1.py": "f3555ee29f8310108e71c4ed3ee38cebc24c06d70eeadd705f7e07ef149b0a5c"
+  },
+  "input_file_sha256": {
+    "data/raw/market/510300_daily_raw.parquet": "ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61",
+    "data/raw/market/510300_daily_raw.metadata.json": "2b1597e3a65a24a36f84130dacfa75af1377668ae671f2c0e11e7576343f588f",
+    "reports/data_quality/510300_daily_cross_source.json": "2b69cee7013305d0b48dcecd436b43cef2a003a13f322f9cf6b9c6cc23b077f4",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "data/reference/510300_dividends_coverage.json": "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f",
+    "data/raw/macro/china_money_supply_monthly.parquet": "dcf98b35b9cc5c1bf66b2046a1efca445d7e1cb86634722fe1577a84552c9aa7",
+    "reports/data_quality/china_money_supply_monthly_status.json": "647bae030c2160b0be63a0bcc740240c794e5abb25614423055cacf6d4c33f7a"
+  },
+  "historical_run_completed": true,
+  "real_510300_future_returns_seen_before_freeze": false,
+  "m2_factor_outcomes_seen_before_freeze": false,
+  "data_distributions_seen_before_freeze": [
+    "M2原始月份范围、余额、同比及8个官方抽查",
+    "510300行情与分红数据质量"
+  ],
+  "known_data_limitation": "M2为当前历史版本，不是逐月公告快照；通过也不能授权Paper或实盘。",
+  "parameter_search_allowed": false,
+  "rescue_after_result_forbidden": true,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_authorized": false,
+  "historical_run_completed_at": "2026-08-19T02:58:24.851693+08:00",
+  "real_510300_future_returns_seen_after_freeze": true,
+  "m2_factor_outcomes_seen_after_freeze": true,
+  "historical_result_status": "REJECT_DISCOVERY",
+  "decision": "REJECT_DISCOVERY_STOP_NO_RESCUE",
+  "failed_gates": [
+    "conditional_spread_positive",
+    "conditional_bootstrap_lower_positive",
+    "hac_m2_effect",
+    "chronological_halves",
+    "base_strategy_sharpe",
+    "stress_strategy_sharpe",
+    "base_monthly_excess_profit_factor",
+    "stress_monthly_excess_profit_factor",
+    "sharpe_improvement_vs_trend_only",
+    "base_cagr_vs_static_60",
+    "stress_cagr_vs_static_60"
+  ],
+  "result_files": {
+    "reports/backtest/macro_01_m2_accel_trend_v1.json": "86700ce0a288ed885f69250094eb0c381d31c5123c9e610d14c76cf63867ffad",
+    "reports/backtest/macro_01_m2_accel_trend_v1.md": "016c76f403146072a9d7abe8ee057d6b32b3c5cb5ec73a5d070781f51b6edf17",
+    "reports/backtest/macro_01_m2_accel_trend_v1_base_ledger.parquet": "fa9869861cff1d2746581ae6c32393dfe57e0ca03c85112db161b4ff0ca71541",
+    "reports/backtest/macro_01_m2_accel_trend_v1_base_trades.parquet": "e22a09f65453ebb3b8e15781b95ceb4db9b77e8aa3cb44c3735207b3e2fc406c",
+    "reports/backtest/macro_01_m2_accel_trend_v1_stress_ledger.parquet": "1f535735a2094dad63cd8fcaa57f63d6e5a135ccb1717dd15f847361a00bd097",
+    "reports/backtest/macro_01_m2_accel_trend_v1_stress_trades.parquet": "598e4c5178a24864dd167f6e20b4f9a114298075750f5a8ad28968967391958f",
+    "reports/backtest/macro_01_m2_accel_trend_v1_signals.parquet": "d57d54b1a17dc23b4e9cf24f8118c47b9007e8ac4fa9a0b81322181fb334cca1",
+    "reports/backtest/macro_01_m2_accel_trend_v1_intervals.parquet": "b61a46e38c38b16217b287462ad321ef3c020cfa05acbf3b6c0da23f8ec182cd"
+  },
+  "manifest_content_sha256": "35c99d006af0a3eb6ba0cceb3fd624e1b7e54b67299fdd2c55c07c52ff576920"
+}

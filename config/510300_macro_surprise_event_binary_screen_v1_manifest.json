@@ -1,0 +1,73 @@
+{
+  "study_id": "510300_MACRO_SURPRISE_EVENT_BINARY_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_FIRST_SCREEN_RUN",
+  "frozen_at": "2026-08-28T19:48:18.583964+08:00",
+  "protocol_path": "config/510300_macro_surprise_event_binary_screen_v1.yaml",
+  "protocol_sha256": "7ced69d5a580278186e79a0c72ee337bd516e3c235cc4c9f164ac66ffe75fcd3",
+  "candidate_contract_path": "config/510300_macro_surprise_event_binary_screen_v1_candidates.yaml",
+  "candidate_contract_sha256": "60ffdf04bc4e7ec8bec83f8333de241f47d1d1b3fb53e6ad703eff71141130e7",
+  "source_artifacts": {
+    "research/macro_surprise_event_binary_screen_v1.py": "11f51e0e669a70df95200364378e2b0deb9cbbed33e986f69f902b08d7c4e86f",
+    "research/us_china_overnight_binary_screen_v1.py": "50bb6774298e1152fab48d8a8c294b1d5a82c5b487b775c399b41bb2ec63a80e",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/download_macro_surprise_event_inputs_v1.py": "48cc8e6d98bf828b12ac823f87db5d5b853a401914763fc1d460d7dba2ea943a",
+    "scripts/freeze_510300_macro_surprise_event_binary_screen_v1.py": "6acb8341285262716cc2e429c155817414bd6b9ec92158abc29ef782ef1b7657",
+    "tests/test_macro_surprise_event_binary_screen_v1.py": "ca13690608f78f8c32347f780634e73a6260b33ec65e736898fadb9a82422836"
+  },
+  "input_artifacts": {
+    "data/raw/macro/macro_surprise_calendar_raw_v1.parquet": "1034b0d260fd79a5ce1236e70e2d3dc9d844fb38ff2d1d7494684074e929c77f",
+    "reports/data_quality/macro_surprise_calendar_raw_v1.json": "62aa2d82c5bd12d7293d7c50dc89d1e8f102585eb57784a56375c878f44a227d",
+    "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "series_ids": [
+    "PMI",
+    "M2",
+    "EXPORTS",
+    "IMPORTS",
+    "INDUSTRIAL_PRODUCTION"
+  ],
+  "candidate_ids": [
+    "MACRO_ANY_NEG_HOLD1",
+    "MACRO_ANY_NEG_HOLD3",
+    "MACRO_ANY_NEG_HOLD5",
+    "MACRO_SEVERE_ZLE_M1_HOLD3",
+    "MACRO_BREADTH_TWO_NEG_HOLD3",
+    "MACRO_COMPOSITE_ZLE_M0P5_HOLD3",
+    "MACRO_PMI_NEG_HOLD5",
+    "MACRO_M2_NEG_HOLD5"
+  ],
+  "candidate_count": 8,
+  "allowed_target_states": [
+    0,
+    1
+  ],
+  "same_release_date_execution_forbidden": true,
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "start_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "period_ids": [
+    "EARLY_2017_2019",
+    "MID_2020_2022",
+    "LATE_2023_2025",
+    "COMBINED_2017_2025"
+  ],
+  "hard_gates": {
+    "minimum_annualized_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_stress_period_and_start_required": true
+  },
+  "post_run_series_sign_scale_or_hold_rescue": "FORBIDDEN",
+  "position_mapping": "DISABLED",
+  "live_trading_authorized": false
+}

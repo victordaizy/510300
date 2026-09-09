@@ -1,0 +1,111 @@
+program:
+  program_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1
+  remediation_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1_SOURCE_REMEDIATION_V1_0_1
+  stage_id: POINT_IN_TIME_M_F_T_SOURCE_REMEDIATION_V1_0_1
+  version: 1.0.1
+  research_state: DISCOVERY_ONLY
+  position_impact: 0
+  observation_start: 2015-01-05
+  observation_cutoff: 2026-08-14
+
+immutable_parent:
+  source_contract: config/510300_asymmetric_stress_hazard_v1_source_contracts_v1.yaml
+  source_admission_status: reports/data_quality/510300_asymmetric_stress_hazard_v1_source_admission_v1.json
+  source_admission_status_sha256: 4165a3652b1e06e0faae8cfca56fd72224aaafc8ff2b0319a416b6a3a003e948
+  source_admission_receipt: reports/audit/510300_asymmetric_stress_hazard_v1_source_admission_v1_receipt.json
+  source_admission_receipt_sha256: d915783ba67a2f62c954c622586fb3f6b2eafdb6fed03abf7c6120e5f70fb826
+  required_parent_status: NO_VIEW_SOURCE_ADMISSION_FAILED
+  parent_receipt_payload_sha256: 21a9d266ec29da9caa450d03cda6a22dbc91000e4e63df866591a717a4ce8afb
+  bad10_census_rerun_allowed: false
+  label_window_threshold_change_allowed: false
+
+remediated_sources:
+  sw_pit_industry:
+    required_for: [F3, T2, T3]
+    provider: 申万宏源研究
+    official_history_url: https://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls
+    official_history_raw_sha256: 4f103a9c5d585686fe5800b9f9af717f715db23d61b14f97d2bdaa3911944e0d
+    official_codebook_url: https://www.swsresearch.com/swindex/pdf/SwClass2021/SwClassCode_2021.xls
+    official_codebook_raw_sha256: 17e962574a4562372df21ba6b22f8fd3fa76040bd5beb8e9babcea20e3f546ae
+    acquisition_manifest: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/sw_source_acquisition_manifest.json
+    acquisition_manifest_sha256: 1d0f9496577bb3cb55c33175de97787bff445e9f5e6417468d2a70b7b8fee98c
+    member_day_artifact: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/000300_member_day_sw_l1_pit_20150105_20260814.parquet
+    member_day_artifact_sha256: a63e69d7897908b7932962778d3aebd9bcc300217eb8c06dbdef3bc76753560e
+    availability_rule: RECORD_UPDATED_AT_NOT_LATER_THAN_MEMBER_DATE_15_00_ASIA_SHANGHAI
+    classification_effective_rule: EFFECTIVE_DATE_NOT_LATER_THAN_MEMBER_DATE
+    affected_date_rule: NO_VIEW_UNLESS_ALL_300_PIT_MEMBERS_HAVE_AVAILABLE_CLASSIFICATION
+    current_classification_backfill_allowed: false
+    interpolation_allowed: false
+    status: PASS_SOURCE_ACQUIRED_PIT_NO_VIEW_PRESERVED
+
+  pboc_7d_reverse_repo_policy_rate:
+    required_for: [M2]
+    provider: 中国人民银行公开市场业务操作室
+    official_list_url: https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/index.html
+    acquisition_manifest: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_source_acquisition_manifest.json
+    acquisition_manifest_sha256: a600dace4b823c2d194396ec4045f752b1c960d8b006209ca047d16b287f123e
+    published_rate_artifact: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_published_rates_anchor_20150105_20260814.parquet
+    published_rate_artifact_sha256: 33d8f1cd8fb10269aefd89dd7f5f0978e7b293bc9a1e44df7b180f67b59bc1f0
+    rate_change_artifact: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_rate_changes_anchor_20150105_20260814.parquet
+    rate_change_artifact_sha256: bde5a3ecfac237b15a15f8c208ba38060bf2ff86171f6b07461208534229b5af
+    pre_window_anchor_date: 2014-01-21
+    pre_window_anchor_rate_percent: 4.10
+    availability_rule: AVAILABLE_AT_ARCHIVED_OFFICIAL_PUBLICATION_TIMESTAMP
+    state_carry_rule: LAST_ACTUALLY_PUBLISHED_7D_RATE_AVAILABLE_BY_SIGNAL_CLOCK
+    interpolation_allowed: false
+    inferred_change_dates_allowed: false
+    zero_operation_rate_guess_allowed: false
+    status: PASS_SOURCE_ACQUIRED_WITH_PRE_WINDOW_OFFICIAL_ANCHOR
+
+  dr007_daily:
+    required_for: [M2]
+    selected_series: DR007
+    selected_field: WEIGHTED_AVERAGE_RATE_PERCENT
+    content_pin_state: PENDING_AUTHORIZED_IMPORT
+    public_retention_probe_manifest: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/dr007_public_retention_probe_manifest.json
+    public_retention_probe_manifest_sha256: 93817a41ae794c6915144fa7258dd502ea96e9584fad115ac9efd0ffd842b8a4
+    public_retention_observed_start: 2026-08-19
+    required_coverage_start: 2015-01-05
+    required_coverage_cutoff: 2026-08-14
+    accepted_import_formats: [parquet, csv, xlsx, xls]
+    required_provenance_fields:
+      - source_identity
+      - series_code
+      - value_semantics
+      - date_column
+      - value_column
+      - original_file_sha256
+      - source_url
+      - retrieved_at
+      - license_or_account_basis
+      - availability_rule
+    required_series_code: DR007
+    required_value_semantics: WEIGHTED_AVERAGE_RATE_PERCENT
+    required_availability_rule: NEXT_TRADING_DAY_OPEN_AFTER_RATE_DATE
+    forbidden_substitutes: [FDR007, R007, FR007, EXCHANGE_REPO_R_007]
+    interpolation_allowed: false
+    missing_date_rule: NO_VIEW_NO_INTERPOLATION
+    status: BLOCKED_LICENSED_HISTORY_REQUIRED
+
+admission:
+  remediated_channels_after_current_run:
+    F3: PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW
+    T2: PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW
+    T3: PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW
+  remaining_blocked_channels: [M2]
+  all_required_sources_must_be_admitted: true
+  feature_construction_allowed_before_all_sources_admitted: false
+  g2_allowed_before_all_sources_admitted: false
+  model_training_allowed: false
+  return_evaluation_allowed: false
+  portfolio_evaluation_allowed: false
+  paper_shadow_allowed: false
+  broker_connection_allowed: false
+  order_generation_allowed: false
+  live_trading_allowed: false
+  proxy_rescue_allowed: false
+
+outputs:
+  status: reports/data_quality/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1.json
+  human_report: reports/research/510300_ASYMMETRIC_STRESS_HAZARD_V1_SOURCE_REMEDIATION_V1_0_1.md
+  receipt: reports/audit/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1_receipt.json

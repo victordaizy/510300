@@ -1,0 +1,346 @@
+{
+  "project_id": "510300_ETF_MICROSTRUCTURE_SHADOW_GATE_DISCOVERY_V5",
+  "status": "HISTORICAL_CANDIDATE_FOUND_FORWARD_SHADOW_REQUIRED_NOT_TRADING_AUTHORIZED",
+  "candidate_policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+  "historical_gate": true,
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "allowed_states": [
+      0,
+      1
+    ],
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘",
+    "benchmark": "H00300_TOTAL_RETURN",
+    "derivatives_execution": false
+  },
+  "objective": {
+    "minimum_annualized_net_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_start_perturbation_must_pass": true,
+    "start_perturbations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "initial_capital_cny": 500000.0,
+    "cash_annual_rate": 0.015,
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 15.0,
+    "commission_bps_per_leg": 1.0,
+    "lot_size_shares": 100
+  },
+  "rule": {
+    "rank_window_rows": 252,
+    "rank_minimum_rows": 126,
+    "micro_consensus_required_votes": 3,
+    "micro_domains": {
+      "premium_std20": "低10%进入、回升至30%退出",
+      "premium_range20": "低15%进入、回升至30%退出",
+      "premium_std10": "低20%进入、回升至60%退出",
+      "fund_shares_log_change20": "低15%进入、回升至70%退出",
+      "financing_balance_log_change40": "高85%进入、回落至50%退出",
+      "total_margin_balance_log_change3": "低2%进入、回升至95%退出",
+      "short_balance_log_change20": "低8%当日触发"
+    },
+    "short_inventory_extremes": {
+      "scale": "20日融券余量合计/当日融资融券余额",
+      "drought": "252日滚动分位不高于1%时当日触发",
+      "crowding": "252日滚动分位达到95%进入，回落至70%退出"
+    },
+    "raw_cash": "微观风险票数至少3票，或融券库存枯竭/拥挤任一触发",
+    "shadow_gate": {
+      "window_matured_signal_rows": 242,
+      "minimum_matured_rows": 20,
+      "short_window_matured_signal_rows": 60,
+      "short_window_minimum_matured_rows": 10,
+      "short_window_net_floor": -0.01,
+      "maturity_lag_signal_rows": 2,
+      "stress_cost_per_raw_transition": 0.0016,
+      "active": "242日已成熟原始规则影子净贡献之和大于0，且60日净贡献大于-1%；相应窗口观测不足时该门保持开启"
+    },
+    "final_cash": "原始空仓条件成立且242日影子失效门开启"
+  },
+  "periods": {
+    "DEVELOPMENT_2022_2025": {
+      "start": "2022-03-09",
+      "end": "2025-12-31"
+    },
+    "TEMPORAL_REPLICATION_2026_YTD": {
+      "start": "2026-01-02",
+      "end": "2026-08-14"
+    },
+    "COMBINED_HISTORY_TO_2026_08_14": {
+      "start": "2022-03-09",
+      "end": "2026-08-14"
+    }
+  },
+  "aggregates": [
+    {
+      "policy": "MICRO_CONSENSUS3_ONLY",
+      "period": "COMBINED_HISTORY_TO_2026_08_14",
+      "base_annualized_excess_minimum": 0.15313980232790206,
+      "base_annualized_excess_median": 0.16110710505666775,
+      "stress_annualized_excess_minimum": 0.1298070065818508,
+      "stress_annualized_excess_median": 0.1376440731263278,
+      "stress_annualized_excess_maximum": 0.13812318084342384,
+      "stress_rolling_242d_excess_minimum": 0.16160735181619146,
+      "stress_rolling_242d_excess_median": 0.1621969827539136,
+      "cash_day_share_median": 0.32651162790697674,
+      "stress_trade_leg_count_median": 91.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_ONLY",
+      "period": "DEVELOPMENT_2022_2025",
+      "base_annualized_excess_minimum": 0.1844513251421213,
+      "base_annualized_excess_median": 0.19388574925383728,
+      "stress_annualized_excess_minimum": 0.16489674641303093,
+      "stress_annualized_excess_median": 0.17420802513310318,
+      "stress_annualized_excess_maximum": 0.17476366563232923,
+      "stress_rolling_242d_excess_minimum": 0.18203472582790817,
+      "stress_rolling_242d_excess_median": 0.18275647049989102,
+      "cash_day_share_median": 0.32181425485961124,
+      "stress_trade_leg_count_median": 65.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_ONLY",
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "base_annualized_excess_minimum": -0.03378851499999459,
+      "base_annualized_excess_median": -0.023099275737740448,
+      "stress_annualized_excess_minimum": -0.07680927809148941,
+      "stress_annualized_excess_median": -0.06467291066803363,
+      "stress_annualized_excess_maximum": -0.060032306160350116,
+      "stress_rolling_242d_excess_minimum": null,
+      "stress_rolling_242d_excess_median": null,
+      "cash_day_share_median": 0.36054421768707484,
+      "stress_trade_leg_count_median": 27.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+      "period": "COMBINED_HISTORY_TO_2026_08_14",
+      "base_annualized_excess_minimum": 0.2292460005262376,
+      "base_annualized_excess_median": 0.23759206172552616,
+      "stress_annualized_excess_minimum": 0.2157732173750673,
+      "stress_annualized_excess_median": 0.22403497245460202,
+      "stress_annualized_excess_maximum": 0.22479013759151367,
+      "stress_rolling_242d_excess_minimum": 0.23744164168918475,
+      "stress_rolling_242d_excess_median": 0.23752124132210406,
+      "cash_day_share_median": 0.34511627906976744,
+      "stress_trade_leg_count_median": 51.0,
+      "stress_start_pass_ratio": 1.0,
+      "every_start_both_20pct_gates": true
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+      "period": "DEVELOPMENT_2022_2025",
+      "base_annualized_excess_minimum": 0.2721741977380462,
+      "base_annualized_excess_median": 0.28213664992073195,
+      "stress_annualized_excess_minimum": 0.256015982356722,
+      "stress_annualized_excess_median": 0.2658578577365691,
+      "stress_annualized_excess_maximum": 0.26709198186904737,
+      "stress_rolling_242d_excess_minimum": 0.262219088528117,
+      "stress_rolling_242d_excess_median": 0.2625887866524008,
+      "cash_day_share_median": 0.4006479481641469,
+      "stress_trade_leg_count_median": 49.0,
+      "stress_start_pass_ratio": 1.0,
+      "every_start_both_20pct_gates": true
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "base_annualized_excess_minimum": -0.017085253626808964,
+      "base_annualized_excess_median": -0.006954608374650142,
+      "stress_annualized_excess_minimum": -0.01880501970026328,
+      "stress_annualized_excess_median": -0.008599257911294962,
+      "stress_annualized_excess_maximum": -0.0028478801890517522,
+      "stress_rolling_242d_excess_minimum": null,
+      "stress_rolling_242d_excess_median": null,
+      "cash_day_share_median": 0.0,
+      "stress_trade_leg_count_median": 2.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_RAW",
+      "period": "COMBINED_HISTORY_TO_2026_08_14",
+      "base_annualized_excess_minimum": 0.19375931527177098,
+      "base_annualized_excess_median": 0.20190741879871615,
+      "stress_annualized_excess_minimum": 0.17850441387258975,
+      "stress_annualized_excess_median": 0.18654431285507977,
+      "stress_annualized_excess_maximum": 0.18702570674024904,
+      "stress_rolling_242d_excess_minimum": 0.23419643098099902,
+      "stress_rolling_242d_excess_median": 0.23429749115654777,
+      "cash_day_share_median": 0.5562790697674419,
+      "stress_trade_leg_count_median": 57.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_RAW",
+      "period": "DEVELOPMENT_2022_2025",
+      "base_annualized_excess_minimum": 0.234590644205321,
+      "base_annualized_excess_median": 0.24429913307582382,
+      "stress_annualized_excess_minimum": 0.21894472614248012,
+      "stress_annualized_excess_median": 0.228526064582764,
+      "stress_annualized_excess_maximum": 0.2294288740195009,
+      "stress_rolling_242d_excess_minimum": 0.25322635382046743,
+      "stress_rolling_242d_excess_median": 0.2533377272133681,
+      "cash_day_share_median": 0.5226781857451404,
+      "stress_trade_leg_count_median": 49.0,
+      "stress_start_pass_ratio": 1.0,
+      "every_start_both_20pct_gates": true
+    },
+    {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_RAW",
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "base_annualized_excess_minimum": -0.04125878897577408,
+      "base_annualized_excess_median": -0.030351662810945097,
+      "stress_annualized_excess_minimum": -0.05576948702729763,
+      "stress_annualized_excess_median": -0.04435444512170052,
+      "stress_annualized_excess_maximum": -0.03924770557639641,
+      "stress_rolling_242d_excess_minimum": null,
+      "stress_rolling_242d_excess_median": null,
+      "cash_day_share_median": 0.7755102040816326,
+      "stress_trade_leg_count_median": 9.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    }
+  ],
+  "candidate_key_results": {
+    "development_2022_2025": {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+      "period": "DEVELOPMENT_2022_2025",
+      "base_annualized_excess_minimum": 0.2721741977380462,
+      "base_annualized_excess_median": 0.28213664992073195,
+      "stress_annualized_excess_minimum": 0.256015982356722,
+      "stress_annualized_excess_median": 0.2658578577365691,
+      "stress_annualized_excess_maximum": 0.26709198186904737,
+      "stress_rolling_242d_excess_minimum": 0.262219088528117,
+      "stress_rolling_242d_excess_median": 0.2625887866524008,
+      "cash_day_share_median": 0.4006479481641469,
+      "stress_trade_leg_count_median": 49.0,
+      "stress_start_pass_ratio": 1.0,
+      "every_start_both_20pct_gates": true
+    },
+    "temporal_replication_2026_ytd": {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "base_annualized_excess_minimum": -0.017085253626808964,
+      "base_annualized_excess_median": -0.006954608374650142,
+      "stress_annualized_excess_minimum": -0.01880501970026328,
+      "stress_annualized_excess_median": -0.008599257911294962,
+      "stress_annualized_excess_maximum": -0.0028478801890517522,
+      "stress_rolling_242d_excess_minimum": null,
+      "stress_rolling_242d_excess_median": null,
+      "cash_day_share_median": 0.0,
+      "stress_trade_leg_count_median": 2.0,
+      "stress_start_pass_ratio": 0.0,
+      "every_start_both_20pct_gates": false
+    },
+    "combined_history_to_2026_08_14": {
+      "policy": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+      "period": "COMBINED_HISTORY_TO_2026_08_14",
+      "base_annualized_excess_minimum": 0.2292460005262376,
+      "base_annualized_excess_median": 0.23759206172552616,
+      "stress_annualized_excess_minimum": 0.2157732173750673,
+      "stress_annualized_excess_median": 0.22403497245460202,
+      "stress_annualized_excess_maximum": 0.22479013759151367,
+      "stress_rolling_242d_excess_minimum": 0.23744164168918475,
+      "stress_rolling_242d_excess_median": 0.23752124132210406,
+      "cash_day_share_median": 0.34511627906976744,
+      "stress_trade_leg_count_median": 51.0,
+      "stress_start_pass_ratio": 1.0,
+      "every_start_both_20pct_gates": true
+    }
+  },
+  "calendar_shadow_contribution": [
+    {
+      "year": 2022,
+      "signal_rows": 201,
+      "cash_signal_days": 78,
+      "approximate_stress_net_cash_advantage_sum": 0.22035255082346863,
+      "last_shadow242_net_sum": 0.2430115368353426,
+      "last_shadow60_net_sum": 0.0157533422479119,
+      "last_shadow_gate_active": true
+    },
+    {
+      "year": 2023,
+      "signal_rows": 242,
+      "cash_signal_days": 144,
+      "approximate_stress_net_cash_advantage_sum": 0.2691931715953737,
+      "last_shadow242_net_sum": 0.2691931715953737,
+      "last_shadow60_net_sum": 0.07509990676948908,
+      "last_shadow_gate_active": true
+    },
+    {
+      "year": 2024,
+      "signal_rows": 242,
+      "cash_signal_days": 125,
+      "approximate_stress_net_cash_advantage_sum": 0.30857748624572934,
+      "last_shadow242_net_sum": 0.26444813638212233,
+      "last_shadow60_net_sum": 0.17502856301703798,
+      "last_shadow_gate_active": true
+    },
+    {
+      "year": 2025,
+      "signal_rows": 243,
+      "cash_signal_days": 24,
+      "approximate_stress_net_cash_advantage_sum": 0.05199079853444959,
+      "last_shadow242_net_sum": -0.05785276809497718,
+      "last_shadow60_net_sum": 0.02325295167011979,
+      "last_shadow_gate_active": false
+    },
+    {
+      "year": 2026,
+      "signal_rows": 147,
+      "cash_signal_days": 0,
+      "approximate_stress_net_cash_advantage_sum": 0.0,
+      "last_shadow242_net_sum": -0.12633656338766344,
+      "last_shadow60_net_sum": 0.013017246701265955,
+      "last_shadow_gate_active": false
+    }
+  ],
+  "input_audit": {
+    "signal_rows": 1211,
+    "signal_first_date": "2021-08-12",
+    "signal_last_date": "2026-08-12",
+    "market_rows_to_cutoff": 3456,
+    "market_first_date": "2012-05-28",
+    "market_last_date": "2026-08-14",
+    "input_sha256": {
+      "data\\raw\\fund\\510300_nav_daily_raw.parquet": "d5f353a8d7bbcb19b5007e4dcb619d0d854111d1f9641fc368e31b52e5c5369d",
+      "data\\raw\\flow\\510300_fund_share_daily_tushare.parquet": "e34ef2ee9ead0616aef2705a93b1b32c2e10be7841134c59126071b126ba71f4",
+      "data\\raw\\flow\\510300_margin_detail_daily_tushare.parquet": "194074bef906402588fb9206c41562627e14593c05f9eaabe071f2eee22db4af",
+      "data\\raw\\r6\\510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "data\\raw\\r6\\H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "data\\reference\\510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  },
+  "evidence": {
+    "features": "data\\features\\510300_etf_microstructure_shadow_gate_discovery_v5.parquet",
+    "metrics": "data\\research\\510300_etf_microstructure_shadow_gate_discovery_v5\\start_perturbation_metrics.parquet",
+    "script": "research\\etf_microstructure_shadow_gate_discovery_v5.py"
+  },
+  "boundaries": {
+    "all_rows_through_2026_08_14_were_read_during_discovery": true,
+    "2026_ytd_is_temporal_replication_not_unseen_validation": true,
+    "post_freeze_unseen_forward_days": 0,
+    "deployable_strategy": false,
+    "paper_or_shadow_signal_authorized": false,
+    "broker_connection": "DISABLED",
+    "order_generation": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

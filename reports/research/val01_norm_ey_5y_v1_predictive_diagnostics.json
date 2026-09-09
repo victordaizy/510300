@@ -1,0 +1,468 @@
+{
+  "project_id": "VAL01_NORM_EY_5Y_V1_PREDICTIVE_SCREEN",
+  "version": "1.0.0",
+  "generated_at": "2026-08-19T03:30:35.459647+08:00",
+  "status": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST",
+  "historical_evidence_label": "HISTORICALLY_CONTAMINATED_NOT_STRICT_OOS",
+  "hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "val01_model_manifest",
+        "file": "config/val01_norm_ey_5y_v1_manifest.json",
+        "expected_sha256": "b565accfe2d578dc21b9c5df5102ba9899596dfde776fef767d786db67976031",
+        "actual_sha256": "b565accfe2d578dc21b9c5df5102ba9899596dfde776fef767d786db67976031",
+        "matches": true
+      },
+      {
+        "dataset": "val02_model_manifest",
+        "file": "config/val02_norm_ey_spread_5y_v1_manifest.json",
+        "expected_sha256": "945f4a867c613c7d9d86c623909d94717a54311a11e68e6c19ef2370a5643bb2",
+        "actual_sha256": "945f4a867c613c7d9d86c623909d94717a54311a11e68e6c19ef2370a5643bb2",
+        "matches": true
+      },
+      {
+        "dataset": "val01_signal_inputs",
+        "file": "data/features/000300_val01_norm_ey_5y_v1_signal_inputs.parquet",
+        "expected_sha256": "821f20d244b4b82e7eb5d6df49f07a5baceec17de9be547150cded6dc3255f4a",
+        "actual_sha256": "821f20d244b4b82e7eb5d6df49f07a5baceec17de9be547150cded6dc3255f4a",
+        "matches": true
+      },
+      {
+        "dataset": "val02_signal_inputs",
+        "file": "data/features/000300_val02_norm_ey_spread_5y_v1_signal_inputs.parquet",
+        "expected_sha256": "4ab8d0cc453af93b385e7da0eca3ee7225640b8e08027e04679230b31eabdb73",
+        "actual_sha256": "4ab8d0cc453af93b385e7da0eca3ee7225640b8e08027e04679230b31eabdb73",
+        "matches": true
+      },
+      {
+        "dataset": "frozen_forward_labels",
+        "file": "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet",
+        "expected_sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+        "actual_sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+        "matches": true
+      },
+      {
+        "dataset": "forward_label_manifest",
+        "file": "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json",
+        "expected_sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f",
+        "actual_sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f",
+        "matches": true
+      }
+    ]
+  },
+  "label_audit": {
+    "status": "PASS",
+    "row_count": 183,
+    "signal_date_count": 61,
+    "forbidden_signal_columns": [],
+    "maturity": {
+      "60": {
+        "matured": 58,
+        "right_censored": 3
+      },
+      "120": {
+        "matured": 55,
+        "right_censored": 6
+      },
+      "242": {
+        "matured": 49,
+        "right_censored": 12
+      }
+    },
+    "counts_match_freeze": true
+  },
+  "diagnostics": {
+    "60": {
+      "etf_total_return": {
+        "outcome": "etf_total_return",
+        "horizon_trading_days": 60,
+        "matured_observations": 58,
+        "first_observation_date": "2021-07-30",
+        "last_observation_date": "2026-04-30",
+        "spearman_ic": 0.2858814680388911,
+        "hac_rank_regression": {
+          "slope": 0.28608834945474715,
+          "standard_error": 0.17089268152433018,
+          "t_statistic": 1.6740819261708197,
+          "one_sided_p_value": 0.047057249665894044,
+          "max_lags": 2
+        },
+        "chronological_halves": {
+          "first": {
+            "observations": 29,
+            "spearman_ic": 0.3115987847873921
+          },
+          "second": {
+            "observations": 29,
+            "spearman_ic": 0.19093568447545747
+          }
+        },
+        "buckets": [
+          {
+            "bucket": "B1_EXPENSIVE",
+            "observations": 7,
+            "mean_return": -0.06212779635983,
+            "median_return": -0.04295108919029922,
+            "positive_return_ratio": 0.42857142857142855
+          },
+          {
+            "bucket": "B2",
+            "observations": 10,
+            "mean_return": -0.0011729355999220092,
+            "median_return": 0.008341070256278282,
+            "positive_return_ratio": 0.5
+          },
+          {
+            "bucket": "B3",
+            "observations": 12,
+            "mean_return": -0.021537123698198917,
+            "median_return": -0.008044269514491886,
+            "positive_return_ratio": 0.3333333333333333
+          },
+          {
+            "bucket": "B4_CHEAP",
+            "observations": 29,
+            "mean_return": 0.031708199093205575,
+            "median_return": 0.01370545726389194,
+            "positive_return_ratio": 0.5517241379310345
+          }
+        ],
+        "bucket_mean_returns_nondecreasing": false,
+        "cheapest_minus_expensive_mean_return": 0.09383599545303557,
+        "cheapest_minus_expensive_median_return": 0.05665654645419116
+      },
+      "h00300_total_return": {
+        "outcome": "h00300_total_return",
+        "horizon_trading_days": 60,
+        "matured_observations": 58,
+        "first_observation_date": "2021-07-30",
+        "last_observation_date": "2026-04-30",
+        "spearman_ic": 0.2907451777352564,
+        "hac_rank_regression": {
+          "slope": 0.2909555788306329,
+          "standard_error": 0.17015781575759212,
+          "t_statistic": 1.7099160419708843,
+          "one_sided_p_value": 0.043640699767900755,
+          "max_lags": 2
+        },
+        "chronological_halves": {
+          "first": {
+            "observations": 29,
+            "spearman_ic": 0.3165291453061799
+          },
+          "second": {
+            "observations": 29,
+            "spearman_ic": 0.20550904202274337
+          }
+        },
+        "buckets": [
+          {
+            "bucket": "B1_EXPENSIVE",
+            "observations": 7,
+            "mean_return": -0.06193690655577734,
+            "median_return": -0.042309919267920826,
+            "positive_return_ratio": 0.42857142857142855
+          },
+          {
+            "bucket": "B2",
+            "observations": 10,
+            "mean_return": -0.0006959942017624621,
+            "median_return": 0.007705864257558093,
+            "positive_return_ratio": 0.5
+          },
+          {
+            "bucket": "B3",
+            "observations": 12,
+            "mean_return": -0.019001308589322752,
+            "median_return": -0.008095699487747077,
+            "positive_return_ratio": 0.3333333333333333
+          },
+          {
+            "bucket": "B4_CHEAP",
+            "observations": 29,
+            "mean_return": 0.03312277092955395,
+            "median_return": 0.014534355686669276,
+            "positive_return_ratio": 0.5517241379310345
+          }
+        ],
+        "bucket_mean_returns_nondecreasing": false,
+        "cheapest_minus_expensive_mean_return": 0.09505967748533128,
+        "cheapest_minus_expensive_median_return": 0.0568442749545901
+      }
+    },
+    "120": {
+      "etf_total_return": {
+        "outcome": "etf_total_return",
+        "horizon_trading_days": 120,
+        "matured_observations": 55,
+        "first_observation_date": "2021-07-30",
+        "last_observation_date": "2026-01-30",
+        "spearman_ic": 0.4540926575615236,
+        "hac_rank_regression": {
+          "slope": 0.4544698995446992,
+          "standard_error": 0.15037939711998036,
+          "t_statistic": 3.022155350058359,
+          "one_sided_p_value": 0.0012549085334321967,
+          "max_lags": 5
+        },
+        "chronological_halves": {
+          "first": {
+            "observations": 27,
+            "spearman_ic": 0.4452256175126715
+          },
+          "second": {
+            "observations": 28,
+            "spearman_ic": 0.22493963757085486
+          }
+        },
+        "buckets": [
+          {
+            "bucket": "B1_EXPENSIVE",
+            "observations": 6,
+            "mean_return": -0.07682602241339535,
+            "median_return": -0.08172449869224069,
+            "positive_return_ratio": 0.0
+          },
+          {
+            "bucket": "B2",
+            "observations": 8,
+            "mean_return": -0.047255831199266324,
+            "median_return": -0.028908412169480313,
+            "positive_return_ratio": 0.375
+          },
+          {
+            "bucket": "B3",
+            "observations": 12,
+            "mean_return": 0.0022628810628585925,
+            "median_return": -0.0029534480249182593,
+            "positive_return_ratio": 0.5
+          },
+          {
+            "bucket": "B4_CHEAP",
+            "observations": 29,
+            "mean_return": 0.03847995831476568,
+            "median_return": 0.017614868789787685,
+            "positive_return_ratio": 0.5862068965517241
+          }
+        ],
+        "bucket_mean_returns_nondecreasing": true,
+        "cheapest_minus_expensive_mean_return": 0.11530598072816103,
+        "cheapest_minus_expensive_median_return": 0.09933936748202837
+      },
+      "h00300_total_return": {
+        "outcome": "h00300_total_return",
+        "horizon_trading_days": 120,
+        "matured_observations": 55,
+        "first_observation_date": "2021-07-30",
+        "last_observation_date": "2026-01-30",
+        "spearman_ic": 0.45604232787307025,
+        "hac_rank_regression": {
+          "slope": 0.4564211895642122,
+          "standard_error": 0.14926353889441388,
+          "t_statistic": 3.0578210388477767,
+          "one_sided_p_value": 0.0011147634059647184,
+          "max_lags": 5
+        },
+        "chronological_halves": {
+          "first": {
+            "observations": 27,
+            "spearman_ic": 0.4409475401995779
+          },
+          "second": {
+            "observations": 28,
+            "spearman_ic": 0.22246777342172458
+          }
+        },
+        "buckets": [
+          {
+            "bucket": "B1_EXPENSIVE",
+            "observations": 6,
+            "mean_return": -0.07503688748861816,
+            "median_return": -0.07940292462041326,
+            "positive_return_ratio": 0.0
+          },
+          {
+            "bucket": "B2",
+            "observations": 8,
+            "mean_return": -0.04554677721618677,
+            "median_return": -0.027959708270627603,
+            "positive_return_ratio": 0.375
+          },
+          {
+            "bucket": "B3",
+            "observations": 12,
+            "mean_return": 0.0054243305927561825,
+            "median_return": -0.0019449093632722958,
+            "positive_return_ratio": 0.5
+          },
+          {
+            "bucket": "B4_CHEAP",
+            "observations": 29,
+            "mean_return": 0.04167416535033356,
+            "median_return": 0.022720409280515774,
+            "positive_return_ratio": 0.5862068965517241
+          }
+        ],
+        "bucket_mean_returns_nondecreasing": true,
+        "cheapest_minus_expensive_mean_return": 0.11671105283895172,
+        "cheapest_minus_expensive_median_return": 0.10212333390092904
+      }
+    },
+    "242": {
+      "etf_total_return": {
+        "outcome": "etf_total_return",
+        "horizon_trading_days": 242,
+        "matured_observations": 49,
+        "first_observation_date": "2021-07-30",
+        "last_observation_date": "2025-07-31",
+        "spearman_ic": 0.5050822661153126,
+        "hac_rank_regression": {
+          "slope": 0.5056242969628795,
+          "standard_error": 0.1448528478090449,
+          "t_statistic": 3.490606533531385,
+          "one_sided_p_value": 0.00024096271551768482,
+          "max_lags": 12
+        },
+        "chronological_halves": {
+          "first": {
+            "observations": 24,
+            "spearman_ic": 0.5021759952371231
+          },
+          "second": {
+            "observations": 25,
+            "spearman_ic": -0.08040302522073696
+          }
+        },
+        "buckets": [
+          {
+            "bucket": "B1_EXPENSIVE",
+            "observations": 6,
+            "mean_return": -0.14293781674449632,
+            "median_return": -0.12584590733319906,
+            "positive_return_ratio": 0.0
+          },
+          {
+            "bucket": "B2",
+            "observations": 3,
+            "mean_return": -0.1954464724188035,
+            "median_return": -0.1917495435488108,
+            "positive_return_ratio": 0.0
+          },
+          {
+            "bucket": "B3",
+            "observations": 11,
+            "mean_return": 0.07728618978660766,
+            "median_return": 0.02144289406230504,
+            "positive_return_ratio": 0.5454545454545454
+          },
+          {
+            "bucket": "B4_CHEAP",
+            "observations": 29,
+            "mean_return": 0.08425045243836628,
+            "median_return": 0.10530726256982881,
+            "positive_return_ratio": 0.6551724137931034
+          }
+        ],
+        "bucket_mean_returns_nondecreasing": false,
+        "cheapest_minus_expensive_mean_return": 0.2271882691828626,
+        "cheapest_minus_expensive_median_return": 0.23115316990302787
+      },
+      "h00300_total_return": {
+        "outcome": "h00300_total_return",
+        "horizon_trading_days": 242,
+        "matured_observations": 49,
+        "first_observation_date": "2021-07-30",
+        "last_observation_date": "2025-07-31",
+        "spearman_ic": 0.5164720269954537,
+        "hac_rank_regression": {
+          "slope": 0.5170262808058084,
+          "standard_error": 0.14083911395085147,
+          "t_statistic": 3.6710418455645404,
+          "one_sided_p_value": 0.00012078189142556148,
+          "max_lags": 12
+        },
+        "chronological_halves": {
+          "first": {
+            "observations": 24,
+            "spearman_ic": 0.5100088963760037
+          },
+          "second": {
+            "observations": 25,
+            "spearman_ic": -0.020873862316922096
+          }
+        },
+        "buckets": [
+          {
+            "bucket": "B1_EXPENSIVE",
+            "observations": 6,
+            "mean_return": -0.13896066599162502,
+            "median_return": -0.12055000960176193,
+            "positive_return_ratio": 0.0
+          },
+          {
+            "bucket": "B2",
+            "observations": 3,
+            "mean_return": -0.1912361701561206,
+            "median_return": -0.18651553143849808,
+            "positive_return_ratio": 0.0
+          },
+          {
+            "bucket": "B3",
+            "observations": 11,
+            "mean_return": 0.08315405880196487,
+            "median_return": 0.04998845385058792,
+            "positive_return_ratio": 0.5454545454545454
+          },
+          {
+            "bucket": "B4_CHEAP",
+            "observations": 29,
+            "mean_return": 0.08952627230472547,
+            "median_return": 0.11223704650279354,
+            "positive_return_ratio": 0.6551724137931034
+          }
+        ],
+        "bucket_mean_returns_nondecreasing": false,
+        "cheapest_minus_expensive_mean_return": 0.22848693829635047,
+        "cheapest_minus_expensive_median_return": 0.23278705610455547
+      }
+    }
+  },
+  "primary_predictive_gate": {
+    "horizon_trading_days": 242,
+    "target": "etf_total_return",
+    "raw_hac_one_sided_p_value": 0.00024096271551768482,
+    "holm_adjusted_p_value": 0.00024096271551768482,
+    "checks": {
+      "minimum_matured_observations": true,
+      "minimum_observations_per_bucket": false,
+      "etf_spearman_ic_strictly_positive": true,
+      "holm_adjusted_hac_p_at_most_family_alpha": true,
+      "both_chronological_half_ics_strictly_positive": false,
+      "etf_bucket_mean_returns_nondecreasing": false,
+      "etf_cheapest_minus_expensive_mean_positive": true,
+      "etf_cheapest_minus_expensive_median_positive": true,
+      "h00300_spearman_confirmation_positive": true,
+      "h00300_cheapest_minus_expensive_mean_positive": true
+    },
+    "passed": false,
+    "failed_checks": [
+      "minimum_observations_per_bucket",
+      "both_chronological_half_ics_strictly_positive",
+      "etf_bucket_mean_returns_nondecreasing"
+    ],
+    "stop_reason": "PRIMARY_PREDICTIVE_GATE_FAILED"
+  },
+  "governance": {
+    "frozen_forward_labels_reused": true,
+    "forward_labels_regenerated": false,
+    "predictive_ic_calculated": true,
+    "historical_strategy_return_calculated": false,
+    "historical_position_mapping_performed": false,
+    "current_position_mapping_performed": false,
+    "target_shares_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false,
+    "alpha_pass": false
+  }
+}

@@ -1,0 +1,58 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V8"
+  status: "FROZEN_BEFORE_CAPACITY_AWARE_EXECUTION_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v8_manifest.json"
+  v2_manifest: "config/us_liquid_treasury_multi_asset_absolute_momentum_v2_manifest.json"
+  v2_failure_report: "reports/research/us_liquid_treasury_multi_asset_absolute_momentum_v2_visible.json"
+
+registered_failure:
+  candidate_id: "US_LIQUID_TREASURY_MULTI_ASSET_ABSOLUTE_MOMENTUM_V2"
+  required_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  required_error: "历史路径容量失败"
+  performance_metrics_available: false
+  sealed_replication_open: false
+  identified_bottleneck: "UPRO某次入选的20日中位成交额约7389.9万美元，只允许约3.695万美元订单"
+
+new_lane:
+  lane: "US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_tickers: ["UPRO", "TQQQ", "TLT", "UGL"]
+  selection_formula_unchanged_from_v2: true
+  target_weight_ceiling_per_selected_asset: 0.50
+  maximum_order_fraction_of_prior_median_dollar_turnover: 0.0005
+  target_notional_formula: "MIN_50PCT_NAV_STRESS_RESERVED_CAPACITY_NOTIONAL"
+  capacity_exceeding_order_policy: "SLICE_WITHIN_CAPACITY_NO_CAPACITY_RELAXATION"
+  pending_exit_reselection_policy: "PENDING_EXIT_REMAINS_MANDATORY"
+  account_borrowing_allowed: false
+  account_margin_allowed: false
+  short_sale_allowed: false
+  derivative_position_allowed: false
+  maximum_account_gross_exposure: 1.0
+
+governance:
+  v2_remains_closed: true
+  no_v2_performance_was_available: true
+  capacity_fraction_relaxation_allowed: false
+  formula_costs_dates_products_and_slicing_must_freeze_before_visible_outcome: true
+  failed_candidate_reparameterization_allowed: false
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

@@ -1,0 +1,138 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "weight_band": 0.1,
+  "study_id": "510300_SIMPLE_PAIR_RISK_V1",
+  "round": 29,
+  "registered_at": "2026-09-07T13:41:03.194785+08:00",
+  "primary": "W50_VOL15",
+  "candidate_count": 12,
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "rules": "docs/510300_SIMPLE_PAIR_RISK_V1.md",
+  "position_impact": 0,
+  "evidence_class": "RESEARCH_SCREEN_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "independent_validation": "NOT_ESTABLISHED",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "expert_state_cost": "BASE",
+  "primary_rebalance": "DAILY_CLOSE_TO_NEXT_OPEN",
+  "execution_renewal": "未成交指令次日收盘按新目标重新判断",
+  "all_candidates_earlier_diagnostic": true,
+  "candidates": [
+    {
+      "id": "W25_NONE",
+      "trend_weight": 0.25,
+      "risk": "NONE"
+    },
+    {
+      "id": "W25_VOL10",
+      "trend_weight": 0.25,
+      "risk": "VOL10"
+    },
+    {
+      "id": "W25_VOL15",
+      "trend_weight": 0.25,
+      "risk": "VOL15"
+    },
+    {
+      "id": "W25_SHOCK",
+      "trend_weight": 0.25,
+      "risk": "SHOCK"
+    },
+    {
+      "id": "W50_NONE",
+      "trend_weight": 0.5,
+      "risk": "NONE"
+    },
+    {
+      "id": "W50_VOL10",
+      "trend_weight": 0.5,
+      "risk": "VOL10"
+    },
+    {
+      "id": "W50_VOL15",
+      "trend_weight": 0.5,
+      "risk": "VOL15"
+    },
+    {
+      "id": "W50_SHOCK",
+      "trend_weight": 0.5,
+      "risk": "SHOCK"
+    },
+    {
+      "id": "W75_NONE",
+      "trend_weight": 0.75,
+      "risk": "NONE"
+    },
+    {
+      "id": "W75_VOL10",
+      "trend_weight": 0.75,
+      "risk": "VOL10"
+    },
+    {
+      "id": "W75_VOL15",
+      "trend_weight": 0.75,
+      "risk": "VOL15"
+    },
+    {
+      "id": "W75_SHOCK",
+      "trend_weight": 0.75,
+      "risk": "SHOCK"
+    }
+  ],
+  "new_candidate_configurations": 11,
+  "frozen_files": [
+    {
+      "path": "research\\simple_pair_risk_v1.py",
+      "sha256": "68f46178aa9cf41ed3ae7da9780655b3ff5ecb4c4b95f6cfc5876dc52ebf3c10"
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_SIMPLE_PAIR_RISK_V1.md",
+      "sha256": "4c51725dfa8328777d4556a88db2959c05e24bfba1eb6cda1490473f582a9a0f"
+    },
+    {
+      "path": "reports\\research\\510300_simple_signal_blend_v1\\expert_states.parquet",
+      "sha256": "c8714e43380576b9bc2fcf9dc50b45ad11ee14a19e3edff659ad227485b987be"
+    },
+    {
+      "path": "reports\\research\\510300_simple_signal_blend_v1\\earlier_experts\\S1_TREND_REBOUND_decisions.parquet",
+      "sha256": "547d1483f0188895c3a17b40f5b6abdb24050513646f8efb802630ad5e07e3f3"
+    },
+    {
+      "path": "reports\\research\\510300_simple_signal_blend_v1\\earlier_experts\\D60_INTRA_decisions.parquet",
+      "sha256": "ef8d7cf5a92061b610d96699bd9c7e9ae0c2acad611924d13771ea4882de059c"
+    }
+  ]
+}

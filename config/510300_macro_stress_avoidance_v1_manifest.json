@@ -1,0 +1,117 @@
+{
+  "study_id": "510300_MACRO_STRESS_AVOIDANCE_V1",
+  "version": "1.0.0",
+  "status": "HISTORICAL_EVENT_RUN_COMPLETED",
+  "frozen_at": "2026-08-30T01:19:52.644643+08:00",
+  "protocol_path": "config/510300_macro_stress_avoidance_v1.yaml",
+  "protocol_sha256": "c1e27748c868ae75c65fbc14e705369b9f835b3cef3be7912245363dd5ccc95d",
+  "source_artifacts": {
+    "research/macro_stress_avoidance_v1.py": "a3bce2ed7bf87df243a97d75f632d05f60f6b097b8f71bae173a8f1b3b79abe2",
+    "scripts/download_510300_macro_stress_inputs_v1.py": "be9fadaaefc2ad50ee5c748901935b4b763136b2e3908454a846b115bc8454f5",
+    "scripts/freeze_510300_macro_stress_avoidance_v1.py": "82b6f2a2bc07deb1cd74463966b5ed8c939e48d88665d59c844fe0890b0af923",
+    "scripts/run_510300_macro_stress_avoidance_v1.py": "7cd36ad4feaff8f7614644a917232e44d7081f7ae2cdbd9573f98b987ed70bf3",
+    "tests/test_macro_stress_avoidance_v1.py": "a8d56fb2c71d03d4707266bb1ef4d11199aba31c59a1529e67d687b4af5f27d1"
+  },
+  "input_artifacts": {
+    "data/raw/macro/fdr007_daily.parquet": "cf46d66001dc15570b0d90dd1a2ad1c03d0c8cdf8d35c97c8f78855f72cb66dc",
+    "data/raw/macro/usdcny_midpoint_daily.parquet": "a3779e83148ea1de13c4755cc8c63cde5e184d6a4983494c8fb7b7a7283e829a",
+    "data/raw/macro/pmi_new_orders_release_vintage.parquet": "ec72ffc6d095eb2430c809d4458e77c227d463474b31ca21b1e3dee3ab929304",
+    "data/raw/macro/tsf_stock_yoy_release_vintage.parquet": "846550bfc7302b6d274d53bdbc3d116e21fed08c1e12b7535f50b092d9d6b83f",
+    "reports/data_quality/510300_macro_stress_inputs_v1.json": "70f9fa5e4ba8a50e829cd5e77c69d480c1d5d7df6c4ec36a2c734d7610a8bd83",
+    "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "backtest/engine.py": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc"
+  },
+  "data_scope": {
+    "start": "2021-01-01",
+    "end": "2026-08-25",
+    "pre_2021_data_allowed": false,
+    "full_calendar_five_year_history_required": true,
+    "expanding_or_shortened_window_allowed": false
+  },
+  "allowed_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "factor_count": 4,
+  "factor_ids": [
+    "FDR007_LIQUIDITY",
+    "PMI_NEW_ORDERS",
+    "TSF_STOCK_YOY",
+    "USDCNY_20D"
+  ],
+  "percentile": 0.9,
+  "current_observation_excluded_from_percentile": true,
+  "event_gate": {
+    "minimum_independent_events": 8,
+    "primary_horizon_trading_days": 20,
+    "minimum_negative_fraction": 0.6,
+    "portfolio_run_before_pass": "NOT_ALLOWED"
+  },
+  "historical_gates": {
+    "five_year_net_sharpe_minimum": 1.2,
+    "five_year_annualized_excess_vs_h00300_strictly_positive": true,
+    "five_year_annualized_excess_vs_buy_hold_strictly_positive": true,
+    "max_drawdown_ratio_vs_buy_hold_maximum": 0.75,
+    "maximum_complete_round_trips_per_year": 10
+  },
+  "robustness_gates": {
+    "three_year_net_sharpe_minimum": 0.9,
+    "three_year_excess_vs_both_benchmarks_strictly_positive": true,
+    "double_cost_five_year_sharpe_minimum": 0.9,
+    "leave_one_calendar_year_out_sharpe_strictly_positive": true,
+    "maximum_single_year_share_of_total_log_excess": 0.5,
+    "maximum_single_risk_cycle_share_of_total_log_excess": 0.5,
+    "minimum_independent_events": 8
+  },
+  "costs": {
+    "base": {
+      "commission_rate": 0.0003,
+      "minimum_commission_cny": 5.0,
+      "stamp_duty_rate": 0.0,
+      "slippage_bps_one_way": 5.0,
+      "cash_annual_rate": 0.0
+    },
+    "double": {
+      "commission_rate": 0.0006,
+      "minimum_commission_cny": 10.0,
+      "stamp_duty_rate": 0.0,
+      "slippage_bps_one_way": 10.0,
+      "cash_annual_rate": 0.0
+    },
+    "dividends": "SEPARATELY_CREDITED_FROM_FROZEN_REFERENCE_FILE"
+  },
+  "benchmarks": {
+    "primary": {
+      "symbol": "H00300",
+      "type": "TOTAL_RETURN_INDEX"
+    },
+    "secondary": {
+      "symbol": "510300.SH",
+      "type": "BUY_AND_HOLD_WITH_DIVIDENDS_AND_BASE_EXECUTION_COSTS"
+    }
+  },
+  "no_parameter_rescue": true,
+  "historical_run_completed": true,
+  "return_outcomes_read_after_freeze": true,
+  "portfolio_backtest_status": "SKIPPED_EVENT_GATE_FAILED",
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_authorized": false,
+  "historical_run_started_at": "2026-08-30T01:20:03.970450+08:00",
+  "historical_run_completed_at": "2026-08-30T01:20:08.233439+08:00",
+  "event_decision": "REJECTED_FROZEN_INSUFFICIENT_EVENT_SUPPORT_NO_RESCUE",
+  "event_gate_passed": false,
+  "return_evaluation": "NOT_ALLOWED",
+  "historical_result_status": "REJECTED_FROZEN_INSUFFICIENT_EVENT_SUPPORT_NO_RESCUE",
+  "result_files": {
+    "data/processed/macro/macro_point_in_time_panel.parquet": "0281d57680fe2aa8edf37b866f247ca44be6e02455d13715b59bb4d6780b116b",
+    "reports/research/510300_macro_stress_avoidance_v1_events.parquet": "a9114beabfb1ccd7bb759f12cf20e274e70c9bc0520d4f6e14e74bab9e93dfbc",
+    "reports/research/510300_macro_stress_avoidance_v1_controls.parquet": "7d2a94edab0180ec613a6cb1fc9f39a7816b2630b389dd7140c71c5dec8bcf42",
+    "reports/research/510300_macro_stress_avoidance_v1_result.json": "85226ac0bb115f6eda8ff22f87514f460186601b289236d5f01d9e6b1448a45f",
+    "reports/research/510300_macro_stress_avoidance_v1_result.md": "9bcc59a1d471528c4aa17b803cc9fdeff6513c6a2d592b623c13328e81860786"
+  },
+  "manifest_content_sha256": "bdcb4511bd8f103d179b3ec01dda6176f0b899f96c4b08671c217863d0bbd738"
+}

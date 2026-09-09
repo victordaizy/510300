@@ -1,0 +1,122 @@
+strategy:
+  strategy_id: "510300_CONTINUOUS_INVENTORY_FVG_V2"
+  name: "510300连续估值库存-短波段-FVG单边执行策略"
+  version: "2.0.0"
+  frozen_at: "2026-08-13"
+  status: "CONTINUOUS_INVENTORY_RESEARCH_AWAITING_FORWARD_VALIDATION"
+  evidence_scope: "全部历史均已参与研究；没有严格未见样本"
+  instrument: "510300.SH"
+  allowed_assets:
+    - "510300.SH"
+  prohibited_assets:
+    - "沪深300成分股"
+    - "期权"
+    - "期货"
+    - "融资融券"
+  objective: "在只交易510300且不加杠杆的约束下控制回撤并争取超额；20%不是保证值"
+
+backtest:
+  start_date: "2021-08-12"
+  end_date: "2026-08-12"
+  initial_cash_cny: 20000
+  benchmark: "H00300沪深300全收益指数"
+
+valuation:
+  model_type: "指数聚合盈利/净资产估值代理"
+  model_limit: "当前缺少逐家公司历史现金流与公告时点数据，因此不得称为成分股DCF"
+  market_cap_role: "每日汇总300只点时成员总市值；总市值/PE与总市值/PB分别作为整体盈利和净资产代理"
+  forecast_horizon_months: 12
+  trading_days_per_year: 242
+  growth_median_window_days: 252
+  multiple_window_days: 1210
+  minimum_growth_observations: 126
+  minimum_multiple_observations: 605
+  eps_growth_clip: [-0.30, 0.30]
+  bps_growth_clip: [-0.20, 0.20]
+  earnings_anchor_weight: 0.60
+  book_anchor_weight: 0.40
+  low_quantile: 0.30
+  mid_quantile: 0.50
+  high_quantile: 0.70
+  rebalance_every_trading_days: 10
+  position_rules:
+    formula: "clip((合理总市值上沿-当前总市值)/(合理总市值上沿-合理总市值下沿),0,1)"
+    output: "0%至100%连续基础仓位"
+  execution: "每10个交易日更新连续基础仓位；实际库存等待后续FVG单边成交，不强制开盘追价"
+
+short_wave:
+  wave_days: 5
+  long_wave_days: 20
+  volatility_days: 20
+  z_threshold: 0.75
+  formula: "(5日对数涨跌-5/20*20日对数涨跌)/(20日实现波动率*sqrt(5))"
+  rules:
+    wave_z_at_or_above_threshold: "SELL_FIRST"
+    wave_z_at_or_below_negative_threshold: "BUY_FIRST"
+    otherwise: "NONE"
+  execution: "只使用前一交易日收盘前已知数据"
+
+tactical_inventory:
+  deadband_z: 0.75
+  full_strength_z: 2.00
+  maximum_tactical_position: 0.10
+  formula: "基础仓位-10%*sign(wave_z)*clip((abs(wave_z)-0.75)/(2.00-0.75),0,1)"
+  carry_overnight_allowed: true
+  forced_daily_core_restoration: false
+  explanation: "短周期超跌增加库存，短周期超涨降低库存；偏离可跨日，等未来反向目标和FVG再调整"
+
+fvg:
+  timeframe_minutes: 5
+  source_records_per_bar: 5
+  definition:
+    bullish: "第三根K线最低价高于第一根K线最高价"
+    bearish: "第三根K线最高价低于第一根K线最低价"
+  minimum_gap_bps: 0.0
+  entry_trigger: "形成后12根同一时段5分钟K线内回补FVG中点"
+  entry_execution: "按中点加入不利滑点成交；当根K线价格区间必须覆盖模拟成交价"
+  maximum_zone_age_bars: 12
+  maximum_single_legs_per_day: 2
+  forced_exit: false
+  inventory_exit: "未来连续目标库存下降时等待看跌FVG卖出，或目标上升时等待看涨FVG买入"
+  minimum_trade_notional_cny: 2000
+  maximum_one_way_commission_fraction: 0.0025
+  optional_intraday_roundtrip:
+    enabled: true
+    requires_new_opposite_fvg_after_first_fill: true
+    minimum_locked_net_profit_cny: 10
+    rule: "只有同日后续反向FVG按已知成交价可锁定至少10元净利润时，才允许第二条腿；否则库存跨日"
+  eligibility:
+    - "目标库存高于实际库存时只匹配看涨FVG买入"
+    - "目标库存低于实际库存时只匹配看跌FVG卖出"
+    - "卖出数量不得超过当日开盘已有的T+1可卖库存"
+    - "单边成交额和佣金占比必须通过经济门槛"
+    - "成交后库存允许跨日，不要求日终恢复基础仓位"
+  reporting_definitions:
+    inventory_adjustment_candidate: "目标库存与实际库存的差额达到一手并通过最低经济成交额门槛"
+    valid_fvg_trigger: "库存调整方向匹配的FVG在12根K线内回补中点，且成交价通过成本门槛"
+    optional_intraday_roundtrip: "首腿后出现新的反向FVG，按已知模拟成交价能够锁定不少于10元双边佣金后净利润"
+  known_issue: "FVG只负责单边成交位置，不再用缺口宽度定义整笔T的止盈空间"
+
+account:
+  lot_size: 100
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  cash_annual_rate: 0.015
+  t_plus_one: true
+  t_plus_one_rule: "卖出总量不得超过当日开盘旧库存；默认每日一条库存调整腿，仅满足锁利条件时增加反向第二腿"
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_rate: 0.0
+  price_tick_cny: 0.001
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+governance:
+  automatic_ordering_authorized: false
+  historical_parameter_reuse_warning: "参数在已查看历史上形成，只能作为回顾性证据"
+  forward_start: "规则冻结后的下一个交易日"
+  minimum_forward_inventory_adjustment_legs_before_reassessment: 30
+  no_parameter_change_during_forward_observation: true

@@ -1,0 +1,135 @@
+{
+  "status": "PASS_WITH_SOURCE_CAVEATS",
+  "checked_at": "2026-08-13T00:29:40.539195+08:00",
+  "file": "data/raw/market/510300_15m_from_1m_raw.parquet",
+  "sha256": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1",
+  "coverage": {
+    "row_count": 19376,
+    "trading_day_count": 1211,
+    "first_bar_end_label": "2021-08-12T09:45:00",
+    "last_bar_end_label": "2026-08-12T15:00:00",
+    "bars_per_day_distribution": {
+      "16": 1211
+    },
+    "source_minute_count_distribution": {
+      "15": 18165,
+      "16": 1211
+    }
+  },
+  "daily_reconciliation": {
+    "matched_dates": 1211,
+    "price": {
+      "open": {
+        "exact_days": 1211,
+        "mismatch_over_one_tick_days": 0,
+        "maximum_absolute_error": 0.0
+      },
+      "high": {
+        "exact_days": 1211,
+        "mismatch_over_one_tick_days": 0,
+        "maximum_absolute_error": 0.0
+      },
+      "low": {
+        "exact_days": 1211,
+        "mismatch_over_one_tick_days": 0,
+        "maximum_absolute_error": 0.0
+      },
+      "close": {
+        "exact_days": 1211,
+        "mismatch_over_one_tick_days": 0,
+        "maximum_absolute_error": 0.0
+      }
+    },
+    "maximum_relative_volume_difference": 5.060174262223412e-09,
+    "maximum_relative_amount_difference": 9.436035378153284e-09,
+    "unmatched_dates": []
+  },
+  "cross_source_15m": {
+    "tdx_direct": {
+      "matched_bars": 7920,
+      "first_bar": "2024-07-29T09:45:00",
+      "last_bar": "2026-08-12T15:00:00",
+      "price": {
+        "open": {
+          "exact_rate": 0.8621212121212121,
+          "within_one_tick_rate": 0.9823232323232324,
+          "maximum_absolute_error": 0.004000000000000448
+        },
+        "high": {
+          "exact_rate": 0.9887626262626262,
+          "within_one_tick_rate": 0.9988636363636364,
+          "maximum_absolute_error": 0.0030000000000001137
+        },
+        "low": {
+          "exact_rate": 0.9917929292929293,
+          "within_one_tick_rate": 0.9993686868686869,
+          "maximum_absolute_error": 0.002000000000000668
+        },
+        "close": {
+          "exact_rate": 0.8636363636363636,
+          "within_one_tick_rate": 0.9886363636363636,
+          "maximum_absolute_error": 0.0039999999999995595
+        }
+      },
+      "maximum_relative_volume_difference": 0.1829512694058134,
+      "median_relative_volume_difference": 1.3560519354139158e-07,
+      "maximum_relative_amount_difference": 0.1830073685217716,
+      "median_relative_amount_difference": 5.748007521128603e-08
+    },
+    "sina_recent": {
+      "matched_bars": 1970,
+      "first_bar": "2026-02-05T14:45:00",
+      "last_bar": "2026-08-12T15:00:00",
+      "price": {
+        "open": {
+          "exact_rate": 0.5685279187817259,
+          "within_one_tick_rate": 0.9345177664974619,
+          "maximum_absolute_error": 0.010000000000000675
+        },
+        "high": {
+          "exact_rate": 0.7979695431472081,
+          "within_one_tick_rate": 0.9822335025380711,
+          "maximum_absolute_error": 0.004000000000000448
+        },
+        "low": {
+          "exact_rate": 0.7918781725888325,
+          "within_one_tick_rate": 0.9812182741116752,
+          "maximum_absolute_error": 0.005999999999999339
+        },
+        "close": {
+          "exact_rate": 0.6766497461928934,
+          "within_one_tick_rate": 0.9644670050761421,
+          "maximum_absolute_error": 0.0039999999999995595
+        }
+      },
+      "maximum_relative_volume_difference": 0.15696547197218794,
+      "median_relative_volume_difference": 0.00023506907732653756,
+      "maximum_relative_amount_difference": 0.15672372411663535,
+      "median_relative_amount_difference": 0.00023445658054357393
+    }
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "UNOFFICIAL_PROXY",
+      "impact": "1分钟数据经第三方代理获取，不等同于直连官方TuShare主站。"
+    },
+    {
+      "code": "API_NAME_DOCUMENTATION_MISMATCH",
+      "impact": "代理请求名为stk_mins，当前TuShare官方ETF文档记载的接口名为etf_mins。"
+    },
+    {
+      "code": "TRADE_TIME_SEMANTICS_NOT_PROVIDER_DEFINED",
+      "impact": "官方文档仅称trade_time为交易时间；15分钟分组规则是本项目明确的研究约定。"
+    },
+    {
+      "code": "NO_POST_CLOSE_FIXED_PRICE_SESSION",
+      "impact": "序列仅到15:00，不包含2026-07-06以后15:05至15:30盘后固定价格交易。"
+    }
+  ],
+  "research_use": {
+    "preferred_five_year_15m_ohlcv": true,
+    "reason": "五年日期完整，聚合后每日OHLCVA与双源日线对账，并与TDX原生15分钟区间交叉比较。",
+    "execution_limit": "仍不得假设能以柱内high/low成交；不包含真实Level-2、PV/LC或排队成交数据。"
+  }
+}

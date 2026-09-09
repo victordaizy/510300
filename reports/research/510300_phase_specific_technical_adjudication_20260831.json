@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_PHASE_SPECIFIC_TECHNICAL_ADJUDICATION_20260831",
+  "as_of": "2026-08-31",
+  "status": "NO_ADMISSIBLE_UNUSED_RETROSPECTIVE_TECHNICAL_CANDIDATE_PHASE_ROUTER_FORWARD_EVIDENCE_ONLY",
+  "user_required_architecture": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "BULL_TREND": {
+      "target_position": 1.0,
+      "action": "FULL_POSITION_WITHIN_CASH_AND_LOT_CONSTRAINTS"
+    },
+    "BEAR_TREND": {
+      "target_position": 0.0,
+      "action": "CASH"
+    },
+    "RANGE_OR_UNCONFIRMED": {
+      "target_position": 0.0,
+      "action": "NO_TRADE_BY_DEFAULT"
+    },
+    "range_t_status": "NOT_ADMITTED_FOR_HISTORICAL_COMPARISON",
+    "range_t_reasons": [
+      "COMPLETE_2015_TO_2026_INTRADAY_DATA_NOT_AVAILABLE",
+      "510300_STOCK_ETF_T_PLUS_ONE_NO_NEW_BUY_THEN_SAME_DAY_SELL",
+      "EXISTING_RANGE_MEAN_REVERSION_AND_INTRADAY_FAMILIES_FAILED"
+    ]
+  },
+  "newly_completed_frozen_candidates": {
+    "adx_three_state_router": {
+      "project_id": "510300_THREE_STATE_TREND_ROUTER_V1_0_1",
+      "status": "REJECTED_FROZEN_THREE_STATE_TREND_ROUTER_TARGET_OR_STATE_GATE_FAILED_NO_RESCUE",
+      "evaluation_window": [
+        "2015-01-05",
+        "2026-08-14"
+      ],
+      "base_net_sharpe": 0.20384190623090867,
+      "stress_net_sharpe": 0.17367404134309902,
+      "mechanism_gate_passed": false,
+      "interpretation": "ADX识别已经形成的趋势强度，样本外没有给出上涨大于震荡大于下跌的未来收益排序。",
+      "result_path": "reports/research/510300_three_state_trend_router_v1_0_1_result.json",
+      "result_sha256": "3a20d9d16e6ae025edade74708d846919abc96865e90ca47c6d54f23cd4f2497"
+    },
+    "causal_hmm_next_state_router": {
+      "project_id": "510300_CAUSAL_GAUSSIAN_HMM_REGIME_ROUTER_V1",
+      "status": "REJECTED_FROZEN_CAUSAL_HMM_REGIME_ROUTER_TARGET_OR_STATE_GATE_FAILED_NO_RESCUE",
+      "training_window": [
+        "2012-06-26",
+        "2014-12-31"
+      ],
+      "evaluation_window": [
+        "2015-01-05",
+        "2026-08-14"
+      ],
+      "base_net_sharpe": 0.1777993308214781,
+      "stress_net_sharpe": 0.16942512957417277,
+      "mechanism_gate_passed": false,
+      "state_days": {
+        "BULL_TREND": 747,
+        "BEAR_TREND": 554,
+        "RANGE_OR_UNCONFIRMED": 1522
+      },
+      "future_20d_mean_returns": {
+        "BULL_TREND": -0.0012511889725738878,
+        "BEAR_TREND": 0.003964436281583519,
+        "RANGE_OR_UNCONFIRMED": 0.009462759566906882
+      },
+      "bull_transition_entry_future_20d_mean": 0.028455266016497227,
+      "bull_transition_entry_future_20d_positive_rate": 0.65,
+      "interpretation": "转移进入上涨态的事件有一定方向性，但状态持续阶段过长，整段上涨态未来均值为负；结果后不得据此增加趋势年龄阈值或持有期营救。",
+      "manifest_path": "config/510300_causal_gaussian_hmm_regime_router_v1_manifest.json",
+      "manifest_sha256": "47dc570361ffd13d2b6db4c5d90726bab9d0d471bc8dc4e69242927b0facbc88",
+      "result_path": "reports/research/510300_causal_gaussian_hmm_regime_router_v1_result.json",
+      "result_sha256": "8327aca79f4770fc26b393fad684fb04e6854b0bc0e9e6e8a723f6415f46848f"
+    }
+  },
+  "existing_phase_and_trend_evidence": {
+    "weekly_regime_daily_execution": {
+      "window": [
+        "2012-05-28",
+        "2026-08-14"
+      ],
+      "T_ONLY_base_sharpe": 0.4053669325911422,
+      "T_ONLY_double_cost_sharpe": 0.368901334861049,
+      "M_ONLY_base_sharpe": -0.46158115117422366,
+      "SWITCH_base_sharpe": 0.18680932542692927,
+      "conclusion": "趋势单轨优于把震荡均值回归加入路由；震荡阶段默认不交易。",
+      "source_path": "reports/backtest/weekly_daily_technical_v1.json",
+      "source_sha256": "bcf1a2250816ddb619cc7795730af0b7060d2c19ce08a641e222d6456110cedd"
+    },
+    "donchian_55_20": {
+      "window": [
+        "2012-08-14",
+        "2026-08-14"
+      ],
+      "base_sharpe_excess_cash": 0.43496910435323616,
+      "stress_sharpe_excess_cash": 0.41207318449199365,
+      "maximum_drawdown": -0.24213129980152392,
+      "average_exposure": 0.35782306262714736,
+      "historical_decision": "REJECT_HISTORICAL",
+      "source_path": "reports/backtest/tech_03_donchian_55_20_v1.json",
+      "source_sha256": "2411aea6036011ef986fb2d3a430ee0de33ff02cc276a032ab2fbaf9d7f09841"
+    }
+  },
+  "skill_requirement_diagnostic": {
+    "status": "DIAGNOSTIC_NOT_TRADABLE",
+    "minimum_requirement_grid_point_for_net_sharpe_about_1_2": {
+      "negative_return_label_horizon_trading_days": 10,
+      "bad_state_recall": 0.8,
+      "false_positive_rate": 0.2,
+      "lead_trading_days": 0,
+      "recovery_lag_trading_days": 5,
+      "maximum_round_trips_per_year": 10,
+      "median_net_sharpe": 1.2322
+    },
+    "source_path": "reports/research/510300_sharpe_target_skill_frontier_v1.json",
+    "source_sha256": "ed0352607820c7caf03b282e749bf570ac614d69d1164ee7dcb8b94eb5fc9b79",
+    "interpretation": "这是使用受控标签误差构造的能力前沿，不是现实预测模型或策略收益。"
+  },
+  "adjudication": {
+    "architecture_retained": "BULL_FULL_BEAR_CASH_RANGE_NO_TRADE",
+    "range_t_selected": false,
+    "retrospective_technical_parameter_search_allowed": false,
+    "retrospective_threshold_window_direction_or_combination_rescue_allowed": false,
+    "reason": "传统趋势、阶段切换、震荡均值回归、ADX与因果HMM均不足以达到净夏普1.2；继续在同一历史样本改窗口或拼接会增加选择偏差，不能产生独立确定性。",
+    "historical_net_sharpe_1_2_achieved": false,
+    "verified_forward_target_achieved": false,
+    "goal_achieved": false
+  },
+  "forward_evidence": {
+    "existing_project": "T_ONLY_FORWARD_V1_1",
+    "as_of_market_date": "2026-08-24",
+    "status": "COLLECTING",
+    "current_view": "NO_VIEW_UNTIL_FORWARD_MATURITY",
+    "new_trading_days": 4,
+    "required_trading_days": 252,
+    "closed_cycles": 0,
+    "required_closed_cycles": 3,
+    "evaluation_status": "NOT_EVALUATED_BEFORE_MATURITY",
+    "source_path": "reports/forward/t_only_forward_v1_1_status.json",
+    "source_sha256": "e3ef9bf9fcadd852ece558f03d79a8c5530bfc734fe5316a0051b49afd2a8d2e"
+  },
+  "governance": {
+    "research_only": true,
+    "paper_signal_allowed": false,
+    "shadow_signal_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "position_change": false,
+    "live_trading_authorized": false
+  }
+}

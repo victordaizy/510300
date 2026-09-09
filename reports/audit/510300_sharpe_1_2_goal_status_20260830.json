@@ -1,0 +1,320 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_SHARPE_1_2_GOAL_STATUS_20260830",
+  "generated_at": "2026-08-30T14:33:15.351671+08:00",
+  "status": "NO_VERIFIED_SHARPE_1_2_STRATEGY_FORWARD_EVIDENCE_PENDING",
+  "goal_achieved": false,
+  "user_contract": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "earliest_allowed_source_date": "2021-01-01",
+    "pre_2021_data_allowed": false,
+    "target_net_sharpe_zero_cash_rate": 1.2,
+    "initial_capital_cny": 20000.0,
+    "lot_size_shares": 100,
+    "commission_rate_per_leg": 0.0003,
+    "minimum_commission_cny_per_leg": 5.0,
+    "slippage_bps_per_leg": 5.0,
+    "cash_annual_rate": 0.0,
+    "maximum_complete_round_trips_per_year": 10,
+    "no_parameter_rescue": true
+  },
+  "historical_adjudication": {
+    "macro_stress_avoidance": {
+      "status": "REJECTED_FROZEN_INSUFFICIENT_EVENT_SUPPORT_NO_RESCUE",
+      "data_start": "2021-01-01",
+      "data_end": "2026-08-25",
+      "pre_2021_data_used": false,
+      "first_five_year_model_eligible_date": "2026-03-31",
+      "eligible_trading_days": 101,
+      "raw_onsets": 1,
+      "independent_onsets": 1,
+      "independent_complete_primary_events": 0,
+      "minimum_required_independent_complete_events": 8,
+      "portfolio_backtest_status": "SKIPPED_EVENT_GATE_FAILED",
+      "return_evaluation": "NOT_ALLOWED",
+      "interpretation": "事件门失败，未运行组合回测；NOT_ALLOWED 既不是零收益，也不是亏损。"
+    },
+    "frozen_microstructure_state_sequence": {
+      "status": "HISTORICAL_POST_SELECTION_AUDIT_REJECTED_NO_RESCUE",
+      "evidence_class": "RETROSPECTIVE_POST_SELECTION_AUDIT_ONLY",
+      "metric_period": [
+        "2022-03-08",
+        "2026-08-27"
+      ],
+      "pre_2021_rows_entering_metrics": 0,
+      "five_start_base_net_sharpe_range": [
+        1.5719877821,
+        1.641805337
+      ],
+      "five_start_double_cost_net_sharpe_range": [
+        1.521502038,
+        1.5898727425
+      ],
+      "primary_start_zero": {
+        "net_sharpe_zero_cash_rate": 1.5803113646,
+        "strategy_cagr": 0.2654985684,
+        "annualized_excess_vs_h00300_total_return": 0.2188093967,
+        "annualized_excess_vs_510300_buy_hold": 0.2259620302,
+        "maximum_drawdown": -0.1015481146,
+        "buy_hold_maximum_drawdown": -0.266311257,
+        "maximum_complete_round_trips_in_any_year": 7,
+        "trade_leg_count": 50,
+        "total_commission_cny": 446.90700147,
+        "total_slippage_cost_cny": 721.0816999999
+      },
+      "temporal_replication_2026_ytd": {
+        "five_start_net_sharpe_range": [
+          -0.0991681711,
+          0.1338107387
+        ],
+        "five_start_excess_vs_h00300_range": [
+          -0.0181036722,
+          -0.002566485
+        ],
+        "five_start_excess_vs_510300_buy_hold": 0.0,
+        "gate_passed": false
+      },
+      "reverse_validation_status": "TIME_REVERSED_EXTERNAL_VALIDATION_REJECTED_NO_RESCUE",
+      "true_prospective_claim_rows": 0,
+      "interpretation": "历史后选序列虽在合并期超过1.2，但2026时间复制与反向外部验证均失败，因此不能作为已验证策略、Paper映射或实盘规则。"
+    }
+  },
+  "candidate_screen": {
+    "status": "NO_INDEPENDENT_2021_PLUS_FROZEN_SURVIVOR",
+    "scope_note": "这是对仓库中已登记候选的证据审计，不是对所有可能策略不存在性的数学证明。",
+    "excluded_candidates": [
+      {
+        "candidate": "X1_COMMON_TAIL_PREDICTION_V1",
+        "status": "HISTORICAL_REJECTED_FROZEN",
+        "reason": "核心预测门失败；禁止在2021切片上重跑救援。"
+      },
+      {
+        "candidate": "DAILY_CONSENSUS_RESIDUAL_CATCHUP",
+        "status": "FROZEN_CANDIDATE_REJECTED_CONTINUE_SEARCH",
+        "reason": "候选开发使用2016至2020年，不符合本轮起点；2021至2025验证期五起点通过率为0，压力年化超额最差为-5.585355%。"
+      },
+      {
+        "candidate": "OPTION_FUTURES_BREADTH_DOMAIN_UNION",
+        "status": "FIXED_RULE_VALIDATION_REJECTED_NO_PARAMETER_RESCUE",
+        "reason": "2024至2025固定规则五起点通过率为0，压力年化超额最差为-11.387261%。"
+      },
+      {
+        "candidate": "REGISTERED_SURVIVOR_5D_ENSEMBLE",
+        "status": "DEVELOPMENT_DISCOVERY_COMPLETE_NO_2024_PLUS_READ",
+        "reason": "2023选择期最佳压力年化超额仅4.903314%，bootstrap下界为负，按冻结规则不消耗后续验证样本。"
+      },
+      {
+        "candidate": "LATE_DAY_FRAGILITY",
+        "status": "DEVELOPMENT_DISCOVERY_COMPLETE_NO_VALIDATION_READ",
+        "reason": "开发阶段未形成可冻结的20个百分点候选。"
+      },
+      {
+        "candidate": "T_ONLY_DONCHIAN_FORWARD_V1",
+        "status": "DESCRIPTIVE_ONLY_NO_PARAMETER_RESCUE",
+        "reason": "全样本净夏普0.405367且使用2012年起数据，不满足本轮2021以后与夏普1.2合同；其计划任务不纳入本目标。"
+      }
+    ]
+  },
+  "forward_evidence_path": {
+    "stream": "PRIMARY_MARKET_PCF_IOPV",
+    "research_protocol": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1_10",
+    "runtime_patch_id": "PCF_IOPV_STRICT_TLS_ROUTE_V1_3_AND_STATUS_MODULE_ENTRYPOINT_V1_8_1",
+    "manifest_sha256": "fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94",
+    "manifest_verification": {
+      "status": "PASS_V1_10_FROZEN_ENTRYPOINT_VERIFIED",
+      "tracked_file_count": 49,
+      "failure_count": 0,
+      "tls_verification_required": true,
+      "insecure_tls_allowed": false,
+      "late_backfill_enabled": false
+    },
+    "current_maturity": {
+      "status": "COLLECTING_NOT_ELIGIBLE",
+      "stage": "STAGE_0_19_COLLECTION",
+      "latest_observed_trade_date": "2026-08-18",
+      "observed_trading_days": 4,
+      "full_quality_days": 2,
+      "quality_day_gate": 20,
+      "feature_freeze_gate": 40,
+      "first_unseen_gate": 80,
+      "replication_gate": 120,
+      "latest_direct_collection_status": "EXTERNAL_FREE_SOURCE_FAILED",
+      "latest_quality_day_counted": false
+    },
+    "windows_task_runtime_observation": {
+      "observed_at": "2026-08-30T14:32:43.7795849+08:00",
+      "task_name": "Codex-510300-Primary-Market-Collector",
+      "state": "Ready",
+      "enabled": true,
+      "next_run_time": "2026-08-31T09:25:00+08:00",
+      "weekdays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "logon_mode": "Interactive only",
+      "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8",
+      "action": ".venv\\Scripts\\python.exe -m scripts.run_priority_forward_codex_automation_v1_10",
+      "start_when_available": false,
+      "multiple_instances": "IgnoreNew",
+      "tls_verification_required": true,
+      "insecure_tls_allowed": false,
+      "late_backfill_enabled": false,
+      "scheduled_task_xml_sha256_utf16le": "7f785af49a133d52b9de2c9fe9ce68f73091dcfee2be4f59b8ee4be51483cbf3"
+    },
+    "next_date_calendar_check": {
+      "trade_date": "2026-08-31",
+      "official_sse_calendar_included": true,
+      "calendar_sha256": "1683446371fd20e3899222382d28da2fb8f2195654587649cc42648613960b62"
+    },
+    "prewindow_dry_run": {
+      "simulated_time": "2026-08-31T09:25:00+08:00",
+      "status": "DRY_RUN",
+      "decision": "RUN_NOW",
+      "exit_code": 0,
+      "receipt_written": false,
+      "log_written": false,
+      "claim_created": false,
+      "directory_counts_before": {
+        "priority_forward_task_claims_v1_10": 0,
+        "priority_forward_codex_runs_v1_10": 0,
+        "primary_market_task_runs_v1_3": 0,
+        "priority_forward_codex_automation_v1_10": 0
+      },
+      "directory_counts_after": {
+        "priority_forward_task_claims_v1_10": 0,
+        "priority_forward_codex_runs_v1_10": 0,
+        "primary_market_task_runs_v1_3": 0,
+        "priority_forward_codex_automation_v1_10": 0
+      }
+    },
+    "read_only_connectivity_probe": {
+      "started_at": "2026-08-30T14:33:13.815846+08:00",
+      "ended_at": "2026-08-30T14:33:15.351671+08:00",
+      "classification": "READ_ONLY_CONNECTIVITY_PROBE_NOT_QUALITY_EVIDENCE",
+      "claim_created": false,
+      "data_persisted": false,
+      "quality_day_counted": false,
+      "tls_verification_required": true,
+      "insecure_tls_used": false,
+      "results": [
+        {
+          "probe_id": "PCF_QUERY_TLS_ONLY",
+          "host": "query.sse.com.cn",
+          "port": 443,
+          "status": "TLS_ROUTE_PASS",
+          "http_status": 200,
+          "route": "ENVIRONMENT_ROUTE_TLS_VERIFIED",
+          "direct_fallback_used": false
+        },
+        {
+          "probe_id": "IOPV_SNAPSHOT_TLS_ONLY",
+          "host": "yunhq.sse.com.cn",
+          "port": 32042,
+          "status": "TLS_ROUTE_PASS",
+          "http_status": 200,
+          "route": "ENVIRONMENT_ROUTE_TLS_VERIFIED",
+          "direct_fallback_used": false
+        }
+      ]
+    },
+    "next_legal_action": "等待2026-08-31 09:25计划任务创建同日原子申领并运行一次；只承认V1.3不可变任务收据。失败、错过或来源故障均不补跑。",
+    "possible_next_state": "若且仅若当日PCF、IOPV、第二官方日端点和质量闸门全部通过，完整质量日可由2增加至3；单日成功仍远未达到20/40/80/120日门槛。"
+  },
+  "execution_authorization": {
+    "research_only": true,
+    "discovery_only": true,
+    "paper_or_shadow_position_mapping_enabled": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "final_adjudication": {
+    "historical_target_observed": true,
+    "historical_target_observed_only_in_post_selected_candidate": true,
+    "robustness_target_passed": false,
+    "prospective_target_verified": false,
+    "tradable_strategy_implemented": false,
+    "goal_achieved": false,
+    "reason": "唯一达到历史夏普1.2的冻结序列属于后选证据且在2026时间复制和反向验证中失败；宏观候选没有足够事件，其他已登记候选也无独立幸存者。当前只能继续严格前向数据积累。"
+  },
+  "evidence": [
+    {
+      "path": "reports/research/510300_macro_stress_avoidance_v1_result.json",
+      "sha256": "85226ac0bb115f6eda8ff22f87514f460186601b289236d5f01d9e6b1448a45f",
+      "bytes": 5376
+    },
+    {
+      "path": "reports/audit/510300_frozen_microstructure_sharpe_audit_v1.json",
+      "sha256": "063e34a213d7052bb4e0dc5b63cf01758a7b1b1c781006f017040fb44699c85f",
+      "bytes": 25181
+    },
+    {
+      "path": "reports/validation/510300_daily_consensus_catchup_v1_validation.json",
+      "sha256": "ddb6fedd0d74912304ccab117136238f81cbe54c2eee7ab3eb36715f65d3921f",
+      "bytes": 20610
+    },
+    {
+      "path": "reports/validation/510300_option_futures_breadth_domain_union_v1_validation.json",
+      "sha256": "e92b6d55da6baf64382441e86f29d759d54c65c0fd8fcfcfee073f85307a4a47",
+      "bytes": 8068
+    },
+    {
+      "path": "reports/discovery/x1_common_tail_prediction_v1_result.json",
+      "sha256": "38086592a5b0622da994dd90f82dd05eb063c25fe4a0514a0dd1c5e2d7a6a95a",
+      "bytes": 6222
+    },
+    {
+      "path": "reports/discovery/510300_registered_survivor_5d_ensemble_discovery_v0.json",
+      "sha256": "fde42685edc408add8117491f4c78db301309276b5e536f6f71fe647eae355fd",
+      "bytes": 7103
+    },
+    {
+      "path": "reports/discovery/510300_late_day_fragility_discovery_v0.json",
+      "sha256": "c6705f08877db47e3d5797d5a628e095733ca2373a8803aaf77864ada119ac4c",
+      "bytes": 19386
+    },
+    {
+      "path": "reports/research/510300_binary_state_feasibility_v1.json",
+      "sha256": "9a7962665ee206efee13da6f2740ec0061666c2b639fe5ce4c972d3891df4ea7",
+      "bytes": 28859
+    },
+    {
+      "path": "reports/research/510300_binary_state_accuracy_frontier_v2.json",
+      "sha256": "42871c35b31e116e08ef56fe963f7094e1ac6bc866bdb9d5075f980790e456d8",
+      "bytes": 73082
+    },
+    {
+      "path": "config/priority_forward_research_operations_v1_10_manifest.json",
+      "sha256": "fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94",
+      "bytes": 13823
+    },
+    {
+      "path": "reports/audit/PRIORITY_FORWARD_V1_10_1_WINDOWS_MODULE_ENTRYPOINT_DEPLOYMENT.json",
+      "sha256": "90372ede57d5751b9c67f2345c869f62b01c639eb6385828696b139f2c1677e1",
+      "bytes": 4961
+    },
+    {
+      "path": "reports/audit/priority_forward_authoritative_status_v1_8_1.json",
+      "sha256": "5f412b604dacadfd49bce402f9944bd62c8763fb167c2e901459b3facf6a51f4",
+      "bytes": 5102
+    },
+    {
+      "path": "data/reference/sse_trade_calendar_2026.csv",
+      "sha256": "1683446371fd20e3899222382d28da2fb8f2195654587649cc42648613960b62",
+      "bytes": 30510
+    },
+    {
+      "path": "reports/backtest/t_only_robustness_v1.json",
+      "sha256": "29e6551b023b225b8dbc6766147afa1ad4d636e06dbd9a4a58db6146f4796fea",
+      "bytes": 9949
+    }
+  ]
+}

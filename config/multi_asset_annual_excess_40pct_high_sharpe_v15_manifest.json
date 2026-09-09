@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V15_MANIFEST",
+  "status": "FROZEN_BEFORE_MULTI_HORIZON_DIGITAL_ASSET_TREND_OUTCOME",
+  "frozen_at": "2026-08-27T06:26:44.726569+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V15",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V14",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v15.yaml": "3422293aa638cc6d59d7b281bc744a886849ac04ee5a316ca8e682db51b2d476",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V15_SPEC.md": "f05862b600a098e39b0f0c9c04a6cf3d7594b9afe712d674784c6e36e15cb8eb",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v15.py": "35011f369d11aa710512fa7f43988f2622f07356811c9266f6cd4e453600c887"
+  },
+  "tracked_content_sha256": "ba37bc66ff74fa63d394db0978f30c9c83b0a5c0bd8ec681aabe101d421153a2",
+  "parent_manifest_sha256": "af5d4ad62c51420d290f41d8ec8e2a00c5162b4515caf61dddaa61cc60676bbd",
+  "v5_rejection": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true,
+      "gates_failed": true,
+      "replication_closed": true
+    },
+    "manifest_sha256": "bab111f942eefb9cbeb56c24d44c33de0bf20e708a35d371c5f766ff423abc3f",
+    "report_sha256": "553b8f3bc12177ced5f6ff34d8ca511dd1865c3f74ebe32bb7c60d00b97d481d",
+    "tracked_content_sha256": "37a13b14a944a2a0797467dd1f45c6bcebf5a6f671c50dd017870afb2c602812",
+    "metrics": {
+      "base_annualized_excess": 0.30920727510160206,
+      "stress_annualized_excess": 0.29195084383118,
+      "base_strategy_net_sharpe": 0.7682317709858302,
+      "stress_strategy_net_sharpe": 0.7502772427093984,
+      "base_maximum_drawdown": -0.791261568732706,
+      "stress_maximum_drawdown": -0.8073204244906602
+    }
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DUAL_DIGITAL_ASSET_MULTI_HORIZON_TREND_VOTE",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_products": [
+      "BTC-USD",
+      "ETH-USD"
+    ],
+    "momentum_horizons_calendar_days": [
+      20,
+      60,
+      120,
+      240
+    ],
+    "minimum_positive_votes_for_eligibility": 3,
+    "allocation_rule": "EQUAL_WEIGHT_AMONG_ELIGIBLE_PRODUCTS",
+    "one_eligible_weight": 1.0,
+    "two_eligible_weight_each": 0.5,
+    "no_eligible_weight": 0.0,
+    "gross_leverage_allowed": false,
+    "rebalance_frequency": "WEEKLY_COMPLETED_UTC_SUNDAY",
+    "capacity_aware_execution": true,
+    "maximum_order_fraction": 0.003,
+    "terminal_winddown_calendar_days": 30,
+    "base_total_spot_cost_bps_per_leg": 76.0,
+    "stress_total_spot_cost_bps_per_leg": 106.0,
+    "parameter_grid_search_allowed": false
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

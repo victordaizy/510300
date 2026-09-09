@@ -1,0 +1,42 @@
+strategy:
+  strategy_id: "510300_SMALL_ACCOUNT_PAPER_V1"
+  name: "510300两万元五档库存纸面执行"
+  instrument: "510300.SH"
+  evidence_scope: "估值模型仅作已有慢速底仓输入；申赎与IOPV覆盖层仍处前向数据积累期"
+
+inputs:
+  base_signal_file: "paper/round5_latest_signal.json"
+  iopv_snapshot_file: "data/raw/primary_market/510300_iopv_snapshots.parquet"
+  primary_market_quality_report: "reports/data_quality/510300_primary_market_forward_status.json"
+  primary_market_readiness_report: "reports/data_quality/510300_primary_market_readiness.json"
+
+account:
+  reference_equity_cny: 20000
+  current_shares: null
+  available_cash_cny: null
+  sellable_shares: null
+  today_bought_shares: null
+  long_only: true
+  leverage_allowed: false
+
+execution:
+  position_grid_step: 0.25
+  allowed_position_grid: [0.00, 0.25, 0.50, 0.75, 1.00]
+  lot_size: 100
+  minimum_normal_trade_shares: 1000
+  minimum_commission_cny: 5.0
+  commission_rate: 0.0003
+  slippage_bps_per_leg: 5.0
+  t_plus_one: true
+  ordinary_rebalance_frequency: "不高于每5个交易日一次"
+
+primary_market_overlay:
+  status: "DATA_COLLECTION_ONLY"
+  maximum_position_delta: 0.25
+  enabled_for_position_mapping: false
+
+governance:
+  paper_only: true
+  automatic_ordering_authorized: false
+  requires_current_shares_before_action: true
+  note: "不得将纸面动作当作券商委托；须手工提供当前持仓后才能计算买卖差额。"

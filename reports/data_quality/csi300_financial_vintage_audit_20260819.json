@@ -1,0 +1,94 @@
+{
+  "audit_id": "CSI300_FINANCIAL_VINTAGE_AUDIT_20260819",
+  "status": "BLOCKED_VENDOR_REVISION_RISK",
+  "audited_at": "2026-08-19T05:22:51.517371+08:00",
+  "population": {
+    "row_count": 45198,
+    "symbol_count": 927,
+    "first_report_period": "2012-06-30",
+    "last_report_period": "2026-06-30",
+    "report_year_count": 15,
+    "industry_stratum_count": 32,
+    "period_types": [
+      "ANNUAL",
+      "H1",
+      "Q1",
+      "Q3"
+    ],
+    "retrieved_at_values": [
+      "2026-08-13T16:03:21.823871+08:00",
+      "2026-08-19T02:51:02.621022+08:00"
+    ],
+    "source_sha256": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2"
+  },
+  "sampling": {
+    "method": "确定性SHA256分层抽样：年份×季度类型、行业×季度类型、两类供应商报告类型各取哈希最小记录，再按哈希补足。",
+    "target_size": 240,
+    "actual_size": 240,
+    "covered_year_count": 15,
+    "covered_years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "covered_industry_count": 32,
+    "covered_period_types": [
+      "ANNUAL",
+      "H1",
+      "Q1",
+      "Q3"
+    ],
+    "covered_income_report_types": [
+      "1",
+      "MISSING"
+    ],
+    "covered_balance_report_types": [
+      "1",
+      "MISSING"
+    ],
+    "sample_file": "reports/audit/csi300_financial_vintage_sample_20260819.csv",
+    "sample_sha256": "32fb341a479a3b3d1e6e8fbe3e19d83e245c7e2d7a30d5ee1147182f933709ba"
+  },
+  "audit_results": {
+    "retrieved_at_present_count": 240,
+    "original_publication_at_present_count": 240,
+    "revision_possible_count": 240,
+    "vintage_verified_count": 0,
+    "contemporaneous_raw_checkpoint_count": 0,
+    "all_three_checkpoint_hashes_present_count": 240
+  },
+  "checkpoint_inventory": {
+    "file_count": 528,
+    "inventory_file": "reports/audit/csi300_financial_checkpoint_inventory_20260819.csv",
+    "inventory_sha256": "05ead1136e810e3cce43558dcc5e146fc9c0a77184e091ea1508fb14d1bf61ea"
+  },
+  "blocking_gaps": [
+    "45,198条事件由2026年统一回取的供应商响应构造，缺少各原公告日同期原始响应。",
+    "available_at重建供应商声明的历史可得日，但不能证明该日看到的数值与2026回取值一致。",
+    "供应商数据没有revision_id、前值、修订时间或历史vintage快照链。",
+    "checkpoint文件证明本次回取输入，不是原公告日同期归档；抽样记录全部revision_possible=true。",
+    "original_publication_at来自供应商ann_date字段合并，不是交易所公告原文逐条核验结果。"
+  ],
+  "governance": {
+    "may_call_strict_point_in_time": false,
+    "may_call_vintage_verified": false,
+    "raw_inputs_modified": false,
+    "return_or_model_calculation_performed": false
+  },
+  "input_sha256": {
+    "data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2",
+    "data/raw/reference/a_share_sw_industry_static_pre_pit.parquet": "ffb84191ea84a3a86b7acfb6df5242267630ad54cf17146a8570352c69649bd3"
+  }
+}

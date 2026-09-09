@@ -1,0 +1,118 @@
+{
+  "status": "PASS",
+  "scope": "510300底仓-VWAP日内均值回归V1数据与执行就绪审计",
+  "contains_strategy_outcomes": false,
+  "checked_at": "2026-08-13T03:49:43.793050+08:00",
+  "strategy_id": "510300_INVENTORY_VWAP_REVERSION_V1",
+  "files": {
+    "minute": {
+      "path": "data/raw/market/510300_1m_tushare_raw.parquet",
+      "sha256": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268",
+      "bytes": 6642382
+    },
+    "minute_metadata": {
+      "path": "data/raw/market/510300_1m_tushare_raw.metadata.json",
+      "sha256": "1918b3ff5bbc42899a10001632c858dec062df34c30d314d8e0eeb1b7a23421c",
+      "bytes": 1772
+    },
+    "daily": {
+      "path": "data/raw/market/510300_daily_raw.parquet",
+      "sha256": "4a30412832578526aab91105fbf0a99d23a5557e37d4683a0282287494dfdd97",
+      "bytes": 57097
+    },
+    "dividend": {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "af1340e8f8fbed9686a12955b16d71eab3ba9e808fa6b496a52973c252887423",
+      "bytes": 782
+    },
+    "strategy_config": {
+      "path": "config/intraday_t_strategy.yaml",
+      "sha256": "668322c3c99b7fe31fb943d8fb33a70db048f09b78ff31f986e192f3246ac19c",
+      "bytes": 5638
+    }
+  },
+  "coverage": {
+    "row_count": 291851,
+    "trading_day_count": 1211,
+    "first_trade_time": "2021-08-12T09:30:00",
+    "last_trade_time": "2026-08-12T15:00:00",
+    "duplicate_timestamp_rows": 0,
+    "zero_volume_rows": 49,
+    "zero_volume_days": 30,
+    "off_tick_price_count": 0,
+    "invalid_ohlc_rows": 0
+  },
+  "session_integrity": {
+    "expected_rows_per_day": 241,
+    "complete_241_record_days": 1211,
+    "exact_expected_time_set_days": 1211,
+    "expected_first_time": "09:30:00",
+    "expected_last_morning_time": "11:30:00",
+    "expected_first_afternoon_time": "13:01:00",
+    "expected_last_time": "15:00:00",
+    "mismatch_samples": []
+  },
+  "daily_reconciliation": {
+    "matched_days": 1211,
+    "unmatched_days": 0,
+    "ohlc_maximum_absolute_error_by_field": {
+      "open": 0.0,
+      "high": 0.0,
+      "low": 0.0,
+      "close": 0.0
+    },
+    "maximum_ohlc_absolute_error": 0.0,
+    "maximum_volume_relative_error": 5.060174262223412e-09,
+    "maximum_amount_relative_error": 9.436035378153284e-09,
+    "relative_tolerance": 0.0001
+  },
+  "liquidity": {
+    "signal_window_record_count": 190127,
+    "maximum_t_shares": 1500,
+    "maximum_order_to_signal_record_volume_ratio": 0.05,
+    "required_signal_record_volume_shares": 30000,
+    "maximum_block_eligible_record_count": 190013,
+    "maximum_block_eligible_record_coverage": 0.9994004007847386,
+    "minimum_required_coverage": 0.95,
+    "signal_window_volume_quantiles_shares": {
+      "0.0": 0.0,
+      "0.01": 130000.0,
+      "0.05": 331300.0,
+      "0.5": 2017300.0,
+      "0.95": 10298689.999999987
+    }
+  },
+  "account_executability": {
+    "initial_cash_cny": 20000.0,
+    "first_record_raw_open_cny": 5.06,
+    "core_acquisition_execution_price_cny": 5.063,
+    "core_acquisition_notional_cny": 12657.5,
+    "core_acquisition_total_cost_cny": 12662.5,
+    "cash_after_core_acquisition_cny": 7337.5,
+    "initial_maximum_affordable_t_shares": 1400,
+    "minimum_t_shares": 1000,
+    "maximum_t_shares": 1500,
+    "base_inventory_covers_maximum_t_block": true,
+    "end_of_day_required_shares": 2500,
+    "same_day_new_shares_sellable": false
+  },
+  "timestamp_semantics_guard": {
+    "provider_semantics": "PROVIDER_TRADE_TIME_UNSPECIFIED_BAR_BOUNDARY",
+    "signal_observation": "CURRENT_RECORD_CLOSE",
+    "execution": "NEXT_RECORD_OPEN",
+    "status": "PASS"
+  },
+  "dividends": {
+    "event_count": 5,
+    "first_record_date": "2022-01-18",
+    "last_payment_date": "2026-01-27",
+    "accounting": "RECEIVABLE_ON_RECORD_DATE_CASH_ON_PAYMENT_DATE"
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "ZERO_VOLUME_RECORDS",
+      "message": "共有49条零成交记录，策略必须跳过这些记录"
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "bootstrap": {
+    "cluster": "REBALANCE_CYCLE",
+    "confidence_level": 0.95,
+    "replications": 10000,
+    "seed": 20260829
+  },
+  "candidate_count": 425,
+  "code_and_protocol_files": {
+    "config/a_share_hs_csi300_official_addition_forced_demand_v1.yaml": "71ee73c2e175c727d5cf29a88420e2e0b096e7a7075aefe57adc17b2de041db9",
+    "docs/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PROTOCOL.md": "183fc7cc81a17fe600001d14c90a1172293d7d4af7b12ad57541f38acb4e0637",
+    "research/a_share_hs_csi300_official_addition_data_admission_v1.py": "36340864276d523480772d652d83e8fb2cb1907236d7b019fc3f378dfeb8d955",
+    "research/a_share_hs_csi300_official_addition_forced_demand_v1.py": "5880120396703b4dc1cf456f08f26f5bcd7727c6af5cb6492133c33be4a4dbf7",
+    "scripts/acquire_a_share_hs_csi300_official_addition_events_v1.py": "3a87b6d26df035babd4ad381b73a5c5d6e4124661effec17d10c5e8633301316",
+    "scripts/admit_a_share_hs_csi300_official_addition_data_v1.py": "4574b8237584cb5141b86b993262ad1c260e1ea4b131ea18f852092b833eb07f",
+    "scripts/freeze_a_share_hs_csi300_official_addition_forced_demand_v1.py": "0ac9628a28244291bc28835e8ae8d9e6ce67297988d88a39bde1d74d699cab8a",
+    "tests/test_a_share_hs_csi300_official_addition_data_admission_v1.py": "05ff89f21b1b697242da44eba55482c9ef473107df7bb2998d0579f4059d0b8e",
+    "tests/test_a_share_hs_csi300_official_addition_forced_demand_v1.py": "34d65a09eaf704ad0f1de74618abd2063cca2b05c130f7a3c0e7bfc5003f96ae"
+  },
+  "cycle_count": 21,
+  "data_gates": {
+    "D1": {
+      "missing_official_list_ids": [],
+      "observed_cycle_count": 21,
+      "required_cycle_count": 21,
+      "status": "PASS"
+    },
+    "D2": {
+      "cycles_with_detail_hash_attachment_and_effective_date": 21,
+      "required_cycles": 21,
+      "status": "PASS"
+    },
+    "D3": {
+      "complete_cycle_count": 21,
+      "status": "PASS",
+      "unique_addition_event_count": 425
+    },
+    "D4": {
+      "component_rule": "EACH_COMPONENT_MUST_MEET_MINIMUM_NOT_AGGREGATE_AVERAGE",
+      "components": {
+        "amount": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "corporate_action_query": {
+          "coverage": 0.09067357512953368,
+          "covered": 35,
+          "required": 386,
+          "status": "FAIL"
+        },
+        "linked_adjustment_factor": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "market_available_at": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "market_rows": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "price_limit_rule_and_fields": {
+          "coverage": 0.0988235294117647,
+          "covered": 84,
+          "required": 850,
+          "status": "FAIL"
+        },
+        "raw_close": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "raw_open": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        },
+        "suspension": {
+          "coverage": 0.9963432471964895,
+          "covered": 4087,
+          "required": 4102,
+          "status": "PASS"
+        }
+      },
+      "failed_components": [
+        "price_limit_rule_and_fields",
+        "corporate_action_query"
+      ],
+      "minimum_coverage": 0.98,
+      "status": "FAIL"
+    },
+    "D5": {
+      "minimum_resolution": 1.0,
+      "required_events": 425,
+      "resolution_fraction": 0.9882352941176471,
+      "resolved_events": 420,
+      "status": "FAIL",
+      "unresolved_status_counts": {
+        "NO_VIEW_EXIT_MARKET_ROW_MISSING": 5
+      }
+    },
+    "D6": {
+      "result": ".......................                                                  [100%]\n23 passed in 12.49s",
+      "status": "PASS",
+      "test_command": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe -m pytest tests/test_a_share_hs_csi300_official_addition_forced_demand_v1.py tests/test_a_share_hs_csi300_official_addition_data_admission_v1.py -q"
+    },
+    "D7": {
+      "code_file_count": 9,
+      "input_count": 16,
+      "large_admission_inputs_reused_from_verified_admission_report": [
+        "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/security_master_history.parquet",
+        "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+        "data/staging/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit/security_status_intervals.parquet",
+        "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_1_corporate_action_audit_calendar_corrected/corporate_action_fetch_receipt.json",
+        "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_2_corporate_action_audit_daily_coverage_corrected/corporate_action_fetch_receipt.json",
+        "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_corporate_action_audit/corporate_action_fetch_receipt.json",
+        "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/input_manifest.json",
+        "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/research_panel_receipt.json",
+        "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet"
+      ],
+      "seed_frozen": true,
+      "status": "PASS"
+    },
+    "D8": {
+      "data_admission_status": "PASS",
+      "price_values_output": false,
+      "return_columns_read": [],
+      "source_admission_status": "PASS",
+      "status": "PASS",
+      "unexpected_outputs": []
+    }
+  },
+  "evidence_cutoff": "2026-08-28",
+  "execution_permissions": {
+    "broker": false,
+    "live": false,
+    "orders": false,
+    "position_mapping": false,
+    "research_only": true,
+    "shadow": false
+  },
+  "failed_data_gates": [
+    "D4",
+    "D5"
+  ],
+  "frozen_at": "2026-08-29T03:27:05.331967+08:00",
+  "frozen_inputs": {
+    "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/candidate_list_without_returns.csv": "28f29b7d0ddb085aa76f8a9b8e23a0fcd0c9c81d1421460db9c97cd4f1beb0a5",
+    "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/data_admission_event_status_without_prices.parquet": "7f42e74f0af8df5fdd719a2f89351e034ecd91932e40911adac84d57d0204fb9",
+    "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/event_ledger_without_returns.parquet": "e3eafbaa8fafa3a3e0c0f2d40b573e623c450c8271151f2521746346bf8cb292",
+    "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/official_announcement_manifest.json": "58cc57d9a0eb23ac95ca8e68db85108207684df59cabc78ba9fb3c017c836f4d",
+    "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/security_master_history.parquet": "1032c9521ed9c0c0efb0b23539593082d6ea19dc87525414740692c6d2f78276",
+    "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd",
+    "data/staging/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit/security_status_intervals.parquet": "ee908ae1479df318fcf449726755b9e911fc8d29df78d9942dffe4c0c730ed50",
+    "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_1_corporate_action_audit_calendar_corrected/corporate_action_fetch_receipt.json": "4476d846092536bd4d00b2423048137d39104d811ac81fd928422dc655f56ed4",
+    "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_2_corporate_action_audit_daily_coverage_corrected/corporate_action_fetch_receipt.json": "43cd8f4fd484474316a3d599d545d976a1b63e1ee3326c82f558ca1e6aaa6f6d",
+    "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_corporate_action_audit/corporate_action_fetch_receipt.json": "104c44363cd121901624cfc784a9d4debcb1b2c3721cf58e5deea0ea6bd58299",
+    "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/input_manifest.json": "3daade13d46baa11c6479e530725e1b7b9c257a0fb8d077bbf62265506c3b4c3",
+    "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/research_panel_receipt.json": "e11f90178e9e46a86383a94e32515c93114fc71298aa74f91b77e13301c4524b",
+    "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet": "e7552c0c4ee8c8755e91e8dc2fda6233f4a23ac6e59de633d87ea0b8860312b9",
+    "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.json": "cc586ee1f134f3b76529d9e1eb7e885472e0c1251729cd689633427d78db82ba",
+    "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.md": "204024e661b76c6cae8338457cf44da3ea21376f2ee1b06df4619acc71b93957",
+    "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.json": "cb9a361163b2d237cb66276fa8dd0b22b52b53b458382d4fca6316f85c8859d5"
+  },
+  "historical_return_attempts_allowed": 0,
+  "historical_return_attempts_used": 0,
+  "input_hash_verification": {
+    "directly_rehashed_small_or_primary_artifacts": [
+      "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/candidate_list_without_returns.csv",
+      "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/data_admission_event_status_without_prices.parquet",
+      "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/event_ledger_without_returns.parquet",
+      "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/official_announcement_manifest.json",
+      "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.json",
+      "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.md",
+      "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.json"
+    ],
+    "reused_from_just_completed_verified_data_admission": [
+      "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/security_master_history.parquet",
+      "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+      "data/staging/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit/security_status_intervals.parquet",
+      "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_1_corporate_action_audit_calendar_corrected/corporate_action_fetch_receipt.json",
+      "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_2_corporate_action_audit_daily_coverage_corrected/corporate_action_fetch_receipt.json",
+      "data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_corporate_action_audit/corporate_action_fetch_receipt.json",
+      "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/input_manifest.json",
+      "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/research_panel_receipt.json",
+      "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet"
+    ]
+  },
+  "next_allowed_step": "停止；不得计算或查看历史收益，不得补来源救援本候选",
+  "return_evaluation": "NOT_ALLOWED",
+  "schema_version": "1.1.0",
+  "state": "PRE_RETURN_PROTOCOL_CANDIDATES_AND_DATA_ADMISSION_FROZEN",
+  "status": "NO_VIEW_DATA_CONTRACT_FAILED",
+  "strategy_id": "A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1",
+  "superseded_artifacts_archived": [
+    {
+      "archive_path": "reports/audit/a_share_hs_csi300_official_addition_forced_demand_v1_pre_return_freeze_runs/a_share_hs_csi300_official_addition_forced_demand_v1_protocol_manifest_c3fab4e796c61cb5.json",
+      "sha256": "c3fab4e796c61cb5a02af14d1ac7dcdba4bcbcd74e139f2e12b7294b408d17cc",
+      "source_path": "config/a_share_hs_csi300_official_addition_forced_demand_v1_protocol_manifest.json"
+    },
+    {
+      "archive_path": "reports/audit/a_share_hs_csi300_official_addition_forced_demand_v1_pre_return_freeze_runs/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PRE_RETURN_FREEZE_ce500b0d84fb0997.json",
+      "sha256": "ce500b0d84fb09974ebcb679b53b56ca7ac4f6bb52cc5566ed966d972840fd69",
+      "source_path": "reports/audit/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PRE_RETURN_FREEZE.json"
+    }
+  ]
+}

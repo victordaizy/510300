@@ -1,0 +1,31 @@
+protocol:
+  project_id: 510300_OPTION_SMIRK_GAMMA1_V2
+  state: DISCOVERY_DATA_COVERAGE_CORRECTION_PRE_OUTCOME_FREEZE
+  base_config_path: config/510300_option_smirk_gamma1_v1.yaml
+  base_research_path: research/option_smirk_gamma1_v1.py
+  factor_count: 1
+  correction_only: true
+  correction_reason: V1要求连续252个无缺失交易日导致阈值始终为空且零笔交易
+  prior_version_executed_trades: 0
+
+signal_override:
+  trailing_valid_observations: 252
+  lower_quantile: 0.20
+  threshold_lag_valid_observations: 1
+  action: 当日gamma1_30d不高于此前252个有效曲面观测的20%分位数时买入认购
+
+paths:
+  manifest: config/510300_option_smirk_gamma1_v2_manifest.json
+  result_json: reports/discovery/510300_option_smirk_gamma1_v2_dev.json
+  result_markdown: reports/discovery/510300_option_smirk_gamma1_v2_dev.md
+  feature_parquet: data/features/510300_option_smirk_gamma1_v2_dev.parquet
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  parameter_search: FORBIDDEN
+  all_non_coverage_parameters_changed_from_v1: false
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

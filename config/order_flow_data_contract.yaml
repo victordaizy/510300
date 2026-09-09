@@ -1,0 +1,69 @@
+contract_version: 1
+status: "BLOCKED_WAITING_FOR_LEVEL2_SAMPLE_AND_PV_LC_DEFINITION"
+registered_on: "2026-08-13"
+
+scope:
+  pilot_symbol: "510300.SH"
+  pilot_minimum_trading_days: 20
+  preferred_trading_days: 60
+  timezone: "Asia/Shanghai"
+  raw_data_must_be_immutable: true
+
+common_fields:
+  - trading_day
+  - exchange_timestamp
+  - receive_timestamp
+  - exchange
+  - symbol
+  - sequence_number
+  - source
+
+order_events_required_fields:
+  - event_type
+  - side
+  - price
+  - quantity
+  - order_id
+  - original_order_id
+
+trade_events_required_fields:
+  - trade_id
+  - price
+  - quantity
+  - amount
+  - buy_order_id
+  - sell_order_id
+  - aggressor_side_source
+
+book_snapshots_required_fields:
+  - snapshot_type
+  - bid_price_1_to_10
+  - bid_quantity_1_to_10
+  - ask_price_1_to_10
+  - ask_quantity_1_to_10
+  - cumulative_volume
+  - cumulative_amount
+
+quality_gates:
+  duplicate_primary_key_count: 0
+  crossed_book_outside_auction_count: 0
+  non_monotonic_sequence_count: 0
+  unresolved_sequence_gap_count: 0
+  daily_volume_reconciliation_tolerance: 0.001
+  daily_amount_reconciliation_tolerance: 0.001
+  require_session_and_auction_flags: true
+  require_vendor_action_semantics: true
+
+definition_freeze_required:
+  pv:
+    status: "UNDEFINED"
+    required_items: ["全称", "原始事件集合", "买卖方向规则", "聚合窗口", "归一化分母", "预期方向", "目标周期"]
+  lc:
+    status: "UNDEFINED"
+    required_items: ["全称", "原始事件集合", "撤单和成交处理", "聚合窗口", "归一化分母", "预期方向", "目标周期"]
+
+prohibitions:
+  - "不得用OHLCV、日内K线或成交量代理冒充PV/LC"
+  - "不得由回测结果反推买卖方向规则"
+  - "不得忽略集合竞价、午间休市和收盘竞价"
+  - "不得在原始层覆盖供应商字段或重排无法解释的序列"

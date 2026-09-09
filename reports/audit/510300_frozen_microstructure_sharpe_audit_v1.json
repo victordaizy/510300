@@ -1,0 +1,675 @@
+{
+  "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1",
+  "status": "HISTORICAL_POST_SELECTION_AUDIT_REJECTED_NO_RESCUE",
+  "passed": false,
+  "evidence_class": "RETROSPECTIVE_POST_SELECTION_AUDIT_ONLY",
+  "candidate_project_id": "510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_V1",
+  "candidate_name": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+  "interpretation": "候选已使用全部历史评价期结果完成发现，本审计不是独立样本外验证，也不能消除更早反向验证失败",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "allowed_states": [
+      0,
+      1
+    ],
+    "long_only": true,
+    "leverage_allowed": false,
+    "short_selling_allowed": false,
+    "derivatives_execution_allowed": false,
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘",
+    "earliest_allowed_source_date": "2021-01-01",
+    "position_rule_source": "既有冻结state_final逐日序列，禁止重算阈值、改状态或填补缺失"
+  },
+  "execution_contract": {
+    "initial_capital_cny": 20000.0,
+    "lot_size_shares": 100,
+    "paid_dividends_reinvested_at_earliest_next_open": true,
+    "cash_annual_rate": 0.0,
+    "annualization_trading_days": 242,
+    "start_perturbations_trading_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "costs": {
+    "base": {
+      "commission_rate_per_leg": 0.0003,
+      "minimum_commission_cny_per_leg": 5.0,
+      "slippage_bps_per_leg": 5.0
+    },
+    "double": {
+      "commission_rate_per_leg": 0.0006,
+      "minimum_commission_cny_per_leg": 10.0,
+      "slippage_bps_per_leg": 10.0
+    }
+  },
+  "input_audit": {
+    "signal_rows": 1222,
+    "signal_first_date": "2021-08-12",
+    "signal_last_date": "2026-08-27",
+    "market_rows_2021plus": 1370,
+    "market_first_date_read_into_audit": "2021-01-04",
+    "market_last_date": "2026-08-27",
+    "evaluation_rows": 1086,
+    "pre_2021_rows_entering_metrics": 0,
+    "dividend_events_2021plus": 6
+  },
+  "freeze": {
+    "manifest_sha256": "e16788651beda66bc4d2ba86af76708939e10f0a250dc58d38596726cc27cbf2",
+    "config_sha256": "6b1a17c334cc9fe59ab5f82bfa875d0a13f3eb6622fde7d4d43eb637d8e22687",
+    "tracked_file_count": 5,
+    "input_file_count": 10,
+    "hash_mismatches": {}
+  },
+  "primary_period": "COMBINED_2022_03_09_TO_2026_08_27",
+  "primary_base_start_summaries": [
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 0,
+      "scenario": "base",
+      "first_execution_date": "2022-03-09",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-08",
+      "end_date": "2026-08-27",
+      "observations": 1087,
+      "net_sharpe_zero_cash_rate": 1.5803113646,
+      "strategy_cagr": 0.2654985684,
+      "h00300_total_return_cagr": 0.0466891716,
+      "buy_hold_510300_net_cagr": 0.0395365382,
+      "annualized_excess_vs_h00300": 0.2188093967,
+      "annualized_excess_vs_buy_hold": 0.2259620302,
+      "maximum_drawdown": -0.1015481146,
+      "buy_hold_maximum_drawdown": -0.266311257,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3813136393,
+      "cash_day_share": 0.3422263109,
+      "trade_leg_count": 50,
+      "total_commission_cny": 446.90700147,
+      "total_slippage_cost_cny": 721.0816999999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 1,
+      "scenario": "base",
+      "first_execution_date": "2022-03-10",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-09",
+      "end_date": "2026-08-27",
+      "observations": 1086,
+      "net_sharpe_zero_cash_rate": 1.5719877821,
+      "strategy_cagr": 0.2646944596,
+      "h00300_total_return_cagr": 0.0488824044,
+      "buy_hold_510300_net_cagr": 0.0383152863,
+      "annualized_excess_vs_h00300": 0.2158120552,
+      "annualized_excess_vs_buy_hold": 0.2263791733,
+      "maximum_drawdown": -0.1018720838,
+      "buy_hold_maximum_drawdown": -0.2679458795,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3801964934,
+      "cash_day_share": 0.3425414365,
+      "trade_leg_count": 50,
+      "total_commission_cny": 445.02734376,
+      "total_slippage_cost_cny": 717.7868499999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 2,
+      "scenario": "base",
+      "first_execution_date": "2022-03-11",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-10",
+      "end_date": "2026-08-27",
+      "observations": 1085,
+      "net_sharpe_zero_cash_rate": 1.5942729373,
+      "strategy_cagr": 0.2691423482,
+      "h00300_total_return_cagr": 0.0452793674,
+      "buy_hold_510300_net_cagr": 0.0424595509,
+      "annualized_excess_vs_h00300": 0.2238629808,
+      "annualized_excess_vs_buy_hold": 0.2266827974,
+      "maximum_drawdown": -0.1018043841,
+      "buy_hold_maximum_drawdown": -0.268546026,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3790947334,
+      "cash_day_share": 0.3428571429,
+      "trade_leg_count": 51,
+      "total_commission_cny": 456.627871745,
+      "total_slippage_cost_cny": 729.1723499999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 3,
+      "scenario": "base",
+      "first_execution_date": "2022-03-14",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-11",
+      "end_date": "2026-08-27",
+      "observations": 1084,
+      "net_sharpe_zero_cash_rate": 1.5931000864,
+      "strategy_cagr": 0.268324999,
+      "h00300_total_return_cagr": 0.0445788572,
+      "buy_hold_510300_net_cagr": 0.0408534118,
+      "annualized_excess_vs_h00300": 0.2237461418,
+      "annualized_excess_vs_buy_hold": 0.2274715873,
+      "maximum_drawdown": -0.1017806176,
+      "buy_hold_maximum_drawdown": -0.2657981546,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3829244705,
+      "cash_day_share": 0.3431734317,
+      "trade_leg_count": 51,
+      "total_commission_cny": 454.847153315,
+      "total_slippage_cost_cny": 726.0095499999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 4,
+      "scenario": "base",
+      "first_execution_date": "2022-03-15",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-14",
+      "end_date": "2026-08-27",
+      "observations": 1083,
+      "net_sharpe_zero_cash_rate": 1.641805337,
+      "strategy_cagr": 0.2759683065,
+      "h00300_total_return_cagr": 0.0519065736,
+      "buy_hold_510300_net_cagr": 0.0474971011,
+      "annualized_excess_vs_h00300": 0.2240617329,
+      "annualized_excess_vs_buy_hold": 0.2284712054,
+      "maximum_drawdown": -0.1020238604,
+      "buy_hold_maximum_drawdown": -0.268676671,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3797272759,
+      "cash_day_share": 0.3434903047,
+      "trade_leg_count": 50,
+      "total_commission_cny": 461.325270495,
+      "total_slippage_cost_cny": 745.1121499999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    }
+  ],
+  "primary_double_cost_start_summaries": [
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 0,
+      "scenario": "double",
+      "first_execution_date": "2022-03-09",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-08",
+      "end_date": "2026-08-27",
+      "observations": 1087,
+      "net_sharpe_zero_cash_rate": 1.5277704883,
+      "strategy_cagr": 0.255494558,
+      "h00300_total_return_cagr": 0.0466891716,
+      "buy_hold_510300_net_cagr": 0.0395365382,
+      "annualized_excess_vs_h00300": 0.2088053863,
+      "annualized_excess_vs_buy_hold": 0.2159580198,
+      "maximum_drawdown": -0.1062306817,
+      "buy_hold_maximum_drawdown": -0.266311257,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3988967003,
+      "cash_day_share": 0.3422263109,
+      "trade_leg_count": 49,
+      "total_commission_cny": 867.58389062,
+      "total_slippage_cost_cny": 1414.3630999999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 1,
+      "scenario": "double",
+      "first_execution_date": "2022-03-10",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-09",
+      "end_date": "2026-08-27",
+      "observations": 1086,
+      "net_sharpe_zero_cash_rate": 1.521502038,
+      "strategy_cagr": 0.2540968156,
+      "h00300_total_return_cagr": 0.0488824044,
+      "buy_hold_510300_net_cagr": 0.0383152863,
+      "annualized_excess_vs_h00300": 0.2052144111,
+      "annualized_excess_vs_buy_hold": 0.2157815293,
+      "maximum_drawdown": -0.1060144155,
+      "buy_hold_maximum_drawdown": -0.2679458795,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3956560768,
+      "cash_day_share": 0.3425414365,
+      "trade_leg_count": 51,
+      "total_commission_cny": 880.76358484,
+      "total_slippage_cost_cny": 1404.1043999999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 2,
+      "scenario": "double",
+      "first_execution_date": "2022-03-11",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-10",
+      "end_date": "2026-08-27",
+      "observations": 1085,
+      "net_sharpe_zero_cash_rate": 1.543173513,
+      "strategy_cagr": 0.2586732373,
+      "h00300_total_return_cagr": 0.0452793674,
+      "buy_hold_510300_net_cagr": 0.0424595509,
+      "annualized_excess_vs_h00300": 0.2133938699,
+      "annualized_excess_vs_buy_hold": 0.2162136864,
+      "maximum_drawdown": -0.1058510283,
+      "buy_hold_maximum_drawdown": -0.268546026,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3941634507,
+      "cash_day_share": 0.3428571429,
+      "trade_leg_count": 50,
+      "total_commission_cny": 883.8456021,
+      "total_slippage_cost_cny": 1425.5412999999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 3,
+      "scenario": "double",
+      "first_execution_date": "2022-03-14",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-11",
+      "end_date": "2026-08-27",
+      "observations": 1084,
+      "net_sharpe_zero_cash_rate": 1.5434586416,
+      "strategy_cagr": 0.2581469233,
+      "h00300_total_return_cagr": 0.0445788572,
+      "buy_hold_510300_net_cagr": 0.0408534118,
+      "annualized_excess_vs_h00300": 0.213568066,
+      "annualized_excess_vs_buy_hold": 0.2172935115,
+      "maximum_drawdown": -0.1058703122,
+      "buy_hold_maximum_drawdown": -0.2657981546,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3983109376,
+      "cash_day_share": 0.3431734317,
+      "trade_leg_count": 51,
+      "total_commission_cny": 891.28267264,
+      "total_slippage_cost_cny": 1421.6734999999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    },
+    {
+      "period": "COMBINED_2022_03_09_TO_2026_08_27",
+      "gate_eligible": true,
+      "start_perturbation": 4,
+      "scenario": "double",
+      "first_execution_date": "2022-03-15",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2022-03-14",
+      "end_date": "2026-08-27",
+      "observations": 1083,
+      "net_sharpe_zero_cash_rate": 1.5898727425,
+      "strategy_cagr": 0.2659403475,
+      "h00300_total_return_cagr": 0.0519065736,
+      "buy_hold_510300_net_cagr": 0.0474971011,
+      "annualized_excess_vs_h00300": 0.2140337739,
+      "annualized_excess_vs_buy_hold": 0.2184432464,
+      "maximum_drawdown": -0.1056912298,
+      "buy_hold_maximum_drawdown": -0.268676671,
+      "maximum_drawdown_ratio_vs_buy_hold": 0.3933770259,
+      "cash_day_share": 0.3434903047,
+      "trade_leg_count": 49,
+      "total_commission_cny": 894.43513694,
+      "total_slippage_cost_cny": 1459.4393999999,
+      "complete_round_trips_by_year": {
+        "2022": 6,
+        "2023": 7,
+        "2024": 7,
+        "2025": 4
+      },
+      "maximum_complete_round_trips_in_any_year": 7
+    }
+  ],
+  "temporal_replication_base_start_summaries": [
+    {
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "gate_eligible": true,
+      "start_perturbation": 0,
+      "scenario": "base",
+      "first_execution_date": "2026-01-05",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2025-12-31",
+      "end_date": "2026-08-27",
+      "observations": 159,
+      "net_sharpe_zero_cash_rate": 0.1338107387,
+      "strategy_cagr": 0.0078812998,
+      "h00300_total_return_cagr": 0.0259849719,
+      "buy_hold_510300_net_cagr": 0.0078812998,
+      "annualized_excess_vs_h00300": -0.0181036722,
+      "annualized_excess_vs_buy_hold": 0.0,
+      "maximum_drawdown": -0.0967920862,
+      "buy_hold_maximum_drawdown": -0.0967920862,
+      "maximum_drawdown_ratio_vs_buy_hold": 1.0,
+      "cash_day_share": 0.0062893082,
+      "trade_leg_count": 2,
+      "total_commission_cny": 10.886031545,
+      "total_slippage_cost_cny": 10.0414,
+      "complete_round_trips_by_year": {
+        "2026": 1
+      },
+      "maximum_complete_round_trips_in_any_year": 1
+    },
+    {
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "gate_eligible": true,
+      "start_perturbation": 1,
+      "scenario": "base",
+      "first_execution_date": "2026-01-06",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2026-01-05",
+      "end_date": "2026-08-27",
+      "observations": 158,
+      "net_sharpe_zero_cash_rate": 0.0209150301,
+      "strategy_cagr": -0.0132364441,
+      "h00300_total_return_cagr": -0.0031448277,
+      "buy_hold_510300_net_cagr": -0.0132364441,
+      "annualized_excess_vs_h00300": -0.0100916164,
+      "annualized_excess_vs_buy_hold": 0.0,
+      "maximum_drawdown": -0.0980293116,
+      "buy_hold_maximum_drawdown": -0.0980293116,
+      "maximum_drawdown_ratio_vs_buy_hold": 1.0,
+      "cash_day_share": 0.0063291139,
+      "trade_leg_count": 2,
+      "total_commission_cny": 10.96848275,
+      "total_slippage_cost_cny": 10.17875,
+      "complete_round_trips_by_year": {
+        "2026": 1
+      },
+      "maximum_complete_round_trips_in_any_year": 1
+    },
+    {
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "gate_eligible": true,
+      "start_perturbation": 2,
+      "scenario": "base",
+      "first_execution_date": "2026-01-07",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2026-01-06",
+      "end_date": "2026-08-27",
+      "observations": 157,
+      "net_sharpe_zero_cash_rate": -0.0991681711,
+      "strategy_cagr": -0.0345627958,
+      "h00300_total_return_cagr": -0.0266128022,
+      "buy_hold_510300_net_cagr": -0.0345627958,
+      "annualized_excess_vs_h00300": -0.0079499936,
+      "annualized_excess_vs_buy_hold": 0.0,
+      "maximum_drawdown": -0.0971233115,
+      "buy_hold_maximum_drawdown": -0.0971233115,
+      "maximum_drawdown_ratio_vs_buy_hold": 1.0,
+      "cash_day_share": 0.0063694268,
+      "trade_leg_count": 2,
+      "total_commission_cny": 10.906952,
+      "total_slippage_cost_cny": 10.07625,
+      "complete_round_trips_by_year": {
+        "2026": 1
+      },
+      "maximum_complete_round_trips_in_any_year": 1
+    },
+    {
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "gate_eligible": true,
+      "start_perturbation": 3,
+      "scenario": "base",
+      "first_execution_date": "2026-01-08",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2026-01-07",
+      "end_date": "2026-08-27",
+      "observations": 156,
+      "net_sharpe_zero_cash_rate": -0.0461369797,
+      "strategy_cagr": -0.0248899316,
+      "h00300_total_return_cagr": -0.0223234465,
+      "buy_hold_510300_net_cagr": -0.0248899316,
+      "annualized_excess_vs_h00300": -0.002566485,
+      "annualized_excess_vs_buy_hold": 0.0,
+      "maximum_drawdown": -0.096539733,
+      "buy_hold_maximum_drawdown": -0.096539733,
+      "maximum_drawdown_ratio_vs_buy_hold": 1.0,
+      "cash_day_share": 0.0064102564,
+      "trade_leg_count": 2,
+      "total_commission_cny": 10.8685328,
+      "total_slippage_cost_cny": 10.01225,
+      "complete_round_trips_by_year": {
+        "2026": 1
+      },
+      "maximum_complete_round_trips_in_any_year": 1
+    },
+    {
+      "period": "TEMPORAL_REPLICATION_2026_YTD",
+      "gate_eligible": true,
+      "start_perturbation": 4,
+      "scenario": "base",
+      "first_execution_date": "2026-01-09",
+      "last_execution_date": "2026-08-27",
+      "start_date": "2026-01-08",
+      "end_date": "2026-08-27",
+      "observations": 155,
+      "net_sharpe_zero_cash_rate": 0.0082967052,
+      "strategy_cagr": -0.0157373036,
+      "h00300_total_return_cagr": -0.0098016751,
+      "buy_hold_510300_net_cagr": -0.0157373036,
+      "annualized_excess_vs_h00300": -0.0059356285,
+      "annualized_excess_vs_buy_hold": 0.0,
+      "maximum_drawdown": -0.0981604013,
+      "buy_hold_maximum_drawdown": -0.0981604013,
+      "maximum_drawdown_ratio_vs_buy_hold": 1.0,
+      "cash_day_share": 0.0064516129,
+      "trade_leg_count": 2,
+      "total_commission_cny": 10.977097055,
+      "total_slippage_cost_cny": 10.1931,
+      "complete_round_trips_by_year": {
+        "2026": 1
+      },
+      "maximum_complete_round_trips_in_any_year": 1
+    }
+  ],
+  "primary_gates_by_start": [
+    {
+      "start_perturbation": 0,
+      "gates": {
+        "net_sharpe_at_least_1_20": true,
+        "annualized_excess_vs_h00300_positive": true,
+        "annualized_excess_vs_buy_hold_positive": true,
+        "maximum_drawdown_at_most_75pct_buy_hold": true,
+        "maximum_round_trips_per_year_at_most_10": true
+      },
+      "passed": true
+    },
+    {
+      "start_perturbation": 1,
+      "gates": {
+        "net_sharpe_at_least_1_20": true,
+        "annualized_excess_vs_h00300_positive": true,
+        "annualized_excess_vs_buy_hold_positive": true,
+        "maximum_drawdown_at_most_75pct_buy_hold": true,
+        "maximum_round_trips_per_year_at_most_10": true
+      },
+      "passed": true
+    },
+    {
+      "start_perturbation": 2,
+      "gates": {
+        "net_sharpe_at_least_1_20": true,
+        "annualized_excess_vs_h00300_positive": true,
+        "annualized_excess_vs_buy_hold_positive": true,
+        "maximum_drawdown_at_most_75pct_buy_hold": true,
+        "maximum_round_trips_per_year_at_most_10": true
+      },
+      "passed": true
+    },
+    {
+      "start_perturbation": 3,
+      "gates": {
+        "net_sharpe_at_least_1_20": true,
+        "annualized_excess_vs_h00300_positive": true,
+        "annualized_excess_vs_buy_hold_positive": true,
+        "maximum_drawdown_at_most_75pct_buy_hold": true,
+        "maximum_round_trips_per_year_at_most_10": true
+      },
+      "passed": true
+    },
+    {
+      "start_perturbation": 4,
+      "gates": {
+        "net_sharpe_at_least_1_20": true,
+        "annualized_excess_vs_h00300_positive": true,
+        "annualized_excess_vs_buy_hold_positive": true,
+        "maximum_drawdown_at_most_75pct_buy_hold": true,
+        "maximum_round_trips_per_year_at_most_10": true
+      },
+      "passed": true
+    }
+  ],
+  "primary_all_five_starts_pass": true,
+  "year_robustness_primary_start0": {
+    "leave_one_calendar_year_out_sharpes": {
+      "2022": 1.7029036883574107,
+      "2023": 1.5769270328296525,
+      "2024": 1.2791547806061871,
+      "2025": 1.4392312841003962,
+      "2026": 1.8796798655637195
+    },
+    "yearly_log_excess_contributions_vs_buy_hold": {
+      "2022": 0.22406447020593792,
+      "2023": 0.276938348739442,
+      "2024": 0.2928704864020245,
+      "2025": 0.08865230164504984,
+      "2026": 0.00014643753680256867
+    },
+    "total_log_excess_vs_buy_hold": 0.8826720445292568,
+    "maximum_single_year_share_of_total_log_excess": 0.331799889004321
+  },
+  "robustness_gates": {
+    "all_five_start_double_cost_sharpes_at_least_0_90": true,
+    "leave_one_calendar_year_out_sharpe_positive": true,
+    "single_year_log_excess_share_at_most_50_percent": true,
+    "temporal_replication_all_five_starts_excess_vs_both_positive": false
+  },
+  "robustness_all_pass": false,
+  "candidate_existing_evidence": {
+    "reverse_validation_status": "TIME_REVERSED_EXTERNAL_VALIDATION_REJECTED_NO_RESCUE",
+    "reverse_validation_passed": false,
+    "forward_status": "FIXED_RULE_HOLDOUT_PARTIAL_SUCCESS_242D_PENDING",
+    "true_prospective_claim_rows": 0
+  },
+  "adjudication": {
+    "goal_achieved": false,
+    "reason_goal_not_achieved_even_if_historical_audit_passed": "该序列是历史后选候选，且真正前瞻证据不足；本审计不能替代原宏观事件门或严格前向验证",
+    "macro_candidate_replacement_allowed": false,
+    "parameter_rescue_after_result": "FORBIDDEN"
+  },
+  "boundaries": {
+    "historical_rows_were_seen_before_this_audit": true,
+    "new_candidate_discovered": false,
+    "frozen_signal_changed": false,
+    "pre_2021_rows_entering_metrics": 0,
+    "research_only": true,
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  },
+  "correction_v1_0_1": {
+    "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1_0_1",
+    "status": "MECHANICAL_READ_ONLY_ARRAY_COPY_CORRECTION",
+    "manifest_sha256": "b54d2673839dc6c2df318b8bba2b077943766472dbef195984a423362c985c27",
+    "only_change": "to_numpy(copy=True)",
+    "formula_or_parameter_changes": 0,
+    "metrics_computed_before_correction_freeze": false
+  },
+  "correction_v1_0_2": {
+    "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1_0_2",
+    "status": "MECHANICAL_PYTHON_BOOLEAN_LITERAL_CORRECTION",
+    "manifest_sha256": "468d6c55b95c5641f5cd1b7b8985f344e04dc77396cc79e3163a13f6c99cd99b",
+    "only_change": "父模块命名空间false = False",
+    "formula_or_parameter_changes": 0,
+    "metrics_computed_in_memory_before_correction_freeze": true,
+    "metric_values_read_by_operator_before_correction_freeze": false
+  },
+  "correction_v1_0_3": {
+    "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1_0_3",
+    "status": "MECHANICAL_COMPLETE_BOOLEAN_LITERAL_BINDING",
+    "manifest_sha256": "209ea2d7e112b45b65cf1c8b0d7da352622809121575a95ad5053a3a641309be",
+    "only_change": "父模块命名空间true = True且false = False",
+    "formula_or_parameter_changes": 0,
+    "metrics_computed_in_memory_before_correction_freeze": true,
+    "metric_values_read_by_operator_before_correction_freeze": false
+  },
+  "artifacts": {
+    "metrics": {
+      "path": "data/research/510300_frozen_microstructure_sharpe_audit_v1/period_start_metrics.parquet",
+      "sha256": "793264828c65390cda99834a740dca3b50a36e790857465a32f57a71f1ef1c4f"
+    },
+    "primary_ledger": {
+      "path": "data/research/510300_frozen_microstructure_sharpe_audit_v1/primary_start0_base_ledger.parquet",
+      "sha256": "2b4dbd11800d74ecfe8e6760011960b68058c6f08c64d575181de2be529fc523"
+    },
+    "primary_trades": {
+      "path": "data/research/510300_frozen_microstructure_sharpe_audit_v1/primary_start0_base_trades.parquet",
+      "sha256": "26f8c97e7866aecc91feab4c16442800657318f7215897029589221bb917eaf0"
+    }
+  }
+}

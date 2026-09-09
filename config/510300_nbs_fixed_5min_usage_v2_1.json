@@ -1,0 +1,118 @@
+{
+  "all_open_days_and_all_eight_windows_required": true,
+  "authorization_document": "docs/510300_NBS_FIXED_5MIN_USAGE_AUTHORIZATION_20260905.md",
+  "authorization_quote": "明确批准此前的五分钟用途合同 ，然后请继续推进",
+  "authorized_amendments": {
+    "positive_volume_bar_vwap_out_of_range": "DIAGNOSTIC_ONLY_ORIGINAL_ROWS_PRESERVED",
+    "zero_volume_and_zero_amount": "NO_TRADE_ORIGINAL_ZEROS_INCLUDED_IN_WINDOW_SUM_NO_BAR_PRICE_IMPUTATION"
+  },
+  "authorized_proposal": "docs/510300_NBS_V2_DATA_REMEDIATION_REVIEW_20260905.md",
+  "data_model_id": "510300_NBS_FIXED_5MIN_USAGE_ADMISSION_V2_1",
+  "end_date": "2026-09-04",
+  "execution_sequence": [
+    "FREEZE_COMMIT",
+    "G0_FIXED_5MIN_USAGE_AND_G1",
+    "COMMIT_SOURCE_RECEIPT",
+    "CLAIM_ONCE",
+    "G2",
+    "G3_IF_G2_PASS",
+    "G4_IF_G3_PASS"
+  ],
+  "fixed_window_requirements": {
+    "binary_float_tolerance_cny": 1e-12,
+    "exactly_five_unique_legal_labels": true,
+    "finite_nonnegative_volume_amount": true,
+    "passing_fraction_required": 1.0,
+    "positive_window_volume_and_amount": true,
+    "price_tolerance_cny": 0.001,
+    "vwap_within_minimum_low_and_maximum_high": true,
+    "zero_volume_amount_must_be_paired": true
+  },
+  "fixed_windows": {
+    "entry": [
+      "10:07:00",
+      "10:08:00",
+      "10:09:00",
+      "10:10:00",
+      "10:11:00"
+    ],
+    "exit": [
+      "14:51:00",
+      "14:52:00",
+      "14:53:00",
+      "14:54:00",
+      "14:55:00"
+    ],
+    "pre": [
+      "09:56:00",
+      "09:57:00",
+      "09:58:00",
+      "09:59:00",
+      "10:00:00"
+    ],
+    "reaction": [
+      "10:01:00",
+      "10:02:00",
+      "10:03:00",
+      "10:04:00",
+      "10:05:00"
+    ],
+    "shift_entry": [
+      "09:52:00",
+      "09:53:00",
+      "09:54:00",
+      "09:55:00",
+      "09:56:00"
+    ],
+    "shift_exit": [
+      "14:36:00",
+      "14:37:00",
+      "14:38:00",
+      "14:39:00",
+      "14:40:00"
+    ],
+    "shift_pre": [
+      "09:41:00",
+      "09:42:00",
+      "09:43:00",
+      "09:44:00",
+      "09:45:00"
+    ],
+    "shift_reaction": [
+      "09:46:00",
+      "09:47:00",
+      "09:48:00",
+      "09:49:00",
+      "09:50:00"
+    ]
+  },
+  "g3_hit_rate_and_concentration_scenario": "STRESS_COST",
+  "g3_reference_net_avoided_loss": "FROZEN_Y_MINUS_REFERENCE_ROUND_TRIP_COST",
+  "independent_capture_is_same_provider": true,
+  "independent_eight_window_vwap_match_minimum": 0.999,
+  "live_trading_authorized": false,
+  "minute_amount_unit": "CNY",
+  "minute_volume_unit": "SHARE",
+  "original_bar_contract_remains_failed": true,
+  "original_source_contract": "config/510300_stk_mins_source_admission_v2.yaml",
+  "other_original_hard_gates": "ALL_RETAINED_VERIFIED_ON_IDENTICAL_FROZEN_INPUTS",
+  "parameter_or_direction_rescue_allowed": false,
+  "position_impact": 0,
+  "pre_return_era_counts": {
+    "ERA_1": 17,
+    "ERA_2": 17,
+    "ERA_3": 16,
+    "TRAINING_ORIGIN": 36
+  },
+  "raw_data_mutation_allowed": false,
+  "scope": "EXACT_EIGHT_FIXED_5MIN_WINDOWS_ONLY",
+  "start_date": "2017-01-01",
+  "symbol": "510300.SH",
+  "terminal_failure_next_mode": "STRICT_FORWARD_ONLY",
+  "timestamp_semantics": "BAR_END",
+  "timezone": "Asia/Shanghai",
+  "unchanged_numerical_core": "research/nbs_v2_g2_engine.py",
+  "unchanged_strategy_contract": "config/510300_nbs_1000_negative_information_drift_v2.yaml",
+  "version": "2.1.0",
+  "window_price": "SUM_AMOUNT_CNY_DIV_SUM_VOLUME_SHARES"
+}

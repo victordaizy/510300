@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0.0",
+  "closeout_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_CLOSEOUT_20260827",
+  "generated_at": "2026-08-27T01:37:48.8953651+08:00",
+  "status": "GOAL_NOT_ACHIEVED_NO_CANDIDATE_ADVANCES",
+  "goal_achieved": false,
+  "scope": "CURRENT_FROZEN_HISTORICAL_RESEARCH_ITERATION_ONLY",
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "holdings_universe": "UNRESTRICTED_BY_USER_CANDIDATE_SPECIFIC_ELIGIBILITY_STILL_APPLIES",
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "high_sharpe_required_in_base_and_stress": true,
+    "user_transaction_fee_rate_per_buy_or_sell_leg": 0.0001,
+    "other_economically_applicable_costs_required": true,
+    "target_interpretation": "年化成本后收益率减H00300全收益年化收益率，至少高40个百分点；不是策略年化收益率达到40%"
+  },
+  "parent_protocol": {
+    "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1",
+    "config": "config/multi_asset_annual_excess_40pct_high_sharpe_v1.yaml",
+    "spec": "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1_SPEC.md",
+    "manifest": "config/multi_asset_annual_excess_40pct_high_sharpe_v1_manifest.json",
+    "manifest_sha256": "103921ca48929309f8c7197641ebed27f46dc0e66000b91bd71d07eb17bd9d8f",
+    "tracked_content_sha256": "f6a86b368a982f158360e84a7f302145230323dd20309b3e67eb2d480bf9aee9"
+  },
+  "candidate_results": [
+    {
+      "candidate_id": "A_SHARE_PIT_SUE_REVENUE_PROTECTIVE_PUT_V1",
+      "lane": "A_SHARE_CROSS_SECTIONAL_HEDGED",
+      "visible_partition": [
+        "2020-01-02",
+        "2023-12-29"
+      ],
+      "sealed_replication_partition": [
+        "2024-01-01",
+        "2026-08-14"
+      ],
+      "status": "FAILED_DATA_OR_EXECUTION_CONTRACT",
+      "goal_achieved": false,
+      "quantitative_metrics_available": false,
+      "failure": {
+        "error_type": "DataContractError",
+        "message": "换仓退出触及保守跌停保护：300059.SZ 2020-02-03"
+      },
+      "decision": "PRESERVE_FAILURE_NO_REPARAMETERIZATION_NO_SEALED_OPEN",
+      "report": "reports/research/a_share_pit_sue_revenue_protective_put_v1_visible.json",
+      "report_sha256": "f9977128f99c9ff1e5ff00d1f1adf82c035b0997ebc049d72cb27560aa7f7eda",
+      "manifest": "config/a_share_pit_sue_revenue_protective_put_v1_manifest.json",
+      "manifest_sha256": "e24d35826159569f525651e1a03a43c4662d1163e0471359862dbd5bfee01b30",
+      "tracked_content_sha256": "03fd876d1aa6f1e05beae97b25dc8beda676468e53f9584d58e703c6e61dbac6"
+    },
+    {
+      "candidate_id": "BROAD_LIQUID_ETF_LIQUIDITY_SHOCK_REVERSAL_V1",
+      "lane": "BROAD_LIQUID_ETF_CROSS_ASSET",
+      "visible_partition": [
+        "2016-01-04",
+        "2021-12-31"
+      ],
+      "sealed_replication_partition": [
+        "2022-01-01",
+        "2026-08-14"
+      ],
+      "status": "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN",
+      "goal_achieved": false,
+      "day_count": 1461,
+      "metrics": {
+        "benchmark_total_return_cagr": 0.0699272010713507,
+        "strategy_base_net_cagr": 0.008413623742096319,
+        "strategy_stress_net_cagr": -0.012120337626745607,
+        "base_annualized_net_excess": -0.06151357732925438,
+        "stress_annualized_net_excess": -0.0820475386980963,
+        "base_strategy_net_sharpe": -0.047370993433209115,
+        "stress_strategy_net_sharpe": -0.29533072963869617,
+        "base_maximum_drawdown": -0.1355393901757329,
+        "stress_maximum_drawdown": -0.1395398667427502,
+        "base_rolling_242d_excess_median": -0.12701018793199875,
+        "stress_rolling_242d_excess_median": -0.1421686277191444,
+        "base_rolling_242d_sharpe_median": 0.07185857760860913,
+        "stress_rolling_242d_sharpe_median": -0.19671369715111736,
+        "target_qualified_non_overlapping_year_blocks": 0
+      },
+      "core_gates": {
+        "base_excess_at_least_40pct": false,
+        "stress_excess_at_least_40pct": false,
+        "base_sharpe_at_least_1_5": false,
+        "stress_sharpe_at_least_1_5": false
+      },
+      "decision": "FROZEN_REJECT_NO_REPARAMETERIZATION_NO_SEALED_OPEN",
+      "report": "reports/research/broad_liquid_etf_liquidity_shock_reversal_v1_visible.json",
+      "report_sha256": "df330c68b5bade3b1f275e1d84d51535d095e7cec4fcef98efe1109afa274a23",
+      "manifest": "config/broad_liquid_etf_liquidity_shock_reversal_v1_manifest.json",
+      "manifest_sha256": "d7fab82f9ff1767c833d3cb1fa87d3c96791d5e48aa474dbfc28b06e86ca6e72",
+      "tracked_content_sha256": "2fa345c8d85f5a4418824715a46aac7da32310c74fd17c10e877b7129b59e15d"
+    },
+    {
+      "candidate_id": "A_SHARE_PIT_SUE_REVENUE_PROTECTIVE_PUT_NEW_HOLDOUT_V2",
+      "lane": "A_SHARE_CROSS_SECTIONAL_HEDGED",
+      "visible_partition": [
+        "2021-01-04",
+        "2023-12-29"
+      ],
+      "sealed_replication_partition": [
+        "2024-01-01",
+        "2026-08-14"
+      ],
+      "status": "FAILED_DATA_OR_EXECUTION_CONTRACT",
+      "goal_achieved": false,
+      "quantitative_metrics_available": false,
+      "failure": {
+        "error_type": "DataContractError",
+        "message": "持仓缺少2021-06-30日线：600460.SH"
+      },
+      "decision": "PRESERVE_FAILURE_NO_REPARAMETERIZATION_NO_SEALED_OPEN",
+      "report": "reports/research/a_share_pit_sue_revenue_protective_put_new_holdout_v2_visible.json",
+      "report_sha256": "584b9c5858fa03e242c0b0fed7c28eaaa798e45e98c46964ae44b0ffa5343e64",
+      "manifest": "config/a_share_pit_sue_revenue_protective_put_new_holdout_v2_manifest.json",
+      "manifest_sha256": "174284cc22ad21b695bf74228a137117d3cc08913cd022954d8200b165e6c6c4",
+      "tracked_content_sha256": "e0b8d401bdd316109ec7a58b579bc11cc18a308fb832244e3ed12eb947594dd3"
+    },
+    {
+      "candidate_id": "A_SHARE_PIT_SUE_REVENUE_PROTECTIVE_PUT_STALE_MARK_V3",
+      "lane": "A_SHARE_CROSS_SECTIONAL_HEDGED",
+      "visible_partition": [
+        "2022-01-04",
+        "2024-12-31"
+      ],
+      "sealed_replication_partition": [
+        "2025-01-01",
+        "2026-08-14"
+      ],
+      "status": "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN",
+      "goal_achieved": false,
+      "day_count": 726,
+      "metrics": {
+        "initial_capital_cny": 500000.0,
+        "final_base_nav_cny": 454147.3047563977,
+        "final_stress_nav_cny": 437750.17894669477,
+        "benchmark_total_return_cagr": -0.04969642337543541,
+        "strategy_base_net_cagr": -0.031553622677053285,
+        "strategy_stress_net_cagr": -0.04335212902715318,
+        "base_annualized_net_excess": 0.018142800698382124,
+        "stress_annualized_net_excess": 0.00634429434828223,
+        "base_strategy_net_sharpe": -0.22230769446014098,
+        "stress_strategy_net_sharpe": -0.29101543426673143,
+        "base_maximum_drawdown": -0.29927730610931824,
+        "stress_maximum_drawdown": -0.317327882868505,
+        "base_rolling_242d_excess_median": -0.02768126204840443,
+        "stress_rolling_242d_excess_median": -0.03935194698916246,
+        "base_rolling_242d_sharpe_median": -1.0255703905571156,
+        "stress_rolling_242d_sharpe_median": -1.114287807570243,
+        "base_bootstrap_annualized_excess_lower_95pct": -0.14102689941830437,
+        "stress_bootstrap_annualized_excess_lower_95pct": -0.16144061911713248,
+        "target_qualified_non_overlapping_242d_blocks": 0
+      },
+      "data_and_execution_notes": {
+        "data_quality_gate": true,
+        "stale_mark_rows": 145,
+        "stale_mark_security_count": 20,
+        "stale_marks_allowed_for_valuation_only": true,
+        "synthetic_trade_allowed": false,
+        "historical_option_bid_ask_observed": false,
+        "option_spread_model": "MODELED_TICKS_NOT_OBSERVED_HISTORICAL_QUOTES",
+        "cash_only_no_eligible_put_month_count": 5
+      },
+      "core_gates": {
+        "base_excess_at_least_40pct": false,
+        "stress_excess_at_least_40pct": false,
+        "base_sharpe_at_least_1_5": false,
+        "stress_sharpe_at_least_1_5": false
+      },
+      "distance_to_target": {
+        "base_excess_shortfall": 0.3818571993016179,
+        "stress_excess_shortfall": 0.3936557056517178
+      },
+      "decision": "FROZEN_REJECT_NO_REPARAMETERIZATION_NO_SEALED_OPEN",
+      "report": "reports/research/a_share_pit_sue_revenue_protective_put_stale_mark_v3_visible.json",
+      "report_sha256": "b767e4130f1751264a15a388441fae9796caeabd466a106526217b8243c4795c",
+      "manifest": "config/a_share_pit_sue_revenue_protective_put_stale_mark_v3_manifest.json",
+      "manifest_sha256": "1f6e392fb4c5e02c134c083d3e00203ee3d7cd77eb79360dbdc15527d4ce97ca",
+      "tracked_content_sha256": "3e4ef3fc0a04ed0c61fd2f1c02540bb2bf339678137d7ce43fc66b338f7ee6b3"
+    }
+  ],
+  "aggregate_decision": {
+    "surviving_candidates": [],
+    "best_completed_visible_candidate_by_base_excess": "A_SHARE_PIT_SUE_REVENUE_PROTECTIVE_PUT_STALE_MARK_V3",
+    "best_completed_base_annualized_net_excess": 0.018142800698382124,
+    "best_completed_stress_annualized_net_excess": 0.00634429434828223,
+    "best_completed_base_strategy_net_sharpe": -0.22230769446014098,
+    "best_completed_stress_strategy_net_sharpe": -0.29101543426673143,
+    "interpretation": "最佳完整候选自身仍亏损，只因H00300同期跌幅更大而出现小幅正超额；高夏普硬门明确失败。",
+    "sealed_replication_periods_opened": false,
+    "same_data_reparameterization_allowed": false,
+    "paper_or_shadow_eligible": false,
+    "order_or_live_eligible": false,
+    "legitimate_next_research_path": "提出与已拒绝路线经济机制独立的新候选，并在新数据源或事先未查看的至少三年窗口上冻结后验证；若没有未查看历史窗口，只能前瞻积累证据。",
+    "current_goal_state": "ACTIVE_BUT_UNMET",
+    "claim_allowed": "NO_VERIFIED_40PCT_ANNUALIZED_NET_EXCESS_OR_HIGH_SHARPE_CANDIDATE"
+  },
+  "verification": {
+    "minimal_closeout_checks_only": true,
+    "v3_manifest_verification_status": "PASS_A_SHARE_PIT_SUE_PROTECTIVE_PUT_STALE_MARK_V3_MANIFEST_VERIFIED",
+    "v3_manifest_failure_count": 0,
+    "existing_test_evidence": {
+      "a_share_v1_v2_v3_tests_passed": 18,
+      "broad_etf_tests_passed": 8,
+      "tests_rerun_during_closeout": false
+    },
+    "security_or_privacy_review_performed": false,
+    "fresh_extraction_or_redundant_full_tree_audit_performed": false
+  },
+  "state_boundaries": {
+    "research_only": true,
+    "paper_position_generation": false,
+    "shadow_signal_generation": false,
+    "broker_connection": false,
+    "order_generation": false,
+    "live_trading_authorized": false
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "project_id": "510300_DONCHIAN_DISCOVERY_V1",
+  "generated_at": "2026-08-18T01:33:32.970297+08:00",
+  "data_cutoff": "2026-08-14",
+  "status": "PASS",
+  "failure_categories": [],
+  "return_calculation_allowed": true,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "branches": {
+    "market": {
+      "status": "PASS",
+      "return_test_allowed": true,
+      "file": {
+        "path": "C:\\Users\\戴周阳\\Documents\\New project 8\\data\\raw\\r6\\510300_daily.parquet",
+        "exists": true,
+        "expected_sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+        "actual_sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+        "sha256_matches": true,
+        "snapshot_hash_frozen": true
+      },
+      "rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "duplicate_dates": 0,
+      "invalid_dates": 0,
+      "missing_prices": 0,
+      "nonpositive_prices": 0,
+      "invalid_ohlc_rows": 0,
+      "symbols": [
+        "510300.SH"
+      ],
+      "checks": {
+        "snapshot_hash": true,
+        "minimum_rows": true,
+        "first_date": true,
+        "last_date": true,
+        "no_duplicate_dates": true,
+        "valid_dates": true,
+        "complete_prices": true,
+        "positive_prices": true,
+        "valid_ohlc": true,
+        "symbol": true,
+        "source_present": true,
+        "retrieved_at_present": true
+      }
+    },
+    "benchmark": {
+      "status": "PASS",
+      "return_test_allowed": true,
+      "file": {
+        "path": "C:\\Users\\戴周阳\\Documents\\New project 8\\data\\raw\\r6\\H00300_total_return_daily.parquet",
+        "exists": true,
+        "expected_sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+        "actual_sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+        "sha256_matches": true,
+        "snapshot_hash_frozen": true
+      },
+      "rows": 3457,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "symbols": [
+        "H00300"
+      ],
+      "checks": {
+        "snapshot_hash": true,
+        "minimum_rows": true,
+        "first_date": true,
+        "last_date": true,
+        "no_duplicate_dates": true,
+        "valid_dates": true,
+        "positive_close": true,
+        "symbol": true,
+        "retrieved_at_present": true
+      }
+    },
+    "distributions": {
+      "status": "PASS",
+      "return_test_allowed": true,
+      "file": {
+        "path": "C:\\Users\\戴周阳\\Documents\\New project 8\\data\\reference\\510300_dividends.csv",
+        "exists": true,
+        "expected_sha256": null,
+        "actual_sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+        "sha256_matches": false,
+        "snapshot_hash_frozen": false
+      },
+      "rows": 14,
+      "first_ex_date": "2012-12-18",
+      "last_ex_date": "2026-01-19",
+      "known_event_checks": [
+        {
+          "ex_date": "2012-12-18",
+          "expected_cash_dividend_per_share": 0.033,
+          "present_and_amount_matches": true,
+          "official_source": "https://www.sse.com.cn/disclosure/fund/announcement/c/2013-03-27/510300_2012_n.pdf"
+        }
+      ],
+      "coverage_attestation_file": "C:\\Users\\戴周阳\\Documents\\New project 8\\data\\reference\\510300_dividends_coverage.json",
+      "coverage_attestation_error": null,
+      "coverage_attestation_checks": {
+        "exists_and_readable": true,
+        "distribution_file_sha256": true,
+        "complete_history_confirmed": true,
+        "coverage_start": true,
+        "coverage_end": true,
+        "official_sources_present": true
+      },
+      "checks": {
+        "snapshot_hash": true,
+        "valid_ex_dates": true,
+        "unique_ex_dates": true,
+        "positive_amounts": true,
+        "official_row_sources": true,
+        "known_events": true,
+        "coverage_attestation": true
+      }
+    }
+  }
+}

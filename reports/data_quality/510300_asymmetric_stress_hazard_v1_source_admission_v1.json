@@ -1,0 +1,403 @@
+{
+  "all_required_sources_admitted": false,
+  "authority": {
+    "actual_holdings_state": "UNKNOWN_OUT_OF_SCOPE",
+    "model_position_target": "UNSET",
+    "order_authorization": "NOT_AUTHORIZED",
+    "position_impact": 0,
+    "research_state": "DISCOVERY_ONLY"
+  },
+  "blocked_channels": [
+    "M2",
+    "F3",
+    "T2",
+    "T3"
+  ],
+  "broker_action_performed": false,
+  "channel_results": {
+    "F1": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "F1",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "F2": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "F2",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "etf_price",
+        "etf_dividends"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "F3": {
+      "admitted": false,
+      "blockers": [
+        {
+          "source_id": "pit_industry_intervals",
+          "status": "BLOCKED_NO_INDEPENDENT_VERSION_PROVEN_PIT_INDUSTRY_PROVENANCE"
+        }
+      ],
+      "channel_id": "F3",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "pit_industry_intervals"
+      ],
+      "status": "BLOCKED_REQUIRED_SOURCE_ADMISSION_FAILED"
+    },
+    "M1": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "M1",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "csi300_official_pe",
+        "china_10y_government_bond_yield"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "M2": {
+      "admitted": false,
+      "blockers": [
+        {
+          "source_id": "dr007_daily",
+          "status": "BLOCKED_NO_FROZEN_DR007_DAILY_SERIES"
+        },
+        {
+          "source_id": "reverse_repo_policy_rate_7d",
+          "status": "BLOCKED_NO_FROZEN_PBOC_7D_REVERSE_REPO_POLICY_RATE_SCHEDULE"
+        }
+      ],
+      "channel_id": "M2",
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "dr007_daily",
+        "reverse_repo_policy_rate_7d"
+      ],
+      "status": "BLOCKED_REQUIRED_SOURCE_ADMISSION_FAILED"
+    },
+    "M3": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "M3",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "tsf_stock_yoy_first_release"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "T1": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "T1",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "T2": {
+      "admitted": false,
+      "blockers": [
+        {
+          "source_id": "pit_industry_intervals",
+          "status": "BLOCKED_NO_INDEPENDENT_VERSION_PROVEN_PIT_INDUSTRY_PROVENANCE"
+        }
+      ],
+      "channel_id": "T2",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "pit_industry_intervals"
+      ],
+      "status": "BLOCKED_REQUIRED_SOURCE_ADMISSION_FAILED"
+    },
+    "T3": {
+      "admitted": false,
+      "blockers": [
+        {
+          "source_id": "pit_industry_intervals",
+          "status": "BLOCKED_NO_INDEPENDENT_VERSION_PROVEN_PIT_INDUSTRY_PROVENANCE"
+        }
+      ],
+      "channel_id": "T3",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "pit_industry_intervals"
+      ],
+      "status": "BLOCKED_REQUIRED_SOURCE_ADMISSION_FAILED"
+    }
+  },
+  "completed_at": "2026-09-02T17:29:44.168337+08:00",
+  "feature_construction_allowed": false,
+  "feature_values_constructed": false,
+  "g2_allowed": false,
+  "label_artifacts_read": false,
+  "live_trading_authorized": false,
+  "model_trained": false,
+  "next_allowed_action": "REMEDIATE_M2_DR007_AND_7D_REVERSE_REPO_POLICY_RATE_AND_F3_PIT_INDUSTRY_PROVENANCE_VIA_VERSIONED_SOURCE_CONTRACT",
+  "order_generated": false,
+  "paper_shadow_generated": false,
+  "parent_g1_status": "PASS_G1_LABEL_IDENTIFIABILITY_ONLY_NO_FEATURE_CONSTRUCTION",
+  "portfolio_metrics_read": false,
+  "position_generated": false,
+  "probability_threshold_selected": false,
+  "program_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1",
+  "rescue_allowed": false,
+  "research_disposition": "NO_VIEW",
+  "return_evaluation": "NOT_ALLOWED",
+  "source_contract_manifest_payload_sha256": "39998b05bbc1416a157a8bf50ffd9d1f2b53efbd18d529f7c9f62ebc8a0935aa",
+  "source_results": {
+    "china_10y_government_bond_yield": {
+      "admitted": true,
+      "availability_clock": "NEXT_TRADING_DAY_OPEN_BECAUSE_EXACT_PUBLICATION_TIME_NOT_ARCHIVED",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "RAW_PAYLOAD_NOT_ARCHIVED",
+        "EXACT_PUBLICATION_TIME_NOT_ARCHIVED_USE_NEXT_TRADING_DAY_OPEN"
+      ],
+      "metrics": {
+        "first_observation_date": "2016-08-12",
+        "last_observation_date": "2026-08-25",
+        "leading_no_view_market_sessions": 394,
+        "market_sessions_in_source_span": 2429,
+        "missing_market_sessions_in_source_span": 0,
+        "raw_payload_archive_present": false,
+        "row_count": 2509,
+        "trailing_no_view_market_sessions": 0
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "china_10y_government_bond_yield",
+      "status": "PASS_FROZEN_CHINABOND_10Y_WITH_CONSERVATIVE_CLOCK",
+      "whole_source_blocked": false
+    },
+    "constituent_total_return_panel": {
+      "admitted": true,
+      "availability_clock": "SAME_DAY_CLOSE_PUBLIC_OBSERVATION",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "DATES_BEFORE_PANEL_START_ARE_NO_VIEW",
+        "ANY_SESSION_WITH_FEWER_THAN_300_PIT_MEMBER_RETURNS_IS_NO_VIEW",
+        "NO_CURRENT_CONSTITUENT_BACKFILL"
+      ],
+      "metrics": {
+        "duplicate_date_symbol_count": 0,
+        "evaluated_last_date": "2026-08-14",
+        "evaluated_session_count": 1611,
+        "full_300_member_session_count": 1561,
+        "leading_no_view_session_count": 1212,
+        "minimum_valid_member_count": 272,
+        "missing_member_day_count": 263,
+        "no_view_session_count": 50,
+        "panel_first_date": "2019-12-23",
+        "panel_last_date": "2026-08-19",
+        "panel_row_count": 484200,
+        "suspension_carry_row_count": 533,
+        "trailing_no_view_session_count": 0
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "constituent_total_return_panel",
+      "status": "PASS_DATE_LEVEL_NO_VIEW_REQUIRED_CONSTITUENT_RETURN_PANEL",
+      "whole_source_blocked": false
+    },
+    "csi300_official_pe": {
+      "admitted": true,
+      "availability_clock": "NEXT_TRADING_DAY_OPEN_BECAUSE_EXACT_PUBLICATION_TIME_NOT_ARCHIVED",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "EXACT_PUBLICATION_TIME_NOT_ARCHIVED_USE_NEXT_TRADING_DAY_OPEN"
+      ],
+      "metrics": {
+        "first_observation_date": "2011-06-28",
+        "last_observation_date": "2026-08-12",
+        "leading_no_view_market_sessions": 0,
+        "market_sessions_in_source_span": 2821,
+        "missing_market_sessions_in_source_span": 0,
+        "raw_payload_exact_match": true,
+        "raw_payload_row_count": 3752,
+        "row_count": 3752,
+        "trailing_no_view_market_sessions": 2
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "csi300_official_pe",
+      "status": "PASS_OFFICIAL_PE_WITH_CONSERVATIVE_AVAILABILITY_CLOCK",
+      "whole_source_blocked": false
+    },
+    "dr007_daily": {
+      "admitted": false,
+      "availability_clock": null,
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "limitations": [
+        "FROZEN_HISTORICAL_DR007_SERIES_ABSENT",
+        "FORBIDDEN_SUBSTITUTES=FDR007,R007,FR007,EXCHANGE_REPO_R_007"
+      ],
+      "metrics": {
+        "frozen_input_present": false
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "dr007_daily",
+      "status": "BLOCKED_NO_FROZEN_DR007_DAILY_SERIES",
+      "whole_source_blocked": true
+    },
+    "etf_dividends": {
+      "admitted": true,
+      "availability_clock": "OFFICIAL_ANNOUNCEMENT_AND_CORPORATE_ACTION_DATES",
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "limitations": [],
+      "metrics": {
+        "duplicate_record_count": 0,
+        "first_record_date": "2012-12-17",
+        "last_record_date": "2026-01-16",
+        "row_count": 14
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "etf_dividends",
+      "status": "PASS_FROZEN_OFFICIAL_DIVIDEND_LEDGER",
+      "whole_source_blocked": false
+    },
+    "etf_price": {
+      "admitted": true,
+      "availability_clock": "SAME_DAY_CLOSE_PUBLIC_OBSERVATION",
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "limitations": [],
+      "metrics": {
+        "duplicate_date_count": 0,
+        "first_session": "2015-01-05",
+        "last_session": "2026-08-14",
+        "row_count": 2823,
+        "session_count": 2823
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "etf_price",
+      "status": "PASS_FROZEN_ETF_PRICE_AND_TRADING_CALENDAR",
+      "whole_source_blocked": false
+    },
+    "pit_csi300_membership": {
+      "admitted": true,
+      "availability_clock": "OFFICIAL_MEMBERSHIP_STATE_EFFECTIVE_BY_SESSION",
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "limitations": [
+        "HISTORICAL_WEIGHTS_NOT_ADMITTED_AND_NOT_REQUIRED_BY_V1"
+      ],
+      "metrics": {
+        "constituent_count_each_session": 300,
+        "duplicate_date_symbol_count": 0,
+        "first_session": "2015-01-05",
+        "historical_weight_values_used": false,
+        "last_session": "2026-08-14",
+        "market_calendar_exact_match": true,
+        "row_count": 846900,
+        "session_count": 2823
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "pit_csi300_membership",
+      "status": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_NO_HISTORICAL_WEIGHTS_USED",
+      "whole_source_blocked": false
+    },
+    "pit_industry_intervals": {
+      "admitted": false,
+      "availability_clock": "POINT_IN_TIME_INTERVAL_EFFECTIVE_DATES",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "PROXY_PAYLOAD_VERSION_PROVENANCE_NOT_INDEPENDENTLY_PROVEN",
+        "ANY_SESSION_WITH_FEWER_THAN_300_PIT_MEMBER_INDUSTRIES_IS_NO_VIEW",
+        "NO_CURRENT_INDUSTRY_BACKFILL"
+      ],
+      "metrics": {
+        "coverage_first_session": "2019-12-23",
+        "coverage_last_session": "2026-08-14",
+        "evaluated_session_count": 1611,
+        "full_300_member_session_count": 974,
+        "independent_version_provenance_proven": false,
+        "minimum_valid_member_count": 263,
+        "missing_member_day_count": 1607,
+        "no_view_session_count": 637,
+        "normalized_interval_row_count": 1298,
+        "normalized_rows_traced_to_raw_snapshot": 1298,
+        "out_date_is_exclusive": true,
+        "overlapping_member_day_count": 0,
+        "raw_interval_row_count": 7899
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "pit_industry_intervals",
+      "status": "BLOCKED_NO_INDEPENDENT_VERSION_PROVEN_PIT_INDUSTRY_PROVENANCE",
+      "whole_source_blocked": true
+    },
+    "reverse_repo_policy_rate_7d": {
+      "admitted": false,
+      "availability_clock": null,
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "limitations": [
+        "FROZEN_PBOC_7D_POLICY_RATE_SCHEDULE_ABSENT",
+        "NO_INTERPOLATION_OR_INFERRED_CHANGE_DATES"
+      ],
+      "metrics": {
+        "frozen_input_present": false
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "reverse_repo_policy_rate_7d",
+      "status": "BLOCKED_NO_FROZEN_PBOC_7D_REVERSE_REPO_POLICY_RATE_SCHEDULE",
+      "whole_source_blocked": true
+    },
+    "tsf_stock_yoy_first_release": {
+      "admitted": true,
+      "availability_clock": "EXACT_ARCHIVED_PUBLICATION_TIMESTAMP",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "THREE_MONTH_CHANGE_REQUIRES_LEADING_REFERENCE_MONTHS",
+        "DATES_BEFORE_FIRST_AVAILABLE_RELEASE_ARE_NO_VIEW"
+      ],
+      "metrics": {
+        "contiguous_month_count": 127,
+        "first_reference_period": "2016-01",
+        "last_reference_period": "2026-07",
+        "raw_archive_missing_count": 0,
+        "raw_archive_path_count": 127,
+        "revision_value_used_count": 0,
+        "row_count": 127,
+        "source_hash_format_valid_count": 127
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "tsf_stock_yoy_first_release",
+      "status": "PASS_PBOC_TSF_FIRST_RELEASE_VINTAGE_WITH_LEADING_NO_VIEW",
+      "whole_source_blocked": false
+    }
+  },
+  "stage_id": "POINT_IN_TIME_M_F_T_SOURCE_ADMISSION_V1",
+  "status": "NO_VIEW_SOURCE_ADMISSION_FAILED",
+  "version": "1.0.0"
+}

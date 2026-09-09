@@ -1,0 +1,119 @@
+protocol:
+  project_id: 510300_OPTION_TEN_FACTOR_DIRECTION_V1
+  state: FORMULA_FROZEN_BEFORE_DEVELOPMENT_MODEL_OUTCOMES
+  evidence_stage: DEVELOPMENT_PSEUDO_OOS_ONLY
+  deployable_strategy: false
+  maximum_factor_count: 10
+  used_factor_count: 10
+  upstream_vehicle_manifest: config/510300_option_trade_envelope_v1_manifest.json
+  upstream_vehicle_manifest_sha256: 85f17e9598757189fc8fa59875341a8bd44c652eda7807caa60a046651bdcb54
+
+dates:
+  feature_source_start: '2019-12-23'
+  first_strategy_signal: '2021-08-12'
+  development_end: '2023-12-29'
+  reserved_validation_start: '2024-01-01'
+  reserved_validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  validation_or_holdout_read_authorized: false
+
+inputs:
+  option_daily_statistics:
+    path: data/raw/return_tail/options/510300_sse_daily_statistics.parquet
+    sha256: a504a4b9aaa84603949d8312c65126b9e47be8ea4d1c4f8bb3bd48d0157cd75e
+  etf_daily:
+    path: data/raw/market/510300_daily_raw.parquet
+    sha256: ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61
+
+factors:
+  columns:
+    - f01_total_return_momentum_5d
+    - f02_total_return_momentum_20d
+    - f03_total_return_momentum_120d
+    - f04_drawdown_60d
+    - f05_realized_volatility_20d
+    - f06_realized_volatility_ratio_20_120
+    - f07_parkinson_range_volatility_20d
+    - f08_log_put_call_volume_ratio
+    - f09_25delta_put_call_iv_skew
+    - f10_atm_iv_minus_realized_volatility
+  definitions:
+    f01: log(H00300[t]/H00300[t-5])
+    f02: log(H00300[t]/H00300[t-20])
+    f03: log(H00300[t]/H00300[t-120])
+    f04: H00300[t]/max(H00300[t-59:t])-1
+    f05: std(log_total_return_1d,t-19:t)*sqrt(242)
+    f06: log(RV20/RV120)
+    f07: sqrt(242/(4*log(2))*mean(log(510300_high/510300_low)^2,t-19:t))
+    f08: log((put_volume+1)/(call_volume+1))
+    f09: 20至50日中最接近30日到期层的25Delta认沽中位IV减认购中位IV
+    f10: 同到期层0.40至0.60绝对Delta中位IV减RV20
+  minimum_nonmissing_per_row: 8
+  future_imputation_allowed: false
+
+iv_cross_section:
+  minimum_dte: 20
+  maximum_dte: 50
+  target_dte: 30
+  minimum_contract_volume: 10
+  minimum_iv: 0.01
+  maximum_iv: 3.0
+  delta25_minimum: 0.20
+  delta25_maximum: 0.35
+  atm_delta_minimum: 0.40
+  atm_delta_maximum: 0.60
+  adjusted_contracts_allowed: false
+
+target:
+  name: h00300_entry_to_exit_positive_10d
+  entry_lag_trading_days: 1
+  holding_trading_days: 10
+  positive_rule: H00300[t+11]/H00300[t+1]-1大于等于0
+
+model:
+  estimator: sklearn.ensemble.HistGradientBoostingClassifier
+  learning_rate: 0.03
+  max_iter: 200
+  max_leaf_nodes: 7
+  min_samples_leaf: 40
+  l2_regularization: 3.0
+  max_bins: 63
+  early_stopping: false
+  random_state: 20260819
+  minimum_mature_training_rows: 252
+  training_weight_half_life_rows: 504
+  action_threshold_probability: 0.50
+  hyperparameter_search_allowed: false
+  feature_selection_allowed: false
+  threshold_search_allowed: false
+
+execution:
+  rules: 完全继承510300_OPTION_TRADE_ENVELOPE_V1
+  signal_to_entry: NEXT_TRADING_DAY
+  t_plus_one_enforced: true
+  entry_price: NEXT_DAY_DAILY_HIGH
+  exit_price: EXIT_DAY_DAILY_LOW
+  initial_cash_cny: 20000
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  primary_metric: 策略几何年化减基准几何年化
+  annualized_excess_minimum: 0.20
+  minimum_opening_trade_gate: true
+  development_pass_does_not_authorize_validation: true
+
+paths:
+  manifest: config/510300_option_ten_factor_direction_v1_manifest.json
+  result_json: reports/discovery/510300_option_ten_factor_direction_v1_dev.json
+  result_markdown: reports/discovery/510300_option_ten_factor_direction_v1_dev.md
+  predictions: data/features/510300_option_ten_factor_direction_v1_dev_predictions.parquet
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  failed_development_model_parameter_rescue: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

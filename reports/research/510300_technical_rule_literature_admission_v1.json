@@ -1,0 +1,111 @@
+{
+  "project_id": "510300_TECHNICAL_RULE_LITERATURE_ADMISSION_V1",
+  "as_of": "2026-08-30",
+  "status": "NO_VIEW_EXACT_RULE_IDENTITY_AND_TRANSFER_CONTRACT_FAILED",
+  "admitted_for_backtest": false,
+  "evidence_class": "PRE_OUTCOME_LITERATURE_TO_CANDIDATE_ADMISSION_AUDIT",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "research_window_requested": {
+      "start": "2015-01-01",
+      "end": "CURRENT_AVAILABLE"
+    },
+    "target_net_sharpe": 1.2
+  },
+  "primary_paper": {
+    "title": "Technical Analysis Profitability Without Data Snooping Bias: Evidence from Chinese Stock Market",
+    "authors": [
+      "Fuwei Jiang",
+      "Guoshi Tong",
+      "Guokai Song"
+    ],
+    "doi": "10.1111/irfi.12161",
+    "publisher_url": "https://onlinelibrary.wiley.com/doi/10.1111/irfi.12161",
+    "first_published": "2017-11-02",
+    "version_of_record": "2019",
+    "source_market": "ALL_A_SHARE_INDEX",
+    "source_sample": "1997 through 2015",
+    "rule_universe_count": 28909,
+    "rule_families": [
+      "CHANNEL_BREAK",
+      "FILTER",
+      "MOVING_AVERAGE",
+      "OSCILLATOR",
+      "SUPPORT_RESISTANCE"
+    ],
+    "step_spa_survivors": {
+      "market_timing": 170,
+      "sharpe_ratio_gain": 54,
+      "market_timing_with_one_way_cost_0_25pct": 144,
+      "market_timing_with_one_way_cost_0_50pct": 142,
+      "sharpe_ratio_gain_with_reported_costs": 54
+    },
+    "selection_warning": "少于1%的规则在控制数据窥探后存活；论文的总体结论不能替代某一条规则的唯一身份和完整参数。"
+  },
+  "source_access_audit": {
+    "publisher_page": {
+      "result": "ABSTRACT_AND_REFERENCES_ONLY",
+      "detail": "公开页面给出总体方法和总体结果，但没有公开显示胜出规则表与完整参数。"
+    },
+    "institutional_material": {
+      "url": "https://jwc.cufe.edu.cn/__local/6/FE/BF/9E9AD987C9D4087C417813AC5DC_3B339C76_1E9C511.pdf",
+      "download_sha256": "13befca0e9f754d8002c936a67ccf61ae17e278747a0bb1c5c4c7e0a08ede90a",
+      "page_count": 197,
+      "relevant_page": 97,
+      "result": "CITATION_AND_WEBPAGE_SCREENSHOT_ONLY",
+      "detail": "第97页仅含题录与出版社网页截图，没有论文正文、表格或参数。"
+    }
+  },
+  "admission_gates": {
+    "exact_single_rule_identity_precommitted": {
+      "passed": false,
+      "reason": "可访问的原始材料没有暴露54条夏普改善规则的身份，更没有给出可直接冻结的一条规则。任意从五大类或28,909个参数组合中挑选都会重新引入论文试图控制的数据窥探。"
+    },
+    "formula_and_parameters_recoverable": {
+      "passed": false,
+      "reason": "缺少唯一胜出规则的信号公式、参数、交易时点、持仓映射和退出定义。"
+    },
+    "independent_2015_onward_transfer_window": {
+      "passed": false,
+      "reason": "论文选择样本延伸到2015年；本项目要求从2015年开始，2015年不能同时作为论文选择样本和独立验证样本。即使取得规则全文，也必须把2015标成继承选择期，并从2016年开始单列真正未见样本。"
+    },
+    "source_asset_matches_execution_asset": {
+      "passed": false,
+      "reason": "论文使用全A股指数，执行资产是510300.SH；指数构成、分红口径、ETF跟踪误差、100股整数手和最低佣金均不同，不能直接继承论文夏普改善。"
+    },
+    "daily_point_in_time_price_data_available": {
+      "passed": true,
+      "reason": "510300日线价格和分红数据具备2015年至当前的本地输入基础，但数据可得性不能弥补规则身份和迁移合同失败。"
+    }
+  },
+  "decision": {
+    "passed": false,
+    "failed_gate_count": 4,
+    "outcome_data_access": "NOT_OPENED_FOR_THIS_CANDIDATE",
+    "return_evaluation": "NOT_ALLOWED",
+    "net_sharpe": "NOT_COMPUTED",
+    "target_achieved": false,
+    "trial_count_increment": 0,
+    "reason": "论文证明技术规则家族中曾存在少量存活者，但没有提供本项目可预冻结的唯一规则身份；家族级统计不能被加工成510300策略。"
+  },
+  "no_rescue_rules": [
+    "不得在510300上重扫28,909条规则以复刻论文的家族结论",
+    "不得从已有MACD、趋势、突破、振荡、支撑阻力结果中事后挑选最好参数",
+    "不得把论文全A股指数的夏普改善借给510300",
+    "不得把2015年同时标为选择期和独立验证期",
+    "不得将本次NO_VIEW记作零收益或亏损"
+  ],
+  "boundaries": {
+    "research_only": true,
+    "portfolio_ledger_generated": false,
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "position_change": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

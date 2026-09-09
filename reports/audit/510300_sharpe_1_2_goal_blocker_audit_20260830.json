@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_SHARPE_1_2_GOAL_BLOCKER_AUDIT_20260830",
+  "audited_at": "2026-08-30T16:48:40+08:00",
+  "status": "BLOCKER_AUDIT_THRESHOLD_MET",
+  "blocking_condition": "AWAITING_EXTERNAL_TIME_AND_PROSPECTIVE_SAMPLE_MATURITY",
+  "consecutive_goal_turns_with_same_blocker": 3,
+  "goal_achieved": false,
+  "net_sharpe": "NOT_VERIFIED",
+  "blocker_is_external_state_change": true,
+  "meaningful_safe_local_work_remaining_before_window": false,
+  "observed_state": {
+    "observed_at": "2026-08-30T16:48:40+08:00",
+    "day_of_week": "Sunday",
+    "next_legal_window": "2026-08-31T09:25:00+08:00",
+    "scheduled_task_state": "Ready",
+    "scheduled_task_enabled": true,
+    "scheduled_task_logon_type": "Interactive",
+    "start_when_available": false,
+    "current_full_quality_days": 2,
+    "quality_day_gate": 20,
+    "first_unseen_gate": 80,
+    "v1_10_claim_file_count": 0,
+    "v1_10_orchestration_receipt_count": 0,
+    "v1_3_direct_receipt_count": 0,
+    "v1_10_log_file_count": 0
+  },
+  "completed_local_work": {
+    "registered_candidate_inventory": "COMPLETE_NO_ELIGIBLE_SURVIVOR",
+    "mechanism_atlas": "COMPLETE_ZERO_PROMOTABLE_MECHANISMS",
+    "v1_10_manifest_verification": "PASS_49_FILES_ZERO_DRIFT",
+    "v1_10_regression": "PASS_9_OF_9",
+    "prewindow_side_effect_check": "PASS_ZERO_CLAIMS_ZERO_RECEIPTS",
+    "trade_or_position_mapping": "NOT_CREATED"
+  },
+  "prohibited_shortcuts": [
+    "PREWINDOW_COLLECTION",
+    "LATE_BACKFILL",
+    "DUPLICATE_SAME_DAY_ATTEMPT",
+    "TLS_VERIFICATION_BYPASS",
+    "PARAMETER_OR_WINDOW_RESCUE",
+    "MATURITY_THRESHOLD_REDUCTION",
+    "POST_SELECTED_HISTORY_REUSE",
+    "POSITION_OR_ORDER_GENERATION"
+  ],
+  "resume_condition": "AFTER_2026_08_31_09_25_AND_NEW_IMMUTABLE_RECEIPT_OR_TASK_STATE_CHANGE",
+  "resume_evidence_order": [
+    "reports/audit/priority_forward_task_claims_v1_10/20260831_PRIMARY_MARKET_PCF_IOPV.json",
+    "reports/data_quality/primary_market_task_runs_v1_3/*.json",
+    "reports/data_quality/free_source_acquisitions/primary_market_v1_3/*.json",
+    "output/primary_market_forward_logs_v1_3/*.log",
+    "reports/audit/priority_forward_authoritative_status_v1_8_1.json"
+  ],
+  "execution_authorization": {
+    "research_only": true,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "evidence": [
+    {
+      "path": "reports/audit/510300_sharpe_1_2_goal_status_v2_20260830.json",
+      "sha256": "b3a9f22b3a085837635c03f8d53ac5a7412d5451cd32d8ff38af7af787ea02ca",
+      "bytes": 7495
+    },
+    {
+      "path": "config/priority_forward_research_operations_v1_10_manifest.json",
+      "sha256": "fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94",
+      "bytes": 13823
+    },
+    {
+      "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+      "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383",
+      "bytes": 6001
+    }
+  ]
+}

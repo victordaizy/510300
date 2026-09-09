@@ -1,0 +1,103 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "confirmation_days": 2,
+  "study_id": "510300_REARMED_SESSION_EXIT_V1",
+  "round": 32,
+  "registered_at": "2026-09-07T14:34:38.631559+08:00",
+  "primary": "REARM_TREE",
+  "candidate_configurations": 3,
+  "names": {
+    "NONE": "原退出＋等待新机会",
+    "RIDGE": "线性退出＋等待新机会",
+    "TREE": "两层树退出＋等待新机会"
+  },
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "rules": "docs/510300_REARMED_SESSION_EXIT_V1.md",
+  "new_model_fits": 0,
+  "position_impact": 0,
+  "saved_models": "reports\\research\\510300_learned_cycle_exit_v1\\saved_models.json",
+  "frozen_files": [
+    {
+      "path": "research\\rearmed_session_exit_v1.py",
+      "sha256": "2806f2b1caa49cf2b5490b76f797cc9b43de9687d91ea37226919df7a08bd649"
+    },
+    {
+      "path": "research\\rearmed_cycle_exit_account_v1.py",
+      "sha256": "212fc0ce478232e2b05c0db3b48f90e30e641507e7fda1849da2f1fc861795d2"
+    },
+    {
+      "path": "research\\learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\simple_intraday_protection_v1.py",
+      "sha256": "ac6bdee0269638142c19a68c4562e927adce6a0bedadbe3e0e220d310f6b993b"
+    },
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "docs\\510300_REARMED_SESSION_EXIT_V1.md",
+      "sha256": "3ad8a3faf57797cbdbfa8fcc18a0ea8594919317f955ea09ed120d6d37f414de"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports\\research\\510300_learned_cycle_exit_v1\\saved_models.json",
+      "sha256": "9ef162200cd1bb30d7aa6de4a0dd66b158ae391ba58e5ed29dc9a1b050d64621"
+    },
+    {
+      "path": "tests\\test_rearmed_cycle_exit_account_v1.py",
+      "sha256": "9f196da0bea5f8abad003ac153983a278d0d22502a1688292ad34a7a6a019d9f"
+    }
+  ]
+}

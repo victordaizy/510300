@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V12_MANIFEST",
+  "status": "FROZEN_BEFORE_BTC_CAPACITY_AWARE_OUTCOME",
+  "frozen_at": "2026-08-27T06:04:29.855984+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V12",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v12.yaml": "8feac13f3c7e71d26548b41a322d2c4121113b137d09f3f5f9e81ecf9f9be01d",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V12_SPEC.md": "bbccb1d6b21e487e983f952f18900e145bdcc39632b68cb3933daf6dd57e6a9a",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v12.py": "d9f1c139dd28635067cdc05c76659195a34c1942209635d237b28760ac45c7ae"
+  },
+  "tracked_content_sha256": "4fecaec921cc52c338985f56c26c30af0c7548998b40e7cd08cd52b4e3776f2d",
+  "parent_manifest_sha256": "19ff162f1b2130d51dfda3d765cf42e60a669f7d5e71161dbe900c74ca32850e",
+  "v2_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "error": true,
+      "performance_unavailable": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true,
+      "replication_closed": true
+    },
+    "manifest_sha256": "fad83b07acf99fdbeddea4fbd0b38fa6d38f1411be3c79f84ad28b209f67cfca",
+    "report_sha256": "015ba555f6a70d97ab1f08d82d624f42f68f653aa28ecef1be22705ca1a01bba",
+    "tracked_content_sha256": "8f4f531a9a899b3440d7a815216e2f2ad3297ef32a8b135276a7e716393afe05",
+    "error": "历史路径容量失败"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "BTC_SPOT_LONG_HORIZON_TREND_CAPACITY_AWARE_EXECUTION",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_product": "BTC-USD",
+    "signal_windows_unchanged": [
+      200,
+      126,
+      60
+    ],
+    "target_volatility_unchanged": 0.4,
+    "costs_and_hard_gates_unchanged": true,
+    "maximum_order_fraction_unchanged": 0.003,
+    "capacity_target_formula": "MIN_WEIGHT_TARGET_NOTIONAL_AND_PRIOR_MEDIAN_TURNOVER_TIMES_0_003",
+    "daily_capacity_sliced_exits_and_resize_sells": true,
+    "terminal_winddown_calendar_days": 30,
+    "stop_new_entries_at_winddown_start": true,
+    "terminal_positions_must_be_zero": true
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

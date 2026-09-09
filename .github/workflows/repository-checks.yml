@@ -1,0 +1,27 @@
+name: 仓库完整性检查
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository-integrity:
+    name: repository-integrity
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: 获取仓库
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: 安装 Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: 验证主仓库快照
+        run: python tools/repository/snapshot.py verify
+      - name: 验证还原工具
+        run: python -m unittest discover -s tests/repository -v

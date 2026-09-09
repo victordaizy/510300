@@ -1,0 +1,225 @@
+protocol:
+  project_id: "510300_ANCHORED_SPARSE_MEAN_REVERSION_GRID_V1"
+  model_id: "510300_ANCHORED_SPARSE_MEAN_REVERSION_GRID_V1"
+  state: "PREFREEZE_IMPLEMENTATION"
+  research_stage: "DISCOVERY"
+  evidence_class: "RETROSPECTIVE_PREREGISTERED_EVENT_INFORMATION_BUDGET"
+  core_mechanism: "TEMPORARY_LIQUIDITY_DISLOCATION_MEAN_REVERSION"
+  grid_role: "EXECUTION_AND_INVENTORY_CONTROL_ONLY"
+  outcome_used_to_choose_parameters: false
+  prior_failed_family_parameter_rescue: false
+  result_interpretation: "历史事件研究只能淘汰机制或允许独立的第二阶段组合回测，不能授权交易"
+
+scope:
+  execution_asset: "510300.SH"
+  allowed_holdings:
+    - "510300.SH"
+    - "CASH_CNY"
+  observational_anchor: "000300.SH"
+  observational_anchor_is_tradable: false
+  iopv_used: false
+  constituent_execution_allowed: false
+  derivative_execution_allowed: false
+  leverage_allowed: false
+  short_selling_allowed: false
+  martingale_position_sizing_allowed: false
+
+account:
+  initial_capital_cny: 200000.0
+  baseline_etf_fraction: 0.70
+  baseline_cash_fraction: 0.30
+  grid_notional_cny: 20000.0
+  maximum_buy_layers: 2
+  maximum_sell_layers: 2
+  equal_notional_layers_required: true
+  maximum_complete_round_trips_per_day: 2
+
+inputs:
+  etf_minute:
+    path: "data/raw/market/510300_1m_tushare_raw.parquet"
+    metadata_path: "data/raw/market/510300_1m_tushare_raw.metadata.json"
+    symbol: "510300.SH"
+    required_columns: ["ts_code", "trade_time", "open", "high", "low", "close", "vol", "amount"]
+    model_price_columns: ["open", "close"]
+    adjustment: "RAW_UNADJUSTED"
+  index_minute:
+    path: "data/raw/market/000300_1m_tushare_raw.parquet"
+    metadata_path: "data/raw/market/000300_1m_tushare_raw.metadata.json"
+    symbol: "000300.SH"
+    required_columns: ["ts_code", "trade_time", "open", "high", "low", "close", "vol", "amount"]
+    model_price_columns: ["open", "close"]
+    adjustment: "PRICE_INDEX_RAW"
+    source_limit: "TUSHARE_COMPATIBLE_GENERIC_ENDPOINT_NOT_OFFICIAL_IDX_MINS_ENTITLEMENT"
+  etf_daily_crosscheck:
+    path: "data/raw/market/510300_daily_raw.parquet"
+    symbol: "510300.SH"
+  index_daily_crosscheck:
+    path: "data/raw/market/000300_daily_raw.parquet"
+    symbol: "000300.SH"
+  dividends:
+    path: "data/reference/510300_dividends.csv"
+    symbol: "510300.SH"
+    source_requirement: "SSE_OFFICIAL_URL_PER_ROW"
+
+data_contract:
+  raw_start: "2021-08-12"
+  raw_end: "2026-08-12"
+  expected_row_count_each: 291851
+  expected_trading_day_count: 1211
+  expected_bars_per_complete_day: 241
+  expected_first_record_label: "09:30"
+  expected_last_record_label: "15:00"
+  timestamps_must_match_exactly: true
+  duplicate_timestamp_tolerance: 0
+  model_price_must_be_positive: true
+  amount_must_be_nonnegative: true
+  etf_daily_ohlc_max_absolute_difference: 0.000001
+  index_daily_open_close_max_absolute_difference: 0.001
+  maximum_unused_index_high_low_anomalies: 5
+  minute_label_semantics: "PROVIDER_ORDERED_TRADE_TIME_RECORD; BAR_START_OR_END_NOT_ASSERTED"
+  signal_execution_order: "CURRENT_RECORD_CLOSE_THEN_NEXT_RECORD_OPEN"
+  discovery_only_source_admission: true
+  iopv_absence_blocks_iopv_claim_not_index_proxy_study: true
+
+anchor:
+  type: "DIVIDEND_ADJUSTED_PREVIOUS_CLOSE_INDEX_IMPLIED_PROXY"
+  formula: "(PREVIOUS_ETF_CLOSE-CURRENT_EX_DATE_CASH_DIVIDEND)*CURRENT_INDEX_CLOSE/PREVIOUS_INDEX_CLOSE"
+  basis: "LOG_ETF_CLOSE_DIV_INDEX_IMPLIED_PROXY"
+  fair_value_claim_allowed: false
+  iopv_claim_allowed: false
+  dividend_adjustment_required: true
+  rolling_history_complete_days: 20
+  same_minute_bucket_required: true
+  center_statistic: "PRIOR_20_DAY_SAME_MINUTE_MEDIAN"
+  scale_statistic: "1.4826_TIMES_PRIOR_20_DAY_SAME_MINUTE_MAD"
+  scale_floor: "ONE_ETF_TICK_DIV_PREVIOUS_ETF_CLOSE"
+  etf_tick_cny: 0.001
+
+features:
+  path_efficiency_minutes: 30
+  trailing_amount_minutes: 5
+  trailing_amount_seasonal_days: 20
+  market_state_prior_day_realized_volatility_days: 60
+  market_state_quantiles: [0.3333333333, 0.6666666667]
+  path_efficiency_bins:
+    low: [0.0, 0.3]
+    medium: [0.3, 0.6]
+    high: [0.6, 1.0000001]
+  volume_ratio_bins:
+    normal: [0.0, 1.0]
+    elevated: [1.0, 2.0]
+    extreme: [2.0, null]
+
+event_definition:
+  diagnostic_episode_entry_abs_z: 1.0
+  center_or_reset_abs_z: 0.5
+  confirmation: "FIRST_NON_WIDENING_RECORD_IN_EPISODE"
+  liquidity_shock_minimum_trailing_amount_ratio: 1.5
+  liquidity_decay_maximum_fraction_of_episode_peak_amount: 0.8
+  minimum_event_spacing_trading_minutes: 60
+  candidate_open_time: "10:00"
+  candidate_last_signal_time: "14:15"
+  forward_horizons_trading_minutes: [5, 15, 30, 45, 60]
+  primary_horizon_trading_minutes: 45
+  maximum_holding_minutes: 45
+  stop_abs_z: 4.0
+  severity_bins:
+    - {label: "1.0_1.5", lower: 1.0, upper: 1.5}
+    - {label: "1.5_2.0", lower: 1.5, upper: 2.0}
+    - {label: "2.0_3.0", lower: 2.0, upper: 3.0}
+    - {label: "3.0_PLUS", lower: 3.0, upper: null}
+  signal_uses_future_information: false
+
+costs:
+  commission_rate_per_leg: 0.0002
+  minimum_commission_cny_per_leg: 5.0
+  base_slippage_bps_per_leg: 5.0
+  stress_round_trip_multiplier: 1.5
+  stamp_duty_rate: 0.0
+  omitted_cost_is_failure: true
+  event_net_return_cost_policy: "SUBTRACT_FULL_ENTRY_AND_EXIT_ROUND_TRIP_COST"
+
+grid_bands:
+  first_scale_multiple: 2.0
+  first_minimum_round_trip_cost_multiple: 2.5
+  second_scale_multiple: 3.0
+  second_minimum_increment: 0.002
+  center_exit_scale_multiple: 0.5
+  nearby_scale_multiples_for_platform: [1.75, 2.0, 2.25]
+  phase_a_does_not_simulate_limit_fills: true
+
+phase_a_gates:
+  minimum_completed_primary_events: 300
+  minimum_direction_events: 50
+  minimum_events_per_monotonic_bin: 30
+  minimum_events_per_platform_threshold: 150
+  minimum_positive_calendar_years: 4
+  maximum_single_positive_year_contribution: 0.50
+  base_mean_net_return_must_be_positive: true
+  stress_mean_net_return_must_be_positive: true
+  both_directions_mean_net_return_must_be_positive: true
+  etf_reversal_must_dominate_anchor_catchup: true
+  severity_reversal_must_be_nondecreasing: true
+  lower_path_efficiency_reversal_must_be_nondecreasing: true
+  nearby_thresholds_all_must_be_positive: true
+  latest_two_calendar_years_must_be_positive: true
+  bootstrap:
+    method: "MOVING_BLOCK_BY_TRADING_DAY"
+    repetitions: 5000
+    block_length_trading_days: 20
+    random_seed: 20260831
+    lower_quantile: 0.025
+    minimum_lower_bound: 0.0
+  all_gates_must_pass_before_phase_b: true
+
+phase_b:
+  status_before_phase_a_pass: "NOT_ALLOWED"
+  portfolio_backtest_implemented_in_v1: false
+  required_benchmark: "SAME_AVERAGE_510300_EXPOSURE_DIVIDEND_INCLUSIVE"
+  required_sharpe_uplift: 0.20
+  execution_requirements:
+    signal_at_current_record_close: true
+    earliest_execution_next_record_open: true
+    limit_requires_one_tick_trade_through: true
+    same_record_round_trip_allowed: false
+    ambiguous_ohlc_path_policy: "MOST_ADVERSE"
+    board_lot_shares: 100
+    t_plus_one_old_inventory_ledger_required: true
+    intraday_new_shares_sellable_same_day: false
+    cash_constraint_required: true
+
+governance:
+  one_shot_historical_evaluation: true
+  parameter_rescue_after_result: "FORBIDDEN"
+  window_rescue_after_result: "FORBIDDEN"
+  label_rescue_after_result: "FORBIDDEN"
+  cost_rescue_after_result: "FORBIDDEN"
+  proxy_rescue_after_result: "FORBIDDEN"
+  direction_flip_after_result: "FORBIDDEN"
+  subperiod_rescue_after_result: "FORBIDDEN"
+  failed_phase_a_runs_phase_b: false
+  research_only: true
+  paper_or_shadow_position_mapping: "DISABLED"
+  order_generation: "DISABLED"
+  broker_connection: "DISABLED"
+  live_trading_authorized: false
+
+official_rules:
+  checked_at: "2026-08-31"
+  sse_etf_faq: "https://www.sse.com.cn/assortment/fund/etf/question/"
+  sse_trading_rules_2026: "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml"
+  stock_etf_t_plus_one: true
+  minimum_buy_lot_shares: 100
+  minimum_price_tick_cny: 0.001
+
+paths:
+  manifest: "config/510300_anchored_sparse_mean_reversion_grid_v1_manifest.json"
+  freeze_receipt: "reports/frozen/510300_anchored_sparse_mean_reversion_grid_v1_freeze_receipt.json"
+  input_audit_json: "reports/research/510300_anchored_sparse_mean_reversion_grid_v1_input_audit.json"
+  result_json: "reports/research/510300_anchored_sparse_mean_reversion_grid_v1.json"
+  result_markdown: "reports/research/510300_ANCHORED_SPARSE_MEAN_REVERSION_GRID_V1.md"
+  feature_table: "data/research/510300_anchored_sparse_mean_reversion_grid_v1/minute_features.parquet"
+  event_table: "data/research/510300_anchored_sparse_mean_reversion_grid_v1/events.parquet"
+  event_outcome_table: "data/research/510300_anchored_sparse_mean_reversion_grid_v1/event_outcomes.parquet"
+  gate_receipt: "data/research/510300_anchored_sparse_mean_reversion_grid_v1/phase_a_gate_receipt.json"
+

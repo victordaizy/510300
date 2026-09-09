@@ -1,0 +1,4763 @@
+{
+  "status": "PASS",
+  "generated_at": "2026-08-13T02:51:44.914362+08:00",
+  "governance": "RETROSPECTIVE_WITH_PSEUDO_OOS_NO_STRICT_HOLDOUT",
+  "primary_target": "exec_total_return_20d_net",
+  "sensitivity_target": "exec_total_return_5d_net",
+  "hypothesis_count": 20,
+  "method": "时间序列Pearson/Spearman、HAC/Newey-West、错位非重叠样本、条件收益和移动区块Bootstrap",
+  "results": [
+    {
+      "hypothesis_id": "H001",
+      "factor_id": "ETF_TR_5D",
+      "factor": "factor_etf_total_return_5d",
+      "factor_name_cn": "510300过去5日含分红累计收益",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "negative",
+      "economic_hypothesis": "短期价格冲击存在均值回归。",
+      "development_bucket_edges": [
+        -0.018877175778376887,
+        -0.007438894792773598,
+        0.003518471977883575,
+        0.016229116945107425
+      ],
+      "splits": {
+        "development": {
+          "observations": 671,
+          "approx_independent_observations": 33,
+          "pearson": 0.027679412402817308,
+          "spearman": 0.0387337208769563,
+          "hac_regression": {
+            "observations": 671,
+            "beta_per_factor_std": 0.0011603086270318994,
+            "standard_error_newey_west": 0.002762965343393912,
+            "t_value": 0.41995048175545496,
+            "p_value": 0.6745216284053497,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.02686210847975554,
+            "minimum": -0.19251336898395724,
+            "maximum": 0.3245320855614974,
+            "same_sign_ratio": 0.55,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.03408507479300432,
+            "ci_2_5pct": -0.09693768905611333,
+            "ci_97_5pct": 0.16837122595814394
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 135,
+                "mean_net_return": -0.003758826420668404,
+                "median_net_return": -0.010410894122999892,
+                "hit_rate": 0.4,
+                "mean_mae": -0.03882403883355951,
+                "mean_mfe": 0.03418929878954793
+              },
+              {
+                "bucket": 2,
+                "observations": 134,
+                "mean_net_return": -0.015932133955776764,
+                "median_net_return": -0.019532235092725003,
+                "hit_rate": 0.3283582089552239,
+                "mean_mae": -0.044660378611578753,
+                "mean_mfe": 0.023349706612359983
+              },
+              {
+                "bucket": 3,
+                "observations": 134,
+                "mean_net_return": -0.014396374284712595,
+                "median_net_return": -0.016416612469949965,
+                "hit_rate": 0.3805970149253731,
+                "mean_mae": -0.0473034053814279,
+                "mean_mfe": 0.025155701020362884
+              },
+              {
+                "bucket": 4,
+                "observations": 134,
+                "mean_net_return": -0.009662405675487562,
+                "median_net_return": -0.014406673922999935,
+                "hit_rate": 0.30597014925373134,
+                "mean_mae": -0.03686804302407298,
+                "mean_mfe": 0.028119392182013335
+              },
+              {
+                "bucket": 5,
+                "observations": 134,
+                "mean_net_return": -0.00022569590846293594,
+                "median_net_return": -0.007916876948749874,
+                "hit_rate": 0.43283582089552236,
+                "mean_mae": -0.0362306833811023,
+                "mean_mfe": 0.0340431327789766
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.003533130512205468,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.29528046788111917,
+              "2022": 0.1333245556119834,
+              "2023": -0.11783326369017302,
+              "2024": -0.02543130654323585
+            },
+            "expected_direction_ratio": 0.75
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.19520201822430225,
+          "spearman": -0.26250190345667734,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.014360778342795656,
+            "standard_error_newey_west": 0.005138456677862978,
+            "t_value": -2.7947648959780915,
+            "p_value": 0.005193747095125261,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.16363636363636364,
+            "minimum": -0.5878787878787878,
+            "maximum": 0.6121212121212121,
+            "same_sign_ratio": 0.6842105263157895,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.2863477505617009,
+            "ci_2_5pct": -0.426631049514753,
+            "ci_97_5pct": -0.14521165348497667
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 40,
+                "mean_net_return": 0.047175756758017606,
+                "median_net_return": 0.031088043635425167,
+                "hit_rate": 0.725,
+                "mean_mae": -0.023728213271101428,
+                "mean_mfe": 0.10452422105128537
+              },
+              {
+                "bucket": 2,
+                "observations": 34,
+                "mean_net_return": 0.025497751165185427,
+                "median_net_return": -0.011073404222974759,
+                "hit_rate": 0.4117647058823529,
+                "mean_mae": -0.044714264529795364,
+                "mean_mfe": 0.0728992901214246
+              },
+              {
+                "bucket": 3,
+                "observations": 33,
+                "mean_net_return": 0.02791686584170315,
+                "median_net_return": 0.007362433344600072,
+                "hit_rate": 0.5454545454545454,
+                "mean_mae": -0.028119855631343522,
+                "mean_mfe": 0.07543567897741177
+              },
+              {
+                "bucket": 4,
+                "observations": 52,
+                "mean_net_return": -0.004004861346288356,
+                "median_net_return": -0.007034686416749869,
+                "hit_rate": 0.4423076923076923,
+                "mean_mae": -0.03515126986057371,
+                "mean_mfe": 0.04272041118131025
+              },
+              {
+                "bucket": 5,
+                "observations": 40,
+                "mean_net_return": -0.0015236242691624158,
+                "median_net_return": 0.001516914067549835,
+                "hit_rate": 0.525,
+                "mean_mae": -0.04505636188608833,
+                "mean_mfe": 0.05295881136642604
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.04869938102718002,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.3239506703383073,
+              "2025": -0.22886860929938982
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.05193747095125261
+      },
+      "evidence": {
+        "score": 6,
+        "rating": "STRONG",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": true
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H002",
+      "factor_id": "INDEX_R_20D",
+      "factor": "factor_index_return_20d",
+      "factor_name_cn": "沪深300过去20日累计收益",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "positive",
+      "economic_hypothesis": "中期指数趋势具有延续性。",
+      "development_bucket_edges": [
+        -0.044904337155126206,
+        -0.01999398960333254,
+        -0.002188040686152526,
+        0.025720215627955012
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": 0.024116488515361224,
+          "spearman": 0.03644634470337666,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": 0.0010079126364980406,
+            "standard_error_newey_west": 0.004152463338286398,
+            "t_value": 0.24272643835405347,
+            "p_value": 0.8082173249790101,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": 0.0482811306340718,
+            "minimum": -0.1969442322383499,
+            "maximum": 0.20733384262796029,
+            "same_sign_ratio": 0.75,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.04766680214830536,
+            "ci_2_5pct": -0.1698378378619042,
+            "ci_97_5pct": 0.2408992015502048
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": -0.011737999267377824,
+                "median_net_return": -0.01574351164634985,
+                "hit_rate": 0.33088235294117646,
+                "mean_mae": -0.04826789814409085,
+                "mean_mfe": 0.0298596066889923
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": -0.012430235493349906,
+                "median_net_return": -0.01929128425619997,
+                "hit_rate": 0.362962962962963,
+                "mean_mae": -0.049379232003337784,
+                "mean_mfe": 0.025390176739013306
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.00767227031491137,
+                "median_net_return": -0.007915257748749904,
+                "hit_rate": 0.4074074074074074,
+                "mean_mae": -0.039820691211765465,
+                "mean_mfe": 0.029619151315326716
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.0011434778646591585,
+                "median_net_return": -0.00581179503314988,
+                "hit_rate": 0.43703703703703706,
+                "mean_mae": -0.031969633283232796,
+                "mean_mfe": 0.03190126691602593
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.01030935776471283,
+                "median_net_return": -0.015247854849600007,
+                "hit_rate": 0.32592592592592595,
+                "mean_mae": -0.03429329002041201,
+                "mean_mfe": 0.02809306884509492
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.0014286415026649943,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.5915033594624859,
+              "2022": 0.15471326592410595,
+              "2023": -0.2490443645982437,
+              "2024": -0.5128734483484115
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.1903816971395583,
+          "spearman": -0.2781802954164763,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.014006153102396893,
+            "standard_error_newey_west": 0.011146914580581455,
+            "t_value": -1.2565049279911402,
+            "p_value": 0.20893296034914507,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.24848484848484845,
+            "minimum": -0.7575757575757575,
+            "maximum": 0.01818181818181818,
+            "same_sign_ratio": 0.9473684210526315,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.34465248761804707,
+            "ci_2_5pct": -0.6143617648944675,
+            "ci_97_5pct": -0.05967544722318506
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 28,
+                "mean_net_return": 0.04673695554141794,
+                "median_net_return": 0.036991521792999915,
+                "hit_rate": 0.75,
+                "mean_mae": -0.01828853993112787,
+                "mean_mfe": 0.09180531343898465
+              },
+              {
+                "bucket": 2,
+                "observations": 52,
+                "mean_net_return": 0.05280980572121647,
+                "median_net_return": 0.022497139616500128,
+                "hit_rate": 0.7307692307692307,
+                "mean_mae": -0.022886549389533502,
+                "mean_mfe": 0.12020273212230946
+              },
+              {
+                "bucket": 3,
+                "observations": 22,
+                "mean_net_return": -0.002240948751295319,
+                "median_net_return": -0.026455706131999712,
+                "hit_rate": 0.3181818181818182,
+                "mean_mae": -0.05339353958025575,
+                "mean_mfe": 0.039426479828437236
+              },
+              {
+                "bucket": 4,
+                "observations": 40,
+                "mean_net_return": -0.013266760369157405,
+                "median_net_return": -0.015882394544924905,
+                "hit_rate": 0.325,
+                "mean_mae": -0.05690726270350732,
+                "mean_mfe": 0.03772518232203996
+              },
+              {
+                "bucket": 5,
+                "observations": 57,
+                "mean_net_return": -0.0012063288320779662,
+                "median_net_return": -0.0003495958132497812,
+                "hit_rate": 0.45614035087719296,
+                "mean_mae": -0.03288352988862385,
+                "mean_mfe": 0.04019746057474972
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.04794328437349591,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.04106847006802337,
+              "2025": -0.629339364611824
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.26116620043643135
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H003",
+      "factor_id": "INDEX_MA_20_60",
+      "factor": "factor_index_ma20_over_ma60",
+      "factor_name_cn": "沪深300二十日均线相对六十日均线",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "positive",
+      "economic_hypothesis": "中期趋势结构越强，未来多日收益越高。",
+      "development_bucket_edges": [
+        -0.03454430697733668,
+        -0.021273263563255318,
+        -0.003928726222070633,
+        0.014311100515461694
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": -0.06872123644092107,
+          "spearman": -0.042585779249750745,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": -0.0028721014902503323,
+            "standard_error_newey_west": 0.006186191461901811,
+            "t_value": -0.46427620417803345,
+            "p_value": 0.6424498703532804,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.059993315508021394,
+            "minimum": -0.11718869365928188,
+            "maximum": 0.048128342245989296,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.03902612675908259,
+            "ci_2_5pct": -0.2959175771433577,
+            "ci_97_5pct": 0.25322893037459415
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": 0.00027408773646556877,
+                "median_net_return": -0.002211285692249987,
+                "hit_rate": 0.47794117647058826,
+                "mean_mae": -0.056912731723018306,
+                "mean_mfe": 0.036567558697329736
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": -0.011999176233433226,
+                "median_net_return": -0.015407771673599968,
+                "hit_rate": 0.4074074074074074,
+                "mean_mae": -0.04764782524385697,
+                "mean_mfe": 0.030794688616146634
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.011352867952673238,
+                "median_net_return": -0.01304082891809999,
+                "hit_rate": 0.32592592592592595,
+                "mean_mae": -0.03298993927439849,
+                "mean_mfe": 0.02770020284625558
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.016892060169514698,
+                "median_net_return": -0.018096741676799755,
+                "hit_rate": 0.28888888888888886,
+                "mean_mae": -0.036655683664371795,
+                "mean_mfe": 0.02375264101712792
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.00341230250810619,
+                "median_net_return": -0.010947649403999837,
+                "hit_rate": 0.362962962962963,
+                "mean_mae": -0.029460528952904998,
+                "mean_mfe": 0.025998490794198227
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.0036863902445717586,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.38082306830907053,
+              "2022": -0.09124780036582981,
+              "2023": 0.03995315915346093,
+              "2024": -0.24996055123080158
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.31810503854604893,
+          "spearman": -0.40012182122734885,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.023402606130009402,
+            "standard_error_newey_west": 0.013703226965126757,
+            "t_value": -1.7078171579268537,
+            "p_value": 0.08767027437685022,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.4424242424242424,
+            "minimum": -0.6848484848484848,
+            "maximum": -0.23636363636363633,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.47019944988545204,
+            "ci_2_5pct": -0.6817538213407677,
+            "ci_97_5pct": -0.19622172794759837
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 2,
+                "observations": 58,
+                "mean_net_return": 0.06847087475294063,
+                "median_net_return": 0.01592623823077499,
+                "hit_rate": 0.7068965517241379,
+                "mean_mae": -0.022455394375405988,
+                "mean_mfe": 0.15194673558083097
+              },
+              {
+                "bucket": 3,
+                "observations": 37,
+                "mean_net_return": 0.014515843146883865,
+                "median_net_return": 0.020231248876750207,
+                "hit_rate": 0.7027027027027027,
+                "mean_mae": -0.020826223415674906,
+                "mean_mfe": 0.032112972747230566
+              },
+              {
+                "bucket": 4,
+                "observations": 57,
+                "mean_net_return": -0.014135659566456892,
+                "median_net_return": -0.023401680073599662,
+                "hit_rate": 0.3157894736842105,
+                "mean_mae": -0.057284425625640095,
+                "mean_mfe": 0.021052923493726707
+              },
+              {
+                "bucket": 5,
+                "observations": 47,
+                "mean_net_return": -0.006311738614414775,
+                "median_net_return": -0.010446932528399788,
+                "hit_rate": 0.425531914893617,
+                "mean_mae": -0.03594242272488931,
+                "mean_mfe": 0.04867295008598862
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": null,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": false
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.2830687980277182,
+              "2025": -0.43927519461392794
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.14611712396141704
+      },
+      "evidence": {
+        "score": 0,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H004",
+      "factor_id": "INDEX_RANGE_60D",
+      "factor": "factor_index_range_position_60d",
+      "factor_name_cn": "沪深300六十日价格区间位置",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "positive",
+      "economic_hypothesis": "接近中期区间上沿表示趋势强度而非立即反转。",
+      "development_bucket_edges": [
+        0.12991293894091904,
+        0.2670739297061818,
+        0.42441045956671036,
+        0.7284625877276143
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": 0.0743153703868265,
+          "spearman": 0.10237044948606394,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": 0.0031058999676177677,
+            "standard_error_newey_west": 0.004567620783004835,
+            "t_value": 0.6799820114607968,
+            "p_value": 0.4965158510646673,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": 0.11703590527119938,
+            "minimum": -0.041100076394194045,
+            "maximum": 0.2219251336898396,
+            "same_sign_ratio": 0.9,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.10430151549264599,
+            "ci_2_5pct": -0.13522905501413637,
+            "ci_97_5pct": 0.3132327308772926
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": -0.016964508698367197,
+                "median_net_return": -0.019308983859275042,
+                "hit_rate": 0.3235294117647059,
+                "mean_mae": -0.0525663403717937,
+                "mean_mfe": 0.026505416653232843
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": -0.010736757547146555,
+                "median_net_return": -0.019503925887999762,
+                "hit_rate": 0.362962962962963,
+                "mean_mae": -0.049126457423997204,
+                "mean_mfe": 0.0313718712313126
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.004407000009096169,
+                "median_net_return": -0.0076462665090000215,
+                "hit_rate": 0.45925925925925926,
+                "mean_mae": -0.03892404748065959,
+                "mean_mfe": 0.032781922238056094
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.006239051727257296,
+                "median_net_return": -0.012995995311200104,
+                "hit_rate": 0.2962962962962963,
+                "mean_mae": -0.03399806182280879,
+                "mean_mfe": 0.026379532260054763
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.004907307838469878,
+                "median_net_return": -0.006423256724499615,
+                "hit_rate": 0.4222222222222222,
+                "mean_mae": -0.029083997250781823,
+                "mean_mfe": 0.027849373973913617
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.012057200859897319,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.5189249720044793,
+              "2022": 0.28044674123649277,
+              "2023": -0.11641524515317127,
+              "2024": -0.48576059121012277
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.5197731726382419,
+          "spearman": -0.46237188304095134,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.03823908886132688,
+            "standard_error_newey_west": 0.017138646378785052,
+            "t_value": -2.231161552446806,
+            "p_value": 0.025670429720250687,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.4787878787878787,
+            "minimum": -0.6242424242424242,
+            "maximum": 0.10303030303030303,
+            "same_sign_ratio": 0.9473684210526315,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.5939104914673942,
+            "ci_2_5pct": -0.7851468143645414,
+            "ci_97_5pct": -0.3239232758172937
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 38,
+                "mean_net_return": 0.07958475833418958,
+                "median_net_return": 0.03513950231474994,
+                "hit_rate": 0.6578947368421053,
+                "mean_mae": -0.02778753049447672,
+                "mean_mfe": 0.1618728235743446
+              },
+              {
+                "bucket": 2,
+                "observations": 18,
+                "mean_net_return": 0.054799905621639035,
+                "median_net_return": 0.031913374630400115,
+                "hit_rate": 0.8333333333333334,
+                "mean_mae": -0.017597398509220097,
+                "mean_mfe": 0.09922191752760501
+              },
+              {
+                "bucket": 3,
+                "observations": 9,
+                "mean_net_return": 0.005823602802605608,
+                "median_net_return": 0.010894401875000126,
+                "hit_rate": 0.6666666666666666,
+                "mean_mae": -0.025885945713197047,
+                "mean_mfe": 0.02719182622676206
+              },
+              {
+                "bucket": 4,
+                "observations": 113,
+                "mean_net_return": -0.00027961900937776933,
+                "median_net_return": 0.00013788826040017632,
+                "hit_rate": 0.504424778761062,
+                "mean_mae": -0.035369476740005845,
+                "mean_mfe": 0.042030380046305514
+              },
+              {
+                "bucket": 5,
+                "observations": 21,
+                "mean_net_return": -0.02978199871965466,
+                "median_net_return": -0.024376131419999725,
+                "hit_rate": 0.09523809523809523,
+                "mean_mae": -0.06786121685187096,
+                "mean_mfe": 0.026543559805916557
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.10936675705384424,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.33503439345795916,
+              "2025": -0.7257916053019144
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.06417607430062672
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H005",
+      "factor_id": "INDEX_RV_20D",
+      "factor": "factor_index_rv_20",
+      "factor_name_cn": "沪深300二十日实现波动率",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "negative",
+      "economic_hypothesis": "高波动状态降低未来多日可执行风险收益。",
+      "development_bucket_edges": [
+        0.1229466381333507,
+        0.13600238325281958,
+        0.15334850107368558,
+        0.177402426023434
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": 0.21721381185999805,
+          "spearman": 0.19243219627202807,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": 0.009078127010744072,
+            "standard_error_newey_west": 0.007369436653966967,
+            "t_value": 1.2318617334009265,
+            "p_value": 0.2180007380108831,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": 0.20534759358288768,
+            "minimum": 0.0022918258212375857,
+            "maximum": 0.414514896867838,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.1914633504704753,
+            "ci_2_5pct": -0.07807956055625291,
+            "ci_97_5pct": 0.4262203427168323
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": -0.01452459365668078,
+                "median_net_return": -0.016681714987349994,
+                "hit_rate": 0.3235294117647059,
+                "mean_mae": -0.03719544734848809,
+                "mean_mfe": 0.024594528740253415
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": -0.014193752814999162,
+                "median_net_return": -0.01347437698364995,
+                "hit_rate": 0.3111111111111111,
+                "mean_mae": -0.036157460457489805,
+                "mean_mfe": 0.0231961726419458
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.020366746800710635,
+                "median_net_return": -0.023615671992099907,
+                "hit_rate": 0.2074074074074074,
+                "mean_mae": -0.042924298384149434,
+                "mean_mfe": 0.019793381341607377
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.006985629172733576,
+                "median_net_return": -0.016147042183999982,
+                "hit_rate": 0.4074074074074074,
+                "mean_mae": -0.048030832769787334,
+                "mean_mfe": 0.03282309202944757
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": 0.012798023180033832,
+                "median_net_return": 0.013913445528299873,
+                "hit_rate": 0.6148148148148148,
+                "mean_mae": -0.03950472385696574,
+                "mean_mfe": 0.04449509632859709
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.027322616836714612,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.005837066069428892,
+              "2022": 0.3454280313991307,
+              "2023": 0.07580943768545932,
+              "2024": 0.3945928887018725
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.09858204542423302,
+          "spearman": 0.022372468402619156,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.00725256283615909,
+            "standard_error_newey_west": 0.012403822348223901,
+            "t_value": -0.5847038624507213,
+            "p_value": 0.5587468565049167,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": 0.04242424242424241,
+            "minimum": -0.6242424242424242,
+            "maximum": 0.17575757575757575,
+            "same_sign_ratio": 0.631578947368421,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.0016444602672268307,
+            "ci_2_5pct": -0.3559978762722746,
+            "ci_97_5pct": 0.40066987839989876
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 48,
+                "mean_net_return": 0.08074505060599176,
+                "median_net_return": 0.019906174363599982,
+                "hit_rate": 0.6458333333333334,
+                "mean_mae": -0.025831276636052752,
+                "mean_mfe": 0.15179340921897386
+              },
+              {
+                "bucket": 2,
+                "observations": 26,
+                "mean_net_return": -0.033479482417159506,
+                "median_net_return": -0.036003684765324784,
+                "hit_rate": 0.11538461538461539,
+                "mean_mae": -0.05968609661664591,
+                "mean_mfe": 0.01591533752226643
+              },
+              {
+                "bucket": 3,
+                "observations": 28,
+                "mean_net_return": -0.024136946526696335,
+                "median_net_return": -0.028191111192399754,
+                "hit_rate": 0.25,
+                "mean_mae": -0.057836455282158736,
+                "mean_mfe": 0.014447430721682602
+              },
+              {
+                "bucket": 4,
+                "observations": 21,
+                "mean_net_return": 0.023350233801993,
+                "median_net_return": 0.031144320114900204,
+                "hit_rate": 0.9047619047619048,
+                "mean_mae": -0.015788388661507828,
+                "mean_mfe": 0.04202049978497628
+              },
+              {
+                "bucket": 5,
+                "observations": 76,
+                "mean_net_return": 0.007713109586893532,
+                "median_net_return": 0.0075924749791000945,
+                "hit_rate": 0.5921052631578947,
+                "mean_mae": -0.030062796954333774,
+                "mean_mfe": 0.05923546019392535
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.07303194101909823,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.1412658113327038,
+              "2025": 0.5568456764148958
+            },
+            "expected_direction_ratio": 0.5
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.5587468565049167
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H006",
+      "factor_id": "INDEX_VOL_TERM_5_20",
+      "factor": "factor_index_vol_term_5_20",
+      "factor_name_cn": "沪深300短中期波动率比",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "negative",
+      "economic_hypothesis": "短期波动突然高于中期波动代表风险冲击。",
+      "development_bucket_edges": [
+        0.7206135071704017,
+        0.8745797931126161,
+        1.0264101760290794,
+        1.1838685678645664
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": -0.04763590740839028,
+          "spearman": -0.058126107622309985,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": -0.001990871639433947,
+            "standard_error_newey_west": 0.0030420754885917647,
+            "t_value": -0.6544451795821674,
+            "p_value": 0.5128250349549468,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.08036669213139801,
+            "minimum": -0.33170359052711995,
+            "maximum": 0.2914438502673797,
+            "same_sign_ratio": 0.6,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.05826713027882497,
+            "ci_2_5pct": -0.1849089061438252,
+            "ci_97_5pct": 0.08957793787635922
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": -0.004337133933857978,
+                "median_net_return": -0.006727130708424955,
+                "hit_rate": 0.4338235294117647,
+                "mean_mae": -0.03994191392210822,
+                "mean_mfe": 0.03407414418156283
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": -0.008646561883603588,
+                "median_net_return": -0.00918688113999977,
+                "hit_rate": 0.3851851851851852,
+                "mean_mae": -0.042083122711680444,
+                "mean_mfe": 0.028148995045743204
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.010548298574948396,
+                "median_net_return": -0.017127727131599824,
+                "hit_rate": 0.35555555555555557,
+                "mean_mae": -0.03824095422526886,
+                "mean_mfe": 0.026360226249409792
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.005899952412250644,
+                "median_net_return": -0.009028760315549778,
+                "hit_rate": 0.4,
+                "mean_mae": -0.035834253756034294,
+                "mean_mfe": 0.03149035213248791
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.013916215125043225,
+                "median_net_return": -0.02187176944379987,
+                "hit_rate": 0.28888888888888886,
+                "mean_mae": -0.04769217400494696,
+                "mean_mfe": 0.024758334099008183
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.009579081191185248,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.24815229563269878,
+              "2022": -0.05322008661578954,
+              "2023": -0.059648837594267,
+              "2024": 0.1729302545760572
+            },
+            "expected_direction_ratio": 0.75
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": 0.1449688666587713,
+          "spearman": 0.09390437033653115,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": 0.010665185635020885,
+            "standard_error_newey_west": 0.008092182976711016,
+            "t_value": 1.3179615025654845,
+            "p_value": 0.18751653548598313,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.006060606060606061,
+            "minimum": -0.4787878787878787,
+            "maximum": 0.8545454545454544,
+            "same_sign_ratio": 0.5263157894736842,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.11113478279339234,
+            "ci_2_5pct": -0.132188070647668,
+            "ci_97_5pct": 0.31490116044090233
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 71,
+                "mean_net_return": 0.005437112738300126,
+                "median_net_return": 0.005808255511499993,
+                "hit_rate": 0.5774647887323944,
+                "mean_mae": -0.03174227359442985,
+                "mean_mfe": 0.05085907792251856
+              },
+              {
+                "bucket": 2,
+                "observations": 36,
+                "mean_net_return": 0.036688189377666734,
+                "median_net_return": -0.0006085586521746844,
+                "hit_rate": 0.4722222222222222,
+                "mean_mae": -0.04249592789129704,
+                "mean_mfe": 0.10246476997184449
+              },
+              {
+                "bucket": 3,
+                "observations": 20,
+                "mean_net_return": -0.007590335551454852,
+                "median_net_return": -0.010812882183749928,
+                "hit_rate": 0.4,
+                "mean_mae": -0.049094077028341135,
+                "mean_mfe": 0.041212809148926444
+              },
+              {
+                "bucket": 4,
+                "observations": 20,
+                "mean_net_return": -0.001967748619719856,
+                "median_net_return": -0.00953841159249974,
+                "hit_rate": 0.45,
+                "mean_mae": -0.030857994312586668,
+                "mean_mfe": 0.03910454009693935
+              },
+              {
+                "bucket": 5,
+                "observations": 52,
+                "mean_net_return": 0.036353163141305864,
+                "median_net_return": 0.013487770264250298,
+                "hit_rate": 0.5769230769230769,
+                "mean_mae": -0.03163255793798141,
+                "mean_mfe": 0.08812812907917464
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.030916050403005737,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": 0.2525572374484736,
+              "2025": -0.12334315169366715
+            },
+            "expected_direction_ratio": 0.5
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.26116620043643135
+      },
+      "evidence": {
+        "score": 2,
+        "rating": "INCONCLUSIVE",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H007",
+      "factor_id": "ETF_PRICE_VOLUME_CONFIRM_20D",
+      "factor": "factor_etf_price_volume_confirmation_20d",
+      "factor_name_cn": "510300二十日价格与成交量确认",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "positive",
+      "economic_hypothesis": "与方向一致的成交量扩张提高趋势可信度；该指标不是订单流PV。",
+      "development_bucket_edges": [
+        -0.02852597401880396,
+        -0.005729882597529913,
+        0.002276612112004155,
+        0.021412520217070904
+      ],
+      "splits": {
+        "development": {
+          "observations": 656,
+          "approx_independent_observations": 32,
+          "pearson": -0.08378050677341096,
+          "spearman": -0.09984778095130754,
+          "hac_regression": {
+            "observations": 656,
+            "beta_per_factor_std": -0.0035473263809098366,
+            "standard_error_newey_west": 0.0027044589924481457,
+            "t_value": -1.3116584096173356,
+            "p_value": 0.18963541559875688,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.0912433155080214,
+            "minimum": -0.29946524064171126,
+            "maximum": 0.1647727272727273,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              33,
+              32,
+              32,
+              32,
+              32
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.11190407150854004,
+            "ci_2_5pct": -0.24671377399264685,
+            "ci_97_5pct": 0.025213612131801275
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 132,
+                "mean_net_return": -0.008309658023911634,
+                "median_net_return": -0.011564953096774966,
+                "hit_rate": 0.3560606060606061,
+                "mean_mae": -0.040206503586506154,
+                "mean_mfe": 0.029302755969300737
+              },
+              {
+                "bucket": 2,
+                "observations": 131,
+                "mean_net_return": -0.005599572499388439,
+                "median_net_return": -0.01347437698364995,
+                "hit_rate": 0.3435114503816794,
+                "mean_mae": -0.03952152358463502,
+                "mean_mfe": 0.030249382153084953
+              },
+              {
+                "bucket": 3,
+                "observations": 131,
+                "mean_net_return": -0.0019271757585605834,
+                "median_net_return": -0.006288639104700011,
+                "hit_rate": 0.45038167938931295,
+                "mean_mae": -0.03368120829030274,
+                "mean_mfe": 0.032313984612385084
+              },
+              {
+                "bucket": 4,
+                "observations": 131,
+                "mean_net_return": -0.011506906646523174,
+                "median_net_return": -0.0181312520821999,
+                "hit_rate": 0.3511450381679389,
+                "mean_mae": -0.044447581187830425,
+                "mean_mfe": 0.02570705976076948
+              },
+              {
+                "bucket": 5,
+                "observations": 131,
+                "mean_net_return": -0.017782814280326596,
+                "median_net_return": -0.0231431480350498,
+                "hit_rate": 0.32061068702290074,
+                "mean_mae": -0.04813039946111093,
+                "mean_mfe": 0.026243672951884654
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.009473156256414962,
+            "minimum_required_extreme_bucket_observations": 66,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.18651493598862018,
+              "2022": -0.05893633068527111,
+              "2023": -0.140837098085935,
+              "2024": 0.14342257521565327
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.05455902533908594,
+          "spearman": 0.08652504948987362,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.004013842052561515,
+            "standard_error_newey_west": 0.004520929460372495,
+            "t_value": -0.8878355850813918,
+            "p_value": 0.3746291982554339,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": 0.2121212121212121,
+            "minimum": -0.4424242424242424,
+            "maximum": 0.5030303030303029,
+            "same_sign_ratio": 0.631578947368421,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.0955938091554517,
+            "ci_2_5pct": -0.06733624111567173,
+            "ci_97_5pct": 0.2552828937420144
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 30,
+                "mean_net_return": 0.02652073135902678,
+                "median_net_return": -0.0006060606517998557,
+                "hit_rate": 0.4666666666666667,
+                "mean_mae": -0.02946148152739878,
+                "mean_mfe": 0.07827924188797288
+              },
+              {
+                "bucket": 2,
+                "observations": 40,
+                "mean_net_return": 0.02514893730782638,
+                "median_net_return": 0.009798580110450095,
+                "hit_rate": 0.625,
+                "mean_mae": -0.03682938270378312,
+                "mean_mfe": 0.06880984205461067
+              },
+              {
+                "bucket": 3,
+                "observations": 33,
+                "mean_net_return": -0.012938054987602917,
+                "median_net_return": -0.014080837874249852,
+                "hit_rate": 0.2727272727272727,
+                "mean_mae": -0.04636151048882252,
+                "mean_mfe": 0.03453821809868865
+              },
+              {
+                "bucket": 4,
+                "observations": 37,
+                "mean_net_return": 0.0038189978217757644,
+                "median_net_return": -0.0035670754964001183,
+                "hit_rate": 0.4594594594594595,
+                "mean_mae": -0.04156117325209938,
+                "mean_mfe": 0.04687441470313085
+              },
+              {
+                "bucket": 5,
+                "observations": 59,
+                "mean_net_return": 0.032035357356628075,
+                "median_net_return": 0.021346097844300083,
+                "hit_rate": 0.6779661016949152,
+                "mean_mae": -0.027165699295808355,
+                "mean_mfe": 0.09345509268514296
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.005514625997601295,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": 0.02323424803930993,
+              "2025": 0.0906401220281927
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.4162546647282599
+      },
+      "evidence": {
+        "score": 5,
+        "rating": "WEAK",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H008",
+      "factor_id": "ETF_CLOSE_VWAP",
+      "factor": "factor_etf_close_over_daily_vwap",
+      "factor_name_cn": "510300收盘价相对当日VWAP",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "positive",
+      "economic_hypothesis": "收盘维持在当日成交重心上方代表短期需求强度。",
+      "development_bucket_edges": [
+        -0.0030699497974362444,
+        -0.0008243870597380853,
+        0.0006980454479923459,
+        0.002981064972424452
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": -0.006748533472782984,
+          "spearman": -0.021773167225036923,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": -0.0002820448823101024,
+            "standard_error_newey_west": 0.0017054923687087036,
+            "t_value": -0.16537446164221176,
+            "p_value": 0.8686492535528331,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.06783804430863254,
+            "minimum": -0.21772345301757062,
+            "maximum": 0.23147440794499619,
+            "same_sign_ratio": 0.55,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.029100863888100625,
+            "ci_2_5pct": -0.08890336339386837,
+            "ci_97_5pct": 0.0441730228053375
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": -0.0038159487607366594,
+                "median_net_return": -0.009307899557849997,
+                "hit_rate": 0.40441176470588236,
+                "mean_mae": -0.03905960360144171,
+                "mean_mfe": 0.032820248152515254
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": -0.010501605969433971,
+                "median_net_return": -0.013628385805999899,
+                "hit_rate": 0.35555555555555557,
+                "mean_mae": -0.042866228904603614,
+                "mean_mfe": 0.026868624844471747
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.0077449322841676655,
+                "median_net_return": -0.010410894122999892,
+                "hit_rate": 0.3925925925925926,
+                "mean_mae": -0.03615854996545242,
+                "mean_mfe": 0.028207256609712524
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.019331662792826918,
+                "median_net_return": -0.019119941830399778,
+                "hit_rate": 0.2740740740740741,
+                "mean_mae": -0.045599090357243965,
+                "mean_mfe": 0.02286994525108402
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.001957872753450625,
+                "median_net_return": -0.00915273393459981,
+                "hit_rate": 0.43703703703703706,
+                "mean_mae": -0.040115481423302006,
+                "mean_mfe": 0.03407526496916206
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.0018580760072860344,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.06256998880179172,
+              "2022": -0.04306869420740342,
+              "2023": -0.07983900364134239,
+              "2024": 0.08854933726067746
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.08954122997604479,
+          "spearman": -0.020567991472514088,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.006587440887776534,
+            "standard_error_newey_west": 0.0030943005742147213,
+            "t_value": -2.128894956964001,
+            "p_value": 0.033262952115625695,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.05454545454545454,
+            "minimum": -0.5151515151515151,
+            "maximum": 0.5030303030303029,
+            "same_sign_ratio": 0.631578947368421,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.05385315654582469,
+            "ci_2_5pct": -0.16750358235468454,
+            "ci_97_5pct": 0.08099954882223093
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 39,
+                "mean_net_return": 0.032043510811315526,
+                "median_net_return": 0.00444649050720014,
+                "hit_rate": 0.5641025641025641,
+                "mean_mae": -0.031464665447146864,
+                "mean_mfe": 0.0945743363711039
+              },
+              {
+                "bucket": 2,
+                "observations": 46,
+                "mean_net_return": 0.01071564313207185,
+                "median_net_return": -0.0008500522880248162,
+                "hit_rate": 0.4782608695652174,
+                "mean_mae": -0.039427633204998876,
+                "mean_mfe": 0.054593335113030626
+              },
+              {
+                "bucket": 3,
+                "observations": 44,
+                "mean_net_return": 0.023022089700967155,
+                "median_net_return": 0.008890212774100181,
+                "hit_rate": 0.6136363636363636,
+                "mean_mae": -0.033720691877497155,
+                "mean_mfe": 0.06673510003241723
+              },
+              {
+                "bucket": 4,
+                "observations": 33,
+                "mean_net_return": 0.0136983947011107,
+                "median_net_return": -0.0010967695246999476,
+                "hit_rate": 0.45454545454545453,
+                "mean_mae": -0.03351611037874131,
+                "mean_mfe": 0.06464786484209128
+              },
+              {
+                "bucket": 5,
+                "observations": 37,
+                "mean_net_return": 0.00536154443902441,
+                "median_net_return": 0.00013788826040017632,
+                "hit_rate": 0.5135135135135135,
+                "mean_mae": -0.037755516321832105,
+                "mean_mfe": 0.059981607395453614
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.026681966372291116,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.07245082018196108,
+              "2025": 0.027127603618767093
+            },
+            "expected_direction_ratio": 0.5
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.06652590423125139
+      },
+      "evidence": {
+        "score": 0,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H009",
+      "factor_id": "CSI300_PE_PCTL_5Y",
+      "factor": "factor_official_pe_percentile_5y",
+      "factor_name_cn": "沪深300官方PE五年滚动百分位",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "negative",
+      "economic_hypothesis": "较低估值提高未来多日风险补偿。",
+      "development_bucket_edges": [
+        0.0768595041322314,
+        0.1347107438016529,
+        0.21818181818181817,
+        0.41983471074380163
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": -0.2988185547977015,
+          "spearman": -0.28015940938291223,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": -0.012488675422578385,
+            "standard_error_newey_west": 0.005232675482884301,
+            "t_value": -2.3866711137405576,
+            "p_value": 0.017001693302069566,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.28543379580125633,
+            "minimum": -0.36562261268143614,
+            "maximum": -0.18411000763941937,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.28195812621765415,
+            "ci_2_5pct": -0.5349711882156442,
+            "ci_97_5pct": -0.047944950614108105
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": 0.001813604609718869,
+                "median_net_return": -0.006592284688549888,
+                "hit_rate": 0.47058823529411764,
+                "mean_mae": -0.04676072475534994,
+                "mean_mfe": 0.034482647284741264
+              },
+              {
+                "bucket": 2,
+                "observations": 136,
+                "mean_net_return": 0.008144099911601943,
+                "median_net_return": 0.003523887968750028,
+                "hit_rate": 0.5367647058823529,
+                "mean_mae": -0.02766829031640413,
+                "mean_mfe": 0.039031152970390864
+              },
+              {
+                "bucket": 3,
+                "observations": 134,
+                "mean_net_return": -0.001703072437850649,
+                "median_net_return": -0.0024632985303499333,
+                "hit_rate": 0.4552238805970149,
+                "mean_mae": -0.032649441354871134,
+                "mean_mfe": 0.0335499405025598
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.025513698672058032,
+                "median_net_return": -0.027976083959999842,
+                "hit_rate": 0.15555555555555556,
+                "mean_mae": -0.04576733844773023,
+                "mean_mfe": 0.018334757823603578
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.026207598384768035,
+                "median_net_return": -0.019220546645999814,
+                "hit_rate": 0.24444444444444444,
+                "mean_mae": -0.05093301145090724,
+                "mean_mfe": 0.019389925604168204
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.028021202994486905,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.6450068593473754,
+              "2022": -0.5395095310276972,
+              "2023": -0.004215888370199724,
+              "2024": -0.6084177740973524
+            },
+            "expected_direction_ratio": 1.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.6538537335720261,
+          "spearman": -0.4999234800930134,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.048103234904300844,
+            "standard_error_newey_west": 0.019177127953180804,
+            "t_value": -2.508364913752491,
+            "p_value": 0.012129133527904578,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.4787878787878787,
+            "minimum": -0.9757575757575757,
+            "maximum": -0.17575757575757575,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.6241475178889542,
+            "ci_2_5pct": -0.86723449496914,
+            "ci_97_5pct": -0.29585012497571905
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 4,
+                "mean_net_return": 0.24062332356195004,
+                "median_net_return": 0.24160577210947498,
+                "hit_rate": 1.0,
+                "mean_mae": -0.008697578693953795,
+                "mean_mfe": 0.43550393364896794
+              },
+              {
+                "bucket": 2,
+                "observations": 9,
+                "mean_net_return": 0.2088345185231668,
+                "median_net_return": 0.20903093161925002,
+                "hit_rate": 1.0,
+                "mean_mae": -0.01866285927693354,
+                "mean_mfe": 0.4138483270228212
+              },
+              {
+                "bucket": 3,
+                "observations": 22,
+                "mean_net_return": 0.03294347449418194,
+                "median_net_return": -0.024865090693049985,
+                "hit_rate": 0.36363636363636365,
+                "mean_mae": -0.03854465836319859,
+                "mean_mfe": 0.08491831791219683
+              },
+              {
+                "bucket": 4,
+                "observations": 17,
+                "mean_net_return": 0.030296390582755958,
+                "median_net_return": 0.029767374166200122,
+                "hit_rate": 0.8823529411764706,
+                "mean_mae": -0.015200474846609044,
+                "mean_mfe": 0.06339232116308163
+              },
+              {
+                "bucket": 5,
+                "observations": 147,
+                "mean_net_return": -0.004597186515615195,
+                "median_net_return": -0.0010967695246999476,
+                "hit_rate": 0.46938775510204084,
+                "mean_mae": -0.03890029023288342,
+                "mean_mfe": 0.03453205997875942
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.24522051007756523,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": false
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.4482312097786639,
+              "2025": -0.6149526935374718
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.05199906835944065
+      },
+      "evidence": {
+        "score": 6,
+        "rating": "WEAK",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": true
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H010",
+      "factor_id": "CSI300_PB_PCTL_5Y",
+      "factor": "factor_secondary_pb_percentile_5y",
+      "factor_name_cn": "沪深300PB五年滚动百分位",
+      "target": "exec_total_return_20d_net",
+      "horizon": 20,
+      "expected_sign": "negative",
+      "economic_hypothesis": "较低账面估值提高未来多日风险补偿；作为次级估值来源单独审计。",
+      "development_bucket_edges": [
+        0.05826446280991736,
+        0.1115702479338843,
+        0.2421487603305785,
+        0.46611570247933887
+      ],
+      "splits": {
+        "development": {
+          "observations": 676,
+          "approx_independent_observations": 33,
+          "pearson": -0.2794215372379529,
+          "spearman": -0.2741017621135736,
+          "hac_regression": {
+            "observations": 676,
+            "beta_per_factor_std": -0.011678006029462042,
+            "standard_error_newey_west": 0.005186798461538857,
+            "t_value": -2.251486367950631,
+            "p_value": 0.024354749341194994,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 20,
+            "median": -0.2841317144819188,
+            "minimum": -0.37500000000000006,
+            "maximum": -0.0985485103132162,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              34,
+              33,
+              33,
+              33,
+              33
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.3015222342400437,
+            "ci_2_5pct": -0.5453319509987656,
+            "ci_97_5pct": -0.05530182386899908
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 136,
+                "mean_net_return": 0.002434229602887615,
+                "median_net_return": -0.008511558176474865,
+                "hit_rate": 0.47058823529411764,
+                "mean_mae": -0.046101954308768664,
+                "mean_mfe": 0.034421881909169116
+              },
+              {
+                "bucket": 2,
+                "observations": 135,
+                "mean_net_return": 0.007793525838687153,
+                "median_net_return": 0.0031924663191000846,
+                "hit_rate": 0.5185185185185185,
+                "mean_mae": -0.025889412427242773,
+                "mean_mfe": 0.035815586444925426
+              },
+              {
+                "bucket": 3,
+                "observations": 135,
+                "mean_net_return": -0.0003175041675224968,
+                "median_net_return": -0.0028238833844999034,
+                "hit_rate": 0.45925925925925926,
+                "mean_mae": -0.03173817913609685,
+                "mean_mfe": 0.03496470890943839
+              },
+              {
+                "bucket": 4,
+                "observations": 135,
+                "mean_net_return": -0.031258664761178036,
+                "median_net_return": -0.03306924472500017,
+                "hit_rate": 0.0962962962962963,
+                "mean_mae": -0.05168832192113918,
+                "mean_mfe": 0.01760626576869982
+              },
+              {
+                "bucket": 5,
+                "observations": 135,
+                "mean_net_return": -0.022049906690998402,
+                "median_net_return": -0.014320041910399706,
+                "hit_rate": 0.31851851851851853,
+                "mean_mae": -0.048328920898001226,
+                "mean_mfe": 0.022021032840959864
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.024484136293886016,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.6754432931287617,
+              "2022": -0.6136110484303037,
+              "2023": -0.010810362268335458,
+              "2024": -0.4697168447870692
+            },
+            "expected_direction_ratio": 1.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 199,
+          "approx_independent_observations": 9,
+          "pearson": -0.6210970524056127,
+          "spearman": -0.49793664668008203,
+          "hac_regression": {
+            "observations": 199,
+            "beta_per_factor_std": -0.04569336516137664,
+            "standard_error_newey_west": 0.018896014955683934,
+            "t_value": -2.418148232235181,
+            "p_value": 0.015599720507832196,
+            "hac_maxlags": 20
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 19,
+            "median": -0.4787878787878787,
+            "minimum": -0.8303030303030302,
+            "maximum": -0.24848484848484845,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.6105745440641058,
+            "ci_2_5pct": -0.82066646010172,
+            "ci_97_5pct": -0.29543495810523906
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 18,
+                "mean_net_return": 0.17950589220919738,
+                "median_net_return": 0.21379533833452513,
+                "hit_rate": 0.8333333333333334,
+                "mean_mae": -0.020057559773297248,
+                "mean_mfe": 0.34362778717758746
+              },
+              {
+                "bucket": 2,
+                "observations": 19,
+                "mean_net_return": 0.02226986813018169,
+                "median_net_return": -0.02668786936680001,
+                "hit_rate": 0.3684210526315789,
+                "mean_mae": -0.03952792245261975,
+                "mean_mfe": 0.07856306149767209
+              },
+              {
+                "bucket": 3,
+                "observations": 21,
+                "mean_net_return": 0.028442293271233418,
+                "median_net_return": 0.025921060131000262,
+                "hit_rate": 0.8571428571428571,
+                "mean_mae": -0.007948095060321358,
+                "mean_mfe": 0.05738726927583625
+              },
+              {
+                "bucket": 4,
+                "observations": 137,
+                "mean_net_return": -0.005605830484067774,
+                "median_net_return": -0.0023246034124999593,
+                "hit_rate": 0.45985401459854014,
+                "mean_mae": -0.03925715914799389,
+                "mean_mfe": 0.032768419826012384
+              },
+              {
+                "bucket": 5,
+                "observations": 4,
+                "mean_net_return": -0.01937757866947487,
+                "median_net_return": 0.0046488585376500136,
+                "hit_rate": 0.5,
+                "mean_mae": -0.09257046670594127,
+                "mean_mfe": 0.02908285997775345
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.19888347087867225,
+            "minimum_required_extreme_bucket_observations": 20,
+            "extreme_bucket_support_pass": false
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.4635666848571401,
+              "2025": -0.6574618328707607
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.05199906835944065
+      },
+      "evidence": {
+        "score": 6,
+        "rating": "WEAK",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": true
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H011",
+      "factor_id": "ETF_TR_5D",
+      "factor": "factor_etf_total_return_5d",
+      "factor_name_cn": "510300过去5日含分红累计收益",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "negative",
+      "economic_hypothesis": "短期价格冲击存在均值回归。",
+      "development_bucket_edges": [
+        -0.018232463914915287,
+        -0.007501293326435676,
+        0.0029788501638365883,
+        0.01576354679802927
+      ],
+      "splits": {
+        "development": {
+          "observations": 686,
+          "approx_independent_observations": 137,
+          "pearson": -0.04434791834887981,
+          "spearman": -0.024548769379652453,
+          "hac_regression": {
+            "observations": 686,
+            "beta_per_factor_std": -0.0009486934082763109,
+            "standard_error_newey_west": 0.0014199279427285895,
+            "t_value": -0.6681278533425183,
+            "p_value": 0.504051983634757,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.052410999309276236,
+            "minimum": -0.11954654918139898,
+            "maximum": 0.07141557029391671,
+            "same_sign_ratio": 0.6,
+            "sample_sizes": [
+              138,
+              137,
+              137,
+              137,
+              137
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.02585704262397564,
+            "ci_2_5pct": -0.15455378832888836,
+            "ci_97_5pct": 0.09396385697698355
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 138,
+                "mean_net_return": 0.0020099563446236706,
+                "median_net_return": -0.00023925939667496232,
+                "hit_rate": 0.4927536231884058,
+                "mean_mae": -0.01718194829599112,
+                "mean_mfe": 0.019680975076958988
+              },
+              {
+                "bucket": 2,
+                "observations": 137,
+                "mean_net_return": -0.0054152869708203365,
+                "median_net_return": -0.00606015187065001,
+                "hit_rate": 0.35036496350364965,
+                "mean_mae": -0.020363377969259307,
+                "mean_mfe": 0.012902727384057486
+              },
+              {
+                "bucket": 3,
+                "observations": 137,
+                "mean_net_return": -0.005510429023103189,
+                "median_net_return": -0.006387413519099772,
+                "hit_rate": 0.3722627737226277,
+                "mean_mae": -0.018479706697961798,
+                "mean_mfe": 0.01320884744305445
+              },
+              {
+                "bucket": 4,
+                "observations": 137,
+                "mean_net_return": -0.005789817773808273,
+                "median_net_return": -0.0049626477050499496,
+                "hit_rate": 0.39416058394160586,
+                "mean_mae": -0.018569726945509152,
+                "mean_mfe": 0.013403061273059453
+              },
+              {
+                "bucket": 5,
+                "observations": 137,
+                "mean_net_return": -0.0010215754630998773,
+                "median_net_return": 4.559384660018928e-05,
+                "hit_rate": 0.5036496350364964,
+                "mean_mae": -0.017070938386185605,
+                "mean_mfe": 0.017034089357477734
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.003031531807723548,
+            "minimum_required_extreme_bucket_observations": 69,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.3184933057330582,
+              "2022": 0.03333854069425552,
+              "2023": -0.011242395877124911,
+              "2024": -0.10822769672327195
+            },
+            "expected_direction_ratio": 0.75
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.16322933478575746,
+          "spearman": -0.1393420291363482,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.006596244119731433,
+            "standard_error_newey_west": 0.00490426730403407,
+            "t_value": -1.345000937103409,
+            "p_value": 0.17862493194526607,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.1321353065539112,
+            "minimum": -0.21987315010570824,
+            "maximum": -0.05064419414958269,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.14119892362957315,
+            "ci_2_5pct": -0.32562241352948207,
+            "ci_97_5pct": 0.029895273514458084
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 41,
+                "mean_net_return": 0.005566892977697659,
+                "median_net_return": 0.005900401125000121,
+                "hit_rate": 0.6097560975609756,
+                "mean_mae": -0.014136102027729327,
+                "mean_mfe": 0.02038687430105966
+              },
+              {
+                "bucket": 2,
+                "observations": 34,
+                "mean_net_return": -0.0017061939695160195,
+                "median_net_return": -0.00035473901399984964,
+                "hit_rate": 0.5,
+                "mean_mae": -0.019683866246649074,
+                "mean_mfe": 0.01774914928527438
+              },
+              {
+                "bucket": 3,
+                "observations": 38,
+                "mean_net_return": 0.00472831913314223,
+                "median_net_return": -0.0008625958897499619,
+                "hit_rate": 0.5,
+                "mean_mae": -0.013026958698751768,
+                "mean_mfe": 0.020187935864841067
+              },
+              {
+                "bucket": 4,
+                "observations": 59,
+                "mean_net_return": 0.005402049955926381,
+                "median_net_return": 0.0021660301647499214,
+                "hit_rate": 0.5254237288135594,
+                "mean_mae": -0.013636813437917965,
+                "mean_mfe": 0.021689438981541676
+              },
+              {
+                "bucket": 5,
+                "observations": 42,
+                "mean_net_return": -0.0007354179279927568,
+                "median_net_return": -0.007272668852149833,
+                "hit_rate": 0.47619047619047616,
+                "mean_mae": -0.023611401717027275,
+                "mean_mfe": 0.03871981312410231
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.006302310905690416,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.21201463378776486,
+              "2025": -0.0781511600095671
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.2984196235662447
+      },
+      "evidence": {
+        "score": 6,
+        "rating": "STRONG",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H012",
+      "factor_id": "INDEX_R_20D",
+      "factor": "factor_index_return_20d",
+      "factor_name_cn": "沪深300过去20日累计收益",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "positive",
+      "economic_hypothesis": "中期指数趋势具有延续性。",
+      "development_bucket_edges": [
+        -0.044688599865788214,
+        -0.02036221656675763,
+        -0.0029177741870245466,
+        0.02459088198055004
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": 0.027020021450235666,
+          "spearman": 0.031319201495259665,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": 0.0005778999362113328,
+            "standard_error_newey_west": 0.0014951029052465447,
+            "t_value": 0.3865285353826774,
+            "p_value": 0.6991052733873622,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.027395665187938505,
+            "minimum": -0.026943599040158542,
+            "maximum": 0.06536465527673069,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.01828580542814335,
+            "ci_2_5pct": -0.12946542543704959,
+            "ci_97_5pct": 0.15542159700623867
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": -0.0006987736601297473,
+                "median_net_return": -0.001124870329199723,
+                "hit_rate": 0.4892086330935252,
+                "mean_mae": -0.021912092012014064,
+                "mean_mfe": 0.019100335361487034
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": -0.0076442103839864835,
+                "median_net_return": -0.007565744896099846,
+                "hit_rate": 0.32608695652173914,
+                "mean_mae": -0.020348802892629917,
+                "mean_mfe": 0.012703495345690761
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.004555210604332855,
+                "median_net_return": -0.004237531996374777,
+                "hit_rate": 0.39855072463768115,
+                "mean_mae": -0.018352798748447384,
+                "mean_mfe": 0.013600392770532134
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.0011294199575299574,
+                "median_net_return": -0.0026469385574997006,
+                "hit_rate": 0.427536231884058,
+                "mean_mae": -0.015065194979400053,
+                "mean_mfe": 0.014466865171392607
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.0020688437289980766,
+                "median_net_return": -0.001819600833599666,
+                "hit_rate": 0.47101449275362317,
+                "mean_mae": -0.016532007703156174,
+                "mean_mfe": 0.016125946406389844
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.0013700700688683294,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.3857922732362821,
+              "2022": 0.07110841852448795,
+              "2023": -0.12785679842136527,
+              "2024": 0.09398810947483514
+            },
+            "expected_direction_ratio": 0.5
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.1581321069609333,
+          "spearman": -0.20314322361029902,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.006390260562238177,
+            "standard_error_newey_west": 0.004339598343094796,
+            "t_value": -1.4725465485547555,
+            "p_value": 0.1408733466950332,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.19299305345816972,
+            "minimum": -0.2701600724856539,
+            "maximum": -0.17381455753548775,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.241141985487971,
+            "ci_2_5pct": -0.3855561775602415,
+            "ci_97_5pct": -0.06700774056817727
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 28,
+                "mean_net_return": 0.013495279465460851,
+                "median_net_return": 0.007222036923675179,
+                "hit_rate": 0.8214285714285714,
+                "mean_mae": -0.007124318368762071,
+                "mean_mfe": 0.025687305669630418
+              },
+              {
+                "bucket": 2,
+                "observations": 52,
+                "mean_net_return": 0.009491846710628964,
+                "median_net_return": -0.0004498626283249707,
+                "hit_rate": 0.5,
+                "mean_mae": -0.012801927417979891,
+                "mean_mfe": 0.024809408139213732
+              },
+              {
+                "bucket": 3,
+                "observations": 29,
+                "mean_net_return": 0.0003342166654035715,
+                "median_net_return": -0.0018459864373499002,
+                "hit_rate": 0.4482758620689655,
+                "mean_mae": -0.015358063958370503,
+                "mean_mfe": 0.015580574744112874
+              },
+              {
+                "bucket": 4,
+                "observations": 47,
+                "mean_net_return": 0.0008620993287788201,
+                "median_net_return": 0.0031514007124999743,
+                "hit_rate": 0.5319148936170213,
+                "mean_mae": -0.021043534716500386,
+                "mean_mfe": 0.026031375812554967
+              },
+              {
+                "bucket": 5,
+                "observations": 58,
+                "mean_net_return": -0.004895056329818849,
+                "median_net_return": -0.005929369450849764,
+                "hit_rate": 0.43103448275862066,
+                "mean_mae": -0.0213878586982636,
+                "mean_mfe": 0.024616179711583946
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.0183903357952797,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.17734137776998715,
+              "2025": -0.30813715105750505
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.2984196235662447
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H013",
+      "factor_id": "INDEX_MA_20_60",
+      "factor": "factor_index_ma20_over_ma60",
+      "factor_name_cn": "沪深300二十日均线相对六十日均线",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "positive",
+      "economic_hypothesis": "中期趋势结构越强，未来多日收益越高。",
+      "development_bucket_edges": [
+        -0.034397824056215165,
+        -0.02099623781770421,
+        -0.003239241371368773,
+        0.014311100515461694
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": -0.0194037274686621,
+          "spearman": -0.01725444255277981,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": -0.00041500384768584664,
+            "standard_error_newey_west": 0.0015007900661277744,
+            "t_value": -0.2765235838458129,
+            "p_value": 0.7821459482526452,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.03008979677571811,
+            "minimum": -0.045240862213434575,
+            "maximum": 0.03956387684883149,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.01693946567849229,
+            "ci_2_5pct": -0.15633617831730834,
+            "ci_97_5pct": 0.11917189710995042
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": -0.004553929010751321,
+                "median_net_return": -0.0030027362115000455,
+                "hit_rate": 0.45323741007194246,
+                "mean_mae": -0.026956924197143805,
+                "mean_mfe": 0.018998457429092532
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": -0.002771319782273075,
+                "median_net_return": -0.005342718562575011,
+                "hit_rate": 0.37681159420289856,
+                "mean_mae": -0.019206994648230613,
+                "mean_mfe": 0.015349120042882674
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.0007531359015647462,
+                "median_net_return": -0.0008284846850998284,
+                "hit_rate": 0.45652173913043476,
+                "mean_mae": -0.015000610873228518,
+                "mean_mfe": 0.01551576947872424
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.005327416605244084,
+                "median_net_return": -0.005524837390099957,
+                "hit_rate": 0.37681159420289856,
+                "mean_mae": -0.015772301176775978,
+                "mean_mfe": 0.01236212179567742
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.0026627211268060577,
+                "median_net_return": -0.002708591366799795,
+                "hit_rate": 0.4492753623188406,
+                "mean_mae": -0.015237508685303975,
+                "mean_mfe": 0.013772304555002434
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.0018912078839452631,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.22082866741321389,
+              "2022": -0.04818502303728005,
+              "2023": -0.02014317278997274,
+              "2024": -0.07175316909830184
+            },
+            "expected_direction_ratio": 0.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.10970779816128541,
+          "spearman": -0.10354087139660392,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.004433390722690146,
+            "standard_error_newey_west": 0.0058159011434213495,
+            "t_value": -0.762287840415749,
+            "p_value": 0.4458882295548612,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.08199939595288432,
+            "minimum": -0.2148897614013893,
+            "maximum": -0.06433101781938991,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.15098067086481448,
+            "ci_2_5pct": -0.36658074321212214,
+            "ci_97_5pct": 0.12838527602902797
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 2,
+                "observations": 58,
+                "mean_net_return": 0.020622693997554425,
+                "median_net_return": 0.0028624674693751295,
+                "hit_rate": 0.5689655172413793,
+                "mean_mae": -0.010462299715667573,
+                "mean_mfe": 0.043951339164054595
+              },
+              {
+                "bucket": 3,
+                "observations": 39,
+                "mean_net_return": -0.005454741584481906,
+                "median_net_return": 0.0021376157602501777,
+                "hit_rate": 0.5641025641025641,
+                "mean_mae": -0.01506109235019026,
+                "mean_mfe": 0.011927340551002518
+              },
+              {
+                "bucket": 4,
+                "observations": 70,
+                "mean_net_return": -0.005949598704959174,
+                "median_net_return": -0.0024570341741249058,
+                "hit_rate": 0.4714285714285714,
+                "mean_mae": -0.020745789919607155,
+                "mean_mfe": 0.012549394843680431
+              },
+              {
+                "bucket": 5,
+                "observations": 47,
+                "mean_net_return": 0.0015070663380681835,
+                "median_net_return": 0.0041054920556002905,
+                "hit_rate": 0.5106382978723404,
+                "mean_mae": -0.019015013861472415,
+                "mean_mfe": 0.025948551999321206
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": null,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": false
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.05761347122719125,
+              "2025": -0.31397990911265244
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.5573602869435765
+      },
+      "evidence": {
+        "score": 0,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H014",
+      "factor_id": "INDEX_RANGE_60D",
+      "factor": "factor_index_range_position_60d",
+      "factor_name_cn": "沪深300六十日价格区间位置",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "positive",
+      "economic_hypothesis": "接近中期区间上沿表示趋势强度而非立即反转。",
+      "development_bucket_edges": [
+        0.13193020261694602,
+        0.2700273200771886,
+        0.42441045956671036,
+        0.7234676893881135
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": 0.04011090385395538,
+          "spearman": 0.036605485794669844,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": 0.0008578856542091126,
+            "standard_error_newey_west": 0.0014717995869519803,
+            "t_value": 0.5828821137161404,
+            "p_value": 0.5599726621688801,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.031717376636344344,
+            "minimum": -0.00410284276545758,
+            "maximum": 0.11108269842393301,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.028824356724072693,
+            "ci_2_5pct": -0.1044655689836935,
+            "ci_97_5pct": 0.17006862299636655
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": -0.0027701863356930736,
+                "median_net_return": -0.0042306859955498766,
+                "hit_rate": 0.41007194244604317,
+                "mean_mae": -0.021560202090521566,
+                "mean_mfe": 0.0165925127838891
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": -0.00494093875061763,
+                "median_net_return": -0.002433524525474795,
+                "hit_rate": 0.427536231884058,
+                "mean_mae": -0.0206260285416856,
+                "mean_mfe": 0.0163976696268626
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.0027212425284321223,
+                "median_net_return": -0.004415021222849869,
+                "hit_rate": 0.39855072463768115,
+                "mean_mae": -0.019018330010391295,
+                "mean_mfe": 0.014214756543516794
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.005359495538981413,
+                "median_net_return": -0.006334498311149961,
+                "hit_rate": 0.37681159420289856,
+                "mean_mae": -0.016528992647028357,
+                "mean_mfe": 0.012929592383511778
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.0002895849444734372,
+                "median_net_return": -0.00036283021459981857,
+                "hit_rate": 0.5,
+                "mean_mae": -0.014479892972988118,
+                "mean_mfe": 0.015880676345086005
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.0024806013912196364,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.5777435610302352,
+              "2022": 0.11070223649994507,
+              "2023": -0.04896834764595423,
+              "2024": -0.01932641568668706
+            },
+            "expected_direction_ratio": 0.25
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.1420705941759655,
+          "spearman": -0.18334293014775055,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.005741200395443459,
+            "standard_error_newey_west": 0.004272742691120603,
+            "t_value": -1.3436803501822214,
+            "p_value": 0.17905177413974682,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.2015233773600195,
+            "minimum": -0.21775898520084566,
+            "maximum": -0.17124735729386892,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.2778883478063908,
+            "ci_2_5pct": -0.5879406949972017,
+            "ci_97_5pct": 0.0009975205502436857
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 38,
+                "mean_net_return": 0.0014656603332606562,
+                "median_net_return": -0.005437219776899926,
+                "hit_rate": 0.39473684210526316,
+                "mean_mae": -0.012989840778528234,
+                "mean_mfe": 0.01809303159127648
+              },
+              {
+                "bucket": 2,
+                "observations": 19,
+                "mean_net_return": 0.028665179363794858,
+                "median_net_return": 0.004056077648100009,
+                "hit_rate": 0.631578947368421,
+                "mean_mae": -0.010345363632562986,
+                "mean_mfe": 0.041315542599006244
+              },
+              {
+                "bucket": 3,
+                "observations": 8,
+                "mean_net_return": -0.011324822260624895,
+                "median_net_return": 0.00864462233704999,
+                "hit_rate": 0.625,
+                "mean_mae": -0.024963531768301586,
+                "mean_mfe": 0.012010543202922802
+              },
+              {
+                "bucket": 4,
+                "observations": 122,
+                "mean_net_return": 0.004114602914486996,
+                "median_net_return": 0.004733906950625255,
+                "hit_rate": 0.6065573770491803,
+                "mean_mae": -0.015547740953285611,
+                "mean_mfe": 0.023628351405677494
+              },
+              {
+                "bucket": 5,
+                "observations": 27,
+                "mean_net_return": -0.013850923683444325,
+                "median_net_return": -0.010780907868749967,
+                "hit_rate": 0.2222222222222222,
+                "mean_mae": -0.02790364525843765,
+                "mean_mfe": 0.02448554848386407
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.01531658401670498,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.16759918688450676,
+              "2025": -0.4032955205521577
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.2984196235662447
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H015",
+      "factor_id": "INDEX_RV_20D",
+      "factor": "factor_index_rv_20",
+      "factor_name_cn": "沪深300二十日实现波动率",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "negative",
+      "economic_hypothesis": "高波动状态降低未来多日可执行风险收益。",
+      "development_bucket_edges": [
+        0.12171517563543148,
+        0.13504068047734646,
+        0.1523226990890626,
+        0.1757072600245477
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": 0.11528772062154431,
+          "spearman": 0.1033116335435421,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": 0.002465755496006804,
+            "standard_error_newey_west": 0.0013292999461662106,
+            "t_value": 1.854927853655758,
+            "p_value": 0.06360652983028718,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.10177196230955571,
+            "minimum": 0.07469365669000819,
+            "maximum": 0.14604704684364217,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.0982406682090094,
+            "ci_2_5pct": -0.054874217726750475,
+            "ci_97_5pct": 0.2544366885925317
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": -0.00655332812841104,
+                "median_net_return": -0.008032864965999864,
+                "hit_rate": 0.35251798561151076,
+                "mean_mae": -0.017034488628218783,
+                "mean_mfe": 0.012737773980826981
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": -0.001624308132116569,
+                "median_net_return": -0.0021420160820499468,
+                "hit_rate": 0.4420289855072464,
+                "mean_mae": -0.01555384232847319,
+                "mean_mfe": 0.012787046343912822
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.003964318232398804,
+                "median_net_return": -0.0038816803431999114,
+                "hit_rate": 0.41304347826086957,
+                "mean_mae": -0.0155771216805478,
+                "mean_mfe": 0.013141157324822747
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.004243228953993359,
+                "median_net_return": -0.005161883735799899,
+                "hit_rate": 0.38405797101449274,
+                "mean_mae": -0.021193237716068982,
+                "mean_mfe": 0.01563820363297944
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": 0.0003311494196838199,
+                "median_net_return": 0.0011479776118249463,
+                "hit_rate": 0.5217391304347826,
+                "mean_mae": -0.022887550934395335,
+                "mean_mfe": 0.021738959290201552
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.00688447754809486,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.1021976483762598,
+              "2022": 0.22444106601028518,
+              "2023": -0.04166439109227994,
+              "2024": 0.5025711552260226
+            },
+            "expected_direction_ratio": 0.5
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": 0.02312307275571133,
+          "spearman": 0.12206470730490308,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": 0.0009344241517321397,
+            "standard_error_newey_west": 0.004099094834157467,
+            "t_value": 0.2279586566150286,
+            "p_value": 0.8196783815643156,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.14707073981038815,
+            "minimum": 0.041981274539414075,
+            "maximum": 0.17049229839927516,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.1745522502030526,
+            "ci_2_5pct": -0.018346941412359048,
+            "ci_97_5pct": 0.3584639294074322
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 62,
+                "mean_net_return": 0.00836969693479768,
+                "median_net_return": -0.0027731922215999405,
+                "hit_rate": 0.45161290322580644,
+                "mean_mae": -0.012779332229660743,
+                "mean_mfe": 0.02258995649475792
+              },
+              {
+                "bucket": 2,
+                "observations": 19,
+                "mean_net_return": -0.018042474805826197,
+                "median_net_return": 0.0007531107528000458,
+                "hit_rate": 0.5263157894736842,
+                "mean_mae": -0.036609045136855985,
+                "mean_mfe": 0.013014500114312197
+              },
+              {
+                "bucket": 3,
+                "observations": 36,
+                "mean_net_return": -0.004767354031638761,
+                "median_net_return": -0.007598662900974884,
+                "hit_rate": 0.3888888888888889,
+                "mean_mae": -0.01239681208937545,
+                "mean_mfe": 0.010464956634998586
+              },
+              {
+                "bucket": 4,
+                "observations": 20,
+                "mean_net_return": 0.0035145916471151393,
+                "median_net_return": 0.0035608135740000657,
+                "hit_rate": 0.65,
+                "mean_mae": -0.012061815637035834,
+                "mean_mfe": 0.016187505775240994
+              },
+              {
+                "bucket": 5,
+                "observations": 77,
+                "mean_net_return": 0.007311172235783883,
+                "median_net_return": 0.005900401125000121,
+                "hit_rate": 0.6103896103896104,
+                "mean_mae": -0.017723310743251702,
+                "mean_mfe": 0.035896651646990914
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.0010585246990137964,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": 0.10728240156968295,
+              "2025": 0.18532818532818535
+            },
+            "expected_direction_ratio": 0.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.8831208794416913
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": false,
+          "pseudo_oos_nonoverlap_direction": false,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H016",
+      "factor_id": "INDEX_VOL_TERM_5_20",
+      "factor": "factor_index_vol_term_5_20",
+      "factor_name_cn": "沪深300短中期波动率比",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "negative",
+      "economic_hypothesis": "短期波动突然高于中期波动代表风险冲击。",
+      "development_bucket_edges": [
+        0.7093960621658878,
+        0.8657152513179472,
+        1.0184149172138806,
+        1.1802319413374753
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": -0.07741187166929375,
+          "spearman": -0.054973924245559816,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": -0.0016556728417880106,
+            "standard_error_newey_west": 0.0011035741203342033,
+            "t_value": -1.500282410833095,
+            "p_value": 0.13354126368700006,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.04173108717994548,
+            "minimum": -0.12680455445228075,
+            "maximum": -0.02435449292105509,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.06361578882607304,
+            "ci_2_5pct": -0.16453714527718913,
+            "ci_97_5pct": 0.04652964706800983
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": 0.001027374202979237,
+                "median_net_return": 0.0005966627288003234,
+                "hit_rate": 0.5035971223021583,
+                "mean_mae": -0.016234172062725604,
+                "mean_mfe": 0.017225832758447617
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": -0.00522464272266257,
+                "median_net_return": -0.007513029288524931,
+                "hit_rate": 0.37681159420289856,
+                "mean_mae": -0.019109889260876794,
+                "mean_mfe": 0.01332290401432188
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.004550463527326322,
+                "median_net_return": -0.004351567213774776,
+                "hit_rate": 0.37681159420289856,
+                "mean_mae": -0.017687559120469237,
+                "mean_mfe": 0.013981046117765173
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.0009468848283567702,
+                "median_net_return": -0.0006307150550998175,
+                "hit_rate": 0.47101449275362317,
+                "mean_mae": -0.01630957435506286,
+                "mean_mfe": 0.016217495607059526
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.006414349777459312,
+                "median_net_return": -0.005266339751549942,
+                "hit_rate": 0.38405797101449274,
+                "mean_mae": -0.02291084588397171,
+                "mean_mfe": 0.015263339910094124
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.007441723980438549,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.17771556550951845,
+              "2022": -0.027242118151209065,
+              "2023": -0.014370199331849026,
+              "2024": -0.09450917415519186
+            },
+            "expected_direction_ratio": 1.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.06002841676647438,
+          "spearman": -0.19317723336323087,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.0024258022715852763,
+            "standard_error_newey_west": 0.0031641961911644126,
+            "t_value": -0.7666409176393674,
+            "p_value": 0.4432950404612263,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.16973723950468136,
+            "minimum": -0.3024765931742676,
+            "maximum": -0.07067351253397765,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.20614557671078518,
+            "ci_2_5pct": -0.3843690232675581,
+            "ci_97_5pct": 0.006823722198638114
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 73,
+                "mean_net_return": 0.006947435222256961,
+                "median_net_return": 0.004871480171250164,
+                "hit_rate": 0.6164383561643836,
+                "mean_mae": -0.015186500868877326,
+                "mean_mfe": 0.024802125944827225
+              },
+              {
+                "bucket": 2,
+                "observations": 36,
+                "mean_net_return": 0.007281802285740389,
+                "median_net_return": 0.00354810717205023,
+                "hit_rate": 0.5833333333333334,
+                "mean_mae": -0.014706426112480998,
+                "mean_mfe": 0.02425741777008151
+              },
+              {
+                "bucket": 3,
+                "observations": 29,
+                "mean_net_return": -0.009943503656217155,
+                "median_net_return": -0.005707834217399954,
+                "hit_rate": 0.4482758620689655,
+                "mean_mae": -0.021714532903011972,
+                "mean_mfe": 0.012475536861899617
+              },
+              {
+                "bucket": 4,
+                "observations": 21,
+                "mean_net_return": 0.001122492598519201,
+                "median_net_return": 0.004596333730000346,
+                "hit_rate": 0.6190476190476191,
+                "mean_mae": -0.013193529159262952,
+                "mean_mfe": 0.025222661836815746
+              },
+              {
+                "bucket": 5,
+                "observations": 55,
+                "mean_net_return": 0.0024222390282801253,
+                "median_net_return": -0.005840200637499904,
+                "hit_rate": 0.36363636363636365,
+                "mean_mae": -0.018095917473065704,
+                "mean_mfe": 0.027947178813935457
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.004525196193976836,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.24579448236085746,
+              "2025": -0.2202138927802645
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.5573602869435765
+      },
+      "evidence": {
+        "score": 6,
+        "rating": "STRONG",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H017",
+      "factor_id": "ETF_PRICE_VOLUME_CONFIRM_20D",
+      "factor": "factor_etf_price_volume_confirmation_20d",
+      "factor_name_cn": "510300二十日价格与成交量确认",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "positive",
+      "economic_hypothesis": "与方向一致的成交量扩张提高趋势可信度；该指标不是订单流PV。",
+      "development_bucket_edges": [
+        -0.028420759790319605,
+        -0.005099144335006088,
+        0.0023635760001206345,
+        0.02206660416113003
+      ],
+      "splits": {
+        "development": {
+          "observations": 671,
+          "approx_independent_observations": 134,
+          "pearson": -0.1261745805376475,
+          "spearman": -0.08927995481396507,
+          "hac_regression": {
+            "observations": 671,
+            "beta_per_factor_std": -0.0027044393024550956,
+            "standard_error_newey_west": 0.0012172558928528225,
+            "t_value": -2.2217508400118193,
+            "p_value": 0.026300148660011048,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.06447175885279485,
+            "minimum": -0.16662801281811496,
+            "maximum": 0.00561852392174466,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              135,
+              134,
+              134,
+              134,
+              134
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.08445952283163599,
+            "ci_2_5pct": -0.18922636455295822,
+            "ci_97_5pct": 0.03348437820200192
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 135,
+                "mean_net_return": -0.0004163984180976747,
+                "median_net_return": -0.001124870329199723,
+                "hit_rate": 0.4888888888888889,
+                "mean_mae": -0.01936031904010352,
+                "mean_mfe": 0.018799246345559018
+              },
+              {
+                "bucket": 2,
+                "observations": 134,
+                "mean_net_return": -0.0028369734491592072,
+                "median_net_return": -0.003900081945899858,
+                "hit_rate": 0.417910447761194,
+                "mean_mae": -0.01824895726854453,
+                "mean_mfe": 0.014287911422581978
+              },
+              {
+                "bucket": 3,
+                "observations": 134,
+                "mean_net_return": -0.0005469138468543814,
+                "median_net_return": -0.0007896454790997098,
+                "hit_rate": 0.4701492537313433,
+                "mean_mae": -0.015000914430648932,
+                "mean_mfe": 0.014918917500984159
+              },
+              {
+                "bucket": 4,
+                "observations": 134,
+                "mean_net_return": -0.006113649094363687,
+                "median_net_return": -0.006549633943625011,
+                "hit_rate": 0.3582089552238806,
+                "mean_mae": -0.0192783984904297,
+                "mean_mfe": 0.013508822623462157
+              },
+              {
+                "bucket": 5,
+                "observations": 134,
+                "mean_net_return": -0.00678655588929466,
+                "median_net_return": -0.005855031039450009,
+                "hit_rate": 0.3656716417910448,
+                "mean_mae": -0.020179408445849093,
+                "mean_mfe": 0.01400818238637023
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.0063701574711969855,
+            "minimum_required_extreme_bucket_observations": 68,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.10975817923186343,
+              "2022": -0.00648379939213587,
+              "2023": -0.16474692860962195,
+              "2024": -0.10833874329449551
+            },
+            "expected_direction_ratio": 0.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.17399162149648864,
+          "spearman": 0.0738008577437238,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.007031157798229862,
+            "standard_error_newey_west": 0.004206342577668109,
+            "t_value": -1.6715609031843908,
+            "p_value": 0.09461093972682719,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.073542736333434,
+            "minimum": -0.012721821570375174,
+            "maximum": 0.132890365448505,
+            "same_sign_ratio": 0.8,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": 0.05820876056772812,
+            "ci_2_5pct": -0.10513946840941311,
+            "ci_97_5pct": 0.25789816415281047
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 32,
+                "mean_net_return": 0.007376072821882913,
+                "median_net_return": -0.007271331651774793,
+                "hit_rate": 0.375,
+                "mean_mae": -0.015798003666435998,
+                "mean_mfe": 0.027026159701550583
+              },
+              {
+                "bucket": 2,
+                "observations": 44,
+                "mean_net_return": 0.0005026198968285125,
+                "median_net_return": 0.00296921028520003,
+                "hit_rate": 0.5454545454545454,
+                "mean_mae": -0.013198007473431984,
+                "mean_mfe": 0.01707216416182482
+              },
+              {
+                "bucket": 3,
+                "observations": 38,
+                "mean_net_return": -0.008250393070293302,
+                "median_net_return": -0.0036142167610248577,
+                "hit_rate": 0.47368421052631576,
+                "mean_mae": -0.02335046205899612,
+                "mean_mfe": 0.012997779131610564
+              },
+              {
+                "bucket": 4,
+                "observations": 42,
+                "mean_net_return": 0.004511334876606073,
+                "median_net_return": 0.0023751641960252368,
+                "hit_rate": 0.5238095238095238,
+                "mean_mae": -0.014900401849565072,
+                "mean_mfe": 0.020456384963403105
+              },
+              {
+                "bucket": 5,
+                "observations": 58,
+                "mean_net_return": 0.008683289736179439,
+                "median_net_return": 0.003773403205950099,
+                "hit_rate": 0.6206896551724138,
+                "mean_mae": -0.016219380154263774,
+                "mean_mfe": 0.03695323149993015
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.0013072169142965256,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": 0.08257233490339325,
+              "2025": 0.01037004134349267
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.2984196235662447
+      },
+      "evidence": {
+        "score": 5,
+        "rating": "WEAK",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H018",
+      "factor_id": "ETF_CLOSE_VWAP",
+      "factor": "factor_etf_close_over_daily_vwap",
+      "factor_name_cn": "510300收盘价相对当日VWAP",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "positive",
+      "economic_hypothesis": "收盘维持在当日成交重心上方代表短期需求强度。",
+      "development_bucket_edges": [
+        -0.003048900124116738,
+        -0.0008243870597380853,
+        0.0006834071564323363,
+        0.0029595653860250426
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": -0.03888442894709938,
+          "spearman": -0.03494703924983879,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": -0.0008316540032926873,
+            "standard_error_newey_west": 0.000979961443833595,
+            "t_value": -0.8486599228223397,
+            "p_value": 0.39607055291272364,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.005801515563176243,
+            "minimum": -0.19528575897046335,
+            "maximum": 0.12215603588217966,
+            "same_sign_ratio": 0.6,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.04042595452736507,
+            "ci_2_5pct": -0.10510219007702917,
+            "ci_97_5pct": 0.033899313740424375
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": 0.0011027149275288813,
+                "median_net_return": -0.001124870329199723,
+                "hit_rate": 0.48201438848920863,
+                "mean_mae": -0.01815523148840762,
+                "mean_mfe": 0.018815093952146943
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": -0.005694538916379594,
+                "median_net_return": -0.0034689850813999223,
+                "hit_rate": 0.39855072463768115,
+                "mean_mae": -0.018196067422193887,
+                "mean_mfe": 0.013332878049312982
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.003515766436356385,
+                "median_net_return": -0.006135655881449875,
+                "hit_rate": 0.42028985507246375,
+                "mean_mae": -0.018073108900954,
+                "mean_mfe": 0.014832093242867017
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.006516894980761854,
+                "median_net_return": -0.005876200242824925,
+                "hit_rate": 0.36231884057971014,
+                "mean_mae": -0.02051017063459889,
+                "mean_mfe": 0.011786363163449373
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.0014850271941361302,
+                "median_net_return": -0.00301001541239998,
+                "hit_rate": 0.4492753623188406,
+                "mean_mae": -0.017303541516475864,
+                "mean_mfe": 0.017232673614450418
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": -0.0025877421216650115,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": 0.050923852183650614,
+              "2022": -0.03764413911528208,
+              "2023": -0.09708171873392545,
+              "2024": 0.012966822701335975
+            },
+            "expected_direction_ratio": 0.5
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": 0.014887416401095265,
+          "spearman": 0.010517615582650434,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": 0.0006016138767128428,
+            "standard_error_newey_west": 0.004092218477602626,
+            "t_value": 0.1470141147168884,
+            "p_value": 0.8831208794416913,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": 0.018121413470250678,
+            "minimum": -0.1454243430987617,
+            "maximum": 0.16248867411658108,
+            "same_sign_ratio": 0.6,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.0036072084348147994,
+            "ci_2_5pct": -0.1301444068886017,
+            "ci_97_5pct": 0.12408058461284271
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 39,
+                "mean_net_return": 0.0026736720869962494,
+                "median_net_return": -0.001594342400000004,
+                "hit_rate": 0.48717948717948717,
+                "mean_mae": -0.01755176435566126,
+                "mean_mfe": 0.02909622096434541
+              },
+              {
+                "bucket": 2,
+                "observations": 48,
+                "mean_net_return": 0.0029105963931886545,
+                "median_net_return": 0.002338203390774951,
+                "hit_rate": 0.5416666666666666,
+                "mean_mae": -0.017979994712636754,
+                "mean_mfe": 0.022755813337699046
+              },
+              {
+                "bucket": 3,
+                "observations": 52,
+                "mean_net_return": -0.0015672435996518048,
+                "median_net_return": -9.699977499982859e-05,
+                "hit_rate": 0.5,
+                "mean_mae": -0.014150600756475944,
+                "mean_mfe": 0.014833363870551316
+              },
+              {
+                "bucket": 4,
+                "observations": 38,
+                "mean_net_return": 0.0037076600121829987,
+                "median_net_return": 0.0014840220623001388,
+                "hit_rate": 0.5526315789473685,
+                "mean_mae": -0.012724385028441237,
+                "mean_mfe": 0.018047887670551835
+              },
+              {
+                "bucket": 5,
+                "observations": 37,
+                "mean_net_return": 0.00903689965022853,
+                "median_net_return": 0.003561226374000137,
+                "hit_rate": 0.5405405405405406,
+                "mean_mae": -0.02089704066305336,
+                "mean_mfe": 0.038599925012468325
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.006363227563232281,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.0013288022120315972,
+              "2025": 0.04765606314278881
+            },
+            "expected_direction_ratio": 0.5
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.8831208794416913
+      },
+      "evidence": {
+        "score": 3,
+        "rating": "INCONCLUSIVE",
+        "checks": {
+          "development_spearman_direction": false,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": true,
+          "pseudo_oos_year_direction_ratio_ge_60pct": false,
+          "pseudo_oos_bootstrap_median_direction": false,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H019",
+      "factor_id": "CSI300_PE_PCTL_5Y",
+      "factor": "factor_official_pe_percentile_5y",
+      "factor_name_cn": "沪深300官方PE五年滚动百分位",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "negative",
+      "economic_hypothesis": "较低估值提高未来多日风险补偿。",
+      "development_bucket_edges": [
+        0.07892561983471075,
+        0.13760330578512397,
+        0.22355371900826446,
+        0.41487603305785126
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": -0.16159992663281272,
+          "spearman": -0.15408869617767504,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": -0.0034562736178747134,
+            "standard_error_newey_west": 0.0013654658488511922,
+            "t_value": -2.531204731910784,
+            "p_value": 0.011367147790595066,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.14617885271537176,
+            "minimum": -0.18509516868158526,
+            "maximum": -0.1333450537092808,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.15434810993904624,
+            "ci_2_5pct": -0.3113632926514195,
+            "ci_97_5pct": 0.00784209458493886
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": -0.001822205389108163,
+                "median_net_return": -0.004051101968549742,
+                "hit_rate": 0.4316546762589928,
+                "mean_mae": -0.021316009228096955,
+                "mean_mfe": 0.01834354954273105
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": 0.0028652322117106084,
+                "median_net_return": 0.004109742456349985,
+                "hit_rate": 0.5797101449275363,
+                "mean_mae": -0.013134832107842206,
+                "mean_mfe": 0.018755695159908395
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.0011436470553256302,
+                "median_net_return": -0.0004406710267499947,
+                "hit_rate": 0.4927536231884058,
+                "mean_mae": -0.016314825601638883,
+                "mean_mfe": 0.01541042750275372
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.00836577973516546,
+                "median_net_return": -0.007739237722500014,
+                "hit_rate": 0.2826086956521739,
+                "mean_mae": -0.020826725966865436,
+                "mean_mfe": 0.011842467773228922
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.0076219175574581965,
+                "median_net_return": -0.0071731276373747654,
+                "hit_rate": 0.32608695652173914,
+                "mean_mae": -0.020622822871667286,
+                "mean_mfe": 0.011650379032078667
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.005799712168350034,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.48956437769402833,
+              "2022": -0.2674179427841063,
+              "2023": -0.0989984407445293,
+              "2024": -0.3055018093491974
+            },
+            "expected_direction_ratio": 1.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.34535877636226453,
+          "spearman": -0.2680249085317871,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.013956258541194514,
+            "standard_error_newey_west": 0.00909868072314385,
+            "t_value": -1.5338771593220861,
+            "p_value": 0.12505987607974167,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.24882008843784775,
+            "minimum": -0.3757314911878565,
+            "maximum": -0.22485653881002718,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.3145384772593913,
+            "ci_2_5pct": -0.5760648630818113,
+            "ci_97_5pct": -0.027904342799204087
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 5,
+                "mean_net_return": 0.026692016726620093,
+                "median_net_return": 0.010062724949899904,
+                "hit_rate": 0.8,
+                "mean_mae": -0.00990014079763928,
+                "mean_mfe": 0.03686472668373688
+              },
+              {
+                "bucket": 2,
+                "observations": 8,
+                "mean_net_return": 0.05970084010184386,
+                "median_net_return": -0.009444635578099936,
+                "hit_rate": 0.5,
+                "mean_mae": -0.015999102942448412,
+                "mean_mfe": 0.0781231345136276
+              },
+              {
+                "bucket": 3,
+                "observations": 22,
+                "mean_net_return": 0.00473746222352967,
+                "median_net_return": -0.007488606484399862,
+                "hit_rate": 0.22727272727272727,
+                "mean_mae": -0.011585060211118008,
+                "mean_mfe": 0.025732178933932245
+              },
+              {
+                "bucket": 4,
+                "observations": 14,
+                "mean_net_return": 0.028993996820821537,
+                "median_net_return": 0.010204893771500134,
+                "hit_rate": 0.8571428571428571,
+                "mean_mae": -0.0062061015043953305,
+                "mean_mfe": 0.06150715785117596
+              },
+              {
+                "bucket": 5,
+                "observations": 165,
+                "mean_net_return": -0.0029300932742520047,
+                "median_net_return": 0.002016115741800384,
+                "hit_rate": 0.5272727272727272,
+                "mean_mae": -0.018308222168448053,
+                "mean_mfe": 0.01742949503054129
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.029622110000872098,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": false
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.3388523220858195,
+              "2025": -0.36212905545749197
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.2984196235662447
+      },
+      "evidence": {
+        "score": 5,
+        "rating": "WEAK",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    },
+    {
+      "hypothesis_id": "H020",
+      "factor_id": "CSI300_PB_PCTL_5Y",
+      "factor": "factor_secondary_pb_percentile_5y",
+      "factor_name_cn": "沪深300PB五年滚动百分位",
+      "target": "exec_total_return_5d_net",
+      "horizon": 5,
+      "expected_sign": "negative",
+      "economic_hypothesis": "较低账面估值提高未来多日风险补偿；作为次级估值来源单独审计。",
+      "development_bucket_edges": [
+        0.0603305785123967,
+        0.10330578512396695,
+        0.23884297520661157,
+        0.4479338842975207
+      ],
+      "splits": {
+        "development": {
+          "observations": 691,
+          "approx_independent_observations": 138,
+          "pearson": -0.14787078312765334,
+          "spearman": -0.1331074529664428,
+          "hac_regression": {
+            "observations": 691,
+            "beta_per_factor_std": -0.0031626368726011935,
+            "standard_error_newey_west": 0.0012960797076001073,
+            "t_value": -2.4401561524771544,
+            "p_value": 0.014680914473814234,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.1310128258076082,
+            "minimum": -0.16496302369448032,
+            "maximum": -0.10774378487710322,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              139,
+              138,
+              138,
+              138,
+              138
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.13935229493245882,
+            "ci_2_5pct": -0.27691519567910355,
+            "ci_97_5pct": 0.0010697767435765562
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 139,
+                "mean_net_return": -0.0014623330760862188,
+                "median_net_return": -0.004461847630649829,
+                "hit_rate": 0.4172661870503597,
+                "mean_mae": -0.02080181964110213,
+                "mean_mfe": 0.017669136408505294
+              },
+              {
+                "bucket": 2,
+                "observations": 138,
+                "mean_net_return": 0.0005067352837595316,
+                "median_net_return": 0.0002681214798250231,
+                "hit_rate": 0.5144927536231884,
+                "mean_mae": -0.012795459736652545,
+                "mean_mfe": 0.016305618501361176
+              },
+              {
+                "bucket": 3,
+                "observations": 138,
+                "mean_net_return": -0.0003346455599441061,
+                "median_net_return": -0.0003221158087499121,
+                "hit_rate": 0.4927536231884058,
+                "mean_mae": -0.015957724754101836,
+                "mean_mfe": 0.016246953500460955
+              },
+              {
+                "bucket": 4,
+                "observations": 138,
+                "mean_net_return": -0.008379251290846271,
+                "median_net_return": -0.007395443670974944,
+                "hit_rate": 0.3333333333333333,
+                "mean_mae": -0.022339720373733923,
+                "mean_mfe": 0.013353644378939987
+              },
+              {
+                "bucket": 5,
+                "observations": 138,
+                "mean_net_return": -0.006421430652613996,
+                "median_net_return": -0.005563502195649994,
+                "hit_rate": 0.35507246376811596,
+                "mean_mae": -0.0203242172820203,
+                "mean_mfe": 0.012432053273130636
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.004959097576527778,
+            "minimum_required_extreme_bucket_observations": 70,
+            "extreme_bucket_support_pass": true
+          },
+          "year_stability": {
+            "correlations": {
+              "2021": -0.5588205445881941,
+              "2022": -0.3109870186230348,
+              "2023": -0.05163690155948157,
+              "2024": -0.1883493116361687
+            },
+            "expected_direction_ratio": 1.0
+          }
+        },
+        "pseudo_oos": {
+          "observations": 214,
+          "approx_independent_observations": 42,
+          "pearson": -0.35789962876487375,
+          "spearman": -0.257863760734891,
+          "hac_regression": {
+            "observations": 214,
+            "beta_per_factor_std": -0.014463045657773253,
+            "standard_error_newey_west": 0.008438960482665186,
+            "t_value": -1.7138420884281171,
+            "p_value": 0.08655773124300434,
+            "hac_maxlags": 5
+          },
+          "non_overlapping_spearman": {
+            "subsamples": 5,
+            "median": -0.2446483182171734,
+            "minimum": -0.3929474839512872,
+            "maximum": -0.21442463603632045,
+            "same_sign_ratio": 1.0,
+            "sample_sizes": [
+              43,
+              43,
+              43,
+              43,
+              42
+            ]
+          },
+          "moving_block_bootstrap_spearman": {
+            "iterations": 500,
+            "block_size": 20,
+            "median": -0.33570536179137467,
+            "ci_2_5pct": -0.5609264527661095,
+            "ci_97_5pct": -0.06793169461604877
+          },
+          "conditional_returns": {
+            "buckets": [
+              {
+                "bucket": 1,
+                "observations": 18,
+                "mean_net_return": 0.03273166133099457,
+                "median_net_return": 0.002536951020550071,
+                "hit_rate": 0.5555555555555556,
+                "mean_mae": -0.012592388610430851,
+                "mean_mfe": 0.04897738427487627
+              },
+              {
+                "bucket": 2,
+                "observations": 18,
+                "mean_net_return": 0.015774855407800117,
+                "median_net_return": -0.008804879882174932,
+                "hit_rate": 0.2222222222222222,
+                "mean_mae": -0.011443900434388662,
+                "mean_mfe": 0.04646579348664775
+              },
+              {
+                "bucket": 3,
+                "observations": 20,
+                "mean_net_return": 0.020155612065320117,
+                "median_net_return": 0.01628574628462498,
+                "hit_rate": 0.9,
+                "mean_mae": -0.006574142985160586,
+                "mean_mfe": 0.0363149534026743
+              },
+              {
+                "bucket": 4,
+                "observations": 147,
+                "mean_net_return": -0.0006819505811774364,
+                "median_net_return": 0.0023852213976001124,
+                "hit_rate": 0.54421768707483,
+                "mean_mae": -0.015928723047371866,
+                "mean_mfe": 0.017780675202403468
+              },
+              {
+                "bucket": 5,
+                "observations": 11,
+                "mean_net_return": -0.04893102441510897,
+                "median_net_return": -0.04928266315860008,
+                "hit_rate": 0.0,
+                "mean_mae": -0.057677143686746965,
+                "mean_mfe": 0.004940728501433001
+              }
+            ],
+            "favorable_minus_adverse_mean_net_return": 0.08166268574610354,
+            "minimum_required_extreme_bucket_observations": 22,
+            "extreme_bucket_support_pass": false
+          },
+          "year_stability": {
+            "correlations": {
+              "2024": -0.32936293649287274,
+              "2025": -0.2966428907991544
+            },
+            "expected_direction_ratio": 1.0
+          }
+        }
+      },
+      "multiple_testing": {
+        "pseudo_oos_hac_bh_q_value": 0.2984196235662447
+      },
+      "evidence": {
+        "score": 5,
+        "rating": "WEAK",
+        "checks": {
+          "development_spearman_direction": true,
+          "pseudo_oos_spearman_direction": true,
+          "pseudo_oos_nonoverlap_direction": true,
+          "pseudo_oos_costed_bucket_effect_positive": false,
+          "pseudo_oos_year_direction_ratio_ge_60pct": true,
+          "pseudo_oos_bootstrap_median_direction": true,
+          "pseudo_oos_hac_direction_and_q_le_20pct": false
+        }
+      }
+    }
+  ]
+}

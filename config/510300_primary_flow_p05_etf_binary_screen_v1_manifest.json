@@ -1,0 +1,53 @@
+{
+  "study_id": "510300_PRIMARY_FLOW_P05_ETF_BINARY_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_FIRST_SCREEN_RUN",
+  "frozen_at": "2026-08-28T18:31:03.143105+08:00",
+  "protocol_path": "config/510300_primary_flow_p05_etf_binary_screen_v1.yaml",
+  "protocol_sha256": "53037adbb9246a7aa13a261e02292f23733578a5c1f7306706c25b6101a23443",
+  "source_artifacts": {
+    "research/primary_flow_p05_etf_binary_screen_v1.py": "b3f623d8c227416ee8ec78b1694d4dd5b2349e56586f24a3af9f0c32ee44bf04",
+    "research/primary_flow_direction_challenger.py": "691d06e7261d7ac3ce9594e07c79b1d82fadd452f255f3cfec801dfe643be26a",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/freeze_510300_primary_flow_p05_etf_binary_screen_v1.py": "04440ea30a756fe20d83497e6447577d18faea67927927beabf5ee0cb6f10327",
+    "tests/test_primary_flow_p05_etf_binary_screen_v1.py": "c9dfc2ed373808abd09b97043501508e902a62b7201359638b7e865d0543aff8"
+  },
+  "input_artifacts": {
+    "data/features/510300_primary_flow_direction_forecasts.parquet": "063a53f162e03952d1d8196906a7b9acda21a9056f6f7c8b11ddfea32980a33f",
+    "config/primary_flow_direction_challenger.yaml": "b6b60086ec9993588017d37c14d62bef89c75c8f76359a1d76727a1d81ef566e",
+    "reports/research/510300_primary_flow_direction_report.json": "ef00e4f0337c2bd20c2f4c8faaa4d04b7070b6a06fe25a38908dbda7302dabd5",
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "candidate_id": "PRIMARY_FLOW_P_GE_050",
+  "probability_threshold": 0.5,
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "start_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "period_ids": [
+    "EARLY_TO_2024_END",
+    "LATE_2025_2026",
+    "COMBINED"
+  ],
+  "hard_gates": {
+    "minimum_annualized_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_stress_period_and_start_required": true
+  },
+  "forbidden_forecast_columns": [
+    "actual_direction_positive_20d_net",
+    "actual_total_return_20d_net",
+    "label_end_date",
+    "is_realized"
+  ],
+  "threshold_or_calibration_rescue": "FORBIDDEN"
+}

@@ -1,0 +1,204 @@
+{
+  "actual_input_row_values_read": false,
+  "config_file": "config/510300_stress_transmission_hazard_v2_g1b_prequential_era_identifiability_v1.yaml",
+  "config_sha256": "a12491570ee5cdbef66e77ec2cce9ecd86fb5c6572ca4080fdf00596fb0455ab",
+  "derived_allowed_fields": [
+    "era_id",
+    "quarter_end_date",
+    "model_vintage_date",
+    "event_min_origin_date",
+    "whole_event_max_horizon_end_date",
+    "training_positive_event_count",
+    "training_negative_risk_day_count",
+    "prequential_predicted"
+  ],
+  "execution_id": "510300_STRESS_TRANSMISSION_HAZARD_V2_G1B_PREQUENTIAL_ERA_IDENTIFIABILITY_V1",
+  "fixed_eras": [
+    {
+      "end": "2017-12-29",
+      "g1a_identifiable_event_count": 0,
+      "id": "ERA_1_2015_2017",
+      "label": "2015-2017",
+      "logical_prequential_upper_bound": 0,
+      "start": "2015-01-05"
+    },
+    {
+      "end": "2020-12-31",
+      "g1a_identifiable_event_count": 5,
+      "id": "ERA_2_2018_2020",
+      "label": "2018-2020",
+      "logical_prequential_upper_bound": 4,
+      "start": "2018-01-02"
+    },
+    {
+      "end": "2023-12-29",
+      "g1a_identifiable_event_count": 19,
+      "id": "ERA_3_2021_2023",
+      "label": "2021-2023",
+      "logical_prequential_upper_bound": 19,
+      "start": "2021-01-04"
+    },
+    {
+      "end": "2026-08-14",
+      "g1a_identifiable_event_count": 7,
+      "id": "ERA_4_2024_CUTOFF",
+      "label": "2024-2026",
+      "logical_prequential_upper_bound": 7,
+      "start": "2024-01-02"
+    }
+  ],
+  "forbidden_source_columns": [
+    "b1_realized_vol20_risk_percentile",
+    "b1_drawdown20_risk_percentile",
+    "b1_downside_return5_risk_percentile",
+    "F",
+    "M",
+    "T",
+    "T_x_F",
+    "T_x_M",
+    "minimum_path_return",
+    "training_weight",
+    "b2_vs_b1_model_weight",
+    "b3_vs_b2_model_weight",
+    "portfolio_return",
+    "nav",
+    "sharpe",
+    "position"
+  ],
+  "formal_g2_run": false,
+  "frozen_at": "2026-09-04T15:39:51.864786+08:00",
+  "g1a_frozen_counts": {
+    "b2_common_sample_day_count": 1279,
+    "b2_eligible_non_event_risk_day_count": 1102,
+    "b2_identifiable_event_count": 31,
+    "event_era_distribution": {
+      "ERA_1_2015_2017": 0,
+      "ERA_2_2018_2020": 5,
+      "ERA_3_2021_2023": 19,
+      "ERA_4_2024_CUTOFF": 7
+    },
+    "total_independent_event_count": 58,
+    "total_non_event_risk_day_count": 2350,
+    "total_positive_origin_count": 463,
+    "total_sample_day_count": 2813
+  },
+  "g1b_gate": {
+    "if_insufficient_g2_state": "NOT_RUN_BLOCKED_BY_G1B",
+    "if_passed_g2_state": "NOT_RUN_REQUIRES_SEPARATE_FORMAL_G2_FREEZE",
+    "insufficient_state": "NO_VIEW_INSUFFICIENT_EVALUABLE_ERAS",
+    "logical_maximum_qualified_eras_before_value_read": 2,
+    "minimum_prequential_predicted_independent_events_per_era": 5,
+    "minimum_qualified_eras_for_formal_g2": 3,
+    "pass_state": "PASS_PREQUENTIAL_ERA_IDENTIFIABILITY",
+    "total_fixed_eras": 4
+  },
+  "implementation_files": [
+    {
+      "bytes": 10156,
+      "path": "config/510300_stress_transmission_hazard_v2_g1b_prequential_era_identifiability_v1.yaml",
+      "sha256": "a12491570ee5cdbef66e77ec2cce9ecd86fb5c6572ca4080fdf00596fb0455ab"
+    },
+    {
+      "bytes": 4284,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1B_PREQUENTIAL_ERA_IDENTIFIABILITY_V1_20260904.md",
+      "sha256": "02f95aecda1b7755502866172239581acb370c24f66c2dedc53a326e934f842b"
+    },
+    {
+      "bytes": 23692,
+      "path": "research/stress_transmission_hazard_v2_g1b_prequential_era_identifiability_v1.py",
+      "sha256": "b612ddc5b71522e7421993c88f7c8aa8cbb20ead9781d453edbd28ae77241e15"
+    },
+    {
+      "bytes": 26475,
+      "path": "scripts/run_510300_stress_transmission_hazard_v2_g1b_prequential_era_identifiability_v1.py",
+      "sha256": "a95c8cd4a709d90dfd36d09f5059f30e8fdbd4bb8dbabd79844506d33a990c7e"
+    },
+    {
+      "bytes": 7784,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g1b_prequential_era_identifiability_v1.py",
+      "sha256": "586099966b9c30f1cbe196a09548fc6871a001e85db186bcf6f1a404cd65efd4"
+    }
+  ],
+  "input": {
+    "actual_row_values_read": false,
+    "bytes": 272566,
+    "column_count": 30,
+    "format": "PARQUET",
+    "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/g1_sample_eligibility.parquet",
+    "persisted_semantic_sha256": "8b537d4259e614e4471b965ddff9dda07ed1a7cf36536f47d88cd706c2f3b24f",
+    "row_count": 2813,
+    "schema_columns": [
+      "origin_date",
+      "entry_date",
+      "horizon_end_date",
+      "bad10",
+      "event_id",
+      "sample_group_id",
+      "bootstrap_event_block_id",
+      "calendar_year_block_id",
+      "training_weight",
+      "split_assignment",
+      "b1_realized_vol20_risk_percentile",
+      "b1_drawdown20_risk_percentile",
+      "b1_downside_return5_risk_percentile",
+      "B1_state",
+      "F",
+      "M",
+      "T",
+      "T_x_F",
+      "T_x_M",
+      "B2_feature_state",
+      "B3_feature_state",
+      "b1_eligible",
+      "b2_vs_b1_eligible",
+      "b3_vs_b2_eligible",
+      "b2_vs_b1_model_weight",
+      "b3_vs_b2_model_weight",
+      "b2_vs_b1_state",
+      "b2_vs_b1_no_view_reason",
+      "b3_vs_b2_state",
+      "b3_vs_b2_no_view_reason"
+    ],
+    "semantic_identity_source": "config/510300_stress_transmission_hazard_v2_g0_1_post_remediation_version_lock_v1_manifest.json",
+    "sha256": "ba0b9ded2ef60e517a673863bf30da717ad0c2819dca07ce9d36915cefe76e25"
+  },
+  "logical_maximum_qualified_eras": 2,
+  "logical_upper_bound_proved_before_actual_row_value_read": true,
+  "manifest_payload_sha256": "149ddc9fcdea57a2fa5b43937fdeb5b7245a0c17114f64775160074f6d6a0583",
+  "model_trained": false,
+  "physical_read_columns": [
+    "origin_date",
+    "horizon_end_date",
+    "bad10",
+    "event_id",
+    "b2_vs_b1_eligible",
+    "split_assignment",
+    "calendar_year_block_id"
+  ],
+  "position_impact": 0,
+  "pre_freeze_branch": "codex/510300-v2-g0-1-g1b-v1",
+  "pre_freeze_head_sha": "53834701919eff757810620f7454fde03c370c06",
+  "prequential_clock": {
+    "cadence": "QUARTERLY_EXPANDING",
+    "event_may_split_across_model_vintages": false,
+    "full_sample_fit_allowed": false,
+    "future_training_allowed": false,
+    "model_vintage_rule": "FIRST_SAMPLE_TRADING_DAY_STRICTLY_AFTER_CALENDAR_QUARTER_END",
+    "negative_training_rule": "HORIZON_END_DATE_STRICTLY_BEFORE_MODEL_VINTAGE",
+    "positive_event_evaluation_date": "EVENT_MIN_ORIGIN_DATE",
+    "positive_event_model_assignment": "WHOLE_EVENT_TO_LATEST_QUARTERLY_VINTAGE_ON_OR_BEFORE_EVENT_MIN_ORIGIN",
+    "positive_event_training_rule": "WHOLE_EVENT_MAX_HORIZON_END_DATE_STRICTLY_BEFORE_MODEL_VINTAGE",
+    "trading_calendar_source": "UNIQUE_ORIGIN_DATE_FROM_SAME_G1_SAMPLE"
+  },
+  "program_id": "510300_STRESS_TRANSMISSION_HAZARD_V2",
+  "return_or_portfolio_read": false,
+  "status": "FROZEN_G1B_BEFORE_ACTUAL_ALLOWED_FIELD_VALUE_READ",
+  "training_identifiability": {
+    "artificial_positive_prior_allowed": false,
+    "b0_or_constant_probability_substitution_allowed": false,
+    "future_coefficient_backcast_allowed": false,
+    "minimum_negative_risk_days": 1,
+    "minimum_positive_independent_events": 1
+  },
+  "version": "1.0.0"
+}

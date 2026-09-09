@@ -1,0 +1,1395 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "ZERO_PAID_RESEARCH_PLAN_COMPLETION_V1",
+  "generated_at": "2026-08-26T22:56:52.080104+08:00",
+  "current_trading_date": "2026-08-26",
+  "is_sse_trading_day": true,
+  "overall_status": "IN_PROGRESS_PENDING_REQUIRED_EVIDENCE",
+  "goal_completion_proven": false,
+  "research_conclusion": "NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET",
+  "decision": "PAUSE_AND_FIX_FOUNDATION",
+  "counts": {
+    "satisfied": 18,
+    "pending": 8,
+    "contradictions": 0,
+    "total": 26
+  },
+  "pending_requirement_ids": [
+    "R07",
+    "R08",
+    "R25",
+    "R10",
+    "R12",
+    "R13",
+    "R16",
+    "R22"
+  ],
+  "contradiction_requirement_ids": [],
+  "requirements": [
+    {
+      "id": "R01",
+      "title": "两份用户文本均完整读取且第二份冲突时优先",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "attachment_count": 2,
+        "precedence": "pasted-text-2"
+      },
+      "evidence": [
+        {
+          "path": "C:\\Users\\戴周阳\\.codex\\attachments\\bf402842-399b-450f-bc94-6b70992a2d72\\pasted-text-1.txt",
+          "exists": true,
+          "sha256": "e2abb5babecbb8f75fb69bce8e28a09b03a2abaa8dbd6ad07658f2679eec9ce0",
+          "bytes": 46581,
+          "expected_sha256": "e2abb5babecbb8f75fb69bce8e28a09b03a2abaa8dbd6ad07658f2679eec9ce0",
+          "hash_matches": true,
+          "precedence": 1
+        },
+        {
+          "path": "C:\\Users\\戴周阳\\.codex\\attachments\\bf402842-399b-450f-bc94-6b70992a2d72\\pasted-text-2.txt",
+          "exists": true,
+          "sha256": "8c84a1f5eab96acd29a7a60cac51af96df375e0fd63a1225023820c88c904d0b",
+          "bytes": 19052,
+          "expected_sha256": "8c84a1f5eab96acd29a7a60cac51af96df375e0fd63a1225023820c88c904d0b",
+          "hash_matches": true,
+          "precedence": 2
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R02",
+      "title": "总体裁决保持无已验证可交易 Alpha/强 Beta，并暂停修复基础设施",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "overall_research_status": "NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET",
+        "decision": "PAUSE_AND_FIX_FOUNDATION"
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_v1_6.json",
+          "exists": true,
+          "sha256": "6b02b0c63a791bef7e5d2706e6a50982dda08b2a3b8f1ac6b0102331740291b9",
+          "bytes": 9229
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R03",
+      "title": "至少 180 天零付费数据合同",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "budget_cny": 0,
+        "lock_days": 180,
+        "registry_rows": 16,
+        "nonzero_cost_rows": 0,
+        "policy_status": "PASS",
+        "policy_sha256": "534bce83d18f78cc4893bbb861caa3826860d2c5a2e21a8143a4064d6858668b",
+        "missing_policy_tokens": []
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_v1_6.json",
+          "exists": true,
+          "sha256": "6b02b0c63a791bef7e5d2706e6a50982dda08b2a3b8f1ac6b0102331740291b9",
+          "bytes": 9229
+        },
+        {
+          "path": "docs/ZERO_PAID_DATA_POLICY.md",
+          "exists": true,
+          "sha256": "534bce83d18f78cc4893bbb861caa3826860d2c5a2e21a8143a4064d6858668b",
+          "bytes": 5309
+        },
+        {
+          "path": "data/governance/FREE_SOURCE_REGISTRY_V1_1.csv",
+          "exists": true,
+          "sha256": "13e37ed91ea25148b7f94565881bfa6cc1a6a7e59bf022c3b657ef8602338d7b",
+          "bytes": 9133
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R04",
+      "title": "活动研究流最多两条",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "maximum": 2,
+        "active_ids": [
+          "PRIMARY_MARKET_PCF_IOPV",
+          "INDUSTRY_EXPECTATION_GAP"
+        ]
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_v1_6.json",
+          "exists": true,
+          "sha256": "6b02b0c63a791bef7e5d2706e6a50982dda08b2a3b8f1ac6b0102331740291b9",
+          "bytes": 9229
+        },
+        {
+          "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "exists": true,
+          "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "bytes": 10947
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R05",
+      "title": "免费数据源注册表完整覆盖字段、时间、点时性、原始归档、许可和失败合同",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "rows": 16,
+        "unique_source_ids": 16,
+        "registry_status": "PASS",
+        "missing_columns": [],
+        "empty_required_cells": [],
+        "nonzero_cost_source_ids": [],
+        "raw_preservation_not_required": [],
+        "canonical_matches_frozen_v1_1": true
+      },
+      "evidence": [
+        {
+          "path": "data/governance/FREE_SOURCE_REGISTRY.csv",
+          "exists": true,
+          "sha256": "6399bbdae6d1c31ef4a9956aa062c9cdbed6c8dc5618c215897fc8de60337dca",
+          "bytes": 9130
+        },
+        {
+          "path": "data/governance/FREE_SOURCE_REGISTRY_V1_1.csv",
+          "exists": true,
+          "sha256": "13e37ed91ea25148b7f94565881bfa6cc1a6a7e59bf022c3b657ef8602338d7b",
+          "bytes": 9133
+        },
+        {
+          "path": "docs/ZERO_PAID_DATA_POLICY.md",
+          "exists": true,
+          "sha256": "534bce83d18f78cc4893bbb861caa3826860d2c5a2e21a8143a4064d6858668b",
+          "bytes": 5309
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R06",
+      "title": "主前瞻入口、配置和终局证据受冻结清单约束",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "status": "PASS",
+        "manifest_sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+        "content_sha256": "a3af06ae102c59d40b0105d94611a5d001f214d0edf1632f21a9c1772b0581e3",
+        "tracked_file_count": 41,
+        "failure_count": 0,
+        "failures": [],
+        "active_runtime": {
+          "runtime_version": "V1_8",
+          "manifest_path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "manifest_sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "manifest_status": "FROZEN_ZERO_PAID_FOUNDATION_V1_8_ACTIVE_NEXT_ELIGIBLE_WINDOW",
+          "supervisor_config_path": "config/priority_forward_supervisor_v1_4.yaml",
+          "runner": "run_priority_forward_codex_automation_v1_8.py",
+          "correction_audit_path": "reports/audit/PRIORITY_FORWARD_V1_8_DEPLOYMENT_VALIDATION.json",
+          "correction_expected_status": "PASS_V1_8_DEPLOYED_FOR_NEXT_ELIGIBLE_WINDOW",
+          "test_boundary_audit_path": "reports/audit/PRIORITY_FORWARD_V1_8_TEST_BOUNDARY.json",
+          "schedule_surface_audit_path": "reports/audit/PRIORITY_FORWARD_ACTIVE_SCHEDULE_SURFACE_V1_8.json",
+          "deployment_audit_present": true,
+          "deployment_audit_valid": true
+        },
+        "operational_correction": "PASS_V1_8_DEPLOYED_FOR_NEXT_ELIGIBLE_WINDOW",
+        "test_boundary": "PASS_TESTS_EXCLUDED_FROM_RUNTIME_MODEL_BOUNDARY",
+        "tracked_test_file_count": 0,
+        "runtime_test_import_count": 0,
+        "config_launchers_all_tracked": true,
+        "live_test_boundary_check": {
+          "status": "PASS",
+          "tracked_file_count": 41,
+          "tracked_python_file_count": 23,
+          "tracked_test_file_count": 0,
+          "tracked_test_paths": [],
+          "runtime_test_import_count": 0,
+          "runtime_test_imports": [],
+          "python_parse_failure_count": 0,
+          "python_parse_failures": [],
+          "config_launcher_count": 3,
+          "config_launchers": [
+            "scripts/run_510300_primary_market_collection_task_v1_2_1.ps1",
+            "scripts/run_industry_expectation_gap_forward_operations_task_v1_2.ps1",
+            "scripts/run_priority_forward_authoritative_status_task_v1_6.ps1"
+          ],
+          "config_launchers_all_tracked": true,
+          "missing_config_launchers": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "exists": true,
+          "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "bytes": 10947
+        },
+        {
+          "path": "config/priority_forward_supervisor_v1_4.yaml",
+          "exists": true,
+          "sha256": "9ca4c51dc625e4c5d61acd4009a2f354bfca1f09a2bb92c085b30fe2378c343f",
+          "bytes": 1884
+        },
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_V1_8_DEPLOYMENT_VALIDATION.json",
+          "exists": true,
+          "sha256": "3963b931f968b02d17c6c6295b51b64e0e1c1dfecf3e8581a3fe8955e89d872c",
+          "bytes": 5502
+        },
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_V1_8_TEST_BOUNDARY.json",
+          "exists": true,
+          "sha256": "8c266c626cfbd940c4aa476a42afd24ada9ac5d47025eb81f69db53319ed0d34",
+          "bytes": 1674
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R07",
+      "title": "PCF/IOPV V1.2 通过冻结入口在合法窗口产生真实当日回执",
+      "status": "PENDING_NEXT_WINDOW",
+      "satisfied": false,
+      "current_state": {
+        "trading_day": true,
+        "runtime_contract": {
+          "runtime_version": "V1_7",
+          "task_receipt_directory": "reports/data_quality/primary_market_task_runs_v1_2",
+          "codex_receipt_directory": "reports/audit/priority_forward_codex_runs_v1_7",
+          "claim_directory": "reports/audit/priority_forward_task_claims_v1_7",
+          "task_schema_version": "1.2.0",
+          "task_launcher": "scripts/run_510300_primary_market_collection_task_v1_2.ps1",
+          "forward_runner": "scripts/run_510300_primary_market_forward_v1_2.ps1",
+          "runtime_patch_id": null
+        },
+        "task_exact": true,
+        "task": {
+          "task_name": "Codex-510300-Primary-Market-Collector",
+          "state": "Ready",
+          "next_run_time": "2026-08-27T09:25:00.0000000+08:00",
+          "last_run_time": "2026-08-26T09:25:01.0000000+08:00",
+          "last_task_result": 0,
+          "execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+          "arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_8.py\" --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_4.yaml\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_research_operations_v1_8_manifest.json\" --expected-manifest-sha256 ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8",
+          "restart_count": 0,
+          "start_when_available": false,
+          "multiple_instances": "IgnoreNew",
+          "logon_type": "Interactive",
+          "run_level": "Limited",
+          "query_status": "PASS"
+        },
+        "task_receipts_today": 1,
+        "codex_receipts_today": 2,
+        "claims_today": 1,
+        "atomic_run_evidence": {
+          "status": "FAILED_RUN",
+          "contract_valid": true,
+          "successful": false,
+          "task_receipt_count": 1,
+          "successful_task_receipt_count": 0,
+          "task_failures": [],
+          "duplicate_task_receipt_ids": [],
+          "claim_count": 1,
+          "claim_failures": [],
+          "codex_receipt_count": 2,
+          "codex_failures": [],
+          "pcf_task_result_count": 2,
+          "actual_launcher_result_count": 1,
+          "successful_launcher_result_count": 0,
+          "task_schema_version": "1.2.0",
+          "task_launcher": "scripts/run_510300_primary_market_collection_task_v1_2.ps1",
+          "runtime_patch_id": null
+        },
+        "source_receipt_audit": {
+          "status": "NOT_OBSERVED",
+          "contract_valid": false,
+          "all_required_sources_succeeded": false,
+          "receipt_count": 0,
+          "source_receipt_counts": {
+            "SSE_ETF_DAILY_TURNOVER_OFFICIAL": 0,
+            "SSE_PCF_COMMON_QUERY": 0,
+            "SSE_YUNHQ_IOPV_SNAPSHOT": 0
+          },
+          "source_success_counts": {
+            "SSE_ETF_DAILY_TURNOVER_OFFICIAL": 0,
+            "SSE_PCF_COMMON_QUERY": 0,
+            "SSE_YUNHQ_IOPV_SNAPSHOT": 0
+          },
+          "verified_raw_response_count": 0,
+          "missing_source_receipts": [
+            "SSE_ETF_DAILY_TURNOVER_OFFICIAL",
+            "SSE_PCF_COMMON_QUERY",
+            "SSE_YUNHQ_IOPV_SNAPSHOT"
+          ],
+          "missing_success_sources": [
+            "SSE_ETF_DAILY_TURNOVER_OFFICIAL",
+            "SSE_PCF_COMMON_QUERY",
+            "SSE_YUNHQ_IOPV_SNAPSHOT"
+          ],
+          "invalid_receipt_count": 0,
+          "invalid_receipts": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+          "exists": true,
+          "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383",
+          "bytes": 6001
+        },
+        {
+          "path": "reports/data_quality/primary_market_task_runs_v1_2/20260826T0125005282393Z_11696.json",
+          "exists": true,
+          "sha256": "6ec2e049842d584fdd0da31830cd0a4e609a32009d4962313157c910029ed249",
+          "bytes": 1014
+        },
+        {
+          "path": "reports/audit/priority_forward_codex_runs_v1_7/20260826T012138769537Z_9156_ad1635fda8da_morning.json",
+          "exists": true,
+          "sha256": "1a787dbd1590bcabde4472636e593c3097454df24db248b1da1c65fa9f00bbdb",
+          "bytes": 1353
+        },
+        {
+          "path": "reports/audit/priority_forward_codex_runs_v1_7/20260826T012502583068Z_7288_4fc6107dd7fa_morning.json",
+          "exists": true,
+          "sha256": "65b6c7fd3b1ddddb0d68e8311887c8ca7021dc629799120f857a2ecc03c09940",
+          "bytes": 1294
+        },
+        {
+          "path": "reports/audit/priority_forward_task_claims_v1_7/20260826_PRIMARY_MARKET_PCF_IOPV.json",
+          "exists": true,
+          "sha256": "868c7c04aae2da38fd94fd9b01003cfc93c8e0b32088cae6c88499eccf527113",
+          "bytes": 435
+        }
+      ],
+      "next_action": "保留本日失败状态且不重试；等待下一交易日真实窗口"
+    },
+    {
+      "id": "R08",
+      "title": "PCF/IOPV 只按真实完整质量日推进 20/40/80/120 门槛",
+      "status": "PENDING_MATURITY",
+      "satisfied": false,
+      "current_state": {
+        "status": "COLLECTING_NOT_ELIGIBLE",
+        "observed_trading_days": 4,
+        "legacy_full_coverage_days": 2,
+        "v1_2_crosscheck_passed_days": 0,
+        "gates": [
+          20,
+          40,
+          80,
+          120
+        ],
+        "evaluation_eligible": false,
+        "contract_recalculation": {
+          "status": "PENDING_MATURITY",
+          "contract_valid": true,
+          "complete": false,
+          "observed_trading_days_recomputed": 4,
+          "full_coverage_days_recomputed": 2,
+          "crosscheck_required_day_count_recomputed": 0,
+          "crosscheck_passed_day_count_recomputed": 0,
+          "legacy_complete_quality_day_count_recomputed": 2,
+          "eligibility_recomputed": {
+            "eligible_for_quality_audit": false,
+            "eligible_for_feature_freeze": false,
+            "eligible_for_first_unseen_evaluation": false,
+            "eligible_for_research_evaluation": false,
+            "eligible_for_replication_evaluation": false
+          },
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+          "exists": true,
+          "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383",
+          "bytes": 6001
+        }
+      ],
+      "next_action": "继续严格前瞻；未达到相应门槛不得评价"
+    },
+    {
+      "id": "R25",
+      "title": "PCF修复后首20个交易机会达到内部程序95%和完整质量日90%验收门",
+      "status": "PENDING_MATURITY",
+      "satisfied": false,
+      "current_state": {
+        "status": "PENDING_MATURITY",
+        "effective_from": "2026-08-26",
+        "required_opportunities": 20,
+        "opportunity_count": 1,
+        "opportunity_dates": [
+          "2026-08-26"
+        ],
+        "acceptance_window_complete": false,
+        "internal_program_success_count": 0,
+        "internal_program_success_rate": 0.0,
+        "minimum_internal_program_success_rate": 0.95,
+        "internal_program_gate_pass": false,
+        "complete_quality_day_count": 0,
+        "complete_quality_day_rate": 0.0,
+        "minimum_complete_quality_day_rate": 0.9,
+        "external_complete_day_gate_pass": false,
+        "external_source_failure_dates": [],
+        "missing_receipt_dates": [],
+        "duplicate_receipt_dates": [],
+        "invalid_receipt_dates": [],
+        "unreadable_receipts": []
+      },
+      "evidence": [
+        {
+          "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+          "exists": true,
+          "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383",
+          "bytes": 6001
+        },
+        {
+          "path": "reports/data_quality/primary_market_task_runs_v1_2/20260826T0125005282393Z_11696.json",
+          "exists": true,
+          "sha256": "6ec2e049842d584fdd0da31830cd0a4e609a32009d4962313157c910029ed249",
+          "bytes": 1014
+        }
+      ],
+      "next_action": "继续累计首20个真实交易机会；缺失日计入分母且不得补跑"
+    },
+    {
+      "id": "R09",
+      "title": "行业预期差使用内容寻址冻结快照且不消费共享 latest",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "audit_status": "PASS_FROZEN_INPUTS_CONTENT_ADDRESSED_AND_LATEST_ISOLATED",
+        "snapshot_id": "525b84ab6a65ee8d6fb5b4752852e12b4d09b78ffe506f56430c01e355da0d1d",
+        "shared_latest_consumed": false,
+        "live_boundary": {
+          "status": "PASS",
+          "checks": {
+            "snapshot_id_matches": true,
+            "snapshot_manifest_matches": true,
+            "all_snapshot_records_verified": true,
+            "shared_latest_not_consumed": true,
+            "current_supervisor_launchers_exact": true,
+            "current_supervisor_evidence_globs_exact": true,
+            "current_supervisor_excludes_v3": true
+          },
+          "legacy_audit_supervisor_path": "config/priority_forward_supervisor_v1_2.yaml",
+          "current_supervisor_path": "config/priority_forward_supervisor_v1_4.yaml",
+          "current_supervisor_sha256": "9ca4c51dc625e4c5d61acd4009a2f354bfca1f09a2bb92c085b30fe2378c343f",
+          "launchers": [
+            "scripts/run_510300_primary_market_collection_task_v1_2_1.ps1",
+            "scripts/run_industry_expectation_gap_forward_operations_task_v1_2.ps1",
+            "scripts/run_priority_forward_authoritative_status_task_v1_6.ps1"
+          ],
+          "evidence_globs": [
+            "reports/audit/priority_forward_authoritative_status_task_runs_v1_6/*.json",
+            "reports/data_quality/primary_market_task_runs_v1_2_1/*.json",
+            "reports/forward/industry_expectation_gap_v1_evaluation/task_runs_v1_2/*.json"
+          ],
+          "snapshot_record_count": 4,
+          "verified_records": [
+            {
+              "role": "constituent_total_return_daily",
+              "snapshot_path": "data/frozen/industry_expectation_gap_outcome_v1_2/constituent_total_return_daily/e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7.parquet",
+              "expected_sha256": "e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7",
+              "actual_sha256": "e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7",
+              "filename_content_addressed": true,
+              "matches_current_status": true,
+              "status": "PASS"
+            },
+            {
+              "role": "etf_total_return_daily",
+              "snapshot_path": "data/frozen/industry_expectation_gap_outcome_v1_2/etf_total_return_daily/943404aa1ae20178498bbafe0456c59519da99636e30a377f87b1571900e2fb2.parquet",
+              "expected_sha256": "943404aa1ae20178498bbafe0456c59519da99636e30a377f87b1571900e2fb2",
+              "actual_sha256": "943404aa1ae20178498bbafe0456c59519da99636e30a377f87b1571900e2fb2",
+              "filename_content_addressed": true,
+              "matches_current_status": true,
+              "status": "PASS"
+            },
+            {
+              "role": "historical_weights",
+              "snapshot_path": "data/frozen/industry_expectation_gap_outcome_v1_2/historical_weights/043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559.parquet",
+              "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+              "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+              "filename_content_addressed": true,
+              "matches_current_status": true,
+              "status": "PASS"
+            },
+            {
+              "role": "industry_intervals",
+              "snapshot_path": "data/frozen/industry_expectation_gap_outcome_v1_2/industry_intervals/3216150918c2dab02f9848c94bf4189b71019d8eda3869439e49d1bccbc63bfe.parquet",
+              "expected_sha256": "3216150918c2dab02f9848c94bf4189b71019d8eda3869439e49d1bccbc63bfe",
+              "actual_sha256": "3216150918c2dab02f9848c94bf4189b71019d8eda3869439e49d1bccbc63bfe",
+              "filename_content_addressed": true,
+              "matches_current_status": true,
+              "status": "PASS"
+            }
+          ],
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_FROZEN_INPUT_CONTENT_ADDRESSING_V1.json",
+          "exists": true,
+          "sha256": "2a6af3dee5de0478c216df7ffd51472cbd80e1396fa6314021bdfd61e318f780",
+          "bytes": 5653
+        },
+        {
+          "path": "reports/forward/industry_expectation_gap_v1_evaluation/operations_status_v1_2.json",
+          "exists": true,
+          "sha256": "60eeeb6cc5767472b0eea0a779552913fd8e18d211e8a244db426b844f2b37fe",
+          "bytes": 9681
+        },
+        {
+          "path": "config/priority_forward_supervisor_v1_4.yaml",
+          "exists": true,
+          "sha256": "9ca4c51dc625e4c5d61acd4009a2f354bfca1f09a2bb92c085b30fe2378c343f",
+          "bytes": 1884
+        },
+        {
+          "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "exists": true,
+          "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "bytes": 10947
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R10",
+      "title": "行业预期差按独立原点和非重叠 60 日块成熟，不提前评价",
+      "status": "PENDING_MATURITY",
+      "satisfied": false,
+      "current_state": {
+        "status": "COLLECTING_FORWARD",
+        "view_status": "NO_VIEW",
+        "origin_clusters": 1,
+        "mature_origin_clusters": 0,
+        "non_overlapping_60d_blocks": 0,
+        "calibration_gate": "20 origins and 4 blocks",
+        "comparison_gate": "40 origins and 8 blocks",
+        "evaluation_executed": false,
+        "contract_recalculation": {
+          "status": "PENDING_MATURITY",
+          "contract_valid": true,
+          "comparison_mature": false,
+          "origin_cluster_count": 1,
+          "origin_cluster_count_recomputed": 1,
+          "mature_origin_cluster_count": 0,
+          "mature_origin_cluster_count_recomputed": 0,
+          "non_overlapping_60d_block_count": 0,
+          "calibration_eligible_recomputed": false,
+          "comparison_eligible_recomputed": false,
+          "evaluation_executed": false,
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/forward/industry_expectation_gap_v1_evaluation/operations_status_v1_2.json",
+          "exists": true,
+          "sha256": "60eeeb6cc5767472b0eea0a779552913fd8e18d211e8a244db426b844f2b37fe",
+          "bytes": 9681
+        }
+      ],
+      "next_action": "等待新官方原点和成熟结果；当前保持 NO_VIEW"
+    },
+    {
+      "id": "R11",
+      "title": "T-only 成熟前公开输出仅含成熟度和完整性",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "current_view": "NO_VIEW_UNTIL_FORWARD_MATURITY",
+        "forbidden_key_matches": [],
+        "manifest": {
+          "status": "PASS",
+          "manifest_sha256": "a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+          "content_sha256": "b7f726f7c544c4c51449b2427b8659e1a09f728d43eddb3cd62f20fdaf4ca55b",
+          "tracked_file_count": 13,
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/forward/t_only_forward_v1_1_status.json",
+          "exists": true,
+          "sha256": "e3ef9bf9fcadd852ece558f03d79a8c5530bfc734fe5316a0051b49afd2a8d2e",
+          "bytes": 1459
+        },
+        {
+          "path": "config/t_only_forward_v1_1_maturity_only_v1_2_manifest.json",
+          "exists": true,
+          "sha256": "a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+          "bytes": 3603
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R12",
+      "title": "T-only V1.2 计划任务产生首次真实本日回执",
+      "status": "PENDING_CURRENT_RUN",
+      "satisfied": false,
+      "current_state": {
+        "task_exact": true,
+        "task": {
+          "task_name": "Codex-510300-T-Only-Forward-V1",
+          "state": "Ready",
+          "next_run_time": "2026-08-27T16:30:00.0000000+08:00",
+          "last_run_time": "2026-08-26T22:38:58.0000000+08:00",
+          "last_task_result": 2147946720,
+          "execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+          "arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_t_only_forward_v1_daily_v1_2.py\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\t_only_forward_v1_1_maturity_only_v1_2_manifest.json\" --expected-manifest-sha256 a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+          "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8",
+          "restart_count": 0,
+          "start_when_available": false,
+          "multiple_instances": "IgnoreNew",
+          "logon_type": "Interactive",
+          "run_level": "Limited",
+          "query_status": "PASS"
+        },
+        "receipts_today": 0,
+        "latest_run_status_exists": false,
+        "daily_evidence": {
+          "status": "NOT_OBSERVED",
+          "contract_valid": false,
+          "successful": false,
+          "receipt_count": 0,
+          "successful_receipt_count": 0,
+          "failed_but_valid_receipt_count": 0,
+          "latest_status_matches_receipt": false,
+          "receipt_failure_count": 0,
+          "receipt_failures": [],
+          "receipt_records": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/forward/t_only_forward_v1_1_status.json",
+          "exists": true,
+          "sha256": "e3ef9bf9fcadd852ece558f03d79a8c5530bfc734fe5316a0051b49afd2a8d2e",
+          "bytes": 1459
+        },
+        {
+          "path": "C:\\Users\\戴周阳\\Documents\\New project 8\\paper\\t_only_forward_v1_1\\daily_run_status_v1_2.json",
+          "exists": false,
+          "sha256": null,
+          "bytes": null
+        },
+        {
+          "path": "config/t_only_forward_v1_1_maturity_only_v1_2_manifest.json",
+          "exists": true,
+          "sha256": "a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+          "bytes": 3603
+        }
+      ],
+      "next_action": "读取本日 V1.2 不可变回执；无回执时保持运行完整性未确认"
+    },
+    {
+      "id": "R13",
+      "title": "T-only 达到 252 个新交易日并闭合至少 3 个周期后才评价",
+      "status": "PENDING_MATURITY",
+      "satisfied": false,
+      "current_state": {
+        "new_trading_days": 4,
+        "closed_cycles": 0,
+        "required_new_trading_days": 252,
+        "required_closed_cycles": 3,
+        "current_view": "NO_VIEW_UNTIL_FORWARD_MATURITY",
+        "contract_recalculation": {
+          "status": "PENDING_MATURITY",
+          "contract_valid": true,
+          "complete": false,
+          "new_trading_days": 4,
+          "closed_cycles": 0,
+          "maturity_recomputed": false,
+          "integrity_complete": false,
+          "current_view": "NO_VIEW_UNTIL_FORWARD_MATURITY",
+          "evaluation_status": "NOT_EVALUATED_BEFORE_MATURITY",
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/forward/t_only_forward_v1_1_status.json",
+          "exists": true,
+          "sha256": "e3ef9bf9fcadd852ece558f03d79a8c5530bfc734fe5316a0051b49afd2a8d2e",
+          "bytes": 1459
+        }
+      ],
+      "next_action": "继续自动追加账本，不查看中途表现"
+    },
+    {
+      "id": "R14",
+      "title": "期权盘口先做零成本来源准入；未通过即关闭且不用代理",
+      "status": "TERMINAL_EXPECTED",
+      "satisfied": true,
+      "current_state": {
+        "qualification_status": "BLOCKED_ZERO_COST_SOURCE_UNAVAILABLE",
+        "qualified_trial_days": 0,
+        "required_trial_days": 20,
+        "closure": {
+          "active_supervisor_task": false,
+          "scheduled_trial_enabled": false,
+          "historical_backfill_enabled": false,
+          "daily_proxy_enabled": false,
+          "signal_calculation_enabled": false,
+          "return_test_enabled": false,
+          "next_action": "CLOSED_PRESERVE_EVIDENCE"
+        },
+        "codex_automation_status": "PAUSED"
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/OPTION_ORDERBOOK_ZERO_COST_SOURCE_QUALIFICATION_V1.json",
+          "exists": true,
+          "sha256": "acc4c3d6284bbcc8facf4d50df390e6a4f0ec5417f80bef4dba0b73e43c68e7b",
+          "bytes": 3773
+        },
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_ACTIVE_SCHEDULE_SURFACE_V1_8.json",
+          "exists": true,
+          "sha256": "061ee89a8a130640c45d465372fd82b0c2bf0f33d06240a52487872da723828b",
+          "bytes": 6145
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R15",
+      "title": "现金选择权只消耗一次最终免费修复，数据门失败即终结且不读取收益",
+      "status": "TERMINAL_EXPECTED",
+      "satisfied": true,
+      "current_state": {
+        "status": "NO_VIEW_FREE_DATA_INSUFFICIENT",
+        "attempt_consumed": true,
+        "event_count": 21,
+        "data_gate_pass_count": 0,
+        "price_values_read": false,
+        "return_values_read": false,
+        "second_repair_allowed": false
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/A_SHARE_HS_OFFICIAL_CASH_OPTION_FLOOR_ALPHA_V1_FINAL_FREE_SOURCE_REPAIR.json",
+          "exists": true,
+          "sha256": "af3f00730cd4053285b38f3c17f1e4096bdf9692d82bbad134266aaefd2022e2",
+          "bytes": 61987
+        },
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_v1_6.json",
+          "exists": true,
+          "sha256": "6b02b0c63a791bef7e5d2706e6a50982dda08b2a3b8f1ac6b0102331740291b9",
+          "bytes": 9229
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R16",
+      "title": "当前 V1_8 Windows 任务在注销和重启后真实运行通过",
+      "status": "PENDING_PERMISSION",
+      "satisfied": false,
+      "current_state": {
+        "validation_status": "BLOCKED_PERMISSION_S4U_REGISTRATION_ACCESS_DENIED",
+        "current_task_runner": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_8.py\" --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_4.yaml\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_research_operations_v1_8_manifest.json\" --expected-manifest-sha256 ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+        "current_task_logon_type": "Interactive",
+        "active_runtime_version": "V1_8",
+        "audit_bound_to_current_runtime": false,
+        "prior_audit_task_runner": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_5.py\" --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_2.yaml\"",
+        "logout_run_observed": false,
+        "reboot_run_observed": false
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_WINDOWS_SCHEDULER_V1_6_PERSISTENCE_VALIDATION.json",
+          "exists": true,
+          "sha256": "620ac58b2f4d89a4482681f11dd7216efe41dae0a135722d7e75d2f1f27c21a3",
+          "bytes": 3591
+        }
+      ],
+      "next_action": "需用户授权后对当前 V1_8 入口各完成一次注销与重启实测；此前保持未验证"
+    },
+    {
+      "id": "R17",
+      "title": "研究、持仓映射、订单、券商连接和实盘授权保持分离",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "research_only": true,
+        "shadow_enabled": false,
+        "position_mapping_enabled": false,
+        "order_generation_enabled": false,
+        "broker_connection_enabled": false,
+        "live_trading_enabled": false
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_v1_6.json",
+          "exists": true,
+          "sha256": "6b02b0c63a791bef7e5d2706e6a50982dda08b2a3b8f1ac6b0102331740291b9",
+          "bytes": 9229
+        },
+        {
+          "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "exists": true,
+          "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "bytes": 10947
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R18",
+      "title": "Codex 09:20 与 19:00 自动化均为 ACTIVE 且固定 V1_8 清单哈希",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": [
+        {
+          "id": "510300-pcf-iopv",
+          "status": "PASS",
+          "checks": {
+            "active": true,
+            "runner_pinned": true,
+            "manifest_sha256_pinned": true,
+            "schedule_matches": true
+          },
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-pcf-iopv\\automation.toml",
+          "sha256": "77d8ad60a62170ad6af42fa0c56111d3512569d54d4d931c25007893c3632b75",
+          "target_thread_id": "01a0166e-14e0-77e0-ba63-d118a1a80b0d"
+        },
+        {
+          "id": "510300",
+          "status": "PASS",
+          "checks": {
+            "active": true,
+            "runner_pinned": true,
+            "manifest_sha256_pinned": true,
+            "schedule_matches": true
+          },
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300\\automation.toml",
+          "sha256": "569d93cc8a224618fca8f6a8a54deec7ddfd7561acd82293f7e59455ac7b576c",
+          "target_thread_id": "019ffba4-af4f-7053-97b1-25a4f51957cf"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "510300-pcf-iopv",
+          "status": "PASS",
+          "checks": {
+            "active": true,
+            "runner_pinned": true,
+            "manifest_sha256_pinned": true,
+            "schedule_matches": true
+          },
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-pcf-iopv\\automation.toml",
+          "sha256": "77d8ad60a62170ad6af42fa0c56111d3512569d54d4d931c25007893c3632b75",
+          "target_thread_id": "01a0166e-14e0-77e0-ba63-d118a1a80b0d"
+        },
+        {
+          "id": "510300",
+          "status": "PASS",
+          "checks": {
+            "active": true,
+            "runner_pinned": true,
+            "manifest_sha256_pinned": true,
+            "schedule_matches": true
+          },
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300\\automation.toml",
+          "sha256": "569d93cc8a224618fca8f6a8a54deec7ddfd7561acd82293f7e59455ac7b576c",
+          "target_thread_id": "019ffba4-af4f-7053-97b1-25a4f51957cf"
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R26",
+      "title": "实际调度面只保留授权的V1_8与T-only入口，期权、V3和旧版重复任务均停用",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "status": "PASS",
+        "checks": {
+          "windows_inventory_readable": true,
+          "only_authorized_windows_tasks_enabled": true,
+          "legacy_windows_tasks_disabled": true,
+          "pcf_windows_task_exact": true,
+          "t_only_windows_task_exact": true,
+          "automation_inventory_readable": true,
+          "only_authorized_automations_active": true,
+          "suppressed_automations_paused": true
+        },
+        "enabled_windows_task_names": [
+          "Codex-510300-Primary-Market-Collector",
+          "Codex-510300-T-Only-Forward-V1"
+        ],
+        "disabled_legacy_task_names": [
+          "Codex-Industry-Expectation-Gap-Forward-Operations-V1",
+          "Codex-Priority-Forward-Research-Daily-Status"
+        ],
+        "active_automation_ids": [
+          "510300",
+          "510300-pcf-iopv"
+        ],
+        "automation_status_by_id": {
+          "510300": "ACTIVE",
+          "510300-2": "PAUSED",
+          "510300-pcf-iopv": "ACTIVE",
+          "v3-forward-1": "PAUSED"
+        },
+        "windows_inventory": {
+          "query_status": "PASS",
+          "tasks": [
+            {
+              "task_name": "Codex-510300-Primary-Market-Collector",
+              "task_path": "\\",
+              "state": "Ready",
+              "execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+              "arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_8.py\" --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_4.yaml\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_research_operations_v1_8_manifest.json\" --expected-manifest-sha256 ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+              "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+            },
+            {
+              "task_name": "Codex-510300-T-Only-Forward-V1",
+              "task_path": "\\",
+              "state": "Ready",
+              "execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+              "arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_t_only_forward_v1_daily_v1_2.py\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\t_only_forward_v1_1_maturity_only_v1_2_manifest.json\" --expected-manifest-sha256 a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+              "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+            },
+            {
+              "task_name": "Codex-Industry-Expectation-Gap-Forward-Operations-V1",
+              "task_path": "\\",
+              "state": "Disabled",
+              "execute": "powershell.exe",
+              "arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_industry_expectation_gap_forward_operations_task.ps1\"",
+              "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+            },
+            {
+              "task_name": "Codex-Priority-Forward-Research-Daily-Status",
+              "task_path": "\\",
+              "state": "Disabled",
+              "execute": "powershell.exe",
+              "arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_research_status_task.ps1\"",
+              "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+            }
+          ]
+        },
+        "automation_inventory": {
+          "query_status": "PASS",
+          "automations": [
+            {
+              "id": "510300",
+              "status": "ACTIVE",
+              "kind": "heartbeat",
+              "runners": [
+                "run_priority_forward_codex_automation_v1_8.py"
+              ],
+              "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300\\automation.toml",
+              "sha256": "569d93cc8a224618fca8f6a8a54deec7ddfd7561acd82293f7e59455ac7b576c"
+            },
+            {
+              "id": "510300-2",
+              "status": "PAUSED",
+              "kind": "heartbeat",
+              "runners": [
+                "audit_510300_option_forward_orderbook_v1.py",
+                "option_surface_signal_v1.py",
+                "run_510300_option_forward_orderbook_v1_once.ps1"
+              ],
+              "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-2\\automation.toml",
+              "sha256": "9cd7995aedeacf774007a5cff5dfa783f84c8041e3af992e228c7e4db549cb46"
+            },
+            {
+              "id": "510300-pcf-iopv",
+              "status": "ACTIVE",
+              "kind": "heartbeat",
+              "runners": [
+                "run_priority_forward_codex_automation_v1_8.py"
+              ],
+              "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-pcf-iopv\\automation.toml",
+              "sha256": "77d8ad60a62170ad6af42fa0c56111d3512569d54d4d931c25007893c3632b75"
+            },
+            {
+              "id": "v3-forward-1",
+              "status": "PAUSED",
+              "kind": "cron",
+              "runners": [
+                "run_v3_forward_2_daily.py"
+              ],
+              "path": "C:\\Users\\戴周阳\\.codex\\automations\\v3-forward-1\\automation.toml",
+              "sha256": "6edec1a9c802d4c782ba6a7cbc470ef10415f7723e9d48ec6f769844825cbda8"
+            }
+          ]
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_ACTIVE_SCHEDULE_SURFACE_V1_8.json",
+          "exists": true,
+          "sha256": "061ee89a8a130640c45d465372fd82b0c2bf0f33d06240a52487872da723828b",
+          "bytes": 6145
+        },
+        {
+          "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "exists": true,
+          "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "bytes": 10947
+        },
+        {
+          "id": "510300",
+          "status": "ACTIVE",
+          "kind": "heartbeat",
+          "runners": [
+            "run_priority_forward_codex_automation_v1_8.py"
+          ],
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300\\automation.toml",
+          "sha256": "569d93cc8a224618fca8f6a8a54deec7ddfd7561acd82293f7e59455ac7b576c"
+        },
+        {
+          "id": "510300-2",
+          "status": "PAUSED",
+          "kind": "heartbeat",
+          "runners": [
+            "audit_510300_option_forward_orderbook_v1.py",
+            "option_surface_signal_v1.py",
+            "run_510300_option_forward_orderbook_v1_once.ps1"
+          ],
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-2\\automation.toml",
+          "sha256": "9cd7995aedeacf774007a5cff5dfa783f84c8041e3af992e228c7e4db549cb46"
+        },
+        {
+          "id": "510300-pcf-iopv",
+          "status": "ACTIVE",
+          "kind": "heartbeat",
+          "runners": [
+            "run_priority_forward_codex_automation_v1_8.py"
+          ],
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-pcf-iopv\\automation.toml",
+          "sha256": "77d8ad60a62170ad6af42fa0c56111d3512569d54d4d931c25007893c3632b75"
+        },
+        {
+          "id": "v3-forward-1",
+          "status": "PAUSED",
+          "kind": "cron",
+          "runners": [
+            "run_v3_forward_2_daily.py"
+          ],
+          "path": "C:\\Users\\戴周阳\\.codex\\automations\\v3-forward-1\\automation.toml",
+          "sha256": "6edec1a9c802d4c782ba6a7cbc470ef10415f7723e9d48ec6f769844825cbda8"
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R19",
+      "title": "外部免费源失败与内部程序失败使用不同状态和退出码",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "external_status": "EXTERNAL_FREE_SOURCE_FAILED",
+        "program_status": "PROGRAM_FAILED",
+        "external_exit_code": 3,
+        "program_exit_code": 1
+      },
+      "evidence": [
+        {
+          "path": "scripts/run_510300_primary_market_collection_task_v1_2.ps1",
+          "exists": true,
+          "sha256": "7114e331cf0a189b3c23458a3e060ade174a8ab19c3bfe01df4fa2ca7a44b621",
+          "bytes": 6595
+        },
+        {
+          "path": "scripts/collect_510300_primary_market_v1_2.py",
+          "exists": true,
+          "sha256": "53348c0fe3cdc26a4c25eda534f2117440de21b40bc9afc6e5355ea98c8af7dd",
+          "bytes": 7412
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R20",
+      "title": "失败、错过窗口和缺失数据不自动重试、不补跑、不回填",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "pcf_restart_count": 0,
+        "pcf_start_when_available": false,
+        "industry_historical_backfill": false,
+        "option_historical_backfill": false,
+        "t_only_backfill": false
+      },
+      "evidence": [
+        {
+          "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+          "exists": true,
+          "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+          "bytes": 10947
+        },
+        {
+          "path": "config/t_only_forward_v1_1_maturity_only_v1_2_manifest.json",
+          "exists": true,
+          "sha256": "a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+          "bytes": 3603
+        },
+        {
+          "path": "reports/forward/industry_expectation_gap_v1_evaluation/operations_status_v1_2.json",
+          "exists": true,
+          "sha256": "60eeeb6cc5767472b0eea0a779552913fd8e18d211e8a244db426b844f2b37fe",
+          "bytes": 9681
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R21",
+      "title": "哈希漂移的 V3 分支保持失败隔离，不重试也不复用旧信号",
+      "status": "TERMINAL_EXPECTED",
+      "satisfied": true,
+      "current_state": {
+        "daily_status": "FAILED",
+        "mismatch_count": 3,
+        "active_task": false,
+        "latest_status_exists": false,
+        "retry_or_repair_performed": false,
+        "codex_automation_status": "PAUSED"
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_FROZEN_INPUT_CONTENT_ADDRESSING_V1.json",
+          "exists": true,
+          "sha256": "2a6af3dee5de0478c216df7ffd51472cbd80e1396fa6314021bdfd61e318f780",
+          "bytes": 5653
+        },
+        {
+          "path": "reports/audit/PRIORITY_FORWARD_ACTIVE_SCHEDULE_SURFACE_V1_8.json",
+          "exists": true,
+          "sha256": "061ee89a8a130640c45d465372fd82b0c2bf0f33d06240a52487872da723828b",
+          "bytes": 6145
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R23",
+      "title": "可转债官方权利条款与事前最大样本上限完成冻结裁定",
+      "status": "PASS",
+      "satisfied": true,
+      "current_state": {
+        "status": "CONTINUE_OFFICIAL_LIFECYCLE_EVIDENCE_ONLY",
+        "candidate_count": 939,
+        "official_right_terms_complete_count": 854,
+        "maximum_evaluable_sample_upper_bound_count": 854,
+        "maximum_evaluable_sample_upper_bound_fraction": 0.9094781682641108,
+        "current_official_complete_lifecycle_count": 0,
+        "archive": {
+          "status": "PASS",
+          "manifest_sha256": "d4522755409a6ff01b808d8dd674e852390b4bb54a6c55feabc92165df25ed8a",
+          "content_sha256": "9843d2d6608b4c6168a703bdf95e97b3ad357490e17cd218bb48888791f52507",
+          "tracked_file_count": 5,
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/a_share_hs_cb_priority_allocation_one_lot_v1_0_4/official_terms_lifecycle_sufficiency_receipt.json",
+          "exists": true,
+          "sha256": "168e6ba57ce368ddd536a35fd1eabdbb2ce57aa10969eefc09bea5aa92dfe33c",
+          "bytes": 5110
+        },
+        {
+          "path": "data/curated/a_share_hs_cb_priority_allocation_one_lot_v1_0_4/official_terms_lifecycle_sufficiency_ledger.parquet",
+          "exists": true,
+          "sha256": "f66c7a823f3d8a4b5dd8c7742d2a8098511fb21d37c7286c92e8c1c9758d4fb8",
+          "bytes": 144986
+        },
+        {
+          "path": "config/a_share_hs_cb_priority_allocation_one_lot_v1_0_4_official_terms_lifecycle_sufficiency_archive_manifest.json",
+          "exists": true,
+          "sha256": "d4522755409a6ff01b808d8dd674e852390b4bb54a6c55feabc92165df25ed8a",
+          "bytes": 1967
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R24",
+      "title": "可转债官方完整生命周期门：达到846才查双源，不足即NO_VIEW并停止",
+      "status": "TERMINAL_EXPECTED",
+      "satisfied": true,
+      "current_state": {
+        "status": "NO_VIEW_INSUFFICIENT_EVIDENCE",
+        "official_complete_lifecycle_count": 845,
+        "required_complete_lifecycle_count": 846,
+        "official_complete_lifecycle_fraction": 0.8998935037273695,
+        "source_inventory_rows": 4,
+        "source_coverage_statuses": [
+          "DEFERRED_PENDING_OFFICIAL_LISTING_AND_ISSUE_RESULT_ARCHIVE"
+        ],
+        "market_data_coverage_values_read": false,
+        "archive": {
+          "status": "PASS",
+          "manifest_sha256": "e5415d59f8fdf3a685c44dee5de68822551aefde29774fca3a33c46755e931db",
+          "content_sha256": "1af97503116b57a5f41428e80bffd86caf5de37a7de62972427088fd15a0488b",
+          "tracked_file_count": 2569,
+          "failure_count": 0,
+          "failures": []
+        }
+      },
+      "evidence": [
+        {
+          "path": "reports/a_share_hs_cb_priority_allocation_one_lot_v1_0_5/official_listing_lifecycle_receipt.json",
+          "exists": true,
+          "sha256": "5a6552ac5d4911f355b6a14e7487f8f6e8d5cecbd5e9e415fee5c302c7d2465d",
+          "bytes": 5252
+        },
+        {
+          "path": "data/curated/a_share_hs_cb_priority_allocation_one_lot_v1_0_5/official_lifecycle_ledger.parquet",
+          "exists": true,
+          "sha256": "ae185d7f77d249e622a414f79007562adb479372bde61ef4a3c2c0ae277a130d",
+          "bytes": 176914
+        },
+        {
+          "path": "config/a_share_hs_cb_priority_allocation_one_lot_v1_0_5_official_listing_lifecycle_source_archive_manifest.json",
+          "exists": true,
+          "sha256": "e5415d59f8fdf3a685c44dee5de68822551aefde29774fca3a33c46755e931db",
+          "bytes": 571592
+        },
+        {
+          "path": "reports/a_share_hs_cb_priority_allocation_one_lot_v1_0_4/FREE_DOUBLE_SOURCE_AVAILABILITY_LIST.csv",
+          "exists": true,
+          "sha256": "b431232416a5066619c5d161c9eab3758db496ec1fca68109b31c2d8ce274882",
+          "bytes": 1203
+        }
+      ],
+      "next_action": null
+    },
+    {
+      "id": "R22",
+      "title": "本交易日收盘后由 V1_7 编排回执生成最新 V1.6 权威研究状态",
+      "status": "PENDING_NEXT_WINDOW",
+      "satisfied": false,
+      "current_state": {
+        "before_close_window": false,
+        "acceptance_status": "FAILED_RUN",
+        "contract_valid": true,
+        "successful": false,
+        "industry_receipt_count": 1,
+        "industry_acceptable": false,
+        "status_receipt_count": 1,
+        "status_task_success": true,
+        "status_snapshot_valid": true,
+        "codex_receipt_count": 1,
+        "codex_results_acceptable": false,
+        "claim_count": 2,
+        "claims_valid": true,
+        "central_uses_current_industry_receipt": true,
+        "structural_failure_count": 0,
+        "structural_failures": [],
+        "task_windows": {
+          "INDUSTRY_EXPECTATION_GAP": {
+            "schedule": "17:05",
+            "latest_start": "23:30"
+          },
+          "PRIORITY_FORWARD_STATUS": {
+            "schedule": "17:15",
+            "latest_start": "23:50"
+          }
+        },
+        "codex_close_start_window": {
+          "schedule": "17:05",
+          "latest_start": "23:30"
+        },
+        "central_status_generated_at": "2026-08-26T22:41:26.713174+08:00"
+      },
+      "evidence": [
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_v1_6.json",
+          "exists": true,
+          "sha256": "6b02b0c63a791bef7e5d2706e6a50982dda08b2a3b8f1ac6b0102331740291b9",
+          "bytes": 9229
+        },
+        {
+          "path": "reports/forward/industry_expectation_gap_v1_evaluation/task_runs_v1_2/20260826T1441125539729Z_15388.json",
+          "exists": true,
+          "sha256": "8e27fa5302071225613413f4a669e84be4d3614d062bc51ddb1681a748d5894a",
+          "bytes": 1567
+        },
+        {
+          "path": "reports/audit/priority_forward_authoritative_status_task_runs_v1_6/20260826T1441261877678Z_17656.json",
+          "exists": true,
+          "sha256": "05dc4af094f43b6ff90b355ea2bc46ee72ba9ea2ef31ce98b4c03626ee62cf1c",
+          "bytes": 1274
+        },
+        {
+          "path": "reports/audit/priority_forward_codex_runs_v1_7/20260826T144111319507Z_21052_3025abdf390f_close.json",
+          "exists": true,
+          "sha256": "58b93f91662cf606413e20f4aa2345e6e11d67a7e5f0bcbc3246ff62a70686be",
+          "bytes": 1886
+        },
+        {
+          "path": "reports/audit/priority_forward_task_claims_v1_7/20260826_INDUSTRY_EXPECTATION_GAP.json",
+          "exists": true,
+          "sha256": "2b33e7ecf16da79e5f5c69df8aa219687117f1f4d56cedd9cbe7cd3acfad0705",
+          "bytes": 435
+        },
+        {
+          "path": "reports/audit/priority_forward_task_claims_v1_7/20260826_PRIORITY_FORWARD_STATUS.json",
+          "exists": true,
+          "sha256": "fa1656c7632633eb93dabaa09fde855b32404404220458e404797fc34e3e37e8",
+          "bytes": 434
+        }
+      ],
+      "next_action": "保留本日失败回执且不补跑，等待下一交易日窗口"
+    }
+  ],
+  "source_files": {
+    "attachments": [
+      {
+        "path": "C:\\Users\\戴周阳\\.codex\\attachments\\bf402842-399b-450f-bc94-6b70992a2d72\\pasted-text-1.txt",
+        "exists": true,
+        "sha256": "e2abb5babecbb8f75fb69bce8e28a09b03a2abaa8dbd6ad07658f2679eec9ce0",
+        "bytes": 46581,
+        "expected_sha256": "e2abb5babecbb8f75fb69bce8e28a09b03a2abaa8dbd6ad07658f2679eec9ce0",
+        "hash_matches": true,
+        "precedence": 1
+      },
+      {
+        "path": "C:\\Users\\戴周阳\\.codex\\attachments\\bf402842-399b-450f-bc94-6b70992a2d72\\pasted-text-2.txt",
+        "exists": true,
+        "sha256": "8c84a1f5eab96acd29a7a60cac51af96df375e0fd63a1225023820c88c904d0b",
+        "bytes": 19052,
+        "expected_sha256": "8c84a1f5eab96acd29a7a60cac51af96df375e0fd63a1225023820c88c904d0b",
+        "hash_matches": true,
+        "precedence": 2
+      }
+    ],
+    "audit_script": {
+      "path": "scripts/audit_zero_paid_research_plan_completion_v1.py",
+      "exists": true,
+      "sha256": "c55818f0410b08fac9335ff71c754235e47f52130874ff56b94aaf86f45561d4",
+      "bytes": 164586
+    }
+  }
+}

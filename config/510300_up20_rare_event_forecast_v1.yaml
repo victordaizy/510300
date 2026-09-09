@@ -1,0 +1,237 @@
+protocol:
+  project_id: 510300_UP20_RARE_EVENT_FORECAST_V1
+  version: 1.0.0
+  state: READY_TO_FREEZE_BEFORE_MODEL_OUTCOME_CALCULATION
+  registration_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  evidence_class: CAUSAL_PREQUENTIAL_LOW_DIMENSION_RARE_UP20_FORECAST_HISTORICAL_TEST
+  source_oracle_and_information_budget_known: true
+  model_outcomes_read_before_freeze: false
+  feature_definition_rescue_after_result: forbidden
+  model_regularization_rescue_after_result: forbidden
+  probability_gate_rescue_after_result: forbidden
+  veto_rescue_after_result: forbidden
+  evaluation_phase_rescue_after_result: forbidden
+
+research_question:
+  primary: 仅使用信号日收盘前可得的四个低维技术机制模块，能否预测未来20日上涨至少5%的窗口，并在510300完整账户约束后实现历史压力净夏普1.2
+  target_net_sharpe: 1.20
+  target_label: UP20
+  target_label_rule: H00300_CLOSE_T_PLUS_20_DIVIDED_BY_CLOSE_T_MINUS_1_AT_LEAST_0_05
+  down_veto_label_rule: H00300_CLOSE_T_PLUS_20_DIVIDED_BY_CLOSE_T_MINUS_1_AT_MOST_NEGATIVE_0_05
+  excluded:
+    - 三状态当前状态描述模型
+    - 参数搜索或阈值选择
+    - 总体分类准确率晋级
+    - 震荡做T
+    - 动态选因子
+    - Paper或实盘信号
+
+scope:
+  execution_asset: 510300.SH
+  label_asset: H00300_TOTAL_RETURN_INDEX
+  allowed_holdings: [510300.SH, CASH_CNY]
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  paper_or_live_signal_allowed: false
+
+dates:
+  raw_history_start: '2012-05-28'
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  recent_period: ['2021-01-04', '2026-08-14']
+
+source_results:
+  known_state_oracle:
+    path: reports/research/510300_known_state_policy_oracle_v1_0_1_result.json
+    sha256: 2e3c0d075d294637600603b4dcbdbe1ac3090c84883b034e56cf8e10146cd452
+  information_budget:
+    path: reports/research/510300_oracle_information_budget_v1_result.json
+    sha256: d8b8ca3eae2ee9405b70a4f579b3f6fe59045fb77f430d884e6cdfd8dfaea820
+  fixed_information_budget:
+    minimum_captured_bull_blocks: 14
+    maximum_false_bear_blocks: 1
+    maximum_false_range_blocks: 10
+    maximum_entry_delay_days: 8
+    source_primary_stress_sharpe: 1.740134238934748
+  fixed_class_return_means:
+    UP20: 0.09280962982151726
+    RANGE20: 0.004159060638051138
+    DOWN20: -0.08394003341394107
+
+inputs:
+  etf_daily:
+    path: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+  index_daily:
+    path: data/raw/r6/000300_daily.parquet
+    sha256: b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+  dividends:
+    path: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+  pit_membership:
+    path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+    admitted_use: OFFICIAL_PIT_EQUAL_WEIGHT_MEMBERSHIP_ONLY
+    historical_weights_used: false
+  constituent_daily:
+    path: data/raw/constituents/000300_constituent_daily.parquet
+    sha256: e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7
+    usable_start: '2019-12-23'
+    usable_end: '2026-08-14'
+  membership_audit:
+    path: reports/data_quality/510300_csi300_pit_membership_2015_extension_v1.json
+    sha256: 4bf2f455ae71b77b158042729ce8a5c8f4d9db0b2b1c87480f90fd952fdbf550
+    required_status: PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION_WEIGHTS_STILL_BLOCKED
+  backtest_engine:
+    path: backtest/engine.py
+    sha256: 3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc
+
+feature_modules:
+  SETUP_PRIOR:
+    formula: CLIP_NEGATIVE_252D_DRAWDOWN_DIV_20PCT_TIMES_CLIP_5D_RECOVERY_DIV_5PCT
+    required_history_days: 252
+    expected_sign_for_up: nonnegative
+    expected_sign_for_down: nonpositive
+  BREADTH_IGNITION:
+    formula: HALF_ADVANCER_IMPULSE_PLUS_HALF_ABOVE_MA20_5D_CHANGE_EQUAL_WEIGHT_OFFICIAL_PIT_MEMBERS
+    change_lookback_trading_days: 5
+    positive_change_full_scale: 0.25
+    minimum_return_coverage: 0.95
+    minimum_ma20_coverage: 0.95
+    unavailable_value: 0.0
+    historical_weights_used: false
+    expected_sign_for_up: nonnegative
+    expected_sign_for_down: nonpositive
+  PRICE_ACCEPTANCE:
+    formula: HALF_20D_DIRECTION_EFFICIENCY_PLUS_HALF_20D_RANGE_POSITION
+    required_history_days: 20
+    direction_efficiency_denominator: SUM_ABSOLUTE_ONE_DAY_SIMPLE_RETURNS_OVER_20D
+    range_window_trading_days: 20
+    expected_sign_for_up: nonnegative
+    expected_sign_for_down: nonpositive
+  STRESS_VETO:
+    formula: MAX_OF_20D_DOWNSIDE_VOL_SCALED_30PCT_5D_LOSS_SCALED_8PCT_AND_EXTREME_DOWN_BREADTH_SCALED_15PCT
+    hard_veto_threshold: 0.80
+    expected_sign_for_up: nonpositive
+    expected_sign_for_down: nonnegative
+
+feature_data_contract:
+  expected_total_return_source_rows: 3457
+  expected_etf_execution_calendar_rows: 3456
+  expected_feature_rows: 3456
+  expected_total_return_first_date: '2012-05-28'
+  expected_total_return_last_date: '2026-08-14'
+  expected_evaluation_rows: 2823
+  expected_membership_rows: 846900
+  expected_members_per_evaluation_day: 300
+  expected_constituent_rows_through_cutoff: 483300
+  expected_constituent_dates_through_cutoff: 1611
+  maximum_membership_price_set_mismatch_rows: 300
+  minimum_matched_member_coverage: 0.99
+  feature_output_contains_future_columns: false
+  feature_output_contains_labels: false
+
+model:
+  family: THREE_CLASS_RANGE_REFERENCE_SIGN_CONSTRAINED_MULTINOMIAL_LOGISTIC
+  classes: [UP20, RANGE20, DOWN20]
+  features: [setup_prior, breadth_ignition, price_acceptance, stress_risk]
+  l2_lambda_on_slopes: 0.10
+  objective_scaling: SUM_NEGATIVE_LOG_LIKELIHOOD_PLUS_HALF_LAMBDA_SLOPE_SQUARED
+  intercept_penalized: false
+  optimizer: SCIPY_L_BFGS_B
+  optimizer_max_iterations: 500
+  optimizer_ftol: 1.0e-12
+  warm_start_previous_decision_fit: true
+  minimum_mature_training_observations: 252
+  minimum_mature_up_events: 10
+  minimum_mature_down_events: 10
+  label_maturity_clock: T_PLUS_20_CLOSE_AVAILABLE_AT_T_PLUS_20_CLOSE
+  overlapping_daily_training_labels_allowed: true
+  independent_evaluation_unit: NON_OVERLAPPING_20D_BLOCK
+  retrain_frequency: EVERY_EVALUATION_TRADING_DAY
+
+decision_rule:
+  minimum_up_probability: 0.40
+  maximum_down_probability: 0.10
+  expected_utility_minimum: 0.0
+  fixed_round_trip_cost_hurdle: 0.0025
+  stress_hard_veto_enabled: true
+  long_target: 1.0
+  otherwise_target: 0.0
+  signal_time: CLOSE
+  execution_time: NEXT_TRADING_DAY_OPEN
+
+evaluation:
+  primary_phase_offset: 0
+  robustness_phase_offsets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  horizon_trading_days: 20
+  incomplete_final_block: CENSORED_AND_CASH
+  initial_capital_cny: 20000.0
+  lot_size_shares: 100
+  cash_annual_rate: 0.0
+  base_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+    stamp_duty_rate: 0.0
+  stress_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+
+historical_acceptance_gates:
+  primary_base_net_sharpe_minimum: 1.20
+  primary_stress_net_sharpe_minimum: 1.20
+  primary_recent_stress_net_sharpe_minimum: 1.20
+  primary_stress_total_return_positive: true
+  minimum_captured_up_blocks: 14
+  maximum_false_down_blocks: 1
+  maximum_false_range_blocks: 10
+  every_phase_stress_net_sharpe_minimum: 1.20
+  primary_brier_skill_vs_causal_base_positive: true
+  primary_log_loss_skill_vs_causal_base_positive: true
+  minimum_primary_predicted_long_blocks: 14
+
+controls:
+  report_probability_gate_components: true
+  report_without_hard_stress_veto: true
+  report_without_down_probability_veto: true
+  control_results_cannot_replace_primary: true
+
+selection_bias:
+  prior_manifest_count: 359
+  expected_total_trial_count_including_current: 360
+  no_post_result_candidate_selection: true
+
+governance:
+  historical_research_only: true
+  forward_validation_started: false
+  paper_signal_allowed: false
+  shadow_signal_allowed: false
+  position_mapping_enabled: false
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  spec: docs/510300_UP20_RARE_EVENT_FORECAST_V1_SPEC.md
+  manifest: config/510300_up20_rare_event_forecast_v1_manifest.json
+  features_prefreeze: data/research/510300_up20_rare_event_forecast_v1/features_prefreeze.parquet
+  feature_audit: reports/data_quality/510300_up20_rare_event_forecast_v1_features.json
+  daily_predictions: data/research/510300_up20_rare_event_forecast_v1/daily_predictions.parquet
+  primary_blocks: data/research/510300_up20_rare_event_forecast_v1/primary_blocks.parquet
+  phase_results: data/research/510300_up20_rare_event_forecast_v1/phase_results.parquet
+  primary_base_ledger: reports/backtest/510300_up20_rare_event_forecast_v1_primary_base_ledger.parquet
+  primary_base_trades: reports/backtest/510300_up20_rare_event_forecast_v1_primary_base_trades.parquet
+  primary_stress_ledger: reports/backtest/510300_up20_rare_event_forecast_v1_primary_stress_ledger.parquet
+  primary_stress_trades: reports/backtest/510300_up20_rare_event_forecast_v1_primary_stress_trades.parquet
+  result_json: reports/research/510300_up20_rare_event_forecast_v1_result.json
+  result_markdown: reports/research/510300_UP20_RARE_EVENT_FORECAST_V1_RESULT.md

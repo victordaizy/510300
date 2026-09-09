@@ -1,0 +1,157 @@
+version: INDUSTRY_EXPECTATION_GAP_ETF_MODEL_V2
+status: RESEARCH_ONLY_DATA_REFRESH_AND_TAXONOMY_REBUILD
+asset: "510300"
+benchmark: "000300"
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-18T23:59:59+08:00"
+parent_model: config/industry_expectation_gap_etf_model_v1.yaml
+parent_frozen_result: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json
+parent_historical_context: reports/forward/historical_market_context_supplement_v1_2026-08-18.json
+
+inputs:
+  historical_constituent_daily: data/raw/constituents/000300_constituent_daily.parquet
+  historical_weights: data/raw/constituents/000300_historical_weights.parquet
+  citic_industry_intervals: data/raw/reference/a_share_citic_industry_point_in_time.parquet
+  historical_industry_attribution: data/features/000300_industry_driver_attribution_daily_v1_3.parquet
+  historical_component_moneyflow: data/raw/flow/csi300_component_moneyflow_daily.parquet
+  historical_fund_share: data/raw/flow/510300_fund_share_daily_tushare.parquet
+  historical_margin: data/raw/flow/510300_margin_detail_daily_tushare.parquet
+  etf_daily: data/raw/market/510300_daily_raw.parquet
+
+acquired_inputs:
+  constituent_extension: data/raw/constituents/000300_constituent_daily_extension_20260818_v2.parquet
+  component_moneyflow_extension: data/raw/flow/csi300_component_moneyflow_extension_20260818_v2.parquet
+  fund_share_extension: data/raw/flow/510300_fund_share_extension_20260818_v2.parquet
+  margin_extension: data/raw/flow/510300_margin_extension_20260818_v2.parquet
+  cics_snapshot: data/raw/constituents/000300_cics_industry_weights_snapshot_20260818_v2.parquet
+  citic_index_crosscheck: data/raw/industry/citic_l1_index_daily_crosscheck_20260818_v2.parquet
+  acquisition_status: reports/data_quality/industry_expectation_gap_etf_model_v2_acquisition_status.json
+
+outputs:
+  industry_attribution: data/features/000300_industry_driver_attribution_daily_v2_20260818.parquet
+  economic_bucket_daily: data/features/000300_economic_bucket_daily_v2_20260818.parquet
+  json: reports/forward/industry_expectation_gap_etf_model_v2_2026-08-18.json
+  markdown: reports/forward/industry_expectation_gap_etf_model_v2_2026-08-18.md
+  manifest: config/industry_expectation_gap_etf_model_v2_manifest.json
+
+taxonomy:
+  official_broad_sector:
+    id: CSI_CICS_L1
+    source: CSINDEX
+    mutually_exclusive: true
+    exhaustive: true
+    expected_weight_sum_percent: 100.0
+    interpretation: 官方当前截面；不回填历史，也不替代中信一级行业预测台账。
+
+  economic_buckets:
+    - id: CORE_TECHNOLOGY
+      name_cn: 核心科技
+      industries: [电子, 计算机]
+    - id: DIGITAL_COMMUNICATION
+      name_cn: 数字内容与通信
+      industries: [通信, 传媒]
+    - id: ADVANCED_MANUFACTURING
+      name_cn: 先进制造
+      industries: [电力设备及新能源, 机械, 汽车, 国防军工]
+    - id: FINANCE
+      name_cn: 金融
+      industries: [银行, 非银行金融, 综合金融]
+    - id: CONSUMER_STAPLES
+      name_cn: 必选消费
+      industries: [食品饮料, 农林牧渔]
+    - id: CONSUMER_DISCRETIONARY
+      name_cn: 可选消费
+      industries: [家电, 商贸零售, 轻工制造, 纺织服装, 消费者服务]
+    - id: HEALTHCARE
+      name_cn: 医疗健康
+      industries: [医药]
+    - id: ENERGY_RESOURCES
+      name_cn: 能源资源
+      industries: [有色金属, 石油石化, 煤炭]
+    - id: MIDSTREAM_MATERIALS
+      name_cn: 中游材料
+      industries: [基础化工, 钢铁, 建材]
+    - id: REAL_ESTATE_INFRASTRUCTURE
+      name_cn: 地产基建
+      industries: [房地产, 建筑]
+    - id: UTILITIES_TRANSPORT
+      name_cn: 公用运输
+      industries: [电力及公用事业, 交通运输]
+    - id: DIVERSIFIED
+      name_cn: 多元综合
+      industries: [综合]
+
+  themes:
+    - id: BROAD_TECHNOLOGY
+      name_cn: 科技大类
+      core: [电子, 计算机, 通信, 传媒]
+      adjacent: []
+    - id: AI_DIGITAL_INFRASTRUCTURE
+      name_cn: AI与数字基础设施
+      core: [电子, 计算机, 通信]
+      adjacent: [电力设备及新能源]
+    - id: NEW_QUALITY_PRODUCTIVITY
+      name_cn: 新质生产力
+      core: [电子, 计算机, 通信, 电力设备及新能源, 机械, 汽车, 国防军工]
+      adjacent: [有色金属, 基础化工]
+    - id: ADVANCED_MANUFACTURING_THEME
+      name_cn: 先进制造主题
+      core: [电力设备及新能源, 机械, 汽车, 国防军工]
+      adjacent: [电子, 基础化工]
+    - id: GREEN_TRANSITION
+      name_cn: 绿色转型
+      core: [电力设备及新能源, 汽车, 电力及公用事业]
+      adjacent: [有色金属, 基础化工]
+    - id: DOMESTIC_DEMAND
+      name_cn: 内需
+      core: [食品饮料, 家电, 商贸零售, 农林牧渔, 医药]
+      adjacent: [汽车]
+    - id: REAL_ESTATE_CHAIN
+      name_cn: 地产链
+      core: [房地产, 建筑, 建材]
+      adjacent: [钢铁, 家电]
+    - id: PRO_CYCLICAL
+      name_cn: 顺周期
+      core: [银行, 非银行金融, 有色金属, 基础化工, 钢铁, 煤炭, 石油石化]
+      adjacent: [机械, 建筑, 交通运输]
+    - id: DIVIDEND_DEFENSIVE
+      name_cn: 红利防御
+      core: [银行, 煤炭, 石油石化, 电力及公用事业, 交通运输]
+      adjacent: [家电]
+    - id: EXPORT_MANUFACTURING
+      name_cn: 出口制造
+      core: [电子, 家电, 机械, 汽车, 电力设备及新能源]
+      adjacent: [基础化工]
+
+rules:
+  required_citic_industry_count: 25
+  economic_bucket_membership_per_industry: 1
+  cics_weight_sum_tolerance_percent: 0.05
+  maximum_weight_age_calendar_days: 31
+  industry_return_windows: [5, 20, 60]
+  flow_windows: [1, 5]
+  theme_cross_sum_allowed: false
+  theme_effective_weight_allowed: false
+  minimum_industry_return_coverage_weight: 0.95
+  maximum_industry_staleness_trading_days: 0
+  qualitative_forward_rules:
+    minimum_expectation_coverage_of_bucket: 0.50
+    early_recovery_maximum_60d_history_percentile: 0.30
+    extended_minimum_60d_history_percentile: 0.80
+    require_positive_fundamental_score_for_positive_candidate: true
+    interpretation: 描述性研究排序，不是拟合阈值、收益预测或仓位信号。
+
+semantics:
+  economic_bucket_weight: 互斥行业权重之和，可以在经济大类之间比较和加总。
+  theme_core_weight: 主题核心行业当前指数权重覆盖，仅用于该主题内部描述。
+  theme_adjacent_weight: 主题邻接行业当前指数权重覆盖，不与核心权重合成所谓真实暴露。
+  flow: Tushare个股moneyflow按主动买卖订单分类；不是ETF申赎，也不是国家队资金。
+  national_team: 只有带披露期、披露日、账户身份和持股数量的股东记录才可计入；行情资金流不得反推身份。
+
+safety:
+  research_only: true
+  shadow_only: true
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

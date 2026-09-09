@@ -1,0 +1,105 @@
+{
+  "study_id": "510300_DIRECTION_SWITCH_V1",
+  "version": "1.0.0",
+  "freeze_state": "PREREGISTERED_BEFORE_NEW_OUTCOMES",
+  "frozen_at": "2026-08-30T16:52:33+08:00",
+  "protocol_file": "config/510300_direction_switch_v1.yaml",
+  "protocol_sha256": "d548109ce388a7751f844193e3cc29a77316e3573065d6f848b4564ab37646d9",
+  "historical_run_limit": 1,
+  "historical_runs_consumed": 1,
+  "new_outcomes_read_before_freeze": false,
+  "predecessor_families": {
+    "macro_stress": "REJECTED_FROZEN",
+    "if_true_term_structure_binary": "REJECTED_FIXED_IF_TRUE_TERM_STRUCTURE_BINARY_FAMILY_NO_RESCUE"
+  },
+  "frozen_increment": "BASIS_RESIDUAL_X_AGGREGATE_OPEN_INTEREST_SHOCK_WITH_EXHAUSTION",
+  "implementation_frozen_at": "2026-08-30T17:12:00+08:00",
+  "implementation_sha256": {
+    "research/direction_switch_common_v1.py": "125d2b1d1b49bab81c37f3343ebfaba56628368e3176dfb1766533813cafcf7e",
+    "research/direction_switch_diagnostics_v1.py": "bdf868289ec5f943f7ad831c69fe94ac35f6ee4eb0f9c5c59adf6825858ea548",
+    "research/if_forced_flow_state_v1.py": "1d579e74b24c178f0434d508a84c768b3e3094b023ca8daf20231c7267a6e2bd",
+    "scripts/run_510300_direction_switch_v1.py": "c7ace269c3472504d354afa42ab34f0fd6e9804bfbe5cf943e5efb9380da84d5",
+    "tests/test_510300_direction_switch_v1.py": "82fe80cc1d088b10c6a7510569cf5355e87d275885ffa83d12be05f62f32255d"
+  },
+  "pre_outcome_validation": {
+    "synthetic_tests": "9_PASSED",
+    "if_feature_preflight": "PASS",
+    "if_feature_preflight_future_return_columns_read": 0,
+    "raw_pressure_start_events_observed_without_future_returns": 10,
+    "raw_pressure_exhaustion_events_observed_without_future_returns": 10,
+    "event_count_stop_rule_precedes_return_read": true
+  },
+  "implementation_corrections": [
+    {
+      "status": "PROGRAM_FAILED_PRE_OUTCOME_IMPORT_PATH",
+      "historical_outcomes_read": false,
+      "economic_logic_changed": false,
+      "previous_runner_sha256": "a52f8d4b5bebcce134765a273fa5fb17f1cb622ac64f9ecd067a40e580847b79",
+      "corrected_runner_sha256": "c7ace269c3472504d354afa42ab34f0fd6e9804bfbe5cf943e5efb9380da84d5",
+      "correction": "将项目根目录加入直接执行脚本的Python模块搜索路径"
+    },
+    {
+      "status": "PROGRAM_FAILED_PRE_ORACLE_MISSING_WARMUP_DAY",
+      "historical_outcomes_read": "OLD_MACRO_POST_MORTEM_AND_RETURN_ANATOMY_ONLY",
+      "oracle_or_skill_frontier_outcomes_read": false,
+      "if_future_returns_read": false,
+      "economic_logic_changed": false,
+      "previous_diagnostics_sha256": "ade14ad1c251e41cf70f83f37187fcf1c1b9f6855f2096273b7ec46529268147",
+      "corrected_diagnostics_sha256": "bdf868289ec5f943f7ad831c69fe94ac35f6ee4eb0f9c5c59adf6825858ea548",
+      "correction": "从已冻结且重叠OHLC完全一致的R6输入补入2014-12-31热身日，评估仍从2015-01-05开始"
+    }
+  ],
+  "input_sha256": {
+    "data/raw/market/510300_daily_2015_v2.parquet": "8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948",
+    "data/raw/market/H00300_total_return_daily_2015_v2.parquet": "5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "reports/data_quality/510300_market_inputs_2015_v2.json": "05f6c86958d03f11dca129d4a0ce8ed210546ad8131ea7585b8d2e4805be3718",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_result.json": "f410051a7cc897815ca29fcdb5ccc4f00d8515bbb87e0dd348c54e75eab750bf",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_events.parquet": "8eed4005921d819e05f1cc34b375d8fcf7e7ab90c9cae0da2dcafc86f83df63b",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_5y_ledger.parquet": "502a1a4f2011a7cf7230e6b26074a2a605b02aeb34396683203b20e575ed93a4",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_5y_trades.parquet": "8bb4a9e4e3e88989a077860b9035bd3fbcfcd033f86bf2f8d93534ece1d12a4a",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_buy_hold_ledger.parquet": "aeb8751c849ac2af29a2c9f9f140dcd11524a3e081fa2706436a16449271e3c5",
+    "data/processed/macro/macro_point_in_time_panel_2015_v2.parquet": "003853902aac6a74c92020c44b456dd6d7c72f540fa52e0e3b64014a31638142",
+    "data/raw/r6/000300_daily.parquet": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet": "a4da6ec1b61d98cc59e9c9ae1850bebe6372a3fc6e04935cccecb094a28dc8a2",
+    "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet": "ca274f6d80616d106aa924cc401ee3cf41cfa503e8aec5c6d69a11de1f00dbb1",
+    "reports/data_quality/cffex_if_true_term_structure_inputs_v1_0_1.json": "493d07dcd3acb8a55f85f5adba86724ff11decede9e985e5faace59c0c4f1830",
+    "backtest/engine.py": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc"
+  },
+  "governance": {
+    "parameter_changes_after_outcomes": false,
+    "direction_reversal": false,
+    "macro_filter_reuse": false,
+    "technical_filter_addition": false,
+    "paper_or_shadow": false,
+    "position_mapping": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "live_trading_authorized": false
+  },
+  "first_completed_run_at": "2026-08-30T17:45:25.246909+08:00",
+  "result_sha256": {
+    "reports/research/510300_macro_stress_post_mortem_v1.json": "7b14e2126e2041e48ac7735f59baefb6972aa76901ae7c38e42eb14584072d2a",
+    "reports/research/510300_MACRO_STRESS_POST_MORTEM_V1.md": "3ebdff9847b2e0c7bbdf246e2b5187178fa91be277aad949298e717dd5bd5f5e",
+    "reports/research/510300_macro_stress_post_mortem_v1_events.parquet": "54f5083e3708f47e2d0e69c7bed47a95813a0c8e3a53531a6199b61385fd968a",
+    "reports/research/510300_return_anatomy_v1.json": "60649887e4cdc2e460fcd46bf8508e7218234b74149b435d66961c2862d325c2",
+    "reports/research/510300_RETURN_ANATOMY_V1.md": "d08c9c27b728d6ce5c2d2c5915210497513f416c4a86d6196c753351f27cb6c9",
+    "reports/research/510300_return_anatomy_v1_daily.parquet": "23f266f89787ffcc34e6ebeeeaed0a9513bf25f07cc7c04254998ea552c08d10",
+    "reports/research/510300_long_cash_constrained_oracle_v1.json": "bd1ad60c6b5297129c2607d892e9cec0498d8b92f6a1c9f4d0362f8c9fad1ed5",
+    "reports/research/510300_LONG_CASH_CONSTRAINED_ORACLE_V1.md": "700bc866ec505e3bc8e849cbdbb9f1c8ffeb171f713e0b91382fcd6d75e9b5e2",
+    "reports/research/510300_long_cash_constrained_oracle_v1_grid.parquet": "7f693eb7799bce1c34bc2b9d62a13ca76ab967f8ca14293f39c429d6529ffe27",
+    "reports/research/510300_sharpe_target_skill_frontier_v1.json": "ed0352607820c7caf03b282e749bf570ac614d69d1164ee7dcb8b94eb5fc9b79",
+    "reports/research/510300_SHARPE_TARGET_SKILL_FRONTIER_V1.md": "09677b056a19d366468ced08bda44f028c567f0bf7ab5439b1ea7f20e3d08af7",
+    "reports/research/510300_sharpe_target_skill_frontier_v1_grid.parquet": "4bfb673f158f7fa1f6a7cfaa2510f7f0b3267939e9399e67ab65fcac051be0c2",
+    "reports/data_quality/510300_if_forced_flow_state_v1.json": "b31473f04d49760313c799b56354877ad647657c479a9f6ad3a65697812fac6e",
+    "data/research/510300_if_forced_flow_state_v1/features.parquet": "6cf9c7283b82aa16d9e7e13a31c299dd44a1b7608e4c2771d80b9084f557a857",
+    "reports/research/510300_if_forced_flow_state_v1_events.parquet": "02108189a1c51ceba4302121d38eb0f917a48fc32bcf7355f2b695f8465d0804",
+    "reports/research/510300_if_forced_flow_state_v1_controls.parquet": "1513b74c4cdf5c350fb1c54aa022ca37c44ebb764835223fd55e358a8eb01c41",
+    "reports/research/510300_if_forced_flow_state_v1.json": "38a0b7af6ae307ae26901aa96a6acef3a711484beeefa2153a4a01dc26b2539a",
+    "reports/research/510300_IF_FORCED_FLOW_STATE_V1.md": "46b2c9dabf33ad07366209a65f7f7e3965e8e842d0e7d1073e116841e32bd55d",
+    "reports/research/510300_direction_switch_v1_result.json": "a87d3863de5a9d97eb9dbd4bbf032361b0d9c3ab9272765f17c60c025b602d94",
+    "reports/research/510300_DIRECTION_SWITCH_V1_RESULT.md": "cc042a1398252e721c75bc2dc71c0fb5b4c82f96b5b6ae25a826f56e3a328c10"
+  }
+}

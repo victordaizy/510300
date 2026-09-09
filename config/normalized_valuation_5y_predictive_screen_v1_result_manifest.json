@@ -1,0 +1,84 @@
+{
+  "project_id": "NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_PREDICTIVE_SCREEN_RESULTS_NO_STRATEGY_BACKTEST",
+  "frozen_at": "2026-08-19T03:30:35.473301+08:00",
+  "protocol_manifest": {
+    "file": "config/normalized_valuation_5y_predictive_screen_v1_protocol_manifest.json",
+    "sha256": "2bf0e551a05812ac0f47841d6e769060eb74afb1ada717362619d6463fb2696a",
+    "manifest_content_sha256": "d9848c9389b7890778d17818d675af4d7f4ed0a4c79e14d061cd6b3feacf9631"
+  },
+  "input_files": {
+    "val01_model_manifest": {
+      "file": "config/val01_norm_ey_5y_v1_manifest.json",
+      "sha256": "b565accfe2d578dc21b9c5df5102ba9899596dfde776fef767d786db67976031"
+    },
+    "val02_model_manifest": {
+      "file": "config/val02_norm_ey_spread_5y_v1_manifest.json",
+      "sha256": "945f4a867c613c7d9d86c623909d94717a54311a11e68e6c19ef2370a5643bb2"
+    },
+    "val01_signal_inputs": {
+      "file": "data/features/000300_val01_norm_ey_5y_v1_signal_inputs.parquet",
+      "sha256": "821f20d244b4b82e7eb5d6df49f07a5baceec17de9be547150cded6dc3255f4a"
+    },
+    "val02_signal_inputs": {
+      "file": "data/features/000300_val02_norm_ey_spread_5y_v1_signal_inputs.parquet",
+      "sha256": "4ab8d0cc453af93b385e7da0eca3ee7225640b8e08027e04679230b31eabdb73"
+    },
+    "frozen_forward_labels": {
+      "file": "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet",
+      "sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b"
+    },
+    "forward_label_manifest": {
+      "file": "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json",
+      "sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f"
+    }
+  },
+  "output_files": {
+    "val01_report_json": {
+      "file": "reports/research/val01_norm_ey_5y_v1_predictive_diagnostics.json",
+      "sha256": "b02deafd89b844bd6f887aea0ae83464c92fdb2232250c8afff835e6411a74ed",
+      "size_bytes": 16770
+    },
+    "val01_report_markdown": {
+      "file": "reports/research/val01_norm_ey_5y_v1_predictive_diagnostics.md",
+      "sha256": "f6f3e3052d3dd9e5b198072a3121fa2a1eb3f402e69890829b7bcebea9a00584",
+      "size_bytes": 544
+    },
+    "val02_report_json": {
+      "file": "reports/research/val02_norm_ey_spread_5y_v1_predictive_diagnostics.json",
+      "sha256": "fa77a9a596e00ff4d459a67117eeb30a45cd079da290b6ccce06faae24f334a1",
+      "size_bytes": 16376
+    },
+    "val02_report_markdown": {
+      "file": "reports/research/val02_norm_ey_spread_5y_v1_predictive_diagnostics.md",
+      "sha256": "10211d83ede5f1bc468e61016eec6b45ddc8bd946f10dd749d0fcf0a8b88ffe9",
+      "size_bytes": 643
+    },
+    "family_report_json": {
+      "file": "reports/research/normalized_valuation_5y_family_predictive_screen_v1.json",
+      "sha256": "5b519066afb013a67b73379eb562b2265f71490bfba9d0414b269db52e9f9107",
+      "size_bytes": 1455
+    },
+    "family_report_markdown": {
+      "file": "reports/research/normalized_valuation_5y_family_predictive_screen_v1.md",
+      "sha256": "81448c235c2fe8cb175ab8b83fbca43f6eba1d8c2f4fe37887c8bc198c523044",
+      "size_bytes": 647
+    }
+  },
+  "family_status": "ALL_REGISTERED_MODELS_REJECTED",
+  "model_status": {
+    "VAL01_NORM_EY_5Y_V1": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST",
+    "VAL02_NORM_EY_SPREAD_5Y_V1": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+  },
+  "strategy_evaluation_authorized_models": [],
+  "governance": {
+    "model_results_reported_together": true,
+    "strategy_returns_calculated": false,
+    "positions_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false
+  },
+  "meaning": "冻结预测关系筛选结果；未运行仓位策略、成本回测或当前信号映射。",
+  "manifest_content_sha256": "7382079bd5918c9895c7f75dda490a4e668f67951c6600bebdf4a799ee0fdaac"
+}

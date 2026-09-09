@@ -1,0 +1,77 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V4"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V3"
+  status: "FROZEN_BEFORE_CB_DOUBLE_LOW_CANDIDATE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+  purpose: "在涨停延续失败后，仅扩展一条中国可转债二级市场传统双低相对价值路线"
+  all_prior_results_preserved: true
+  prior_parameters_or_failures_modified: false
+
+inputs:
+  parent_config: "config/multi_asset_annual_excess_40pct_high_sharpe_v3.yaml"
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v3_manifest.json"
+  limit_up_manifest: "config/a_share_limit_up_continuation_v1_manifest.json"
+  limit_up_rejection_report: "reports/research/a_share_limit_up_continuation_v1_visible.json"
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+  rolling_and_bootstrap_gates_unchanged: true
+  forward_726_day_requirement_unchanged: true
+
+closed_lanes:
+  - lane: "BROAD_LIQUID_ETF_CROSS_ASSET"
+    state: "CLOSED_AFTER_FROZEN_REJECTION"
+  - lane: "A_SHARE_CROSS_SECTIONAL_HEDGED"
+    state: "CLOSED_AFTER_PRESERVED_FAILURES_AND_FROZEN_REJECTION"
+  - lane: "CROSS_BORDER_QDII_RELATIVE_VALUE"
+    state: "CLOSED_AFTER_VERSIONED_EVALUATION_REJECTION"
+  - lane: "A_SHARE_PRICE_LIMIT_CONTINUATION"
+    state: "CLOSED_AFTER_FROZEN_REJECTION"
+
+new_lane:
+  lane: "CHINA_CONVERTIBLE_BOND_RELATIVE_VALUE"
+  maximum_candidates_before_family_specific_replication: 1
+  permitted_mechanism: "含已退市债券的全历史可转债中，按收盘价加点时转股溢价百分点的传统双低分数排序，下一交易日开盘等权轮动"
+  distinct_from_prior_cb_lane: "既有新债股东配售研究不属于二级市场双低轮动"
+  required_inputs:
+    - "INCLUDING_DELISTED_BONDS"
+    - "POINT_IN_TIME_DAILY_CONVERSION_PREMIUM"
+    - "OBSERVED_DAILY_OPEN_CLOSE_VOLUME"
+  prohibited_reuse:
+    - "NEW_BOND_SUBSCRIPTION_OR_SHAREHOLDER_PRIORITY_ALLOCATION"
+    - "A_SHARE_PRICE_LIMIT_CONTINUATION"
+    - "ETF_MOMENTUM_OR_ROTATION"
+    - "QDII_DISCOUNT_REVERSION"
+    - "A_SHARE_LOW_VOLATILITY_SIZE_VALUE_OR_TREND"
+  short_sale_allowed: false
+  leverage_allowed: false
+  stock_conversion_or_arbitrage_allowed: false
+  same_close_signal_and_execution_allowed: false
+
+governance:
+  acquire_and_normalize_inputs_before_formula_freeze_allowed: true
+  strategy_return_or_rank_may_be_computed_during_acquisition: false
+  formula_and_costs_must_freeze_before_visible_outcome: true
+  retrospective_history_can_verify_target: false
+  visible_result_label: "DISCOVERY_ONLY_CB_FORMULA_FAMILY_VISIBLE"
+  replication_may_open_only_after_visible_pass: true
+  failed_candidate_reparameterization_allowed: false
+  target_or_sharpe_relaxation_allowed: false
+  historical_backfill_allowed: false
+  paper_or_live_authorized_by_historical_result: false
+
+outputs:
+  manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v4_manifest.json"
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

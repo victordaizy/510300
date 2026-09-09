@@ -1,0 +1,140 @@
+model_id: 510300_NBS_1000_NEGATIVE_INFORMATION_DRIFT_V2
+version: 2.0.0
+role: MACRO_EVENT_SATELLITE_ALPHA
+parent_v1: ARCHIVED_BLOCKED_BEFORE_RETURN_READ
+parent_return_values_read: false
+tradable_universe: [510300.SH, CASH_CNY]
+live_trading_authorized: false
+position_impact: 0
+source: config/510300_stk_mins_source_admission_v2.yaml
+source_required_state: PASS_STK_MINS_SOURCE_ADMISSION_V2
+sample:
+  start: '2017-01-01'
+  end: '2026-09-04'
+  allowed_family: NBS_NATIONAL_ECONOMY_SCHEDULED_1000_ON_SSE_OPEN_DAY
+  official_schedule_must_be_available_before_event: true
+  unverifiable_schedule_events_excluded: 13
+  eligible_events: 88
+  model_events: 86
+  initial_training: 36
+  era_1_model_ordinals: [37, 53]
+  era_2_model_ordinals: [54, 70]
+  era_3_model_ordinals: [71, 86]
+  ledger: data/curated/510300_nbs_1000_negative_information_drift_v2/event_ledger_pre_return.csv
+windows:
+  semantics: BAR_END
+  real_pre: '[09:55:00,10:00:00)'
+  real_reaction: '[10:00:00,10:05:00)'
+  real_entry: '[10:06:00,10:11:00)'
+  real_exit: '[14:50:00,14:55:00)'
+  mapping: FIRST_LABEL_IS_START_PLUS_ONE_MINUTE_LAST_LABEL_IS_INTERVAL_END
+  price: SUM_AMOUNT_CNY_DIV_SUM_VOLUME_SHARES
+feature:
+  g: LOG_REACTION_VWAP_DIV_PRE_VWAP
+  baseline: LAST_60_STRICTLY_PRIOR_COMPLETE_NON_EVENT_OPEN_DAYS
+  exclude_all_parent_family_schedule_dates_including_ineligible: true
+  median: MEDIAN_BASELINE_G
+  scale: '1.4826 * MAD_BASELINE_G'
+  nonpositive_scale: NO_VIEW
+  X: MAX_NEGATIVE_Z_ZERO
+  additional_features_allowed: false
+label:
+  Y: NEGATIVE_LOG_EXIT_VWAP_DIV_ENTRY_VWAP
+  maturity: EVENT_DATE_14_55_ASIA_SHANGHAI
+  alternate_target_allowed: false
+models:
+  B0: MEAN_ALL_PRIOR_MATURED_Y
+  B1: OLS_INTERCEPT_PLUS_BETA_X
+  covariance: HC3
+  initial_training: 36
+  refit: BEFORE_EVERY_EVENT_EXPANDING_MATURED_ONLY
+  beta_constraint: NONE
+  nonpositive_beta: FAIL_NO_REVERSE_DIRECTION
+  prediction_lcb: MU_MINUS_1_POINT_645_TIMES_HC3_MEAN_SE
+  note: USER_FIXED_1_POINT_645_RETAINED_WITHOUT_QUANTILE_SUBSTITUTION
+statistics:
+  bootstrap_repetitions: 10000
+  seed: 5103001000
+  bootstrap_unit: EVENT
+  lower_percentile: 0.10
+  full_evaluation_beta_sample: THE_50_PREQUENTIAL_EVALUATION_EVENTS_ONLY
+  placebo_superiority: PAIRED_EVENT_BOOTSTRAP_REAL_MINUS_PLACEBO_BETA_LOWER_10PCT_STRICTLY_POSITIVE_FOR_EACH
+  degenerate_bootstrap: FAIL_NO_RESEED_OR_RESAMPLE_RESCUE
+placebos:
+  A:
+    match: NEAREST_STRICTLY_PRIOR_COMPLETE_NON_EVENT_DAY_WITHOUT_REUSE
+    windows: SAME_AS_MAIN
+    baseline: ITS_OWN_PRIOR_60_COMPLETE_NON_EVENT_DAYS
+  B:
+    additional_window_authorization: USER_EXPLICIT_REPLY_20260905_ALLOW_ONLY_COMPLETE_PLACEBO_B
+    real_pre: '[09:40:00,09:45:00)'
+    real_reaction: '[09:45:00,09:50:00)'
+    real_entry: '[09:51:00,09:56:00)'
+    real_exit: '[14:35:00,14:40:00)'
+    pre_labels: ['09:41:00', '09:42:00', '09:43:00', '09:44:00', '09:45:00']
+    reaction_labels: ['09:46:00', '09:47:00', '09:48:00', '09:49:00', '09:50:00']
+    entry_labels: ['09:52:00', '09:53:00', '09:54:00', '09:55:00', '09:56:00']
+    exit_labels: ['14:36:00', '14:37:00', '14:38:00', '14:39:00', '14:40:00']
+    baseline: ITS_OWN_PRIOR_60_COMPLETE_NON_EVENT_DAYS_SAME_SHIFTED_CLOCK
+    timing_note: ENTIRE_MAIN_WINDOW_SET_SHIFTED_EARLIER_15_MINUTES_IDENTICAL_CASH_DURATION
+  candidate_strategy_allowed: false
+gates:
+  G0: ALL_SOURCE_V2_HARD_GATES_PASS
+  G1: EXACT_36_17_17_16_AND_88_ELIGIBLE_EVENTS
+  G2:
+    prequential_mse_improvement_strictly_positive: true
+    full_evaluation_beta_strictly_positive: true
+    beta_bootstrap_lower_bound_strictly_positive: true
+    b1_better_mse_eras_minimum: 2
+    latest_era_b1_better_mse: true
+    spearman_X_Y_strictly_positive: true
+    stronger_than_both_placebos: true
+  G3:
+    signal: X_GT_0_AND_PREQUENTIAL_BETA_GT_0_AND_LCB_GE_0_POINT_0042
+    minimum_independent_signals: 12
+    eras_with_3_signals_minimum: 2
+    base_round_trip_reference_cost: 0.0014
+    stress_round_trip_reference_cost: 0.0024
+    mean_base_net_avoided_loss_strictly_positive: true
+    mean_stress_net_avoided_loss_strictly_positive: true
+    stress_event_bootstrap_lower_bound_strictly_positive: true
+    stress_net_hit_rate_minimum: 0.60
+    maximum_single_event_share_of_total_net: 0.30
+  G4:
+    P1_vs_P0_cumulative_net_excess_strictly_positive: true
+    P1_minus_P0_net_sharpe_minimum: 0.10
+    P1_vs_P2_net_excess_strictly_positive: true
+    P1_vs_P3_net_excess_strictly_positive: true
+    both_cost_scenarios_positive_excess: true
+    positive_eras_minimum: 2
+    latest_era_positive: true
+    annual_cagr_shortfall_maximum: 0.005
+    max_drawdown_worsening_allowed: false
+    maximum_single_event_share_of_total_net: 0.30
+account:
+  run_only_after_G0_G1_G2_G3: true
+  initial_capital_cny: 200000
+  commission: MAX_NOTIONAL_TIMES_0_POINT_0002_OR_5_CNY_PER_LEG
+  lot_size: 100
+  base_slippage_bp_per_side: 5
+  stress_slippage_bp_per_side: 10
+  cash_yield: 0
+  sell: ALL_T_PLUS_1_AVAILABLE_OLD_INVENTORY
+  buy: AVAILABLE_CASH_NET_COMMISSION_WHOLE_LOTS
+  same_day_bought_shares_resell_allowed: false
+  dividends: OFFICIAL_RECORD_DATE_ENTITLEMENT_EX_DATE_RECEIVABLE_PAYMENT_DATE_CASH
+  P0: DIVIDEND_INCLUSIVE_BUY_AND_HOLD
+  P1: NBS_STRATEGY
+  P2: SAME_SIGNAL_COUNT_AND_DURATION_MATCHED_PRIOR_NON_EVENT_DATES_FROM_PLACEBO_A
+  P3: SAME_SIGNAL_EVENT_DATES_SHIFTED_CASH_WINDOWS_FROM_PLACEBO_B
+  historical_pass_state: VALIDATED_HISTORICAL_SATELLITE_CANDIDATE
+governance:
+  fixed_scope_changes: [SOURCE_MEASUREMENT_CONTRACT, EQUAL_COUNT_ERAS]
+  additional_explicit_authorization: COMPLETE_PLACEBO_B_ONLY
+  latest_user_request_overrides_V1_account_benchmarks_and_satellite_promotion: true
+  thresholds_windows_direction_feature_repair_after_results: NOT_ALLOWED
+  source_failure: ARCHIVED_BLOCKED_G0_BEFORE_RETURN_READ
+  G2_failure: REJECTED_FROZEN_NBS_FAMILY_NO_RESCUE
+  G3_density_failure: NO_VIEW_INSUFFICIENT_HIGH_MARGIN_SIGNAL_DENSITY
+  any_terminal_failure_next_mode: STRICT_FORWARD_ONLY
+  additional_510300_historical_alpha_search: NOT_ALLOWED_AFTER_V2_TERMINAL_FAILURE

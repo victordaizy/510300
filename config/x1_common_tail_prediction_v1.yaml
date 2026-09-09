@@ -1,0 +1,116 @@
+protocol:
+  project_id: "510300_X1_COMMON_TAIL_PREDICTION_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  parent_project_id: "510300_RETURN_TAIL_GATING_DISCOVERY_V1"
+  historical_contamination_cutoff: "2026-08-14"
+  true_forward_start: null
+  candidate_id: "X1"
+  candidate_budget: 1
+  candidate_addition_after_freeze_forbidden: true
+  threshold_change_after_freeze_forbidden: true
+
+inputs:
+  parent_registry: "config/return_tail_hypothesis_registry.yaml"
+  parent_spec: "docs/RETURN_TAIL_GATING_RESEARCH_SPEC.md"
+  current_feasibility_status: "reports/data_quality/return_tail_feasibility.json"
+  x1_signal_status: "reports/data_quality/x1_common_tail_signal_v1_status.json"
+  x1_signal_feature: "data/features/510300_x1_common_tail_signal_v1.parquet"
+  constituent_daily: "data/raw/constituents/000300_constituent_daily.parquet"
+  component_history_cache: "data/raw/constituents/.tushare_stock_history_cache"
+  constituent_weights: "data/raw/constituents/000300_historical_weights.parquet"
+  constituent_membership: "data/raw/constituents/000300_historical_membership_intervals.parquet"
+  industry_intervals: "data/raw/reference/a_share_sw_industry_static.parquet"
+  etf_daily: "data/raw/market/510300_daily_raw.parquet"
+  etf_dividends: "data/reference/510300_dividends.csv"
+  etf_dividend_coverage: "data/reference/510300_dividends_coverage.json"
+  index_valuation: "data/raw/valuation/000300_valuation_daily_raw.parquet"
+
+signal:
+  component_return_lookback_trading_days: 5
+  component_tail_quantile: 0.05
+  component_tail_minimum_prior_observations: 504
+  minimum_signal_weight_coverage: 0.90
+  risk_standardization: "PRIOR_ONLY_EXPANDING_EMPIRICAL_CDF"
+  risk_standardization_minimum_prior_signal_days: 252
+  top_risk_group_lower_percentile: 0.90
+  point_in_time_industry_secondary_statistic: true
+  industry_shock_prior_percentile: 0.90
+  missing_input_output: "NO_VIEW"
+
+targets:
+  execution_start: "t+1交易日开盘"
+  delayed_execution_start: "t+2交易日开盘"
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  primary:
+    horizon_trading_days: 20
+    bad_threshold: -0.05
+    tail_path_threshold: -0.08
+  robustness:
+    horizon_trading_days: 60
+    bad_threshold: -0.08
+    tail_path_threshold: -0.12
+
+probability:
+  minimum_prior_mature_observations: 252
+  x1_estimator: "ISOTONIC_NONDECREASING_FIXED"
+  probability_clip: [0.000001, 0.999999]
+  unconditional_prior: "BETA_1_1"
+  r6_baseline_estimator: "LOGISTIC_L2_FIXED"
+  r6_baseline_c: 1.0
+  r6_baseline_features:
+    - "earnings_yield"
+    - "book_yield"
+    - "trend20"
+    - "trend120"
+    - "rv20"
+    - "rv60"
+  r6_plus_x1_features:
+    - "earnings_yield"
+    - "book_yield"
+    - "trend20"
+    - "trend120"
+    - "rv20"
+    - "rv60"
+    - "x1_risk_percentile"
+  imputation: "TRAINING_MEDIAN_ONLY"
+  scaling: "TRAINING_STANDARD_SCALE"
+  hyperparameter_search_allowed: false
+
+evaluation:
+  historical_pseudo_oos_start: "2023-01-03"
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  random_seed: 20260818
+  bad20_lift_minimum: 2.0
+  lift_bootstrap_lower_bound_strictly_above: 1.0
+  brier_skill_strictly_above: 0.0
+  log_loss_must_beat_unconditional: true
+  calibration_bias_test: "POISSON_BINOMIAL_95PCT_COMPATIBILITY"
+  delayed_excess_lift_retention_minimum: 0.70
+  split_lift_strictly_above: 1.0
+  incremental_brier_improvement_required: true
+  incremental_log_loss_improvement_required: true
+  incremental_top_decile_bad20_rate_improvement_required: true
+  incremental_unit_avoidance_contribution_improvement_required: true
+
+outputs:
+  outcomes: "data/features/510300_return_tail_outcomes_v1.parquet"
+  forecasts: "data/features/510300_x1_bad20_probability_oos_v1.parquet"
+  result_json: "reports/discovery/x1_common_tail_prediction_v1_result.json"
+  result_markdown: "reports/discovery/x1_common_tail_prediction_v1_result.md"
+
+governance:
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED"
+  historical_run_may_emit_forecast_eligible: false
+  combination_model_build_allowed: false
+  position_policy_build_allowed: false
+  r6_candidate_reselection_allowed: false
+  options_branch_recovery_allowed: false
+  earnings_consensus_branch_recovery_allowed: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false

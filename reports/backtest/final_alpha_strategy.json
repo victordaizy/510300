@@ -1,0 +1,342 @@
+{
+  "generated_at": "2026-08-13T04:36:33.067251+08:00",
+  "strategy": {
+    "strategy_id": "CSI300_REGIME_DUAL_SLEEVE_ALPHA_V1",
+    "name": "沪深300点时成分股双袖带Alpha策略",
+    "version": "1.0.0",
+    "frozen_at": "2026-08-13",
+    "status": "SUPERSEDED_WRONG_SCOPE_DO_NOT_USE",
+    "superseded_by": "reports/backtest/510300_valuation_fvg_strategy.json",
+    "superseded_reason": "用户明确要求只操作510300 ETF；本策略交易成分股，超出授权范围",
+    "evidence_scope": "全部历史均已用于研究；没有未查看的严格样本外",
+    "benchmark": "H00300沪深300全收益指数",
+    "target": "全样本年化超额及滚动242日超额中位数均不低于20%"
+  },
+  "cost_assumptions": {
+    "commission_rate": 0.0003,
+    "minimum_commission_cny": 5.0,
+    "stamp_duty_sell_rate": 0.0005,
+    "stamp_duty_sell_rate_before_reduction": 0.001,
+    "stamp_duty_reduction_effective_date": "2023-08-28",
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 15.0
+  },
+  "retrospective_gate": {
+    "status": "PASS_RETROSPECTIVE",
+    "annualized_excess_minimum": 0.2,
+    "rolling_242d_excess_median_minimum": 0.2,
+    "warning": "历史门槛不是未来收益承诺"
+  },
+  "base_cost": {
+    "strategy": {
+      "total_return": 1.9554105021931094,
+      "cagr": 0.24204247804351975,
+      "annualized_volatility": 0.21724121456376783,
+      "sharpe_zero_cash_rate": 1.1053213873583267,
+      "maximum_drawdown": -0.16576879384602972,
+      "calmar": 1.460120885408233,
+      "observations": 1211
+    },
+    "benchmark": {
+      "total_return": 0.06844853734185952,
+      "cagr": 0.013331420562605611,
+      "annualized_volatility": 0.17524354454688312,
+      "sharpe_zero_cash_rate": 0.1629800995470928,
+      "maximum_drawdown": -0.344031777910614,
+      "calmar": 0.038750549857837165,
+      "observations": 1211
+    },
+    "annualized_excess": 0.22871105748091414,
+    "rolling_242d_excess": {
+      "median": 0.2614181969011793,
+      "minimum": 0.024990952268282962,
+      "maximum": 0.6974872870386242,
+      "positive_ratio": 1.0,
+      "at_least_20pct_ratio": 0.6996904024767802,
+      "observations": 969
+    },
+    "actual_beta": 0.5825504105904015,
+    "average_exposure": 0.9974827142775037,
+    "average_position_count": 8.331957060280759,
+    "trade_rows": 1487,
+    "traded_notional_over_initial_cash": 213.99430350181186,
+    "total_cost_cny": 1180870.349147461,
+    "calendar_years": {
+      "2021": {
+        "strategy_return": 0.021626603171924774,
+        "benchmark_return": -0.0034073675195727127,
+        "excess": 0.025033970691497487,
+        "observations": 95,
+        "complete_year": false
+      },
+      "2022": {
+        "strategy_return": 0.00974495702099265,
+        "benchmark_return": -0.1983671139372284,
+        "excess": 0.20811207095822104,
+        "observations": 242,
+        "complete_year": true
+      },
+      "2023": {
+        "strategy_return": 0.1078191333772125,
+        "benchmark_return": -0.09135429181811783,
+        "excess": 0.19917342519533032,
+        "observations": 242,
+        "complete_year": true
+      },
+      "2024": {
+        "strategy_return": 0.8798819159084534,
+        "benchmark_return": 0.18239462886982616,
+        "excess": 0.6974872870386273,
+        "observations": 242,
+        "complete_year": true
+      },
+      "2025": {
+        "strategy_return": 0.36146549709237097,
+        "benchmark_return": 0.20983589125580449,
+        "excess": 0.15162960583656648,
+        "observations": 243,
+        "complete_year": true
+      },
+      "2026": {
+        "strategy_return": 0.010433774799817108,
+        "benchmark_return": 0.028908889025608175,
+        "excess": -0.018475114225791067,
+        "observations": 147,
+        "complete_year": false
+      }
+    }
+  },
+  "stress_cost": {
+    "strategy": {
+      "total_return": 1.611317281011456,
+      "cagr": 0.211667176232178,
+      "annualized_volatility": 0.21726198677209616,
+      "sharpe_zero_cash_rate": 0.9913002683270183,
+      "maximum_drawdown": -0.171278383375837,
+      "calmar": 1.235807882234127,
+      "observations": 1211
+    },
+    "benchmark": {
+      "total_return": 0.06844853734185952,
+      "cagr": 0.013331420562605611,
+      "annualized_volatility": 0.17524354454688312,
+      "sharpe_zero_cash_rate": 0.1629800995470928,
+      "maximum_drawdown": -0.344031777910614,
+      "calmar": 0.038750549857837165,
+      "observations": 1211
+    },
+    "annualized_excess": 0.1983357556695724,
+    "rolling_242d_excess": {
+      "median": 0.22648449958731287,
+      "minimum": -0.010292489037410979,
+      "maximum": 0.6389117570567973,
+      "positive_ratio": 0.9979360165118679,
+      "at_least_20pct_ratio": 0.5933952528379773,
+      "observations": 969
+    },
+    "actual_beta": 0.5834520977393627,
+    "average_exposure": 0.9972903962487653,
+    "average_position_count": 8.331957060280759,
+    "trade_rows": 1484,
+    "traded_notional_over_initial_cash": 198.67555505440546,
+    "total_cost_cny": 2092869.6441133441,
+    "calendar_years": {
+      "2021": {
+        "strategy_return": 0.014967487688696712,
+        "benchmark_return": -0.0034073675195727127,
+        "excess": 0.018374855208269425,
+        "observations": 95,
+        "complete_year": false
+      },
+      "2022": {
+        "strategy_return": -0.0036402522426268735,
+        "benchmark_return": -0.1983671139372284,
+        "excess": 0.19472686169460152,
+        "observations": 242,
+        "complete_year": true
+      },
+      "2023": {
+        "strategy_return": 0.07668991355384525,
+        "benchmark_return": -0.09135429181811783,
+        "excess": 0.16804420537196307,
+        "observations": 242,
+        "complete_year": true
+      },
+      "2024": {
+        "strategy_return": 0.8213063859266245,
+        "benchmark_return": 0.18239462886982616,
+        "excess": 0.6389117570567984,
+        "observations": 242,
+        "complete_year": true
+      },
+      "2025": {
+        "strategy_return": 0.32058796991056426,
+        "benchmark_return": 0.20983589125580449,
+        "excess": 0.11075207865475978,
+        "observations": 243,
+        "complete_year": true
+      },
+      "2026": {
+        "strategy_return": -0.0028732979412374737,
+        "benchmark_return": 0.028908889025608175,
+        "excess": -0.03178218696684565,
+        "observations": 147,
+        "complete_year": false
+      }
+    }
+  },
+  "periods": {
+    "development": {
+      "start_date": "2021-08-12",
+      "end_date": "2024-06-28",
+      "governance": "模型开发历史",
+      "strategy": {
+        "total_return": 0.47334207021770447,
+        "cagr": 0.1441682739766943,
+        "annualized_volatility": 0.15359095665807734,
+        "sharpe_zero_cash_rate": 0.9541017848571055,
+        "maximum_drawdown": -0.1314685668354053,
+        "calmar": 1.0965988102478414,
+        "observations": 696
+      },
+      "benchmark": {
+        "total_return": -0.25913029986355296,
+        "cagr": -0.09898529514607335,
+        "annualized_volatility": 0.1605879026940719,
+        "sharpe_zero_cash_rate": -0.5690698015970215,
+        "maximum_drawdown": -0.344031777910614,
+        "calmar": -0.2877213719826533,
+        "observations": 696
+      },
+      "total_return_excess": 0.7324723700812574
+    },
+    "pseudo_oos": {
+      "start_date": "2024-08-01",
+      "end_date": "2025-06-30",
+      "governance": "已参与后续研究，只能称伪样本外",
+      "strategy": {
+        "total_return": 0.21737225185824682,
+        "cagr": 0.2407845732717102,
+        "annualized_volatility": 0.2652864012981661,
+        "sharpe_zero_cash_rate": 0.9505705051444252,
+        "maximum_drawdown": -0.16576879384602938,
+        "calmar": 1.4525325767608441,
+        "observations": 219
+      },
+      "benchmark": {
+        "total_return": 0.16738369980938317,
+        "cagr": 0.18501283046834582,
+        "annualized_volatility": 0.22256472634508637,
+        "sharpe_zero_cash_rate": 0.8790418089024241,
+        "maximum_drawdown": -0.1516496888077663,
+        "calmar": 1.220001385580627,
+        "observations": 219
+      },
+      "total_return_excess": 0.049988552048863655
+    },
+    "contaminated_recent": {
+      "start_date": "2025-08-01",
+      "end_date": "2026-08-11",
+      "governance": "受污染近期回顾",
+      "strategy": {
+        "total_return": 0.3401041305303547,
+        "cagr": 0.32994274171783844,
+        "annualized_volatility": 0.30380411382437694,
+        "sharpe_zero_cash_rate": 1.0881783611714193,
+        "maximum_drawdown": -0.1505275536557218,
+        "calmar": 2.19190927976193,
+        "observations": 249
+      },
+      "benchmark": {
+        "total_return": 0.17084649484605152,
+        "cagr": 0.1660548003562785,
+        "annualized_volatility": 0.1765536626030414,
+        "sharpe_zero_cash_rate": 0.956559210224299,
+        "maximum_drawdown": -0.09937943557237594,
+        "calmar": 1.6709171208297346,
+        "observations": 249
+      },
+      "total_return_excess": 0.1692576356843032
+    }
+  },
+  "latest_signal_date": "2026-08-12",
+  "latest_targets": [
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "600018.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.20833333333333331,
+      "sleeves": "concentrated+diversified",
+      "score": 0.9806666666666667
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "601169.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.20833333333333331,
+      "sleeves": "concentrated+diversified",
+      "score": 0.964
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "601186.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.20833333333333331,
+      "sleeves": "concentrated+diversified",
+      "score": 0.9573333333333334
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "601607.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.075,
+      "sleeves": "diversified",
+      "score": 0.952
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "000001.SZ",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.075,
+      "sleeves": "diversified",
+      "score": 0.948
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "600016.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.075,
+      "sleeves": "diversified",
+      "score": 0.948
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "600941.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.075,
+      "sleeves": "diversified",
+      "score": 0.946
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "con_code": "600919.SH",
+      "regime": "DEFENSIVE",
+      "target_weight": 0.075,
+      "sleeves": "diversified",
+      "score": 0.9433333333333332
+    }
+  ],
+  "data_governance": {
+    "point_in_time_membership": true,
+    "signal_to_execution": "NEXT_TRADING_DAY_OPEN",
+    "strict_holdout_available": false,
+    "true_forward_start": "2026-08-13",
+    "hashes": {
+      "config": "4610e92b0daa199764aab18c73258da06593e7df24aef832a7ec8374ccec7c56",
+      "constituent_panel": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+      "index": "3b1e03eea5230e6e19c276d32cbd0c606d241288d44129a6e1b0b176e3f4fdaa",
+      "benchmark": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e",
+      "breadth": "7ba48c5aa57c4891bda93fbfb671aef2ca326ce9450dfa72b60730d2643fed05"
+    }
+  }
+}

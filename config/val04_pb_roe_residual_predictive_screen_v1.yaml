@@ -1,0 +1,121 @@
+protocol:
+  project_id: "VAL04_PB_ROE_RESIDUAL_PREDICTIVE_SCREEN_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-19"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_HISTORICALLY_CONTAMINATED_PREDICTIVE_SCREEN"
+  label_data_cutoff: "2026-08-12"
+  forward_label_generation_enabled: false
+  frozen_signal_free_label_reuse_enabled: true
+  predictive_ic_calculation_enabled: true
+  historical_strategy_return_calculation_enabled: false
+  historical_position_mapping_enabled: false
+  current_position_mapping_enabled: false
+  target_share_generation_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+label_contract:
+  label_table_signal_value_free: true
+  expected_label_rows: 183
+  expected_signal_dates: 61
+  horizons_trading_days: [60, 120, 242]
+  expected_matured_counts: {60: 58, 120: 55, 242: 49}
+  expected_right_censored_counts: {60: 3, 120: 6, 242: 12}
+  entry_rule: "信号观察日之后首个510300、000300、H00300共同交易日开盘"
+  entry_day_is_holding_day_one: true
+  exit_rule: "第H个共同持有交易日收盘"
+  primary_target: "etf_total_return"
+  confirmation_target: "h00300_total_return"
+  primary_horizon_trading_days: 242
+  secondary_diagnostic_horizons_trading_days: [60, 120]
+  right_censor_rule: "数据截止日不足H个共同交易日则不生成收益"
+  label_cost_rule: "预测标签为毛收益；策略层若获准必须另计完整成本"
+
+models:
+  VAL04_PB_ROE_RESIDUAL_V1:
+    registered_trial_id: "VAL04_PB_ROE_RESIDUAL"
+    predictor_column: "pb_roe_residual_percentile_60m"
+    ready_column: "pb_roe_residual_percentile_60m_ready"
+    expected_direction: "HIGHER_PERCENTILE_HIGHER_FORWARD_RETURN"
+
+diagnostic_definition:
+  bucket_rule: "FROZEN_FOUR_VALUATION_BUCKETS_NO_POSITION_MAPPING"
+  buckets:
+    - {id: "B1_EXPENSIVE", lower_inclusive: 0.00, upper_exclusive: 0.20}
+    - {id: "B2", lower_inclusive: 0.20, upper_exclusive: 0.40}
+    - {id: "B3", lower_inclusive: 0.40, upper_exclusive: 0.60}
+    - {id: "B4_CHEAP", lower_inclusive: 0.60, upper_inclusive: 1.00}
+  spearman_tie_rule: "AVERAGE_RANK"
+  chronological_split_rule: "成熟样本按观察日排序后在样本数中点切分"
+  hac_regression: "rank(return) on intercept and rank(percentile)"
+  hac_monthly_max_lags: {60: 2, 120: 5, 242: 12}
+  hac_kernel: "BARTLETT_NEWEY_WEST"
+  hac_p_value: "ONE_SIDED_NORMAL_APPROXIMATION_FOR_POSITIVE_SLOPE"
+  overlapping_label_caveat: "收益窗口重叠；只使用预冻结HAC，不使用普通独立样本p值"
+
+primary_predictive_gate:
+  minimum_matured_observations: 36
+  minimum_observations_per_bucket: 5
+  spearman_ic_strictly_positive: true
+  both_chronological_half_ics_strictly_positive: true
+  bucket_mean_returns_nondecreasing: true
+  cheapest_minus_expensive_mean_return_strictly_positive: true
+  cheapest_minus_expensive_median_return_strictly_positive: true
+  h00300_spearman_confirmation_strictly_positive: true
+  h00300_cheapest_minus_expensive_mean_return_strictly_positive: true
+  familywise_hac_method: "HOLM_BONFERRONI"
+  familywise_alpha: 0.05
+  family_size: 1
+  pass_status: "HISTORICAL_PREDICTIVE_SCREEN_PASS_STRATEGY_EVALUATION_NOT_RUN"
+  fail_status: "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+
+trial_and_multiplicity:
+  registered_trials: ["VAL04_PB_ROE_RESIDUAL"]
+  primary_test_count: 1
+  family_controller: "HOLM_BONFERRONI_ALPHA_0_05"
+  global_research_ledger_still_required: true
+  secondary_horizons_are_decision_gates: false
+  forbidden_after_result:
+    - "把60日或120日改为主要期限"
+    - "改分档边界、合并样本不足分档或删月份"
+    - "改变行业、增长、回归权重、截断边界或60月窗口"
+    - "主要屏幕失败后运行仓位回测"
+    - "把未经校正的相关系数或短期限结果称为通过"
+
+true_forward:
+  start: null
+  status: "NOT_STARTED"
+  alpha_pass_allowed: false
+
+data_contracts:
+  val04_model_manifest:
+    file: "config/val04_pb_roe_residual_v1_manifest.json"
+    sha256: "3d413e9865d5832dcc632d455ceafbbb62a4bcccd8d3a1b26250b36fa185912f"
+  val04_signal_inputs:
+    file: "data/features/000300_val04_pb_roe_residual_v1_signal_inputs.parquet"
+    sha256: "77a5bc1da4493733420d3254c936c3dddfa754432b7ad3cb7287fe99faa78ff4"
+  frozen_forward_labels:
+    file: "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet"
+    sha256: "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b"
+  forward_label_manifest:
+    file: "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json"
+    sha256: "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f"
+
+artifacts:
+  model_report_json: "reports/research/val04_pb_roe_residual_v1_predictive_diagnostics.json"
+  model_report_markdown: "reports/research/val04_pb_roe_residual_v1_predictive_diagnostics.md"
+  family_report_json: "reports/research/val04_pb_roe_residual_family_predictive_screen_v1.json"
+  family_report_markdown: "reports/research/val04_pb_roe_residual_family_predictive_screen_v1.md"
+  protocol_manifest: "config/val04_pb_roe_residual_predictive_screen_v1_protocol_manifest.json"
+  result_manifest: "config/val04_pb_roe_residual_predictive_screen_v1_result_manifest.json"
+
+governance:
+  frozen_forward_labels_reused: true
+  forward_labels_regenerated: false
+  strategy_return_calculation_enabled: false
+  position_mapping_enabled: false
+  target_share_generation_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false

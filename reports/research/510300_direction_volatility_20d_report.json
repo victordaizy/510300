@@ -1,0 +1,109 @@
+{
+  "status": "DIRECTION_AND_VOLATILITY_GATES_FAILED",
+  "checked_at": "2026-08-13T16:50:05.655818+08:00",
+  "design": {
+    "direction_target": "t日收盘信号，t+1开盘买入，t+20收盘卖出，含分红并扣基础成本后的净收益是否大于0",
+    "volatility_target": "t+1至t+20收盘对数收益标准差年化",
+    "minimum_training_samples": 504,
+    "refit_interval_trading_days": 5,
+    "direction_estimator": "固定C=0.1的标准化L2 Logistic，不搜索超参数",
+    "volatility_estimator": "固定alpha=10的标准化Ridge预测对数波动率，不搜索超参数",
+    "direction_features": [
+      "factor_etf_total_return_5d",
+      "factor_index_return_20d",
+      "factor_index_ma20_over_ma60",
+      "factor_index_range_position_60d",
+      "context_if_minus_index_return_5d",
+      "official_weighted_advancer_share_1d",
+      "official_weighted_positive_momentum_share_20d",
+      "official_weighted_above_ma20_share",
+      "official_weighted_above_ma60_share",
+      "official_weighted_advancer_share_1d_change_5d"
+    ],
+    "volatility_features": [
+      "signal_rv_5",
+      "signal_rv_20",
+      "signal_rv_60",
+      "signal_rv_120",
+      "signal_downside_rv_20",
+      "signal_parkinson_rv_20",
+      "signal_vol_term_20_120",
+      "official_weighted_return_dispersion_1d"
+    ],
+    "separation_rule": "方向概率与未来波动率分别拟合、分别验收；波动率不生成方向。"
+  },
+  "direction_evaluation": {
+    "realized_forecast_count": 663,
+    "positive_base_rate": 0.530920060331825,
+    "brier_score": 0.28772513022151847,
+    "expanding_base_rate_brier_score": 0.2671892735909658,
+    "brier_skill_score": -0.07685883626447731,
+    "log_loss": 0.7794089416046596,
+    "auc": 0.4649682110494007,
+    "accuracy_at_0_5": 0.4358974358974359,
+    "calibration_slope": -0.061980505094914734,
+    "probability_quintiles": [
+      {
+        "observations": 133,
+        "mean_probability": 0.21731549141168885,
+        "realized_hit_rate": 0.5112781954887218,
+        "mean_net_return": 0.011616881275568544
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.3429554096500002,
+        "realized_hit_rate": 0.5984848484848485,
+        "mean_net_return": 0.03310107141529597
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.3976249854028076,
+        "realized_hit_rate": 0.5789473684210527,
+        "mean_net_return": 0.009776504517891842
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.46594207829764633,
+        "realized_hit_rate": 0.5454545454545454,
+        "mean_net_return": 0.002875798825310333
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.5769067888307341,
+        "realized_hit_rate": 0.42105263157894735,
+        "mean_net_return": -0.007791665369319057
+      }
+    ],
+    "top_minus_bottom_mean_net_return": -0.0194085466448876,
+    "non_overlapping_cohort_auc_median": 0.46312636165577337,
+    "non_overlapping_cohort_auc_above_half_share": 0.1,
+    "direction_gate_passed": false
+  },
+  "volatility_evaluation": {
+    "realized_forecast_count": 663,
+    "model_mae": 0.052067737827927625,
+    "persistence_baseline_mae": 0.06532140174943042,
+    "model_rmse": 0.09430225659179071,
+    "persistence_baseline_rmse": 0.11011692420971582,
+    "model_qlike": 0.11828709018870112,
+    "persistence_baseline_qlike": 0.15650237662553723,
+    "model_actual_correlation": 0.07088867703413369,
+    "persistence_actual_correlation": 0.15963282749545468,
+    "non_overlapping_cohort_mae_improvement_median": 0.013131203737944682,
+    "volatility_gate_passed": false
+  },
+  "latest_forecast": {
+    "signal_date": "2026-08-12",
+    "direction_probability_positive_20d_net": 0.38680167786816283,
+    "predicted_realized_volatility_20d": 0.15182689857673784,
+    "training_sample_count": 1184
+  },
+  "trading_use_authorized": false,
+  "limitations": [
+    "全部历史已参与研究，只能称为pseudo-OOS。",
+    "20日标签高度重叠，因此同时报告20组错位非重叠诊断。",
+    "方向与波动层通过前仍不得映射现货仓位。"
+  ],
+  "output_file": "data/features/510300_direction_volatility_20d_forecasts.parquet",
+  "output_sha256": "d79d5a1befd3d7e336ad6fd55935356db5edb196bbaa7c5c3cbbc8060b9b1e58"
+}

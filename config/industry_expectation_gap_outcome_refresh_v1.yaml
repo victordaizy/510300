@@ -1,0 +1,42 @@
+version: INDUSTRY_EXPECTATION_GAP_OUTCOME_REFRESH_V1
+status: MUTABLE_OUTCOME_INPUT_ONLY
+timezone: Asia/Shanghai
+
+inputs:
+  trading_calendar: data/reference/sse_trade_calendar_2026.csv
+  historical_weights: data/raw/constituents/000300_historical_weights.parquet
+  constituent_total_return_daily: data/raw/constituents/000300_constituent_daily.parquet
+  etf_raw_daily: data/raw/market/510300_daily_raw.parquet
+  etf_total_return_daily: data/processed/510300_daily_total_return.parquet
+  etf_dividends: data/reference/510300_dividends.csv
+
+outputs:
+  current_status: reports/data_quality/industry_expectation_gap_outcome_refresh_status.json
+  immutable_status_directory: reports/data_quality/industry_expectation_gap_outcome_refresh
+  backup_directory: data/audit/industry_expectation_gap_outcome_refresh
+
+providers:
+  primary_daily: tushare_proxy
+  independent_close_crosscheck: sina_batch_quote
+  maximum_close_difference: 0.001
+  request_attempts: 4
+  request_timeout_seconds: 35
+
+quality:
+  required_constituent_count: 300
+  require_exact_trading_date: true
+  require_positive_ohlc: true
+  require_unique_security_date: true
+  require_independent_close_crosscheck: true
+  market_close_confirmation_time: "15:30:00"
+
+governance:
+  outcome_inputs_are_mutable: true
+  historical_backfill_before_frozen_prediction_enabled: false
+  prediction_ledger_write_enabled: false
+  partial_horizon_return_output_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+

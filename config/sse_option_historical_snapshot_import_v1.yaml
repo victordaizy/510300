@@ -1,0 +1,80 @@
+protocol:
+  project_id: SSE_OPTION_HISTORICAL_SNAPSHOT_IMPORT_V1
+  state: IMPORTER_FROZEN_NO_LICENSED_DATA
+  target_underlying: 510300.SH
+  requested_start: '2019-12-23'
+  requested_end: '2026-08-18'
+  strategy_or_return_test_authorized: false
+
+official_source:
+  provider: 上证所信息网络有限公司
+  interface_version: 1.1.5
+  interface_completion_date: '2026-03-27'
+  interface_url: https://www.sseinfo.com/services/assortment/market/hqywwd/wdzsjk/c/10824356/files/4ddcd5a592f9429f9288b0d2cb0c9549.pdf
+  interface_local_file: data/reference/sse_historical_data_interface_v1_1_5_20260327.pdf
+  interface_sha256: 2772ee17e7392cd5faf6df15dc76cb542027075ed402b8ad4b3977b4837cac23
+  product_url: https://www.sseinfo.com/services/assortment/historical/
+  price_url: https://www.sseinfo.com/services/cpfwjg/
+  published_option_history_price_cny_per_year: 30000
+  file_pattern: sho/YYYYMMDD/Snapshot.csv
+  encoding: utf-8
+
+selection:
+  earliest_accepted_snapshot_time: '14:59:00'
+  latest_accepted_snapshot_time: '15:00:00'
+  row_rule: 每个合约选择窗口内时间最晚的一幅快照
+  standard_and_adjusted_contracts_preserved: true
+  expected_exchange_suffix: .SH
+
+quality:
+  active_contract_coverage_minimum: 1.0
+  positive_bid1_ratio_minimum: 0.99
+  positive_ask1_ratio_minimum: 0.99
+  maximum_inverted_quotes: 0
+  maximum_duplicate_contracts: 0
+  exact_trade_date_required: true
+  license_evidence_required: true
+  authorized_product_required: 股票期权历史行情
+  license_document_hash_match_required: true
+
+schema:
+  scalar_required:
+    - SecurityID
+    - DateTime
+    - PreClosePx
+    - OpenPx
+    - HighPx
+    - LowPx
+    - LastPx
+    - TotalLongPosition
+    - TotalVolumeTrade
+    - TotalValueTrade
+    - PhaseCode
+    - AvgPx
+    - PreSettlePx
+    - SettlePx
+  array_required:
+    - BidPrice
+    - BidOrderQty
+    - OfferPx
+    - OfferQty
+  levels: 5
+
+paths:
+  manifest: config/sse_option_historical_snapshot_import_v1_manifest.json
+  licensed_input_root: data/external/sse_option_history_v1
+  license_evidence: data/external/sse_option_history_v1/license_evidence.json
+  output_root: data/processed/sse_option_history_v1
+  contract_master: data/raw/return_tail/options/510300_contract_master.parquet
+  status: reports/data_quality/sse_option_historical_snapshot_import_v1_status.json
+  report: reports/data_quality/SSE_OPTION_HISTORICAL_SNAPSHOT_IMPORT_V1.md
+
+governance:
+  purchase_authorized: false
+  unlicensed_download: FORBIDDEN
+  historical_data_fabrication: FORBIDDEN
+  parameter_search: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

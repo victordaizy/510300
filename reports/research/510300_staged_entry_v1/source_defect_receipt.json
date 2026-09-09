@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-09-08T05:48:49.983920+08:00",
+  "status": "INVALID_STAGING_SOURCE_DAILY_INVENTORY_FIELD",
+  "discovered_by": "scripts/finalize_round81_20260908.py",
+  "failed_check": "2020-02-06参考入场财富开盘应为1.6433187614191385，保存为缺失；随后较早2015-01-06也复现。",
+  "cause": "shares_after仅实际执行时提供，无成交日缺失；每日实际持仓是shares。首次合成测试没有模拟此缺失。",
+  "effect": "遗漏无成交日的参考持有及入场基准，漏掉可能发生在后续日的价格确认。首次分批策略不能评价原冻结规则。",
+  "unchanged_controls": "同执行满仓的实际目标和成交仅取原参考状态，未使用分批持仓标记，其账本可以原字节复用。",
+  "original_config_sha256": "7e7a2e7ff186b91ef15068c5ac48517886603aa3e1b518b0d18848e8ededa8d5",
+  "original_result_sha256": "5f66a2c449b3a7fd3ca02eaa7e8a2b3f3d73f2d0a68d3b3f4850a6fbacaf99ad",
+  "failed_verifier_sha256": "40377837249e42a50801bcd8fe284a442765e96398cd829c3a8c4909c09ebfd7",
+  "new_candidate_configurations": 0,
+  "goal_achieved": false,
+  "position_impact": 0
+}

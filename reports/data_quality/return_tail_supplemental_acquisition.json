@@ -1,0 +1,170 @@
+{
+  "status": "ACQUISITION_COMPLETE_WITH_DOCUMENTED_UNAVAILABLE_INPUTS",
+  "checked_at": "2026-08-19T05:36:17.707216+08:00",
+  "proxy_host": "fast.xiaodefa.cn",
+  "token_persisted_in_outputs": false,
+  "unavailable": {
+    "full_continuous_option_minute_history": "代理返回无opt_mins接口权限；新浪仅补齐每个合约最后五个交易日",
+    "historical_sse_bid_ask_snapshots": "公开日线、分钟线和风险指标接口均不提供历史盘口快照",
+    "immutable_consensus_vintages": "report_rc为单篇研报记录，不是供应商历史一致预期快照"
+  },
+  "resolved_elsewhere": {
+    "sw_industry_membership": "按一级行业拆分抓取后，成员日覆盖99.667%，已通过99%门槛"
+  },
+  "phases": {
+    "cffex_proxy_daily": {
+      "status": "PASS",
+      "file": "data/raw/return_tail/options/IO_tushare_eod.parquet",
+      "row_count": 396446,
+      "contract_count": 4736,
+      "trading_day_count": 1611,
+      "downloaded_chunk_count": 162,
+      "reused_chunk_count": 0,
+      "cross_source": {
+        "matched_key_count": 396446,
+        "official_only_key_count": 0,
+        "proxy_only_key_count": 0,
+        "close_maximum_absolute_difference": 0.0009999999999763531,
+        "close_exact_match_ratio": 0.9999596414139631,
+        "settlement_maximum_absolute_difference": 0.0009999999999763531,
+        "settlement_exact_match_ratio": 0.9999798207069815,
+        "volume_maximum_absolute_difference": 0.0,
+        "volume_exact_match_ratio": 1.0,
+        "open_interest_maximum_absolute_difference": 34.0,
+        "open_interest_exact_match_ratio": 0.999223097218789
+      }
+    },
+    "sse_daily_statistics": {
+      "status": "PASS_WITH_OPEN_INTEREST_SOURCE_DIVERGENCE",
+      "file": "data/raw/return_tail/options/510300_sse_daily_statistics.parquet",
+      "row_count": 1611,
+      "first_date": "2019-12-23",
+      "last_date": "2026-08-14",
+      "cross_source": {
+        "total_volume_compared_days": 1611,
+        "total_volume_exact_match_ratio": 1.0,
+        "total_volume_maximum_absolute_difference": 0.0,
+        "open_interest_compared_days": 1611,
+        "open_interest_exact_match_ratio": 0.7963997517070143,
+        "open_interest_maximum_absolute_difference": 919169.0,
+        "call_volume_compared_days": 1611,
+        "call_volume_exact_match_ratio": 1.0,
+        "call_volume_maximum_absolute_difference": 0.0,
+        "put_volume_compared_days": 1611,
+        "put_volume_exact_match_ratio": 1.0,
+        "put_volume_maximum_absolute_difference": 0.0,
+        "contract_count_compared_days": 748,
+        "contract_count_exact_match_ratio": 1.0,
+        "contract_count_maximum_absolute_difference": 0.0,
+        "open_interest_expiry_day_compared_days": 79,
+        "open_interest_expiry_day_exact_match_ratio": 0.0,
+        "open_interest_expiry_day_maximum_absolute_difference": 919169.0,
+        "open_interest_non_expiry_day_compared_days": 1532,
+        "open_interest_non_expiry_day_exact_match_ratio": 0.837467362924282,
+        "open_interest_non_expiry_day_maximum_absolute_difference": 262029.0,
+        "open_interest_non_expiry_mismatch_days_by_year": {
+          "2019": 7,
+          "2020": 45,
+          "2021": 9,
+          "2022": 184,
+          "2024": 2,
+          "2025": 2
+        },
+        "open_interest_interpretation": "上交所汇总与合约日线持仓量存在时点或供应商口径差异；到期日差异尤为集中，且2022年存在持续的非到期日差异，因此持仓量不作为同口径验证通过项"
+      }
+    },
+    "sina_orderbook_snapshot": {
+      "status": "STALE_MARKET_CLOSED_SNAPSHOT",
+      "file": "data/raw/return_tail/options/forward_snapshots/20260818_sina_orderbook.parquet",
+      "row_count": 104,
+      "quote_date": "2026-08-18",
+      "earliest_quote_timestamp": "2026-08-18T00:00:00",
+      "latest_quote_timestamp": "2026-08-18T15:00:00",
+      "positive_bid1_ratio": 1.0,
+      "positive_ask1_ratio": 1.0,
+      "inverted_quote_count": 0,
+      "append_only_date_file": true,
+      "existing_file_reused_without_overwrite": false
+    },
+    "citic_industry": {
+      "status": "PARTIAL",
+      "file": "data/raw/reference/a_share_citic_industry_point_in_time.parquet",
+      "row_count": 1690,
+      "symbol_count": 926,
+      "frozen_sw_statistic_substitution_allowed": false,
+      "member_day_count": 483300,
+      "covered_member_day_count": 477989,
+      "coverage_ratio": 0.9890109662735361,
+      "overlapping_member_day_count": 8985,
+      "overlap_ratio": 0.018590937306021106
+    },
+    "sina_retained_terminal_snapshots": {
+      "status": "PARTIAL_RETAINED_TERMINAL_SNAPSHOTS_NOT_DAILY_HISTORY",
+      "file": "data/raw/return_tail/options/sina_retained_terminal_orderbook.parquet",
+      "expired_contract_count": 2770,
+      "retained_snapshot_count": 362,
+      "empty_response_count": 2408,
+      "malformed_response_count": 0,
+      "earliest_quote_timestamp": "2025-11-26T00:00:00",
+      "latest_quote_timestamp": "2026-07-22T15:00:00",
+      "positive_bid1_ratio": 1.0,
+      "positive_ask1_ratio": 1.0,
+      "coverage_by_expiry_year": {
+        "2020": {
+          "expired_contract_count": 384,
+          "retained_snapshot_count": 0,
+          "coverage_ratio": 0.0
+        },
+        "2021": {
+          "expired_contract_count": 386,
+          "retained_snapshot_count": 0,
+          "coverage_ratio": 0.0
+        },
+        "2022": {
+          "expired_contract_count": 450,
+          "retained_snapshot_count": 0,
+          "coverage_ratio": 0.0
+        },
+        "2023": {
+          "expired_contract_count": 402,
+          "retained_snapshot_count": 0,
+          "coverage_ratio": 0.0
+        },
+        "2024": {
+          "expired_contract_count": 442,
+          "retained_snapshot_count": 0,
+          "coverage_ratio": 0.0
+        },
+        "2025": {
+          "expired_contract_count": 426,
+          "retained_snapshot_count": 82,
+          "coverage_ratio": 0.19248826291079812
+        },
+        "2026": {
+          "expired_contract_count": 280,
+          "retained_snapshot_count": 280,
+          "coverage_ratio": 1.0
+        }
+      },
+      "frozen_daily_history_substitution_allowed": false
+    },
+    "sina_terminal_five_day_minutes": {
+      "status": "PASS_TERMINAL_FIVE_DAY_MINUTES_NOT_FULL_HISTORY",
+      "file": "data/raw/return_tail/options/510300_sina_terminal_five_day_minutes.parquet",
+      "row_count": 3432883,
+      "contract_count": 2874,
+      "expected_contract_count": 2874,
+      "contract_coverage_ratio": 1.0,
+      "trading_day_count": 400,
+      "first_trade_date": "2020-01-16",
+      "last_trade_date": "2026-08-14",
+      "five_day_contract_ratio": 0.9839944328462074,
+      "price_positive_ratio": 0.9720817749978662,
+      "duplicate_key_count": 0,
+      "downloaded_contract_count": 2874,
+      "reused_contract_count": 0,
+      "historical_bid_ask_available": false,
+      "frozen_daily_history_substitution_allowed": false
+    }
+  }
+}

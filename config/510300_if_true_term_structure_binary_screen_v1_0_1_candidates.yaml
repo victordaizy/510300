@@ -1,0 +1,119 @@
+protocol:
+  study_id: 510300_IF_TRUE_TERM_STRUCTURE_BINARY_SCREEN_V1_0_1
+  version: 1.0.1
+  state: CANDIDATE_FAMILY_UNCHANGED_AFTER_SOURCE_SCHEMA_PROBE_BEFORE_FULL_ACQUISITION
+  candidate_family_size: 8
+  no_parameter_rescue: true
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+
+scope:
+  execution_asset: 510300.SH
+  information_asset: CFFEX_IF_ALL_LISTED_CONTRACTS
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  leverage_allowed: false
+  shorting_allowed: false
+  derivatives_execution_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+
+information_clock:
+  signal_cutoff: T_CFFEX_CLOSE_AFTER_ALL_IF_CONTRACT_CLOSES_AVAILABLE
+  execution_time: T_PLUS_1_510300_OPEN
+  same_day_execution_forbidden: true
+  missing_feature_state: 1
+
+official_source_contract:
+  provider: 中国金融期货交易所
+  monthly_archive_url_template: http://www.cffex.com.cn/sj/historysj/{YYYYMM}/zip/{YYYYMM}.zip
+  active_contract_metadata_url_at_ceiling: http://www.cffex.com.cn/sj/jycs/202608/12/index.xml
+  included_product: IF
+  excluded_rows: [小计, 合计, 非IF合约]
+  acquisition_start_date: '2010-04-16'
+  acquisition_end_date: '2026-08-12'
+  required_raw_fields: [symbol, date, close, settle, volume, open_interest]
+  no_sina_main_continuous_substitution: true
+
+contract_selection:
+  symbol_pattern: '^IF[0-9]{4}$'
+  expiry_definition_expired: 合约未在样本末日出现时，取中金所官方历史日包中的最后出现交易日
+  expiry_definition_active_at_ceiling: 合约在样本末日出现时，必须取样本末日中金所交易参数END_TRADING_DAY；缺失即失败
+  minimum_calendar_days_to_expiry_inclusive: 5
+  required_positive_close: true
+  required_nonnegative_open_interest: true
+  minimum_eligible_contracts_per_day: 3
+  near_contract: 合资格合约中到期日最早者
+  next_contract: 合资格合约中到期日第二早者
+  far_contract: 合资格合约中到期日最晚者
+  duplicate_expiry_policy: REJECT
+
+features:
+  annualized_near_basis: log(near_close/CSI300_spot_close)*365/near_calendar_days_to_expiry
+  annualized_near_next_curve: log(next_close/near_close)*365/(next_expiry-near_expiry的日历日)
+  annualized_near_far_curve: log(far_close/near_close)*365/(far_expiry-near_expiry的日历日)
+  annualized_oi_weighted_basis: 以各合资格合约open_interest为权重，对log(contract_close/spot_close)*365/dte加权；总持仓为0则缺失
+  rolling_percentile_window_trading_rows: 252
+  rolling_percentile_minimum_rows: 126
+  percentile_definition: 当前值在包含当前值的最近252个有限有效共同交易日观测中的小于等于比例
+  parameter_search: FORBIDDEN
+
+candidates:
+  - candidate_id: IF_NEAR_BASIS_BOTTOM10_CASH
+    rule: 年化近月基差分位不高于0.10则次日空仓，否则满仓
+    mechanism: 极端贴水代表对冲压力或知情悲观延续
+  - candidate_id: IF_NEAR_BASIS_TOP10_CASH
+    rule: 年化近月基差分位不低于0.90则次日空仓，否则满仓
+    mechanism: 极端升水代表拥挤乐观后的反转风险
+  - candidate_id: IF_NEAR_NEXT_CURVE_BOTTOM10_CASH
+    rule: 近月到次月年化曲线分位不高于0.10则次日空仓，否则满仓
+    mechanism: 次月相对近月异常弱反映中短期风险延续
+  - candidate_id: IF_NEAR_NEXT_CURVE_TOP10_CASH
+    rule: 近月到次月年化曲线分位不低于0.90则次日空仓，否则满仓
+    mechanism: 次月相对近月异常强反映远期乐观拥挤
+  - candidate_id: IF_NEAR_FAR_CURVE_BOTTOM10_CASH
+    rule: 近月到最远月年化曲线分位不高于0.10则次日空仓，否则满仓
+    mechanism: 整条远端曲线异常弱反映持续风险厌恶
+  - candidate_id: IF_NEAR_FAR_CURVE_TOP10_CASH
+    rule: 近月到最远月年化曲线分位不低于0.90则次日空仓，否则满仓
+    mechanism: 整条远端曲线异常强反映长期乐观拥挤
+  - candidate_id: IF_OI_WEIGHTED_BASIS_BOTTOM10_CASH
+    rule: 持仓量加权年化基差分位不高于0.10则次日空仓，否则满仓
+    mechanism: 资金集中合约整体深贴水反映广泛对冲压力
+  - candidate_id: IF_OI_WEIGHTED_BASIS_TOP10_CASH
+    rule: 持仓量加权年化基差分位不低于0.90则次日空仓，否则满仓
+    mechanism: 资金集中合约整体高升水反映广泛乐观拥挤
+
+objective:
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  minimum_rolling_excess_median: 0.20
+  rolling_window_trading_days: 242
+  hard_gate: 每个压力成本时期和每个起点扰动均同时通过双20门槛
+
+evaluation:
+  cost_scenarios: [BASE, STRESS]
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_2013_2015
+      start_date: '2013-01-04'
+      end_date: '2015-12-31'
+    - id: RESTRICTED_2016_2019
+      start_date: '2016-01-04'
+      end_date: '2019-12-31'
+    - id: MID_2020_2022
+      start_date: '2020-01-02'
+      end_date: '2022-12-30'
+    - id: LATE_2023_2026
+      start_date: '2023-01-03'
+      end_date: '2026-08-12'
+    - id: COMBINED_2013_2026
+      start_date: '2013-01-04'
+      end_date: '2026-08-12'
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

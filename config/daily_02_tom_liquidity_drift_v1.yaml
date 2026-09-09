@@ -1,0 +1,123 @@
+protocol:
+  project_id: "510300_DAILY_02_TOM_LIQUIDITY_DRIFT_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-19"
+  state: "DISCOVERY_ONLY"
+  historical_contamination_cutoff: "2026-08-14"
+  historical_evaluation_start: "2016-08-12"
+  historical_evaluation_end: "2026-08-14"
+  one_historical_run_allowed: true
+  parameter_search_allowed: false
+  window_change_after_result_forbidden: true
+
+data_contracts:
+  etf_market:
+    file: "data/raw/market/510300_daily_raw.parquet"
+    sha256: "ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61"
+    required_rows: 2431
+    evaluation_rows_through_cutoff: 2429
+    required_first_date: "2016-08-12"
+    required_last_date: "2026-08-18"
+    required_columns: ["date", "open", "high", "low", "close", "volume", "amount", "symbol", "source"]
+  etf_market_metadata:
+    file: "data/raw/market/510300_daily_raw.metadata.json"
+    sha256: "2b1597e3a65a24a36f84130dacfa75af1377668ae671f2c0e11e7576343f588f"
+    required_schema_version: 2
+  etf_market_cross_check:
+    file: "reports/data_quality/510300_daily_cross_source.json"
+    sha256: "2b69cee7013305d0b48dcecd436b43cef2a003a13f322f9cf6b9c6cc23b077f4"
+    required_status: "PASS"
+    required_overlap_rows: 2431
+  distributions:
+    file: "data/reference/510300_dividends.csv"
+    sha256: "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    required_event_count: 14
+  distribution_coverage:
+    file: "data/reference/510300_dividends_coverage.json"
+    sha256: "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"
+    required_complete_history_confirmed: true
+    required_coverage_end: "2026-08-14"
+
+event_definition:
+  name: "TURN_OF_MONTH_LAST_1_FIRST_3"
+  entry: "每月最后一个交易日开盘"
+  exit: "下月第四个交易日开盘"
+  active_interval_start_dates: ["上月最后一个交易日", "下月第1个交易日", "下月第2个交易日", "下月第3个交易日"]
+  expected_complete_episodes: 120
+  quarter_end_special_weight: false
+  holiday_filter: false
+  lunar_calendar_filter: false
+  price_filter: false
+  stop_loss: false
+  take_profit: false
+
+account_and_execution:
+  initial_capital_cny: 20000.0
+  normal_target_exposure: 0.50
+  event_target_exposure: 0.985
+  minimum_cash_reserve_fraction: 0.015
+  active_sleeve_test_capital_cny: 9700.0
+  lot_size_shares: 100
+  minimum_trade_notional_cny: 5000.0
+  minimum_trade_shares: 100
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_rate: 0.0
+  base_slippage_bps: 5.0
+  stress_slippage_bps: 15.0
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  execution_timing: "前一交易日收盘形成日历目标，下一交易日开盘成交"
+  dividend_entitlement: "仅权益登记日收盘持有的份额享有现金分红"
+
+benchmarks:
+  static_60_exposure: 0.60
+  buy_hold_exposure: 0.985
+  static_benchmark_rebalance: "仅首次建仓，之后不主动再平衡"
+
+evaluation:
+  hac_lag_trading_days: 5
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_episodes: 6
+  placebo_repetitions: 5000
+  random_seed: 20260819
+  subperiods:
+    - {id: "P1", start: "2016-08-12", end: "2019-12-31", expected_episodes: 41}
+    - {id: "P2", start: "2020-01-01", end: "2021-12-31", expected_episodes: 24}
+    - {id: "P3", start: "2022-01-01", end: "2023-12-31", expected_episodes: 24}
+    - {id: "P4", start: "2024-01-01", end: "2026-08-14", expected_episodes: 31}
+
+gates:
+  hac_event_coefficient_positive: true
+  hac_one_sided_p_maximum: 0.05
+  bootstrap_net_event_mean_lower_95_minimum: 0.0
+  base_profit_factor_minimum: 1.25
+  stress_profit_factor_minimum: 1.10
+  base_strategy_sharpe_minimum: 0.80
+  sharpe_improvement_vs_static_60_minimum: 0.15
+  base_cagr_difference_vs_static_60_minimum: 0.0
+  stress_cagr_difference_vs_static_60_minimum: 0.0
+  positive_subperiods_minimum: 3
+  placebo_percentile_minimum: 0.95
+  maximum_single_year_positive_contribution_share: 0.35
+
+governance:
+  only_traded_risk_asset: "510300.SH"
+  minute_data_used: false
+  constituent_data_used: false
+  index_price_used_as_signal: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  pass_only_allows: "PAPER_OBSERVATION_PROTOCOL_DESIGN"
+
+outputs:
+  report_json: "reports/backtest/daily_02_tom_liquidity_drift_v1.json"
+  report_markdown: "reports/backtest/daily_02_tom_liquidity_drift_v1.md"
+  base_ledger: "reports/backtest/daily_02_tom_liquidity_drift_v1_base_ledger.parquet"
+  base_trades: "reports/backtest/daily_02_tom_liquidity_drift_v1_base_trades.parquet"
+  stress_ledger: "reports/backtest/daily_02_tom_liquidity_drift_v1_stress_ledger.parquet"
+  stress_trades: "reports/backtest/daily_02_tom_liquidity_drift_v1_stress_trades.parquet"
+  episodes: "reports/backtest/daily_02_tom_liquidity_drift_v1_episodes.parquet"
+  placebo: "reports/backtest/daily_02_tom_liquidity_drift_v1_placebo.parquet"

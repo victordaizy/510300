@@ -1,0 +1,66 @@
+protocol:
+  candidate_id: "QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2"
+  parent_candidate_id: "QDII_CROSS_MARKET_DISCOUNT_REVERSION_V1"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2"
+  lane: "CROSS_BORDER_QDII_RELATIVE_VALUE"
+  status: "FROZEN_EVALUATION_CORRECTION_BEFORE_V2_VISIBLE_REPORT"
+  frozen_date: "2026-08-27"
+  research_only: true
+  correction_class: "EVALUATION_ONLY_ZERO_VARIANCE_SHARPE_SEMANTICS"
+  economic_signal_execution_or_cost_parameter_changed: false
+  same_visible_path_reused_for_versioned_correction: true
+  versioned_correction_is_new_holdout: false
+  v1_outcome_partly_revealed_before_v2_freeze: true
+  outcome_used_to_change_economic_parameters: false
+
+objective:
+  initial_capital_cny: 500000.0
+  user_transaction_fee_rate_per_leg: 0.0001
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  base_and_stress_must_both_pass: true
+
+source_freeze:
+  v1_config: "config/qdii_cross_market_discount_reversion_v1.yaml"
+  v1_manifest: "config/qdii_cross_market_discount_reversion_v1_manifest.json"
+  v1_visible_failure_report_json: "reports/research/qdii_cross_market_discount_reversion_v1_visible.json"
+  v1_visible_failure_report_markdown: "reports/research/QDII_CROSS_MARKET_DISCOUNT_REVERSION_V1_VISIBLE.md"
+  v1_input_audit_json: "reports/data_quality/qdii_cross_market_discount_reversion_v1_inputs.json"
+  expected_v1_manifest_sha256: "aaf93911506f45d80e4c2c1c7f26a98a1b842ece212816dbbb92ec727b71d8e6"
+  expected_v1_visible_failure_report_sha256: "36cc05dfb76eff20ec8f4e80b07dc40c6c218ed7ab25784cc2f29570d8a9fd51"
+  expected_v1_visible_failure_markdown_sha256: "c6218488a84042878aea90d8b441865d5600dc3822b7f7cc2c0ec5a2002ea0d3"
+  expected_v1_failure_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  expected_v1_error_type: "ValueError"
+  expected_v1_error: "收益波动为零，夏普不可识别"
+  exact_v1_economic_execution_reuse_required: true
+
+evaluation_correction:
+  annualization_trading_days: 242
+  zero_variance_epsilon: 1.0e-15
+  zero_variance_sharpe_value: null
+  zero_variance_status: "UNDEFINED_ZERO_VARIANCE"
+  zero_variance_target_qualified: false
+  full_sample_sharpe_must_be_defined: true
+  rolling_sharpe_gate_requires_all_windows_defined: true
+  bootstrap_sharpe_gate_requires_all_samples_defined: true
+  non_overlapping_block_with_undefined_sharpe_is_target_qualified: false
+  json_non_finite_values_allowed: false
+  visible_result_label: "VERSIONED_EVALUATION_CORRECTION_NOT_NEW_HOLDOUT"
+  corrected_visible_may_authorize_sealed_only_if_all_original_gates_pass: true
+
+outputs:
+  manifest: "config/qdii_cross_market_discount_reversion_zero_variance_v2_manifest.json"
+  visible_daily_returns: "data/research/qdii_cross_market_discount_reversion_zero_variance_v2/visible_daily_returns.parquet"
+  visible_signals: "data/research/qdii_cross_market_discount_reversion_zero_variance_v2/visible_signals.parquet"
+  visible_trades: "data/research/qdii_cross_market_discount_reversion_zero_variance_v2/visible_trades.parquet"
+  visible_report_json: "reports/research/qdii_cross_market_discount_reversion_zero_variance_v2_visible.json"
+  visible_report_markdown: "reports/research/QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_VISIBLE.md"
+  sealed_report_json: "reports/research/qdii_cross_market_discount_reversion_zero_variance_v2_sealed.json"
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

@@ -1,0 +1,239 @@
+protocol:
+  project_id: "510300_GRAPH_REGIME_MARTIN_TURTLE_DISCOVERY_V2"
+  version: "2.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  freeze_stage: "PROTOCOL_FROZEN_DATA_GATE_PENDING"
+  user_authorization: "2026-08-18用户要求两种马丁都做一遍，并与海龟按图形切换"
+  historical_contamination_cutoff: "2026-08-14"
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED"
+  true_forward_start: null
+  registered_candidate_count: 5
+  external_frozen_baseline: "T0_DONCHIAN_20_10"
+  candidate_addition_after_freeze_forbidden: true
+  parameter_change_after_freeze_forbidden: true
+  return_calculation_requires_data_gate: true
+  implementation_freeze_required_before_returns: true
+
+governance:
+  modifies_v1: false
+  modifies_r5: false
+  reopens_r6: false
+  creates_r7: false
+  target_asset: "510300.SH"
+  allowed_assets: ["510300.SH", "CASH"]
+  options_enabled: false
+  futures_enabled: false
+  leverage_enabled: false
+  shorting_enabled: false
+  human_retrospective_segmentation_enabled: false
+  machine_learning_image_classifier_enabled: false
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  missing_or_stale_output: "NO_VIEW"
+
+price_and_execution:
+  signal_frequency: "DAILY"
+  signal_information_cutoff: "t日16:00"
+  execution_time: "t+1交易日开盘"
+  signal_price_basis: "POINT_IN_TIME_CASH_DISTRIBUTION_ADJUSTED_OHLC"
+  execution_price_basis: "RAW_NEXT_TRADING_DAY_OPEN"
+  initial_capital_cny: 20000.0
+  lot_size_shares: 100
+  t_plus_one: true
+  commission_rate_per_leg: 0.0003
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  stamp_duty_rate: 0.0
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  dividends_booked_on_payment_date_if_record_date_eligible: true
+
+indicators:
+  atr:
+    window: 14
+    method: "WILDER"
+  macd_dif:
+    fast_ema: 12
+    slow_ema: 26
+    signal_ema: 9
+    divergence_object: "DIF_ONLY"
+  efficiency_ratio:
+    window: 20
+    range_maximum: 0.30
+  moving_averages:
+    swing_mean: 28
+    rearm_mean: 20
+    downtrend_mean: 60
+    downtrend_slope_lookback: 20
+  donchian:
+    entry_window: 20
+    exit_window: 10
+    exclude_current_bar: true
+
+graph_divergence:
+  pivot_left_bars: 3
+  pivot_right_bars: 3
+  confirmation_lag_bars: 3
+  minimum_same_side_pivot_gap: 5
+  maximum_same_side_pivot_gap: 60
+  price_swing_minimum_atr: 1.0
+  indicator_pair_tolerance_bars: 3
+  price_and_dif_pivots_identified_independently: true
+  pivot_reuse_allowed: false
+  bottom_rule: "第二个显著价格低点低于第一个，且各自配对的独立DIF低点中第二个高于第一个"
+  top_rule: "第二个显著价格高点高于第一个，且各自配对的独立DIF高点中第二个低于第一个"
+  event_known_at: "价格与DIF第二摆动点各自确认日的较晚者"
+  active_maximum_trading_days: 15
+  entry_invalidation: "close低于第二价格低点减1个ATR14"
+  event_level_audit_required: true
+
+graph_states:
+  order_of_precedence: ["TREND_DOWN", "TURTLE_LONG", "RANGE", "AMBIGUOUS"]
+  range_rule: "ER20<=0.30，且不满足TREND_DOWN，且尚未进入TURTLE_LONG"
+  trend_down_rule: "close<MA60且MA60较20日前下降，且close低于前20日最低价"
+  turtle_start_rule: "close严格突破前20日最高价"
+  turtle_regular_exit_rule: "close严格跌破前10日最低价"
+  turtle_graph_exit_rule: "确认顶背离后下一交易日开盘退出"
+  turtle_rearm_after_graph_exit: "必须先出现close<=MA20，之后再发生新的20日突破"
+  ambiguous_action: "维持已有合规状态；空仓时保持现金，不启动新的马丁交易"
+
+martingale_module:
+  name: "CAPPED_CHART_MARTINGALE"
+  entry_gate: "RANGE状态且确认底背离"
+  tranche_weights_of_current_equity: [0.125, 0.25, 0.50]
+  cumulative_target_exposures: [0.125, 0.375, 0.875]
+  add_trigger: "自上一层实际成交价再下跌1个信号日ATR14"
+  minimum_days_between_layers: 1
+  maximum_layers: 3
+  unlimited_doubling_allowed: false
+  exit_rules:
+    - "close>=MA28"
+    - "确认顶背离"
+    - "进入TREND_DOWN"
+    - "close低于入场底背离第二低点减1个ATR14"
+    - "持有满20个交易日"
+  turtle_transition: "出现20日向上突破时不先卖出，下一开盘把目标提升到100%并转TURTLE_LONG"
+
+pring_style_module:
+  name: "BIAS28_SWING_RULE"
+  attribution_note: "仅冻结为BIAS28摆荡规则，不宣称已核实其历史名称归属"
+  bias_definition: "100*(close/MA28-1)"
+  entry_gate: "RANGE状态、确认底背离且BIAS28<-10"
+  target_exposure: 0.50
+  averaging_down_allowed: false
+  exit_rules:
+    - "close>=MA28"
+    - "确认顶背离"
+    - "进入TREND_DOWN"
+    - "close低于入场底背离第二低点减1个ATR14"
+    - "持有满20个交易日"
+  turtle_transition: "出现20日向上突破时不先卖出，下一开盘把目标提升到100%并转TURTLE_LONG"
+
+candidates:
+  - id: "T1_TURTLE_GRAPH_EXIT"
+    family: "TURTLE_CONTROL"
+    modules: ["TURTLE_20_10", "TOP_DIVERGENCE_EXIT"]
+    purpose: "相对外部冻结T0隔离顶背离退出的增量"
+  - id: "M0_CAPPED_MARTINGALE_ONLY"
+    family: "MARTINGALE_CONTROL"
+    modules: ["GRAPH_RANGE", "CAPPED_CHART_MARTINGALE"]
+    purpose: "测量马丁格尔模块本身"
+  - id: "P0_BIAS28_SWING_ONLY"
+    family: "PRING_STYLE_CONTROL"
+    modules: ["GRAPH_RANGE", "BIAS28_SWING_RULE"]
+    purpose: "测量BIAS28摆荡模块本身"
+  - id: "S1_MARTINGALE_TURTLE_SWITCH"
+    family: "REGIME_SWITCH"
+    modules: ["GRAPH_RANGE", "CAPPED_CHART_MARTINGALE", "TURTLE_20_10", "TOP_DIVERGENCE_EXIT"]
+    purpose: "马丁格尔与海龟图形切换"
+  - id: "S2_BIAS28_TURTLE_SWITCH"
+    family: "REGIME_SWITCH"
+    modules: ["GRAPH_RANGE", "BIAS28_SWING_RULE", "TURTLE_20_10", "TOP_DIVERGENCE_EXIT"]
+    purpose: "BIAS28摆荡与海龟图形切换"
+
+evaluation:
+  historical_window: ["2012-05-28", "2026-08-14"]
+  predefined_periods:
+    - {id: "P1", start: "2012-05-28", end: "2015-12-31"}
+    - {id: "P2", start: "2016-01-04", end: "2019-12-31"}
+    - {id: "P3", start: "2020-01-02", end: "2022-12-30"}
+    - {id: "P4", start: "2023-01-03", end: "2026-08-14"}
+  primary_metric: "TIMING_CONTRIBUTION_AFTER_COST"
+  benchmark_primary: "510300含分红买入持有"
+  benchmark_secondary: "H00300全收益指数"
+  matched_benchmarks: ["STATIC_MEAN_EXPOSURE", "STATIC_VOL_MATCHED"]
+  event_forward_horizons: [5, 20, 60]
+  random_seed: 20260818
+  circular_shift_repetitions: 5000
+  block_bootstrap_repetitions: 5000
+  block_length_trading_days: 20
+  registered_candidate_universe_for_selection_bias: 6
+  gates:
+    annualized_excess_vs_510300_buy_hold_minimum: 0.0
+    annualized_excess_vs_h00300_minimum: 0.0
+    timing_contribution_after_cost_minimum: 0.0
+    excess_vs_static_mean_exposure_minimum: 0.0
+    excess_vs_static_vol_matched_minimum: 0.0
+    sharpe_minimum: 0.8
+    sharpe_improvement_minimum: 0.25
+    drawdown_ratio_to_buy_hold_maximum: 0.80
+    rolling_242d_excess_median_minimum: 0.0
+    rolling_242d_positive_ratio_minimum: 0.60
+    positive_predefined_periods_minimum: 3
+    predefined_period_count: 4
+    minimum_closed_trades: 30
+    double_cost_timing_contribution_must_remain_positive: true
+    circular_shift_percentile_minimum: 0.95
+    maximum_single_trade_profit_contribution_share: 0.35
+    switch_candidate_sharpe_must_exceed_both_components: true
+
+required_outputs:
+  - "daily_state_ledger"
+  - "all_entry_exit_and_layer_events"
+  - "divergence_pair_audit"
+  - "state_transition_pnl"
+  - "martin_to_turtle_transition_pnl"
+  - "turtle_to_exhaustion_transition_pnl"
+  - "gross_net_and_double_cost_metrics"
+  - "predefined_period_metrics"
+  - "matched_exposure_benchmarks"
+  - "gate_decisions"
+
+stop_rules:
+  missing_data: "NO_VIEW"
+  fewer_than_30_closed_trades: "INSUFFICIENT_EVIDENCE"
+  failed_candidate: "REJECT_WITHOUT_PARAMETER_RESCUE"
+  new_windows_after_results_allowed: false
+  new_divergence_thresholds_after_results_allowed: false
+  winner_only_reporting_allowed: false
+  pass_action: "仅允许另行冻结纸面前向，不映射真实仓位"
+
+data_contracts:
+  market:
+    file: "data/raw/r6/510300_daily.parquet"
+    frozen_snapshot_sha256: "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979"
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    minimum_rows: 3456
+    required_columns: ["date", "open", "high", "low", "close", "volume", "amount", "symbol", "source", "retrieved_at"]
+    required_symbol: "510300.SH"
+  benchmark:
+    file: "data/raw/r6/H00300_total_return_daily.parquet"
+    frozen_snapshot_sha256: "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961"
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    minimum_rows: 3457
+    required_columns: ["date", "close", "symbol", "retrieved_at"]
+    required_symbol: "H00300"
+  distributions:
+    file: "data/reference/510300_dividends.csv"
+    coverage_attestation_file: "data/reference/510300_dividends_coverage.json"
+    expected_event_count: 14
+    required_first_ex_date: "2012-12-18"
+    required_last_ex_date: "2026-01-19"
+    required_columns: ["symbol", "record_date", "ex_date", "payment_date", "cash_dividend_per_share", "source"]
+    complete_snapshot_sha256: null
+

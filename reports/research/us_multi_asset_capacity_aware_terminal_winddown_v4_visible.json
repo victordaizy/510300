@@ -1,0 +1,355 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4_VISIBLE",
+  "generated_at": "2026-08-27T05:51:30.477703+08:00",
+  "phase": "VISIBLE_ONLY",
+  "status": "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN",
+  "goal_achieved": false,
+  "candidate_id": "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10",
+  "period": {
+    "start": "2014-01-02",
+    "end": "2019-12-31"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "manifest_verification": {
+    "status": "PASS_US_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/us_multi_asset_capacity_aware_terminal_winddown_v4_manifest.json",
+    "manifest_sha256": "8a50957218950b388cea045e2c5895518246195908615d89e9b8c7323082ab1f",
+    "tracked_content_sha256": "e9eff6ae896a4c8f836158473852e056e736a8dfdc8e6f971e42a6beaef9cd00",
+    "tracked_file_count": 6,
+    "dependency_statuses": {
+      "parent": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V10_MANIFEST_VERIFIED",
+      "v3": "PASS_US_CAPACITY_AWARE_V3_MANIFEST_VERIFIED",
+      "evaluator": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+    }
+  },
+  "execution_reconstitution_changed_paths": [
+    "historical_evidence_limits.performance_screen_label",
+    "inputs.parent_manifest",
+    "outputs.input_audit_json",
+    "outputs.manifest",
+    "outputs.replication_report_json",
+    "outputs.visible_daily_returns",
+    "outputs.visible_report_json",
+    "outputs.visible_report_markdown",
+    "outputs.visible_selections",
+    "outputs.visible_trades",
+    "portfolio.stop_new_entries_at_terminal_winddown_start",
+    "portfolio.terminal_liquidation_time",
+    "portfolio.terminal_open_positions_policy",
+    "portfolio.terminal_winddown_common_trading_days",
+    "portfolio.terminal_winddown_schedule_mode",
+    "protocol.candidate_id",
+    "protocol.lane",
+    "protocol.mechanism",
+    "protocol.parent_protocol_id"
+  ],
+  "data_audit": {
+    "inputs": {
+      "source_status": "PASS_INPUT_ACQUISITION_ONLY",
+      "panel_columns_read": [
+        "ticker",
+        "date",
+        "raw_open",
+        "raw_high",
+        "raw_low",
+        "raw_close",
+        "raw_volume",
+        "raw_dollar_turnover_usd",
+        "qfq_factor",
+        "adjust",
+        "split_ratio_at_open",
+        "cash_distribution_per_post_event_share_usd",
+        "signal_total_return_index"
+      ],
+      "fx_columns_read": [
+        "date",
+        "cny_per_usd",
+        "source"
+      ],
+      "benchmark_columns_read": [
+        "date",
+        "symbol",
+        "name",
+        "close",
+        "source"
+      ],
+      "visible_panel_path": "data/raw/us_liquid_treasury_multi_asset_v2/visible_panel_through_2019.parquet",
+      "visible_fx_path": "data/raw/us_leveraged_multi_asset_v1r_fx/visible_fx_through_2019.parquet",
+      "sealed_panel_or_benchmark_read": false,
+      "future_open_or_strategy_return_read": true,
+      "signal_only": false
+    },
+    "product_master_rows": 4,
+    "signal": {
+      "common_trading_day_count": 2218,
+      "signal_date_count": 72,
+      "selection_row_count": 119,
+      "dates_with_at_least_one_eligible_asset": 66,
+      "dates_with_two_eligible_assets": 53,
+      "eligible_asset_date_rows": 141,
+      "first_signal_date": "2013-12-31",
+      "last_signal_date": "2019-11-29",
+      "first_execution_date": "2014-01-02",
+      "last_execution_date": "2019-12-02",
+      "signal_columns_used": [
+        "date",
+        "raw_close",
+        "raw_dollar_turnover_usd",
+        "raw_volume",
+        "signal_total_return_index",
+        "ticker"
+      ],
+      "future_open_or_strategy_return_read": false,
+      "sealed_replication_read": false
+    },
+    "terminal_winddown": {
+      "terminal_winddown_common_trading_days": 20,
+      "winddown_start_date": "2019-12-03",
+      "visible_end_date": "2019-12-31",
+      "original_selection_rows": 119,
+      "executed_selection_rows": 119,
+      "original_schedule_rows": 72,
+      "execution_schedule_rows_including_winddown": 73,
+      "new_entries_after_winddown": 0,
+      "market_return_or_future_open_read": false
+    },
+    "portfolio": {
+      "initial_capital_cny": 500000.0,
+      "final_base_nav_cny": 1280573.9500436392,
+      "final_stress_nav_cny": 1227816.2159906835,
+      "entry_transaction_count": 41,
+      "exit_transaction_count": 15,
+      "resize_sell_transaction_count": 43,
+      "blocked_entry_count": 15,
+      "blocked_exit_attempt_count": 0,
+      "blocked_resize_attempt_count": 17,
+      "capacity_block_count": 0,
+      "capacity_target_capped_count": 15,
+      "capacity_sliced_exit_transaction_count": 0,
+      "capacity_sliced_resize_transaction_count": 0,
+      "stale_mark_count": 0,
+      "split_event_count_for_held_positions": 5,
+      "fractional_cash_in_lieu_count": 2,
+      "distribution_event_count_for_held_positions": 25,
+      "maximum_observed_order_capacity_fraction": 0.0004997571222081844,
+      "maximum_gross_exposure": 0.9997584971339967,
+      "maximum_net_exposure": 0.9997584971339967,
+      "maximum_position_count": 2,
+      "base_security_cost_rate_per_leg": 0.0017000000000000001,
+      "stress_security_cost_rate_per_leg": 0.0047,
+      "base_fx_spread_rate_per_conversion": 0.001,
+      "stress_fx_spread_rate_per_conversion": 0.003,
+      "terminal_position_count": 0,
+      "sealed_replication_read": false
+    },
+    "daily_context": {
+      "rows": 1508,
+      "maximum_fx_age_calendar_days": 10,
+      "strictly_lagged_fx": true
+    }
+  },
+  "evaluation": {
+    "eligible_historical_day_count": 1508,
+    "first_trade_date": "2014-01-02",
+    "last_trade_date": "2019-12-31",
+    "evaluation_semantics": "VERSIONED_EVALUATION_CORRECTION_NOT_NEW_HOLDOUT",
+    "metrics": {
+      "benchmark_total_return_cagr": 0.12302981757335482,
+      "strategy_base_net_cagr": 0.17018090391621232,
+      "strategy_stress_net_cagr": 0.16198283537057534,
+      "base_annualized_excess": 0.0471510863428575,
+      "stress_annualized_excess": 0.03895301779722052,
+      "base_strategy_net_sharpe": 0.6041921000010738,
+      "stress_strategy_net_sharpe": 0.5794482508413443,
+      "base_strategy_net_sharpe_status": "DEFINED",
+      "stress_strategy_net_sharpe_status": "DEFINED",
+      "base_maximum_drawdown": -0.36340648255652386,
+      "stress_maximum_drawdown": -0.3736380202666887,
+      "base_rolling_242d_excess_median": 0.06516259724397774,
+      "stress_rolling_242d_excess_median": 0.057455278213943195,
+      "base_rolling_242d_sharpe_median_defined_windows": 0.7346650165723039,
+      "stress_rolling_242d_sharpe_median_defined_windows": 0.728850880324972,
+      "base_rolling": {
+        "window_trading_days": 252,
+        "window_count": 1257,
+        "annualized_excess_median": 0.06516259724397774,
+        "sharpe_median_defined_windows": 0.7346650165723039,
+        "sharpe_defined_window_count": 1257,
+        "sharpe_undefined_zero_variance_window_count": 0,
+        "sharpe_all_windows_defined": true,
+        "sharpe_status": "ALL_WINDOWS_DEFINED"
+      },
+      "stress_rolling": {
+        "window_trading_days": 252,
+        "window_count": 1257,
+        "annualized_excess_median": 0.057455278213943195,
+        "sharpe_median_defined_windows": 0.728850880324972,
+        "sharpe_defined_window_count": 1257,
+        "sharpe_undefined_zero_variance_window_count": 0,
+        "sharpe_all_windows_defined": true,
+        "sharpe_status": "ALL_WINDOWS_DEFINED"
+      },
+      "base_bootstrap": {
+        "method": "PAIRED_MOVING_BLOCK_CONSERVATIVE_ZERO_VARIANCE",
+        "repetitions": 5000,
+        "block_length_trading_days": 20,
+        "annualized_excess_median": 0.05518304212135401,
+        "annualized_excess_interval_95pct": [
+          -0.2408310056336953,
+          0.3571096439790111
+        ],
+        "strategy_sharpe_median_defined_samples": 0.636035984859896,
+        "strategy_sharpe_interval_95pct_defined_samples": [
+          -0.032470559308150904,
+          1.3974623797174661
+        ],
+        "strategy_sharpe_defined_sample_count": 5000,
+        "strategy_sharpe_undefined_zero_variance_sample_count": 0,
+        "strategy_sharpe_all_samples_defined": true,
+        "strategy_sharpe_status": "ALL_SAMPLES_DEFINED"
+      },
+      "stress_bootstrap": {
+        "method": "PAIRED_MOVING_BLOCK_CONSERVATIVE_ZERO_VARIANCE",
+        "repetitions": 5000,
+        "block_length_trading_days": 20,
+        "annualized_excess_median": 0.04400755330025696,
+        "annualized_excess_interval_95pct": [
+          -0.2501030407656354,
+          0.354598249559287
+        ],
+        "strategy_sharpe_median_defined_samples": 0.6111887171080097,
+        "strategy_sharpe_interval_95pct_defined_samples": [
+          -0.07509072347941119,
+          1.3653275426929998
+        ],
+        "strategy_sharpe_defined_sample_count": 5000,
+        "strategy_sharpe_undefined_zero_variance_sample_count": 0,
+        "strategy_sharpe_all_samples_defined": true,
+        "strategy_sharpe_status": "ALL_SAMPLES_DEFINED"
+      },
+      "non_overlapping_years": [
+        {
+          "start": "2014-01-02",
+          "end": "2015-01-02",
+          "base_annualized_excess": -0.0747232884746108,
+          "stress_annualized_excess": -0.08047655918735919,
+          "base_sharpe": 1.2288531438593417,
+          "stress_sharpe": 1.2135438829046576,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        },
+        {
+          "start": "2015-01-05",
+          "end": "2016-01-05",
+          "base_annualized_excess": -0.13942233234137702,
+          "stress_annualized_excess": -0.14750951960641195,
+          "base_sharpe": -0.20083283965376914,
+          "stress_sharpe": -0.2203743978820608,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        },
+        {
+          "start": "2016-01-06",
+          "end": "2017-01-04",
+          "base_annualized_excess": 0.11265034097512083,
+          "stress_annualized_excess": 0.10223018113484177,
+          "base_sharpe": 0.49432336303062585,
+          "stress_sharpe": 0.4454280348641774,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        },
+        {
+          "start": "2017-01-05",
+          "end": "2018-01-04",
+          "base_annualized_excess": 0.5345150623777006,
+          "stress_annualized_excess": 0.5504489420373531,
+          "base_sharpe": 2.6697828335675315,
+          "stress_sharpe": 2.667715009436907,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": true
+        },
+        {
+          "start": "2018-01-05",
+          "end": "2019-01-07",
+          "base_annualized_excess": 0.31049424502662365,
+          "stress_annualized_excess": 0.30647391532847584,
+          "base_sharpe": 0.33763406180711175,
+          "stress_sharpe": 0.33101532078895196,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        }
+      ],
+      "non_overlapping_year_block_count": 5,
+      "undefined_zero_variance_year_block_count": 0,
+      "target_qualified_year_block_count": 1
+    },
+    "gates": {
+      "base_annualized_excess_at_least_40pct": false,
+      "stress_annualized_excess_at_least_40pct": false,
+      "base_strategy_sharpe_defined": true,
+      "stress_strategy_sharpe_defined": true,
+      "base_strategy_sharpe_at_least_1_5": false,
+      "stress_strategy_sharpe_at_least_1_5": false,
+      "base_rolling_excess_median_at_least_40pct": false,
+      "stress_rolling_excess_median_at_least_40pct": false,
+      "base_rolling_sharpe_all_windows_defined": true,
+      "stress_rolling_sharpe_all_windows_defined": true,
+      "base_rolling_sharpe_median_at_least_1_5": false,
+      "stress_rolling_sharpe_median_at_least_1_5": false,
+      "base_bootstrap_excess_lower_bound_positive": false,
+      "stress_bootstrap_excess_lower_bound_positive": false,
+      "base_bootstrap_sharpe_all_samples_defined": true,
+      "stress_bootstrap_sharpe_all_samples_defined": true,
+      "base_bootstrap_sharpe_lower_bound_at_least_1": false,
+      "stress_bootstrap_sharpe_lower_bound_at_least_1": false,
+      "minimum_non_overlapping_year_blocks": true,
+      "minimum_target_qualified_year_blocks": false,
+      "data_quality_complete": true,
+      "capacity_pass": true
+    },
+    "all_visible_gates_pass": false
+  },
+  "historical_evidence_limits": {
+    "official_product_page_performance_partly_visible_before_freeze": true,
+    "immutable_vendor_vintage_chain_available": false,
+    "historical_intraday_order_book_available": false,
+    "next_open_fill_is_modeled_from_daily_bar_not_order_book": true,
+    "foreign_tax_residency_confirmed": false,
+    "performance_screen_label": "DISCOVERY_ONLY_US_CAPACITY_AWARE_TERMINAL_WINDDOWN_VISIBLE",
+    "historical_result_may_authorize_paper_or_live": false,
+    "sealed_replication_is_formula_family_replication_not_external_blind_validation": true
+  },
+  "decision": {
+    "formula_family_replication_conditionally_eligible": false,
+    "sealed_replication_authorized": false,
+    "sealed_replication_open": false,
+    "candidate_may_be_reparameterized_after_failure": false,
+    "historical_result_verifies_40pct_target": false,
+    "paper_or_live_authorized": false,
+    "next_step": "冻结拒绝V4，不打开封存期，不修改减仓窗口、容量、产品或信号救回"
+  },
+  "bootstrap_repetitions_override": null,
+  "safety": {
+    "paper_position_generation": false,
+    "shadow_signal_generation": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "live_trading_authorized": false
+  }
+}

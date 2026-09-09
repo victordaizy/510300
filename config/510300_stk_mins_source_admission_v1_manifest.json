@@ -1,0 +1,45 @@
+{
+  "data_model_id": "510300_STK_MINS_SOURCE_ADMISSION_V1",
+  "version": "1.0.0",
+  "freeze_id": "510300_STK_MINS_SOURCE_ADMISSION_V1_20260904T220946+0800",
+  "freeze_state": "SOURCE_PROTOCOL_FROZEN_BEFORE_BULK_ACQUISITION",
+  "frozen_at": "2026-09-04T22:09:46.0935691+08:00",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/510300-nbs-1000-negative-information-drift-v1",
+  "parent_commit": "06ba2ca",
+  "frozen_files": {
+    "docs/510300_STK_MINS_SOURCE_ADMISSION_V1.md": "d48bb6535c964f7cffe5446a672d27aac679ae041557146a54048958eb72c83e",
+    "config/510300_stk_mins_source_admission_v1.yaml": "373bdeffa0cb31514fada5a8ddf36c3d93cc9bdba25171fcd93bd89d90aeff34"
+  },
+  "frozen_contract": {
+    "provider": "TUSHARE_COMPATIBLE_PROXY",
+    "endpoint": "https://tt.xiaodefa.cn",
+    "api_name": "stk_mins",
+    "ts_code": "510300.SH",
+    "freq": "1min",
+    "start_date": "2017-01-01",
+    "end_date": "2026-09-04",
+    "chunking": "CALENDAR_MONTH",
+    "maximum_rows": 8000,
+    "minimum_request_interval_seconds": 0.65,
+    "timestamp_semantics": "BAR_END",
+    "volume_unit": "SHARE",
+    "amount_unit": "CNY",
+    "fallbacks_allowed": false
+  },
+  "pre_freeze_attestations": {
+    "credentialed_minimal_probe_run": true,
+    "probe_dates": [
+      "2019-12-23",
+      "2020-01-02",
+      "2026-08-12"
+    ],
+    "bulk_acquisition_run": false,
+    "nbs_event_return_read": false,
+    "nbs_event_label_created": false,
+    "strategy_model_trained": false,
+    "portfolio_evaluation_run": false,
+    "position_impact": 0
+  },
+  "drift_rule": "任一frozen_files哈希不匹配时，在供应商调用、事件收益读取或策略计算之前停止。"
+}

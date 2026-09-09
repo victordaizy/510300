@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.7.1",
+  "report_version": "PRIORITY_FORWARD_AUTHORITATIVE_STATUS_V1_7",
+  "generated_at": "2026-08-29T03:34:40.149830+08:00",
+  "overall_research_status": "NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET",
+  "original_90_day_decision": "RUN_ONE_NEW_FROZEN_TEST",
+  "decision": "STOP_NO_HISTORICAL_RETURN_EVALUATION",
+  "only_new_frozen_test": "A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1",
+  "active_research_streams": [
+    {
+      "id": "A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1",
+      "priority": 1,
+      "resource_percent": 70,
+      "status": "NO_VIEW_DATA_CONTRACT_FAILED",
+      "return_evaluation": "NOT_ALLOWED",
+      "terminal": true,
+      "additional_historical_work_allowed": false,
+      "historical_return_attempts_allowed": 0,
+      "historical_return_attempts_used": 0,
+      "failed_data_gates": [
+        "D4",
+        "D5"
+      ],
+      "data_gate_summary": {
+        "D1": "PASS",
+        "D2": "PASS",
+        "D3": "PASS",
+        "D4": "FAIL",
+        "D5": "FAIL",
+        "D6": "PASS",
+        "D7": "PASS",
+        "D8": "PASS"
+      },
+      "source_rescue_allowed": false,
+      "source_admission": {
+        "path": "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.json",
+        "exists": true,
+        "sha256": "cb9a361163b2d237cb66276fa8dd0b22b52b53b458382d4fca6316f85c8859d5",
+        "bytes": 2029
+      },
+      "data_admission": {
+        "path": "reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.json",
+        "exists": true,
+        "sha256": "cc586ee1f134f3b76529d9e1eb7e885472e0c1251729cd689633427d78db82ba",
+        "bytes": 7210
+      },
+      "pre_return_freeze": {
+        "path": "reports/audit/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PRE_RETURN_FREEZE.json",
+        "exists": true,
+        "sha256": "df6a6841de62ca5fae36148cc266e6c67da5f0cd0f53b6503547997c11de494f",
+        "bytes": 1771
+      },
+      "protocol_manifest": {
+        "path": "config/a_share_hs_csi300_official_addition_forced_demand_v1_protocol_manifest.json",
+        "exists": true,
+        "sha256": "85c10dee90570c157631b73a3d79f50e106fa3eafad558d2f7ac0245bad2f52c",
+        "bytes": 12454,
+        "expected_sha256": "85c10dee90570c157631b73a3d79f50e106fa3eafad558d2f7ac0245bad2f52c",
+        "hash_verified": true
+      }
+    },
+    {
+      "id": "PRIMARY_MARKET_PCF_IOPV",
+      "priority": 2,
+      "resource_percent": 30,
+      "status": "COLLECTING_NOT_ELIGIBLE",
+      "stage": "STAGE_0_19_COLLECTION",
+      "latest_observed_trade_date": "2026-08-18",
+      "observed_trading_days": 4,
+      "full_quality_days": 2,
+      "quality_day_gate": 20,
+      "feature_freeze_gate": 40,
+      "first_unseen_gate": 80,
+      "replication_gate": 120,
+      "latest_task_authority": {
+        "authority_kind": "DIRECT_COLLECTOR_IMMUTABLE_RECEIPT",
+        "path": "reports/data_quality/primary_market_task_runs_v1_2_1/20260828T0125025110922Z_20016.json",
+        "receipt_id": "20260828T0125025110922Z_20016",
+        "ended_at": "2026-08-28T09:31:19.1299128+08:00",
+        "run_status": "FAILED",
+        "collection_status": "EXTERNAL_FREE_SOURCE_FAILED",
+        "task_exit_code": 3,
+        "error": "RuntimeException: 免费外部来源访问或解析失败，运行器退出码为3",
+        "quality_day_counted": false,
+        "receipt_evidence": {
+          "path": "reports/data_quality/primary_market_task_runs_v1_2_1/20260828T0125025110922Z_20016.json",
+          "exists": true,
+          "sha256": "5d07b44f76cb3a6f5806be6e6fa86aebe7dbd855a6af902e1f3d421a50006b54",
+          "bytes": 1248
+        },
+        "log_evidence": {
+          "path": "output/primary_market_forward_logs_v1_2_1/20260828.task.log",
+          "exists": true,
+          "sha256": "41470c811153b3a02ccb65b9e5fcc7ebc0f85430d6ab5a356640dab8cfff045f",
+          "bytes": 6536
+        },
+        "raw_response_present": false,
+        "raw_response_path": null,
+        "raw_response_sha256": null
+      },
+      "readiness_evidence": {
+        "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+        "exists": true,
+        "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383",
+        "bytes": 6001
+      }
+    }
+  ],
+  "frozen_v1_8_manifest": {
+    "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+    "exists": true,
+    "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+    "bytes": 10947,
+    "expected_sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+    "hash_verified": true
+  },
+  "status_semantics": {
+    "task_exit_code_0": "COLLECTION_SUCCESS_ONLY_IF_DIRECT_RECEIPT_SAYS_SUCCESS",
+    "task_exit_code_1": "PROGRAM_FAILED",
+    "task_exit_code_2": "NO_COLLECTION",
+    "task_exit_code_3": "EXTERNAL_FREE_SOURCE_FAILED",
+    "already_attempted": "ORCHESTRATION_DEDUPLICATION_NOT_RESEARCH_SUCCESS",
+    "missing_latest_status": "NO_SIGNAL_NO_REPORT_NO_ORDER"
+  },
+  "execution_authorization": {
+    "research_only": true,
+    "shadow_enabled": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  }
+}

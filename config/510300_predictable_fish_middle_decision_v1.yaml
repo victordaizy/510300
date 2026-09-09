@@ -1,0 +1,104 @@
+version: 510300_PREDICTABLE_FISH_MIDDLE_DECISION_V1
+status: FROZEN_LOGIC_BEFORE_NEW_FORWARD_OUTCOME
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-18T23:59:59+08:00"
+asset: 510300.SH
+research_mode: RESEARCH_ONLY
+signal_mode: SHADOW_ONLY
+
+objective:
+  original_goal: 只在未来方向具有可审计预测资格时进入510300，不追逐起涨段，重点识别板块驱动的鱼中和鱼尾。
+  current_question: 截至信息截止时间，行业结构、预期差、历史可预测性、流动性、国家队证据和ETF执行是否共同允许进入。
+  default_when_not_predictable: WAIT_NO_NEW_ENTRY
+
+parents:
+  sector_scorecard_report: reports/forward/industry_sector_scorecard_v1_3_wechat_2026-08-18.json
+  sector_scorecard_manifest: config/industry_sector_scorecard_v1_3_wechat_manifest.json
+  expectation_gap_report: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json
+  expectation_gap_manifest: config/industry_expectation_gap_etf_model_v1_manifest.json
+  sector_prediction_result: reports/discovery/sector_forward_return_prediction_v1_result.json
+  sector_prediction_manifest: config/sector_forward_return_prediction_v1_manifest.json
+  driver_episode_result: reports/discovery/index_driver_episode_v1_result.json
+  driver_episode_manifest: config/index_driver_episode_discovery_v1_manifest.json
+  daily_quality: reports/data_quality/510300_daily_quality.json
+  forward_input_refresh: paper/v3_forward_2_input_refresh_status.json
+  etf_forward_readiness: reports/data_quality/510300_primary_market_readiness.json
+
+parent_integrity:
+  sector_scorecard_report: 035544ebd6c9ac0e17cdc184d68130e6266a344e0788713e387164d72d759780
+  sector_scorecard_manifest: c70bf881829853b504b5cc2310c7bd096290d42a879a0d7a3c35ef6c9bd0dc3b
+  expectation_gap_report: 1483a3c7f025d1983131d2f89ba6bb993b5df89e26b5b3f8c77cf783cb14b85f
+  expectation_gap_manifest: dc0070434375b032f2c316db0b12cf026e042ed7647d5924b6cad368ccbe3e09
+  sector_prediction_result: 713bad1102bc5c92f0c4892e0e66ff140b85f39ab78ec647d7f4d4304a217cca
+  sector_prediction_manifest: 3c2eb96ead39f7283e85ff77eb76e881b3c6083680f2ca0e33fede881cd47b16
+  driver_episode_result: 4f65abb0f32ecb07d0468d529a864c28d33c9427dcad377f873883e960e1c2b4
+  driver_episode_manifest: d2c1704447fb16d246f82a2cce05a5afa2ecc342b8abee98440edd380bbb3581
+  daily_quality: e9d73cb5f99119576b0eec7ab6727e7817419163626a2caa50b39f4901a944bb
+  forward_input_refresh: 6644502d81f3f7dc2818f5e945156c2669f93badb27ffe1d0bfeeedb1d88cdf2
+  etf_forward_readiness: 1d4432ce581cf63f449315ef4932230fccc7e15a09affcac9e2662121fa5d2d8
+
+exclusive_sector_states:
+  positive_structure:
+    - FISH_MIDDLE_CONVERGENCE
+    - QUALITATIVE_LEADS_QUANT
+  fish_middle:
+    - FISH_MIDDLE_CONVERGENCE
+  qualitative_leads:
+    - QUALITATIVE_LEADS_QUANT
+  fish_tail:
+    - FISH_TAIL_WARNING_NO_CHASE
+  negative:
+    - NEGATIVE_CONVERGENCE
+  mixed:
+    - MIXED_NO_HARD_VIEW
+
+entry_gate_contract:
+  data_freshness:
+    required_daily_quality_status: PASS
+    required_forward_refresh_status: SUCCESS
+    required_latest_date: "2026-08-18"
+  expectation_gap:
+    required_state: DIRECTIONAL_RESEARCH_VIEW
+    inherited_direction_threshold: 0.08
+    inherited_coverage_threshold: 0.65
+  predictability:
+    require_true_forward_eligible_entry_model: true
+    rejected_models_may_not_be_rescued: true
+  liquidity:
+    required_quantitative_gate_state: PASS
+    qualitative_mixed_is_not_pass: true
+  tail:
+    require_validated_index_tail_model: true
+  national_team:
+    identity_proxy_forbidden: true
+    missing_holdings_state: NO_VIEW_NO_AUDITABLE_POSITION_LEVEL_DATA
+  etf_execution:
+    require_eligible_for_research_evaluation: true
+    minimum_full_coverage_days: 20
+  position:
+    automatic_position_mapping_authorized: false
+
+forward_completion_contract:
+  first_calibration_origin_count: 20
+  simplification_comparison_origin_count: 40
+  horizons_trading_days: [20, 60, 120]
+  industry_rows_are_independent_samples: false
+  partial_window_performance_may_be_reported: false
+  post_result_threshold_search_allowed: false
+
+outputs:
+  json: reports/forward/510300_predictable_fish_middle_decision_v1_2026-08-18.json
+  markdown: reports/forward/510300_predictable_fish_middle_decision_v1_2026-08-18.md
+  manifest: config/510300_predictable_fish_middle_decision_v1_manifest.json
+
+governance:
+  synthetic_numeric_score_allowed: false
+  qualitative_direction_is_probability: false
+  score_conditioned_win_rate: UNAVAILABLE_AWAITING_TRUE_FORWARD
+  may_call_predictive_edge: false
+  current_holdings_read_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+

@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1",
+  "generated_at": "2026-08-27T00:01:55.021875+08:00",
+  "status": "TARGET_NOT_YET_MET_NO_FROZEN_CANDIDATE",
+  "goal_achieved": false,
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "minimum_annualized_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "benchmark": "H00300"
+  },
+  "local_data_readiness": {
+    "broad_etf": {
+      "master_asset_count": 1295,
+      "panel_asset_count": 1295,
+      "date_min": "2013-12-02",
+      "date_max": "2026-08-14",
+      "status": "DATA_AVAILABLE_MECHANISM_NOT_FROZEN"
+    },
+    "a_share_point_in_time": {
+      "security_count": 5461,
+      "row_count": 11840729,
+      "date_min": "2014-01-02",
+      "date_max": "2026-08-14",
+      "status": "DATA_AVAILABLE_MECHANISM_NOT_FROZEN"
+    },
+    "index_future": {
+      "symbol_count": 1,
+      "date_min": "2021-08-12",
+      "date_max": "2026-08-12",
+      "status": "DATA_AVAILABLE_HEDGE_GRANULARITY_NOT_YET_QUALIFIED"
+    }
+  },
+  "active_research_lanes": {
+    "BROAD_LIQUID_ETF_CROSS_ASSET": {
+      "status": "MECHANISM_SELECTION_PENDING",
+      "prior_nine_factor_momentum_reuse_allowed": false
+    },
+    "A_SHARE_CROSS_SECTIONAL_HEDGED": {
+      "status": "MECHANISM_SELECTION_PENDING",
+      "prior_failed_residual_trend_reuse_allowed": false
+    }
+  },
+  "prior_results": {
+    "ALL_ETF_MOMENTUM_V1R": {
+      "status": "ALL_ETF_V1R_REJECTED_FROZEN",
+      "base_annualized_excess": 0.03399683565435896,
+      "stress_annualized_excess": 0.012824799233625894,
+      "base_strategy_sharpe": 0.39386613726236597,
+      "stress_strategy_sharpe": 0.33478417527023624,
+      "eligible_for_reuse": false
+    },
+    "ETF_ROTATION_V1": {
+      "status": "ETF_ROTATION_REJECTED_FROZEN",
+      "base_annualized_excess": 0.028953494808446445,
+      "stress_annualized_excess": 0.023108484924425188,
+      "base_strategy_sharpe": 0.42629845047551906,
+      "stress_strategy_sharpe": 0.4025423991815575,
+      "eligible_for_reuse": false
+    },
+    "DUAL_SLEEVE_V1": {
+      "status": "DUAL_SLEEVE_PROJECTION_REJECTED_FROZEN",
+      "base_annualized_excess": 0.13721701917445128,
+      "stress_annualized_excess": 0.12147638602453315,
+      "base_strategy_sharpe": 0.6983666269441293,
+      "stress_strategy_sharpe": 0.63488331171133,
+      "eligible_for_reuse": false
+    }
+  },
+  "decision": {
+    "existing_candidate_meets_40pct_and_sharpe_1_5": false,
+    "old_fee_reduction_can_rescue_low_sharpe_models": false,
+    "next_step": "每条研究线只冻结一个与旧失败公式不同的经济机制，再做成本后可见期筛选。"
+  },
+  "inputs": {
+    "contract": {
+      "path": "config/multi_asset_annual_excess_40pct_high_sharpe_v1.yaml",
+      "sha256": "adf382fb53822604a98a41da0052ef69bd9de9e35f391e7511408208980fd595"
+    },
+    "broad_etf_master": {
+      "path": "data/raw/all_etf_momentum_v1/fund_master.parquet",
+      "sha256": "e2d9bebf12dcf58f2af76a3dcc617573502716f2c600c1efe8655bc7db20e3f5"
+    },
+    "broad_etf_total_return_panel": {
+      "path": "data/raw/all_etf_momentum_v1r/etf_total_return_panel_tushare_adj.parquet",
+      "sha256": "d6834df6f7a56efc752bd28bc67d7ba4a09d75e6789ae4d99a700ed24faaa550"
+    },
+    "a_share_point_in_time_panel": {
+      "path": "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet",
+      "sha256": "e7552c0c4ee8c8755e91e8dc2fda6233f4a23ac6e59de633d87ea0b8860312b9"
+    },
+    "index_future_daily": {
+      "path": "data/raw/futures/IF0_daily_raw.parquet",
+      "sha256": "6a361e083fb7e20595aee55f0455680dd5a2577ac872dc7436a083a45f2c8f92"
+    },
+    "benchmark_total_return": {
+      "path": "data/raw/market/H00300_total_return_daily_raw.parquet",
+      "sha256": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733"
+    }
+  },
+  "safety": {
+    "paper_position_generation": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "live_trading_authorized": false
+  }
+}

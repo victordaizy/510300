@@ -1,0 +1,92 @@
+strategy:
+  strategy_id: "510300_DEFENSIVE_VALUATION_TIMING_R5"
+  name: "510300防守择时基线与估值增强策略"
+  version: "1.0.0"
+  frozen_at: "2026-08-13"
+  evidence_scope: "全部历史已参与研究，只能形成回顾性证据；没有严格未见样本"
+  instrument: "510300.SH"
+  objective: "检验估值中枢能否在趋势与非对称风险控制之上实现年化超额10%最低线并挑战15%"
+
+backtest:
+  start_date: "2021-08-12"
+  end_date: "2026-08-12"
+  initial_cash_cny: 20000
+  trading_days_per_year: 242
+  core_benchmark: "H00300沪深300全收益指数"
+  tradable_benchmark: "510300买入持有总收益"
+  annualized_excess_minimum: 0.10
+  annualized_excess_challenge: 0.15
+  rolling_242d_excess_median_minimum: 0.10
+  rolling_242d_excess_median_challenge: 0.15
+
+trend:
+  fast_ma_days: 60
+  slow_ma_days: 200
+  fast_weight: 0.60
+  slow_weight: 0.40
+  baseline_mid_position: 0.60
+  baseline_trend_amplitude: 0.40
+
+risk:
+  rv_short_days: 5
+  rv_medium_days: 20
+  rv_long_days: 60
+  shock_ratio_start: 1.00
+  shock_ratio_full: 2.00
+  regime_ratio_start: 1.00
+  regime_ratio_full: 1.50
+  downside_ratio_start: 0.65
+  downside_ratio_full: 0.90
+  shock_weight: 0.40
+  regime_weight: 0.30
+  downside_weight: 0.30
+  maximum_penalty: 0.20
+  crisis_daily_return: -0.03
+  crisis_rv5_rv20_ratio: 1.60
+  crisis_downside_ratio: 0.75
+
+valuation:
+  model_type: "指数聚合盈利/净资产估值代理"
+  trading_days_per_year: 242
+  growth_median_window_days: 252
+  multiple_window_days: 1210
+  minimum_growth_observations: 126
+  minimum_multiple_observations: 605
+  eps_growth_clip: [-0.30, 0.30]
+  bps_growth_clip: [-0.20, 0.20]
+  earnings_anchor_weight: 0.60
+  book_anchor_weight: 0.40
+  low_quantile: 0.30
+  mid_quantile: 0.50
+  high_quantile: 0.70
+  minimum_strategic_position: 0.20
+  trend_confirmation_amplitude: 0.20
+
+execution:
+  normal_review_every_trading_days: 5
+  risk_on_maximum_step: 0.10
+  position_grid_step: 0.10
+  minimum_normal_trade_notional_cny: 10000
+  risk_off_can_bypass_minimum_notional: true
+  signal_time: "t日收盘后"
+  execution_time: "t+1交易日开盘"
+  premium_discount_layer: "DISABLED_NO_POINT_IN_TIME_EXECUTION_IOPV"
+
+account:
+  lot_size: 100
+  long_only: true
+  leverage_allowed: false
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_rate: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+governance:
+  parameter_search_performed: false
+  automatic_ordering_authorized: false
+  forward_start: "规则与数据指纹冻结后的下一交易日"
+  note: "折溢价只允许使用交易时刻可观察IOPV；当前历史数据不满足，因此不进入信号"

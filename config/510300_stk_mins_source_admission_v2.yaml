@@ -1,0 +1,51 @@
+data_model_id: 510300_STK_MINS_SOURCE_ADMISSION_V2
+version: 2.0.0
+parent: 510300_STK_MINS_SOURCE_ADMISSION_V1
+purpose: TIME_VOLUME_AMOUNT_VWAP_ADMISSION_ONLY
+start_date: '2017-01-01'
+end_date: '2026-09-04'
+symbol: 510300.SH
+timezone: Asia/Shanghai
+timestamp_semantics: BAR_END
+minute_volume_unit: SHARE
+minute_amount_unit: CNY
+daily_volume_unit: LOT_100_SHARES
+daily_amount_unit: THOUSAND_CNY
+inputs:
+  minute: data/curated/510300_stk_mins_source_admission_v1/510300_1min.parquet
+  acquisition: reports/data_quality/510300_stk_mins_source_admission_v1/acquisition_summary.json
+  timestamp_evidence: reports/data_quality/510300_stk_mins_source_admission_v1/timestamp_semantics_evidence.json
+  independent_minute: data/raw/market/510300_1m_tushare_raw.parquet
+  parent_ledger: data/curated/510300_nbs_1000_negative_information_drift_v1/event_ledger_pre_return.parquet
+  parent_ledger_manifest: reports/data_quality/510300_nbs_1000_negative_information_drift_v1/pre_return_event_ledger_manifest.json
+  nbs_inventory: reports/data_quality/510300_nbs_1000_negative_information_drift_v1/nbs_schedule_source_inventory.json
+  parent_adjudication: reports/research/510300_nbs_1000_negative_information_drift_v1/G0_G1_ADJUDICATION.json
+windows:
+  pre: ['09:56:00', '09:57:00', '09:58:00', '09:59:00', '10:00:00']
+  reaction: ['10:01:00', '10:02:00', '10:03:00', '10:04:00', '10:05:00']
+  entry: ['10:07:00', '10:08:00', '10:09:00', '10:10:00', '10:11:00']
+  exit: ['14:51:00', '14:52:00', '14:53:00', '14:54:00', '14:55:00']
+quality_gates:
+  standard_241_bar_day_coverage_minimum: 0.999
+  eligible_event_four_window_coverage_minimum: 1.0
+  duplicate_keys_maximum: 0
+  illegal_timestamp_rows_maximum: 0
+  daily_volume_relative_error_maximum: 0.001
+  daily_amount_relative_error_maximum: 0.001
+  bar_vwap_price_tolerance_cny: 0.001
+  bar_vwap_out_of_range_maximum: 0
+  undefined_bar_vwap_maximum: 0
+  independent_overlap_start: '2021-08-12'
+  independent_overlap_end: '2026-08-12'
+  independent_four_window_vwap_match_minimum: 0.999
+  independent_vwap_absolute_tolerance_cny: 0.000000001
+  independent_vwap_relative_tolerance: 0.0000000001
+  binary_float_tolerance_cny: 0.000000000001
+diagnostic_only: [DAILY_HIGH_EQUALS_MINUTE_HIGH, DAILY_LOW_EQUALS_MINUTE_LOW, DAILY_CLOSE_EQUALS_LAST_MINUTE_CLOSE]
+governance:
+  event_return_reads: 0
+  labels_allowed: false
+  model_training_allowed: false
+  portfolio_allowed: false
+  position_impact: 0
+  live_trading_authorized: false

@@ -1,0 +1,120 @@
+protocol:
+  project_id: "CSI300_TEMPORAL_TRANSFER_ALPHA_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY_TWO_STAGE_FREEZE"
+  benchmark: "H00300沪深300全收益指数"
+  acceptance_metric: "评估期策略几何年化收益率减基准几何年化收益率"
+  acceptance_minimum: 0.20
+
+training_inputs:
+  member_panel: "data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet"
+  price_index: "data/raw/external_validation/csi300_2014_2021/000300_price_index_2014_2021.parquet"
+  benchmark: "data/raw/external_validation/csi300_2014_2021/H00300_total_return_2014_2021.parquet"
+  data_status: "reports/data_quality/csi300_external_validation_2014_2021_status.json"
+
+evaluation_inputs:
+  member_panel: "data/raw/constituents/000300_constituent_daily.parquet"
+  component_history_cache: "data/raw/constituents/.tushare_stock_history_cache"
+  price_index: "data/raw/market/000300_daily_feature_warmup.parquet"
+  benchmark: "data/raw/market/H00300_total_return_daily_raw.parquet"
+
+periods:
+  training_feature_start: "2015-01-05"
+  training_end: "2021-07-12"
+  evaluation_start: "2021-08-12"
+  evaluation_end: "2026-08-14"
+  rebalance_every_trading_days: 20
+  target_horizon_trading_days: 20
+  signal_time: "t日收盘后"
+  execution_time: "t+1交易日开盘"
+
+factor_budget:
+  maximum: 10
+  used: 10
+  feature_columns:
+    - "f01_medium_momentum_rank"
+    - "f02_momentum_60d_rank"
+    - "f03_momentum_20d_rank"
+    - "f04_reversal_5d_rank"
+    - "f05_low_volatility_20d_rank"
+    - "f06_low_volatility_60d_rank"
+    - "f07_drawdown_position_rank"
+    - "f08_liquidity_shock_rank"
+    - "f09_index_trend_120d"
+    - "f10_breadth_above_ma60"
+
+model:
+  estimator: "sklearn.ensemble.HistGradientBoostingRegressor"
+  learning_rate: 0.04
+  max_iter: 160
+  max_leaf_nodes: 15
+  min_samples_leaf: 100
+  l2_regularization: 2.0
+  max_bins: 63
+  early_stopping: false
+  random_state: 20260818
+  target_clip: [-0.50, 0.50]
+  training_half_life_calendar_days: 1095
+  hyperparameter_search_allowed: false
+  recent_label_read_during_training_forbidden: true
+
+selection:
+  holdings: 3
+  retention_rank: 10
+  minimum_20d_average_amount_cny: 50000000
+  maximum_open_total_return_gap_for_trade: 0.095
+
+account:
+  initial_cash_cny: 20000
+  maximum_positions: 3
+  minimum_trade_notional_cny: 5000
+  lot_size: 100
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0005
+  stamp_duty_sell_rate_before_reduction: 0.001
+  stamp_duty_reduction_effective_date: "2023-08-28"
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+evaluation:
+  annualized_excess_minimum: 0.20
+  stress_annualized_excess_minimum: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  bootstrap_lower_bound_strictly_above: 0.0
+  predefined_periods:
+    - {id: "P1_2021_2022", start: "2021-08-12", end: "2022-12-30"}
+    - {id: "P2_2023_2024", start: "2023-01-03", end: "2024-12-31"}
+    - {id: "P3_2025_2026", start: "2025-01-02", end: "2026-08-14"}
+  positive_predefined_periods_minimum: 2
+  random_seed: 20260818
+
+governance:
+  training_and_evaluation_scripts_separate: true
+  trained_model_freeze_required_before_evaluation: true
+  parameter_rescue_after_evaluation_forbidden: true
+  result_may_authorize_live: false
+  paper_signal_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+
+outputs:
+  trained_model: "data/models/csi300_temporal_transfer_alpha_v1.joblib"
+  training_features: "data/features/000300_temporal_transfer_training_features_v1.parquet"
+  training_report: "reports/discovery/csi300_temporal_transfer_training_v1.json"
+  evaluation_features: "data/features/000300_temporal_transfer_evaluation_features_v1.parquet"
+  predictions: "data/features/000300_temporal_transfer_predictions_v1.parquet"
+  base_ledger: "data/processed/csi300_temporal_transfer_alpha_v1/base_ledger.parquet"
+  base_trades: "data/processed/csi300_temporal_transfer_alpha_v1/base_trades.parquet"
+  stress_ledger: "data/processed/csi300_temporal_transfer_alpha_v1/stress_ledger.parquet"
+  stress_trades: "data/processed/csi300_temporal_transfer_alpha_v1/stress_trades.parquet"
+  result_json: "reports/backtest/csi300_temporal_transfer_alpha_v1.json"
+  result_markdown: "reports/backtest/csi300_temporal_transfer_alpha_v1.md"
+

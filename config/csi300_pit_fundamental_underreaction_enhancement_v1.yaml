@@ -1,0 +1,268 @@
+study:
+  study_id: CSI300_PIT_FUNDAMENTAL_UNDERREACTION_ENHANCEMENT_V1
+  version: 1.0.0
+  chinese_name: 沪深300点时基本面改善—市场反应不足增强策略
+  timezone: Asia/Shanghai
+  frozen_on: '2026-08-30'
+  data_cutoff: '2026-08-14'
+  research_scope: PHASE_1_RELATIVE_RETURN_MECHANISM_ONLY
+  protocol_status: PRE_REGISTERED_BEFORE_OFFICIAL_FACT_ACQUISITION_AND_ANY_FUTURE_RETURN_READ
+  objective: 检验经营改善且质量得到确认、但公告后初始价格反应不足的沪深300成份股，未来60日和120日是否相对510300持续占优
+
+legacy_program_closure:
+  timing_program_id: 510300_TIME_SERIES_STRESS_TIMING_PROGRAM
+  timing_program_status: CLOSED_ON_EXISTING_HISTORY
+  dashboard_id: 510300_STRESS_MECHANISM_DASHBOARD
+  dashboard_status: OBSERVATION_ONLY_NO_POSITION_MAPPING
+  components:
+    - study_id: 510300_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1
+      required_status: EXPLANATORY_ONLY_SYNCHRONOUS_OR_LAGGING_NO_STRATEGY_PROMOTION_NO_RESCUE
+      evidence: reports/research/510300_stress_transmission_and_exhaustion_atlas_v1.json
+    - study_id: 510300_REGIME_TRANSITION_ROUTER_V1
+      required_status: REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE
+      evidence: reports/research/510300_regime_transition_router_v1.json
+    - study_id: 510300_LIQUIDITY_STRESS_LONG_CYCLE_REPLICATION_V1
+      required_status: REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE
+      evidence: reports/research/510300_liquidity_stress_long_cycle_replication_v1.json
+  forbidden_reuse:
+    - PRESSURE_SCORE_AS_POSITION_INPUT
+    - EXHAUSTION_SCORE_AS_ENTRY_OR_REENTRY_INPUT
+    - REGIME_ROUTER_AS_SELL_OR_CASH_SWITCH
+    - SAME_HISTORY_THRESHOLD_WINDOW_LABEL_OR_MODEL_RESCUE
+
+governance:
+  phase_1_only: true
+  official_fact_data_gate_must_pass_before_price_read: true
+  one_frozen_mechanism_run_only: true
+  parameter_search_allowed: false
+  metric_weight_search_allowed: false
+  universe_window_industry_or_horizon_rescue_allowed: false
+  reverse_signal_after_failure_allowed: false
+  pressure_timing_input_allowed: false
+  portfolio_construction_allowed: false
+  strategy_sharpe_allowed: false
+  transaction_cost_evaluation_allowed: false
+  position_mapping: false
+  order_generation: false
+  broker_connection: false
+  paper_or_shadow_authorized: false
+  live_authorized: false
+
+periods:
+  official_event_archive_start: '2016-01-16'
+  feature_event_start: '2018-01-01'
+  feature_event_end: '2026-08-14'
+  early_period_start: '2018-01-01'
+  early_period_end: '2021-12-31'
+  late_period_start: '2022-01-01'
+  late_period_end: '2026-08-14'
+  outcome_cutoff: '2026-08-14'
+  incomplete_60d_or_120d_horizons_are_censored_no_view: true
+
+sources:
+  official_periodic_events:
+    path: data/raw/cninfo/a_share_hs_periodic_report_events_v2_1.parquet
+    receipt: reports/data_quality/A_SHARE_HS_CNINFO_PERIODIC_REPORT_EVENT_ARCHIVE_V2_1.json
+    required_status: PASS_OFFICIAL_PERIODIC_REPORT_EVENT_ARCHIVE_V2_1_CHRONOLOGY_VALID
+    official_pdf_host: static.cninfo.com.cn
+  csi300_membership:
+    path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    receipt: reports/data_quality/510300_csi300_pit_membership_2015_extension_v1.json
+    required_status: PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION
+    membership_clock: FIRST_COMMON_OPEN_SESSION_STRICTLY_AFTER_OFFICIAL_PUBLICATION_DATE
+    historical_index_weights_required_in_phase_1: false
+  industry_intervals:
+    path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/industry_l1_intervals.parquet
+    receipt: reports/data_quality/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit.json
+    required_receipt_status: READY_FOR_SIGNAL_CONSTRUCTION
+    required_hash_match: true
+  vendor_financial_snapshot:
+    path: data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet
+    vintage_audit: reports/data_quality/csi300_financial_vintage_audit_20260819.json
+    required_audit_status: BLOCKED_VENDOR_REVISION_RISK
+    allowed_use: EXTRACTION_CANDIDATE_ONLY_NEVER_ADMITTED_AS_HISTORICAL_FACT
+  official_fact_archive:
+    root: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1
+    facts: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/official_financial_facts.parquet
+    dependency_ledger: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/event_fact_dependency_ledger.parquet
+    receipt: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/receipt.json
+    required_receipt_status: PASS_OFFICIAL_PDF_VERIFIED_PIT_FINANCIAL_FACTS_V1
+    authority_rule: ONLY_VALUES_LOCATED_IN_THE_EARLIEST_CHRONOLOGY_VALID_ORIGINAL_FULL_OFFICIAL_PDF
+  deferred_market_data:
+    stock_training: data/raw/a_share_hash_holdout_v2/training_panel.parquet
+    stock_holdout: data/raw/a_share_hash_holdout_v2/holdout_panel.parquet
+    benchmark_training: data/raw/a_share_hash_holdout_v2/training_H00300.parquet
+    benchmark_holdout: data/raw/a_share_hash_holdout_v2/holdout_H00300.parquet
+    access_rule: FORBIDDEN_UNTIL_ALL_DATA_ADMISSION_GATES_PASS
+
+official_fact_contract:
+  storage_shape: LONG_ONE_ROW_PER_ANNOUNCEMENT_METRIC
+  key:
+    - announcement_id
+    - metric_id
+  required_identifier_columns:
+    - announcement_id
+    - ts_code
+    - report_period
+    - period_type
+    - event_publication_date
+    - official_pdf_url
+    - official_pdf_sha256
+    - metric_id
+    - metric_value_cny
+    - statement_scope
+    - value_period_scope
+    - source_page
+    - source_locator
+    - source_label
+    - verification_status
+  required_metrics:
+    - OPERATING_REVENUE_YTD
+    - OPERATING_PROFIT_YTD
+    - PARENT_NET_PROFIT_YTD
+    - CORE_PARENT_NET_PROFIT_YTD
+    - OPERATING_CASH_FLOW_YTD
+    - ACCOUNTS_RECEIVABLE_END
+    - INVENTORY_END
+    - TOTAL_ASSETS_END
+    - TOTAL_LIABILITIES_END
+  statement_scope: CONSOLIDATED_ONLY
+  currency: CNY
+  version_rule: EARLIEST_CHRONOLOGY_VALID_ORIGINAL_FULL_PERIODIC_REPORT
+  future_restatement_backfill_forbidden: true
+  current_vendor_value_without_pdf_location_forbidden: true
+  summary_report_forbidden_when_full_report_exists: true
+  corrected_or_restated_document_can_replace_original: false
+  percentages_per_share_values_and_unresolved_units_forbidden: true
+  unique_label_value_location_required: true
+  full_pdf_sha256_required: true
+  full_pdf_retention_required: false
+  candidate_value_sources:
+    - CNINFO_DATA20_OFFICIAL_STRUCTURED_DISPLAY_CANDIDATE_ONLY
+    - SSE_XBRL_OFFICIAL_STRUCTURED_DISPLAY_CANDIDATE_ONLY
+    - EXISTING_VENDOR_SNAPSHOT_CANDIDATE_ONLY
+  admitted_verification_status: PASS_OFFICIAL_ORIGINAL_PDF_LABEL_VALUE_UNIT_VERIFIED
+
+data_admission:
+  gates:
+    - G1_LEGACY_STRESS_PROGRAM_TERMINAL_STATES_MATCH
+    - G2_OFFICIAL_EVENT_CHRONOLOGY_PASS
+    - G3_OFFICIAL_PIT_CSI300_MEMBERSHIP_PASS
+    - G4_PIT_INDUSTRY_INTERVAL_COVERAGE_PASS
+    - G5_VENDOR_REVISION_RISK_IS_QUARANTINED
+    - G6_OFFICIAL_PDF_VERIFIED_FACT_ARCHIVE_PASS
+    - G7_NO_MARKET_PRICE_OR_FUTURE_RETURN_READ_BEFORE_G1_TO_G6_PASS
+  minimum_industry_interval_coverage_ratio: 0.99
+  minimum_official_fact_complete_event_ratio: 0.90
+  minimum_complete_event_ratio_each_publication_year: 0.80
+  minimum_complete_event_ratio_each_industry_with_at_least_50_targets: 0.75
+  all_required_metrics_must_be_present_for_each_complete_dependency_document: true
+  all_gates_required: true
+  pass_status: PASS_CSI300_PIT_FUNDAMENTAL_UNDERREACTION_DATA_CONTRACT_PRICE_READ_ALLOWED
+  fail_status: NO_VIEW_CSI300_PIT_FUNDAMENTAL_UNDERREACTION_DATA_CONTRACT_FAILED
+  fail_return_evaluation: NOT_ALLOWED
+
+universe:
+  definition: OFFICIAL_PIT_CSI300_MEMBERS_ON_FIRST_COMMON_OPEN_STRICTLY_AFTER_PUBLICATION_DATE
+  exchanges: [SSE, SZSE]
+  period_types: [Q1, H1, Q3, FY]
+  require_full_original_periodic_report: true
+  require_point_in_time_industry: true
+  excluded_industry_l1_codes:
+    - 801780.SI
+    - 801790.SI
+  excluded_industry_reason: 银行与非银金融报表结构不满足同一经营利润现金流营运资本链，预先排除且不得按结果改变
+  minimum_trailing_reference_events_same_industry_and_period_type: 30
+  trailing_reference_calendar_days: 730
+
+feature_contract:
+  information_clock: OFFICIAL_EVENT_PUBLICATION_DATE
+  conservative_first_available_session: FIRST_COMMON_OPEN_STRICTLY_AFTER_PUBLICATION_DATE
+  reaction_window:
+    start: FIRST_COMMON_OPEN_STRICTLY_AFTER_PUBLICATION_DATE
+    end: FIFTH_COMMON_SESSION_CLOSE_AFTER_PUBLICATION_DATE
+  formation_clock: FIFTH_COMMON_SESSION_CLOSE_AFTER_PUBLICATION_DATE
+  future_return_origin: FORMATION_CLOSE
+  ttm_formula: CURRENT_YTD_PLUS_PREVIOUS_FY_MINUS_PREVIOUS_SAME_YTD_FY_USES_CURRENT_FY
+  no_future_comparative_column_backfill: true
+  operating_improvement:
+    revenue_growth_acceleration: CURRENT_SINGLE_QUARTER_YOY_REVENUE_GROWTH_MINUS_PREVIOUS_SINGLE_QUARTER_YOY_REVENUE_GROWTH
+    operating_margin_change: CURRENT_SINGLE_QUARTER_OPERATING_MARGIN_MINUS_PRIOR_YEAR_SAME_QUARTER_OPERATING_MARGIN
+    operating_roa_change: CURRENT_TTM_OPERATING_PROFIT_DIVIDED_BY_AVERAGE_ASSETS_MINUS_PRIOR_YEAR_COMPARABLE
+    continuity: AT_LEAST_TWO_OF_LAST_THREE_SEQUENTIAL_REPORTS_HAVE_NONNEGATIVE_MEDIAN_OPERATING_IMPROVEMENT
+    strength_percentile: MEDIAN_OF_THREE_TRAILING_PIT_PERCENTILE_RANKS_AFTER_CONTINUITY_PASS
+  quality_confirmation:
+    cash_conversion_change: TTM_OPERATING_CASH_FLOW_DIVIDED_BY_TTM_OPERATING_PROFIT_CHANGE_VS_PRIOR_YEAR
+    working_capital_intensity_change: ACCOUNTS_RECEIVABLE_PLUS_INVENTORY_DIVIDED_BY_TTM_REVENUE_CHANGE_VS_PRIOR_YEAR
+    core_profit_share_change: CORE_PARENT_NET_PROFIT_DIVIDED_BY_PARENT_NET_PROFIT_CHANGE_VS_PRIOR_YEAR
+    liability_ratio_change: TOTAL_LIABILITIES_DIVIDED_BY_TOTAL_ASSETS_CHANGE_VS_PRIOR_YEAR
+    denominator_rule: POSITIVE_AND_NONZERO_REQUIRED_OTHERWISE_NO_VIEW
+    pass_rule: AT_LEAST_THREE_OF_FOUR_NONDETERIORATING_AND_NO_METRIC_MISSING
+  initial_reaction:
+    stock_total_return_minus_510300_total_return: FIRST_OPEN_TO_FIFTH_CLOSE
+    percentile: TRAILING_PIT_PERCENTILE_WITHIN_SAME_INDUSTRY_AND_PERIOD_TYPE
+  score:
+    formula: OPERATING_IMPROVEMENT_STRENGTH_PERCENTILE_MINUS_INITIAL_REACTION_PERCENTILE
+    range: [-1.0, 1.0]
+    higher_means: STRONGER_VERIFIED_FUNDAMENTAL_IMPROVEMENT_WITH_LESS_INITIAL_PRICE_REACTION
+    score_only_when_quality_gate_passes: true
+    factor_weight_search_forbidden: true
+
+phase_1_evaluation:
+  horizons_market_sessions: [60, 120]
+  outcome: STOCK_TOTAL_RETURN_MINUS_510300_TOTAL_RETURN_FROM_FORMATION_CLOSE
+  portfolio_return: NOT_CALCULATED
+  strategy_sharpe: NOT_CALCULATED
+  costs: NOT_APPLICABLE_IN_PHASE_1_EVENT_MECHANISM_TEST
+  primary_groups: FIVE_EQUAL_COUNT_SCORE_GROUPS_WITHIN_PUBLICATION_YEAR_AND_PERIOD_TYPE
+  gates:
+    monotonicity:
+      minimum_nonnegative_adjacent_steps_each_horizon: 3
+      q5_minus_q1_positive_each_horizon: true
+      spearman_score_outcome_positive_each_horizon: true
+    chronological_split:
+      q5_minus_q1_positive_in_early_and_late_period_each_horizon: true
+    industries:
+      minimum_industry_event_count: 30
+      strictly_more_than_half_eligible_industries_positive_each_horizon: true
+    leave_one_year_out:
+      q5_minus_q1_positive_for_every_deleted_publication_year_each_horizon: true
+    leave_one_industry_out:
+      q5_minus_q1_positive_for_every_deleted_eligible_industry_each_horizon: true
+    extreme_stock_dependency:
+      q5_minus_q1_positive_after_deleting_top_and_bottom_1_percent_stock_outcomes_each_horizon: true
+      q5_median_relative_return_positive_each_horizon: true
+  all_conditions_required: true
+  pass_status: PHASE_1_FUNDAMENTAL_UNDERREACTION_MECHANISM_PASS_PHASE_2_FREEZE_ALLOWED
+  fail_status: REJECTED_FROZEN_PHASE_1_FUNDAMENTAL_UNDERREACTION_MECHANISM_FAILED_NO_RESCUE
+
+phase_2_if_phase_1_passes:
+  allowed_in_same_run: false
+  requires_new_frozen_version: true
+  target_holdings: 15_TO_25
+  equity_exposure: NORMALLY_FULLY_INVESTED_NO_INDEX_TIMING
+  industry_and_large_cap_style_near_csi300: true
+  capital_cny: 200000
+  commission_rate: 0.0002
+  minimum_commission_cny: 5
+  board_lot_shares: 100
+  realistic_slippage_required: true
+  pressure_router_input_forbidden: true
+
+forbidden_after_results:
+  - 改财务指标方向权重连续性或质量通过规则救援
+  - 改公告后反应窗口形成时钟60日或120日期限救援
+  - 改样本起止早晚分割行业排除或最小样本门槛救援
+  - 删除不利年份行业股票或极端负收益事件救援
+  - 用当前供应商终值更正值或未来比较列回填历史
+  - 加入压力路由器技术指标宏观政策基金持仓或机器学习救援
+  - 把事件相对收益机制通过称为组合净夏普通过或交易授权
+
+artifacts:
+  protocol_document: docs/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_ENHANCEMENT_V1_PROTOCOL.md
+  protocol_manifest: config/csi300_pit_fundamental_underreaction_enhancement_v1_manifest.json
+  terminal_status_json: reports/research/510300_time_series_stress_timing_program_terminal_status.json
+  terminal_status_markdown: reports/research/510300_TIME_SERIES_STRESS_TIMING_PROGRAM_TERMINAL_STATUS.md
+  target_event_inventory: data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/target_event_inventory_without_returns.parquet
+  preflight_json: reports/data_quality/csi300_pit_fundamental_underreaction_enhancement_v1_preflight.json
+  preflight_markdown: reports/data_quality/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_ENHANCEMENT_V1_PREFLIGHT.md

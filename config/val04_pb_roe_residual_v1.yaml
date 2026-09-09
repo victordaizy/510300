@@ -1,0 +1,117 @@
+protocol:
+  project_id: "VAL04_PB_ROE_RESIDUAL_V1"
+  version: "1.0.0"
+  freeze_date: "2026-08-19"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_SIGNAL_PROTOCOL_HISTORICALLY_CONTAMINATED"
+  registered_trial_id: "VAL04_PB_ROE_RESIDUAL"
+  return_calculation_enabled: false
+  ic_calculation_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+universe_and_time:
+  index: "000300.SH"
+  snapshot_start: "2016-08-31"
+  snapshot_end: "2026-07-31"
+  expected_snapshot_count: 120
+  expected_constituents_per_snapshot: 300
+  snapshot_frequency: "MONTHLY_OFFICIAL_WEIGHT_DATE"
+  industry_taxonomy: "SW_L1_POINT_IN_TIME"
+
+cross_sectional_model:
+  frequency: "ONE_UNWEIGHTED_OLS_PER_SNAPSHOT"
+  dependent_variable: "log_price_to_book"
+  dependent_formula: "log(raw_close / book_value_per_share)"
+  complete_case_required: true
+  sector_fixed_effect_encoding: "ONE_DUMMY_PER_ACTIVE_SW_L1_WITHOUT_GLOBAL_INTERCEPT"
+  roe_input: "clip(ttm_roe,-0.5,0.8)"
+  growth_input: "clip(ttm_revenue_growth_yoy,-1.0,1.0)"
+  estimator: "NUMPY_LSTSQ_RCOND_NONE_FLOAT64"
+  observation_weighting: "UNWEIGHTED_COMPANY_CROSS_SECTION"
+  formula: "log(PB_i_t)=a_sector_t+b1_t*ROE_clipped_i_t+b2_t*RevenueGrowth_clipped_i_t+epsilon_i_t"
+  company_cheapness: "-epsilon_i_t"
+  cheap_direction: "HIGHER_IS_CHEAPER"
+  coefficient_search_enabled: false
+  winsorization_search_enabled: false
+  alternative_growth_enabled: false
+  simple_z_bp_plus_z_roe_variant_enabled: false
+
+index_signal:
+  formula: "sum(snapshot_weight_i*company_cheapness_i)/sum(snapshot_weight_i for complete cases)"
+  missing_company_rule: "只在V2数据闸门已通过的完整样本内重新归一化官方权重"
+  minimum_complete_case_weight_coverage: 0.90
+  raw_signal_column: "weighted_pb_roe_residual_cheapness"
+  percentile_column: "pb_roe_residual_percentile_60m"
+
+percentile_definition:
+  window_months: 60
+  include_current_observation: true
+  minimum_observations: 60
+  algorithm: "EXACT_EMPIRICAL_MIDRANK"
+  formula: "(count(window_value < current_value) + 0.5 * count(window_value == current_value)) / 60"
+  missing_window_rule: "NO_SIGNAL_UNTIL_ALL_60_MONTHS_PASS"
+  expected_first_ready_observation_date: "2021-07-30"
+  expected_first_earliest_execution_date: "2021-08-02"
+  expected_ready_observation_count: 61
+
+availability_and_execution:
+  information_cutoff: "SNAPSHOT_DATE_CLOSE"
+  earliest_execution_rule: "NEXT_INDEX_TRADING_DAY_OPEN"
+  review_frequency: "MONTHLY_SNAPSHOT"
+  carry_rule_between_reviews: "NOT_APPLIED_IN_SIGNAL_STAGE"
+
+research_buckets_not_positions:
+  - {id: "B1_EXPENSIVE", lower_inclusive: 0.00, upper_exclusive: 0.20}
+  - {id: "B2", lower_inclusive: 0.20, upper_exclusive: 0.40}
+  - {id: "B3", lower_inclusive: 0.40, upper_exclusive: 0.60}
+  - {id: "B4_CHEAP", lower_inclusive: 0.60, upper_inclusive: 1.00}
+
+trial_registration:
+  registered_trials_consumed: ["VAL04_PB_ROE_RESIDUAL"]
+  primary_models_in_family: 1
+  forbidden_unregistered_variants:
+    - "改用中信或静态行业标签"
+    - "改用利润增长、分析师增长或删除增长项"
+    - "改变ROE和营收增速固定截断边界"
+    - "改用市值加权回归或行业内分别回归"
+    - "改变60月分位窗口或研究分档"
+    - "并行测试简单z(B/P)+z(ROE)后选择赢家"
+
+data_contracts:
+  feasibility_v2_result_manifest:
+    file: "config/val04_pb_roe_residual_data_feasibility_v2_result_manifest.json"
+    sha256: "4f5f97f2780d1672435eee98bfe82854aa0004a7f95351be5c45efc7fc96b30c"
+  constituent_feasibility_panel:
+    file: "data/features/000300_val04_pb_roe_residual_feasibility_constituents_v2.parquet"
+    sha256: "6b878fa9e39f555bd36eb7beb5ba100cfe747b346a3f9a723add49fd01f1d170"
+  snapshot_feasibility_audit:
+    file: "data/audit/000300_val04_pb_roe_residual_feasibility_snapshots_v2.parquet"
+    sha256: "c0b4de92e291db670d1be972e415874d37364af1eb57fd0737dbb3b0acd7de44"
+  index_daily_calendar:
+    file: "data/raw/market/000300_daily_feature_warmup.parquet"
+    sha256: "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec"
+
+artifacts:
+  company_residuals: "data/features/000300_val04_pb_roe_residual_v1_company_residuals.parquet"
+  signal_inputs: "data/features/000300_val04_pb_roe_residual_v1_signal_inputs.parquet"
+  signal_report_json: "reports/data_quality/000300_val04_pb_roe_residual_v1_signal_input_gate.json"
+  signal_report_markdown: "reports/data_quality/000300_val04_pb_roe_residual_v1_signal_input_gate.md"
+  protocol_manifest: "config/val04_pb_roe_residual_v1_protocol_manifest.json"
+  model_manifest: "config/val04_pb_roe_residual_v1_manifest.json"
+
+next_stage_gate:
+  pass_status: "PASS_PREDICTIVE_PROTOCOL_MAY_BE_FROZEN"
+  fail_status: "NO_VIEW_SIGNAL_BUILD_FAILED_PREDICTIVE_EVALUATION_FORBIDDEN"
+
+governance:
+  future_return_reading_allowed: false
+  predictive_evaluation_allowed_before_protocol_freeze: false
+  strategy_return_calculation_allowed: false
+  position_mapping_enabled: false
+  target_share_generation_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  parent_data_feasibility_files_mutated: false

@@ -1,0 +1,39 @@
+protocol:
+  project_id: 510300_OPTION_IVS_TRANSFER_V1_VALIDATION_2024
+  state: FROZEN_BEFORE_2024_OUTCOMES
+  formula_manifest: config/510300_option_ivs_transfer_v1_manifest.json
+  formula_manifest_sha256: dd27abe1fec35bab903b0d23dab941f3e0cfcc077bba3d4aec9b360721451f49
+  development_result: reports/discovery/510300_option_ivs_transfer_v1_dev.json
+  development_result_sha256: 0adb596b6479af5fb8872e57c7674c9392592bd9ab133f71908111a68c624466
+  development_predictions: data/features/510300_option_ivs_transfer_v1_dev_predictions.parquet
+  development_predictions_sha256: 04e0c5bb27d9a9a7c89c7c78736035aa847acf0159ac3defdbff47c2f293f851
+  formula_or_threshold_change_allowed: false
+
+validation:
+  entry_start: '2024-01-01'
+  exit_end: '2024-12-31'
+  include_signal_from_prior_month_when_entry_is_in_2024: true
+  benchmark: H00300沪深300全收益指数
+  annualized_excess_minimum: 0.20
+  minimum_opening_trade_gate: true
+
+final_holdout:
+  start: '2025-01-01'
+  end: '2026-08-14'
+  access_authorized: false
+
+paths:
+  manifest: config/510300_option_ivs_transfer_v1_validation_2024_manifest.json
+  result_json: reports/validation/510300_option_ivs_transfer_v1_validation_2024.json
+  result_markdown: reports/validation/510300_option_ivs_transfer_v1_validation_2024.md
+  predictions: data/features/510300_option_ivs_transfer_v1_validation_2024_predictions.parquet
+
+governance:
+  formula_change: FORBIDDEN
+  threshold_change: FORBIDDEN
+  final_holdout_access: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

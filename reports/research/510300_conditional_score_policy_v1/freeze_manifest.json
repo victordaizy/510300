@@ -1,0 +1,79 @@
+{
+  "study_id": "510300_CONDITIONAL_SCORE_POLICY_V1",
+  "created_at": "2026-09-05T21:19:02.207150+08:00",
+  "state": "PRE_RETURN_FROZEN",
+  "new_model_fits": 0,
+  "main_evaluation_read": false,
+  "implementation": [
+    {
+      "path": "config/510300_conditional_score_policy_v1.json",
+      "bytes": 2812,
+      "sha256": "ef15c77e8c466e42a8b10e5265e53bcc7e49a2577ef462a8bd4727da1fe93c80"
+    },
+    {
+      "path": "docs/510300_CONDITIONAL_SCORE_POLICY_V1_PROTOCOL.md",
+      "bytes": 10358,
+      "sha256": "3f89b7e08c506ac48f17780e314b98d62319e205b06e52ce6c88fb1a9109f623"
+    },
+    {
+      "path": "docs/510300_CONDITIONAL_SCORE_POLICY_V1_USER_TEXT_20260905.txt",
+      "bytes": 22590,
+      "sha256": "41c76253c3b7606992032ffa19ed967d1b9d80bbd1fe371fb1ae86d58dc86b06"
+    },
+    {
+      "path": "scripts/run_510300_conditional_score_policy_v1.py",
+      "bytes": 45073,
+      "sha256": "2dfcb594563db0f0c85a7eec2ef70d0406694b225bbedf32d144fb119416ed84"
+    },
+    {
+      "path": "research/conditional_score_policy_v1.py",
+      "bytes": 21634,
+      "sha256": "e63883797f0eb532410efd5114a402137a77bc8f7891541847f0ec6e45a9e984"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "bytes": 47324,
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "tests/test_510300_conditional_score_policy_v1.py",
+      "bytes": 11014,
+      "sha256": "e9a430376a68cadd484df7c886783113c325fb81d74391273a4da74eace992db"
+    }
+  ],
+  "inputs": {
+    "prices": {
+      "path": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+      "bytes": 139835,
+      "sha256": "d58ace846e1596a428b2a31eb8fad888d049e4c89ccfde3082487514a307d8b5"
+    },
+    "dividends": {
+      "path": "data/reference/510300_dividends.csv",
+      "bytes": 2021,
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    "calendar": {
+      "path": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+      "bytes": 35123,
+      "sha256": "a8d08d77c871e948ab2d66a9afab08f08629343945f8bc70dfce8f407a62f9be"
+    },
+    "price_receipt": {
+      "path": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+      "bytes": 4445,
+      "sha256": "248b1b1cd3d064378bf5e97fcafc190ff438fa4c7935b701dbfa3a7b11d3e417"
+    },
+    "dividend_coverage": {
+      "path": "data/reference/510300_dividends_coverage.json",
+      "bytes": 6990,
+      "sha256": "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"
+    }
+  },
+  "runtime": {
+    "python": "3.13.0",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scipy": "1.18.0"
+  },
+  "authorization": "本轮用户原文明确授权独立连续评分持仓历史研究；只生成模拟账户",
+  "source_limit": "历史已被多轮研究观察，不能称为全新盲测"
+}

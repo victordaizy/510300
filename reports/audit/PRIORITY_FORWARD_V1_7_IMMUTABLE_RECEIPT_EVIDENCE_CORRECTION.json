@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "PRIORITY_FORWARD_V1_7_IMMUTABLE_RECEIPT_EVIDENCE_CORRECTION",
+  "generated_at": "2026-08-26T06:42:21.4233318+08:00",
+  "status": "PASS_V1_7_DEPLOYED_AWAITING_REAL_WINDOWS",
+  "defect": {
+    "affected_entrypoint": "scripts/run_priority_forward_codex_automation_v1_6.py",
+    "affected_phase": "close",
+    "deterministic_reproduction_time": "2026-08-26T19:00:00+08:00",
+    "reproduction_exit_code": 1,
+    "exception_type": "ValueError",
+    "exception_message": "priority_forward_authoritative_status_v1_6.json未明确关闭字段：position_mapping_enabled",
+    "root_cause": "可变聚合状态被纳入通用已运行证据集合；其execution_authorization嵌套模式与通用回执顶层模式不兼容。",
+    "v1_6_manifest_modified": false,
+    "v1_6_authoritative_status_modified": false
+  },
+  "correction": {
+    "change_class": "OPERATIONAL_EVIDENCE_ADMISSION_CORRECTION",
+    "entrypoint": "scripts/run_priority_forward_codex_automation_v1_7.py",
+    "supervisor_config": "config/priority_forward_supervisor_v1_3.yaml",
+    "deduplication_evidence": "IMMUTABLE_TASK_RECEIPTS_ONLY",
+    "mutable_aggregate_status_is_attempt_evidence": false,
+    "same_day_atomic_claim_enabled": true,
+    "late_backfill_enabled": false,
+    "research_protocol_changed": false,
+    "model_or_candidate_changed": false,
+    "historical_signal_changed": false,
+    "data_purchase_budget_cny": 0,
+    "maximum_active_research_streams": 2
+  },
+  "frozen_manifest": {
+    "path": "config/priority_forward_research_operations_v1_7_manifest.json",
+    "sha256": "50d40ecefd3fdf8aa7f6de1f5db11c37edfa41ff04f75fe3edb295800a93aa49",
+    "content_sha256": "6f08cd381e2a40cb95d91e8b996f4a0f41aa65959cc8f036366487b79d653ef6",
+    "tracked_file_count": 40,
+    "failure_count": 0
+  },
+  "deployment": {
+    "windows_task": {
+      "task_name": "Codex-510300-Primary-Market-Collector",
+      "next_run_time": "2026-08-26T09:25:00.0000000+08:00",
+      "exact_match": true,
+      "restart_count": 0,
+      "start_when_available": false,
+      "multiple_instances": "IgnoreNew"
+    },
+    "codex_automations": [
+      {
+        "id": "510300-pcf-iopv",
+        "status": "ACTIVE",
+        "schedule": "WORKDAYS_09_20_ASIA_SHANGHAI",
+        "toml_sha256": "6d1e7da1845f914971fcfe4e6471f0c3f8c3313b21e62853a12e231f6b49a36c"
+      },
+      {
+        "id": "510300",
+        "status": "ACTIVE",
+        "schedule": "WORKDAYS_19_00_ASIA_SHANGHAI",
+        "toml_sha256": "dbf35405e1fdbe4c29684bb89f7fa8bd2a435a90d9e713c7676ecc3c65a4fbc3"
+      }
+    ]
+  },
+  "verification": {
+    "v1_7_close_dry_run_exit_code": 0,
+    "v1_7_close_dry_run_decisions": [
+      "RUN_NOW",
+      "RUN_NOW"
+    ],
+    "v1_7_morning_dry_run_exit_code": 0,
+    "v1_7_morning_dry_run_decision": "RUN_NOW",
+    "t_only_v1_2_dry_run_status": "DRY_RUN_PASS",
+    "related_tests_passed": 56,
+    "related_tests_failed": 0,
+    "dry_runs_wrote_receipts": false,
+    "dry_runs_wrote_logs": false,
+    "dry_runs_wrote_claims": false
+  },
+  "current_completion": {
+    "satisfied": 17,
+    "pending": 7,
+    "contradictions": 0,
+    "goal_completion_proven": false,
+    "pending_requirement_ids": [
+      "R07",
+      "R08",
+      "R10",
+      "R12",
+      "R13",
+      "R16",
+      "R22"
+    ]
+  },
+  "next_evidence_windows": [
+    "2026-08-26T09:20:00+08:00_CODEX_HEARTBEAT",
+    "2026-08-26T09:25:00+08:00_WINDOWS_TASK",
+    "2026-08-26T16:30:00+08:00_T_ONLY",
+    "2026-08-26T19:00:00+08:00_CLOSE_ACCEPTANCE"
+  ]
+}

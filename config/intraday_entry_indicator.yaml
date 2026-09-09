@@ -1,0 +1,43 @@
+indicator:
+  indicator_id: "510300_15M_REGIME_ENTRY_V1"
+  name: "510300十五分钟状态切换加减仓时点指标"
+  version: "1.1.0"
+  research_status: "EXPLORATORY_NOT_PRE_REGISTERED"
+  signal_observation: "CURRENT_15M_BAR_CLOSE"
+  earliest_execution: "NEXT_TRADABLE_BAR_OPEN"
+
+data:
+  bars_file: "data/raw/market/510300_15m_from_1m_raw.parquet"
+  quality_file: "reports/data_quality/510300_15m_from_1m_quality.json"
+  intraday_breadth_file: null
+  breadth_schema:
+    timestamp_column: "signal_asof"
+    value_column: "breadth_fraction"
+
+parameters:
+  first_entry_bar_slot: 3
+  last_entry_bar_slot: 15
+  trend_adx_minimum: 20.0
+  range_adx_maximum: 18.0
+  trend_vwap_slope_3bar_bps_minimum: 0.0
+  range_vwap_slope_3bar_abs_bps_maximum: 3.0
+  orb_breakout_bps_minimum: 0.0
+  time_of_day_rvol_minimum: 1.3
+  mean_reversion_vwap_deviation_atr_maximum: -0.8
+  mean_reversion_rsi_7bar_maximum: 30.0
+  mean_reversion_vwap_deviation_atr_minimum_for_sell: 0.8
+  mean_reversion_rsi_7bar_minimum_for_sell: 70.0
+  breadth_confirmation_minimum: 0.55
+  breadth_policy: "DISABLED_510300_ONLY"
+
+output:
+  indicator_file: "data/features/510300_intraday_entry_indicator.parquet"
+  latest_signal_file: "paper/510300_intraday_entry_latest_signal.json"
+  report_file: "reports/research/510300_intraday_entry_indicator.json"
+
+risk_and_execution:
+  t_plus_one: true
+  same_day_new_shares_sellable: false
+  interpretation: "买入信号用于估值允许下的加仓时点；卖出信号用于估值要求下的减仓时点；危机强制减仓不得等待技术信号"
+  closing_bar_entry_disabled: true
+  automatic_order_authorized: false

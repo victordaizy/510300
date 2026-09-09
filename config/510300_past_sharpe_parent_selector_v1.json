@@ -1,0 +1,198 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_PAST_SHARPE_PARENT_SELECTOR_V1",
+  "round": 89,
+  "objective": "SELECT_POSITIVE_HIGHEST_PAST_FULL_ACCOUNT_SHARPE_OR_CASH",
+  "registered_at": "2026-09-08T12:48:58.061109+08:00",
+  "primary": "PAST_SHARPE_PARENT_SELECTOR",
+  "candidate_configurations": 1,
+  "selection_window": 242,
+  "selection_clock": "MONTH_FIRST_COMPLETE_CLOSE_NEXT_OPEN",
+  "state_cost": "BASE",
+  "initial_selection": "TWO_POLICY_MIN_VARIANCE",
+  "missing_or_zero_volatility": "NO_VIEW_KEEP_PREVIOUS_SELECTION",
+  "positive_threshold": 0.0,
+  "tie": "KEEP_CURRENT_PARENT_OR_TWO_AFTER_CASH",
+  "parent_models": [
+    "TWO_POLICY_MIN_VARIANCE",
+    "THREE_POLICY_MIN_VARIANCE"
+  ],
+  "rules": "docs/510300_PAST_SHARPE_PARENT_SELECTOR_V1.md",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "previous_goal_turn_classification": "PROGRESS_ROUND88_COMPLETED_AND_DELIVERED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "research\\past_sharpe_parent_selector_v1.py",
+      "sha256": "0df3d0766d6bc1b9385c2e101350be222bbb0ae20053a01d77ed4bde4c73c381"
+    },
+    {
+      "path": "research\\past_sharpe_parent_selector_inputs_v1.py",
+      "sha256": "10fa8c9152ef0556ed3a74ba7f5d32288b1696894b85048d6f40d47719e2caee"
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\simple_signal_blend_v1.py",
+      "sha256": "4abc19cb70f715c1d4637ae22fd989d4a9954d15caee9013df40861e209dfb27"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_PAST_SHARPE_PARENT_SELECTOR_V1.md",
+      "sha256": "df3c50b022f6a4cf9cef13b74e608210bc3c459076d91323a5fc27a774a34377"
+    },
+    {
+      "path": "tests\\test_past_sharpe_parent_selector_v1.py",
+      "sha256": "5ed73fef3d2f52ecabc3cd5bd9c12b1b3a7d0b49f577e4cf5d7a61cf14d2cb1e"
+    },
+    {
+      "path": "reports\\research\\510300_past_sharpe_parent_selector_v1\\tests_receipt.json",
+      "sha256": "ba5e5ed0f88dc549d13d9012f5d84b05f453516e9f50f2d6adc1192c2b47bf86"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "config\\510300_two_policy_min_variance_v1.json",
+      "sha256": "604a8d355140ccdb573e6153bf17cb09ebc8b2c9a1319c5130750dec0a867be1"
+    },
+    {
+      "path": "config\\510300_three_policy_min_variance_v1.json",
+      "sha256": "0802c6af458d83584f90e498ada56a332e92dffd778edcd6a69f7ebe5e3c0dc9"
+    },
+    {
+      "path": "docs\\510300_TWO_POLICY_MIN_VARIANCE_V1.md",
+      "sha256": "dec9a75f960b43da0cd45f7a6b035dbcc2fb7a016c28eeb2ecefb39b94feda59"
+    },
+    {
+      "path": "docs\\510300_THREE_POLICY_MIN_VARIANCE_V1.md",
+      "sha256": "7006da55b685048a46c1dd214ec02594615791352239201d56777e52e7031eba"
+    },
+    {
+      "path": "reports\\research\\510300_two_policy_min_variance_v1\\evaluation\\BASE\\TWO_POLICY_MIN_VARIANCE_decisions.parquet",
+      "sha256": "2d341e20ca47883fbd5ff23a3fecbf77fa469bae458d6c8aaaef9a36eed4f55f"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\BASE\\THREE_POLICY_MIN_VARIANCE_decisions.parquet",
+      "sha256": "cd4231016e6367f30e90e4f1c45573b684be63ecefcd6aedc0ab7f610d58d058"
+    },
+    {
+      "path": "reports\\research\\510300_two_policy_min_variance_v1\\evaluation\\BASE\\TWO_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "8f23aca63ff33786f2099dc01fe3561f364d0757207c73d2c27493bb2aefad5f"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\BASE\\THREE_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "d20bcf12a0ca2e5ed2e1ee137cbbd8f2dbba09a1ca0c844108b0423af6b3b2d0"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "47328ffcbb2a67ad7ae2af51204c66bd23a8c0f2b9c8950b9498a4d79a5060b5"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_two_policy_min_variance_v1\\evaluation\\STRESS\\TWO_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "28785666f378b6b91f3bd5e7ff08cde3240c4b76741778b20c1b3e9e9b412b2f"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\STRESS\\THREE_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "09753efd2a793ce00bbae9bc2aa9cf197fb7dda9d8354220dcb4bb71ccd8ac04"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "b7aa5bd819ef522cffcd6e6a09a9ae7601449748355d8eacf83300084170bded"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_two_policy_min_variance_v1\\earlier_diagnostic\\BASE\\TWO_POLICY_MIN_VARIANCE_decisions.parquet",
+      "sha256": "e29afc2e6da7af743d35a87d3a04be2ca1b8a507bcd17ccd74bcaad20e1c4e70"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\BASE\\THREE_POLICY_MIN_VARIANCE_decisions.parquet",
+      "sha256": "c4a9d08db0f583354fce5a09caba2f99c216102f78b7039450c1de2f81a803cb"
+    },
+    {
+      "path": "reports\\research\\510300_two_policy_min_variance_v1\\earlier_diagnostic\\BASE\\TWO_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "a58a61673f755cab19025671a5e7409a6e731e83455d4665917cc4f5ffc92b13"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\BASE\\THREE_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "18301a71103de544afcc99bea218903ce60956290bf50ea80e3e8a3f01473cd5"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "1413b70183eeae7136150eba5bc874210c3c4385ee8de4e19d0eb5a4492fa555"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_two_policy_min_variance_v1\\earlier_diagnostic\\STRESS\\TWO_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "dcc3a17a46b11ba770b146efb37254282c3e1ed693875acf2b60bfb6904f2b3a"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\STRESS\\THREE_POLICY_MIN_VARIANCE_ledger.parquet",
+      "sha256": "6311810b3dcf7912f30dce5bd6ec0cb2b443b712dba3994c5fd8f0b11973f739"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "36141ad66ed2e9378c45664f9e8181cd693f1245158f240367abf8bac190407a"
+    },
+    {
+      "path": "reports\\research\\510300_three_policy_min_variance_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    }
+  ]
+}

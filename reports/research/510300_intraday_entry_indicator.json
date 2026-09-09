@@ -1,0 +1,51 @@
+{
+  "status": "PASS_EXPLORATORY_INDICATOR",
+  "generated_at": "2026-08-14T01:58:34.108407+08:00",
+  "indicator_id": "510300_15M_REGIME_ENTRY_V1",
+  "indicator_version": "1.1.0",
+  "research_status": "EXPLORATORY_NOT_PRE_REGISTERED",
+  "input": {
+    "bars_file": "data/raw/market/510300_15m_from_1m_raw.parquet",
+    "bars_sha256": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1",
+    "quality_file": "reports/data_quality/510300_15m_from_1m_quality.json"
+  },
+  "output": "data/features/510300_intraday_entry_indicator.parquet",
+  "row_count": 19376,
+  "first_signal_asof": "2021-08-12T09:45:00",
+  "last_signal_asof": "2026-08-12T15:00:00",
+  "signal_counts": {
+    "NO_ENTRY": 13187,
+    "INSUFFICIENT_DATA": 3893,
+    "ENTRY_WINDOW_CLOSED": 1191,
+    "TREND_BREAKOUT_ETF_ONLY": 1104,
+    "MEAN_REVERSION_BUY": 1
+  },
+  "entry_condition_bar_count": 1105,
+  "entry_event_count": 317,
+  "fully_confirmed_event_count": 317,
+  "exit_condition_bar_count": 1022,
+  "exit_event_count": 300,
+  "parameters": {
+    "first_entry_bar_slot": 3,
+    "last_entry_bar_slot": 15,
+    "trend_adx_minimum": 20.0,
+    "range_adx_maximum": 18.0,
+    "trend_vwap_slope_3bar_bps_minimum": 0.0,
+    "range_vwap_slope_3bar_abs_bps_maximum": 3.0,
+    "orb_breakout_bps_minimum": 0.0,
+    "time_of_day_rvol_minimum": 1.3,
+    "mean_reversion_vwap_deviation_atr_maximum": -0.8,
+    "mean_reversion_rsi_7bar_maximum": 30.0,
+    "mean_reversion_vwap_deviation_atr_minimum_for_sell": 0.8,
+    "mean_reversion_rsi_7bar_minimum_for_sell": 70.0,
+    "breadth_confirmation_minimum": 0.55,
+    "breadth_policy": "DISABLED_510300_ONLY"
+  },
+  "breadth_status": "DISABLED_510300_ONLY_SCOPE",
+  "limitations": [
+    "当前范围只研究510300 ETF，成分股盘中广度已禁用且不参与信号",
+    "依赖精确high/low的ORB、ATR和ADX仅在原生15分钟OHLCV及完成预热后生成正式候选",
+    "本产物是进场指标而非收益回测，不包含止盈止损、仓位优化或自动下单授权",
+    "510300实行T+1，当天新买份额不可当天卖出"
+  ]
+}

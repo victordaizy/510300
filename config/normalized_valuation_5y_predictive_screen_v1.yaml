@@ -1,0 +1,124 @@
+protocol:
+  project_id: "NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-19"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_HISTORICALLY_CONTAMINATED_PREDICTIVE_SCREEN"
+  label_data_cutoff: "2026-08-12"
+  forward_label_generation_enabled: false
+  frozen_label_reuse_enabled: true
+  predictive_ic_calculation_enabled: true
+  historical_strategy_return_calculation_enabled: false
+  historical_position_mapping_enabled: false
+  current_position_mapping_enabled: false
+  target_share_generation_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+label_contract:
+  label_table_signal_value_free: true
+  expected_label_rows: 183
+  expected_signal_dates: 61
+  horizons_trading_days: [60, 120, 242]
+  expected_matured_counts: {60: 58, 120: 55, 242: 49}
+  expected_right_censored_counts: {60: 3, 120: 6, 242: 12}
+  entry_rule: "信号观察日之后首个510300、000300、H00300共同交易日开盘"
+  entry_day_is_holding_day_one: true
+  exit_rule: "第H个共同持有交易日收盘"
+  primary_target: "etf_total_return"
+  confirmation_target: "h00300_total_return"
+  primary_horizon_trading_days: 242
+  secondary_diagnostic_horizons_trading_days: [60, 120]
+  right_censor_rule: "数据截止日不足H个共同交易日则不生成收益"
+  label_cost_rule: "预测标签为毛收益，不扣交易成本；策略层若获准必须另计完整成本"
+
+models:
+  VAL01_NORM_EY_5Y_V1:
+    registered_trial_id: "VAL01_NORM_EY_5Y"
+    predictor_column: "norm_ey_percentile_60m"
+    ready_column: "norm_ey_percentile_60m_ready"
+    expected_direction: "HIGHER_PERCENTILE_HIGHER_FORWARD_RETURN"
+  VAL02_NORM_EY_SPREAD_5Y_V1:
+    registered_trial_id: "VAL02_NORM_EY_SPREAD_5Y"
+    predictor_column: "norm_ey_spread_percentile_60m"
+    ready_column: "norm_ey_spread_percentile_60m_ready"
+    expected_direction: "HIGHER_PERCENTILE_HIGHER_FORWARD_RETURN"
+
+diagnostic_definition:
+  bucket_rule: "FROZEN_FOUR_VALUATION_BUCKETS_NO_POSITION_MAPPING"
+  buckets:
+    - {id: "B1_EXPENSIVE", lower_inclusive: 0.00, upper_exclusive: 0.20}
+    - {id: "B2", lower_inclusive: 0.20, upper_exclusive: 0.40}
+    - {id: "B3", lower_inclusive: 0.40, upper_exclusive: 0.60}
+    - {id: "B4_CHEAP", lower_inclusive: 0.60, upper_inclusive: 1.00}
+  spearman_tie_rule: "AVERAGE_RANK"
+  chronological_split_rule: "成熟样本按观察日排序后在样本数中点切分"
+  hac_regression: "rank(return) on intercept and rank(percentile)"
+  hac_monthly_max_lags: {60: 2, 120: 5, 242: 12}
+  hac_kernel: "BARTLETT_NEWEY_WEST"
+  hac_p_value: "ONE_SIDED_NORMAL_APPROXIMATION_FOR_POSITIVE_SLOPE"
+  overlapping_label_caveat: "收益窗口重叠；只使用预冻结HAC，不使用普通独立样本p值"
+
+primary_predictive_gate:
+  minimum_matured_observations: 36
+  minimum_observations_per_bucket: 5
+  spearman_ic_strictly_positive: true
+  both_chronological_half_ics_strictly_positive: true
+  bucket_mean_returns_nondecreasing: true
+  cheapest_minus_expensive_mean_return_strictly_positive: true
+  cheapest_minus_expensive_median_return_strictly_positive: true
+  h00300_spearman_confirmation_strictly_positive: true
+  h00300_cheapest_minus_expensive_mean_return_strictly_positive: true
+  familywise_hac_method: "HOLM_BONFERRONI"
+  familywise_alpha: 0.10
+  family_size: 2
+  pass_status: "HISTORICAL_PREDICTIVE_SCREEN_PASS_STRATEGY_EVALUATION_NOT_RUN"
+  fail_status: "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+
+trial_and_multiplicity:
+  registered_trials: ["VAL01_NORM_EY_5Y", "VAL02_NORM_EY_SPREAD_5Y"]
+  primary_test_count: 2
+  family_controller: "HOLM_BONFERRONI_ALPHA_0_10"
+  secondary_horizons_are_decision_gates: false
+  forbidden_after_result:
+    - "把60日或120日改为主要期限"
+    - "改分档边界或合并样本不足分档"
+    - "改变正常化盈利或利差公式"
+    - "删除表现不佳的模型而不报告"
+    - "把未经Holm校正的单模型p值当成通过"
+    - "主要屏幕失败后运行仓位回测"
+
+true_forward:
+  start: null
+  status: "NOT_STARTED"
+  alpha_pass_allowed: false
+
+data_contracts:
+  val01_model_manifest:
+    file: "config/val01_norm_ey_5y_v1_manifest.json"
+    sha256: "b565accfe2d578dc21b9c5df5102ba9899596dfde776fef767d786db67976031"
+  val02_model_manifest:
+    file: "config/val02_norm_ey_spread_5y_v1_manifest.json"
+    sha256: "945f4a867c613c7d9d86c623909d94717a54311a11e68e6c19ef2370a5643bb2"
+  val01_signal_inputs:
+    file: "data/features/000300_val01_norm_ey_5y_v1_signal_inputs.parquet"
+    sha256: "821f20d244b4b82e7eb5d6df49f07a5baceec17de9be547150cded6dc3255f4a"
+  val02_signal_inputs:
+    file: "data/features/000300_val02_norm_ey_spread_5y_v1_signal_inputs.parquet"
+    sha256: "4ab8d0cc453af93b385e7da0eca3ee7225640b8e08027e04679230b31eabdb73"
+  frozen_forward_labels:
+    file: "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet"
+    sha256: "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b"
+  forward_label_manifest:
+    file: "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json"
+    sha256: "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f"
+
+artifacts:
+  val01_report_json: "reports/research/val01_norm_ey_5y_v1_predictive_diagnostics.json"
+  val01_report_markdown: "reports/research/val01_norm_ey_5y_v1_predictive_diagnostics.md"
+  val02_report_json: "reports/research/val02_norm_ey_spread_5y_v1_predictive_diagnostics.json"
+  val02_report_markdown: "reports/research/val02_norm_ey_spread_5y_v1_predictive_diagnostics.md"
+  family_report_json: "reports/research/normalized_valuation_5y_family_predictive_screen_v1.json"
+  family_report_markdown: "reports/research/normalized_valuation_5y_family_predictive_screen_v1.md"
+  protocol_manifest: "config/normalized_valuation_5y_predictive_screen_v1_protocol_manifest.json"
+  result_manifest: "config/normalized_valuation_5y_predictive_screen_v1_result_manifest.json"

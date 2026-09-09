@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_UP20_RARE_EVENT_FORECAST_V1",
+  "status": "PASS_OUTCOME_FREE_CAUSAL_FEATURES_READY_TO_FREEZE",
+  "feature_stage": "BEFORE_MODEL_OUTCOME_CALCULATION",
+  "input_receipts": {
+    "inputs.etf_daily": {
+      "path": "data/raw/r6/510300_daily.parquet",
+      "sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "bytes": 137702
+    },
+    "inputs.index_daily": {
+      "path": "data/raw/r6/000300_daily.parquet",
+      "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+      "bytes": 161662
+    },
+    "inputs.benchmark_total_return": {
+      "path": "data/raw/r6/H00300_total_return_daily.parquet",
+      "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "bytes": 153211
+    },
+    "inputs.dividends": {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "bytes": 2021
+    },
+    "inputs.pit_membership": {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b",
+      "bytes": 139181
+    },
+    "inputs.constituent_daily": {
+      "path": "data/raw/constituents/000300_constituent_daily.parquet",
+      "sha256": "e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7",
+      "bytes": 26849121
+    },
+    "inputs.membership_audit": {
+      "path": "reports/data_quality/510300_csi300_pit_membership_2015_extension_v1.json",
+      "sha256": "4bf2f455ae71b77b158042729ce8a5c8f4d9db0b2b1c87480f90fd952fdbf550",
+      "bytes": 3975
+    },
+    "inputs.backtest_engine": {
+      "path": "backtest/engine.py",
+      "sha256": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc",
+      "bytes": 13300
+    },
+    "source_results.known_state_oracle": {
+      "path": "reports/research/510300_known_state_policy_oracle_v1_0_1_result.json",
+      "sha256": "2e3c0d075d294637600603b4dcbdbe1ac3090c84883b034e56cf8e10146cd452",
+      "bytes": 36694
+    },
+    "source_results.information_budget": {
+      "path": "reports/research/510300_oracle_information_budget_v1_result.json",
+      "sha256": "d8b8ca3eae2ee9405b70a4f579b3f6fe59045fb77f430d884e6cdfd8dfaea820",
+      "bytes": 12222
+    }
+  },
+  "calendar": {
+    "source_total_return_rows": 3457,
+    "execution_calendar_rows": 3456,
+    "first_date": "2012-05-28",
+    "last_date": "2026-08-14",
+    "evaluation_rows": 2823
+  },
+  "breadth": {
+    "membership_rows": 846900,
+    "membership_dates": 2823,
+    "constituent_rows_through_cutoff": 483300,
+    "constituent_dates_through_cutoff": 1611,
+    "constituent_first_date": "2019-12-23",
+    "constituent_last_date": "2026-08-14",
+    "overlap_member_only_rows": 263,
+    "overlap_price_only_rows": 263,
+    "overlap_matched_member_coverage": 0.9994558245396234,
+    "minimum_daily_return_coverage_in_overlap": 0.0,
+    "minimum_daily_ma20_coverage_after_first_available": 0.95,
+    "first_breadth_available_date": "2020-01-20",
+    "historical_weights_used": false
+  },
+  "feature_contract": {
+    "feature_columns": [
+      "setup_prior",
+      "breadth_ignition",
+      "price_acceptance",
+      "stress_risk"
+    ],
+    "minimum": {
+      "setup_prior": 0.0,
+      "breadth_ignition": 0.0,
+      "price_acceptance": 0.0,
+      "stress_risk": 0.0
+    },
+    "maximum": {
+      "setup_prior": 1.0,
+      "breadth_ignition": 1.0,
+      "price_acceptance": 0.9606921708345816,
+      "stress_risk": 1.0
+    },
+    "future_columns_present": false,
+    "labels_present": false,
+    "historical_weights_used": false,
+    "all_evaluation_price_features_available": true
+  },
+  "model_outcomes_read": false,
+  "future_return_created": false,
+  "portfolio_evaluation": "NOT_ALLOWED",
+  "paper_or_shadow_signal_allowed": false,
+  "live_trading_authorized": false,
+  "feature_artifact": {
+    "path": "data/research/510300_up20_rare_event_forecast_v1/features_prefreeze.parquet",
+    "bytes": 192433,
+    "sha256": "922a78267707e86a6eecc65c1f457cfd6a422540918ae03300031f5b1f3e1de1"
+  }
+}

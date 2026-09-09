@@ -1,0 +1,413 @@
+{
+  "generated_at": "2026-08-13T18:33:03.640482+08:00",
+  "strategy": {
+    "strategy_id": "510300_VALUATION_INVENTORY_PREVCLOSE_T_V2",
+    "name": "510300估值库存-前收盘固定锚日内做T",
+    "version": "2.0.0",
+    "frozen_at": "2026-08-13",
+    "evidence_scope": "V2规则在查看V1累计VWAP失败结果后提出；V2结果生成前冻结；没有严格未见样本",
+    "objective": "估值决定隔夜核心库存，固定前收盘锚日内做T收割波动；年化超额10%为最低线、15%为挑战线"
+  },
+  "summaries": {
+    "h00300": {
+      "total_return": 0.06844853734185952,
+      "cagr": 0.013331420562605611,
+      "annualized_volatility": 0.17524354454688312,
+      "sharpe_zero_cash_rate": 0.1629800995470928,
+      "max_drawdown": -0.3440317779106141,
+      "ending_equity": 21368.97074683719,
+      "strategy_name": "H00300全收益",
+      "scenario": "BENCHMARK",
+      "average_exposure": 1.0,
+      "intraday_t": {
+        "round_trip_count": 0,
+        "net_pnl_cny": 0.0
+      }
+    },
+    "etf_buy_hold": {
+      "strategy_name": "510300买入持有",
+      "scenario": "BASE_COST",
+      "total_return": 0.02952362536407116,
+      "cagr": 0.005837005154592401,
+      "annualized_volatility": 0.16439844168734977,
+      "sharpe_zero_cash_rate": 0.11744528590193044,
+      "max_drawdown": -0.334402757211372,
+      "average_exposure": 0.9354918628021173,
+      "ending_equity": 20590.472507281425,
+      "intraday_t": {
+        "round_trip_count": 0,
+        "raw_gross_pnl_cny": 0.0,
+        "net_pnl_cny": 0.0,
+        "commission_cny": 0.0,
+        "slippage_and_tick_cost_cny": 0.0,
+        "win_rate": 0.0,
+        "profit_factor": 0.0
+      },
+      "annualized_excess_vs_h00300": -0.007494415408013211
+    },
+    "swing": {
+      "strategy_name": "波段持仓",
+      "scenario": "BASE_COST",
+      "total_return": 0.14583163546963052,
+      "cagr": 0.027603986913054435,
+      "annualized_volatility": 0.08369662029225843,
+      "sharpe_zero_cash_rate": 0.3668160135829084,
+      "max_drawdown": -0.1905570388674248,
+      "average_exposure": 0.46243543221803973,
+      "ending_equity": 22916.632709392612,
+      "intraday_t": {
+        "round_trip_count": 0,
+        "raw_gross_pnl_cny": 0.0,
+        "net_pnl_cny": 0.0,
+        "commission_cny": 0.0,
+        "slippage_and_tick_cost_cny": 0.0,
+        "win_rate": 0.0,
+        "profit_factor": 0.0
+      },
+      "annualized_excess_vs_h00300": 0.014272566350448823,
+      "annualized_excess_vs_etf_buy_hold": 0.021766981758462034,
+      "rolling_242d_excess_vs_h00300": {
+        "window_trading_days": 242,
+        "median": 0.005972441638677051,
+        "minimum": -0.18160213279123893,
+        "maximum": 0.1163761067484792,
+        "positive_ratio": 0.5201238390092879,
+        "at_least_10pct_ratio": 0.014447884416924664,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      },
+      "rolling_242d_excess_vs_etf_buy_hold": {
+        "window_trading_days": 242,
+        "median": 0.013227140390644654,
+        "minimum": -0.13064665496756178,
+        "maximum": 0.11069346130260371,
+        "positive_ratio": 0.5541795665634675,
+        "at_least_10pct_ratio": 0.005159958720330237,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      }
+    },
+    "t_only": {
+      "strategy_name": "固定50%底仓频繁T",
+      "scenario": "BASE_COST",
+      "total_return": -0.5233121640196975,
+      "cagr": -0.13774046951162522,
+      "annualized_volatility": 0.12101624888035312,
+      "sharpe_zero_cash_rate": -1.1625032741271832,
+      "max_drawdown": -0.5621335817812317,
+      "ending_equity": 9533.75671960605,
+      "intraday_t": {
+        "round_trip_count": 607,
+        "raw_gross_pnl_cny": -887.9000000000016,
+        "net_pnl_cny": -11550.399999999987,
+        "commission_cny": 6070.0,
+        "slippage_and_tick_cost_cny": 4592.499999999985,
+        "win_rate": 0.22075782537067545,
+        "profit_factor": 0.1713549849701197
+      },
+      "average_exposure": 0.4120683825001122,
+      "annualized_excess_vs_h00300": -0.15107189007423083,
+      "annualized_excess_vs_etf_buy_hold": -0.14357747466621762,
+      "rolling_242d_excess_vs_h00300": {
+        "window_trading_days": 242,
+        "median": -0.16323398175516401,
+        "minimum": -0.3101551951417125,
+        "maximum": -0.05752087476841938,
+        "positive_ratio": 0.0,
+        "at_least_10pct_ratio": 0.0,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      },
+      "rolling_242d_excess_vs_etf_buy_hold": {
+        "window_trading_days": 242,
+        "median": -0.1542681771461062,
+        "minimum": -0.25919971731803537,
+        "maximum": -0.0691030523032986,
+        "positive_ratio": 0.0,
+        "at_least_10pct_ratio": 0.0,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      }
+    },
+    "combined": {
+      "strategy_name": "估值库存+频繁T",
+      "scenario": "BASE_COST",
+      "total_return": -0.3277283645303686,
+      "cagr": -0.07635680400231226,
+      "annualized_volatility": 0.11675057703022476,
+      "sharpe_zero_cash_rate": -0.62130050754862,
+      "max_drawdown": -0.5063188793079257,
+      "ending_equity": 13445.432709392628,
+      "intraday_t": {
+        "round_trip_count": 474,
+        "raw_gross_pnl_cny": -1145.0999999999929,
+        "net_pnl_cny": -9471.199999999984,
+        "commission_cny": 4740.0,
+        "slippage_and_tick_cost_cny": 3586.099999999992,
+        "win_rate": 0.22573839662447256,
+        "profit_factor": 0.16312194604720226
+      },
+      "average_exposure": 0.46243543221803973,
+      "annualized_excess_vs_h00300": -0.08968822456491787,
+      "annualized_excess_vs_etf_buy_hold": -0.08219380915690466,
+      "rolling_242d_excess_vs_h00300": {
+        "window_trading_days": 242,
+        "median": -0.08471795887048383,
+        "minimum": -0.20166972923455195,
+        "maximum": 0.12595997523527624,
+        "positive_ratio": 0.14035087719298245,
+        "at_least_10pct_ratio": 0.006191950464396285,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      },
+      "rolling_242d_excess_vs_etf_buy_hold": {
+        "window_trading_days": 242,
+        "median": -0.07626273041279152,
+        "minimum": -0.19152392626725545,
+        "maximum": 0.14643617486340488,
+        "positive_ratio": 0.1867905056759546,
+        "at_least_10pct_ratio": 0.025799793601651185,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      }
+    },
+    "t_only_stress": {
+      "strategy_name": "固定50%底仓频繁T",
+      "scenario": "STRESS_15BP",
+      "total_return": -0.5243425050176813,
+      "cagr": -0.13811359091474196,
+      "annualized_volatility": 0.14214226120320111,
+      "sharpe_zero_cash_rate": -0.973359867945742,
+      "max_drawdown": -0.6707744371130184,
+      "ending_equity": 9513.149899646374,
+      "intraday_t": {
+        "round_trip_count": 369,
+        "raw_gross_pnl_cny": -532.0000000000019,
+        "net_pnl_cny": -11560.69999999999,
+        "commission_cny": 3690.0,
+        "slippage_and_tick_cost_cny": 7338.699999999988,
+        "win_rate": 0.13550135501355012,
+        "profit_factor": 0.05244824025047974
+      },
+      "average_exposure": 0.4122828180685801,
+      "annualized_excess_vs_h00300": -0.15144501147734757,
+      "annualized_excess_vs_etf_buy_hold": -0.14395059606933436,
+      "rolling_242d_excess_vs_h00300": {
+        "window_trading_days": 242,
+        "median": -0.15305567893159178,
+        "minimum": -0.2864828452960463,
+        "maximum": -0.016472266342164588,
+        "positive_ratio": 0.0,
+        "at_least_10pct_ratio": 0.0,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      },
+      "rolling_242d_excess_vs_etf_buy_hold": {
+        "window_trading_days": 242,
+        "median": -0.15245857655383832,
+        "minimum": -0.2763370423287498,
+        "maximum": 0.003182591780670263,
+        "positive_ratio": 0.0020639834881320948,
+        "at_least_10pct_ratio": 0.0,
+        "at_least_15pct_ratio": 0.0,
+        "observations": 969
+      }
+    },
+    "combined_stress": {
+      "strategy_name": "估值库存+频繁T",
+      "scenario": "STRESS_15BP",
+      "total_return": -0.46554500417505096,
+      "cagr": -0.1177843090738726,
+      "annualized_volatility": 0.13426556067622955,
+      "sharpe_zero_cash_rate": -0.8653438796384605,
+      "max_drawdown": -0.5998756875820979,
+      "ending_equity": 10689.09991649898,
+      "intraday_t": {
+        "round_trip_count": 402,
+        "raw_gross_pnl_cny": -340.59999999999997,
+        "net_pnl_cny": -12184.299999999988,
+        "commission_cny": 4020.0,
+        "slippage_and_tick_cost_cny": 7823.699999999989,
+        "win_rate": 0.13681592039800994,
+        "profit_factor": 0.05643150313637447
+      },
+      "average_exposure": 0.46286926785389426,
+      "annualized_excess_vs_h00300": -0.13111572963647822,
+      "annualized_excess_vs_etf_buy_hold": -0.123621314228465,
+      "rolling_242d_excess_vs_h00300": {
+        "window_trading_days": 242,
+        "median": -0.11491042249337491,
+        "minimum": -0.24069913985399338,
+        "maximum": 0.1728784319503156,
+        "positive_ratio": 0.25386996904024767,
+        "at_least_10pct_ratio": 0.09391124871001032,
+        "at_least_15pct_ratio": 0.005159958720330237,
+        "observations": 969
+      },
+      "rolling_242d_excess_vs_etf_buy_hold": {
+        "window_trading_days": 242,
+        "median": -0.11335997396168285,
+        "minimum": -0.22567380423253502,
+        "maximum": 0.19335463157844424,
+        "positive_ratio": 0.26831785345717235,
+        "at_least_10pct_ratio": 0.15583075335397317,
+        "at_least_15pct_ratio": 0.038183694530443756,
+        "observations": 969
+      }
+    }
+  },
+  "gates": {
+    "swing": {
+      "minimum_status": "FAIL_RETROSPECTIVE",
+      "challenge_status": "FAIL_RETROSPECTIVE",
+      "annualized_excess": 0.014272566350448823,
+      "rolling_242d_excess_median": 0.005972441638677051,
+      "minimum_requirements": {
+        "annualized_excess": 0.1,
+        "rolling_median": 0.1
+      },
+      "challenge_requirements": {
+        "annualized_excess": 0.15,
+        "rolling_median": 0.15
+      }
+    },
+    "t_only": {
+      "minimum_status": "FAIL_RETROSPECTIVE",
+      "challenge_status": "FAIL_RETROSPECTIVE",
+      "annualized_excess": -0.15107189007423083,
+      "rolling_242d_excess_median": -0.16323398175516401,
+      "minimum_requirements": {
+        "annualized_excess": 0.1,
+        "rolling_median": 0.1
+      },
+      "challenge_requirements": {
+        "annualized_excess": 0.15,
+        "rolling_median": 0.15
+      }
+    },
+    "combined": {
+      "minimum_status": "FAIL_RETROSPECTIVE",
+      "challenge_status": "FAIL_RETROSPECTIVE",
+      "annualized_excess": -0.08968822456491787,
+      "rolling_242d_excess_median": -0.08471795887048383,
+      "minimum_requirements": {
+        "annualized_excess": 0.1,
+        "rolling_median": 0.1
+      },
+      "challenge_requirements": {
+        "annualized_excess": 0.15,
+        "rolling_median": 0.15
+      }
+    }
+  },
+  "t_stability": {
+    "t_only": {
+      "complete_years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "minimum_round_trips": 78,
+      "maximum_round_trips": 208,
+      "profitable_complete_year_ratio": 0.0,
+      "total_round_trips": 607
+    },
+    "combined": {
+      "complete_years": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "minimum_round_trips": 0,
+      "maximum_round_trips": 194,
+      "profitable_complete_year_ratio": 0.0,
+      "total_round_trips": 474
+    }
+  },
+  "annual": [
+    {
+      "year": 2021,
+      "observations": 95,
+      "swing_return": 0.017746850604188458,
+      "t_only_return": -0.08443768813536823,
+      "combined_return": -0.04296314939581136,
+      "h00300_return": -0.0034073675195726016,
+      "t_only_t_round_trips": 70,
+      "t_only_t_net_pnl_cny": -1692.999999999996,
+      "combined_t_round_trips": 59,
+      "combined_t_net_pnl_cny": -1214.199999999996
+    },
+    {
+      "year": 2022,
+      "observations": 242,
+      "swing_return": -0.10913567971289262,
+      "t_only_return": -0.3055583873309148,
+      "combined_return": -0.3032301036430761,
+      "h00300_return": -0.19468198803669656,
+      "t_only_t_round_trips": 208,
+      "t_only_t_net_pnl_cny": -3937.099999999992,
+      "combined_t_round_trips": 194,
+      "combined_t_net_pnl_cny": -3620.299999999992
+    },
+    {
+      "year": 2023,
+      "observations": 242,
+      "swing_return": -0.043818863528059415,
+      "t_only_return": -0.2044300982725893,
+      "combined_return": -0.14291973770517297,
+      "h00300_return": -0.09515493844365686,
+      "t_only_t_round_trips": 130,
+      "t_only_t_net_pnl_cny": -2010.4000000000015,
+      "combined_t_round_trips": 70,
+      "combined_t_net_pnl_cny": -1105.0
+    },
+    {
+      "year": 2024,
+      "observations": 242,
+      "swing_return": 0.10361915834730206,
+      "t_only_return": -0.003321420744416992,
+      "combined_return": 0.05103854711981759,
+      "h00300_return": 0.19802459489757784,
+      "t_only_t_round_trips": 78,
+      "t_only_t_net_pnl_cny": -1414.0000000000027,
+      "combined_t_round_trips": 44,
+      "combined_t_net_pnl_cny": -1208.5000000000025
+    },
+    {
+      "year": 2025,
+      "observations": 243,
+      "swing_return": 0.17791498639766834,
+      "t_only_return": 0.0006148913097154818,
+      "combined_return": 0.2855935464226347,
+      "h00300_return": 0.24610194984648803,
+      "t_only_t_round_trips": 88,
+      "t_only_t_net_pnl_cny": -1938.0999999999972,
+      "combined_t_round_trips": 0,
+      "combined_t_net_pnl_cny": 0.0
+    },
+    {
+      "year": 2026,
+      "observations": 147,
+      "swing_return": 0.012162006079642573,
+      "t_only_return": -0.03544703098912716,
+      "combined_return": -0.13217589415347963,
+      "h00300_return": 0.009754000793546602,
+      "t_only_t_round_trips": 33,
+      "t_only_t_net_pnl_cny": -557.7999999999978,
+      "combined_t_round_trips": 107,
+      "combined_t_net_pnl_cny": -2323.1999999999944
+    }
+  ],
+  "data_hashes": {
+    "config": "5ff5266052db9be5abdd87b87708a7e3b708bac1a4ec1616a383758784d526dc",
+    "minute_file": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268",
+    "daily_file": "4a30412832578526aab91105fbf0a99d23a5557e37d4683a0282287494dfdd97",
+    "dividend_file": "af1340e8f8fbed9686a12955b16d71eab3ba9e808fa6b496a52973c252887423",
+    "base_ledger_file": "06013c622dafe540f4b4292c01a82a01a3f73e39a65c6f8c60a41d74b4fbd5d7",
+    "base_trades_file": "e20099c7d46208ff9930c8b439925cb480826d2ad701b15d85a9196c1d2425a8",
+    "h00300_file": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e",
+    "data_audit_file": "4e9f75dcc069bf763a5abbc962cb275448de123c0948a8be17328904abfab81b"
+  }
+}

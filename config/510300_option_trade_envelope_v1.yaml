@@ -1,0 +1,93 @@
+protocol:
+  project_id: 510300_OPTION_TRADE_ENVELOPE_V1
+  state: FROZEN_DEV_VEHICLE_FEASIBILITY_ONLY
+  purpose: 检查期权方向车辆在成交价极端不利包络下是否仍有研究价值
+  deployable_strategy: false
+  historical_execution_proof: false
+  factor_count: 0
+
+dates:
+  feature_start: '2021-08-12'
+  development_end: '2023-12-29'
+  reserved_validation_start: '2024-01-01'
+  reserved_validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  validation_or_holdout_read_authorized: false
+
+inputs:
+  option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    sha256: 6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064
+  option_risk:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    sha256: e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035
+  benchmark:
+    path: data/raw/market/H00300_total_return_daily_raw.parquet
+    sha256: 90ded420f641f05a8ab8c9cfeb6f8df4172e9e1ea43995005df1cdecd5e9c5ab
+
+schedule:
+  holding_trading_days: 10
+  signal_time: t日收盘后
+  entry_time: t+1交易日
+  exit_time: 入场后第10个交易日
+  overlap_allowed: false
+
+contract_selection:
+  adjusted_contracts_allowed: false
+  contract_unit_required: 10000
+  minimum_calendar_days_to_expiry: 30
+  maximum_calendar_days_to_expiry: 75
+  absolute_delta_minimum: 0.70
+  absolute_delta_maximum: 0.95
+  target_absolute_delta: 0.85
+  target_calendar_days_to_expiry: 45
+  minimum_signal_day_volume: 100
+  minimum_signal_day_open_interest: 500
+  minimum_signal_premium_per_contract_cny: 2000
+  maximum_signal_premium_per_contract_cny: 8000
+  target_total_signal_premium_cny: 6000
+  maximum_contracts: 3
+  tie_break:
+    - absolute_delta_distance
+    - expiry_distance
+    - volume_descending
+    - contract_code_ascending
+
+execution_envelope:
+  entry_price: 次一交易日该合约日内最高成交价
+  exit_price: 退出交易日该合约日内最低成交价
+  missing_entry_trade: 不成交并持有现金
+  missing_exit_trade: 退出价值按零计
+  option_fee_cny_per_contract_per_leg: 5.0
+  initial_cash_cny: 20000
+  minimum_opening_trade_notional_cny: 5000
+  insufficient_cash: 订单拒绝并持有现金
+  cash_interest_rate: 0.0
+
+development_scenarios:
+  names:
+    - ALWAYS_CALL
+    - PERFECT_UNDERLYING_DIRECTION_ORACLE
+    - PERFECT_OPTION_PNL_ORACLE
+  interpretation: 后两项只是不可能实盘的开发期上界，不是策略
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  metric: 几何年化策略收益率减几何年化基准收益率
+  research_value_threshold: 0.20
+  minimum_entry_notional_gate: true
+
+paths:
+  manifest: config/510300_option_trade_envelope_v1_manifest.json
+  result_json: reports/discovery/510300_option_trade_envelope_v1.json
+  result_markdown: reports/discovery/510300_option_trade_envelope_v1.md
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  strategy_parameter_search: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

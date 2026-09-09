@@ -1,0 +1,52 @@
+{
+  "study_id": "CSI300_PIT_FUNDAMENTAL_UNDERREACTION_INCOMPLETE_COVERAGE_ANALYSIS_V1",
+  "addendum_version": "1.0.1",
+  "status": "FROZEN_SCHEMA_COMPATIBILITY_ADDENDUM_BEFORE_PRICE_VALUE_OR_FUTURE_RETURN_READ",
+  "frozen_at": "2026-09-02T11:18:04.6015220+08:00",
+  "trigger": "FROZEN_SPLIT_H00300_FILES_CONTAIN_CLOSE_ONLY_AND_CANNOT_IMPLEMENT_THE_PRE_REGISTERED_FIRST_OPEN_TO_FIFTH_CLOSE_REACTION_WINDOW",
+  "inspection_performed_before_addendum": {
+    "allowed_metadata_only": [
+      "PARQUET_SCHEMA",
+      "ROW_COUNT",
+      "FILE_SIZE",
+      "FILE_SHA256"
+    ],
+    "price_values_read": false,
+    "future_returns_read": false,
+    "signals_computed": false,
+    "outcomes_computed": false
+  },
+  "mechanism_or_window_changed": false,
+  "replacement": {
+    "replaces_for_benchmark_calculation_only": [
+      "data/raw/a_share_hash_holdout_v2/training_H00300.parquet",
+      "data/raw/a_share_hash_holdout_v2/holdout_H00300.parquet"
+    ],
+    "path": "data/raw/market/H00300_total_return_daily_2015_v2.parquet",
+    "sha256": "5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c",
+    "bytes": 130830,
+    "required_columns": [
+      "date",
+      "开盘",
+      "close"
+    ],
+    "use": "COMMON_SESSION_CALENDAR_AND_H00300_TOTAL_RETURN_OPEN_TO_CLOSE_OR_CLOSE_TO_CLOSE_BENCHMARK_RETURN",
+    "hard_cutoff": "2026-08-14"
+  },
+  "quality_receipt": {
+    "path": "reports/data_quality/510300_market_inputs_2015_v2.json",
+    "sha256": "05f6c86958d03f11dca129d4a0ce8ed210546ad8131ea7585b8d2e4805be3718",
+    "bytes": 2503,
+    "required_status": "PASS",
+    "observed_h00300_coverage": "2015-01-05_TO_2026-08-25",
+    "duplicate_dates": 0,
+    "missing_h00300_dates_on_510300_calendar": 0
+  },
+  "stock_price_sources_unchanged": true,
+  "sample_feature_score_horizons_groups_and_gates_unchanged": true,
+  "parameter_search_allowed": false,
+  "original_v1_status": "BLOCKED_OFFICIAL_PDF_FACT_COVERAGE_BELOW_FROZEN_GATE",
+  "phase_2_authority": false,
+  "position_impact": 0,
+  "trade_status": "NO_TRADE"
+}

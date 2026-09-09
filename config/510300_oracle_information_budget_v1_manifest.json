@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_ORACLE_INFORMATION_BUDGET_V1",
+  "state": "FROZEN_BEFORE_INFORMATION_BUDGET_CALCULATION",
+  "frozen_at_asia_shanghai": "2026-08-31T14:56:32.806225+08:00",
+  "config_path": "config/510300_oracle_information_budget_v1.yaml",
+  "config_sha256": "a88e76652e7eceb73f4f9313a18bbbdf16b0810d642ca3f1687bff686c2f9ddd",
+  "source_oracle_outcomes_already_known": true,
+  "information_budget_outputs_computed_before_freeze": false,
+  "tracked_files": {
+    "config/510300_oracle_information_budget_v1.yaml": "a88e76652e7eceb73f4f9313a18bbbdf16b0810d642ca3f1687bff686c2f9ddd",
+    "docs/510300_ORACLE_INFORMATION_BUDGET_V1_SPEC.md": "9ead4cc79d358ee4e16b2d4a05e1971736c1c1de8b477711cd3a78ed4ecd8fa8",
+    "research/oracle_information_budget_v1.py": "07384b7e3256071ba09d7286db57a6538a7def706a782e879cdb0807a0483a04",
+    "research/known_state_policy_oracle_v1.py": "8dfd3449071604241c228735bbdd49692337c84fb8951755b0b5acc39c0ec28e",
+    "research/three_state_trend_router_v1_0_1.py": "b44bc3e3b71aac1f0ee6d941ef968a8913da4a08b5186463c4ed97c5c1c3703b",
+    "scripts/freeze_510300_oracle_information_budget_v1.py": "62c26b2b1b52ca5330182c54b0f7fbf5133e073818dc73048a9a6a712f72d1e6",
+    "scripts/run_510300_oracle_information_budget_v1.py": "61b0f200869170b6c7028d0a90d481a346712199a09378cea198ad27ed3dce58",
+    "tests/test_510300_oracle_information_budget_v1.py": "5a57a22ed6954e4e7a33aa22e36e908edc882caf5e51690cfb3e34122bd47237"
+  },
+  "input_files": {
+    "config/510300_known_state_policy_oracle_v1_0_1_correction_manifest.json": "881e8272637172127062b30ad2c6a3f00ef24fe091be4f8859b1393dad37bf38",
+    "reports/research/510300_known_state_policy_oracle_v1_0_1_result.json": "2e3c0d075d294637600603b4dcbdbe1ac3090c84883b034e56cf8e10146cd452",
+    "data/research/510300_known_state_policy_oracle_v1_0_1/oracle_blocks.parquet": "6f7c33c53887f0eaefa161a7b49bdfe9f2bbb1ff5d249f6095593ce254d16f51",
+    "reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_ledger.parquet": "9012a93d4d0dad4eacbd7001f8ce6ec83fb91d6a9756b5c24523b813fb4ad705",
+    "reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_trades.parquet": "14195c749eec830ca3c4ecf9becd66c57bad22abee82815f2e3d1ab65c03b424",
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/000300_daily.parquet": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "backtest/engine.py": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc"
+  },
+  "fixed_information_budget": {
+    "target_net_sharpe": 1.2,
+    "source_threshold": 0.05,
+    "source_horizon_days": 20,
+    "random_seed": 51030020260831,
+    "random_repetitions_per_cell": 500,
+    "joint_grid": {
+      "captured_bull_counts": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        23
+      ],
+      "false_range_counts": [
+        0,
+        5,
+        10,
+        20,
+        40,
+        97
+      ],
+      "false_bear_counts": [
+        0,
+        1,
+        2,
+        4,
+        8,
+        21
+      ]
+    },
+    "entry_delay_days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "phase_offsets": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "event_bootstrap_repetitions": 10000
+  },
+  "selection_bias_control": {
+    "prior_manifest_count": 355,
+    "total_trial_count_including_current": 356,
+    "source_oracle_known_and_declared": true,
+    "diagnostic_not_promoted_to_strategy": true
+  },
+  "no_rescue": {
+    "error_grid": true,
+    "random_seed": true,
+    "adversarial_rule": true,
+    "timing_grid": true,
+    "robustness_rule": true
+  },
+  "governance": {
+    "diagnostic_only": true,
+    "source_oracle_result_immutable": true,
+    "prediction_model_trained": false,
+    "historical_strategy_target_can_pass": false,
+    "verified_forward_target_can_pass": false,
+    "paper_signal_allowed": false,
+    "shadow_signal_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "position_change": false,
+    "live_trading_authorized": false
+  }
+}

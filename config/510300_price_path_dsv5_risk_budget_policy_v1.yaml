@@ -1,0 +1,177 @@
+model_id: 510300_PRICE_PATH_DSV5_RISK_BUDGET_POLICY_V1
+display_name: 510300价格路径下行风险预算策略
+version: 1.0.0
+required_branch: codex/510300-price-path-dsv5-risk-budget-policy-v1
+parent_evidence: 510300_CONSTITUENT_FRAGILITY_DSV5_INCREMENT_V1/B1
+parent_b2_used: false
+new_alpha_family: false
+research_question: PRICE_RISK_FORECAST_TO_PORTFOLIO_POLICY_TRANSLATION
+evidence_class: RESEARCH_OBSERVED_POST_SELECTION_POLICY_TRANSLATION
+scope:
+  executable_assets: [510300.SH, CASH_CNY]
+  live_trading_authorized: false
+  position_impact: 0
+  shadow_authorized: true
+  broker_connection: NOT_AUTHORIZED
+  model_position_target: UNSET
+  order_generation: false
+  long_only: true
+  leverage: false
+inputs:
+  predictions: data/research/510300_constituent_fragility_dsv5_increment_v1/prequential_predictions.parquet
+  coefficients: data/research/510300_constituent_fragility_dsv5_increment_v1/model_coefficients.parquet
+  parent_result: reports/research/510300_constituent_fragility_dsv5_increment_v1_result.json
+  parent_status: reports/research/510300_constituent_fragility_dsv5_increment_v1_status.json
+  parent_receipt: reports/audit/510300_constituent_fragility_dsv5_increment_v1_execution_receipt.json
+  parent_protocol: config/510300_constituent_fragility_dsv5_increment_v1.yaml
+  prices: data/raw/market/510300_daily_2015_v2.parquet
+  dividends: data/reference/510300_dividends.csv
+  calendar: data/reference/a_share_hs_trading_calendar_2010_2026_v1.csv
+  calendar_2026: data/reference/sse_trade_calendar_2026.csv
+  user_request: docs/510300_PRICE_PATH_DSV5_RISK_BUDGET_POLICY_V1_USER_REQUEST_20260905.md
+prediction_projection:
+  offset: offset
+  origin_date: origin_date
+  entry_date: next_tradable_open
+  horizon_end_date: horizon_end_date
+  era_id: era_id
+  predicted_B0: B0_predicted_DSV5
+  predicted_B1: B1_predicted_DSV5
+  b1_refit_id: B1_model_vintage_id
+  maximum_training_horizon_end_at_refit: B1_training_end_date
+policy:
+  ratio: B1_DIV_B0
+  inverse_power: -0.5
+  minimum_weight: 0.25
+  maximum_weight: 1.0
+  levels: [0.25, 0.5, 0.75, 1.0]
+  tie_rule: LOWER_WEIGHT
+  exact_q_cutoffs: [1.3061224489795917, 2.56, 7.111111111111111]
+  cutoff_equality: LOWER_WEIGHT_TAKES_PRECEDENCE_OVER_ROUNDED_EXAMPLE_TABLE
+  initial_legal_target: null
+  no_view: HOLD_PREVIOUS_LEGAL_TARGET_NO_PREDICTION_FILL
+  adjustment: SYMMETRIC_AT_NEXT_TRADABLE_OPEN
+schedule:
+  primary_offset: 0
+  offsets: [0, 1, 2, 3, 4]
+  cadence_trading_days: 5
+  anchor_date: '2018-11-21'
+  primary_origin_count: 178
+  primary_era_counts: [60, 59, 59]
+  eras: PARENT_PRIMARY_LABELS_OTHER_OFFSETS_CONTIGUOUS_NEAR_EQUAL_COUNTS
+  missing_grid_origins: RETAIN_CLOCK_HOLD_TARGET
+  evaluation_end: LAST_ORIGIN_PLUS_FIVE_TRADING_DAYS_CLOSE
+  terminal_liquidation: false
+execution:
+  initial_capital: 200000.0
+  commission_rate: 0.0002
+  minimum_commission: 5.0
+  lot_size: 100
+  t_plus_1: true
+  cash_return: 0.0
+  dividends: RECORD_CLOSE_ENTITLEMENT_EX_DATE_RECEIVABLE_PAYMENT_CASH
+  base_slippage_bp: 5.0
+  stress_slippage_bp: 10.0
+  equity_for_quantity: PRETRADE_OPEN_MARK_CASH_PLUS_SHARES_PLUS_RECEIVABLE
+  execution_price: OFFICIAL_OPEN_WITH_DIRECTIONAL_SLIPPAGE
+  insufficient_cash: REDUCE_BUY_BY_WHOLE_LOTS_UNTIL_COMMISSION_AFFORDABLE
+  daily_fields: [old_available_shares, same_day_bought_shares, cash, dividends, commission, slippage, rounding_cash, target_weight, actual_weight]
+portfolios:
+  P0: FIRST_OPEN_BUY_100_PERCENT_THEN_HOLD_DIVIDENDS_AS_CASH
+  P1: FIXED_TARGET_EQUAL_TO_P3_BASE_DAILY_CLOSE_ACTUAL_WEIGHT_MEAN_REBALANCE_SAME_ORIGINS_EX_POST_ONLY
+  P2: DSV20_DIV_EXPANDING_MEDIAN_THROUGH_T_SAME_DISCRETE_POLICY
+  P3: IMMUTABLE_B1_DIV_B0_SAME_DISCRETE_POLICY
+  p2_return: LOG_EX_DATE_CASH_ADJUSTED_DAILY_TOTAL_RETURN_SAME_AS_PARENT_B1
+  p2_dsv20: 252_DIV_20_TIMES_SUM_LAST_20_MIN_LOG_RETURN_ZERO_SQUARED
+  p2_median_warmup: ALL_COMPLETE_DSV20_OBSERVATIONS_STARTING_FIRST_FULL_20D_WINDOW
+  p1_stress_target: REUSE_BASE_P3_MEAN_NO_COST_SPECIFIC_RESELECTION
+metrics:
+  annualization_days: 252
+  risk_free_rate: 0.0
+  sharpe: SQRT_252_TIMES_MEAN_DAILY_SIMPLE_NET_RETURN_DIV_SAMPLE_STD
+  cagr: FINAL_WEALTH_DIV_INITIAL_POWER_365P25_DIV_CALENDAR_DAYS_MINUS_ONE
+  downside_semivariance: 252_TIMES_MEAN_MIN_DAILY_SIMPLE_NET_RETURN_ZERO_SQUARED
+  max_drawdown: INCLUDE_INITIAL_CAPITAL_IN_RUNNING_PEAK
+  worst_5pct_week: MEAN_LOWEST_CEIL_5PCT_NONOVERLAPPING_FIVE_TRADING_DAY_RETURNS
+  cumulative_excess: DIFFERENCE_OF_COMPOUNDED_NET_RETURNS
+  era_return: ASSIGN_DAILY_RETURN_TO_LATEST_POLICY_ORIGIN_ERA
+  stress_episode: CONTIGUOUS_P0_CLOSE_DRAWDOWN_AT_LEAST_10PCT_UNTIL_NEW_HIGH_INCLUDE_ONGOING
+  stress_increment: ADDITIVE_P3_MINUS_P2_DAILY_PNL_FROM_EQUAL_INITIAL_CAPITAL
+  no_positive_total_increment: FAIL_STRESS_CONCENTRATION_GATE
+gates:
+  G0: HASH_MATCH_COMMITTED_SCOPE_PARENT_FROZEN_ALLOWED_COLUMN_PROJECTION
+  G1:
+    non100_origins_min: 12
+    eras_with_at_least_3_reductions_min: 2
+    average_target_min: 0.45
+    average_target_max: 0.95
+    weight25_fraction_max: 0.20
+    annualized_equivalent_roundtrips_max: 8.0
+    roundtrip_definition: HALF_SUM_ABSOLUTE_TARGET_CHANGES_INCLUDING_INITIAL_AND_HYPOTHETICAL_TERMINAL_LEGS_DIV_ELAPSED_YEARS
+    target_change_multiple: 0.25
+    t_plus_1_violations_max: 0
+    failure_state: NO_VIEW_INSUFFICIENT_POLICY_VARIATION
+  G2:
+    downside_reduction_vs_P1_min: 0.20
+    drawdown_reduction_vs_P1_min: 0.20
+    worst_5pct_week_improvement_vs_P1_strict_min: 0.0
+  G3:
+    base_sharpe_min: 1.20
+    sharpe_increment_vs_P2_min: 0.15
+    cumulative_excess_vs_P1_strict_min: 0.0
+    cagr_min: 0.04
+    cagr_shortfall_vs_P0_max: 0.02
+    drawdown_reduction_vs_P0_min: 0.25
+    positive_eras_vs_P2_min: 2
+    latest_era_excess_vs_P2_strict_min: 0.0
+    stress_sharpe_min: 0.90
+    stress_excess_vs_P2_strict_min: 0.0
+    single_stress_contribution_max: 0.30
+    positive_offsets_vs_P2_min: 4
+    bootstrap_sharpe_lower_strict_min: 0.50
+    deflated_sharpe_probability_min: 0.95
+    placebo_top_fraction_max: 0.10
+statistics:
+  seed: 20260905
+  block_origins: 13
+  bootstrap_repetitions: 5000
+  bootstrap_confidence: 0.90
+  bootstrap_unit: WHOLE_DAILY_RETURN_SEGMENTS_PER_POLICY_ORIGIN_CIRCULAR_MOVING_BLOCKS
+  placebo_repetitions: 1000
+  placebo: PERMUTE_NONOVERLAPPING_13_ORIGIN_BLOCKS_WITHIN_EACH_ERA_REEXECUTE_FULL_LEDGER
+  placebo_preservation: EXACT_ORIGIN_WEIGHT_COUNTS_AND_WITHIN_BLOCK_RUNS_BOUNDARY_TURNOVER_AND_DURATION_TOLERANCE
+  placebo_turnover_tolerance: MAX_25PCT_OR_0P5_ABSOLUTE_WEIGHT_TURNOVER
+  placebo_duration_mean_relative_tolerance: 0.25
+  placebo_mean_actual_exposure_absolute_tolerance: 0.02
+  placebo_attempt_limit: 100000
+  placebo_too_few: BLOCKED_PLACEBO_MATCHED_PERMUTATIONS_INSUFFICIENT
+  dsr_source: https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf
+  dsr_budget: ENTIRE_PROJECT_ALL_HISTORICAL_TRIALS_NOT_CURRENT_FAMILY_ONLY
+  dsr_manifest_inventory_is_complete_budget: false
+  dsr_missing_global_trial_sr_variance: BLOCKED_DSR_GLOBAL_TRIAL_BUDGET_INCOMPLETE
+  dsr_null_std_proxy_diagnostic_only: true
+forward:
+  registration_before_historical_return_read: true
+  first_origin: FIRST_PARENT_GRID_ORIGIN_STRICTLY_AFTER_FREEZE_TIMESTAMP
+  no_backfill: true
+  daily_check_time: '19:30 Asia/Shanghai'
+  observation_window: ORIGIN_DATE_15P00_TO_23P59P59_ASIA_SHANGHAI
+  input_mode: IMMUTABLE_TIME_STAMPED_B0_B1_FORECAST_ENVELOPE_ONLY
+  producer_contract: SAME_PARENT_B1_EXP_LINK_NONNEGATIVE_QLIKE_RIDGE_L2_1_THREE_FEATURES_13_ORIGIN_REFIT
+  missing_producer: NO_VIEW_MISSING_STRICT_FORWARD_B0_B1_VINTAGE
+  initial_position: UNSET_UNTIL_FIRST_LEGAL_PREDICTION
+  envelope_directory: data/forward/510300_price_path_dsv5_risk_budget_policy_v1/inbox
+  milestones:
+    '52': {completeness_min: 0.98, roundtrips_max: 8, excess_vs_P2_strict_min: 0, blocks: 2, block_size: 26, severe_reversal: BLOCK_EXCESS_LESS_THAN_MINUS_0P02}
+    '104': {sharpe_min: 1.0, sharpe_increment_vs_P2_strict_min: 0, both_52_origin_blocks_excess_positive: true, drawdown_less_than_P0: true, stress_excess_positive: true}
+    '156': {sharpe_min: 1.2, sharpe_increment_vs_P2_min: 0.15, positive_52_origin_blocks_min: 2, latest_52_origin_block_excess_positive: true, single_stress_contribution_max: 0.30}
+  before_156: INSUFFICIENT_STRICT_FORWARD_EVIDENCE_POSITION_IMPACT_ZERO
+adjudication:
+  historical_pass: HISTORICAL_POLICY_TRANSLATION_PASS_DISCOVERY_ONLY
+  economic_fail: REJECTED_FROZEN_NO_RESCUE
+  family_id: 510300_PRICE_ONLY_DSV5_RISK_BUDGET_FAMILY
+  g1_failure_is_economic_failure: false
+  g1_failure_action: KEEP_NO_VIEW_FREEZE_MAPPING_NO_HISTORICAL_RETURN_READ_STATUS_ONLY_FORWARD
+  economic_failure_forward_action: CLOSE_POLICY_FORWARD_KEEP_STATUS_RECEIPTS
+  no_rescue: [ADD_FEATURE, MODIFY_B1, RETRAIN_PARENT_HISTORY, CHANGE_HORIZON, CHANGE_BOUNDARIES, ASYMMETRIC_RECOVERY, SELECT_OFFSET, REVERSE_DIRECTION, SELECT_RISK_TARGET_BY_SHARPE]
+  current_validated_high_sharpe_strategy: NONE

@@ -1,0 +1,174 @@
+protocol:
+  project_id: 510300_KNOWN_STATE_POLICY_ORACLE_V1
+  version: 1.0.1
+  state: READY_TO_FREEZE_PRE_OUTCOME_CONTRACT_COMPATIBILITY_CORRECTION
+  registration_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  evidence_class: EX_POST_PERFECT_STATE_INFORMATION_CONDITIONAL_POLICY_DIAGNOSTIC
+  oracle_future_information_used: true
+  state_predictability_evaluated: false
+  strategy_mapping_evaluated: true
+  outcome_read_before_freeze: false
+  threshold_rescue_after_result: forbidden
+  horizon_rescue_after_result: forbidden
+  policy_mapping_rescue_after_result: forbidden
+  range_strategy_rescue_after_result: forbidden
+  correction_class: PRE_OUTCOME_REQUIRED_FIELD_ALIAS_ONLY
+  predecessor_manifest: config/510300_known_state_policy_oracle_v1_manifest.json
+  predecessor_manifest_sha256: 2ef902e33b641a9dfba8013a9948929a82bcc188c56e7e0a633b6bec284f4c98
+  predecessor_failure: reports/audit/510300_known_state_policy_oracle_v1_prefirstoutcome_contract_key_failure.json
+
+research_question:
+  primary: 假设未来市场状态已经被正确且及时告知，分阶段策略映射能否在完整执行成本后实现净夏普率1.2
+  excluded: 如何使用现实技术因子提前识别市场状态
+  target_net_sharpe: 1.20
+
+scope:
+  execution_asset: 510300.SH
+  oracle_state_asset: H00300_TOTAL_RETURN_INDEX
+  allowed_holdings: [510300.SH, CASH_CNY]
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  paper_or_live_signal_allowed: false
+
+dates:
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  recent_period: ['2021-01-04', '2026-08-14']
+
+inputs:
+  etf_daily:
+    path: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+    required_rows: 3456
+    required_first_date: '2012-05-28'
+    required_last_date: '2026-08-14'
+    required_columns: [date, open, high, low, close, symbol]
+    required_symbol: 510300.SH
+  index_daily:
+    path: data/raw/r6/000300_daily.parquet
+    sha256: b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1
+    required_rows: 3456
+    required_first_date: '2012-05-28'
+    required_last_date: '2026-08-14'
+    required_columns: [date, open, high, low, close, symbol]
+    required_symbol: 000300.SH
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+    required_rows: 3457
+    required_first_date: '2012-05-28'
+    required_last_date: '2026-08-14'
+    required_columns: [date, close, symbol]
+    required_symbol: H00300
+    allowed_extra_dates: ['2018-06-18']
+  dividends:
+    path: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_rows: 14
+    required_first_ex_date: '2012-12-18'
+    required_last_ex_date: '2026-01-19'
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+  input_audit:
+    path: reports/data_quality/510300_causal_gaussian_hmm_regime_router_v1_inputs.json
+    required_status: PASS_PREFREEZE_CAUSAL_HMM_MODEL_AND_DAILY_INPUTS_RANGE_T_NOT_ALLOWED
+  backtest_engine:
+    path: backtest/engine.py
+    sha256: 3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc
+
+oracle_state_definition:
+  decision_horizon_trading_days: 20
+  blocks: NON_OVERLAPPING_ANCHORED_AT_2015_01_05
+  information_assumption: AT_SIGNAL_DATE_CLOSE_ORACLE_REVEALS_H00300_TOTAL_RETURN_THROUGH_20TH_FUTURE_TRADING_DAY
+  return_definition: H00300_CLOSE_T_PLUS_20_DIVIDED_BY_CLOSE_T_THEN_SUBTRACT_1
+  primary_absolute_threshold: 0.05
+  robustness_absolute_thresholds: [0.03, 0.07]
+  state_rule:
+    BULL_TREND: FUTURE_20D_TOTAL_RETURN_AT_LEAST_POSITIVE_THRESHOLD
+    BEAR_TREND: FUTURE_20D_TOTAL_RETURN_AT_MOST_NEGATIVE_THRESHOLD
+    RANGE: OTHERWISE
+  incomplete_final_block: CENSORED_AND_CASH
+
+data_contract:
+  expected_evaluation_rows: 2823
+  expected_evaluation_trading_days: 2823
+  expected_complete_oracle_blocks: 141
+  expected_censored_blocks: 1
+  expected_trailing_days_after_censored_anchor: 2
+
+policies:
+  STATE_ROUTER_RANGE_NO_T:
+    BULL_TREND: 1.0
+    BEAR_TREND: 0.0
+    RANGE: 0.0
+  AVOID_BEAR_ONLY:
+    BULL_TREND: 1.0
+    BEAR_TREND: 0.0
+    RANGE: 1.0
+  ALL_LONG:
+    BULL_TREND: 1.0
+    BEAR_TREND: 1.0
+    RANGE: 1.0
+  INVERTED_BEAR_LONG:
+    BULL_TREND: 0.0
+    BEAR_TREND: 1.0
+    RANGE: 0.0
+
+execution:
+  signal_time: BLOCK_ANCHOR_CLOSE
+  execution_time: NEXT_TRADING_DAY_OPEN
+  target_held_until_next_block_execution: true
+  initial_capital_cny: 20000.0
+  lot_size_shares: 100
+  cash_annual_rate: 0.0
+  base_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+    stamp_duty_rate: 0.0
+  stress_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+
+conditional_hypothesis_gates:
+  primary_base_net_sharpe_minimum: 1.20
+  primary_stress_net_sharpe_minimum: 1.20
+  every_robustness_stress_net_sharpe_minimum: 1.20
+  primary_stress_total_return_positive: true
+  primary_maximum_drawdown_ratio_vs_all_long_maximum: 0.80
+  minimum_complete_blocks_per_state: 10
+
+selection_bias:
+  prior_manifest_count: 350
+  non_manifest_prefreeze_failed_attempt_count: 1
+  expected_total_trial_count_including_current: 352
+  diagnostic_oracle_not_promoted_to_strategy: true
+
+governance:
+  diagnostic_only: true
+  conditional_hypothesis_can_pass: true
+  historical_strategy_target_can_pass: false
+  state_predictability_can_pass: false
+  paper_signal_allowed: false
+  shadow_signal_allowed: false
+  position_mapping_enabled: false
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  spec: docs/510300_KNOWN_STATE_POLICY_ORACLE_V1_SPEC.md
+  manifest: config/510300_known_state_policy_oracle_v1_0_1_correction_manifest.json
+  block_table: data/research/510300_known_state_policy_oracle_v1_0_1/oracle_blocks.parquet
+  primary_targets: data/research/510300_known_state_policy_oracle_v1_0_1/primary_targets.parquet
+  primary_base_ledger: reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_base_ledger.parquet
+  primary_base_trades: reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_base_trades.parquet
+  primary_stress_ledger: reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_ledger.parquet
+  primary_stress_trades: reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_trades.parquet
+  result_json: reports/research/510300_known_state_policy_oracle_v1_0_1_result.json
+  result_markdown: reports/research/510300_KNOWN_STATE_POLICY_ORACLE_V1_0_1_RESULT.md

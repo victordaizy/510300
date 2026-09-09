@@ -1,0 +1,716 @@
+{
+  "status": "READY_FOR_FACTOR_DEFINITION_WITH_EXPLICIT_GAPS",
+  "generated_at": "2026-08-13T00:47:21.426763+08:00",
+  "scope": "510300及其沪深300基准的数据获取与可靠性审计；不包含因子择优、策略选择或回测结论。",
+  "reliability_scale": {
+    "A": "官方/接近一手来源，或多源数值交叉核验通过。",
+    "A-": "强来源但通过封装库获取，或存在轻微语义限制。",
+    "B+": "完整且数值对账通过，但来源/时间语义存在明确限定。",
+    "B": "单一派生源或合成序列，可作为辅助变量但不应单独定义结论。",
+    "B-/C": "只允许限定字段或交叉审计使用。"
+  },
+  "preferred_inputs": {
+    "intraday_raw": "data/raw/market/510300_1m_tushare_raw.parquet",
+    "intraday_15m": "data/raw/market/510300_15m_from_1m_raw.parquet",
+    "etf_daily": "data/raw/market/510300_daily_raw.parquet",
+    "etf_nav": "data/raw/fund/510300_nav_daily_raw.parquet",
+    "dividend_events": "data/reference/510300_dividends.csv",
+    "benchmark_price": "data/raw/market/000300_daily_feature_warmup.parquet",
+    "benchmark_total_return": "data/raw/market/H00300_total_return_daily_raw.parquet",
+    "official_rolling_pe": "data/raw/valuation/000300_pe_official_raw.parquet",
+    "secondary_valuation": "data/raw/valuation/000300_valuation_daily_raw.parquet"
+  },
+  "headline_checks": {
+    "daily_cross_source_status": "PASS",
+    "one_minute_status": "WARN",
+    "one_minute_rows": 291851,
+    "one_minute_days": 1211,
+    "fifteen_minute_status": "PASS_WITH_SOURCE_CAVEATS",
+    "fifteen_minute_rows": 19376,
+    "fifteen_minute_daily_ohlc_exact_days": {
+      "open": 1211,
+      "high": 1211,
+      "low": 1211,
+      "close": 1211
+    },
+    "nav_cross_source_status": "PASS",
+    "nav_maximum_source_difference": 0.0,
+    "dividends_status": "PASS",
+    "monthly_shares_status": "PASS",
+    "official_index_snapshot_status": "PASS",
+    "automated_tests": "28 passed"
+  },
+  "datasets": [
+    {
+      "name": "510300未复权日线",
+      "file": {
+        "path": "data/raw/market/510300_daily_raw.parquet",
+        "exists": true,
+        "bytes": 57097,
+        "sha256": "4a30412832578526aab91105fbf0a99d23a5557e37d4683a0282287494dfdd97",
+        "row_count": 1211,
+        "first_observation": "2021-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "amount",
+          "symbol",
+          "source",
+          "volume_unit",
+          "amount_unit",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "A",
+      "status": "READY",
+      "source": "新浪主源 + 腾讯次源",
+      "permitted_use": "市场日线、收盘到开盘/收盘的价格研究与分钟数据日级对账。",
+      "limitations": "日线open/close是市场基准价，不是任意规模必然100%成交价。",
+      "quality_evidence": [
+        "reports/data_quality/510300_daily_quality.json",
+        "reports/data_quality/510300_daily_cross_source.json"
+      ]
+    },
+    {
+      "name": "510300五年1分钟OHLCVA",
+      "file": {
+        "path": "data/raw/market/510300_1m_tushare_raw.parquet",
+        "exists": true,
+        "bytes": 6642382,
+        "sha256": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268",
+        "row_count": 291851,
+        "first_observation": "2021-08-12T09:30:00",
+        "last_observation": "2026-08-12T15:00:00",
+        "columns": [
+          "ts_code",
+          "trade_time",
+          "open",
+          "high",
+          "low",
+          "close",
+          "vol",
+          "amount"
+        ]
+      },
+      "frequency": "1分钟",
+      "reliability_grade": "B+",
+      "status": "READY_WITH_SOURCE_CAVEATS",
+      "source": "第三方TuShare代理（stk_mins）",
+      "permitted_use": "五年分钟价格、成交量/金额与技术因子计算；优先作为15分钟聚合源。",
+      "limitations": "非直连官方主站；代理接口名与当前官方ETF文档不同；不含盘后固定价格时段和Level-2。",
+      "quality_evidence": [
+        "reports/data_quality/510300_1m_tushare_quality.json"
+      ]
+    },
+    {
+      "name": "510300五年15分钟OHLCVA（1分钟聚合）",
+      "file": {
+        "path": "data/raw/market/510300_15m_from_1m_raw.parquet",
+        "exists": true,
+        "bytes": 623885,
+        "sha256": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1",
+        "row_count": 19376,
+        "first_observation": "2021-08-12T09:45:00",
+        "last_observation": "2026-08-12T15:00:00",
+        "columns": [
+          "symbol",
+          "trade_date",
+          "bar_end",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "amount",
+          "source_minute_count",
+          "frequency_minutes",
+          "adjustment",
+          "source",
+          "source_grade",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "15分钟",
+      "reliability_grade": "B+",
+      "status": "PREFERRED_INTRADAY_RESEARCH_SERIES",
+      "source": "由五年1分钟序列确定性聚合",
+      "permitted_use": "作为后续技术分析因子的主15分钟序列。",
+      "limitations": "时间分组是项目研究约定；不能用bar high/low假设成交；不含盘后、挂单、撤单和排队。",
+      "quality_evidence": [
+        "reports/data_quality/510300_15m_from_1m_quality.json"
+      ]
+    },
+    {
+      "name": "510300五年15分钟（TDX原生+历史成交重建）",
+      "file": {
+        "path": "data/raw/market/510300_15m_full_raw.parquet",
+        "exists": true,
+        "bytes": 837599,
+        "sha256": "64dbb289886ede57289177508bb0d745e368cc8718ad93b4a6624a32f438a7cc",
+        "row_count": 19376,
+        "first_observation": "2021-08-12T09:45:00",
+        "last_observation": "2026-08-12T15:00:00",
+        "columns": [
+          "bar_end",
+          "bar_start",
+          "trade_date",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "amount",
+          "symbol",
+          "frequency_minutes",
+          "timestamp_meaning",
+          "adjustment",
+          "source",
+          "timezone",
+          "volume_unit",
+          "amount_unit",
+          "amount_is_estimated",
+          "retrieved_at",
+          "source_transaction_count",
+          "construction",
+          "bar_position",
+          "session_phase",
+          "contains_opening_auction",
+          "contains_closing_auction",
+          "post_close_included",
+          "post_close_separately_identifiable",
+          "tdx_server",
+          "source_regime"
+        ]
+      },
+      "frequency": "15分钟",
+      "reliability_grade": "B-/C",
+      "status": "AUDIT_ALTERNATIVE",
+      "source": "TDX原生15分钟 + 历史成交重建",
+      "permitted_use": "作为一分钟聚合15分钟的交叉对照，以及数据定义敏感性检查。",
+      "limitations": "2024-07-29前重建区间对high/low覆盖不完整，已不是五年技术因子主数据。",
+      "quality_evidence": [
+        "reports/data_quality/510300_15m_full_quality.json"
+      ]
+    },
+    {
+      "name": "510300单位/累计净值及收盘折溢价",
+      "file": {
+        "path": "data/raw/fund/510300_nav_daily_raw.parquet",
+        "exists": true,
+        "bytes": 105745,
+        "sha256": "d5f353a8d7bbcb19b5007e4dcb619d0d854111d1f9641fc368e31b52e5c5369d",
+        "row_count": 1214,
+        "first_observation": "2021-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "nav_eastmoney",
+          "acc_nav_eastmoney",
+          "nav_sina",
+          "acc_nav_sina",
+          "_merge",
+          "unit_nav",
+          "accumulated_nav",
+          "symbol",
+          "source_primary",
+          "source_secondary",
+          "retrieved_at",
+          "close",
+          "has_exchange_close",
+          "close_premium_to_nav",
+          "close_premium_bps"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "A-",
+      "status": "READY",
+      "source": "东方财富 + 新浪财富汇",
+      "permitted_use": "ETF净值、累计净值与日终折溢价研究。",
+      "limitations": "收盘折溢价不等于盘中IOPV偏离；三个非交易日净值已显式标记无行情收盘。",
+      "quality_evidence": [
+        "reports/data_quality/510300_nav_cross_source.json"
+      ]
+    },
+    {
+      "name": "510300历史累计分红（次源）",
+      "file": {
+        "path": "data/raw/fund/510300_dividend_cumulative_sina.parquet",
+        "exists": true,
+        "bytes": 4248,
+        "sha256": "adce91af6fdbb2b0cc182d25c290a1ce03a65941d237b172ab4eebb1231fc75d",
+        "row_count": 14,
+        "first_observation": "2012-12-18T00:00:00",
+        "last_observation": "2026-01-19T00:00:00",
+        "columns": [
+          "ex_date",
+          "cumulative_dividend_per_share",
+          "cash_dividend_implied",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "事件",
+      "reliability_grade": "A",
+      "status": "READY",
+      "source": "新浪累计分红 + 上交所公告事件表",
+      "permitted_use": "交叉验证现金分红金额；真实账本使用data/reference/510300_dividends.csv的登记/除息/发放日。",
+      "limitations": "累计分红序列本身不包含登记日和发放日，必须与官方事件表联用。",
+      "quality_evidence": [
+        "reports/data_quality/510300_dividends_quality.json"
+      ]
+    },
+    {
+      "name": "510300基金份额月末截面",
+      "file": {
+        "path": "data/raw/fund/510300_monthly_shares_sse.parquet",
+        "exists": true,
+        "bytes": 10229,
+        "sha256": "7143e099181d6afaf54318b698a1dbc38088891e3f7d45999fc9b7143c227da8",
+        "row_count": 62,
+        "first_observation": "2021-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "symbol",
+          "fund_name",
+          "share_10k_provider",
+          "shares",
+          "source_result_row_count",
+          "share_change",
+          "share_change_pct",
+          "sampling_role",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "研究起点+月末",
+      "reliability_grade": "A",
+      "status": "READY_MONTHLY_ONLY",
+      "source": "上海证券交易所ETF规模接口",
+      "permitted_use": "基金份额变化的低频状态与流动性背景。",
+      "limitations": "只有62个截面；相邻差不是日频净申购或资金净流入。",
+      "quality_evidence": [
+        "reports/data_quality/510300_monthly_shares_sse_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300价格指数日线（含warm-up）",
+      "file": {
+        "path": "data/raw/market/000300_daily_feature_warmup.parquet",
+        "exists": true,
+        "bytes": 116085,
+        "sha256": "3b1e03eea5230e6e19c276d32cbd0c606d241288d44129a6e1b0b176e3f4fdaa",
+        "row_count": 2427,
+        "first_observation": "2016-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "symbol",
+          "source",
+          "purpose",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "A-",
+      "status": "READY",
+      "source": "中证指数行情接口（经AKShare）",
+      "permitted_use": "基准价格、趋势/波动状态的历史warm-up。",
+      "limitations": "指数点位不是可交易成交价。",
+      "quality_evidence": [
+        "reports/data_quality/000300_daily_quality.json",
+        "reports/data_quality/phase1_auxiliary_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300全收益指数",
+      "file": {
+        "path": "data/raw/market/H00300_total_return_daily_raw.parquet",
+        "exists": true,
+        "bytes": 104152,
+        "sha256": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e",
+        "row_count": 2428,
+        "first_observation": "2016-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "symbol",
+          "name",
+          "close",
+          "pct_change",
+          "change",
+          "volume",
+          "amount",
+          "constituent_count",
+          "pe_ttm",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "A-",
+      "status": "READY",
+      "source": "中证指数全收益指数接口（经AKShare）",
+      "permitted_use": "市场分红再投资基准与价格/全收益区分。",
+      "limitations": "仅收盘指数点位，不能当作盘中成交价。",
+      "quality_evidence": [
+        "reports/data_quality/phase1_auxiliary_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300官方滚动市盈率历史",
+      "file": {
+        "path": "data/raw/valuation/000300_pe_official_raw.parquet",
+        "exists": true,
+        "bytes": 45675,
+        "sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73",
+        "row_count": 3752,
+        "first_observation": "2011-06-28T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "index_code",
+          "index_name_cn",
+          "index_name_en",
+          "pe_official",
+          "provider_original_field",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "A",
+      "status": "READY",
+      "source": "中证指数官网indexCsiDsPe",
+      "permitted_use": "估值慢变量原始数据；仅允许在当日收盘数据可得后使用。",
+      "limitations": "接口原字段名为peg；已用2026-07-31官方事实表的‘滚动市盈率14.36’对应验证，仍保留原字段记录。",
+      "quality_evidence": [
+        "reports/data_quality/000300_official_snapshot_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300 PE/PB衍生序列",
+      "file": {
+        "path": "data/raw/valuation/000300_valuation_daily_raw.parquet",
+        "exists": true,
+        "bytes": 115085,
+        "sha256": "119f009a7045f8b50b1eae3a3f2d7d1f394c372d4723cfd54d2ba348ae66ad52",
+        "row_count": 2427,
+        "first_observation": "2016-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "index_close_pe_source",
+          "pe_static_equal_weight",
+          "pe_static",
+          "pe_static_median",
+          "pe_ttm_equal_weight",
+          "pe_ttm",
+          "pe_ttm_median",
+          "index_close_pb_source",
+          "pb",
+          "pb_equal_weight",
+          "pb_median",
+          "symbol",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "B",
+      "status": "READY_AS_SECONDARY_VALUATION",
+      "source": "乐咕乐股东衍生数据（经AKShare）",
+      "permitted_use": "补充静态PE、TTM PE、PB及等权/中位数口径。",
+      "limitations": "不同口径与官方滚动PE不应强求数值相等；PB历史缺乏第二个同口径来源。",
+      "quality_evidence": [
+        "reports/data_quality/phase1_auxiliary_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300当前300只成分权重",
+      "file": {
+        "path": "data/raw/constituents/000300_current_weights.parquet",
+        "exists": true,
+        "bytes": 15092,
+        "sha256": "52366da5e55c053618c874a5e853726a0b621a2d2aa7787126648b75445fcdea",
+        "row_count": 300,
+        "first_observation": "2026-07-31T00:00:00",
+        "last_observation": "2026-07-31T00:00:00",
+        "columns": [
+          "effective_date",
+          "index_code",
+          "stock_code",
+          "stock_name",
+          "exchange",
+          "weight_pct",
+          "symbol",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "当前月末截面",
+      "reliability_grade": "A-",
+      "status": "CURRENT_ONLY",
+      "source": "中证指数月末权重文件（经AKShare）",
+      "permitted_use": "当前成分、权重和当前集中度描述。",
+      "limitations": "不得倒填为历史权重，不得用于五年点时板块贡献回测。",
+      "quality_evidence": [
+        "reports/data_quality/000300_point_in_time_weights_status.json"
+      ]
+    },
+    {
+      "name": "沪深300当前中证行业权重（1至4级）",
+      "file": {
+        "path": "data/raw/constituents/000300_industry_weights_current.parquet",
+        "exists": true,
+        "bytes": 14046,
+        "sha256": "0431a86586df3d98880db95a007012dbcae9527caa7eef1b6b20b89e6d4e4cc4",
+        "row_count": 218,
+        "first_observation": "2026-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "index_code",
+          "industry_level",
+          "industry_name_cn",
+          "industry_name_en",
+          "weight_pct_display",
+          "weight_pct",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "当前截面",
+      "reliability_grade": "A",
+      "status": "CURRENT_ONLY",
+      "source": "中证指数官网",
+      "permitted_use": "当前行业结构、慢变量背景与未来日期快照积累。",
+      "limitations": "只有当前截面，不得进行五年历史回填。",
+      "quality_evidence": [
+        "reports/data_quality/000300_official_snapshot_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300当前计算用市值分布",
+      "file": {
+        "path": "data/raw/constituents/000300_feature_current.parquet",
+        "exists": true,
+        "bytes": 8704,
+        "sha256": "6ef579d1c46775f0700279095e3c05b0f0eafcb90ce3795161d4674c1c8bb8d5",
+        "row_count": 1,
+        "first_observation": "2026-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "index_code",
+          "constituent_count",
+          "calculated_market_cap_sum_cny_100m",
+          "calculated_market_cap_max_cny_100m",
+          "calculated_market_cap_min_cny_100m",
+          "calculated_market_cap_average_cny_100m",
+          "calculated_market_cap_median_cny_100m",
+          "unit",
+          "provider_field_prefix",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "当前截面",
+      "reliability_grade": "A",
+      "status": "CURRENT_ONLY",
+      "source": "中证指数官网",
+      "permitted_use": "当前计算用指数市值合计及成分计算用市值最大、最小、平均和中位数。",
+      "limitations": "单一截面；calMkv是中证提供方的计算用市值口径，不等同于每只成分的全口径总市值。",
+      "quality_evidence": [
+        "reports/data_quality/000300_official_snapshot_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300官方事实表基本面/市值/波动率截面",
+      "file": {
+        "path": "data/raw/constituents/000300_factsheet_metrics_current.parquet",
+        "exists": true,
+        "bytes": 11524,
+        "sha256": "3a7ba6dfbd7368e325c08da9c8a6033225bc8d194af993d6bc370db8ef212b00",
+        "row_count": 1,
+        "first_observation": "2026-07-31T00:00:00",
+        "last_observation": "2026-07-31T00:00:00",
+        "columns": [
+          "date",
+          "index_code",
+          "rolling_pe",
+          "pb",
+          "dividend_yield_pct",
+          "volatility_1y_annualized_pct",
+          "volatility_3y_annualized_pct",
+          "volatility_5y_annualized_pct",
+          "constituent_total_market_cap_cny_100m",
+          "index_calculated_market_cap_cny_100m",
+          "constituent_market_cap_max_cny_100m",
+          "constituent_market_cap_min_cny_100m",
+          "constituent_market_cap_average_cny_100m",
+          "unit_market_cap",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "当前事实表截面",
+      "reliability_grade": "A",
+      "status": "CURRENT_ONLY",
+      "source": "中证指数官方000300factsheet.pdf",
+      "permitted_use": "当前成分股总市值、指数计算市值、个股市值范围/平均、滚动PE、PB、股息率和1/3/5年年化波动率。",
+      "limitations": "单一截面，不是历史时序；数据必须按事实表截面日使用。",
+      "quality_evidence": [
+        "reports/data_quality/000300_official_snapshot_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300当前交易所/上市板权重",
+      "file": {
+        "path": "data/raw/constituents/000300_market_weights_current.parquet",
+        "exists": true,
+        "bytes": 5607,
+        "sha256": "2eee31a75a8b269077d4bae705b5af82b5b535a416ae6a317cd08ecabed04e19",
+        "row_count": 6,
+        "first_observation": "2026-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "index_code",
+          "category_type",
+          "category_name_cn",
+          "category_name_en",
+          "weight_pct",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "当前截面",
+      "reliability_grade": "A",
+      "status": "CURRENT_ONLY",
+      "source": "中证指数官网",
+      "permitted_use": "当前沪深、主板/创业板/科创板权重描述。",
+      "limitations": "只有当前截面。",
+      "quality_evidence": [
+        "reports/data_quality/000300_official_snapshot_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300当前前十大权重股",
+      "file": {
+        "path": "data/raw/constituents/000300_top10_weights_current.parquet",
+        "exists": true,
+        "bytes": 10821,
+        "sha256": "73a7b089c525af2fcd167916c94b12fb4bb4a523560194467d097aa2ba0bbedd",
+        "row_count": 10,
+        "first_observation": "2026-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "index_code",
+          "stock_code",
+          "stock_name",
+          "stock_name_en",
+          "exchange_cn",
+          "exchange_en",
+          "industry_l1_cn",
+          "industry_l1_en",
+          "industry_l2_cn",
+          "industry_l2_en",
+          "weight_pct_display",
+          "weight_pct",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "当前截面",
+      "reliability_grade": "A",
+      "status": "CURRENT_ONLY",
+      "source": "中证指数官网",
+      "permitted_use": "当前权重股集中度、一/二级行业描述。",
+      "limitations": "只有当前截面。",
+      "quality_evidence": [
+        "reports/data_quality/000300_official_snapshot_quality.json"
+      ]
+    },
+    {
+      "name": "沪深300股指期货主力连续日线",
+      "file": {
+        "path": "data/raw/futures/IF0_daily_raw.parquet",
+        "exists": true,
+        "bytes": 55173,
+        "sha256": "6a361e083fb7e20595aee55f0455680dd5a2577ac872dc7436a083a45f2c8f92",
+        "row_count": 1211,
+        "first_observation": "2021-08-12T00:00:00",
+        "last_observation": "2026-08-12T00:00:00",
+        "columns": [
+          "date",
+          "open",
+          "high",
+          "low",
+          "close",
+          "volume",
+          "open_interest",
+          "settle",
+          "symbol",
+          "contract_type",
+          "source",
+          "retrieved_at"
+        ]
+      },
+      "frequency": "1日",
+      "reliability_grade": "B",
+      "status": "READY_AS_CONTEXT_ONLY",
+      "source": "新浪IF主力连续（经AKShare）",
+      "permitted_use": "期现背景、风险偏好和波动环境描述。",
+      "limitations": "主力连续为合成序列，不是单一可交易合约；未包含换月成本。",
+      "quality_evidence": [
+        "reports/data_quality/IF0_daily_quality.json"
+      ]
+    }
+  ],
+  "blocked_or_partial": [
+    {
+      "name": "沪深300历史点时成分和月度权重",
+      "status": "BLOCKED",
+      "reason": "免费官方源当前只有快照，无可验证的五年完整点时权重序列。",
+      "impact": "禁止使用当前成分/权重回填历史；板块历史贡献和成分股广度回测暂不可用。"
+    },
+    {
+      "name": "510300历史Level-2、委托队列、撤单与PV/LC真实订单流",
+      "status": "BLOCKED",
+      "reason": "当前免费合法接口只提供OHLCVA，无五年历史订单簿和逐笔委托。",
+      "impact": "PV/LC只能保留为未来数据源，不得由K线或成交量伪造。"
+    },
+    {
+      "name": "2026-07-06以后历史盘后固定价格成交明细",
+      "status": "PARTIAL_FORWARD_ONLY",
+      "reason": "现有分钟数据只到15:00，腾讯快照仅能从2026-08-12起向前积累盘后成交观测。",
+      "impact": "历史回测不能假定盘后100%成交；未来可持续采集。"
+    },
+    {
+      "name": "经纪商级真实成交、排队、部分成交和现金实际到账时刻",
+      "status": "USER_ACCOUNT_DATA_REQUIRED",
+      "reason": "公共行情不包含用户订单回报和券商资金流水。",
+      "impact": "实施损耗和现金可交易时点必须保守建模，不能由市场K线证明。"
+    }
+  ],
+  "governance": [
+    "未复权原始价格与现金分红分开保存，禁止复权价再叠加分红。",
+    "当前成分、行业和权重快照禁止倒填历史。",
+    "分钟行情的价格路径不等于任意规模的可成交路径。",
+    "PV/LC只指真实订单流；未获得Level-2前不由OHLCV伪造。",
+    "本阶段没有选择估值/趋势/波动率策略，没有冻结阈值，没有做策略回测。"
+  ]
+}

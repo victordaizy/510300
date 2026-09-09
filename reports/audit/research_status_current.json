@@ -1,0 +1,767 @@
+{
+  "schema_version": "1.0.0",
+  "generated_from": "config/research_registry.jsonl",
+  "generated_at": "2026-08-19T21:34:26+08:00",
+  "as_of_date": "2026-08-19",
+  "registry_sha256": "21c0c7003ace777d3c9a169fe903bf1f1abbcfb93201e53493c36cf76af3a781",
+  "overall_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+  "scope_counts": {
+    "ETF_510300": {
+      "model_count": 15,
+      "view_count": 0,
+      "no_view_count": 15,
+      "rejected_frozen_count": 7,
+      "governance_blocked_count": 13
+    },
+    "INTERNATIONAL_BROKER": {
+      "model_count": 1,
+      "view_count": 0,
+      "no_view_count": 1,
+      "rejected_frozen_count": 0,
+      "governance_blocked_count": 1
+    }
+  },
+  "models": [
+    {
+      "model_id": "510300_DEFENSIVE_VALUATION_TIMING_R5",
+      "implementation_id": "510300_DEFENSIVE_VALUATION_TIMING_R5_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_DEFENSIVE_VALUATION_TIMING_R5",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "PASS",
+      "status_reason": "The R5 historical family is frozen and rejected. Replay of derived snapshots is not full source and model reconstruction.",
+      "sample_metrics": {
+        "observed_sample_count": 1211,
+        "mature_sample_count": 1211,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 5,
+        "unversioned_count": 0,
+        "missing_count": 0,
+        "paths": [
+          "docs/ROUND5_STRATEGY_COMPARISON_SPEC.md",
+          "backtest/defensive_valuation_timing_engine.py",
+          "config/round5_defensive_valuation_timing.yaml",
+          "reports/backtest/round5_defensive_valuation_timing.md",
+          "reports/backtest/round5_defensive_valuation_timing.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_DONCHIAN_DISCOVERY_V1",
+      "implementation_id": "510300_DONCHIAN_DISCOVERY_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_DONCHIAN_DISCOVERY_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "BLOCKED",
+      "research_status": "PREREGISTERED",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_STATUS_CONFLICT",
+      "status_reason": "Dividend completeness was unresolved at the review cutoff. A post-cutoff status change creates a status conflict and is not backfilled.",
+      "sample_metrics": {
+        "observed_sample_count": 0,
+        "mature_sample_count": 0,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__BLOCKED__PREREGISTERED__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 4,
+        "missing_count": 1,
+        "paths": [
+          "docs/510300_DONCHIAN_DISCOVERY_V1_SPEC.md",
+          "research/donchian_discovery_data_audit.py",
+          "config/donchian_discovery_v1_manifest.json",
+          null,
+          "reports/data_quality/donchian_discovery_v1_data_gate.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_PREDICTABLE_FISH_MIDDLE_DECISION_V1",
+      "implementation_id": "510300_PREDICTABLE_FISH_MIDDLE_DECISION_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_PREDICTABLE_FISH_MIDDLE_DECISION_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "NOT_STARTED",
+      "research_status": "FORWARD_COLLECTING",
+      "view_status": "NO_VIEW",
+      "authorization": "PAPER_ONLY",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "Logic ran successfully as of 2026-08-18, but prediction gates and forward samples did not pass. WAIT is not a trading instruction.",
+      "sample_metrics": {
+        "observed_sample_count": 0,
+        "mature_sample_count": 0,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__NOT_STARTED__FORWARD_COLLECTING__NO_VIEW__PAPER_ONLY",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/510300_PREDICTABLE_FISH_MIDDLE_DECISION_V1_SPEC.md",
+          "research/predictable_fish_middle_decision_v1.py",
+          "config/510300_predictable_fish_middle_decision_v1_manifest.json",
+          "reports/forward/510300_predictable_fish_middle_decision_v1_2026-08-18.md",
+          "reports/forward/510300_predictable_fish_middle_decision_v1_2026-08-18.json"
+        ]
+      },
+      "dependencies": [
+        {
+          "model_id": "SECTOR_FORWARD_RETURN_PREDICTION_V1",
+          "research_scope": "ETF_510300",
+          "relation": "EVIDENCE_DEPENDENCY"
+        },
+        {
+          "model_id": "INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1",
+          "research_scope": "ETF_510300",
+          "relation": "EVIDENCE_DEPENDENCY"
+        },
+        {
+          "model_id": "510300_PRIMARY_SECONDARY_FORWARD_V1",
+          "research_scope": "ETF_510300",
+          "relation": "EVIDENCE_DEPENDENCY"
+        },
+        {
+          "model_id": "V3_FORWARD_2",
+          "research_scope": "ETF_510300",
+          "relation": "EVIDENCE_DEPENDENCY"
+        }
+      ],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_PRIMARY_SECONDARY_FORWARD_V1",
+      "implementation_id": "510300_PRIMARY_SECONDARY_FORWARD_OPERATIONS_V1_2_IMMUTABLE_RECEIPTS",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_PRIMARY_SECONDARY_FORWARD_V1",
+      "as_of_date": "2026-08-19",
+      "recorded_at": "2026-08-19T19:42:20+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "FAILED",
+      "collection_status": "COLLECTING",
+      "research_status": "DISCOVERY_ONLY",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The 2026-08-19 SSE timeout remains a failed collection day. Future foreground task runs now preserve immutable per-run receipts, separate valid non-trading-day skips from failures, and keep every position, order, broker, and live-trading capability disabled.",
+      "sample_metrics": {
+        "observed_sample_count": 4,
+        "mature_sample_count": 2,
+        "unit": "observed_trading_days; full_quality_days=2; quality_audit_gate=20"
+      },
+      "derived_display_status": "FAILED__COLLECTING__DISCOVERY_ONLY__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 6,
+        "versioned_count": 0,
+        "unversioned_count": 6,
+        "missing_count": 0,
+        "paths": [
+          "docs/PRIMARY_MARKET_FORWARD.md",
+          "scripts/run_510300_primary_market_collection_task.ps1",
+          "config/primary_market_forward.yaml",
+          "reports/audit/510300_PRIMARY_MARKET_FORWARD_OPERATIONS_20260819.md",
+          "reports/data_quality/510300_primary_market_task_status_20260819.json",
+          "scripts/collect_510300_primary_market.py"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_R6_REGIME_ALLOCATION",
+      "implementation_id": "R6_POSTMORTEM_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_R6_REGIME_ALLOCATION",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "PASS",
+      "status_reason": "All 25 historical candidates failed. REJECTED_FROZEN is terminal and cannot be rescued on the same history.",
+      "sample_metrics": {
+        "observed_sample_count": 25,
+        "mature_sample_count": 25,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 5,
+        "unversioned_count": 0,
+        "missing_count": 0,
+        "paths": [
+          "docs/R6_POSTMORTEM_PROTOCOL.md",
+          "scripts/run_r6_postmortem.py",
+          "config/r6_postmortem_protocol.yaml",
+          "reports/backtest/r6_postmortem.json",
+          "reports/backtest/r6_model_selection.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_RETURN_TAIL_GATING_DISCOVERY_V1",
+      "implementation_id": "510300_RETURN_TAIL_GATING_DISCOVERY_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_RETURN_TAIL_GATING_DISCOVERY_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "BLOCKED",
+      "research_status": "DISCOVERY_ONLY",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "Option history is missing and earnings consensus has no true vintage. X1 completed raw testing and is frozen rejected.",
+      "sample_metrics": {
+        "observed_sample_count": 0,
+        "mature_sample_count": 0,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__BLOCKED__DISCOVERY_ONLY__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/RETURN_TAIL_GATING_RESEARCH_SPEC.md",
+          "research/return_tail_data_feasibility.py",
+          "config/return_tail_gating_manifest.json",
+          "reports/data_quality/return_tail_feasibility.json",
+          "paper/return_tail_gate_forward/status.json"
+        ]
+      },
+      "dependencies": [
+        {
+          "model_id": "510300_X1_COMMON_TAIL_PREDICTION_V1",
+          "research_scope": "ETF_510300",
+          "relation": "EVIDENCE_DEPENDENCY"
+        }
+      ],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_T_ONLY_FORWARD_V1_1",
+      "implementation_id": "510300_T_ONLY_FORWARD_EVENT_LEDGER_P1_4",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_T_ONLY_FORWARD_V1_1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:44:56+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "NOT_STARTED",
+      "research_status": "FORWARD_COLLECTING",
+      "view_status": "NO_VIEW",
+      "authorization": "PAPER_ONLY",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The append-only forward ledger contains zero new trading days and zero closed cycles. Performance remains blinded and live position mapping is disabled.",
+      "sample_metrics": {
+        "observed_sample_count": 0,
+        "mature_sample_count": 0,
+        "unit": "forward_trading_days; closed_cycles=0"
+      },
+      "derived_display_status": "SUCCESS__NOT_STARTED__FORWARD_COLLECTING__NO_VIEW__PAPER_ONLY",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/510300_T_ONLY_FORWARD_V1_1_ADDENDUM.md",
+          "research/t_only_forward_event_ledger.py",
+          "config/t_only_forward_integrity_v1.yaml",
+          "reports/forward/t_only_forward_integrity_status.md",
+          "reports/forward/t_only_forward_integrity_status.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "510300_X1_COMMON_TAIL_PREDICTION_V1",
+      "implementation_id": "510300_X1_COMMON_TAIL_PREDICTION_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::510300_X1_COMMON_TAIL_PREDICTION_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The X1 common-tail high-risk group failed its frozen gate. Sign reversal or relabeling is prohibited.",
+      "sample_metrics": {
+        "observed_sample_count": 830,
+        "mature_sample_count": 830,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/X1_COMMON_TAIL_PREDICTION_V1_SPEC.md",
+          "research/x1_common_tail_prediction.py",
+          "config/x1_common_tail_prediction_v1_manifest.json",
+          "reports/discovery/x1_common_tail_prediction_v1_result.md",
+          "reports/discovery/x1_common_tail_prediction_v1_result.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "A_SHARE_BUCKET2_TIME_HOLDOUT_LOWVOL_V1",
+      "implementation_id": "A_SHARE_BUCKET2_TIME_HOLDOUT_LOWVOL_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::A_SHARE_BUCKET2_TIME_HOLDOUT_LOWVOL_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The strict code and time holdout result is frozen rejected. Further subperiod, parameter, or alternate-label analysis is prohibited.",
+      "sample_metrics": {
+        "observed_sample_count": 19,
+        "mature_sample_count": 19,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "config/a_share_bucket2_time_holdout_lowvol_v1.yaml",
+          "scripts/run_a_share_bucket2_time_holdout_lowvol_v1.py",
+          "config/a_share_bucket2_time_holdout_lowvol_v1_protocol_manifest.json",
+          "reports/backtest/A_SHARE_BUCKET2_TIME_HOLDOUT_LOWVOL_V1.md",
+          "reports/data_quality/a_share_bucket2_time_holdout_lowvol_v1_status.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1",
+      "implementation_id": "INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1_1_RECOVERY_OPERATIONS",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1",
+      "as_of_date": "2026-08-19",
+      "recorded_at": "2026-08-19T19:22:49+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COLLECTING",
+      "research_status": "FORWARD_COLLECTING",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The frozen operational-readiness file was recovered byte-for-byte from the pre-freeze collector log under a recovery-only V1.1 execution layer. Outcome inputs are current through 2026-08-19, one forward trading day is accumulated with no partial return output, and zero prediction origins are mature.",
+      "sample_metrics": {
+        "observed_sample_count": 1,
+        "mature_sample_count": 0,
+        "unit": "prediction_origin_clusters; observed_forward_trading_days=1; non_overlapping_60d_blocks=0"
+      },
+      "derived_display_status": "SUCCESS__COLLECTING__FORWARD_COLLECTING__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 10,
+        "versioned_count": 0,
+        "unversioned_count": 10,
+        "missing_count": 0,
+        "paths": [
+          "docs/INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1_1_RECOVERY_ADDENDUM.md",
+          "scripts/run_industry_expectation_gap_forward_evaluation_v1_1.py",
+          "research/industry_expectation_gap_origin_maturity.py",
+          "config/industry_expectation_gap_forward_evaluation_v1_1_recovery_manifest.json",
+          "reports/forward/industry_expectation_gap_v1_evaluation/industry_expectation_gap_forward_evaluation_v1_1_2026-08-19.md",
+          "reports/forward/industry_expectation_gap_v1_evaluation/industry_expectation_gap_forward_evaluation_v1_1_2026-08-19.json",
+          "config/industry_expectation_gap_forward_operations_v1.yaml",
+          "scripts/run_industry_expectation_gap_forward_operations_v1.py",
+          "config/industry_expectation_gap_outcome_refresh_v1.yaml",
+          "scripts/refresh_industry_expectation_gap_outcome_inputs.py"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "INTERNATIONAL_BROKER_THEME_RESEARCH_V1",
+      "implementation_id": "INTERNATIONAL_BROKER_G2_G3_RECONSTRUCTION_V1_3",
+      "research_scope": "INTERNATIONAL_BROKER",
+      "namespace": "INTERNATIONAL_BROKER::INTERNATIONAL_BROKER_THEME_RESEARCH_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:44:58+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COLLECTING",
+      "research_status": "DISCOVERY_ONLY",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "All 30 official annual-report files passed hash verification. G2 boundaries pass for 20 of 30 company-years, while complete G3 profit bridges remain zero of 30; G6 valuation and return conclusions are prohibited.",
+      "sample_metrics": {
+        "observed_sample_count": 30,
+        "mature_sample_count": 0,
+        "unit": "company_years; G2_pass=20; G3_complete=0"
+      },
+      "derived_display_status": "SUCCESS__COLLECTING__DISCOVERY_ONLY__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/INTERNATIONAL_BROKER_RESEARCH_SPEC.md",
+          "research/international_broker_g2_g3_reconstruction_v1_3.py",
+          "config/international_broker_g2_g3_v1_3.yaml",
+          "reports/research/international_broker_g2_g3_v1_3_status.md",
+          "reports/research/international_broker_g2_g3_v1_3_status.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1",
+      "implementation_id": "NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "Raw EY, normalized EY, and EY spread did not jointly pass support, monotonicity, and stability gates.",
+      "sample_metrics": {
+        "observed_sample_count": 49,
+        "mature_sample_count": 49,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1_PROTOCOL.md",
+          "research/normalized_valuation_5y_predictive_screen_v1.py",
+          "config/normalized_valuation_5y_predictive_screen_v1_protocol_manifest.json",
+          "reports/research/normalized_valuation_5y_family_predictive_screen_v1.md",
+          "reports/research/normalized_valuation_5y_family_predictive_screen_v1.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1",
+      "implementation_id": "PRIORITY_FORWARD_SINGLE_ENTRYPOINT_CODEX_AUTOMATION_V1_4",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1",
+      "as_of_date": "2026-08-19",
+      "recorded_at": "2026-08-19T21:34:26+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COLLECTING",
+      "research_status": "FORWARD_COLLECTING",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "Both active Codex heartbeats now invoke one tested orchestration script with explicit morning and close phases. A real close-phase immutable receipt proved same-day deduplication without executing child tasks. The morning phase permits PCF only inside 09:25-09:35; the close phase excludes PCF. Missing post-run evidence and nonzero child exits fail closed. No premature evaluation, low-vol start, position, order, broker, or live-trading action is authorized.",
+      "sample_metrics": {
+        "observed_sample_count": 2,
+        "mature_sample_count": 0,
+        "unit": "primary_full_quality_days=2; industry_origin_clusters=1; mature_origins=0; threshold_events=0; codex_heartbeats_active=2; tested_entrypoints=1; real_close_dedup_receipts=1"
+      },
+      "derived_display_status": "SUCCESS__COLLECTING__FORWARD_COLLECTING__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 9,
+        "versioned_count": 0,
+        "unversioned_count": 9,
+        "missing_count": 0,
+        "paths": [
+          "docs/PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1_4_SINGLE_ENTRYPOINT_ADDENDUM.md",
+          "scripts/run_priority_forward_codex_automation.py",
+          "config/priority_forward_research_operations_v1_4_manifest.json",
+          "reports/audit/priority_forward_status_runs/20260819T1321590373955Z_11516.md",
+          "reports/audit/priority_forward_status_runs/20260819T1321590373955Z_11516.json",
+          "reports/audit/priority_forward_codex_automation_v1_4_20260819.json",
+          "reports/audit/priority_forward_codex_runs/20260819T131659369938Z_13648_close.json",
+          "scripts/render_priority_forward_research_status.py",
+          "config/priority_forward_research_operations_v1.yaml"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "SECTOR_FORWARD_RETURN_PREDICTION_V1",
+      "implementation_id": "SECTOR_FORWARD_RETURN_PREDICTION_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::SECTOR_FORWARD_RETURN_PREDICTION_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The S1 sector Ridge and related middle-tail historical prediction gates failed and remain frozen rejected.",
+      "sample_metrics": {
+        "observed_sample_count": 38,
+        "mature_sample_count": 38,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/SECTOR_FORWARD_RETURN_PREDICTION_V1_SPEC.md",
+          "research/sector_future_return_prediction.py",
+          "config/sector_forward_return_prediction_v1_manifest.json",
+          "reports/discovery/sector_forward_return_prediction_v1_result.md",
+          "reports/discovery/sector_forward_return_prediction_v1_result.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "TECH_03_DONCHIAN_55_20_V1",
+      "implementation_id": "TECH_03_DONCHIAN_55_20_V1_IMPL",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::TECH_03_DONCHIAN_55_20_V1",
+      "as_of_date": "2026-08-18",
+      "recorded_at": "2026-08-19T05:03:21+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "SUCCESS",
+      "collection_status": "COMPLETE",
+      "research_status": "REJECTED_FROZEN",
+      "view_status": "NO_VIEW",
+      "authorization": "REAL_DISABLED",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The 55/20 historical result had no economic or statistical edge and active return turned negative under double cost.",
+      "sample_metrics": {
+        "observed_sample_count": 3456,
+        "mature_sample_count": 3456,
+        "unit": "See protocol for event, trading-day, or candidate unit."
+      },
+      "derived_display_status": "SUCCESS__COMPLETE__REJECTED_FROZEN__NO_VIEW__REAL_DISABLED",
+      "artifact_summary": {
+        "artifact_count": 5,
+        "versioned_count": 0,
+        "unversioned_count": 5,
+        "missing_count": 0,
+        "paths": [
+          "docs/TECH_03_DONCHIAN_55_20_V1_SPEC.md",
+          "research/tech_03_donchian_55_20_v1.py",
+          "config/tech_03_donchian_55_20_v1_manifest.json",
+          "reports/backtest/tech_03_donchian_55_20_v1.md",
+          "reports/backtest/tech_03_donchian_55_20_v1.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    },
+    {
+      "model_id": "V3_FORWARD_2",
+      "implementation_id": "V3_FORWARD_2_FROZEN_IMPL_FAIL_CLOSED_20260819",
+      "research_scope": "ETF_510300",
+      "namespace": "ETF_510300::V3_FORWARD_2",
+      "as_of_date": "2026-08-19",
+      "recorded_at": "2026-08-19T19:24:18+08:00",
+      "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+      "run_status": "FAILED",
+      "collection_status": "BLOCKED",
+      "research_status": "FORWARD_COLLECTING",
+      "view_status": "NO_VIEW",
+      "authorization": "PAPER_ONLY",
+      "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "status_reason": "The 2026-08-19 input refresh completed, but frozen validation rejected drift in scripts/refresh_v3_forward_2_inputs.py before any model output. V3_FORWARD_2 remains failed and blocked; no signal, position, or order was produced.",
+      "sample_metrics": {
+        "observed_sample_count": 2,
+        "mature_sample_count": 0,
+        "unit": "forward_observation_days"
+      },
+      "derived_display_status": "FAILED__BLOCKED__FORWARD_COLLECTING__NO_VIEW__PAPER_ONLY",
+      "artifact_summary": {
+        "artifact_count": 7,
+        "versioned_count": 3,
+        "unversioned_count": 4,
+        "missing_count": 0,
+        "paths": [
+          "docs/V3_FORWARD_2_SPEC.md",
+          "research/v3_forward_2_validation.py",
+          "config/v3_forward_2_manifest.json",
+          "paper/v3_forward_2_daily_run_status.json",
+          "paper/v3_forward_2_input_refresh_status.json",
+          "docs/incidents/V3_FORWARD_2_20260818_fingerprint.md",
+          "reports/audit/V3_FORWARD_2_20260818_fingerprint.json"
+        ]
+      },
+      "dependencies": [],
+      "live_trading_authorized": false
+    }
+  ],
+  "reconciliation": {
+    "status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+    "record_count": 30,
+    "model_count": 16,
+    "latest_model_count": 16,
+    "errors": [],
+    "warnings": [],
+    "unregistered_manifest_count": 90,
+    "unregistered_manifest_paths": [
+      "config/510300_cross_market_chart_ml_v1_manifest.json",
+      "config/510300_cross_market_chart_ml_v1_manifest_pre_training_sample_count_error.json",
+      "config/510300_futures_option_bridge_v1_manifest.json",
+      "config/510300_option_forward_orderbook_v1_protocol_manifest.json",
+      "config/510300_option_gamma_oi_pressure_v1_manifest.json",
+      "config/510300_option_ivs_transfer_v1_manifest.json",
+      "config/510300_option_ivs_transfer_v1_validation_2024_manifest.json",
+      "config/510300_option_long_horizon_tsmom_v1_manifest.json",
+      "config/510300_option_smirk_gamma1_v1_manifest.json",
+      "config/510300_option_smirk_gamma1_v2_manifest.json",
+      "config/510300_option_surface_signal_v1_manifest.json",
+      "config/510300_option_technical_rule_discovery_v1_manifest.json",
+      "config/510300_option_ten_factor_direction_v1_manifest.json",
+      "config/510300_option_trade_envelope_v1_manifest.json",
+      "config/a_share_bucket1_time_holdout_formula_v1_protocol_manifest.json",
+      "config/a_share_bucket2_visible_shadow_v1_manifest.json",
+      "config/a_share_bucket34_time_holdout_stratified_lowvol_v1_protocol_manifest.json",
+      "config/a_share_hash_holdout_alpha_v1_protocol_manifest.json",
+      "config/a_share_hash_holdout_alpha_v2_protocol_manifest.json",
+      "config/a_share_hash_holdout_alpha_v2a_audit_manifest.json",
+      "config/a_share_hash_holdout_alpha_v2a_model_manifest.json",
+      "config/a_share_hash_holdout_alpha_v2b_holdout_audit_manifest.json",
+      "config/csi300_all_etf_momentum_alpha_v1_protocol_manifest.json",
+      "config/csi300_all_etf_momentum_alpha_v1r_correction_manifest.json",
+      "config/csi300_dual_sleeve_projection_v1_manifest.json",
+      "config/csi300_etf_rotation_alpha_v1_protocol_manifest.json",
+      "config/csi300_retrospective_hash_alpha_v1_model_manifest.json",
+      "config/csi300_retrospective_hash_alpha_v1_protocol_manifest.json",
+      "config/csi300_small_account_alpha_v2_manifest.json",
+      "config/csi300_small_account_external_2015_2021_manifest.json",
+      "config/csi300_temporal_transfer_alpha_v1_model_manifest.json",
+      "config/csi300_temporal_transfer_alpha_v1_protocol_manifest.json",
+      "config/csi300_ten_factor_alpha_v1_manifest.json",
+      "config/csi300_ten_factor_alpha_v1_reporting_fix_manifest.json",
+      "config/daily_01_overnight_absorption_v1_evaluation_manifest.json",
+      "config/daily_01_overnight_absorption_v1_failure_reporting_manifest.json",
+      "config/daily_01_overnight_absorption_v1_protocol_manifest.json",
+      "config/daily_02_tom_liquidity_drift_v1_manifest.json",
+      "config/extreme_two_level_martin_v1_implementation_manifest.json",
+      "config/extreme_two_level_martin_v1_protocol_manifest.json",
+      "config/graph_regime_cost_gate_v2_1_manifest.json",
+      "config/graph_regime_martin_turtle_v2_implementation_manifest.json",
+      "config/graph_regime_martin_turtle_v2_implementation_manifest_reporting_fix.json",
+      "config/graph_regime_martin_turtle_v2_protocol_manifest.json",
+      "config/historical_market_context_supplement_v1_manifest.json",
+      "config/index_driver_attribution_v1_1_manifest.json",
+      "config/index_driver_attribution_v1_2_manifest.json",
+      "config/index_driver_attribution_v1_3_manifest.json",
+      "config/index_driver_attribution_v1_manifest.json",
+      "config/index_driver_episode_discovery_v1_manifest.json",
+      "config/industry_expectation_gap_etf_model_v1_manifest.json",
+      "config/industry_expectation_gap_etf_model_v2_manifest.json",
+      "config/industry_expectation_gap_forward_start_audit_20260819_manifest.json",
+      "config/industry_sector_scorecard_v1_1_manifest.json",
+      "config/industry_sector_scorecard_v1_2_manifest.json",
+      "config/industry_sector_scorecard_v1_3_wechat_manifest.json",
+      "config/industry_sector_scorecard_v1_manifest.json",
+      "config/international_broker_foundation_manifest.json",
+      "config/macro_01_m2_accel_trend_v1_execution_fix_manifest.json",
+      "config/macro_01_m2_accel_trend_v1_manifest.json",
+      "config/macro_02_credit_spread_trend_v1_manifest.json",
+      "config/model_layer_rebuild_v1_manifest.json",
+      "config/normalized_valuation_5y_final_audit_v1_manifest.json",
+      "config/normalized_valuation_5y_models_v1_protocol_manifest.json",
+      "config/normalized_valuation_5y_predictive_screen_v1_result_manifest.json",
+      "config/point_in_time_valuation_v2_audit_manifest.json",
+      "config/point_in_time_valuation_v2_audit_v1_1_manifest.json",
+      "config/sse_option_historical_snapshot_import_v1_manifest.json",
+      "config/t_only_forward_start_audit_20260819_manifest.json",
+      "config/t_only_forward_v1_automation_manifest.json",
+      "config/t_only_forward_v1_freeze_manifest.json",
+      "config/v3_forward_1_manifest.json",
+      "config/val01_norm_ey_5y_financial_extension_v1_manifest.json",
+      "config/val01_norm_ey_5y_financial_extension_v1_protocol_manifest.json",
+      "config/val01_norm_ey_5y_v1_manifest.json",
+      "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json",
+      "config/val01_raw_ey_5y_v1_manifest.json",
+      "config/val02_norm_ey_spread_5y_v1_manifest.json",
+      "config/val04_pb_roe_residual_data_feasibility_v1_protocol_manifest.json",
+      "config/val04_pb_roe_residual_data_feasibility_v1_result_manifest.json",
+      "config/val04_pb_roe_residual_data_feasibility_v2_protocol_manifest.json",
+      "config/val04_pb_roe_residual_data_feasibility_v2_result_manifest.json",
+      "config/val04_pb_roe_residual_final_audit_v1_manifest.json",
+      "config/val04_pb_roe_residual_predictive_screen_v1_protocol_manifest.json",
+      "config/val04_pb_roe_residual_predictive_screen_v1_result_manifest.json",
+      "config/val04_pb_roe_residual_v1_manifest.json",
+      "config/val04_pb_roe_residual_v1_protocol_manifest.json",
+      "config/volatility_compression_change_point_v1_implementation_manifest.json",
+      "config/volatility_compression_change_point_v1_protocol_manifest.json",
+      "config/weekly_daily_technical_v1_freeze_manifest.json"
+    ]
+  },
+  "safety": {
+    "status_is_not_trading_instruction": true,
+    "success_does_not_mean_research_passed": true,
+    "no_view_does_not_mean_short_or_sell": true,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false
+  }
+}

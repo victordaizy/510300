@@ -1,0 +1,164 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "candidate_specs": {
+    "S1_TREND_REBOUND": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.08,
+          "trail": 0.08,
+          "take": null,
+          "days": null
+        },
+        "2": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "R2_Z_CONFIRM": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "D60_INTRA": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.06,
+          "trail": 0.08,
+          "take": null,
+          "days": 60
+        }
+      }
+    }
+  },
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "study_id": "510300_LEARNED_CYCLE_EXIT_V1",
+  "round": 31,
+  "registered_at": "2026-09-07T14:24:46.816388+08:00",
+  "primary": "S1_TREND_REBOUND__RIDGE",
+  "candidate_configurations": 6,
+  "signal_names": {
+    "S1_TREND_REBOUND": "趋势突破与震荡反弹切换",
+    "R2_Z_CONFIRM": "偏离均值后首日回升",
+    "D60_INTRA": "六十日日内强于隔夜"
+  },
+  "model_kinds": {
+    "RIDGE": "线性退出",
+    "TREE": "两层树退出"
+  },
+  "reference_start": "2013-06-03",
+  "recent_cycles": 20,
+  "minimum_cycles": 10,
+  "minimum_rows": 100,
+  "feature_columns": [
+    "log_holding_days",
+    "cycle_return",
+    "cycle_drawdown",
+    "entry_mode",
+    "mom5",
+    "mom20",
+    "sma120",
+    "vol20"
+  ],
+  "feature_names": [
+    "持仓时间对数",
+    "含分红浮盈浮亏",
+    "持仓回撤",
+    "入场模式",
+    "五日涨跌",
+    "二十日涨跌",
+    "一百二十日均线偏离",
+    "二十日波动"
+  ],
+  "feature_clip": 5.0,
+  "ridge_alpha": 1.0,
+  "tree_max_depth": 2,
+  "tree_min_samples_leaf": 20,
+  "tree_min_weight_fraction_leaf": 0.1,
+  "random_seed": 20260907,
+  "confirmation_days": 2,
+  "model_refit": "MONTH_FIRST_CLOSE",
+  "rules": "docs/510300_LEARNED_CYCLE_EXIT_V1.md",
+  "position_impact": 0,
+  "python_library_version": "1.9.0",
+  "independent_validation": "NOT_ESTABLISHED",
+  "frozen_files": [
+    {
+      "path": "research\\learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research\\learned_cycle_exit_account_v1.py",
+      "sha256": "7ba9e1c6f0994563ac12d8799005cc17dd73eedd9dcef3dd34b2a742ed5b6425"
+    },
+    {
+      "path": "research\\simple_intraday_protection_v1.py",
+      "sha256": "ac6bdee0269638142c19a68c4562e927adce6a0bedadbe3e0e220d310f6b993b"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "docs\\510300_LEARNED_CYCLE_EXIT_V1.md",
+      "sha256": "af263a743a0b482aac1b08b5d64a58cd837d21a38ef3c8f44e9bf882b34c8161"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "tests\\test_learned_cycle_exit_v1.py",
+      "sha256": "c1817ea33a7ce054108352f5f2901c01f2fcb796f211f9529c14695b5202f62e"
+    }
+  ]
+}

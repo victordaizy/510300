@@ -1,0 +1,113 @@
+protocol:
+  project_id: CSI300_ALL_ETF_MOMENTUM_ALPHA_V1
+  description: 点时全ETF宇宙九因子非线性动量轮动
+  research_only: true
+  formula_frozen_before_fund_master_and_return_download: true
+
+periods:
+  warmup_start: '2013-12-02'
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  rebalance_every_trading_days: 20
+
+universe:
+  master_source: tushare.fund_basic
+  statuses: [L, D, I]
+  exchange_market: E
+  name_must_contain_case_insensitive: ETF
+  risk_name_exclusion_regex: 货币|现金|银华日利|保证金|理财|短融|同业存单|债|政金|国债|可转债|信用
+  defensive_asset: 511010.SH
+  minimum_history_days: 252
+  minimum_20d_average_amount_cny: 100000000.0
+  require_observed_bar_on_signal_date: true
+
+factor_budget:
+  maximum: 10
+  used: 9
+  factors:
+    - momentum_252_skip_21
+    - momentum_126_skip_21
+    - momentum_63_skip_21
+    - momentum_20
+    - breakout_252
+    - trend_efficiency_120
+    - volatility_adjusted_momentum_126
+    - drawdown_60
+    - liquidity_20
+
+formula:
+  linear_weights:
+    momentum_252_skip_21: 0.17
+    momentum_126_skip_21: 0.18
+    momentum_63_skip_21: 0.12
+    momentum_20: 0.10
+    breakout_252: 0.10
+    trend_efficiency_120: 0.10
+    volatility_adjusted_momentum_126: 0.12
+    drawdown_60: 0.05
+    liquidity_20: 0.02
+  nonlinear_interactions:
+    momentum_efficiency_rank_product: 0.02
+    medium_short_momentum_rank_product: 0.02
+  absolute_trend:
+    close_above_ma200: true
+    momentum_126_skip_21_strictly_positive: true
+  retention_rank: 3
+  holdings: 1
+  hyperparameter_search_allowed: false
+
+account:
+  initial_cash_cny: 20000.0
+  lot_size: 100
+  minimum_trade_notional_cny: 5000.0
+  maximum_positions: 1
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0
+  stamp_duty_sell_rate_before_reduction: 0.0
+  stamp_duty_reduction_effective_date: '1900-01-01'
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+inputs:
+  directory: data/raw/all_etf_momentum_v1
+  master: data/raw/all_etf_momentum_v1/fund_master.parquet
+  panel: data/raw/all_etf_momentum_v1/etf_total_return_panel.parquet
+  benchmark: data/raw/all_etf_momentum_v1/H00300_total_return.parquet
+  checkpoint_directory: data/raw/all_etf_momentum_v1/checkpoints
+  data_status: reports/data_quality/csi300_all_etf_momentum_v1_status.json
+
+outputs:
+  features: reports/backtest/csi300_all_etf_momentum_v1_features.parquet
+  targets: reports/backtest/csi300_all_etf_momentum_v1_targets.parquet
+  base_ledger: reports/backtest/csi300_all_etf_momentum_v1_base_ledger.parquet
+  base_trades: reports/backtest/csi300_all_etf_momentum_v1_base_trades.parquet
+  stress_ledger: reports/backtest/csi300_all_etf_momentum_v1_stress_ledger.parquet
+  stress_trades: reports/backtest/csi300_all_etf_momentum_v1_stress_trades.parquet
+  result_json: reports/backtest/csi300_all_etf_momentum_alpha_v1.json
+  result_markdown: reports/backtest/CSI300_ALL_ETF_MOMENTUM_ALPHA_V1.md
+
+evaluation:
+  annualized_excess_minimum: 0.20
+  stress_annualized_excess_minimum: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  bootstrap_lower_bound_strictly_above: 0.0
+  random_seed: 20260818
+  positive_predefined_periods_minimum: 2
+  predefined_periods:
+    - {id: P1_2015_2018, start: '2015-01-05', end: '2018-12-28'}
+    - {id: P2_2019_2022, start: '2019-01-02', end: '2022-12-30'}
+    - {id: P3_2023_2026, start: '2023-01-03', end: '2026-08-14'}
+
+governance:
+  no_post_result_parameter_rescue: true
+  incomplete_point_in_time_universe_is_failure: true
+  paper_signal: DISABLED
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

@@ -1,0 +1,63 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1"
+  status: "FROZEN_BEFORE_QDII_RELATIVE_VALUE_CANDIDATE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+  purpose: "在V1两条路线均失败后，仅扩展一条跨境QDII相对价值路线"
+  v1_results_preserved: true
+  v1_parameters_or_failures_modified: false
+
+inputs:
+  parent_config: "config/multi_asset_annual_excess_40pct_high_sharpe_v1.yaml"
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v1_manifest.json"
+  v1_closeout_json: "reports/research/multi_asset_annual_excess_40pct_high_sharpe_closeout_20260827.json"
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+  rolling_and_bootstrap_gates_unchanged_from_v1: true
+  forward_726_day_requirement_unchanged_from_v1: true
+
+closed_v1_lanes:
+  - lane: "BROAD_LIQUID_ETF_CROSS_ASSET"
+    state: "CLOSED_AFTER_FROZEN_REJECTION"
+  - lane: "A_SHARE_CROSS_SECTIONAL_HEDGED"
+    state: "CLOSED_AFTER_PRESERVED_FAILURES_AND_FROZEN_REJECTION"
+
+new_lane:
+  lane: "CROSS_BORDER_QDII_RELATIVE_VALUE"
+  maximum_candidates_before_new_holdout: 1
+  permitted_mechanism: "跨境ETF相对境外跟踪指数及人民币汇率的可执行折价回归"
+  prohibited_reuse:
+    - "ETF_MOMENTUM_OR_ROTATION"
+    - "LIQUIDITY_SHOCK_REVERSAL"
+    - "A_SHARE_LOW_VOL_OR_RESIDUAL_TREND"
+    - "A_SHARE_SUE_PROTECTIVE_PUT"
+  short_sale_allowed: false
+  leverage_allowed: false
+  same_open_price_signal_and_execution_allowed: false
+
+governance:
+  formula_and_costs_frozen_before_outcome: true
+  retrospective_history_can_verify_target: false
+  historical_result_label: "DISCOVERY_ONLY"
+  sealed_period_may_open_only_after_visible_pass: true
+  failed_candidate_reparameterization_allowed: false
+  target_or_sharpe_relaxation_allowed: false
+  historical_backfill_allowed: false
+  paper_or_live_authorized_by_historical_result: false
+
+outputs:
+  manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v2_manifest.json"
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

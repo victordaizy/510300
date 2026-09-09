@@ -1,0 +1,58 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V15"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V14"
+  status: "FROZEN_BEFORE_MULTI_HORIZON_DIGITAL_ASSET_TREND_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v14_manifest.json"
+  v5_manifest: "config/digital_asset_relative_strength_rotation_v5_manifest.json"
+  v5_visible_report: "reports/research/digital_asset_relative_strength_rotation_v5_visible.json"
+
+registered_v5_rejection:
+  candidate_id: "DIGITAL_ASSET_RELATIVE_STRENGTH_ROTATION_V5"
+  required_status: "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN"
+  all_visible_gates_pass: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "DUAL_DIGITAL_ASSET_MULTI_HORIZON_TREND_VOTE"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_products: ["BTC-USD", "ETH-USD"]
+  momentum_horizons_calendar_days: [20, 60, 120, 240]
+  minimum_positive_votes_for_eligibility: 3
+  allocation_rule: "EQUAL_WEIGHT_AMONG_ELIGIBLE_PRODUCTS"
+  one_eligible_weight: 1.0
+  two_eligible_weight_each: 0.5
+  no_eligible_weight: 0.0
+  gross_leverage_allowed: false
+  rebalance_frequency: "WEEKLY_COMPLETED_UTC_SUNDAY"
+  capacity_aware_execution: true
+  maximum_order_fraction: 0.003
+  terminal_winddown_calendar_days: 30
+  base_total_spot_cost_bps_per_leg: 76.0
+  stress_total_spot_cost_bps_per_leg: 106.0
+  parameter_grid_search_allowed: false
+
+governance:
+  v5_remains_rejected: true
+  v5_parameter_rescue_allowed: false
+  multi_horizon_vote_is_separate_fixed_mechanism: true
+  candidate_must_freeze_before_visible_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

@@ -1,0 +1,49 @@
+{
+  "project_id": "510300_WEEKLY_DAILY_TECHNICAL_V1",
+  "audited_at": "2026-08-18T20:22:05.9291437+08:00",
+  "status": "PASS",
+  "return_calculation_allowed": true,
+  "market": {
+    "file": "data/raw/r6/510300_daily.parquet",
+    "rows": 3456,
+    "first_date": "2012-05-28",
+    "last_date": "2026-08-14",
+    "duplicate_dates": 0,
+    "missing_required_values": 0,
+    "symbol": "510300.SH",
+    "sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979"
+  },
+  "benchmark": {
+    "file": "data/raw/r6/H00300_total_return_daily.parquet",
+    "rows": 3457,
+    "first_date": "2012-05-28",
+    "last_date": "2026-08-14",
+    "duplicate_dates": 0,
+    "missing_close_values": 0,
+    "symbol": "H00300",
+    "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961"
+  },
+  "distributions": {
+    "file": "data/reference/510300_dividends.csv",
+    "coverage_file": "data/reference/510300_dividends_coverage.json",
+    "coverage_confirmed": true,
+    "coverage_start": "2012-05-28",
+    "coverage_end": "2026-08-14",
+    "event_count": 14,
+    "distribution_sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "coverage_sha256": "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"
+  },
+  "checks": {
+    "date_order": "PASS",
+    "ohlc_validity": "PASS",
+    "required_columns": "PASS",
+    "market_data_cutoff_matches_protocol": "PASS",
+    "benchmark_close_coverage": "PASS",
+    "official_dividend_coverage": "PASS",
+    "r5_v3_frozen_inputs_untouched": true
+  },
+  "limitations": [
+    "2026-08-14以前的历史数据已参与策略设计，只能用于发现和否证。",
+    "数据截止日晚于样本的收益不在本报告范围内，当前交易视图必须为NO_VIEW。"
+  ]
+}

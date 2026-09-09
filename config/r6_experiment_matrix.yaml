@@ -1,0 +1,105 @@
+research:
+  strategy_id: "510300_R6_REGIME_ALLOCATION"
+  frozen_at: "2026-08-16"
+  candidate_count: 25
+  candidate_addition_after_freeze_forbidden: true
+  true_locked_oos_start: null
+  current_evidence_label: "HISTORICAL_PSEUDO_OOS_CONTAMINATED"
+
+data:
+  long_panel:
+    etf: "data/raw/r6/510300_daily.parquet"
+    index: "data/raw/r6/000300_daily.parquet"
+    total_return_benchmark: "data/raw/r6/H00300_total_return_daily.parquet"
+    fallback_etf: "data/raw/market/510300_daily_raw.parquet"
+    fallback_index: "data/raw/market/000300_daily_feature_warmup.parquet"
+    fallback_total_return_benchmark: "data/raw/market/H00300_total_return_daily_raw.parquet"
+  common_panel:
+    valuation: "data/raw/valuation/000300_valuation_daily_raw.parquet"
+  dividends: "data/reference/510300_dividends.csv"
+  point_in_time_only: true
+
+splits:
+  development: ["2016-08-12", "2020-12-31"]
+  validation: ["2021-01-04", "2023-12-29"]
+  historical_pseudo_oos: ["2024-01-02", null]
+  anchored_walkforward_frequency: "YE"
+  locked_oos_may_be_evaluated_once: true
+
+execution:
+  signal_time: "t日收盘后"
+  execution_time: "t+1交易日开盘"
+  review_every_trading_days: 5
+  maximum_position_increase_per_review: 0.10
+  continuous_research_account_cny: 1000000
+  small_account_cny: 20000
+  research_grid_step: 0.10
+  small_account_grid_step: 0.25
+  lot_size: 100
+  small_account_minimum_normal_trade_shares: 1000
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  slippage_bps_per_leg: 5.0
+  stress_cost_multiplier: 2.0
+  cash_annual_rate: 0.015
+  long_only: true
+  leverage_allowed: false
+  t_plus_one: true
+
+selection:
+  optimization_order:
+    - "validation_sharpe"
+    - "validation_max_drawdown"
+    - "validation_rolling_242d_excess_median"
+    - "validation_annualized_excess"
+    - "validation_turnover"
+  gates:
+    excess_vs_etf_buy_hold_minimum: 0.0
+    excess_vs_h00300_minimum: 0.0
+    sharpe_minimum: 0.8
+    sharpe_improvement_minimum: 0.25
+    drawdown_ratio_to_buy_hold_maximum: 0.80
+    rolling_242d_excess_median_minimum: 0.0
+    rolling_242d_positive_ratio_minimum: 0.60
+    positive_subperiod_ratio_minimum: 0.6666666667
+    single_year_positive_excess_concentration_maximum: 0.50
+    stress_cost_excess_minimum: 0.0
+    deflated_sharpe_probability_minimum: 0.50
+    complex_module_minimum_sharpe_increment: 0.10
+
+candidates:
+  - {id: "A_TV08_RV20", family: "A_VOL_TARGET", target_volatility: 0.08, estimator: "RV20", neighbor_group: "A_RV20"}
+  - {id: "A_TV10_RV20", family: "A_VOL_TARGET", target_volatility: 0.10, estimator: "RV20", neighbor_group: "A_RV20"}
+  - {id: "A_TV12_RV20", family: "A_VOL_TARGET", target_volatility: 0.12, estimator: "RV20", neighbor_group: "A_RV20"}
+  - {id: "A_TV08_RV60", family: "A_VOL_TARGET", target_volatility: 0.08, estimator: "RV60", neighbor_group: "A_RV60"}
+  - {id: "A_TV10_RV60", family: "A_VOL_TARGET", target_volatility: 0.10, estimator: "RV60", neighbor_group: "A_RV60"}
+  - {id: "A_TV12_RV60", family: "A_VOL_TARGET", target_volatility: 0.12, estimator: "RV60", neighbor_group: "A_RV60"}
+  - {id: "A_TV08_BLEND", family: "A_VOL_TARGET", target_volatility: 0.08, estimator: "RV20_RV60_BLEND", neighbor_group: "A_BLEND"}
+  - {id: "A_TV10_BLEND", family: "A_VOL_TARGET", target_volatility: 0.10, estimator: "RV20_RV60_BLEND", neighbor_group: "A_BLEND"}
+  - {id: "A_TV12_BLEND", family: "A_VOL_TARGET", target_volatility: 0.12, estimator: "RV20_RV60_BLEND", neighbor_group: "A_BLEND"}
+
+  - {id: "B_MATRIX_W504", family: "B_TREND_VOL", mapping: "MATRIX_BASE", normalization_window: 504, neighbor_group: "B_MATRIX"}
+  - {id: "B_MATRIX_W756", family: "B_TREND_VOL", mapping: "MATRIX_BASE", normalization_window: 756, neighbor_group: "B_MATRIX"}
+  - {id: "B_CONT_W504", family: "B_TREND_VOL", mapping: "CONTINUOUS_BASE", normalization_window: 504, neighbor_group: "B_CONT"}
+  - {id: "B_CONT_W756", family: "B_TREND_VOL", mapping: "CONTINUOUS_BASE", normalization_window: 756, neighbor_group: "B_CONT"}
+  - {id: "B_TREND_LIGHT_W504", family: "B_TREND_VOL", mapping: "CONTINUOUS_TREND_LIGHT", normalization_window: 504, neighbor_group: "B_LIGHT"}
+  - {id: "B_TREND_LIGHT_W756", family: "B_TREND_VOL", mapping: "CONTINUOUS_TREND_LIGHT", normalization_window: 756, neighbor_group: "B_LIGHT"}
+  - {id: "B_RISK_LIGHT_W504", family: "B_TREND_VOL", mapping: "CONTINUOUS_RISK_LIGHT", normalization_window: 504, neighbor_group: "B_RISK_LIGHT"}
+  - {id: "B_RISK_LIGHT_W756", family: "B_TREND_VOL", mapping: "CONTINUOUS_RISK_LIGHT", normalization_window: 756, neighbor_group: "B_RISK_LIGHT"}
+
+  - {id: "C_NONE_BASE", family: "C_R5_OVERLAY", valuation_mode: "NONE", multiplier_variant: "BASE", neighbor_group: "C_NONE"}
+  - {id: "C_NONE_NOBOOST", family: "C_R5_OVERLAY", valuation_mode: "NONE", multiplier_variant: "NO_STRONG_BOOST", neighbor_group: "C_NONE"}
+  - {id: "C_BOUNDS_BASE", family: "C_R5_OVERLAY", valuation_mode: "BOUNDS_ONLY", multiplier_variant: "BASE", neighbor_group: "C_BOUNDS"}
+  - {id: "C_BOUNDS_NOBOOST", family: "C_R5_OVERLAY", valuation_mode: "BOUNDS_ONLY", multiplier_variant: "NO_STRONG_BOOST", neighbor_group: "C_BOUNDS"}
+  - {id: "C_LOW_WEIGHT_BASE", family: "C_R5_OVERLAY", valuation_mode: "LOW_WEIGHT", multiplier_variant: "BASE", neighbor_group: "C_LOW_WEIGHT"}
+  - {id: "C_LOW_WEIGHT_NOBOOST", family: "C_R5_OVERLAY", valuation_mode: "LOW_WEIGHT", multiplier_variant: "NO_STRONG_BOOST", neighbor_group: "C_LOW_WEIGHT"}
+  - {id: "C_FULL_R5_BASE", family: "C_R5_OVERLAY", valuation_mode: "FULL_R5", multiplier_variant: "BASE", neighbor_group: "C_FULL_R5"}
+  - {id: "C_FULL_R5_NOBOOST", family: "C_R5_OVERLAY", valuation_mode: "FULL_R5", multiplier_variant: "NO_STRONG_BOOST", neighbor_group: "C_FULL_R5"}
+
+governance:
+  pcf_iopv_position_mapping_enabled: false
+  liquidity_experiments_enabled: false
+  machine_learning_enabled: false
+  broker_connection_enabled: false
+  automatic_ordering_authorized: false
+  forward_version_may_be_created_only_after_all_gates_pass: true

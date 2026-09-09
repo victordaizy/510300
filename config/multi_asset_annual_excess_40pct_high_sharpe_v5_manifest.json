@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V5_MANIFEST",
+  "status": "FROZEN_BEFORE_US_LEVERAGED_MULTI_ASSET_CANDIDATE_OUTCOME",
+  "frozen_at": "2026-08-27T03:54:36.086235+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V5",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V4",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v5.yaml": "0ebc36d8bfef12347353a6b27161411c306fb5d0a92024e45b8e1eb10188d06d",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V5_SPEC.md": "e7f3ee201a7cc030c11f74dfe4c508d2e686e99310170d669feacacd1b5f8594",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v5.py": "c408411d14861c243b4ea4e49d4ee4b583069c3d66d9616da2c30390eaf072c4"
+  },
+  "tracked_content_sha256": "2a759dd684df6992a4bc006da4fcc3bf83e324ed314f066f7d17335e460a52af",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V4_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v4_manifest.json",
+    "manifest_sha256": "6e9d843ae3b8a97fc0eb4be61e3d910bb020217a15e2da21322384f866b002c3",
+    "tracked_content_sha256": "4e022aeb71f69fd95ce48e4f5c979077ac47e823a6f5f902cd9ea0e8b70ae998",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V3_MANIFEST_VERIFIED"
+  },
+  "cb_manifest_verification": {
+    "status": "PASS_CB_DOUBLE_LOW_ROTATION_V1_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/cb_double_low_rotation_v1_manifest.json",
+    "manifest_sha256": "ea4e8c12b9ef70a240fcfa33321631c896c672aa3e79f3805246d84d819778a4",
+    "tracked_content_sha256": "d5a15eaa7b8b5c3f2a9657660b8535c636c23ad66e7b3b09f70ee0e4027dfe67",
+    "tracked_file_count": 5,
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V4_MANIFEST_VERIFIED",
+    "conservative_evaluator_manifest_status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+  },
+  "cb_failure": {
+    "checks": {
+      "failed_contract": true,
+      "performance_unavailable": true,
+      "terminal_exit_failure": true,
+      "replication_closed": true,
+      "historical_target_not_verified": true
+    },
+    "report_path": "reports/research/cb_double_low_rotation_v1_visible.json",
+    "report_sha256": "c6dd0463be8835739fb6969d4ff3eb58eec42316dc2c1585f63f42da6f52f642",
+    "error": "评价期末仍有无法退出的可转债持仓：['113008', '113562', '123068', '127003', '128013', '128018', '128055']"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "holdings_universe": "UNRESTRICTED_BY_USER_CANDIDATE_SPECIFIC_ELIGIBILITY_APPLIES",
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "US_LISTED_DAILY_LEVERAGED_MULTI_ASSET_ABSOLUTE_MOMENTUM",
+    "economic_mechanism": "跨股票、美债和黄金风险源的绝对动量与月频风险分散",
+    "fixed_product_universe": [
+      "UPRO",
+      "TQQQ",
+      "TMF",
+      "UGL"
+    ],
+    "maximum_candidates_before_family_specific_replication": 1,
+    "account_level_borrowing_allowed": false,
+    "account_level_margin_allowed": false,
+    "short_sale_allowed": false,
+    "product_embedded_daily_leverage_allowed": true,
+    "maximum_account_gross_exposure": 1.0
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

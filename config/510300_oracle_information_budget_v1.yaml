@@ -1,0 +1,231 @@
+protocol:
+  project_id: 510300_ORACLE_INFORMATION_BUDGET_V1
+  version: 1.0.0
+  state: READY_TO_FREEZE_BEFORE_INFORMATION_BUDGET_CALCULATION
+  registration_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  evidence_class: EX_POST_ORACLE_INFORMATION_DEGRADATION_AND_ROBUSTNESS_DIAGNOSTIC
+  source_oracle_outcomes_already_known: true
+  information_budget_outputs_computed_before_freeze: false
+  source_oracle_result_may_be_changed: false
+  prefreeze_manifest_count_failure:
+    expected_prior_manifest_count: 353
+    observed_prior_manifest_count: 355
+    information_budget_outputs_computed: false
+  error_grid_rescue_after_result: forbidden
+  random_seed_rescue_after_result: forbidden
+  adversarial_rule_rescue_after_result: forbidden
+  timing_grid_rescue_after_result: forbidden
+  robustness_rule_rescue_after_result: forbidden
+
+research_question:
+  primary: 从完美未来20日信息的压力净夏普1.740出发，现实预测器最多可以承受多少上涨漏判、震荡误入、大跌误入、进入延迟、退出偏差与信号反复
+  target_net_sharpe: 1.20
+  prediction_target: UP20
+  prediction_target_definition: H00300未来20交易日全收益不低于5%
+  excluded:
+    - 训练或选择现实预测器
+    - 用总体分类准确率晋级
+    - 震荡做T
+    - Paper或实盘信号
+
+scope:
+  execution_asset: 510300.SH
+  oracle_label_asset: H00300_TOTAL_RETURN_INDEX
+  allowed_holdings: [510300.SH, CASH_CNY]
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  prediction_model_evaluated: false
+  paper_or_live_signal_allowed: false
+
+dates:
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  recent_period: ['2021-01-04', '2026-08-14']
+
+source_oracle:
+  project_id: 510300_KNOWN_STATE_POLICY_ORACLE_V1
+  version: 1.0.1
+  threshold: 0.05
+  horizon_trading_days: 20
+  expected_complete_blocks: 141
+  expected_censored_blocks: 1
+  expected_state_counts:
+    BULL_TREND: 23
+    BEAR_TREND: 21
+    RANGE: 97
+  expected_primary_stress_net_sharpe: 1.740134238934748
+  manifest:
+    path: config/510300_known_state_policy_oracle_v1_0_1_correction_manifest.json
+    sha256: 881e8272637172127062b30ad2c6a3f00ef24fe091be4f8859b1393dad37bf38
+  result:
+    path: reports/research/510300_known_state_policy_oracle_v1_0_1_result.json
+    sha256: 2e3c0d075d294637600603b4dcbdbe1ac3090c84883b034e56cf8e10146cd452
+  blocks:
+    path: data/research/510300_known_state_policy_oracle_v1_0_1/oracle_blocks.parquet
+    sha256: 6f7c33c53887f0eaefa161a7b49bdfe9f2bbb1ff5d249f6095593ce254d16f51
+  stress_ledger:
+    path: reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_ledger.parquet
+    sha256: 9012a93d4d0dad4eacbd7001f8ce6ec83fb91d6a9756b5c24523b813fb4ad705
+  stress_trades:
+    path: reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_trades.parquet
+    sha256: 14195c749eec830ca3c4ecf9becd66c57bad22abee82815f2e3d1ab65c03b424
+
+inputs:
+  etf_daily:
+    path: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+  index_daily:
+    path: data/raw/r6/000300_daily.parquet
+    sha256: b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+  dividends:
+    path: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+  backtest_engine:
+    path: backtest/engine.py
+    sha256: 3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc
+
+execution:
+  signal_time: BLOCK_ANCHOR_OR_PERTURBED_SIGNAL_DATE_CLOSE
+  execution_time: NEXT_TRADING_DAY_OPEN
+  initial_capital_cny: 20000.0
+  lot_size_shares: 100
+  cash_annual_rate: 0.0
+  stress_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+
+random_error_budget:
+  seed: 51030020260831
+  sampling: EXACT_COUNT_UNIFORM_WITHOUT_REPLACEMENT_WITHIN_TRUE_STATE
+  repetitions_per_cell: 500
+  quantiles: [0.05, 0.50, 0.95]
+  recall_axis:
+    captured_bull_count_start: 0
+    captured_bull_count_end: 23
+    false_range_count: 0
+    false_bear_count: 0
+  range_axis:
+    captured_bull_count: 23
+    false_range_count_start: 0
+    false_range_count_end: 97
+    false_bear_count: 0
+  down_axis:
+    captured_bull_count: 23
+    false_range_count: 0
+    false_bear_count_start: 0
+    false_bear_count_end: 21
+  joint_grid:
+    captured_bull_counts: [4, 8, 12, 16, 20, 23]
+    false_range_counts: [0, 5, 10, 20, 40, 97]
+    false_bear_counts: [0, 1, 2, 4, 8, 21]
+
+adversarial_error_budget:
+  ranking_metric: EXECUTABLE_510300_GROSS_OPEN_TO_NEXT_BLOCK_OPEN_RETURN
+  bull_miss_rule: CAPTURE_LOWEST_RETURN_BULL_BLOCKS_AND_MISS_HIGHEST_FIRST
+  range_false_long_rule: ADD_LOWEST_RETURN_RANGE_BLOCKS_FIRST
+  bear_false_long_rule: ADD_LOWEST_RETURN_BEAR_BLOCKS_FIRST
+  isolated_axes_use_every_integer_count: true
+  joint_grid_same_as_random: true
+
+timing_and_persistence_budget:
+  entry_delay_days: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  early_exit_days: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  late_exit_days: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  apply_timing_error_at_continuous_bull_event_boundary: true
+  whipsaw_episode_holding_days: 1
+  whipsaw_random_round_trip_counts: [0, 5, 10, 20, 40, 80, 120, 160, 240, 320, 400, 500]
+  whipsaw_random_repetitions_per_cell: 500
+  whipsaw_random_rule: RANDOM_PRIORITY_GREEDY_NONOVERLAPPING_TRUE_NONBULL_ONE_DAY_WINDOWS
+  whipsaw_adversarial_round_trip_count_start: 0
+  whipsaw_adversarial_round_trip_count_end: 500
+  whipsaw_adversarial_rule: GREEDY_NONOVERLAPPING_LOWEST_ONE_DAY_EXECUTABLE_RETURN_IN_TRUE_NONBULL_CASH_WINDOWS
+
+robustness_annex:
+  block_phase_offsets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  phase_threshold: 0.05
+  label_execution_basis_reported: true
+  serial_correlation:
+    trading_days_per_year: 242
+    monthly_annualization_periods: 12
+    block_length_days: 20
+    lo_bartlett_max_lag: 20
+  concentration:
+    event_definition: ADJACENT_BULL_BLOCKS_MERGED
+    remove_largest_event_counts: [1, 2]
+    event_bootstrap_repetitions: 10000
+    event_bootstrap_seed: 51030020260832
+    bootstrap_observation_count_fixed_to_evaluation_days: true
+
+budget_pass_rules:
+  stress_net_sharpe_minimum: 1.20
+  stress_total_return_positive: true
+  maximum_drawdown_ratio_vs_source_all_long: 0.80
+  random_sharpe_pass_probability_minimum: 0.95
+  random_drawdown_pass_probability_minimum: 0.95
+  random_sharpe_fifth_percentile_minimum: 1.20
+  random_total_return_fifth_percentile_positive: true
+  adversarial_stress_net_sharpe_minimum: 1.20
+  adversarial_total_return_positive: true
+
+conservative_forecast_research_advancement_gate:
+  maximum_required_adversarial_up_recall: 0.80
+  minimum_adversarial_down_false_long_blocks_tolerated: 1
+  minimum_adversarial_range_false_long_blocks_tolerated: 10
+  minimum_entry_delay_days_tolerated: 3
+  phase_offset_fifth_percentile_stress_sharpe_minimum: 1.20
+  lo_adjusted_stress_sharpe_minimum: 1.20
+  remove_largest_one_event_stress_sharpe_minimum: 1.20
+  event_bootstrap_fifth_percentile_sharpe_minimum: 1.20
+
+reported_budget_fields:
+  - MIN_UP_PRECISION_FOR_SHARPE_1_2
+  - MIN_UP_RECALL_FOR_SHARPE_1_2
+  - MAX_DOWN_FALSE_LONG_RATE
+  - MAX_RANGE_FALSE_LONG_RATE
+  - MAX_ENTRY_DELAY_DAYS
+  - MIN_ORACLE_RETURN_CAPTURE
+  - MAX_ACCEPTABLE_WHIPSAW_LEGS
+
+selection_bias:
+  prior_manifest_count: 355
+  expected_total_trial_count_including_current: 356
+  source_oracle_outcomes_known_and_declared: true
+  information_budget_not_promoted_to_strategy: true
+
+governance:
+  diagnostic_only: true
+  source_oracle_result_immutable: true
+  prediction_model_trained: false
+  historical_strategy_target_can_pass: false
+  verified_forward_target_can_pass: false
+  paper_signal_allowed: false
+  shadow_signal_allowed: false
+  position_mapping_enabled: false
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  spec: docs/510300_ORACLE_INFORMATION_BUDGET_V1_SPEC.md
+  manifest: config/510300_oracle_information_budget_v1_manifest.json
+  random_axis_draws: data/research/510300_oracle_information_budget_v1/random_axis_draws.parquet
+  random_axis_summary: data/research/510300_oracle_information_budget_v1/random_axis_summary.parquet
+  random_joint_draws: data/research/510300_oracle_information_budget_v1/random_joint_draws.parquet
+  random_joint_summary: data/research/510300_oracle_information_budget_v1/random_joint_summary.parquet
+  adversarial_summary: data/research/510300_oracle_information_budget_v1/adversarial_summary.parquet
+  timing_summary: data/research/510300_oracle_information_budget_v1/timing_summary.parquet
+  whipsaw_summary: data/research/510300_oracle_information_budget_v1/whipsaw_summary.parquet
+  offset_robustness: data/research/510300_oracle_information_budget_v1/offset_robustness.parquet
+  label_execution_basis: data/research/510300_oracle_information_budget_v1/label_execution_basis.parquet
+  event_concentration: data/research/510300_oracle_information_budget_v1/event_concentration.parquet
+  result_json: reports/research/510300_oracle_information_budget_v1_result.json
+  result_markdown: reports/research/510300_ORACLE_INFORMATION_BUDGET_V1_RESULT.md

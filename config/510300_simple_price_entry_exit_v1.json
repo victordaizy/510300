@@ -1,0 +1,217 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "weight_band": 0.1,
+  "study_id": "510300_SIMPLE_PRICE_ENTRY_EXIT_V1",
+  "round": 23,
+  "registered_at": "2026-09-07T12:46:38.817891+08:00",
+  "primary": "S1_TREND_REBOUND",
+  "candidate_names": {
+    "T1_BAND60": "六十日均线缓冲与追踪退出",
+    "T2_CHANNEL20": "二十日突破与十日低点退出",
+    "T3_EMA10_40": "双指数均线缓冲",
+    "T4_PULLBACK20": "长期上涨中的二十日均线收复",
+    "R1_RSI2_BULL": "上涨趋势内两日超跌",
+    "R2_Z_CONFIRM": "偏离均值后的首日回升",
+    "R3_SHOCK_RECOVERY": "五日急跌后的收盘转强",
+    "R4_BAND_REENTRY": "跌出波动带后的重新收复",
+    "S1_TREND_REBOUND": "趋势突破与震荡反弹切换",
+    "S2_PULLBACK_SHOCK": "上涨回调与弱市急跌切换",
+    "D1_DRAWDOWN_RECOVERY": "回撤退出与短期趋势恢复",
+    "R5_PULLBACK_DOUBLE": "长期上涨中的双条件回调"
+  },
+  "candidate_specs": {
+    "T1_BAND60": {
+      "cooldown": 3,
+      "modes": {
+        "1": {
+          "loss": 0.08,
+          "trail": 0.08,
+          "take": null,
+          "days": null
+        }
+      }
+    },
+    "T2_CHANNEL20": {
+      "cooldown": 3,
+      "modes": {
+        "1": {
+          "loss": 0.06,
+          "trail": 0.06,
+          "take": null,
+          "days": null
+        }
+      }
+    },
+    "T3_EMA10_40": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.08,
+          "trail": 0.08,
+          "take": null,
+          "days": null
+        }
+      }
+    },
+    "T4_PULLBACK20": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.05,
+          "trail": 0.06,
+          "take": null,
+          "days": 60
+        }
+      }
+    },
+    "R1_RSI2_BULL": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.04,
+          "trail": null,
+          "take": null,
+          "days": 5
+        }
+      }
+    },
+    "R2_Z_CONFIRM": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "R3_SHOCK_RECOVERY": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.04,
+          "trail": null,
+          "take": 0.04,
+          "days": 5
+        }
+      }
+    },
+    "R4_BAND_REENTRY": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "S1_TREND_REBOUND": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.08,
+          "trail": 0.08,
+          "take": null,
+          "days": null
+        },
+        "2": {
+          "loss": 0.05,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "S2_PULLBACK_SHOCK": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.05,
+          "trail": 0.06,
+          "take": null,
+          "days": 20
+        },
+        "2": {
+          "loss": 0.04,
+          "trail": null,
+          "take": 0.04,
+          "days": 5
+        }
+      }
+    },
+    "D1_DRAWDOWN_RECOVERY": {
+      "cooldown": 3,
+      "modes": {
+        "1": {
+          "loss": 0.06,
+          "trail": 0.08,
+          "take": null,
+          "days": null
+        }
+      }
+    },
+    "R5_PULLBACK_DOUBLE": {
+      "cooldown": 1,
+      "modes": {
+        "1": {
+          "loss": 0.04,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    }
+  },
+  "candidate_count": 12,
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "rules": "docs/510300_SIMPLE_PRICE_ENTRY_EXIT_V1.md",
+  "position_impact": 0,
+  "evidence_class": "RESEARCH_SCREEN_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "independent_validation": "NOT_ESTABLISHED",
+  "frozen_files": [
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "docs\\510300_SIMPLE_PRICE_ENTRY_EXIT_V1.md",
+      "sha256": "1759ce4d7067d1659e170cb38ee1bdadf62c47454cd3b2ec894231a9470be538"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    }
+  ]
+}

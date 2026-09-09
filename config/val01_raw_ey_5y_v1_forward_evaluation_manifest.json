@@ -1,0 +1,72 @@
+{
+  "project_id": "VAL01_RAW_EY_5Y_V1_FORWARD_EVALUATION",
+  "version": "1.0.0",
+  "frozen_at": "2026-08-19T00:42:00.143584+08:00",
+  "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+  "worktree_dirty_at_freeze": true,
+  "upstream_model_manifest": {
+    "file": "config/val01_raw_ey_5y_v1_manifest.json",
+    "sha256": "71e4cdb0f747a052d35112deaae1d3ff5d924fd93f0825baf225ca066c49dc35",
+    "mutated": false
+  },
+  "frozen_files": {
+    "config/val01_raw_ey_5y_v1_forward_evaluation.yaml": "80c1cf59bd9df24552f4d2c129c9aec9936197de598e02e267edc9bff7210b8d",
+    "docs/VAL01_RAW_EY_5Y_V1_FORWARD_LABEL_PROTOCOL.md": "0ba4212ce80bfd47982073538b321d15151c751530695e5c5949f3f6ccfc0f37",
+    "research/val01_raw_ey_5y_v1_forward_evaluation.py": "90f490b75c53e00f60e6ef3ef5867dee898fb9cd6313b66d0e4df1c7fd5ad813",
+    "scripts/evaluate_val01_raw_ey_5y_v1_forward.py": "f6a8c2dde91c36825b119d91fe09266afc0d90225ea542be627692a60bf45134",
+    "scripts/freeze_val01_raw_ey_5y_v1_forward_evaluation.py": "994fee4e2aa456a1a211207261487ea193269249f393008a7128b449febef80d",
+    "tests/test_val01_raw_ey_5y_v1_forward_evaluation.py": "63dfc29c7013c2e33a7cc951af736f31075a357351f633a92c73153136379355"
+  },
+  "output_files": {
+    "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+    "reports/research/val01_raw_ey_5y_v1_predictive_diagnostics.json": "2933ea1ce79a021f5895af788af9bbc99e1af76a5c933b2a21c5a5968100fbe3",
+    "reports/research/val01_raw_ey_5y_v1_predictive_diagnostics.md": "c7974ea45842d81f5b9f99e5d1e30e4563821b79070709e2f6e43a89f66e4b4e"
+  },
+  "status_at_freeze": {
+    "predictive_screen": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST",
+    "primary_gate_passed": false,
+    "failed_checks": [
+      "minimum_observations_per_bucket"
+    ],
+    "maturity_by_horizon": {
+      "60": {
+        "matured_count": 58,
+        "right_censored_count": 3
+      },
+      "120": {
+        "matured_count": 55,
+        "right_censored_count": 6
+      },
+      "242": {
+        "matured_count": 49,
+        "right_censored_count": 12
+      }
+    },
+    "historical_label": "HISTORICALLY_CONTAMINATED_NOT_STRICT_OOS"
+  },
+  "governance": {
+    "forward_labels_generated": true,
+    "predictive_ic_calculated": true,
+    "historical_strategy_return_calculated": false,
+    "historical_position_mapping_performed": false,
+    "current_position_mapping_performed": false,
+    "target_shares_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false,
+    "alpha_pass": false,
+    "upstream_model_files_mutated": false
+  },
+  "test_result": {
+    "command": [
+      "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_val01_raw_ey_5y_v1_forward_evaluation.py",
+      "tests/test_val01_raw_ey_5y_v1.py",
+      "-q"
+    ],
+    "return_code": 0,
+    "stdout": "............                                                             [100%]\n12 passed in 1.22s"
+  },
+  "manifest_content_sha256": "c39719761fb3334af34f1d956285babebd0bda59b3dbbe66e3c85c995918f805"
+}

@@ -1,0 +1,229 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "minimum_rows": 100,
+  "feature_clip": 5.0,
+  "ridge_alpha": 1.0,
+  "recent_episodes": 20,
+  "minimum_episodes": 10,
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "study_id": "510300_ENTRY_PAYOFF_GATE_V1",
+  "round": 95,
+  "registered_at": "2026-09-08T15:29:01.905144+08:00",
+  "primary": "ENTRY_PAYOFF_RIDGE_NATURAL_EXIT",
+  "candidate_configurations": 1,
+  "feature_columns": [
+    "mom5",
+    "mom20",
+    "sma120",
+    "vol20",
+    "vol_ratio",
+    "z20",
+    "rsi2",
+    "close_location",
+    "d60_factor"
+  ],
+  "feature_names": [
+    "五日含分红涨跌",
+    "二十日含分红涨跌",
+    "一百二十日均线偏离",
+    "二十日波动",
+    "二十日相对六十日波动",
+    "二十日均值偏离分数",
+    "两日相对强弱",
+    "当日收盘位置",
+    "六十日日内相对隔夜强弱"
+  ],
+  "model_refit": "ORIGINAL_ANCHOR_AND_MONTH_FIRST_COMPLETE_CLOSE",
+  "training_target": "COMPLETE_NATURAL_ENTRY_ACCOUNT_NET_RETURN_WITH_OWNED_DIVIDEND",
+  "training_group_weights": "EACH_MATURE_SIGNAL_GROUP_ONE_EQUAL_NATURAL_PATHS",
+  "no_model_rule": "NO_VIEW_NO_NEW_BUY_EXISTING_NATURAL_EXIT_UNCHANGED",
+  "entry_threshold": 0.0,
+  "exit_method": "ORIGINAL_NATURAL_PRICE_AND_TIME_ONLY",
+  "reference_cost": "BASE",
+  "rules": "docs/510300_ENTRY_PAYOFF_GATE_V1.md",
+  "new_reference_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "position_impact": 0,
+  "previous_goal_turn_classification": "PROGRESS_ROUNDS93_94_COMPLETE_AND_ENTRY_CONTEXT_PREPARED",
+  "frozen_files": [
+    {
+      "path": "config\\510300_entry_path_coverage_v1.json",
+      "sha256": "c957e078c75b40ce552f96c0e7f2352d5815df5828bb82e6f35df69d644fcc66"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_ENTRY_PAYOFF_GATE_V1.md",
+      "sha256": "320e95399b2a003016ea077a858353a751900313e1a7086d6031541851104d40"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "84627b8d8b953d14c5aa196a04a153da9db8d66bd0e9bcc0d1cb7628b21564fd"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "5b7e0cc9a843c888ea3262615d102a8b16ba511f235d278b2f882a00ce013c81"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "864a38a3e707c277b4079cb9ce20648e4bd2409e801682da84187aa2c39d123e"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "e7371121c04f2af078ee69e36a4bebc6b9d8690767c3da1bda3fd83d9dca9f2f"
+    },
+    {
+      "path": "reports\\research\\510300_entry_context_coverage_20260908\\result.json",
+      "sha256": "5ec0acb384f3710808e7e112b0201c21f9afcb4f0456b416328287be8484ddb0"
+    },
+    {
+      "path": "reports\\research\\510300_entry_context_coverage_20260908\\saved_entry_context_rows.parquet",
+      "sha256": "36c0d1d11eeaa0f666942bcd373edcec0cd77d2848295aefbeecc859d2728a74"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\entry_factors.parquet",
+      "sha256": "bc2985d0026562c99ba302371f0762430dc0a3c3ae16ee76962decc918d2ff01"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\reference_episodes.csv",
+      "sha256": "b8063d1ff8bb40602aa6d5ae7f85b84c8eb334029fa4894c4f939deab8b36818"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\reference_path_ledgers.parquet",
+      "sha256": "4ffa604666f1d53b2575f38b11dea6a035aa3d719304de262be0350f739a6715"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\reference_paths.csv",
+      "sha256": "519579a1033e4b06fc77bd2bfc6b3968759a971b43849d7a089c0e48e520251a"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\entry_payoff_samples.parquet",
+      "sha256": "44755521ecf65c9a64eb521ac1caddcdbb2c38ce559bb8adfa564da85bcf6b89"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\input_receipt.json",
+      "sha256": "2becb10eaa3d6b5726e24081a8e542b413d496e388faa4d754e5fa7f7b4c85d5"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\tests_receipt.json",
+      "sha256": "28e85fffb9a4bfa8ad5f721f78ad58bf6e7c25fbd65e3cee737417bdb11af843"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_NONE_ledger.parquet",
+      "sha256": "d5493d3795e62e4aa5345d2fa5cd0b66a121a843b36c94e49ad293224d9cba12"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "942f26e0431eb1b0273d59bf3b152516e648ddee1cd5aa242a05767d5170b298"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_NONE_ledger.parquet",
+      "sha256": "12441867b25d1255c79bfaa2dbe98bebaf3c2af789a9ccb6994f420e49de5761"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "debb0bd6bbfe47cce41cd9863ccbf41edfe1c13f01df6d607179bd7d07642a5b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_NONE_ledger.parquet",
+      "sha256": "78ad2f97bd8fda4c9cb7a7669e762b49d0cdf0c7698c8f74b7e395426104f916"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "9e057b46a57b8bf8c843bbc19da8b990bffc4cb2c4b2dddf122a36c94cdddfd2"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_NONE_ledger.parquet",
+      "sha256": "62ff44487f5eb5f2cdce598a832c5aff73b7910797b21bf73e843419e1c6d6ea"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "5576e8e5b7286d1bf8486356223a4576ca9a8f77fa61500affdce5ccfe1f2a7b"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\entry_payoff_gate_account_v1.py",
+      "sha256": "cd8a43a091f2049d63a2337da639e855e9db946394eac7b0b5f5b0c1add22164"
+    },
+    {
+      "path": "research\\entry_payoff_gate_inputs_v1.py",
+      "sha256": "92390ce426001c8b0eba5aeb6f92a2fcbab09e30a3f491eae0f71f3f6b92c426"
+    },
+    {
+      "path": "research\\entry_payoff_gate_v1.py",
+      "sha256": "f131161a3a91e6770b437fec3a10b27c7807b54679973fd4f52f76b757a6c983"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\rearmed_cycle_exit_account_v1.py",
+      "sha256": "212fc0ce478232e2b05c0db3b48f90e30e641507e7fda1849da2f1fc861795d2"
+    },
+    {
+      "path": "tests\\test_entry_payoff_gate_v1.py",
+      "sha256": "7710cb50d215337605fa2586a03556d69556de1cb4ca600473b731eac7b0d07e"
+    }
+  ]
+}

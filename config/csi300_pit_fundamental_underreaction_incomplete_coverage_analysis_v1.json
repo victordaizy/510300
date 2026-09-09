@@ -1,0 +1,185 @@
+{
+  "study_id": "CSI300_PIT_FUNDAMENTAL_UNDERREACTION_INCOMPLETE_COVERAGE_ANALYSIS_V1",
+  "version": "1.0.0",
+  "frozen_on": "2026-09-02",
+  "timezone": "Asia/Shanghai",
+  "protocol_status": "FROZEN_USER_AUTHORIZED_INCOMPLETE_COVERAGE_CONDITIONAL_ANALYSIS_BEFORE_PRICE_READ",
+  "authorization": {
+    "user_instruction": "就以这个数据量进行数据分析",
+    "authorized_scope": "CONDITIONAL_PHASE_1_RELATIVE_RETURN_MECHANISM_ANALYSIS_ON_THE_CURRENT_COMPLETE_EVENT_SAMPLE_ONLY",
+    "not_authorized": [
+      "REWRITE_ORIGINAL_V1_DATA_ADMISSION_RESULT",
+      "IMPUTE_MISSING_OFFICIAL_FACTS",
+      "PARAMETER_OR_SAMPLE_RESCUE",
+      "PORTFOLIO_CONSTRUCTION",
+      "STRATEGY_SHARPE",
+      "POSITION_MAPPING",
+      "ORDER_GENERATION",
+      "PAPER_SHADOW_OR_LIVE_TRADING"
+    ]
+  },
+  "parent_protocol": {
+    "study_id": "CSI300_PIT_FUNDAMENTAL_UNDERREACTION_ENHANCEMENT_V1",
+    "config_path": "config/csi300_pit_fundamental_underreaction_enhancement_v1.yaml",
+    "protocol_path": "docs/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_ENHANCEMENT_V1_PROTOCOL.md",
+    "inherited_without_change": [
+      "UNIVERSE",
+      "POINT_IN_TIME_CLOCKS",
+      "FEATURE_FORMULAS",
+      "QUALITY_GATE",
+      "INITIAL_REACTION_WINDOW",
+      "SCORE_FORMULA",
+      "60_AND_120_SESSION_OUTCOMES",
+      "GROUPING",
+      "EARLY_LATE_SPLIT",
+      "INDUSTRY_TEST",
+      "LEAVE_ONE_YEAR_OUT",
+      "LEAVE_ONE_INDUSTRY_OUT",
+      "EXTREME_OUTCOME_DEPENDENCY_TEST",
+      "PASS_FAIL_GATES",
+      "NO_RESCUE_RULE"
+    ],
+    "single_override": "G6_OFFICIAL_PDF_FACT_COVERAGE_GATE_WAIVED_BY_USER_FOR_THIS_CONDITIONAL_DIAGNOSTIC_ONLY"
+  },
+  "original_data_admission_result": {
+    "receipt_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/receipt_v1_21_document_by_document.json",
+    "receipt_sha256": "e831a778e8bcd2c002e062f09e60caabe77442890fad6ab4c3b7c6c83d7ee6c2",
+    "status": "BLOCKED_OFFICIAL_PDF_FACT_COVERAGE_BELOW_FROZEN_GATE",
+    "target_event_count": 8223,
+    "current_complete_event_count": 7252,
+    "current_incomplete_event_count": 971,
+    "overall_complete_event_ratio": 0.8819165754590782,
+    "required_overall_complete_event_ratio": 0.9,
+    "minimum_publication_year": 2019,
+    "minimum_publication_year_complete_event_ratio": 0.7625133120340788,
+    "required_each_publication_year_complete_event_ratio": 0.8,
+    "original_gate_passed": false,
+    "original_status_must_remain_unchanged": true
+  },
+  "frozen_sample": {
+    "source_ledger_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/event_fact_dependency_ledger_v1_21_document_by_document.parquet",
+    "source_ledger_sha256": "0e00478cca8ad007ff7c31f0464cf74427dd8a66b9c61fadb1fb851527780ff7",
+    "filter": "target_event_ready == true",
+    "expected_event_count": 7252,
+    "unready_events_excluded_without_imputation": 971,
+    "later_collection_or_manual_completion_import_allowed": false,
+    "outcome_based_row_deletion_allowed": false
+  },
+  "inputs": {
+    "official_financial_facts": {
+      "path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/official_financial_facts_v1_21_document_by_document.parquet",
+      "sha256": "ef789ec6686492795dcb12fa6f3774fe7bb6f546232028729cb037281f9c8861"
+    },
+    "official_fact_requirement_ledger": {
+      "path": "data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/official_fact_requirement_ledger_v1_21_document_by_document.parquet",
+      "sha256": "50dc9ad758fde775cb5468b14db81c788bc8378575eae7bae88871ca3b8bf26e"
+    },
+    "stock_training": {
+      "path": "data/raw/a_share_hash_holdout_v2/training_panel.parquet",
+      "sha256": "50378d0d0b55d9d26b28794b383c257eb9393fa0cb60045c5eddd2769c499221"
+    },
+    "stock_holdout": {
+      "path": "data/raw/a_share_hash_holdout_v2/holdout_panel.parquet",
+      "sha256": "54ec235d73e7261c2a0b3c25d6f6ca10dc6699ec8b2b2db4561458300343537e"
+    },
+    "benchmark_training": {
+      "path": "data/raw/a_share_hash_holdout_v2/training_H00300.parquet",
+      "sha256": "77bcf985e74a3490e0d4d283a42cfc58a9a75acbaa0cdee0fd69a58409afc739"
+    },
+    "benchmark_holdout": {
+      "path": "data/raw/a_share_hash_holdout_v2/holdout_H00300.parquet",
+      "sha256": "1377434b04a0a92a914a032762c3676099d9e2fb2f847e49cbbebc6363cc1850"
+    }
+  },
+  "periods": {
+    "feature_event_start": "2018-01-01",
+    "feature_event_end": "2026-08-14",
+    "early_period_start": "2018-01-01",
+    "early_period_end": "2021-12-31",
+    "late_period_start": "2022-01-01",
+    "late_period_end": "2026-08-14",
+    "outcome_cutoff": "2026-08-14",
+    "trailing_reference_calendar_days": 730
+  },
+  "feature_calculation": {
+    "flow_quarterization": "Q1_EQUALS_Q1_YTD;H1_SINGLE_QUARTER_EQUALS_H1_YTD_MINUS_Q1_YTD;Q3_SINGLE_QUARTER_EQUALS_Q3_YTD_MINUS_H1_YTD;FY_SINGLE_QUARTER_EQUALS_FY_YTD_MINUS_Q3_YTD",
+    "ttm": "SUM_OF_CURRENT_AND_PREVIOUS_THREE_SINGLE_QUARTERS",
+    "revenue_growth_acceleration": "CURRENT_SINGLE_QUARTER_YOY_REVENUE_GROWTH_MINUS_PREVIOUS_SEQUENTIAL_SINGLE_QUARTER_YOY_REVENUE_GROWTH",
+    "operating_margin_change": "CURRENT_SINGLE_QUARTER_OPERATING_MARGIN_MINUS_PRIOR_YEAR_SAME_QUARTER_OPERATING_MARGIN",
+    "operating_roa_change": "CURRENT_TTM_OPERATING_PROFIT_DIVIDED_BY_AVERAGE_CURRENT_AND_PRIOR_YEAR_END_ASSETS_MINUS_PRIOR_YEAR_TTM_OPERATING_PROFIT_DIVIDED_BY_AVERAGE_PRIOR_YEAR_AND_TWO_YEAR_PRIOR_END_ASSETS",
+    "continuity": "AT_LEAST_TWO_OF_CURRENT_AND_PREVIOUS_TWO_SEQUENTIAL_REPORTS_HAVE_NONNEGATIVE_MEDIAN_OF_THE_THREE_OPERATING_IMPROVEMENT_METRICS",
+    "continuity_missing_rule": "NO_VIEW_WITHOUT_THREE_COMPLETE_SEQUENTIAL_REPORT_LEVEL_IMPROVEMENT_OBSERVATIONS",
+    "quality_cash_conversion": "CURRENT_TTM_OPERATING_CASH_FLOW_DIVIDED_BY_CURRENT_TTM_OPERATING_PROFIT_MINUS_PRIOR_YEAR_COMPARABLE_RATIO",
+    "quality_working_capital": "CURRENT_ACCOUNTS_RECEIVABLE_PLUS_INVENTORY_DIVIDED_BY_CURRENT_TTM_REVENUE_MINUS_PRIOR_YEAR_COMPARABLE_RATIO",
+    "quality_core_profit_share": "CURRENT_TTM_CORE_PARENT_NET_PROFIT_DIVIDED_BY_CURRENT_TTM_PARENT_NET_PROFIT_MINUS_PRIOR_YEAR_COMPARABLE_RATIO",
+    "quality_liability_ratio": "CURRENT_TOTAL_LIABILITIES_DIVIDED_BY_CURRENT_TOTAL_ASSETS_MINUS_PRIOR_YEAR_COMPARABLE_RATIO",
+    "quality_denominator_rule": "CURRENT_AND_PRIOR_COMPARABLE_DENOMINATORS_MUST_ALL_BE_FINITE_STRICTLY_POSITIVE_OTHERWISE_NO_VIEW",
+    "quality_pass_rule": "ALL_FOUR_CHANGES_PRESENT_AND_AT_LEAST_THREE_NONDETERIORATING;CASH_AND_CORE_GREATER_OR_EQUAL_ZERO;WORKING_CAPITAL_AND_LIABILITY_LESS_OR_EQUAL_ZERO",
+    "trailing_percentile_reference": "ONLY_EARLIER_FORMED_READY_EVENTS_IN_SAME_INDUSTRY_AND_PERIOD_TYPE_WITHIN_PREVIOUS_730_CALENDAR_DAYS",
+    "minimum_trailing_reference_events": 30,
+    "percentile_tie_rule": "MIDRANK_ASCENDING_EQUALS_LESS_COUNT_PLUS_HALF_EQUAL_COUNT_DIVIDED_BY_REFERENCE_COUNT",
+    "operating_strength": "MEDIAN_OF_REVENUE_ACCELERATION_OPERATING_MARGIN_CHANGE_AND_OPERATING_ROA_CHANGE_TRAILING_PERCENTILES_AFTER_CONTINUITY_PASS",
+    "score": "OPERATING_STRENGTH_PERCENTILE_MINUS_INITIAL_REACTION_PERCENTILE",
+    "factor_or_metric_weight_search_allowed": false
+  },
+  "market_clock_and_returns": {
+    "calendar": "H00300_TOTAL_RETURN_INDEX_COMMON_SESSIONS",
+    "information_clock": "OFFICIAL_EVENT_PUBLICATION_DATE",
+    "first_available_session": "FIRST_COMMON_OPEN_STRICTLY_AFTER_PUBLICATION_DATE",
+    "formation_session": "FIFTH_COMMON_SESSION_STRICTLY_AFTER_PUBLICATION_DATE",
+    "reaction_return": "STOCK_TOTAL_RETURN_MINUS_H00300_TOTAL_RETURN_FROM_FIRST_AVAILABLE_SESSION_OPEN_TO_FORMATION_SESSION_CLOSE",
+    "future_return_origin": "FORMATION_SESSION_CLOSE",
+    "future_horizons_common_sessions": [60, 120],
+    "future_return": "STOCK_TOTAL_RETURN_MINUS_H00300_TOTAL_RETURN_FROM_FORMATION_CLOSE_TO_HORIZON_CLOSE",
+    "daily_total_return": "COMPOUND_AUDITED_CLOSE_DIVIDED_BY_PRE_CLOSE_MINUS_ONE;FIRST_REACTION_SESSION_USES_CLOSE_DIVIDED_BY_OPEN_MINUS_ONE",
+    "formation_quote_required": true,
+    "first_session_open_required": true,
+    "missing_or_invalid_price_rule": "NO_VIEW",
+    "horizon_beyond_outcome_cutoff_rule": "CENSORED_NO_VIEW",
+    "costs": "NOT_APPLICABLE_PHASE_1_EVENT_MECHANISM_ONLY"
+  },
+  "evaluation": {
+    "grouping": "FIVE_EQUAL_COUNT_SCORE_GROUPS_WITHIN_PUBLICATION_YEAR_AND_PERIOD_TYPE",
+    "group_tie_break": "SCORE_ASCENDING_THEN_ANNOUNCEMENT_ID_ASCENDING",
+    "adjacent_step_minimum_nonnegative": 3,
+    "q5_minus_q1_positive": true,
+    "spearman_positive": true,
+    "early_and_late_q5_minus_q1_positive": true,
+    "eligible_industry_minimum_event_count_per_horizon": 30,
+    "strictly_more_than_half_eligible_industries_positive": true,
+    "leave_one_year_out_all_positive": true,
+    "leave_one_eligible_industry_out_all_positive": true,
+    "delete_top_and_bottom_outcome_percentile": 0.01,
+    "trimmed_q5_minus_q1_positive": true,
+    "q5_median_positive": true,
+    "inference_not_a_gate": "ISSUER_CLUSTER_BOOTSTRAP_95_PERCENT_INTERVAL_WITH_2000_REPETITIONS_AND_SEED_20260902",
+    "all_parent_phase_1_conditions_required": true
+  },
+  "selection_bias_boundary": {
+    "required_outputs": [
+      "READY_VS_UNREADY_COUNTS_BY_YEAR_PERIOD_TYPE_AND_INDUSTRY",
+      "FEATURE_ATTRITION_WATERFALL",
+      "OUTCOME_MATURITY_AND_PRICE_COVERAGE",
+      "NO_EXTRAPOLATION_TO_THE_971_UNREADY_EVENTS"
+    ],
+    "missing_fact_imputation_allowed": false,
+    "inverse_probability_weighting_allowed": false,
+    "outcomes_for_unready_events_read_allowed": false
+  },
+  "terminal_statuses": {
+    "conditional_pass": "CONDITIONAL_PHASE_1_MECHANISM_PASS_ON_INCOMPLETE_COVERAGE_SAMPLE_NO_PHASE_2_AUTHORITY",
+    "conditional_fail": "CONDITIONAL_PHASE_1_MECHANISM_FAIL_ON_INCOMPLETE_COVERAGE_SAMPLE_NO_RESCUE",
+    "execution_blocked": "BLOCKED_CONDITIONAL_ANALYSIS_INPUT_OR_ACCOUNTING_CONTRACT_FAILED",
+    "original_status_after_any_result": "BLOCKED_OFFICIAL_PDF_FACT_COVERAGE_BELOW_FROZEN_GATE",
+    "position_impact": 0,
+    "trade_status": "NO_TRADE"
+  },
+  "artifacts": {
+    "protocol": "docs/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_INCOMPLETE_COVERAGE_ANALYSIS_V1_PROTOCOL.md",
+    "manifest": "config/csi300_pit_fundamental_underreaction_incomplete_coverage_analysis_v1_manifest.json",
+    "event_panel": "reports/research/csi300_pit_fundamental_underreaction_incomplete_coverage_analysis_v1_events.parquet",
+    "result_json": "reports/research/csi300_pit_fundamental_underreaction_incomplete_coverage_analysis_v1.json",
+    "result_markdown": "reports/research/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_INCOMPLETE_COVERAGE_ANALYSIS_V1.md",
+    "run_receipt": "reports/research/csi300_pit_fundamental_underreaction_incomplete_coverage_analysis_v1_receipt.json"
+  }
+}

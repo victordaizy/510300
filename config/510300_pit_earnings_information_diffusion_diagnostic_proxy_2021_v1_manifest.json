@@ -1,0 +1,99 @@
+{
+  "manifest_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_DIAGNOSTIC_PROXY_2021_V1_MANIFEST",
+  "diagnostic_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_DIAGNOSTIC_PROXY_2021_V1",
+  "formal_candidate_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+  "status": "FROZEN_DIAGNOSTIC_PROXY_BEFORE_FUTURE_OUTCOME_READ",
+  "frozen_at": "2026-08-30T23:18:00+08:00",
+  "authorization_basis": "User explicitly requested proceeding to the next step regardless of the next round's data reliability. This authorizes an isolated diagnostic only and does not authorize relabeling unreliable data as qualified.",
+  "frozen_files": [
+    {
+      "path": "config/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1.yaml",
+      "sha256": "813b65c34b31c6e5accdbcbd4c65f9edc90b4aaf7e83276319886364db171f9a",
+      "bytes": 5869
+    },
+    {
+      "path": "research/pit_earnings_information_diffusion_diagnostic_proxy_v1.py",
+      "sha256": "eef0b9c1026fcb8cfec5e5607ffdc36f23a546687ae656f26549468f344c4b8f",
+      "bytes": 64829
+    },
+    {
+      "path": "scripts/run_510300_pit_earnings_information_diffusion_diagnostic_proxy_v1.py",
+      "sha256": "08effcf0a8b5be3cf608c6c792eba6568ff0bf6d0c0b88cc92718243661009f0",
+      "bytes": 2357
+    }
+  ],
+  "frozen_inputs": [
+    {
+      "path": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3_source_manifest.json",
+      "sha256": "f0493669639c71fcb4ffe80788a760367b66623f6144755a879a5df5bacdd8e6",
+      "bytes": 4329
+    },
+    {
+      "path": "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/member_first_public_facts.parquet",
+      "sha256": "dfb655d50ab96fad2e494f8070e84470cd8d0dda094109da1a7c48da8d1b2740",
+      "bytes": 26256
+    },
+    {
+      "path": "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/daily_outcome_blind_features.parquet",
+      "sha256": "ed11240b2855bc93c354af85cb08d22ec3bc6e2021c72c11dcc7f8bb11ec4358",
+      "bytes": 39889
+    },
+    {
+      "path": "reports/data_quality/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3.json",
+      "sha256": "17bb0d9942518fdf1cb34553dc908292ede2655572fe707889282fa8172f7e2d",
+      "bytes": 5823
+    },
+    {
+      "path": "data/raw/market/510300_daily_2015_v2.parquet",
+      "sha256": "8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948",
+      "bytes": 116186
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "bytes": 2021
+    }
+  ],
+  "frozen_model_contract": {
+    "oos_start": "2021-01-01",
+    "evidence_cutoff": "2026-08-14",
+    "future_label": "NEXT_OPEN_TO_TENTH_FOLLOWING_OPEN_TOTAL_RETURN_STRICTLY_BELOW_ZERO",
+    "initial_training_observations": 504,
+    "refit_frequency": "CALENDAR_QUARTER",
+    "calibration_observations": 126,
+    "label_embargo_trading_days": 10,
+    "test_mode": "ANCHORED_EXPANDING_WALK_FORWARD",
+    "model": "LOGISTIC_REGRESSION_L2_FIXED_C_1",
+    "calibration": "LOGISTIC_SIGMOID_FIXED_C_1",
+    "threshold_grid": "0.01_TO_0.99_BY_0.01",
+    "model_or_threshold_selection_by_sharpe": false,
+    "portfolio_evaluation_allowed": false
+  },
+  "predeclared_unreliability": [
+    "UNVERIFIED_HISTORICAL_WEIGHT_REVISION_VINTAGE",
+    "FACT_A3_BELOW_FROZEN_MINIMUM",
+    "DUAL_HUMAN_REVIEW_NOT_COMPLETE",
+    "FIRST_PUBLIC_MEMBER_FACTS_TOO_SPARSE",
+    "DIAGNOSTIC_ONLY_NOT_FORMAL_CANDIDATE_EVIDENCE"
+  ],
+  "post_run_serialization_correction": {
+    "path": "config/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_0_1_json_correction.json",
+    "sha256": "84dcc03afe82a5c179b12249d953e014049a7b29d10ec7c407065a790b95183c",
+    "scope": "STRICT_JSON_NONFINITE_TO_NULL_ONLY",
+    "model_or_metric_logic_changed": false
+  },
+  "interpretation_boundary": {
+    "formal_candidate_status_may_change": false,
+    "formal_prediction_gate_may_pass": false,
+    "portfolio_backtest_may_run": false,
+    "paper_or_shadow_signal_may_be_emitted": false,
+    "order_or_broker_action_may_be_emitted": false,
+    "live_trading_authorized": false
+  },
+  "expected_outputs": [
+    "reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_predictions.parquet",
+    "reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_refits.parquet",
+    "reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1.json",
+    "reports/research/510300_PIT_EARNINGS_INFORMATION_DIFFUSION_DIAGNOSTIC_PROXY_2021_V1.md"
+  ]
+}

@@ -1,0 +1,136 @@
+program:
+  program_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1
+  stage_id: G2_MECHANISM_CHAIN
+  version: 1.0.3
+  program_correction: NORMALIZE_TIMEZONE_AWARE_DATETIME_PRECISION_BEFORE_FEATURE_RESULT
+  continuation_basis: USER_DIRECTED_ORIGINAL_FILE_ROUTE_20260903
+  parent_charter: config/510300_asymmetric_stress_hazard_v1.yaml
+  research_state: DISCOVERY_ONLY
+  position_impact: 0
+  observation_start: 2015-01-05
+  observation_cutoff: 2026-08-14
+  executable_assets: [510300.SH, CASH_CNY]
+  probability_model_training_allowed: false
+  threshold_selection_allowed: false
+  portfolio_evaluation_allowed: false
+  extra_temporal_preflight_is_active_gate: false
+
+fixed_subperiods:
+  - {id: P1_2015_2017, start: 2015-01-05, end: 2017-12-29}
+  - {id: P2_2018_2020, start: 2018-01-02, end: 2020-12-31}
+  - {id: P3_2021_2023, start: 2021-01-04, end: 2023-12-29}
+  - {id: P4_2024_CUTOFF, start: 2024-01-02, end: 2026-08-14}
+
+feature_contract:
+  causal_percentile: EMPIRICAL_MIDRANK_AGAINST_STRICTLY_PRIOR_VALID_OBSERVATIONS_ONLY
+  all_fixed_channels_required: true
+  missing_value_rule: DATE_LEVEL_NO_VIEW_NO_INTERPOLATION
+  constituent_return_lookback_market_days: 20
+  transmission_change_market_days: 5
+  macro_lead_market_days: 5
+  constituent_price_cutover_date: 2020-02-03
+  constituent_price_cutover_rule: >-
+    TUSHARE_PRE_CLOSE_LINK_HISTORY_BEFORE_CUTOVER_AND_EXISTING_FROZEN_PANEL_RETURN_AFTER_CUTOVER
+  industry_interval_rule: EFFECTIVE_DATE_INCLUSIVE_OUT_DATE_EXCLUSIVE
+  industry_source_rule: OFFICIAL_SW_HISTORICAL_EFFECTIVE_INTERVAL_NO_CURRENT_CLASSIFICATION_BACKFILL
+  M:
+    aggregation: MEDIAN_OF_M1_M2_M3
+    M1: LOWER_ERP_BUFFER_IS_HIGHER_RISK
+    M2: HIGHER_DR007_MINUS_7D_REVERSE_REPO_RATE_IS_HIGHER_RISK
+    M3: LOWER_THREE_MONTH_CHANGE_TSF_STOCK_YOY_IS_HIGHER_RISK
+  F:
+    aggregation: MEDIAN_OF_F1_F2_F3
+    F1: LOWER_POSITIVE_MEMBER_20D_BREADTH_IS_HIGHER_RISK
+    F2: HIGHER_510300_MINUS_EQUAL_WEIGHT_MEMBER_20D_RETURN_IS_HIGHER_RISK
+    F3: HIGHER_MEDIAN_PAIRWISE_SECTOR_CORR_20D_IS_HIGHER_RISK
+  T:
+    aggregation: MEDIAN_OF_T1_T2_T3
+    T1: HIGHER_NEGATIVE_5D_BREADTH_CHANGE_IS_HIGHER_RISK
+    T2: HIGHER_5D_SECTOR_CORR_CHANGE_IS_HIGHER_RISK
+    T3: HIGHER_NEGATIVE_SECTOR_5D_RETURN_SHARE_IS_HIGHER_RISK
+  internal_score: SQRT_F_TIMES_T
+  full_score: CUBE_ROOT_M_TIMES_F_TIMES_T
+  price_baseline: MEDIAN_OF_CAUSAL_NEGATIVE_ETF_RETURN20_AND_REALIZED_VOL20_RISK_PERCENTILES
+
+g2_gate:
+  macro_direction_positive_subperiods_required: 3
+  macro_direction_total_subperiods: 4
+  internal_score_must_strictly_beat_price_baseline_roc_auc: true
+  minimum_scoreable_independent_events: 30
+  minimum_scoreable_independent_non_event_blocks: 120
+  event_unit_score_date: EVENT_ORIGIN_START
+  non_event_unit_score_date: BLOCK_ORIGIN_DATE
+  pass_status: PASS_G2_MECHANISM_CHAIN_CONTINUE_TO_G3
+  failure_status: REJECTED_FROZEN_G2_MECHANISM_CHAIN_FAILED_NO_FEATURE_RESCUE
+  feature_or_window_rescue_after_failure_allowed: false
+
+inputs:
+  constituent_history:
+    path: data/curated/510300_asymmetric_stress_hazard_v1_original_route_g2/constituent_history_20141101_20200228.parquet
+    bytes: 35681160
+    sha256: 260ef92fd7239d7101c7c1916f2fa5ed1b0e843afe1b43d92ca1d99d0b98e5fd
+  constituent_current:
+    path: data/raw/constituents/000300_constituent_daily.parquet
+    bytes: 26849121
+    sha256: e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7
+  pit_membership:
+    path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    bytes: 139181
+    sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+  sw_industry_history:
+    path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/sw_industry_history_events_through_20260814.parquet
+    bytes: 201990
+    sha256: 71304778954db681e715eb025cb8d32a3e913c4f2974b53989f8783f006ceb64
+  etf_price:
+    path: data/raw/market/510300_daily_2015_v2.parquet
+    bytes: 116186
+    sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+  etf_dividends:
+    path: data/reference/510300_dividends.csv
+    bytes: 2021
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+  csi300_pe:
+    path: data/raw/valuation/000300_pe_official_raw.parquet
+    bytes: 45675
+    sha256: 613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73
+  china_10y:
+    path: data/raw/macro/china_government_bond_yields_daily.parquet
+    bytes: 58269
+    sha256: 091f51fa55a1ddfdbf99dd715d1086c1f5d9bc086589de7b2938e66fd1b6952f
+  dr007:
+    path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_daily_20150105_20260814.parquet
+    bytes: 55355
+    sha256: 710268140f0ea4dae28520c9497e1b0f98877a4af7f27191aa85e8e8b3354957
+  reverse_repo_7d:
+    path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_published_rates_anchor_20150105_20260814.parquet
+    bytes: 297424
+    sha256: 33d8f1cd8fb10269aefd89dd7f5f0978e7b293bc9a1e44df7b180f67b59bc1f0
+  tsf_first_release:
+    path: data/raw/macro/510300_macro_stress_2015_v2/tsf_stock_yoy_release_vintage_2015_2026.parquet
+    bytes: 29251
+    sha256: 52677f562785473d0c94f6a33915a8ee3ef1a276f238631a983381cd3e3fc19b
+  independent_events:
+    path: reports/research/510300_asymmetric_stress_hazard_v1_bad10_events.csv
+    bytes: 6978
+    sha256: 367ba3f7150114130dc7504f4f1cbb67d82d6760a452e98bace567ac666cfabd
+  independent_non_events:
+    path: reports/research/510300_asymmetric_stress_hazard_v1_non_event_blocks.csv
+    bytes: 10868
+    sha256: 5415c954792e3618766339ebc7ffe5fcaa9ac544ff690aae53153b9ec4b32534
+
+freeze_contract:
+  pre_result_files:
+    - config/510300_asymmetric_stress_hazard_v1_g2_mechanism.yaml
+    - research/asymmetric_stress_hazard_g2_mechanism_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1_g2_mechanism.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_g2_mechanism.py
+    - tests/test_510300_asymmetric_stress_hazard_g2_mechanism_v1.py
+
+outputs:
+  manifest: config/510300_asymmetric_stress_hazard_v1_g2_mechanism_manifest_v1_0_3.json
+  feature_panel: reports/research/510300_asymmetric_stress_hazard_v1_g2_feature_panel.parquet
+  sector_return_panel: reports/research/510300_asymmetric_stress_hazard_v1_g2_sector_returns.parquet
+  independent_unit_panel: reports/research/510300_asymmetric_stress_hazard_v1_g2_independent_units.parquet
+  result: reports/research/510300_asymmetric_stress_hazard_v1_g2_mechanism.json
+  human_report: reports/research/510300_ASYMMETRIC_STRESS_HAZARD_V1_G2_MECHANISM.md
+  receipt: reports/audit/510300_asymmetric_stress_hazard_v1_g2_mechanism_receipt.json

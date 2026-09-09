@@ -1,0 +1,150 @@
+{
+  "schema_version": "2.0.0",
+  "report_id": "510300_SHARPE_1_2_GOAL_STATUS_V2_20260830",
+  "generated_at": "2026-08-30T16:43:17+08:00",
+  "status": "NO_VERIFIED_SHARPE_1_2_STRATEGY_FORWARD_COLLECTION_READY",
+  "goal_achieved": false,
+  "success_contract": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": ["510300.SH", "CASH_CNY"],
+    "initial_capital_cny": 20000.0,
+    "lot_size_shares": 100,
+    "commission_rate_per_leg": 0.0003,
+    "minimum_commission_cny_per_leg": 5.0,
+    "base_slippage_bps_per_leg": 5.0,
+    "target_net_sharpe_zero_cash_rate": 1.2,
+    "target_cumulative_net_excess": 0.2,
+    "strict_oos_required": true,
+    "minimum_forward_shadow_trading_days": 252,
+    "all_seven_mechanism_promotion_gates_required": true
+  },
+  "registered_machine_result_inventory": {
+    "scope": "reports/**/*.json containing 510300 and actual Sharpe metric fields",
+    "status": "NO_INDEPENDENT_ELIGIBLE_SURVIVOR",
+    "candidate_groups_reviewed": 7,
+    "findings": [
+      {
+        "candidate": "ETF_PRICE_VOLUME_CONFIRM_20D",
+        "pseudo_oos_sharpe": 1.3764589496415092,
+        "stress_15bps_sharpe": 1.146427355280235,
+        "contaminated_retrospective_sharpe": 1.1601853225053553,
+        "contaminated_excess_vs_buy_hold": -0.020009879409498943,
+        "full_retrospective_sharpe": 0.21667750731965651,
+        "decision": "NOT_TARGET_QUALIFIED"
+      },
+      {
+        "candidate": "CSI300_PE_PCTL_5Y",
+        "pseudo_oos_sharpe": 2.215963855473472,
+        "pseudo_oos_trade_count": 4,
+        "stress_trade_count": 5,
+        "contaminated_retrospective_sharpe": 2.5306709186643723,
+        "contaminated_trade_count": 2,
+        "contaminated_average_exposure": 0.06415316932576672,
+        "contaminated_excess_vs_buy_hold": -0.07270931408979964,
+        "full_retrospective_sharpe": 0.4689809138879374,
+        "decision": "NOT_ELIGIBLE"
+      },
+      {
+        "candidate": "CSI300_PB_PCTL_5Y",
+        "contaminated_retrospective_sharpe": 1.6125433096106263,
+        "contaminated_trade_count": 2,
+        "contaminated_excess_vs_buy_hold": -0.03982363875299977,
+        "pseudo_oos_sharpe": 0.8813393788369447,
+        "full_retrospective_sharpe": 0.314809791894388,
+        "decision": "NOT_ELIGIBLE"
+      },
+      {
+        "candidate": "PHASE1_FIVE_YEAR_MODEL",
+        "validation_sharpe": 2.373038130362609,
+        "validation_trade_count": 4,
+        "development_sharpe": -0.322554376281925,
+        "retrospective_test_trade_count": 0,
+        "full_five_year_sharpe": 0.35638106728304847,
+        "decision": "STRATEGY_GATE_FAILED"
+      },
+      {
+        "candidate": "R6_MODEL_FAMILY",
+        "maximum_single_2025_sharpe": 1.9368724561613369,
+        "associated_2025_excess_vs_etf": -0.05560523708990783,
+        "associated_historical_pseudo_oos_sharpe": 1.1458417666463825,
+        "associated_historical_pseudo_oos_excess_vs_etf": -0.03167810061587617,
+        "true_locked_oos_status": "NOT_ACTIVATED_NO_TRUE_LOCKED_OOS",
+        "decision": "HISTORICAL_GATE_FAILED"
+      },
+      {
+        "candidate": "510300_VALUATION_INTRADAY_ENTRY_OVERLAY_V1",
+        "overlay_base_sharpe": 1.257319126681689,
+        "overlay_stress_sharpe": 1.229156950900826,
+        "baseline_base_sharpe": 1.42774159477833,
+        "baseline_stress_sharpe": 1.392211245134858,
+        "all_overlay_checks_passed": false,
+        "decision": "RETROSPECTIVE_FAIL_AND_INSUFFICIENT_EVIDENCE_DO_NOT_INTEGRATE"
+      },
+      {
+        "candidate": "FROZEN_MICROSTRUCTURE_STATE_SEQUENCE",
+        "historical_primary_sharpe": 1.5803113646,
+        "evidence_class": "RETROSPECTIVE_POST_SELECTION_AUDIT_ONLY",
+        "temporal_replication_2026_ytd_sharpe_range": [-0.0991681711, 0.1338107387],
+        "true_prospective_claim_rows": 0,
+        "decision": "HISTORICAL_POST_SELECTION_AUDIT_REJECTED_NO_RESCUE"
+      }
+    ]
+  },
+  "mechanism_atlas": {
+    "project_id": "510300_MECHANISM_ATLAS_V1",
+    "status": "MECHANISM_ATLAS_DISCOVERY_COMPLETE_NO_STRATEGY_AUTHORIZATION",
+    "evidence_class": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY",
+    "eligible_mechanism_count": 0,
+    "H1": "DESCRIPTIVE_ONLY_NO_STRATEGY",
+    "H2": "DESCRIPTIVE_ONLY_NO_STRATEGY",
+    "H3": "STRUCTURAL_RISK_FACTOR_NO_STRATEGY",
+    "H4": "NO_VIEW_DATA_CONTRACT_FAILED",
+    "portfolio_backtest": "NOT_RUN",
+    "return_evaluation": "NOT_ALLOWED",
+    "net_sharpe": "NOT_COMPUTED"
+  },
+  "forward_path": {
+    "manifest_id": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1_10",
+    "manifest_sha256": "fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94",
+    "manifest_file_count": 49,
+    "manifest_hash_mismatch_count": 0,
+    "regression_tests": "9 passed in 36.23s",
+    "scheduled_task_state": "Ready",
+    "scheduled_task_enabled": true,
+    "scheduled_task_logon_type": "Interactive",
+    "next_run_time": "2026-08-31T09:25:00+08:00",
+    "start_when_available": false,
+    "late_backfill_enabled": false,
+    "tls_verification_required": true,
+    "insecure_tls_allowed": false,
+    "current_full_quality_days": 2,
+    "quality_day_gate": 20,
+    "feature_freeze_gate": 40,
+    "first_unseen_gate": 80,
+    "replication_gate": 120,
+    "prewindow_connectivity_probe": "TLS_ROUTE_PASS_NOT_QUALITY_EVIDENCE",
+    "next_legal_action": "WAIT_FOR_2026_08_31_09_25_SCHEDULED_ATOMIC_ATTEMPT"
+  },
+  "execution_authorization": {
+    "research_only": true,
+    "discovery_only": true,
+    "paper_or_shadow_position_mapping_enabled": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "evidence": [
+    {"path": "reports/audit/510300_sharpe_1_2_goal_status_20260830.json", "sha256": "03113768d974c60372ba9ad09fdf2ec5d041f6a81d99503c179b164e86c9b826", "bytes": 12955},
+    {"path": "reports/research/510300_mechanism_atlas_v1.json", "sha256": "41c9910a0343c955b611b9352917ef0f8a3a601f01bc8b965e1e4973c41e2884", "bytes": 53730},
+    {"path": "reports/research/510300_mechanism_promotion_gate_adjudication_v1.json", "sha256": "f7b0085e425921f18b76f7c8199209f55d597a1ff7f64b6437144bfcd11cd593", "bytes": 2209},
+    {"path": "reports/audit/510300_mechanism_atlas_v1_output_integrity_audit.json", "sha256": "d420455796542c802f74ba8cbc2157aeed0e17100efe6eab77bd6d4409927b63", "bytes": 1589},
+    {"path": "config/priority_forward_research_operations_v1_10_manifest.json", "sha256": "fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94", "bytes": 13823},
+    {"path": "reports/audit/priority_forward_authoritative_status_v1_8_1.json", "sha256": "5f412b604dacadfd49bce402f9944bd62c8763fb167c2e901459b3facf6a51f4", "bytes": 5102},
+    {"path": "reports/audit/510300_frozen_microstructure_sharpe_audit_v1.json", "sha256": "063e34a213d7052bb4e0dc5b63cf01758a7b1b1c781006f017040fb44699c85f", "bytes": 25181},
+    {"path": "reports/backtest/registered_factor_backtests.json", "sha256": "28b03f106c66d5a9258d2c33ca825bd8e07d407163b5de1d78180ceb54af35e1", "bytes": 102927},
+    {"path": "reports/backtest/phase1_five_year_backtest.json", "sha256": "d07f695f9eba880b9f14602c93ca19f58d1e82e9f058e8e1e261c1af812ceff4", "bytes": 11121},
+    {"path": "reports/backtest/r6_model_selection.json", "sha256": "14de17d64adf2ef7d5396dc1e4be671961955f8c68e4de313f72b877f7656868", "bytes": 772840},
+    {"path": "reports/backtest/valuation_intraday_entry_overlay.json", "sha256": "e997f80a3d2ca9f436984b73a151af2630a5fc438f0a0c78b26db37ce686eaac", "bytes": 7189}
+  ]
+}

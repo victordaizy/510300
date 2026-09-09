@@ -1,0 +1,165 @@
+protocol:
+  study_id: 510300_PRIMARY_FLOW_P05_ETF_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  created_date: '2026-08-28'
+  historical_evidence_label: RETROSPECTIVE_CONVERSION_OF_PREVIOUSLY_EVALUATED_PREQUENTIAL_FORECASTS
+  purpose: 将已存在的逐日主流量20日正收益概率按唯一0.5决策界转成510300或现金的精确账本
+  no_parameter_rescue: true
+  strict_holdout_available: false
+  is_trading_signal: false
+  paper_or_shadow_authorized: false
+  live_trading_authorized: false
+
+parent_forecast:
+  project: PRIMARY_FLOW_DIRECTION_CHALLENGER
+  status: PRIMARY_FLOW_SCREENING_METRICS_PASSED_GOVERNANCE_GATES_FAILED
+  report: reports/research/510300_primary_flow_direction_report.json
+  report_sha256: ef00e4f0337c2bd20c2f4c8faaa4d04b7070b6a06fe25a38908dbda7302dabd5
+  historical_metrics:
+    auc: 0.6266233766233766
+    brier_skill_score: 0.054200684401520816
+    top_minus_bottom_mean_net_return: 0.03541506586494046
+  conversion_warning: 父项目的历史结果已知；本筛选不是独立验证，只裁决二元配置与真实成本
+
+scope:
+  execution_asset: 510300.SH
+  information_sources: [IF期现基差, 510300收盘相对单位净值折溢价, 上交所月度基金份额变化]
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  initial_capital_cny: 500000.0
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+  full_state_definition: 按100份整手使用可用现金买入最大可负担份额
+  cash_state_definition: 卖出全部510300份额且不保留策略性底仓
+
+objective:
+  benchmark_id: H00300
+  benchmark_return_type: TOTAL_RETURN
+  primary_metric: STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_excess_median: 0.20
+  diagnostic_positive_floor: 0.0
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  etf_stamp_duty_rate: 0.0
+
+data_contracts:
+  frozen_forecasts:
+    file: data/features/510300_primary_flow_direction_forecasts.parquet
+    required_sha256: 063a53f162e03952d1d8196906a7b9acda21a9056f6f7c8b11ddfea32980a33f
+    required_rows: 675
+    required_first_signal_date: '2023-11-01'
+    required_last_signal_date: '2026-08-12'
+    permitted_columns_to_read:
+      - signal_date
+      - model_fit_date
+      - latest_training_label_end_date
+      - training_sample_count
+      - direction_probability_positive_20d_net
+      - share_snapshot_date
+      - share_snapshot_age_calendar_days
+    forbidden_columns_as_signal:
+      - actual_direction_positive_20d_net
+      - actual_total_return_20d_net
+      - label_end_date
+      - is_realized
+  parent_registry:
+    file: config/primary_flow_direction_challenger.yaml
+    required_sha256: b6b60086ec9993588017d37c14d62bef89c75c8f76359a1d76727a1d81ef566e
+  parent_implementation:
+    file: research/primary_flow_direction_challenger.py
+    required_sha256: 691d06e7261d7ac3ce9594e07c79b1d82fadd452f255f3cfec801dfe643be26a
+  parent_report:
+    file: reports/research/510300_primary_flow_direction_report.json
+    required_sha256: ef00e4f0337c2bd20c2f4c8faaa4d04b7070b6a06fe25a38908dbda7302dabd5
+  execution_daily:
+    file: data/raw/r6/510300_daily.parquet
+    required_sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+    required_symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  benchmark_total_return:
+    file: data/raw/r6/H00300_total_return_daily.parquet
+    required_sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+    required_symbol: H00300
+    required_columns: [date, close, symbol]
+  cash_distributions:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_event_count: 14
+  execution_ledger_dependency:
+    file: research/intraday_binary_livermore_screen_v1.py
+    required_sha256: 17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa
+
+state_rule:
+  candidate_id: PRIMARY_FLOW_P_GE_050
+  threshold: 0.50
+  comparison: probability_greater_than_or_equal_to_threshold
+  state_if_true: 1
+  state_if_false: 0
+  between_signal_dates: 延续最近一次信号状态
+  before_first_signal: 0
+  signal_date_execution_lag: 下一交易日开盘
+  threshold_search: FORBIDDEN
+  hysteresis: NONE
+  ensemble: NONE
+
+evaluation:
+  base_start_date: '2023-11-02'
+  end_date: '2026-08-14'
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_TO_2024_END
+      start_date: '2023-11-02'
+      end_date: '2024-12-31'
+    - id: LATE_2025_2026
+      start_date: '2025-01-02'
+      end_date: '2026-08-14'
+    - id: COMBINED
+      start_date: '2023-11-02'
+      end_date: '2026-08-14'
+  cost_scenarios: [BASE, STRESS]
+  primary_selection_cost_scenario: STRESS
+  require_every_period_and_start_to_pass: true
+  initial_portfolio_state_at_each_perturbation: 0
+  dividend_entitlement_policy: 除息日开盘前持有份额取得权益，支付日收盘转现金，满仓状态次日开盘再投资
+
+selection:
+  hard_pass_definition: 压力成本下三个时期及五个起点的年化净超额与滚动242日超额中位数全部不低于20%
+  positive_shadow_definition: 压力成本下三个时期及五个起点的两项指标全部大于0
+  no_threshold_rescue_after_evaluation: true
+
+governance:
+  all_forecast_outcomes_already_inspected: true
+  strict_holdout_available: false
+  result_label_if_passed: RETROSPECTIVE_PASS_REQUIRES_246_DAY_PROSPECTIVE_VALIDATION
+  result_label_if_rejected: REJECTED_FIXED_PRIMARY_FLOW_P05_ETF_BINARY_NO_RESCUE
+  trading_probability_recalibration: FORBIDDEN
+  alternate_thresholds: FORBIDDEN
+  paper_or_shadow_requires_separate_freeze: true
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED
+
+artifacts:
+  freeze_manifest: config/510300_primary_flow_p05_etf_binary_screen_v1_manifest.json
+  report_json: reports/research/510300_primary_flow_p05_etf_binary_screen_v1.json
+  report_markdown: reports/research/510300_PRIMARY_FLOW_P05_ETF_BINARY_SCREEN_V1.md
+  output_directory: data/research/510300_primary_flow_p05_etf_binary_screen_v1
+  period_results_parquet: data/research/510300_primary_flow_p05_etf_binary_screen_v1/period_results.parquet
+  daily_states_parquet: data/research/510300_primary_flow_p05_etf_binary_screen_v1/daily_states.parquet
+  stress_daily_ledger_parquet: data/research/510300_primary_flow_p05_etf_binary_screen_v1/stress_daily_ledger.parquet
+  stress_trades_parquet: data/research/510300_primary_flow_p05_etf_binary_screen_v1/stress_trades.parquet

@@ -1,0 +1,144 @@
+{
+  "manifest_id": "510300_CSI300_PIT_MEMBERSHIP_WEIGHTS_SOURCE_REMEDIATION_V1_PROTOCOL_MANIFEST",
+  "remediation_id": "510300_CSI300_PIT_MEMBERSHIP_WEIGHTS_SOURCE_REMEDIATION_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_REPLAY_OR_SOURCE_ADMISSION",
+  "frozen_at": "2026-08-30T20:21:29+08:00",
+  "purpose": "Resolve the historical point-in-time CSI 300 membership and weight data gate without reading prices, outcomes, labels, models, or portfolio returns.",
+  "candidate_boundary": {
+    "blocked_candidate": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+    "blocked_status_must_not_be_relabelled_until_all_applicable_gates_pass": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS",
+    "research_stage": "DATA_SOURCE_REMEDIATION_ONLY",
+    "trade_asset_if_a_later_candidate_is_ever_admitted": "510300_OR_CASH",
+    "candidate_parameters_may_change": false,
+    "market_price_reads": 0,
+    "future_return_reads": 0,
+    "future_label_creation_allowed": false,
+    "prediction_model_allowed": false,
+    "portfolio_evaluation_allowed": false,
+    "paper_or_shadow_signal_allowed": false,
+    "live_trading_authorized": false,
+    "model_action": "ABSTAIN",
+    "model_position_target": "UNSET"
+  },
+  "coverage_contract": {
+    "primary_required_window": {
+      "start_date": "2021-01-01",
+      "end_date": "2026-08-14",
+      "reason": "User fixed the required historical study window to data after 2021."
+    },
+    "best_effort_extension_window": {
+      "start_date": "2016-06-13",
+      "end_date": "2020-12-31",
+      "required_for_primary_admission": false
+    },
+    "conditional_2015_window": {
+      "start_date": "2015-01-01",
+      "end_date": "2016-06-12",
+      "admit_only_if_complete_official_chain_and_anchor_exist": true,
+      "third_party_gap_fill_allowed": false,
+      "failure_may_not_block_primary_2021_window": true
+    }
+  },
+  "source_precedence": [
+    "CSI_INDEX_OFFICIAL_IMMUTABLE_ANNOUNCEMENT_AND_ATTACHMENT_ARCHIVE",
+    "CSI_INDEX_OFFICIAL_DATED_CONSTITUENT_OR_WEIGHT_SNAPSHOT",
+    "LICENSED_VENDOR_WITH_VERSION_OR_AS_OF_PROVENANCE",
+    "THIRD_PARTY_RECONSTRUCTION_FOR_DIAGNOSTIC_CROSS_CHECK_ONLY"
+  ],
+  "membership_replay_rule": {
+    "effective_clock": "OFFICIAL_EFFECTIVE_DATE_AT_START_OF_DAY",
+    "state_transition": "previous_set_minus_official_deletions_plus_official_additions",
+    "between_rebalances": "carry_forward_last_official_state",
+    "announcement_date_must_precede_effective_date": true,
+    "special_fast_entry_or_non_periodic_changes": "must_be_separately_identified_and_archived_if_present",
+    "silent_manual_patch_allowed": false
+  },
+  "membership_hard_gates": {
+    "official_cycle_source_identity_and_sha256_complete": true,
+    "all_cycles_in_required_window_present": true,
+    "each_cycle_has_announcement_date_effective_date_additions_and_deletions": true,
+    "each_cycle_addition_deletion_counts_equal": true,
+    "each_cycle_addition_deletion_sets_disjoint": true,
+    "replay_deletion_must_exist_in_previous_state": true,
+    "replay_addition_must_not_exist_in_previous_state": true,
+    "active_constituent_count_every_required_open_day": 300,
+    "duplicate_constituents_per_day": 0,
+    "official_current_snapshot_set_difference": 0,
+    "independent_month_end_snapshot_set_difference_required": 0,
+    "unexplained_transition_count": 0
+  },
+  "weight_clock": {
+    "candidate_rule_unchanged": "LATEST_SNAPSHOT_STRICTLY_BEFORE_NOTICE_DATE",
+    "maximum_snapshot_age_calendar_days": 45,
+    "same_day_or_future_snapshot_allowed": false,
+    "conservative_provider_release_lag_if_release_time_unproven_trading_days": 1
+  },
+  "weight_hard_gates": {
+    "snapshot_date_and_source_identity_complete": true,
+    "historical_value_or_version_provenance_required": true,
+    "minimum_snapshot_count_primary_window": 60,
+    "constituent_count_each_snapshot": 300,
+    "duplicate_date_security_rows": 0,
+    "weight_sum_min_percent": 98.0,
+    "weight_sum_max_percent": 102.0,
+    "snapshot_membership_set_difference_vs_admitted_membership": 0,
+    "strict_prior_coverage_after_primary_start_minimum": 0.99,
+    "vendor_current_retrieval_without_historical_version_proof_is_not_sufficient_alone": true
+  },
+  "integrity_gates": {
+    "raw_source_hash_verification": true,
+    "deterministic_replay_second_run_hash_match": true,
+    "ascending_descending_cycle_replay_same_state": true,
+    "calendar_has_unique_open_dates": true,
+    "output_schema_and_row_count_assertions": true,
+    "automated_tests_required": true
+  },
+  "terminal_statuses": {
+    "pass_membership_only": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_PRIMARY_2021_WINDOW_ONLY_WEIGHTS_PENDING",
+    "pass_all": "PASS_PIT_CSI300_MEMBERSHIP_AND_WEIGHTS_PRIMARY_2021_WINDOW",
+    "blocked_membership": "BLOCKED_NO_COMPLETE_OFFICIAL_PIT_CSI300_MEMBERSHIP_CHAIN",
+    "blocked_weights": "BLOCKED_NO_VERSION_PROVEN_PIT_CSI300_WEIGHTS",
+    "external_source_failed": "EXTERNAL_SOURCE_FAILED_NO_DATA_ADMISSION"
+  },
+  "frozen_inputs": [
+    {
+      "path": "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/official_announcement_manifest.json",
+      "sha256": "58cc57d9a0eb23ac95ca8e68db85108207684df59cabc78ba9fb3c017c836f4d",
+      "bytes": 104323,
+      "allowed_use": "OFFICIAL_REBALANCE_CYCLES_AND_RAW_ARCHIVE_INDEX"
+    },
+    {
+      "path": "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/event_ledger_without_returns.parquet",
+      "sha256": "e3eafbaa8fafa3a3e0c0f2d40b573e623c450c8271151f2521746346bf8cb292",
+      "bytes": 35669,
+      "allowed_use": "OFFICIAL_ADDITION_EVENT_RECONCILIATION_ONLY"
+    },
+    {
+      "path": "data/raw/constituents/000300_historical_weights.parquet",
+      "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+      "bytes": 80108,
+      "allowed_use": "VENDOR_SNAPSHOT_CROSS_CHECK_PENDING_VERSION_PROVENANCE"
+    },
+    {
+      "path": "data/raw/constituents/000300_current_weights.parquet",
+      "sha256": "52366da5e55c053618c874a5e853726a0b621a2d2aa7787126648b75445fcdea",
+      "bytes": 15092,
+      "allowed_use": "CURRENT_OFFICIAL_SET_ANCHOR_CROSS_CHECK"
+    },
+    {
+      "path": "data/raw/constituents/000300_official_snapshot_raw.json",
+      "sha256": "8aabfa5d699641bfe23e13971eb0d436938dcf5b91123759178e13520f49c6d4",
+      "bytes": 661945,
+      "allowed_use": "OFFICIAL_CURRENT_SNAPSHOT_RAW_PROVENANCE"
+    },
+    {
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+      "sha256": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd",
+      "bytes": 59861,
+      "allowed_use": "EVENT_CLOCK_ONLY"
+    }
+  ],
+  "return_evaluation": "NOT_ALLOWED",
+  "trading_authorization": false
+}

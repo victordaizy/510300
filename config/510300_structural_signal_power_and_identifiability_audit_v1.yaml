@@ -1,0 +1,85 @@
+program:
+  program_id: 510300_STRUCTURAL_SIGNAL_POWER_AND_IDENTIFIABILITY_AUDIT_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_POWER_AND_IDENTIFIABILITY_FREEZE
+  research_stage: MEASUREMENT_FEASIBILITY_AUDIT_ONLY
+  evaluation_start: 2021-01-01
+  evaluation_end: 2026-08-25
+  executable_assets: [510300.SH, CASH_CNY]
+  return_prediction_allowed: false
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+
+parent_contract:
+  engine_manifest: config/510300_expectations_news_price_response_engine_v1_manifest_v1_0_1.json
+  engine_status: reports/research/510300_expectations_news_price_response_engine_v1_status.json
+  expected_engine_manifest_payload_sha256: c730f54105545936bb7e8a4a19354b395c71dc078aa81347e705c40ee8dd4b3d
+  expected_engine_status_payload_sha256: d1fb66650f2961425eeacd4994c22b3269167f2fbb75a1d5ebfc264841c0f020
+  expected_engine_status: MEASUREMENT_ARCHITECTURE_ACTIVE_NO_RETURN_PREDICTION
+
+source_contract:
+  rejected_prediction_status:
+    path: reports/research/510300_structural_prediction_v1_status.json
+    expected_payload_sha256: ffcfe51dd086b327419bd6a3cd1a1cd3a81f239b9a05b63bf3b746aeadfb862f
+  prediction_rows:
+    path: reports/research/510300_structural_prediction_v1_predictions.parquet
+    expected_sha256: e468b7ee0fc7caf96ccd60d1d75c11e194a71597650c539f9d10890f98953c7e
+  total_return_index:
+    path: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    expected_sha256: 5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c
+    date_column: date
+    value_column: close
+    symbol: H00300
+    role: REALIZED_VOLATILITY_SCALE_ONLY_NOT_STRATEGY_RETURN
+
+forecast_power:
+  candidate_model: STRUCTURE_WITH_INTERACTIONS
+  baseline_models:
+    - HISTORICAL_MEAN
+    - OLD_R5_AGGREGATE_VALUATION
+    - PRICE_REALIZED_RISK
+  targets:
+    EXPECTED_60D_TOTAL_RETURN:
+      horizon_market_days: 60
+      monthly_overlap_block_origins: 3
+    EXPECTED_120D_TOTAL_RETURN:
+      horizon_market_days: 120
+      monthly_overlap_block_origins: 6
+  hypothetical_relative_mse_improvements: [0.01, 0.02, 0.05]
+  one_sided_alpha: 0.05
+  target_power: 0.80
+  z_one_sided_alpha: 1.6448536269514722
+  z_target_power: 0.8416212335729143
+  hac_kernel: BARTLETT
+  acceptable_identification_years: 10.0
+  short_horizon_years: 5.0
+  origins_per_year: 12
+  conservative_required_origin_rule: MAX_OF_HAC_AND_NONOVERLAP
+
+sharpe_identifiability:
+  reference_sharpe: 0.29
+  target_sharpe: 1.20
+  gaussian_iid_standard_error_formula: SQRT_1_PLUS_HALF_SR_SQUARED_OVER_YEARS
+  dependence_scenario_multipliers: [1.0, 2.0, 3.0]
+  annualization_days: 252
+  cost_assumption: NOT_EVALUATED_NO_INVESTABLE_STRATEGY_RETURN_SERIES
+  empirical_sharpe_test_allowed: false
+
+adjudication:
+  mathematical_impossibility_tested: false
+  current_specification_can_recover: false
+  waiting_is_main_research_plan: false
+  passive_monitoring_allowed: true
+  direct_total_return_forecast_allowed: false
+  portfolio_evaluation_allowed: false
+  portfolio_action: ABSTAIN
+  position_state: POSITION_UNSET
+
+artifacts:
+  protocol_manifest: config/510300_structural_signal_power_and_identifiability_audit_v1_manifest.json
+  paired_loss_panel: data/processed/510300_structural_signal_power_and_identifiability_audit_v1/paired_loss_panel.parquet
+  power_requirements: reports/research/510300_structural_signal_power_and_identifiability_audit_v1_power.parquet
+  nonoverlap_diagnostics: reports/research/510300_structural_signal_power_and_identifiability_audit_v1_nonoverlap.parquet
+  audit_json: reports/research/510300_structural_signal_power_and_identifiability_audit_v1.json
+  final_report: reports/research/510300_STRUCTURAL_SIGNAL_POWER_AND_IDENTIFIABILITY_AUDIT_V1.md
+  authoritative_status: reports/research/510300_structural_signal_power_and_identifiability_audit_v1_status.json

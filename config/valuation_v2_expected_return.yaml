@@ -1,0 +1,47 @@
+model:
+  model_id: "CSI300_VALUATION_V2_EXPECTED_EXCESS_RETURN"
+  version: "0.1.0-research"
+  signal_frequency: "monthly_official_weight_snapshot"
+  horizons_trading_days: [60, 120, 242]
+  objective: "预期超额总收益，不预测未来价格"
+
+normalization:
+  lookback_years: 3
+  minimum_ttm_observations: 4
+  financial_method: "当前归母权益×过去三年TTM ROE中位数"
+  cyclical_method: "当前TTM收入×过去三年TTM净利率中位数"
+  other_method: "三年正TTM利润中位数与当前收入×三年净利率中位数等权"
+  expected_growth_current_weight:
+    financial: 0.25
+    cyclical: 0.25
+    other: 0.50
+  expected_growth_clip: [-0.10, 0.15]
+
+fair_multiple:
+  estimator: "StandardScaler+Ridge"
+  ridge_alpha: 10.0
+  minimum_training_months: 48
+  expanding_window: true
+  training_cutoff: "strictly_before_signal_date"
+  features:
+    - cgb_10y
+    - cgb_term_spread
+    - normalized_roe
+    - expected_earnings_growth
+    - realized_volatility_3m
+  current_price_direct_feature: false
+  historical_prediction_bounds: [0.10, 0.90]
+
+return_decomposition:
+  dividend: "过去242个交易日全收益指数相对价格指数的股息收益，按期限复利缩放"
+  earnings_growth: "行业规则正常化后的年化预期增长，按期限复利缩放"
+  rerating: "lambda_h×log(FairPE/当前正常化PE)"
+  rerating_half_life_trading_days: 242
+  cash: "信号日1年期国债收益率，按期限复利缩放"
+  edge: "ExpectedTotalReturn_h-CashReturn_h"
+
+governance:
+  parameter_search_performed: false
+  trading_use_authorized: false
+  industry_mapping: "静态申万一级标签，仅用于方法路由；存在非点时分类限制"
+  evidence_scope: "全部历史已被研究，只能形成回顾性机制证据；冻结后才开始真正前瞻验证"

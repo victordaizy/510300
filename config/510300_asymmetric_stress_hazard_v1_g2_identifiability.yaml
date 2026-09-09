@@ -1,0 +1,264 @@
+program:
+  program_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1
+  stage_id: G2_TEMPORAL_IDENTIFIABILITY_PREFLIGHT_V1
+  version: 1.0.0
+  protocol_revision: PRE_FEATURE_PRE_LABEL_G2_TEMPORAL_FREEZE
+  evidence_class: RETROSPECTIVE_HISTORICAL_DISCOVERY
+  research_state: DISCOVERY_ONLY
+  executable_assets: [510300.SH, CASH_CNY]
+  position_impact: 0
+  observation_start: 2015-01-05
+  observation_cutoff: 2026-08-14
+  timezone: Asia/Shanghai
+  feature_values_may_be_constructed_in_this_stage: false
+  bad10_label_artifacts_may_be_read_in_this_stage: false
+  model_training_allowed: false
+  return_evaluation_allowed: false
+  portfolio_evaluation_allowed: false
+
+immutable_parent:
+  protocol_config:
+    path: config/510300_asymmetric_stress_hazard_v1.yaml
+    sha256: d4d129605a87b125f0f703b98d46dc18be6c03680af602e4c84737356870ff3f
+  protocol_manifest:
+    path: config/510300_asymmetric_stress_hazard_v1_manifest.json
+    sha256: b6c487011f342addb76f525721eb2b8177e7df4569254c3c38329d3b0f02ca94
+    required_payload_sha256: 6e040088e8789dc7eab951c99b4787d03302b463a98557d95a8a5c978d70d5e8
+  g1_status:
+    path: reports/research/510300_asymmetric_stress_hazard_v1_status.json
+    sha256: 34c14632d72cba7fc6246101ca3b0cc8589a9008d7cdacf4e65870c50d2fa658
+    required_status: PASS_G1_LABEL_IDENTIFIABILITY_ONLY_NO_FEATURE_CONSTRUCTION
+    required_passed: true
+  g1_receipt:
+    path: reports/audit/510300_asymmetric_stress_hazard_v1_bad10_census_receipt.json
+    sha256: f9f10d88e05e95785057c02584d162c48dc035154830b3cbfef482ea5100d092
+    required_payload_sha256: 26d583ef6e0e64de52a5dd9e5911ed0914e5a52387fc338211caef973959696e
+  source_remediation_contract:
+    path: config/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2.yaml
+    sha256: e7d4d3dd913ea132ea2409818fcd8b2bfcf9cf99e06794c81a449c0c896c9f0a
+  source_remediation_status:
+    path: reports/data_quality/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2.json
+    sha256: 9bd4e5d8dd957616b57359687fea8a46a455531208a778410c4403d4b5b7a1cc
+    required_status: PASS_SOURCE_REMEDIATION_ALL_REQUIRED_SOURCES_ADMITTED
+    required_all_required_sources_admitted: true
+    required_g2_allowed: true
+  source_remediation_receipt:
+    path: reports/audit/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2_receipt.json
+    sha256: 6f030a1bc2e3fe679c8ac0fe8d365891466319f56f56604eca3edcbc724ecd58
+    required_payload_sha256: fe9cbd06fa072d665efe4722d126e554b5ab4accfeb719a7441773554a6f2813
+  parent_mutation_allowed: false
+  bad10_census_rerun_allowed: false
+
+authority_contract:
+  path: config/510300_research_authority_v2.json
+  sha256: 79021fdacf523b73cebb1dc16446b4c2ce5c3af3ff93b9ab062f74c16e55a459
+  authority_id: 510300_RESEARCH_AUTHORITY_V2
+  required_fields:
+    research_state: DISCOVERY_ONLY
+    model_position_target: UNSET
+    order_authorization: NOT_AUTHORIZED
+    actual_holdings_state: UNKNOWN_OUT_OF_SCOPE
+    position_impact: 0
+
+data_roots:
+  PROJECT_RESEARCH_DATA_V1:
+    logical_path: data
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    expected_resolved_root: "E:/ResearchData/New project 8/data"
+    path_policy: REGISTERED_PHYSICAL_ROOT_NOT_PROJECT_WORKSPACE_CONTAINMENT
+
+source_contract:
+  pit_csi300_membership:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+    bytes: 139181
+    data_contract_version: CSI300_OFFICIAL_PIT_MEMBERSHIP_DAILY_20150105_20260814
+    required_columns: [membership_date, index_code, symbol]
+    expected_index_code: "000300"
+    expected_members_per_session: 300
+  constituent_total_return_presence:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/constituents/000300_constituent_daily.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7
+    bytes: 26849121
+    data_contract_version: CSI300_CONSTITUENT_TOTAL_RETURN_PANEL_TUSHARE_PROXY_20260819
+    required_columns: [date, con_code, total_return_close]
+    validity_rule: FINITE_POSITIVE_TOTAL_RETURN_CLOSE_PRESENT_FOR_EACH_PIT_MEMBER
+  sw_pit_industry_presence:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/000300_member_day_sw_l1_pit_20150105_20260814.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: a63e69d7897908b7932962778d3aebd9bcc300217eb8c06dbdef3bc76753560e
+    bytes: 591688
+    data_contract_version: SW_LEVEL1_OFFICIAL_HISTORY_PIT_MEMBER_DAY_20150105_20260814
+    required_columns: [membership_date, symbol, industry_l1_code, mapping_status]
+    required_mapping_status: PIT_AVAILABLE_BY_MARKET_CLOSE
+    validity_rule: ALL_300_PIT_MEMBERS_HAVE_PROVABLE_SW_L1_BY_SAME_DAY_CLOSE
+
+fixed_subperiods:
+  - id: P1_2015_2017
+    start: 2015-01-05
+    end: 2017-12-29
+  - id: P2_2018_2020
+    start: 2018-01-02
+    end: 2020-12-31
+  - id: P3_2021_2023
+    start: 2021-01-04
+    end: 2023-12-29
+  - id: P4_2024_CUTOFF
+    start: 2024-01-02
+    end: 2026-08-14
+
+frozen_feature_construction:
+  information_clock: T_CLOSE_AND_INFORMATION_AVAILABLE_BY_T_CLOSE
+  execution_clock_reserved_for_post_g3: NEXT_TRADING_DAY_OPEN
+  missing_value_rule: NO_VIEW_NO_INTERPOLATION
+  all_three_channels_required_for_each_composite: true
+  causal_percentile:
+    formula: EMPIRICAL_MIDRANK_AGAINST_STRICTLY_PRIOR_VALID_OBSERVATIONS_ONLY
+    minimum_prior_valid_observations: 1
+    current_observation_excluded: true
+    first_valid_raw_observation_status: NO_VIEW
+    expanding_history_only: true
+  M:
+    aggregation: MEDIAN_OF_M1_M2_M3_RISK_PERCENTILES
+    M1:
+      formula: 100_DIVIDED_BY_OFFICIAL_CSI300_PE_MINUS_CHINA_10Y_YIELD_PERCENT
+      availability: BOTH_DAILY_VALUES_SHIFTED_TO_NEXT_TRADING_DAY_OPEN
+      risk_direction: LOWER_IS_HIGHER_RISK
+    M2:
+      formula: DR007_WEIGHTED_AVERAGE_PERCENT_MINUS_LAST_ACTUALLY_PUBLISHED_PBOC_7D_RATE_PERCENT
+      dr007_availability: NEXT_TRADING_DAY_OPEN_AFTER_RATE_DATE
+      policy_rate_availability: RECORDED_OFFICIAL_PUBLICATION_TIMESTAMP
+      policy_rate_state_rule: CARRY_LAST_ACTUALLY_PUBLISHED_7D_RATE_ONLY
+      risk_direction: HIGHER_IS_HIGHER_RISK
+      forbidden_substitutes: [FDR007, R007, FR007, EXCHANGE_REPO_R_007]
+    M3:
+      formula: FIRST_RELEASE_TSF_STOCK_YOY_PERCENT_MINUS_FIRST_RELEASE_VALUE_THREE_REFERENCE_MONTHS_EARLIER
+      availability: RECORDED_AVAILABLE_AT_NOT_LATER_THAN_SIGNAL_CLOSE
+      later_revision_backfill_allowed: false
+      risk_direction: LOWER_IS_HIGHER_RISK
+  F:
+    aggregation: MEDIAN_OF_F1_F2_F3_RISK_PERCENTILES
+    F1:
+      formula: SHARE_OF_TODAY_PIT_300_MEMBERS_WITH_POSITIVE_TOTAL_RETURN_CLOSE_T_DIVIDED_BY_T_MINUS_20_MINUS_1
+      window: 20_COMPLETED_CLOSE_TO_CLOSE_MARKET_RETURNS_ENDING_T
+      valid_member_count_required: 300
+      risk_direction: LOWER_IS_HIGHER_RISK
+    F2:
+      formula: ETF_20D_TOTAL_RETURN_MINUS_EQUAL_WEIGHT_CURRENT_PIT_MEMBER_20D_TOTAL_RETURN
+      etf_dividend_rule: ADD_EX_DATE_CASH_DISTRIBUTION_TO_CLOSE_TO_CLOSE_TOTAL_RETURN
+      valid_member_count_required: 300
+      historical_official_weights_used: false
+      risk_direction: HIGHER_IS_HIGHER_RISK
+    F3:
+      formula: MEDIAN_OFF_DIAGONAL_PAIRWISE_CORRELATION_OF_EQUAL_WEIGHT_SW_L1_DAILY_TOTAL_RETURNS
+      window: 20_COMPLETED_CLOSE_TO_CLOSE_MARKET_RETURNS_ENDING_T
+      sector_identity: POINT_IN_TIME_SW_LEVEL1_EACH_RETURN_DATE
+      full_member_price_and_industry_coverage_required_each_date: true
+      sector_pair_complete_observations_required: 20
+      minimum_common_sector_count: 10
+      risk_direction: HIGHER_IS_HIGHER_RISK
+  T:
+    aggregation: MEDIAN_OF_T1_T2_T3_RISK_PERCENTILES
+    T1:
+      formula: NEGATIVE_OF_F1_BREADTH20_T_MINUS_F1_BREADTH20_T_MINUS_5
+      risk_direction: HIGHER_IS_HIGHER_RISK
+    T2:
+      formula: F3_SECTOR_CORR20_T_MINUS_F3_SECTOR_CORR20_T_MINUS_5
+      risk_direction: HIGHER_IS_HIGHER_RISK
+    T3:
+      formula: SHARE_OF_COMMON_POINT_IN_TIME_SW_L1_SECTORS_WITH_NEGATIVE_COMPOUNDED_5D_RETURN
+      full_member_price_and_industry_coverage_required_each_date: true
+      risk_direction: HIGHER_IS_HIGHER_RISK
+  fixed_scores:
+    internal_score: SQRT_F_TIMES_T
+    full_mechanism_score: CUBE_ROOT_M_TIMES_F_TIMES_T
+    price_baseline: MEDIAN_OF_CAUSAL_RISK_PERCENTILES_OF_NEGATIVE_ETF_20D_TOTAL_RETURN_AND_ETF_20D_REALIZED_VOLATILITY
+    realized_volatility: SAMPLE_STANDARD_DEVIATION_OF_20_CLOSE_TO_CLOSE_TOTAL_RETURNS
+
+g2_mechanism_if_temporally_identifiable:
+  macro_lead_test:
+    predictor: M_T
+    response: INTERNAL_SCORE_T_PLUS_5_MINUS_INTERNAL_SCORE_T
+    statistic: SPEARMAN_RHO
+    required_direction: POSITIVE_STRICT
+    subperiods_required_positive: 3
+    total_subperiods: 4
+    subperiod_selection_or_repartition_allowed: false
+  internal_bad10_test:
+    internal_score: SQRT_F_TIMES_T
+    price_baseline_score: FROZEN_PRICE_BASELINE
+    sample_unit: EARLIEST_ORIGIN_OF_EACH_MERGED_BAD10_EVENT_AND_FROZEN_GREEDY_NON_EVENT_BLOCK_ORIGIN
+    statistic: ROC_AUC
+    pass_rule: INTERNAL_AUC_STRICTLY_GREATER_THAN_PRICE_BASELINE_AUC
+    minimum_scoreable_events: 30
+    minimum_scoreable_non_event_blocks: 120
+  model_training_in_g2: false
+  portfolio_metrics_in_g2: false
+
+temporal_identifiability_preflight:
+  purpose: NECESSARY_SOURCE_COVERAGE_UPPER_BOUND_BEFORE_FEATURE_OR_LABEL_READ
+  internal_history_market_sessions_inclusive: 25
+  macro_lead_forward_market_sessions: 5
+  necessary_union_market_sessions_inclusive: 30
+  minimum_potential_daily_origins_per_subperiod: 20
+  required_evaluable_subperiods: 3
+  total_subperiods: 4
+  daily_necessary_conditions:
+    - EXACTLY_300_UNIQUE_PIT_MEMBERS
+    - FINITE_POSITIVE_TOTAL_RETURN_CLOSE_PRESENT_FOR_ALL_300_MEMBERS
+    - PIT_AVAILABLE_SW_L1_PRESENT_FOR_ALL_300_MEMBERS
+  optimistic_upper_bound_assumptions:
+    previous_price_needed_for_first_daily_return_ignored: true
+    macro_source_missingness_ignored: true
+    causal_percentile_warmup_ignored: true
+    feature_numeric_validity_ignored: true
+  failure_status: NO_VIEW_G2_TEMPORAL_IDENTIFIABILITY_FAILED_STOP_NO_RESCUE
+  pass_status: PASS_G2_TEMPORAL_IDENTIFIABILITY_PREFLIGHT_FEATURE_CONSTRUCTION_MAY_BE_FROZEN
+  failure_is_terminal_for_v1: true
+  repartition_after_result_allowed: false
+  current_industry_backfill_allowed: false
+  alternative_constituent_panel_allowed: false
+
+outputs:
+  manifest: config/510300_asymmetric_stress_hazard_v1_g2_identifiability_manifest.json
+  one_shot_claim: reports/audit/510300_stress_hazard_v1_g2_identifiability_claim.json
+  status: reports/research/510300_stress_hazard_v1_g2_identifiability.json
+  human_report: reports/research/510300_STRESS_HAZARD_V1_G2_IDENTIFIABILITY.md
+  immutable_receipt: reports/audit/510300_stress_hazard_v1_g2_identifiability_receipt.json
+  failure_receipt: reports/audit/510300_stress_hazard_v1_g2_identifiability_failure.json
+
+freeze_contract:
+  implementation_files:
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_g2_identifiability_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1_g2_identifiability.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_g2_identifiability.py
+  governance_files:
+    - config/510300_asymmetric_stress_hazard_v1_g2_identifiability.yaml
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_G2_IDENTIFIABILITY.md
+    - tests/test_510300_asymmetric_stress_hazard_g2_identifiability_v1.py
+  required_committed_before_manifest:
+    - config/510300_asymmetric_stress_hazard_v1_g2_identifiability.yaml
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_G2_IDENTIFIABILITY.md
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_g2_identifiability_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1_g2_identifiability.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_g2_identifiability.py
+    - tests/test_510300_asymmetric_stress_hazard_g2_identifiability_v1.py
+  required_committed_before_preflight:
+    - config/510300_asymmetric_stress_hazard_v1_g2_identifiability.yaml
+    - config/510300_asymmetric_stress_hazard_v1_g2_identifiability_manifest.json
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_G2_IDENTIFIABILITY.md
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_g2_identifiability_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1_g2_identifiability.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_g2_identifiability.py
+    - tests/test_510300_asymmetric_stress_hazard_g2_identifiability_v1.py

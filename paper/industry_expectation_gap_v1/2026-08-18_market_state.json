@@ -1,0 +1,36 @@
+{
+  "ledger_version": "MARKET_STATE_V1_2026-08-18",
+  "as_of_date": "2026-08-18",
+  "information_cutoff": "2026-08-18T16:30:00+08:00",
+  "funding_liquidity": {
+    "state": "NO_VIEW",
+    "data_as_of": "2026-07-31",
+    "failure_category": "INCOMPLETE_POINT_IN_TIME_FUNDING_SET",
+    "reason": "只有月末国债曲线，缺少同一截止时点的资金价格、信用和融资条件，不能判为宽松或收紧。",
+    "source_ids": ["CHINABOND_MOF_CURVE_20260731"]
+  },
+  "equity_liquidity": {
+    "state": "NO_VIEW",
+    "data_as_of": "2026-08-12",
+    "failure_category": "STALE_EQUITY_FLOW_INPUTS",
+    "reason": "基金份额、两融和成分资金流只到2026-08-12，不能代表2026-08-18。",
+    "source_ids": ["LOCAL_FUND_SHARE_20260812", "LOCAL_MARGIN_20260812", "LOCAL_MONEYFLOW_20260812"]
+  },
+  "risk_bearing": {
+    "state": "NO_VIEW",
+    "data_as_of": "2026-08-18",
+    "failure_category": "PRICE_ONLY_IS_NOT_LIQUIDITY",
+    "reason": "虽有510300价格和成交额，但缺少同口径宽度、冲击成本和风险承接证据，价格上涨不能替代流动性判断。",
+    "source_ids": ["LOCAL_ETF_STATUS_20260818"]
+  },
+  "national_team": {
+    "disclosed_holdings_state": "UNOBSERVED",
+    "holdings_report_period": null,
+    "holdings_publication_date": null,
+    "activity_proxy_state": "UNOBSERVED",
+    "failure_category": "NO_CURRENT_DISCLOSED_HOLDINGS_IN_LOCAL_EVIDENCE",
+    "reason": "没有带报告期和公开日的当前国家队持仓库存；不得从ETF份额、成交或折溢价反推主体身份。",
+    "source_ids": []
+  }
+}
+

@@ -1,0 +1,523 @@
+{
+  "protocol_id": "CSI300_PIT_FUNDAMENTAL_UNDERREACTION_OFFICIAL_FACTS_V1_3_OPTIMISTIC_BOUND",
+  "created_at": "2026-08-31T16:54:42.718375+08:00",
+  "status": "BLOCKED_OFFICIAL_PDF_FACT_COVERAGE_BELOW_FROZEN_GATE",
+  "definition": "ALL_UNPROCESSED_OR_RETRYABLE_OFFICIAL_PDFS_ASSUMED_PARSED_COMPLETE;EXISTING_V1_3_PARSED_INCOMPLETE_CHECKPOINTS_REMAIN_INCOMPLETE;METADATA_AND_POINT_IN_TIME_UNAVAILABILITY_REMAINS",
+  "parser_version": "CSI300_PIT_OFFICIAL_FINANCIAL_FACTS_PDFIUM_PDFPLUMBER_WINDOWS_OCR_V1_7_0",
+  "current_acquisition_receipt_status": "PARTIAL_OFFICIAL_PDF_FACT_ACQUISITION",
+  "provenance": {
+    "parent_manifest_path": "config/csi300_pit_fundamental_underreaction_enhancement_v1_manifest.json",
+    "parent_manifest_sha256": "b509697b506ab3caeabe6e171eb123d1191ffead24af12da0e9bb92b209ffffc",
+    "parent_manifest_content_sha256": "17017a08faf16cdd450a3dd2e85dc59fc3360002c698266b86fd71c21ff1beec",
+    "official_fact_manifest_path": "config/csi300_pit_fundamental_underreaction_official_facts_v1_3_manifest.json",
+    "official_fact_manifest_sha256": "e1404a6bcb1aa61cb0794ff95544d76a34e6fc4d9126749e9cc164deaa6e270b",
+    "official_fact_manifest_content_sha256": "784846f7c7d0d4870dbfbe905ef97c72668af5dc16c8489ecf38aa288195a4b5",
+    "target_inventory_path": "data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/target_event_inventory_without_returns.parquet",
+    "target_inventory_sha256": "b9c24f90316d80eb0945b27eabd79e97f134fafae92f3aa94100c05ebf97c694",
+    "official_events_path": "data/raw/cninfo/a_share_hs_periodic_report_events_v2_1.parquet",
+    "official_events_sha256": "028c9a68335b719916e1b735888f6f444bca7f4dfba2bc051a0088a10e98512b",
+    "requirement_ledger_path": "data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/official_fact_requirement_ledger.parquet",
+    "requirement_ledger_sha256": "a020e97a422de0a07e1ab387cda2428615b65aca7d6b4b74efa1c6a19e9296ed",
+    "document_queue_path": "data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/official_fact_document_queue.parquet",
+    "document_queue_sha256": "80e813e7758d70adb777ea24f7f2832f3884232372a47ffdb01d5f8690d4335f",
+    "current_receipt_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/receipt.json",
+    "current_receipt_sha256": "07259be0e797fb20eb38dfa5d640f50f46e14872f9999f36938b28dbbf83c73b",
+    "main_preflight_path": "reports/data_quality/csi300_pit_fundamental_underreaction_enhancement_v1_preflight.json",
+    "main_preflight_sha256": "1463587aad1a5f31fef877e68c2a15829d7d71582f5fc6d0be8968c2177eba7f",
+    "checkpoint_root": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3"
+  },
+  "main_preflight": {
+    "status": "NO_VIEW_CSI300_PIT_FUNDAMENTAL_UNDERREACTION_DATA_CONTRACT_FAILED",
+    "passed_gate_count": 6,
+    "total_gate_count": 7,
+    "blocking_gate_ids": [
+      "G6_OFFICIAL_PDF_VERIFIED_FACT_ARCHIVE_PASS"
+    ],
+    "g6_observed": "PARTIAL_OFFICIAL_PDF_FACT_ACQUISITION",
+    "g7_observed": "NO_MARKET_PRICE_OR_FUTURE_RETURN_READ",
+    "generated_next_allowed_step": "BUILD_OR_COMPLETE_OFFICIAL_ORIGINAL_PDF_VERIFIED_FACT_ARCHIVE_THEN_RERUN_PREFLIGHT",
+    "terminal_interpretation": "THE_GENERIC_G6_COMPLETION_BRANCH_IS_NARROWED_TO_STOP_FOR_V1_3_BECAUSE_THE_OPTIMISTIC_COVERAGE_BOUND_IS_BELOW_THE_FROZEN_GATE"
+  },
+  "counts": {
+    "target_event_count": 8223,
+    "queued_document_count": 11892,
+    "checkpoint_count": 437,
+    "parsed_complete_document_count": 415,
+    "parsed_incomplete_document_count": 22,
+    "other_checkpoint_count": 0,
+    "optimistically_assumed_complete_document_count": 11455
+  },
+  "checkpoint_status_counts": {
+    "PARSED_COMPLETE": 415,
+    "PARSED_INCOMPLETE": 22
+  },
+  "metadata_only_ceiling": {
+    "target_event_count": 8223,
+    "ready_target_event_count": 7419,
+    "overall_complete_event_ratio": 0.9022254651587012,
+    "minimum_publication_year_complete_event_ratio": 0.8285410010649628,
+    "minimum_eligible_industry_complete_event_ratio": 0.8
+  },
+  "optimistic_bound": {
+    "target_event_count": 8223,
+    "ready_target_event_count": 7390,
+    "overall_complete_event_ratio": 0.8986987717378085,
+    "minimum_publication_year_complete_event_ratio": 0.8177874186550976,
+    "minimum_eligible_industry_complete_event_ratio": 0.8,
+    "target_events_lost_to_known_incomplete_documents": 29,
+    "coverage_gate_passed": false
+  },
+  "gate_components": {
+    "overall": {
+      "required_ratio": 0.9,
+      "required_count": 7401,
+      "optimistic_ratio": 0.8986987717378085,
+      "optimistic_count": 7390,
+      "shortfall_count": 11,
+      "passed": false
+    },
+    "publication_year": {
+      "required_ratio": 0.8,
+      "optimistic_ratio": 0.8177874186550976,
+      "passed": true
+    },
+    "industry": {
+      "required_ratio": 0.75,
+      "optimistic_ratio": 0.8,
+      "passed": true
+    }
+  },
+  "incomplete_metric_counts": {
+    "OPERATING_REVENUE_YTD": 3,
+    "OPERATING_PROFIT_YTD": 6,
+    "PARENT_NET_PROFIT_YTD": 13,
+    "CORE_PARENT_NET_PROFIT_YTD": 3,
+    "OPERATING_CASH_FLOW_YTD": 5,
+    "ACCOUNTS_RECEIVABLE_END": 7,
+    "INVENTORY_END": 6,
+    "TOTAL_ASSETS_END": 6,
+    "TOTAL_LIABILITIES_END": 7
+  },
+  "incomplete_documents": [
+    {
+      "announcement_id": "1202051996",
+      "official_pdf_announcement_id": "1202051996",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202051996.json.gz"
+    },
+    {
+      "announcement_id": "1202063757",
+      "official_pdf_announcement_id": "1202063757",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202063757.json.gz"
+    },
+    {
+      "announcement_id": "1202067789",
+      "official_pdf_announcement_id": "1202067789",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD",
+        "ACCOUNTS_RECEIVABLE_END"
+      ],
+      "missing_metric_count": 2,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202067789.json.gz"
+    },
+    {
+      "announcement_id": "1202067994",
+      "official_pdf_announcement_id": "1202067994",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD",
+        "CORE_PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 2,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202067994.json.gz"
+    },
+    {
+      "announcement_id": "1202069715",
+      "official_pdf_announcement_id": "1202069715",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202069715.json.gz"
+    },
+    {
+      "announcement_id": "1202078437",
+      "official_pdf_announcement_id": "1202078437",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202078437.json.gz"
+    },
+    {
+      "announcement_id": "1202103186",
+      "official_pdf_announcement_id": "1202103186",
+      "missing_metrics": [
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202103186.json.gz"
+    },
+    {
+      "announcement_id": "1202104376",
+      "official_pdf_announcement_id": "1202104376",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202104376.json.gz"
+    },
+    {
+      "announcement_id": "1202112839",
+      "official_pdf_announcement_id": "1202112839",
+      "missing_metrics": [
+        "OPERATING_REVENUE_YTD",
+        "OPERATING_PROFIT_YTD",
+        "PARENT_NET_PROFIT_YTD",
+        "CORE_PARENT_NET_PROFIT_YTD",
+        "OPERATING_CASH_FLOW_YTD",
+        "ACCOUNTS_RECEIVABLE_END",
+        "INVENTORY_END",
+        "TOTAL_ASSETS_END",
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 9,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202112839.json.gz"
+    },
+    {
+      "announcement_id": "1202114924",
+      "official_pdf_announcement_id": "1202114924",
+      "missing_metrics": [
+        "OPERATING_PROFIT_YTD",
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 2,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202114924.json.gz"
+    },
+    {
+      "announcement_id": "1202115027",
+      "official_pdf_announcement_id": "1202115027",
+      "missing_metrics": [
+        "INVENTORY_END",
+        "TOTAL_ASSETS_END",
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 3,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202115027.json.gz"
+    },
+    {
+      "announcement_id": "1202116234",
+      "official_pdf_announcement_id": "1202116234",
+      "missing_metrics": [
+        "OPERATING_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202116234.json.gz"
+    },
+    {
+      "announcement_id": "1202145419",
+      "official_pdf_announcement_id": "1202145419",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202145419.json.gz"
+    },
+    {
+      "announcement_id": "1202181286",
+      "official_pdf_announcement_id": "1202181286",
+      "missing_metrics": [
+        "OPERATING_REVENUE_YTD",
+        "OPERATING_PROFIT_YTD",
+        "PARENT_NET_PROFIT_YTD",
+        "OPERATING_CASH_FLOW_YTD",
+        "ACCOUNTS_RECEIVABLE_END",
+        "INVENTORY_END",
+        "TOTAL_ASSETS_END",
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 8,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202181286.json.gz"
+    },
+    {
+      "announcement_id": "1202205737",
+      "official_pdf_announcement_id": "1202205737",
+      "missing_metrics": [
+        "ACCOUNTS_RECEIVABLE_END"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2015/1202205737.json.gz"
+    },
+    {
+      "announcement_id": "1202231292",
+      "official_pdf_announcement_id": "1202231293",
+      "missing_metrics": [
+        "OPERATING_CASH_FLOW_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2016/1202231292.json.gz"
+    },
+    {
+      "announcement_id": "1202263296",
+      "official_pdf_announcement_id": "1202263298",
+      "missing_metrics": [
+        "OPERATING_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2016/1202263296.json.gz"
+    },
+    {
+      "announcement_id": "1202264753",
+      "official_pdf_announcement_id": "1202264755",
+      "missing_metrics": [
+        "ACCOUNTS_RECEIVABLE_END",
+        "INVENTORY_END",
+        "TOTAL_ASSETS_END",
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 4,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2016/1202264753.json.gz"
+    },
+    {
+      "announcement_id": "1205538002",
+      "official_pdf_announcement_id": "1205538002",
+      "missing_metrics": [
+        "PARENT_NET_PROFIT_YTD",
+        "ACCOUNTS_RECEIVABLE_END",
+        "INVENTORY_END",
+        "TOTAL_ASSETS_END",
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 5,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2018/1205538002.json.gz"
+    },
+    {
+      "announcement_id": "1208170252",
+      "official_pdf_announcement_id": "1208170252",
+      "missing_metrics": [
+        "OPERATING_CASH_FLOW_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2020/1208170252.json.gz"
+    },
+    {
+      "announcement_id": "1208606462",
+      "official_pdf_announcement_id": "1208606463",
+      "missing_metrics": [
+        "CORE_PARENT_NET_PROFIT_YTD"
+      ],
+      "missing_metric_count": 1,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2020/1208606462.json.gz"
+    },
+    {
+      "announcement_id": "1220980856",
+      "official_pdf_announcement_id": "1220980856",
+      "missing_metrics": [
+        "OPERATING_REVENUE_YTD",
+        "OPERATING_PROFIT_YTD",
+        "PARENT_NET_PROFIT_YTD",
+        "OPERATING_CASH_FLOW_YTD",
+        "ACCOUNTS_RECEIVABLE_END",
+        "INVENTORY_END",
+        "TOTAL_ASSETS_END",
+        "TOTAL_LIABILITIES_END"
+      ],
+      "missing_metric_count": 8,
+      "checkpoint_path": "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3/2024/1220980856.json.gz"
+    }
+  ],
+  "target_events_lost_to_known_incomplete_documents": [
+    {
+      "target_announcement_id": "1204472812",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202067789"
+      ]
+    },
+    {
+      "target_announcement_id": "1204480445",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202145419",
+        "1202264753"
+      ]
+    },
+    {
+      "target_announcement_id": "1204480486",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202051996"
+      ]
+    },
+    {
+      "target_announcement_id": "1204496177",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202067994"
+      ]
+    },
+    {
+      "target_announcement_id": "1204507342",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202069715"
+      ]
+    },
+    {
+      "target_announcement_id": "1204512888",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202078437"
+      ]
+    },
+    {
+      "target_announcement_id": "1204514448",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202104376"
+      ]
+    },
+    {
+      "target_announcement_id": "1204517497",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202112839"
+      ]
+    },
+    {
+      "target_announcement_id": "1204519256",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202063757"
+      ]
+    },
+    {
+      "target_announcement_id": "1204519495",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202103186"
+      ]
+    },
+    {
+      "target_announcement_id": "1204526644",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202116234"
+      ]
+    },
+    {
+      "target_announcement_id": "1204555388",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202115027"
+      ]
+    },
+    {
+      "target_announcement_id": "1204558404",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202114924"
+      ]
+    },
+    {
+      "target_announcement_id": "1204641362",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202181286"
+      ]
+    },
+    {
+      "target_announcement_id": "1204801787",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202263296"
+      ]
+    },
+    {
+      "target_announcement_id": "1204804200",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202231292"
+      ]
+    },
+    {
+      "target_announcement_id": "1204804206",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202231292"
+      ]
+    },
+    {
+      "target_announcement_id": "1204808534",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1202205737"
+      ]
+    },
+    {
+      "target_announcement_id": "1208322853",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1205538002"
+      ]
+    },
+    {
+      "target_announcement_id": "1208606462",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1208606462"
+      ]
+    },
+    {
+      "target_announcement_id": "1208637839",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1205538002"
+      ]
+    },
+    {
+      "target_announcement_id": "1220980856",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1221554136",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1222927545",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1223356474",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1224602619",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1224773103",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1225063837",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    },
+    {
+      "target_announcement_id": "1225254931",
+      "blocking_incomplete_dependency_announcement_ids": [
+        "1220980856"
+      ]
+    }
+  ],
+  "market_price_read": false,
+  "future_return_read": false,
+  "future_label_created": false,
+  "signal_score_calculated": false,
+  "portfolio_return_calculated": false,
+  "positions_generated": false,
+  "orders_generated": false,
+  "broker_connection_performed": false,
+  "trading_authorization": false,
+  "return_evaluation": "NOT_ALLOWED",
+  "next_allowed_step": "STOP_V1_3_BULK_AND_KEEP_RETURN_EVALUATION_NOT_ALLOWED"
+}

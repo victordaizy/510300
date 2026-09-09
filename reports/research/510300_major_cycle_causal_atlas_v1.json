@@ -1,0 +1,89 @@
+{
+  "program_id": "510300_STRUCTURAL_EQUITY_RISK_PREMIUM_ENGINE_V1",
+  "model_id": "510300_MAJOR_CYCLE_CAUSAL_ATLAS_V1",
+  "status": "PASS_MECHANICAL_MAJOR_CYCLE_CAUSAL_ATLAS_EXPLANATORY_ONLY",
+  "protocol_manifest_payload_sha256": "8588c7e0e4ea9019525eb85cef52785c56db6743c373db376ee810f846e4c8b2",
+  "state_freeze_receipt_payload_sha256": "1d44b11d46865cc13155adac745f9f73a83f1264b1e7e916a1664d442f695112",
+  "mechanical_rules": {
+    "model_id": "510300_MAJOR_CYCLE_CAUSAL_ATLAS_V1",
+    "status": "EXPLANATORY_MECHANISM_STUDY_ONLY",
+    "series": "CSI300_TOTAL_RETURN_CLOSE",
+    "drawdown_episode_rule": "RUNNING_HIGH_TO_TROUGH_UNTIL_PRIOR_HIGH_RECOVERY",
+    "drawdown_activation": -0.1,
+    "major_drawdown_threshold": -0.15,
+    "recovery_rule": "TROUGH_TO_FIRST_PRIOR_PEAK_RECOVERY_OR_RIGHT_CENSORED",
+    "long_sideways_rule": {
+      "lookback_market_days": 252,
+      "absolute_total_return_max": 0.05,
+      "peak_to_trough_range_max": 0.2,
+      "overlapping_windows": "COALESCE"
+    },
+    "internal_deterioration_rule": {
+      "lookback_market_days": 60,
+      "index_return_min": 0.0,
+      "median_member_return_max": 0.0,
+      "positive_member_breadth_max": 0.45
+    },
+    "index_down_earnings_improving_rule": {
+      "lookback_market_days": 60,
+      "index_return_max": -0.05,
+      "cf_operating_profit_yoy_change_3m_min": 0.0
+    },
+    "event_windows_market_days": {
+      "pre": [
+        120,
+        60,
+        20
+      ],
+      "post": [
+        20,
+        60
+      ]
+    },
+    "mechanism_classes": [
+      "FUNDAMENTAL_EXPANSION",
+      "LIQUIDITY_EXPANSION",
+      "LATE_CYCLE_DISCOUNT_RATE_SQUEEZE",
+      "TRUE_CONTRACTION",
+      "LIQUIDITY_OVERSHOOT",
+      "POLICY_OR_DISCOUNT_RATE_REPAIR",
+      "MIXED_OR_NO_VIEW"
+    ],
+    "class_assignment": "FIXED_SIGN_MAP_OF_PRE_EVENT_AND_EVENT_CF_DR_RC_CHANGES_NO_NEWS_NARRATIVE"
+  },
+  "diagnostics": {
+    "event_count": 24,
+    "window_rows": 168,
+    "event_type_counts": {
+      "INDEX_DOWN_EARNINGS_IMPROVING": 11,
+      "INDEX_UP_INTERNAL_DETERIORATION": 8,
+      "MAJOR_DRAWDOWN": 2,
+      "MAJOR_RECOVERY": 1,
+      "LONG_SIDEWAYS": 1,
+      "MAJOR_RECOVERY_RIGHT_CENSORED": 1
+    },
+    "mechanism_class_counts": {
+      "MIXED_OR_NO_VIEW": 16,
+      "FUNDAMENTAL_EXPANSION": 5,
+      "TRUE_CONTRACTION": 2,
+      "LIQUIDITY_EXPANSION": 1
+    },
+    "major_drawdown_count": 2,
+    "right_censored_count": 1
+  },
+  "artifacts": {
+    "atlas": {
+      "path": "reports/research/510300_major_cycle_causal_atlas_v1.parquet",
+      "rows": 24,
+      "sha256": "544932a9db2c5dd7039e37b7e8344e5ebdc58ae30b86d756d2990ebcddf1ddfd"
+    },
+    "windows": {
+      "path": "reports/research/510300_major_cycle_causal_atlas_v1_windows.parquet",
+      "rows": 168,
+      "sha256": "35363d5b6943fe1f6b9cddc947a04a8b363fbe3de6e1579f7b5ca5565c18d5f2"
+    }
+  },
+  "manual_year_selection": false,
+  "news_narrative_used_for_classification": false,
+  "portfolio_evaluation_run": false
+}

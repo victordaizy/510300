@@ -1,0 +1,215 @@
+{
+  "study_id": "CSI300_PIT_FUNDAMENTAL_UNDERREACTION_ENHANCEMENT_V1",
+  "protocol_version": "1.0.0",
+  "status": "NO_VIEW_CSI300_PIT_FUNDAMENTAL_UNDERREACTION_DATA_CONTRACT_FAILED",
+  "phase": "DATA_ADMISSION_PREFLIGHT",
+  "inventory_metrics": {
+    "candidate_event_count_before_membership": 149874,
+    "pit_csi300_member_event_count": 10124,
+    "pit_industry_matched_event_count": 10056,
+    "pit_industry_coverage_ratio": 0.9932832872382458,
+    "pre_registered_financial_industry_exclusion_count": 1833,
+    "official_fact_target_event_count": 8223,
+    "target_symbol_count": 465,
+    "target_event_count_by_publication_year": {
+      "2018": 922,
+      "2019": 939,
+      "2020": 923,
+      "2021": 930,
+      "2022": 994,
+      "2023": 1011,
+      "2024": 1002,
+      "2025": 997,
+      "2026": 505
+    },
+    "target_event_count_by_period_type": {
+      "FY": 2147,
+      "H1": 1954,
+      "Q1": 2180,
+      "Q3": 1942
+    }
+  },
+  "gates": [
+    {
+      "gate_id": "G1_LEGACY_STRESS_PROGRAM_TERMINAL_STATES_MATCH",
+      "description": "三项旧压力研究保持冻结终局，历史择时开发关闭",
+      "passed": true,
+      "observed": [
+        "EXPLANATORY_ONLY_SYNCHRONOUS_OR_LAGGING_NO_STRATEGY_PROMOTION_NO_RESCUE",
+        "REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE",
+        "REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE"
+      ],
+      "required": [
+        "EXPLANATORY_ONLY_SYNCHRONOUS_OR_LAGGING_NO_STRATEGY_PROMOTION_NO_RESCUE",
+        "REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE",
+        "REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE"
+      ],
+      "details": {
+        "components": [
+          {
+            "study_id": "510300_STRESS_TRANSMISSION_AND_EXHAUSTION_ATLAS_V1",
+            "path": "reports/research/510300_stress_transmission_and_exhaustion_atlas_v1.json",
+            "exists": true,
+            "observed_status": "EXPLANATORY_ONLY_SYNCHRONOUS_OR_LAGGING_NO_STRATEGY_PROMOTION_NO_RESCUE",
+            "required_status": "EXPLANATORY_ONLY_SYNCHRONOUS_OR_LAGGING_NO_STRATEGY_PROMOTION_NO_RESCUE",
+            "matches": true,
+            "sha256": "0d77634d3084d3bec767d0b2581f2c6e0588b8361e1e1d0f917634069d5661e9"
+          },
+          {
+            "study_id": "510300_REGIME_TRANSITION_ROUTER_V1",
+            "path": "reports/research/510300_regime_transition_router_v1.json",
+            "exists": true,
+            "observed_status": "REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE",
+            "required_status": "REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE",
+            "matches": true,
+            "sha256": "3ea62234bfc6ad15e47a6cf1a8259bd8ddf1f340ff52c6b4a13aee0add1da8c4"
+          },
+          {
+            "study_id": "510300_LIQUIDITY_STRESS_LONG_CYCLE_REPLICATION_V1",
+            "path": "reports/research/510300_liquidity_stress_long_cycle_replication_v1.json",
+            "exists": true,
+            "observed_status": "REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE",
+            "required_status": "REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE",
+            "matches": true,
+            "sha256": "3e4159674e0ced7a7b7866a2f4ad5b46c41c7478045b0df35463ea28f5cd4333"
+          }
+        ]
+      }
+    },
+    {
+      "gate_id": "G2_OFFICIAL_EVENT_CHRONOLOGY_PASS",
+      "description": "官方定期报告事件时序档案通过且没有读取收益",
+      "passed": true,
+      "observed": "PASS_OFFICIAL_PERIODIC_REPORT_EVENT_ARCHIVE_V2_1_CHRONOLOGY_VALID",
+      "required": "PASS_OFFICIAL_PERIODIC_REPORT_EVENT_ARCHIVE_V2_1_CHRONOLOGY_VALID",
+      "details": {
+        "governance_clean": true,
+        "event_count": 173449,
+        "event_symbol_count": 5435,
+        "input_sha256": "028c9a68335b719916e1b735888f6f444bca7f4dfba2bc051a0088a10e98512b"
+      }
+    },
+    {
+      "gate_id": "G3_OFFICIAL_PIT_CSI300_MEMBERSHIP_PASS",
+      "description": "官方调样回放在研究窗口逐日保持300只且无重复",
+      "passed": true,
+      "observed": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION",
+      "required": "PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION",
+      "details": {
+        "structural_checks_pass": true,
+        "historical_index_weights_required": false,
+        "input_sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+      }
+    },
+    {
+      "gate_id": "G4_PIT_INDUSTRY_INTERVAL_COVERAGE_PASS",
+      "description": "公告时点行业区间哈希匹配且目标事件覆盖率达到固定门槛",
+      "passed": true,
+      "observed": {
+        "receipt_status": "READY_FOR_SIGNAL_CONSTRUCTION",
+        "coverage_ratio": 0.9932832872382458,
+        "hash_matches": true
+      },
+      "required": {
+        "receipt_status": "READY_FOR_SIGNAL_CONSTRUCTION",
+        "minimum_coverage_ratio": 0.99,
+        "hash_matches": true
+      },
+      "details": {
+        "input_sha256": "b2492ed7ff7a2ffa65791e5d08d0fec3fc195ad93f620a6dad72ca7a19f8daf9"
+      }
+    },
+    {
+      "gate_id": "G5_VENDOR_REVISION_RISK_IS_QUARANTINED",
+      "description": "2026统一回取的供应商财务值只作PDF定位候选，不冒充历史事实",
+      "passed": true,
+      "observed": "BLOCKED_VENDOR_REVISION_RISK",
+      "required": "BLOCKED_VENDOR_REVISION_RISK",
+      "details": {
+        "may_call_strict_point_in_time": false,
+        "vintage_verified_count": 0,
+        "revision_possible_count": 240,
+        "audit_sha256": "8ffffc9f91071206eed343060f001024a0342a1ba6c89424c270fc2495b20faa"
+      }
+    },
+    {
+      "gate_id": "G6_OFFICIAL_PDF_VERIFIED_FACT_ARCHIVE_PASS",
+      "description": "官方PDF逐项验证、证据定位和事件依赖覆盖率全部通过",
+      "passed": false,
+      "observed": "PARTIAL_OFFICIAL_PDF_FACT_ACQUISITION",
+      "required": "PASS_OFFICIAL_PDF_VERIFIED_PIT_FINANCIAL_FACTS_V1",
+      "details": {
+        "receipt_status_matches": false,
+        "receipt_governance_clean": true,
+        "fact_row_count": 3877,
+        "dependency_row_count": 8223,
+        "key_duplicate_count": 0,
+        "missing_required_metrics": [],
+        "bad_verification_count": 0,
+        "invalid_official_pdf_host_count": 0,
+        "missing_source_evidence_count": 0,
+        "overall_complete_event_ratio": 0.0,
+        "minimum_publication_year_complete_event_ratio": 0.0,
+        "minimum_eligible_industry_complete_event_ratio": 0.0,
+        "facts_sha256": "ee62e41bf34c2340a6bdb73f7f0425fb53631cd77ea113cc75ffe7cad3a3ccc5",
+        "dependency_ledger_sha256": "d2a8900d06c14fed98c1e00420f82b0e881a6d79b635062ee79c44b6b8450f0d",
+        "receipt_sha256": "07259be0e797fb20eb38dfa5d640f50f46e14872f9999f36938b28dbbf83c73b"
+      }
+    },
+    {
+      "gate_id": "G7_NO_MARKET_PRICE_OR_FUTURE_RETURN_READ_BEFORE_G1_TO_G6_PASS",
+      "description": "本预检只读取公告、成份、行业、事实准入与终局状态证据",
+      "passed": true,
+      "observed": "NO_MARKET_PRICE_OR_FUTURE_RETURN_READ",
+      "required": "NO_MARKET_PRICE_OR_FUTURE_RETURN_READ",
+      "details": {
+        "allowed_read_paths": [
+          "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+          "data/raw/cninfo/a_share_hs_periodic_report_events_v2_1.parquet",
+          "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/event_fact_dependency_ledger.parquet",
+          "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/official_financial_facts.parquet",
+          "data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/receipt.json",
+          "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/industry_l1_intervals.parquet",
+          "reports/data_quality/510300_csi300_pit_membership_2015_extension_v1.json",
+          "reports/data_quality/A_SHARE_HS_CNINFO_PERIODIC_REPORT_EVENT_ARCHIVE_V2_1.json",
+          "reports/data_quality/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit.json",
+          "reports/data_quality/csi300_financial_vintage_audit_20260819.json",
+          "reports/research/510300_liquidity_stress_long_cycle_replication_v1.json",
+          "reports/research/510300_regime_transition_router_v1.json",
+          "reports/research/510300_stress_transmission_and_exhaustion_atlas_v1.json"
+        ]
+      }
+    }
+  ],
+  "passed_gate_count": 6,
+  "total_gate_count": 7,
+  "blocking_gate_ids": [
+    "G6_OFFICIAL_PDF_VERIFIED_FACT_ARCHIVE_PASS"
+  ],
+  "return_evaluation": "NOT_ALLOWED",
+  "next_allowed_step": "BUILD_OR_COMPLETE_OFFICIAL_ORIGINAL_PDF_VERIFIED_FACT_ARCHIVE_THEN_RERUN_PREFLIGHT",
+  "governance": {
+    "market_price_read": false,
+    "future_return_read": false,
+    "future_label_created": false,
+    "signal_score_calculated": false,
+    "portfolio_return_calculated": false,
+    "strategy_sharpe_calculated": false,
+    "positions_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false,
+    "trading_authorization": false
+  },
+  "checked_at": "2026-08-31T16:53:01.224611+08:00",
+  "protocol": {
+    "path": "config/csi300_pit_fundamental_underreaction_enhancement_v1.yaml",
+    "sha256": "98df5059f5ffe13dd269b35d3e351873bdce2d5dc847ce86b7b76f95cf75d181"
+  },
+  "artifacts": {
+    "target_event_inventory": {
+      "path": "data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/target_event_inventory_without_returns.parquet",
+      "rows": 10124,
+      "sha256": "b9c24f90316d80eb0945b27eabd79e97f134fafae92f3aa94100c05ebf97c694"
+    }
+  }
+}

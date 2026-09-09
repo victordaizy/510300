@@ -1,0 +1,143 @@
+protocol:
+  project_id: "VAL01_RAW_EY_5Y_V1"
+  upstream_registered_trial_id: "VAL01_RAW_EY_5Y"
+  version: "1.0.0"
+  freeze_date: "2026-08-19"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_SIGNAL_INPUT_FREEZE_HISTORICALLY_CONTAMINATED"
+  evaluation_start: "2021-08-12"
+  evaluation_end: "2026-08-12"
+  future_return_label_generation_enabled: false
+  return_calculation_enabled: false
+  ic_calculation_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+signal_definition:
+  index: "000300.SH"
+  snapshot_frequency: "MONTHLY_OFFICIAL_WEIGHT_DATE"
+  snapshot_start: "2016-08-31"
+  snapshot_end: "2026-07-31"
+  expected_snapshot_count: 120
+  expected_constituents_per_snapshot: 300
+  price_rule: "LAST_UNADJUSTED_CLOSE_AT_OR_BEFORE_SNAPSHOT"
+  stale_price_rule: "INCLUDE_WITHOUT_EX_POST_AGE_CAP_AND_REPORT_AGE"
+  financial_vintage_rule: "每个报告期只取available_at不晚于快照日的最新已知版本"
+  ttm_profit_rule: "年报取当年累计值；中报取本期累计值加上年年报减上年同期累计值；从最新可计算报告期向前选择"
+  shares_rule: "截至快照日最新非空且大于零的总股本"
+  company_raw_earnings_yield_formula: "ttm_net_profit_parent_cny / total_shares / raw_close"
+  loss_company_rule: "RETAIN_NEGATIVE_EARNINGS_WITHOUT_CLIPPING"
+  index_aggregation_rule: "VALID_WEIGHT_RENORMALIZED_OFFICIAL_WEIGHT_MEAN"
+  index_raw_earnings_yield_formula: "sum(weight_i * company_raw_ey_i) / sum(weight_i for valid joint observations)"
+  minimum_price_weight_coverage: 0.99
+  minimum_ttm_earnings_weight_coverage: 0.90
+  minimum_joint_weight_coverage: 0.90
+
+percentile_definition:
+  window_months: 60
+  include_current_observation: true
+  minimum_observations: 60
+  algorithm: "EXACT_EMPIRICAL_MIDRANK"
+  formula: "(count(window_value < current_value) + 0.5 * count(window_value == current_value)) / 60"
+  comparison_precision: "FLOAT64_EXACT_NO_ROUNDING_BEFORE_RANK"
+  missing_window_rule: "NO_SIGNAL_UNTIL_ALL_60_MONTHS_ARE_VALID"
+  expected_first_ready_observation_date: "2021-07-30"
+  expected_first_earliest_execution_date: "2021-08-02"
+
+availability_and_execution:
+  information_cutoff: "SNAPSHOT_DATE_CLOSE"
+  earliest_execution_rule: "NEXT_INDEX_TRADING_DAY_OPEN"
+  carry_rule_between_monthly_reviews: "CANDIDATE_ONLY_NOT_APPLIED_IN_THIS_STAGE"
+  review_frequency: "MONTHLY_SNAPSHOT"
+
+candidate_mapping_not_applied:
+  meaning: "仅冻结候选规则；本阶段禁止生成仓位、份额或订单"
+  boundaries:
+    - {percentile_lower_inclusive: 0.00, percentile_upper_exclusive: 0.20, candidate_position: 0.25}
+    - {percentile_lower_inclusive: 0.20, percentile_upper_exclusive: 0.40, candidate_position: 0.50}
+    - {percentile_lower_inclusive: 0.40, percentile_upper_exclusive: 0.60, candidate_position: 0.75}
+    - {percentile_lower_inclusive: 0.60, percentile_upper_inclusive: 1.00, candidate_position: 1.00}
+
+independent_cross_check:
+  role: "DIAGNOSTIC_ONLY_NOT_SIGNAL_INPUT"
+  semantic_caveat: "官方与供应商PE通常采用盈利公司或市值聚合口径，和本模型包含亏损公司的官方权重平均EY不要求数值相等"
+  required_window_end: "2021-07-30"
+  minimum_aligned_months_per_source: 48
+  minimum_spearman_correlation_with_inverse_pe: 0.50
+  equality_required: false
+
+trial_registration:
+  existing_registered_valuation_trial_count: 8
+  consumes_one_existing_trial: true
+  creates_additional_trial: false
+  forbidden_alternatives_without_new_registration:
+    - "改变60月窗口长度"
+    - "排除亏损公司"
+    - "对盈利收益率缩尾或裁剪"
+    - "改变并列值规则"
+    - "改变覆盖门槛"
+    - "改用供应商PE作为正式输入"
+
+future_evaluation_frozen_but_not_run:
+  primary_prediction_horizon_trading_days: 242
+  secondary_diagnostic_horizons_trading_days: [60, 120]
+  primary_benchmark: "H00300沪深300全收益指数"
+  tradable_benchmark: "510300含分红买入持有"
+  historical_label: "HISTORICALLY_CONTAMINATED_NOT_STRICT_OOS"
+  historical_gates:
+    annualized_active_return_minimum: 0.015
+    information_ratio_minimum: 0.35
+    both_chronological_halves_positive: true
+    stress_active_return_positive: true
+    remove_best_year_active_return_positive: true
+    positive_year_ratio_minimum: 0.50
+    maximum_positive_year_contribution_share: 0.50
+  multiple_testing:
+    random_seed: 20260818
+    repetitions: 5000
+    circular_block_length_trading_days: 20
+    cscv_slices: 8
+    significance_level: 0.05
+    deflated_sharpe_probability_minimum: 0.95
+    pbo_maximum: 0.25
+
+true_forward:
+  start: null
+  status: "NOT_STARTED"
+  activation_rule: "冻结后首个按时记录且未回填的月度信号，其下一交易日才可作为真实前向起点"
+
+data_contracts:
+  upstream_v1_1_manifest:
+    file: "config/point_in_time_valuation_v2_audit_v1_1_manifest.json"
+    sha256: "9c5f799087679ddfed0151c196caca84c3551b6ca3515011f6c2078657923930"
+  upstream_v1_1_report:
+    file: "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json"
+    sha256: "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac"
+  historical_weights:
+    file: "data/raw/constituents/000300_historical_weights.parquet"
+    sha256: "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559"
+  snapshot_prices:
+    file: "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet"
+    sha256: "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6"
+  point_in_time_financials:
+    file: "data/raw/fundamentals/csi300_financials_point_in_time.parquet"
+    sha256: "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92"
+  current_constituent_daily:
+    file: "data/raw/constituents/000300_constituent_daily.parquet"
+    sha256: "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0"
+  index_trading_calendar:
+    file: "data/raw/market/000300_daily_feature_warmup.parquet"
+    sha256: "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec"
+  vendor_valuation_cross_check:
+    file: "data/raw/valuation/000300_valuation_daily_raw.parquet"
+    sha256: "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3"
+  official_pe_cross_check:
+    file: "data/raw/valuation/000300_pe_official_raw.parquet"
+    sha256: "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73"
+
+artifacts:
+  signal_inputs: "data/features/000300_val01_raw_ey_5y_monthly_signal_inputs.parquet"
+  report_json: "reports/data_quality/000300_val01_raw_ey_5y_v1_signal_input_gate.json"
+  report_markdown: "reports/data_quality/000300_val01_raw_ey_5y_v1_signal_input_gate.md"
+  manifest: "config/val01_raw_ey_5y_v1_manifest.json"

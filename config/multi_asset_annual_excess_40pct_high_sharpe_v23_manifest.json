@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V23_MANIFEST",
+  "status": "FROZEN_BEFORE_CURRENT_QUARTER_SIGNAL_PERPETUAL_FACTOR_OUTCOME",
+  "frozen_at": "2026-08-27T08:44:32.956152+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V23",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V22",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v23.yaml": "7a8b5c63fe9722931c23851736cce8a7d8a1062676a1ca8ef3297afd2c59c07b",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V23_SPEC.md": "b148a37974628a2b652b1c14e638f790b016e2f05d668833b43cfe9a0826fc7f",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v23.py": "4fd8fc418cca7af8697f275f60f045066e7a91887fd8048d330feefc44928a7c"
+  },
+  "tracked_content_sha256": "95602329905489c016fe8ba112b67bd547a9e3d47c4c94e559f5cfe0a8cf5322",
+  "parent_manifest_sha256": "e2a4c7f71a72dcf0fc2830a8417c1163485567f5639a1a7041af1783a3f5c9a1",
+  "v12r_rejection": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "all_gates": true,
+      "base_excess": true,
+      "stress_excess": true,
+      "base_sharpe": true,
+      "stress_sharpe": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true
+    },
+    "manifest_sha256": "f76095e8193af4ebdb76835be02435ea25679410421e5f8e798bcf700e77a675",
+    "report_sha256": "d733ec7528dca18fce31a53e5eff453060bb4feeccfcb1087c57074487ceea6b",
+    "base_annualized_excess": -0.021413375777490348,
+    "stress_annualized_excess": -0.06576922381170869,
+    "base_sharpe": 0.22704165459345396,
+    "stress_sharpe": 0.1814672511852303
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DIGITAL_ASSET_CURRENT_QUARTER_SIGNAL_PERPETUAL_HIGH_LOW",
+    "candidate_id": "DIGITAL_ASSET_CURRENT_QUARTER_SIGNAL_PERPETUAL_FACTOR_V13",
+    "fixed_symbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "visible_start": "2021-09-01",
+    "visible_end": "2026-08-14",
+    "signal": "FIVE_DAY_MEAN_LOG_SPOT_DIV_CURRENT_QUARTER_FUTURES_BASIS",
+    "long_rule": "LONG_HIGHER_MEAN_BASIS_PERPETUAL",
+    "short_rule": "SHORT_LOWER_MEAN_BASIS_PERPETUAL",
+    "target_long_gross": 0.45,
+    "target_short_gross": 0.45,
+    "target_total_gross": 0.9,
+    "delivery_day_policy": "CASH_FROM_00UTC_THROUGH_23UTC",
+    "actual_funding_history_required": true,
+    "turnover_lookback_observed_venue_hours": 168,
+    "maximum_order_fraction": 0.001,
+    "terminal_winddown_calendar_days": 7,
+    "base_total_perpetual_cost_bps_per_leg": 4.0,
+    "stress_total_perpetual_cost_bps_per_leg": 16.0,
+    "base_funding_receipt_multiplier": 1.0,
+    "base_funding_payment_multiplier": 1.0,
+    "stress_funding_receipt_multiplier": 0.75,
+    "stress_funding_payment_multiplier": 1.25,
+    "parameter_grid_search_allowed": false
+  },
+  "basis_rank_or_return_computed_during_freeze": false,
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

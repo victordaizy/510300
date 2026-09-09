@@ -1,0 +1,152 @@
+strategy:
+  strategy_id: "510300_INVENTORY_VWAP_REVERSION_V1"
+  name: "510300底仓-VWAP日内均值回归做T"
+  symbol: "510300.SH"
+  version: "1.0.1"
+  registered_at: "2026-08-13"
+  research_status: "PRE_REGISTERED_BEFORE_STRATEGY_OUTCOME_INSPECTION"
+  evidence_scope: "RETROSPECTIVE_ONLY_NO_STRICT_HOLDOUT"
+  objective: "在不承诺收益的前提下，检验2万元账户能否通过510300底仓做T实现长期年化20%且具有滚动年度稳定性"
+
+data:
+  minute_file: "data/raw/market/510300_1m_tushare_raw.parquet"
+  minute_metadata_file: "data/raw/market/510300_1m_tushare_raw.metadata.json"
+  daily_file: "data/raw/market/510300_daily_raw.parquet"
+  dividend_file: "data/reference/510300_dividends.csv"
+  timezone: "Asia/Shanghai"
+  price_adjustment: "raw_unadjusted"
+  expected_rows_per_full_day: 241
+  timestamp_semantics: "PROVIDER_TRADE_TIME_UNSPECIFIED_BAR_BOUNDARY"
+  signal_observation: "CURRENT_RECORD_CLOSE"
+  earliest_execution: "NEXT_RECORD_OPEN"
+
+account:
+  initial_cash_cny: 20000.0
+  initial_core_acquisition: "FIRST_PERIOD_DAY_FIRST_RECORD_OPEN"
+  base_target_shares: 2500
+  minimum_t_shares: 1000
+  maximum_t_shares: 1500
+  lot_size: 100
+  cash_annual_rate: 0.0
+  dividend_entitlement: "RECORD_DATE_CLOSE_HOLDINGS"
+  dividend_accounting: "RECEIVABLE_ON_RECORD_DATE_CASH_ON_PAYMENT_DATE"
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_rate: 0.0
+  price_tick_cny: 0.001
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  unfavorable_tick_rounding: true
+
+inventory_constraints:
+  enforce_t_plus_one: true
+  allowed_round_trip_sequences:
+    - "BUY_NEW_THEN_SELL_OLD"
+    - "SELL_OLD_THEN_BUY_NEW"
+  same_day_new_shares_sellable: false
+  maximum_round_trips_per_day: 1
+  end_of_day_required_shares: 2500
+  overnight_t_inventory_allowed: false
+  partial_fills_allowed: false
+  sell_first_repurchase_reserve: "ENTRY_EXECUTION_PRICE_PLUS_REGISTERED_STOP_LOSS_AND_SCENARIO_BUY_SLIPPAGE"
+
+entry:
+  signal_windows:
+    - start: "09:45:00"
+      end: "11:15:00"
+    - start: "13:15:00"
+      end: "14:20:00"
+  session_vwap_definition: "CUMULATIVE_AMOUNT_DIVIDED_BY_CUMULATIVE_VOLUME_THROUGH_SIGNAL_RECORD"
+  deviation_definition: "CURRENT_CLOSE_DIVIDED_BY_SESSION_VWAP_MINUS_ONE"
+  direction_rules:
+    buy_low:
+      deviation_side: "AT_OR_BELOW_NEGATIVE_DYNAMIC_THRESHOLD"
+      three_record_return: "POSITIVE"
+      one_record_confirmation: "CURRENT_CLOSE_ABOVE_PREVIOUS_CLOSE"
+    sell_high:
+      deviation_side: "AT_OR_ABOVE_POSITIVE_DYNAMIC_THRESHOLD"
+      three_record_return: "NEGATIVE"
+      one_record_confirmation: "CURRENT_CLOSE_BELOW_PREVIOUS_CLOSE"
+  reversal_lookback_records: 3
+  expected_edge_to_roundtrip_cost_multiple: 2.0
+  dynamic_threshold_cost_model: "TWO_COMMISSIONS_PLUS_TWO_BASE_SLIPPAGE_LEGS_DIVIDED_BY_ONE_WAY_NOTIONAL"
+  next_open_displacement_revalidation_fraction: 0.75
+  maximum_order_to_signal_record_volume_ratio: 0.05
+  minimum_eligible_record_liquidity_coverage: 0.95
+  size_policy: "LARGEST_AFFORDABLE_LOT_NOT_ABOVE_MAXIMUM;_SKIP_IF_BELOW_MINIMUM"
+  fvg_role: "DIAGNOSTIC_ONLY_NOT_AN_ENTRY_REQUIREMENT_IN_V1"
+
+exit:
+  target: "SIGNAL_RECORD_CLOSE_REACHES_OR_CROSSES_CURRENT_SESSION_VWAP"
+  stop_loss_fraction_from_entry_execution: 0.008
+  maximum_holding_trading_records: 60
+  forced_exit_signal_time: "14:49:00"
+  execution: "NEXT_RECORD_OPEN"
+  exit_priority_when_multiple_conditions_hold:
+    - "STOP_LOSS"
+    - "VWAP_TARGET"
+    - "MAX_HOLDING"
+    - "FORCED_EXIT"
+
+research_partitions:
+  development:
+    start: "2021-08-12"
+    end: "2024-06-28"
+  pseudo_out_of_sample:
+    start: "2024-08-01"
+    end: "2025-06-30"
+  contaminated_recent_period:
+    start: "2025-08-01"
+    end: "2026-08-11"
+  purge_embargo_trading_days: 20
+  strict_holdout_available: false
+  true_forward_start: "NEXT_TRADING_DAY_AFTER_CANDIDATE_QUALIFICATION"
+
+benchmarks:
+  - id: "STATIC_2500_CORE"
+    definition: "同一起点买入2500份并持有，保留剩余现金，计入分红与建仓成本"
+  - id: "FULL_CAPITAL_BUY_AND_HOLD"
+    definition: "同一起点按整手使用尽可能多资金买入并持有，计入分红与建仓成本"
+
+evaluation:
+  annual_trading_days: 242
+  complete_calendar_year_minimum_trading_days: 230
+  separate_pnl:
+    - "CORE_HOLDING_PNL"
+    - "INTRADAY_T_GROSS_PNL"
+    - "COMMISSION"
+    - "SLIPPAGE"
+    - "INTRADAY_T_NET_PNL"
+    - "DIVIDEND_PNL"
+  scenarios:
+    - "BASE_COST"
+    - "STRESS_SLIPPAGE"
+  primary_gate:
+    full_period_cagr_minimum: 0.20
+    rolling_242_day_median_return_minimum: 0.20
+    rolling_242_day_return_above_20pct_ratio_minimum: 0.60
+    maximum_drawdown_ceiling: 0.15
+  edge_gate:
+    pseudo_out_of_sample_t_net_pnl_minimum_cny: 0.0
+    pseudo_out_of_sample_stress_t_net_pnl_minimum_cny: 0.0
+    profitable_complete_calendar_year_ratio_minimum: 0.75
+    profit_factor_minimum: 1.20
+    minimum_round_trips_per_complete_year: 30
+    maximum_round_trips_per_complete_year: 180
+  decision_rule: "ALL_PRIMARY_AND_EDGE_GATES_MUST_PASS;OTHERWISE_REJECT_V1_WITHOUT_RETUNING_ON_THE_SAME_SAMPLE"
+
+anti_overfitting:
+  parameters_frozen_before_outcome_inspection: true
+  maximum_registered_strategy_variants: 1
+  no_grid_search: true
+  no_same_sample_threshold_retuning: true
+  permitted_post_result_work:
+    - "执行错误修复并记录版本"
+    - "预先声明的归因和FVG诊断"
+    - "若V1拒绝，基于明确机制提出V2并重新注册"
+  methodology_change_log:
+    - version: "1.0.1"
+      date: "2026-08-13"
+      reason: "首次全量任务未生成结果即因先卖后买回补现金不足而中止；增加入场前止损回补资金预留，不改变信号阈值"

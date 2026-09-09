@@ -1,0 +1,221 @@
+protocol_id: 510300_DAILY_CONSENSUS_CATCHUP_V1
+status: FROZEN_DEVELOPMENT_CANDIDATE_NOT_VALIDATED
+frozen_at: "2026-08-28T03:25:21.0865156+08:00"
+timezone: Asia/Shanghai
+
+scope:
+  execution_asset: 510300.SH
+  allowed_assets:
+    - 510300.SH
+    - CNY_CASH
+  allowed_states:
+    - 0
+    - 1
+  state_meanings:
+    0: CNY_CASH
+    1: FULL_510300
+  leverage_allowed: false
+  shorting_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+  benchmark_definition: 沪深300全收益指数收盘序列
+
+timing:
+  decision_frequency: EACH_TRADING_DAY
+  signal_information_cutoff: T_CLOSE
+  execution_time: T_PLUS_1_OPEN
+  state_duration: ONE_TRADING_DAY_UNLESS_NEXT_SIGNAL_REPEATS
+  initial_state_before_first_execution: 1
+
+development:
+  feature_history_start: "2016-08-15"
+  model_fit_start: "2016-08-15"
+  model_fit_end: "2018-12-31"
+  model_target_purge: 单日开盘到开盘目标结束日期不得晚于2018-12-31
+  candidate_selection_start: "2019-01-01"
+  candidate_selection_end: "2020-12-31"
+  post_2020_data_used_to_form_or_select_candidate: false
+
+feature_contract:
+  all_a_feature_set: ALL_A_FEATURES_FROM_510300_ALL_A_FRAGILITY_SHAPE_5D_DISCOVERY_V0
+  global_feature_set: GLOBAL_FEATURES_FROM_510300_GLOBAL_LIQUIDITY_REGIME_5D_DISCOVERY_V0
+  leverage_feature_set: LEVERAGE_FEATURES_FROM_510300_MARKET_LEVERAGE_CASCADE_5D_DISCOVERY_V0
+  all_domains_order:
+    - ALL_A_FEATURES_PREFIXED_ALLA
+    - GLOBAL_FEATURES_PREFIXED_GLOBAL
+    - LEVERAGE_FEATURES_PREFIXED_LEVERAGE
+  missing_value_policy: FIT_PERIOD_COLUMN_MEDIAN
+  rolling_percentile_window: 252
+  rolling_percentile_minimum_observations: 126
+  rolling_percentile_definition: 当前值在包含当前值的最近252个有效观测中的小于等于比例
+
+model_contract:
+  random_state: 20260828
+  target_cash_factor_per_day: 1_PLUS_0P015_DIV_242
+  signed_cash_advantage1: CASH_FACTOR_MINUS_ONE_PLUS_T1_OPEN_TO_T2_OPEN_TOTAL_RETURN
+  avoidable_loss1: MAX_SIGNED_CASH_ADVANTAGE1_AND_ZERO
+  members:
+    RF_SIGNED_TOP03:
+      feature_group: ALL_DOMAINS
+      target: SIGNED_CASH_ADVANTAGE1
+      estimator: RandomForestRegressor
+      parameters:
+        n_estimators: 400
+        max_depth: 4
+        min_samples_leaf: 15
+        max_features: 0.5
+        n_jobs: -1
+        random_state: 20260828
+      calibration: ROLLING252_PERCENTILE
+      trigger: 0.97
+    HGB_SIGNED_TOP04:
+      feature_group: ALL_DOMAINS
+      target: SIGNED_CASH_ADVANTAGE1
+      estimator: HistGradientBoostingRegressor
+      parameters:
+        loss: squared_error
+        learning_rate: 0.03
+        max_iter: 250
+        max_leaf_nodes: 7
+        min_samples_leaf: 25
+        l2_regularization: 10.0
+        random_state: 20260828
+      calibration: ROLLING252_PERCENTILE
+      trigger: 0.96
+    GBR_Q90_LOSS_TOP04:
+      feature_group: ALL_DOMAINS
+      target: AVOIDABLE_LOSS1
+      estimator: GradientBoostingRegressor
+      parameters:
+        loss: quantile
+        alpha: 0.90
+        learning_rate: 0.03
+        n_estimators: 250
+        max_depth: 2
+        min_samples_leaf: 20
+        random_state: 20260828
+      calibration: ROLLING252_PERCENTILE
+      trigger: 0.96
+    ELASTIC_SIGNED_TOP01:
+      feature_group: ALL_DOMAINS
+      target: SIGNED_CASH_ADVANTAGE1
+      estimator: ElasticNet
+      preprocessing:
+        - FIT_MEDIAN_IMPUTER
+        - STANDARD_SCALER
+      parameters:
+        alpha: 0.0025
+        l1_ratio: 0.20
+        max_iter: 10000
+        random_state: 20260828
+      calibration: ROLLING252_PERCENTILE
+      trigger: 0.99
+    VIX_LEVEL_TOP05:
+      raw_score: EXP_VIX_LOG_LEVEL
+      source_alignment: PREVIOUS_COMPLETED_US_SESSION_AS_OF_T_CLOSE
+      calibration: ROLLING252_PERCENTILE
+      trigger: 0.95
+    CONTAGION_JOINT_TOP05:
+      components:
+        vix_risk: MAX_ROLLING_PERCENTILE_VIX_LEVEL_AND_VIX_SHOCK
+        global_selloff_risk: MAX_ROLLING_PERCENTILE_GLOBAL_SELLOFF1_AND_GLOBAL_SELLOFF5
+      raw_score: MIN_VIX_RISK_AND_GLOBAL_SELLOFF_RISK
+      calibration: ROLLING252_PERCENTILE_OF_RAW_SCORE
+      trigger: 0.95
+
+decision_rule:
+  base_consensus:
+    member_count: 6
+    minimum_triggered_members: 2
+  residual_catchup:
+    global_selloff_score: NEGATIVE_GLOBAL_MIN_RETURN1_ROLLING252_PERCENTILE
+    global_selloff_trigger: 0.90
+    domestic_condition: ETF_510300_CLOSE_RETURN_20D_GREATER_THAN_OR_EQUAL_TO_ZERO
+  cash_state_if: BASE_CONSENSUS_OR_RESIDUAL_CATCHUP
+  otherwise_state: 1
+  cash_state: 0
+  persistence: NONE_DAILY_PULSE
+
+account_and_costs:
+  initial_capital_cny: 500000.0
+  lot_size_shares: 100
+  reinvest_paid_dividends: true
+  annualization_trading_days: 242
+  cash_annual_rate: 0.015
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  stamp_duty_rate: 0.0
+
+development_evidence:
+  selected_policy: CATCHUP_GLOBAL_TOP10_TREND20_POS
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  stress_annualized_net_excess_minimum: 0.20809457117679125
+  stress_annualized_net_excess_median: 0.21329366451012355
+  stress_annualized_net_excess_maximum: 0.21917932179474142
+  stress_rolling_242d_excess_median_minimum: 0.2666341844889147
+  stress_rolling_242d_excess_median_across_perturbations: 0.29521984260520806
+  stress_all_perturbations_passed: true
+  cash_day_share_median: 0.06391752577319587
+  stress_trade_leg_count_median: 29.0
+
+independent_validation:
+  status: NOT_READ_NOT_RUN
+  start_date: "2021-01-01"
+  end_date: "2025-12-31"
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  primary_cost_regime: STRESS
+  gates_each_start_perturbation:
+    annualized_net_excess_minimum: 0.20
+    rolling_242d_net_excess_median_minimum: 0.20
+  full_gate: ALL_FIVE_START_PERTURBATIONS_PASS_BOTH_METRICS
+  required_diagnostics:
+    - BASE_AND_STRESS_COSTS
+    - CALENDAR_YEAR_NET_EXCESS
+    - MAXIMUM_DRAWDOWN
+    - CASH_DAY_SHARE
+    - TRADE_LEG_COUNT
+    - INPUT_COVERAGE_AND_OBSERVATION_AGE
+    - FEATURE_AND_SIGNAL_HASHES
+  failure_action: REJECT_FROZEN_V1_WITHOUT_PARAMETER_RESCUE_AND_CONTINUE_NEW_MECHANISM_SEARCH
+  pass_action: ADVANCE_TO_PAPER_OR_SHADOW_ONLY
+
+hard_stops:
+  - ASSET_OR_BENCHMARK_IDENTITY_MISMATCH
+  - FEATURE_DEFINITION_OR_ORDER_DRIFT
+  - MODEL_PARAMETER_OR_RANDOM_STATE_DRIFT
+  - DEVELOPMENT_INPUT_HASH_MISMATCH
+  - VALIDATION_INPUT_COVERAGE_INCOMPLETE
+  - FUTURE_INFORMATION_OR_TIMEZONE_ALIGNMENT_VIOLATION
+  - COST_OR_EXECUTION_TIMING_DRIFT
+  - ANY_VALIDATION_GATE_FAILURE
+
+development_input_sha256:
+  data/features/510300_all_a_fragility_shape_5d_discovery_v0.parquet: 8b005fc02734a8d0e26397cd5f6129e00d7b53227fdf3d4dcf0aac8ddc942b55
+  data/features/510300_global_liquidity_regime_5d_discovery_v0.parquet: 4bd61e12ca72614d57f9a2dd86528ff7fe2b7acf19b7ad01ffc3554a507a317e
+  data/features/510300_market_leverage_cascade_5d_discovery_v0.parquet: 6dcd700f8c557262a9c7bbc89dbec8014a830b08b8d81b496fffa4e8b916b649
+  reports/discovery/510300_daily_consensus_residual_catchup_discovery_v0.json: d9b9119a666d9cb6e63771e9e3f7c4e5e8b372aaec2940c16c2296df8d6267bd
+
+implementation_sha256:
+  research/daily_consensus_residual_catchup_discovery_v0.py: a938f894053863bdb39339d38c75a8569f4e32d0155e4436fe5646f813e1ef5e
+  research/direct_one_day_cash_advantage_rank_discovery_v0.py: 828f172ab8d3e24969d07528ab9ed786ef995703e1be06389e35f67314b5af12
+  research/daily_global_contagion_state_machine_discovery_v0.py: 8e0ed1ddae4685e8cee6bf221ff7238a0b62e0511402a7c30bf21ec7d839058d
+  research/daily_positive_signal_union_discovery_v0.py: 84ecd24382e36f1aeeb82927cb0d2076d9dc5768df6f372ac494372b735e7736
+  research/binary_state_feasibility_v1.py: 366c67eca7ca8ad80b4521a882cda1c36e5ba29d6a2ef2b7e66c08df1ce5a5eb
+
+authorization:
+  is_trading_signal: false
+  paper_or_shadow_authorized: false
+  broker_connection_authorized: false
+  live_trading_authorized: false

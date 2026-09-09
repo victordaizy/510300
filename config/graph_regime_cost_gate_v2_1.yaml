@@ -1,0 +1,53 @@
+protocol:
+  project_id: "510300_GRAPH_REGIME_MARTIN_TURTLE_V2_1_COST_GATE"
+  version: "2.1.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  evidence_label: "POST_RESULT_EXECUTION_OVERLAY_HISTORICALLY_CONTAMINATED"
+  source_protocol: "510300_GRAPH_REGIME_MARTIN_TURTLE_DISCOVERY_V2"
+  source_data_cutoff: "2026-08-14"
+  true_forward_start: null
+  user_authorization: "2026-08-18用户要求去除佣金过高的小交易"
+  modifies_source_v2_results: false
+  parameter_search_allowed: false
+  winner_promotion_allowed: false
+
+cost_gate:
+  scope: "BUY_AND_EXPOSURE_INCREASE_ONLY"
+  maximum_one_way_explicit_cost_bps: 10.0
+  commission_rate_per_leg: 0.0003
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  derived_minimum_buy_notional_cny: 10000.0
+  formula: "10000*(max(0.0003,5/order_notional)+0.0005)<=10"
+  use_actual_lot_rounded_intended_order_notional: true
+  blocked_order_is_resized: false
+  blocked_order_is_accumulated: false
+  blocked_divergence_event_is_consumed: true
+  blocked_turtle_breakout_requires_rearm: true
+  blocked_transition_changes_management_state_without_trade: true
+  sell_and_exposure_reduction_exempt: true
+  reason: "风险退出不得因最低佣金而被阻止"
+
+evaluation:
+  apply_to_all_source_v2_variants: true
+  primary_comparison: "同一轨道V2原始结果"
+  report_required:
+    - "blocked_order_audit"
+    - "saved_explicit_cost_cny"
+    - "ending_equity_difference_cny"
+    - "cagr_difference"
+    - "trade_count_difference"
+    - "state_transition_count"
+  interpretation: "执行成本敏感性，不是新的样本外alpha证据"
+
+governance:
+  target_asset: "510300.SH"
+  allowed_assets: ["510300.SH", "CASH"]
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  source_r5_modified: false
+  source_r6_reopened: false
+  source_v3_modified: false

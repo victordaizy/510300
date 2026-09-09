@@ -1,0 +1,54 @@
+{
+  "study_id": "510300_EXCHANGE_IVS_ETF_BINARY_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_FIRST_SCREEN_RUN",
+  "frozen_at": "2026-08-28T18:20:14.724722+08:00",
+  "protocol_path": "config/510300_exchange_ivs_etf_binary_screen_v1.yaml",
+  "protocol_sha256": "bca32d872d9fc9376fdde206ee70cfe50972b1227227038fa9a9f508f70d5c24",
+  "source_artifacts": {
+    "research/exchange_ivs_etf_binary_screen_v1.py": "6f400ef780062c8017af64e11df082c6ab27956fbf7696386b397a56bf7542ba",
+    "research/option_cash_basis_feature_audit_v1.py": "8bfec9724e768d35b801eac24272f63c42d50cfe013fd202dac9cee23af36eca",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/freeze_510300_exchange_ivs_etf_binary_screen_v1.py": "16af08255f7124c5555b446c9b42da757389170df9c86e313a1bb1539f291340",
+    "tests/test_exchange_ivs_etf_binary_screen_v1.py": "c9ec6f2769769fac3b3a354564d2b06dcebeed7277ca223efcd0545963cc2084"
+  },
+  "input_artifacts": {
+    "data/raw/return_tail/options/510300_tushare_eod.parquet": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064",
+    "data/raw/return_tail/options/510300_sse_risk_indicators.parquet": "e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035",
+    "data/raw/macro/china_government_bond_short_curve_v1.parquet": "8ce76001fa741de9c8aea6f86d4a808019b259c0bb26e2d4c93059c336e52603",
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "candidate_ids": [
+    "IVS_WEEKLY_OOS_1W",
+    "IVS_WEEKLY_OOS_2W",
+    "IVS_WEEKLY_OOS_4W",
+    "IVS_WEEKLY_OOS_8W",
+    "IVS_MONTHLY_OOS_1M"
+  ],
+  "candidate_count": 5,
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "start_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "period_ids": [
+    "EARLY_2023_2024",
+    "LATE_2025_2026",
+    "COMBINED"
+  ],
+  "hard_gates": {
+    "minimum_annualized_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_period_start_and_stress_cost_required": true
+  },
+  "rejected_basis_signal_included": false,
+  "parameter_rescue_after_run": "FORBIDDEN"
+}

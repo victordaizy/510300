@@ -1,0 +1,186 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "study_id": "510300_BREADTH_MAJORITY_TREND_V1",
+  "round": 62,
+  "registered_at": "2026-09-07T22:13:48.935092+08:00",
+  "primary": "BREADTH_MAJORITY_TREND",
+  "candidate_configurations": 2,
+  "new_primary_settings": 1,
+  "required_price_only_ablations": 1,
+  "lookback": 20,
+  "majority_threshold": 0.5,
+  "required_member_coverage": 0.98,
+  "breadth": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/internal_F_T_features.parquet",
+  "source_scope": "INDEPENDENT_RAW_BREADTH20_WITH_OWN_98_PERCENT_AND_DAILY_FOUR_STATE_GATE_NOT_F_T_COMPOSITE",
+  "entry": "KNOWN_BREADTH_STRICTLY_ABOVE_HALF_AND_WEALTH_STRICTLY_ABOVE_CURRENT_20_CLOSE_MEAN",
+  "extra_exit": "EITHER_VALID_BREADTH_AT_OR_BELOW_HALF_OR_VALID_WEALTH_AT_OR_BELOW_20_CLOSE_MEAN",
+  "missing": "NO_NEW_ENTRY_NO_FALSE_REARM_KEEP_INDEPENDENT_KNOWN_EXITS_AND_PENDING_EXIT",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "rules": "docs/510300_BREADTH_MAJORITY_TREND_V1.md",
+  "position_impact": 0,
+  "goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "pre_run_test_fixture_correction": "首次14项通过，最后一项向Pandas生成的只读数组注入非法输入时失败。冻结前让测试复制该数组后再注入；正式规则和账户实现未因测试改变。原记录见tests_initial_fixture_failure.json。",
+  "frozen_files": [
+    {
+      "path": "research\\breadth_majority_trend_v1.py",
+      "sha256": "ad9d55627d6952cdd11f31022187935273910a1baec228a309b66bf4881740bc"
+    },
+    {
+      "path": "research\\breadth_majority_inputs_v1.py",
+      "sha256": "e6b6a330d69259c5d89390d1e99d9a92e5504ecfb44962c29ea85fac28d9c45f"
+    },
+    {
+      "path": "research\\source_aware_cycle_account_v1.py",
+      "sha256": "d0b6e2946a37018afbda833995f811e21a0ba22c75c44839b45bd195d8e4145f"
+    },
+    {
+      "path": "research\\additional_cycle_exit_account_v1.py",
+      "sha256": "44e7678b067c2d6825322654cca6af4675db90032af74d5b35529239ce5add79"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "data\\curated\\510300_stress_transmission_hazard_v2_g1_historical_remediation_v1\\internal_F_T_features.parquet",
+      "sha256": "aecba7fc8b849d41a65eba68e5cea3c735c9f0945155823f6d978b0c8e0b7cf0"
+    },
+    {
+      "path": "docs\\510300_BREADTH_MAJORITY_TREND_V1.md",
+      "sha256": "fe480124f15750fa013404249b73192005a1b5e8e4f8f9a3dc7cc84b3bd90f3f"
+    },
+    {
+      "path": "tests\\test_breadth_majority_trend_v1.py",
+      "sha256": "5fc8318a65407c9649b59cfd92fbc2908cad3a0d4f42ed0f61c91a66eee1da4b"
+    },
+    {
+      "path": "reports\\research\\510300_breadth_majority_trend_v1\\tests_receipt.json",
+      "sha256": "3b06de8724058d866b8ea7a6783093c2509d9d8fad553375c7155b88401c3367"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "research\\stress_transmission_hazard_v2.py",
+      "sha256": "1795066171459658f836d7a0f16433673662866bdb8fcb21c3279efaa0dc4aa0"
+    },
+    {
+      "path": "research\\stress_transmission_hazard_v2_mft_features_v1.py",
+      "sha256": "1bfe46af6a8e2b1f7f505258efd398b54bf3ed0d8c47aa7d36add376c47624af"
+    },
+    {
+      "path": "config\\510300_csi300_pit_membership_weights_source_remediation_v1_0_1_clock_correction.json",
+      "sha256": "971535096ef81c54bfce9da1510cf53c62af1f0e54c2a981407e673f1c99b152"
+    },
+    {
+      "path": "config\\510300_csi300_pit_membership_weights_source_remediation_v1_0_2_2015_extension_clock_addendum.json",
+      "sha256": "1936750b75bd0a9bff4c6004dea3ec7b2545c72e6d613104d9a2acc97c25a498"
+    },
+    {
+      "path": "data\\curated\\510300_csi300_pit_membership_weights_source_remediation_v1\\000300_daily_pit_membership_20150101_20260814.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    },
+    {
+      "path": "reports\\research\\510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1.json",
+      "sha256": "aae7725c4cd6c964f4a77861f64f1201fe1c423770bb3d882b0aed5c2a611144"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "9e057b46a57b8bf8c843bbc19da8b990bffc4cb2c4b2dddf122a36c94cdddfd2"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "47328ffcbb2a67ad7ae2af51204c66bd23a8c0f2b9c8950b9498a4d79a5060b5"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "5576e8e5b7286d1bf8486356223a4576ca9a8f77fa61500affdce5ccfe1f2a7b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "b7aa5bd819ef522cffcd6e6a09a9ae7601449748355d8eacf83300084170bded"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "942f26e0431eb1b0273d59bf3b152516e648ddee1cd5aa242a05767d5170b298"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "1413b70183eeae7136150eba5bc874210c3c4385ee8de4e19d0eb5a4492fa555"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "debb0bd6bbfe47cce41cd9863ccbf41edfe1c13f01df6d607179bd7d07642a5b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "36141ad66ed2e9378c45664f9e8181cd693f1245158f240367abf8bac190407a"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    }
+  ]
+}

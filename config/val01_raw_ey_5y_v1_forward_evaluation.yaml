@@ -1,0 +1,130 @@
+protocol:
+  project_id: "VAL01_RAW_EY_5Y_V1_FORWARD_EVALUATION"
+  version: "1.0.0"
+  protocol_date: "2026-08-19"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_HISTORICALLY_CONTAMINATED_PREDICTIVE_SCREEN"
+  upstream_model_id: "VAL01_RAW_EY_5Y_V1"
+  evaluation_start: "2021-08-12"
+  evaluation_end: "2026-08-12"
+  label_data_cutoff: "2026-08-12"
+  forward_label_generation_enabled: true
+  predictive_ic_calculation_enabled: true
+  historical_strategy_return_calculation_enabled: false
+  historical_position_mapping_enabled: false
+  current_position_mapping_enabled: false
+  target_share_generation_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+label_definition:
+  signal_filter: "percentile_ready == true"
+  expected_signal_count: 61
+  calendar_rule: "INTERSECTION_OF_510300_000300_H00300"
+  entry_rule: "信号观察日之后首个共同交易日开盘"
+  entry_day_is_holding_day_one: true
+  exit_rule: "第H个持有交易日收盘"
+  horizons_trading_days: [60, 120, 242]
+  expected_matured_counts: {60: 58, 120: 55, 242: 49}
+  expected_right_censored_counts: {60: 3, 120: 6, 242: 12}
+  primary_target: "etf_total_return"
+  primary_horizon_trading_days: 242
+  secondary_diagnostic_horizons_trading_days: [60, 120]
+  right_censor_rule: "到2026-08-12不足H个共同交易日则只记录RIGHT_CENSORED，不生成收益"
+  label_table_must_not_contain_signal_values: true
+
+etf_return_definition:
+  symbol: "510300.SH"
+  entry_price: "entry_date raw open"
+  entry_day_close_factor: "raw close / raw open"
+  later_daily_factor: "(raw close_t + ex_date_cash_dividend_per_share_t) / raw close_t_minus_1"
+  entry_day_dividend_rule: "开盘才买入，若入场日恰为除息日则不享有该次分红"
+  dividend_reinvestment_rule: "除息日按当日收盘价隐含复投"
+  price_return_formula: "exit_raw_close / entry_raw_open - 1"
+  total_return_formula: "product(entry_intraday_factor and later_total_return_factors) - 1"
+  costs_in_label: false
+
+h00300_return_definition:
+  symbol: "H00300"
+  synthetic_entry_open_formula: "H00300_close_t * 000300_open_t / 000300_close_t"
+  exit_value: "H00300_close_on_maturity_date"
+  total_return_formula: "H00300_exit_close / synthetic_H00300_entry_open - 1"
+  extra_h00300_dates_outside_common_calendar: "IGNORE_AND_REPORT"
+
+diagnostic_definition:
+  predictor: "raw_ey_percentile_60m"
+  expected_direction: "HIGHER_PERCENTILE_HIGHER_FORWARD_RETURN"
+  bucket_rule: "USE_FROZEN_POSITION_BOUNDARIES_WITHOUT_MAPPING_POSITIONS"
+  buckets:
+    - {id: "B1_EXPENSIVE", lower_inclusive: 0.00, upper_exclusive: 0.20}
+    - {id: "B2", lower_inclusive: 0.20, upper_exclusive: 0.40}
+    - {id: "B3", lower_inclusive: 0.40, upper_exclusive: 0.60}
+    - {id: "B4_CHEAP", lower_inclusive: 0.60, upper_inclusive: 1.00}
+  spearman_tie_rule: "AVERAGE_RANK"
+  hac_regression: "rank(return) on intercept and rank(percentile)"
+  hac_monthly_max_lags: {60: 2, 120: 5, 242: 12}
+  hac_kernel: "BARTLETT_NEWEY_WEST"
+  hac_p_value: "ONE_SIDED_NORMAL_APPROXIMATION_FOR_POSITIVE_SLOPE"
+  chronological_split_rule: "成熟样本按观察日排序后在样本数中点切分"
+  overlapping_label_caveat: "收益窗口重叠；IC显著性只使用预冻结HAC，不把普通独立样本p值当证据"
+
+primary_predictive_gate:
+  minimum_matured_observations: 36
+  minimum_observations_per_bucket: 5
+  spearman_ic_strictly_positive: true
+  hac_one_sided_p_value_maximum: 0.10
+  both_chronological_half_ics_strictly_positive: true
+  bucket_mean_returns_nondecreasing: true
+  cheapest_minus_expensive_mean_return_strictly_positive: true
+  cheapest_minus_expensive_median_return_strictly_positive: true
+  h00300_spearman_confirmation_strictly_positive: true
+  h00300_cheapest_minus_expensive_mean_return_strictly_positive: true
+  pass_status: "HISTORICAL_PREDICTIVE_SCREEN_PASS_STRATEGY_EVALUATION_NOT_RUN"
+  fail_status: "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+
+trial_and_multiplicity:
+  upstream_registered_trial_id: "VAL01_RAW_EY_5Y"
+  creates_additional_model_trial: false
+  primary_statistical_test_count: 1
+  secondary_horizons_are_decision_gates: false
+  forbidden_after_result:
+    - "把60日或120日改成主要期限"
+    - "改分档边界或合并空档"
+    - "删除亏损公司或陈旧价格月份"
+    - "改用信号日收盘作为可交易入场价"
+    - "只报告表现更好的510300或H00300来源"
+    - "主要屏幕失败后直接运行仓位回测"
+
+true_forward:
+  start: null
+  status: "NOT_STARTED"
+  alpha_pass_allowed: false
+
+data_contracts:
+  upstream_model_manifest:
+    file: "config/val01_raw_ey_5y_v1_manifest.json"
+    sha256: "71e4cdb0f747a052d35112deaae1d3ff5d924fd93f0825baf225ca066c49dc35"
+  frozen_signal_inputs:
+    file: "data/features/000300_val01_raw_ey_5y_monthly_signal_inputs.parquet"
+    sha256: "2e83ff0e5a02010ef7e1e708d11e2bd87cbeb6567a9932dd99bd9a1650ba21d0"
+  etf_market:
+    file: "data/raw/market/510300_daily_raw.parquet"
+    sha256: "ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61"
+  price_index:
+    file: "data/raw/market/000300_daily_feature_warmup.parquet"
+    sha256: "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec"
+  total_return_index:
+    file: "data/raw/market/H00300_total_return_daily_raw.parquet"
+    sha256: "90ded420f641f05a8ab8c9cfeb6f8df4172e9e1ea43995005df1cdecd5e9c5ab"
+  dividends:
+    file: "data/reference/510300_dividends.csv"
+    sha256: "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  dividend_coverage:
+    file: "data/reference/510300_dividends_coverage.json"
+    sha256: "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"
+
+artifacts:
+  label_table: "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet"
+  report_json: "reports/research/val01_raw_ey_5y_v1_predictive_diagnostics.json"
+  report_markdown: "reports/research/val01_raw_ey_5y_v1_predictive_diagnostics.md"
+  manifest: "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json"

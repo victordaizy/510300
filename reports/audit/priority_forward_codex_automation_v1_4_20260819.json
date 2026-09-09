@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-19T21:16:12+08:00",
+  "status": "ACTIVE_CODEX_HEARTBEAT_AUTOMATION",
+  "readback_verified": true,
+  "single_tested_entrypoint": {
+    "path": "scripts/run_priority_forward_codex_automation.py",
+    "sha256": "df0989887bb8e298ad12537c735f05f10d69a4cc546c831ebaeede948f93ec57",
+    "bytes": 8511,
+    "morning_phase": "morning",
+    "close_phase": "close"
+  },
+  "automations": {
+    "primary_market_morning": {
+      "id": "510300-pcf-iopv",
+      "kind": "heartbeat",
+      "name": "510300 PCF IOPV严格前瞻采集",
+      "status": "ACTIVE",
+      "target_thread_id": "01a0166e-14e0-77e0-ba63-d118a1a80b0d",
+      "schedule": "WEEKDAYS_09_20_ASIA_SHANGHAI",
+      "toml_path": "C:/Users/戴周阳/.codex/automations/510300-pcf-iopv/automation.toml",
+      "toml_sha256": "45daf6f5d79dbf4a16c32c110215cd131232139a47bd515bfe6ed50ae9ebf9a8",
+      "toml_bytes": 1515,
+      "entrypoint_phase": "morning",
+      "single_entrypoint_verified": true,
+      "pcf_start_window": "09:25-09:35",
+      "late_backfill_authorized": false
+    },
+    "close_validation": {
+      "id": "510300",
+      "kind": "heartbeat",
+      "name": "优先前瞻研究收盘后验收",
+      "status": "ACTIVE",
+      "target_thread_id": "019ffba4-af4f-7053-97b1-25a4f51957cf",
+      "schedule": "WEEKDAYS_19_00_ASIA_SHANGHAI",
+      "toml_path": "C:/Users/戴周阳/.codex/automations/510300/automation.toml",
+      "toml_sha256": "ded5ac23e117b0c7d55f9fb8bef13bf93ed490dd0a0e4d7aa326bf6fae9caa77",
+      "toml_bytes": 1519,
+      "entrypoint_phase": "close",
+      "single_entrypoint_verified": true,
+      "paper_signal_execution_authorized": false,
+      "orthogonal_low_vol_start_authorized": false
+    }
+  },
+  "safety": {
+    "research_only": true,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  }
+}

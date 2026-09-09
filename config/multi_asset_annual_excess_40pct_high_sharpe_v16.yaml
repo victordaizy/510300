@@ -1,0 +1,64 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V16"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V15"
+  status: "FROZEN_BEFORE_DELTA_NEUTRAL_FUNDING_CARRY_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v15_manifest.json"
+  v6_manifest: "config/digital_asset_multi_horizon_trend_vote_v6_manifest.json"
+  v6_visible_report: "reports/research/digital_asset_multi_horizon_trend_vote_v6_visible.json"
+
+registered_v6_rejection:
+  candidate_id: "DIGITAL_ASSET_MULTI_HORIZON_TREND_VOTE_V6"
+  required_status: "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN"
+  all_visible_gates_pass: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "BTC_ETH_DELTA_NEUTRAL_FUNDING_CARRY"
+  maximum_candidates_before_family_specific_replication: 1
+  venue: "BINANCE_SPOT_AND_USDS_M_PERPETUAL_PUBLIC_DATA"
+  fixed_symbols: ["BTCUSDT", "ETHUSDT"]
+  bar_interval: "8h"
+  trailing_funding_observations: 21
+  entry_minimum_annualized_trailing_funding_rate: 0.25
+  entry_minimum_positive_funding_fraction: 0.80
+  exit_maximum_annualized_trailing_funding_rate: 0.05
+  exit_minimum_positive_funding_fraction: 0.50
+  decision_time: "COMPLETED_UTC_SUNDAY_16H_BAR_AND_FUNDING"
+  execution_time: "NEXT_UTC_MONDAY_00H_OPEN"
+  allocation_rule: "EQUAL_PAIRED_NOTIONAL_AMONG_ELIGIBLE_SYMBOLS"
+  maximum_paired_notional_per_side_multiple_of_prior_nav: 2.0
+  maximum_total_gross_exposure: 4.0
+  direction: "LONG_SPOT_SHORT_USDS_M_PERPETUAL"
+  base_annual_financing_rate: 0.08
+  stress_annual_financing_rate: 0.15
+  stress_positive_funding_receipt_multiplier: 0.75
+  negative_funding_payment_multiplier: 1.0
+  terminal_winddown_calendar_days: 30
+  parameter_grid_search_allowed: false
+
+governance:
+  v6_remains_rejected: true
+  v6_parameter_rescue_allowed: false
+  funding_carry_is_separate_non_directional_mechanism: true
+  raw_collection_may_check_only_source_and_coverage_before_candidate_freeze: true
+  candidate_must_freeze_before_signal_or_performance_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

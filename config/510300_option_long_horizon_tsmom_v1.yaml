@@ -1,0 +1,87 @@
+protocol:
+  project_id: 510300_OPTION_LONG_HORIZON_TSMOM_V1
+  state: FROZEN_BEFORE_DEVELOPMENT_OUTCOMES
+  evidence_stage: DEVELOPMENT_ONLY
+  deployable_strategy: false
+  factor_count: 1
+  upstream_vehicle_manifest: config/510300_option_trade_envelope_v1_manifest.json
+  upstream_vehicle_manifest_sha256: 85f17e9598757189fc8fa59875341a8bd44c652eda7807caa60a046651bdcb54
+  data_loader_manifest: config/510300_option_technical_rule_discovery_v1_manifest.json
+  data_loader_manifest_sha256: 6e1f7bb62c6f29b727cf0e50dc4ba82422d82ac439c2c97ad5d7c5e8a9be9b93
+
+dates:
+  first_signal: '2020-06-01'
+  development_end: '2022-12-30'
+  pseudo_confirmation_start: '2023-01-01'
+  pseudo_confirmation_end: '2023-12-29'
+  validation_start: '2024-01-01'
+  validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  post_development_access_authorized: false
+
+factor:
+  id: TSMOM_120
+  formula: H00300[t]/H00300[t-120]-1
+  action: 因子大于等于0买认购，否则买认沽
+  parameter_search_allowed: false
+
+schedule:
+  holding_trading_days: 40
+  signal_time: t日收盘后
+  entry_time: t+1交易日
+  exit_time: 入场后第40个交易日
+  overlap_allowed: false
+
+contract_selection:
+  adjusted_contracts_allowed: false
+  contract_unit_required: 10000
+  minimum_calendar_days_to_expiry: 75
+  maximum_calendar_days_to_expiry: 150
+  absolute_delta_minimum: 0.75
+  absolute_delta_maximum: 0.95
+  target_absolute_delta: 0.85
+  target_calendar_days_to_expiry: 100
+  minimum_signal_day_volume: 50
+  minimum_signal_day_open_interest: 200
+  minimum_signal_premium_per_contract_cny: 2000
+  maximum_signal_premium_per_contract_cny: 10000
+  target_total_signal_premium_cny: 7000
+  maximum_contracts: 3
+  tie_break:
+    - absolute_delta_distance
+    - expiry_distance
+    - volume_descending
+    - contract_code_ascending
+
+execution_envelope:
+  entry_price: 次一交易日该合约日内最高成交价
+  exit_price: 退出交易日该合约日内最低成交价
+  missing_entry_trade: 不成交并持有现金
+  missing_exit_trade: 退出价值按零计
+  option_fee_cny_per_contract_per_leg: 5.0
+  initial_cash_cny: 20000
+  minimum_opening_trade_notional_cny: 5000
+  insufficient_cash: 订单拒绝并持有现金
+  cash_interest_rate: 0.0
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  metric: 策略几何年化减基准几何年化
+  annualized_excess_minimum: 0.20
+  minimum_opening_trade_gate: true
+  perfect_direction_oracle_reported_only_as_vehicle_ceiling: true
+
+paths:
+  manifest: config/510300_option_long_horizon_tsmom_v1_manifest.json
+  result_json: reports/discovery/510300_option_long_horizon_tsmom_v1_dev.json
+  result_markdown: reports/discovery/510300_option_long_horizon_tsmom_v1_dev.md
+
+governance:
+  post_development_access: FORBIDDEN
+  horizon_or_rule_rescue: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

@@ -1,0 +1,92 @@
+{
+  "manifest_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1_0_3_SOURCE_MANIFEST",
+  "formal_candidate_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+  "status": "FROZEN_OUTCOME_BLIND_SOURCE_CORRECTION_BEFORE_OUTPUT",
+  "frozen_at": "2026-08-30T23:15:24+08:00",
+  "purpose": "Use the admitted official daily CSI300 membership replay and the completed official first-public fact table without changing any formal hard threshold. Preserve unverified weight vintage, failed A3, pending human review, and all NO_VIEW states.",
+  "frozen_files": [
+    {
+      "path": "config/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1.yaml",
+      "sha256": "813b65c34b31c6e5accdbcbd4c65f9edc90b4aaf7e83276319886364db171f9a",
+      "bytes": 5869
+    },
+    {
+      "path": "research/pit_earnings_information_diffusion_diagnostic_proxy_v1.py",
+      "sha256": "eef0b9c1026fcb8cfec5e5607ffdc36f23a546687ae656f26549468f344c4b8f",
+      "bytes": 64829
+    },
+    {
+      "path": "scripts/run_510300_pit_earnings_information_diffusion_diagnostic_proxy_v1.py",
+      "sha256": "08effcf0a8b5be3cf608c6c792eba6568ff0bf6d0c0b88cc92718243661009f0",
+      "bytes": 2357
+    },
+    {
+      "path": "tests/test_510300_pit_earnings_information_diffusion_diagnostic_proxy_v1.py",
+      "sha256": "cfc347427af43c206f2c880089e1dd67b8adc6fd1d96178d16835242973dda11",
+      "bytes": 7487
+    }
+  ],
+  "frozen_inputs": [
+    {
+      "path": "data/staging/a_share_hs_first_preliminary_core_earnings_surprise_drift_v1/preliminary_earnings_facts_v1.parquet",
+      "sha256": "3e89c758a0ce95b8f638bf7bf9139aa02baf44d6d0ad30b0418c25a26307972a",
+      "bytes": 22420529
+    },
+    {
+      "path": "data/raw/cninfo/a_share_hs_first_preliminary_core_earnings_facts_v1_receipt.json",
+      "sha256": "3063978505ff3a099616af6fcc028c7d1402c09429087215444e17c26ca6e835",
+      "bytes": 4675
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b",
+      "bytes": 139181
+    },
+    {
+      "path": "reports/audit/510300_csi300_pit_membership_weights_source_remediation_v1_independent_audit.json",
+      "sha256": "43dcdd4862dbdef9e25e21e4e174432b981ca5381bafa9451ee4236d0bfa9895",
+      "bytes": 2646
+    },
+    {
+      "path": "data/raw/constituents/000300_historical_weights.parquet",
+      "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+      "bytes": 80108
+    },
+    {
+      "path": "reports/data_quality/000300_point_in_time_weights_status.json",
+      "sha256": "0c27472964b8a4359262cc58ae60d6c1fde184e1ed143e6caa9a9160a4001588",
+      "bytes": 553
+    },
+    {
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+      "sha256": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd",
+      "bytes": 59861
+    }
+  ],
+  "unchanged_formal_boundaries": {
+    "minimum_fact_extraction_success_rate": 0.9,
+    "minimum_first_public_weighted_fact_count": 300,
+    "minimum_years_with_20_first_public_weighted_facts": 8,
+    "version_proven_pit_weights_required": true,
+    "dual_independent_human_review_required": true,
+    "market_price_reads": 0,
+    "future_return_reads": 0,
+    "prediction_model_allowed": false,
+    "portfolio_evaluation_allowed": false
+  },
+  "post_output_serialization_correction": {
+    "path": "config/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_0_1_json_correction.json",
+    "sha256": "84dcc03afe82a5c179b12249d953e014049a7b29d10ec7c407065a790b95183c",
+    "scope": "STRICT_JSON_NONFINITE_TO_NULL_ONLY",
+    "data_or_gate_logic_changed": false
+  },
+  "expected_outputs": [
+    "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/member_first_public_facts.parquet",
+    "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/daily_outcome_blind_features.parquet",
+    "reports/data_quality/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3.json",
+    "reports/data_quality/510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1_0_3.md"
+  ],
+  "market_price_read": false,
+  "future_return_read": false,
+  "return_evaluation": "NOT_ALLOWED"
+}

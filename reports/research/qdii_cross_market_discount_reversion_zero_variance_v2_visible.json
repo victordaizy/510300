@@ -1,0 +1,335 @@
+{
+  "schema_version": "2.0.0",
+  "report_id": "QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_VISIBLE",
+  "generated_at": "2026-08-27T02:19:05.348321+08:00",
+  "phase": "VISIBLE_ONLY",
+  "status": "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN",
+  "goal_achieved": false,
+  "candidate_id": "QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2",
+  "economic_candidate_id": "QDII_CROSS_MARKET_DISCOUNT_REVERSION_V1",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2",
+  "period": {
+    "start": "2017-01-03",
+    "end": "2022-12-30"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "base_and_stress_must_both_pass": true
+  },
+  "correction_scope": {
+    "class": "EVALUATION_ONLY_ZERO_VARIANCE_SHARPE_SEMANTICS",
+    "economic_signal_execution_or_cost_parameter_changed": false,
+    "same_visible_path_reused": true,
+    "new_holdout": false,
+    "partly_revealed_before_v2_freeze": true
+  },
+  "v1_failure_preservation": {
+    "status": "FAILED_DATA_OR_EXECUTION_CONTRACT",
+    "error_type": "ValueError",
+    "error": "收益波动为零，夏普不可识别",
+    "manifest_sha256": "aaf93911506f45d80e4c2c1c7f26a98a1b842ece212816dbbb92ec727b71d8e6",
+    "visible_failure_report_sha256": "36cc05dfb76eff20ec8f4e80b07dc40c6c218ed7ab25784cc2f29570d8a9fd51",
+    "visible_failure_markdown_sha256": "c6218488a84042878aea90d8b441865d5600dc3822b7f7cc2c0ec5a2002ea0d3"
+  },
+  "manifest_verification": {
+    "status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/qdii_cross_market_discount_reversion_zero_variance_v2_manifest.json",
+    "manifest_sha256": "dc45af14480c378ed51675088d29d6f808b8d78ec651dc86df8ea4b1bae9b8c6",
+    "tracked_content_sha256": "2e48c2554f35cd3e78c63cfd4165ef1d6c3179bd47fdce094226be7968559488",
+    "tracked_file_count": 5,
+    "v1_manifest_status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_V1_MANIFEST_VERIFIED",
+    "v1_failure_preservation_status": "PASS_V1_FAILURE_PRESERVED"
+  },
+  "data_audit": {
+    "signal": {
+      "fixed_etf_count": 5,
+      "fixed_tracking_group_count": 4,
+      "signal_rows_before_entry_filter": 36,
+      "executable_signal_rows": 36,
+      "signal_day_count": 26,
+      "entry_day_count": 26,
+      "unique_etf_count": 4,
+      "tracking_groups_with_signals": [
+        "DAX",
+        "NASDAQ_100",
+        "SP_500"
+      ],
+      "signal_rows_by_year": {
+        "2019": 1,
+        "2020": 2,
+        "2022": 33
+      },
+      "first_signal_date": "2019-05-23",
+      "last_signal_date": "2022-12-05",
+      "maximum_foreign_age_calendar_days": 4,
+      "maximum_fx_age_calendar_days": 0,
+      "foreign_date_strictly_before_signal": true,
+      "fx_date_not_after_signal": true,
+      "same_open_used_for_signal_and_execution": false,
+      "future_return_used_in_signal_construction": false
+    },
+    "portfolio": {
+      "initial_capital_cny": 500000.0,
+      "final_base_nav_cny": 569663.4526035289,
+      "final_stress_nav_cny": 548391.9975775741,
+      "entry_candidate_count": 21,
+      "entry_transaction_count": 16,
+      "exit_transaction_count": 16,
+      "nonflat_entry_skip_count": 15,
+      "correlation_rejection_count": 5,
+      "missing_correlation_rejection_count": 0,
+      "blocked_exit_attempt_count": 0,
+      "stale_mark_count": 0,
+      "maximum_capacity_fraction": 0.004862086204841089,
+      "maximum_gross_exposure": 0.9999719802771193,
+      "maximum_net_exposure": 0.9999719802771193,
+      "maximum_position_count": 1,
+      "historical_bid_ask_observed": false,
+      "execution_cost_status": "MODELED_BASE_AND_STRESS_COSTS"
+    },
+    "foreign_index_ranges": {
+      "NASDAQ_100": {
+        "first_date": "2000-01-03",
+        "last_date": "2026-08-18",
+        "rows": 6696
+      },
+      "SP_500": {
+        "first_date": "2000-01-03",
+        "last_date": "2026-08-18",
+        "rows": 6696
+      },
+      "DAX": {
+        "first_date": "2000-01-03",
+        "last_date": "2026-08-18",
+        "rows": 6761
+      },
+      "CAC_40": {
+        "first_date": "2000-01-03",
+        "last_date": "2026-08-18",
+        "rows": 6805
+      }
+    },
+    "fx_range": {
+      "first_date": "2016-01-04",
+      "last_date": "2026-08-21",
+      "rows": 2585
+    }
+  },
+  "evaluation": {
+    "eligible_historical_day_count": 1459,
+    "first_trade_date": "2017-01-03",
+    "last_trade_date": "2022-12-30",
+    "evaluation_semantics": "VERSIONED_EVALUATION_CORRECTION_NOT_NEW_HOLDOUT",
+    "metrics": {
+      "benchmark_total_return_cagr": 0.0478096110748514,
+      "strategy_base_net_cagr": 0.021871046838104247,
+      "strategy_stress_net_cagr": 0.015441172504035473,
+      "base_annualized_excess": -0.02593856423674715,
+      "stress_annualized_excess": -0.03236843857081592,
+      "base_strategy_net_sharpe": 0.13993065213646996,
+      "stress_strategy_net_sharpe": 0.038508020814262765,
+      "base_strategy_net_sharpe_status": "DEFINED",
+      "stress_strategy_net_sharpe_status": "DEFINED",
+      "base_maximum_drawdown": -0.0826282795671609,
+      "stress_maximum_drawdown": -0.08687461389804096,
+      "base_rolling_242d_excess_median": -0.051940814965774865,
+      "stress_rolling_242d_excess_median": -0.05525464488072726,
+      "base_rolling_242d_sharpe_median_defined_windows": 0.3506916355411317,
+      "stress_rolling_242d_sharpe_median_defined_windows": 0.15546858809197436,
+      "base_rolling": {
+        "window_trading_days": 242,
+        "window_count": 1218,
+        "annualized_excess_median": -0.051940814965774865,
+        "sharpe_median_defined_windows": 0.3506916355411317,
+        "sharpe_defined_window_count": 697,
+        "sharpe_undefined_zero_variance_window_count": 521,
+        "sharpe_all_windows_defined": false,
+        "sharpe_status": "PARTIAL_UNDEFINED_ZERO_VARIANCE"
+      },
+      "stress_rolling": {
+        "window_trading_days": 242,
+        "window_count": 1218,
+        "annualized_excess_median": -0.05525464488072726,
+        "sharpe_median_defined_windows": 0.15546858809197436,
+        "sharpe_defined_window_count": 697,
+        "sharpe_undefined_zero_variance_window_count": 521,
+        "sharpe_all_windows_defined": false,
+        "sharpe_status": "PARTIAL_UNDEFINED_ZERO_VARIANCE"
+      },
+      "base_bootstrap": {
+        "method": "PAIRED_MOVING_BLOCK_CONSERVATIVE_ZERO_VARIANCE",
+        "repetitions": 5000,
+        "block_length_trading_days": 20,
+        "annualized_excess_median": -0.026167882844796098,
+        "annualized_excess_interval_95pct": [
+          -0.195267313697321,
+          0.1171624948776852
+        ],
+        "strategy_sharpe_median_defined_samples": 0.14035701361307515,
+        "strategy_sharpe_interval_95pct_defined_samples": [
+          -0.33896233409760984,
+          0.6140726352173925
+        ],
+        "strategy_sharpe_defined_sample_count": 5000,
+        "strategy_sharpe_undefined_zero_variance_sample_count": 0,
+        "strategy_sharpe_all_samples_defined": true,
+        "strategy_sharpe_status": "ALL_SAMPLES_DEFINED"
+      },
+      "stress_bootstrap": {
+        "method": "PAIRED_MOVING_BLOCK_CONSERVATIVE_ZERO_VARIANCE",
+        "repetitions": 5000,
+        "block_length_trading_days": 20,
+        "annualized_excess_median": -0.03445605740582346,
+        "annualized_excess_interval_95pct": [
+          -0.2017773167536171,
+          0.10969633522175097
+        ],
+        "strategy_sharpe_median_defined_samples": 0.04172032276991791,
+        "strategy_sharpe_interval_95pct_defined_samples": [
+          -0.4337158007377565,
+          0.5158757502517344
+        ],
+        "strategy_sharpe_defined_sample_count": 5000,
+        "strategy_sharpe_undefined_zero_variance_sample_count": 0,
+        "strategy_sharpe_all_samples_defined": true,
+        "strategy_sharpe_status": "ALL_SAMPLES_DEFINED"
+      },
+      "non_overlapping_years": [
+        {
+          "start": "2017-01-03",
+          "end": "2017-12-27",
+          "base_annualized_excess": -0.21391607165784168,
+          "stress_annualized_excess": -0.21391607165784168,
+          "base_sharpe": -1.0000000000000007,
+          "stress_sharpe": -1.0000000000000007,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        },
+        {
+          "start": "2017-12-28",
+          "end": "2018-12-25",
+          "base_annualized_excess": 0.2421043542896147,
+          "stress_annualized_excess": 0.2421043542896147,
+          "base_sharpe": null,
+          "stress_sharpe": null,
+          "base_sharpe_status": "UNDEFINED_ZERO_VARIANCE",
+          "stress_sharpe_status": "UNDEFINED_ZERO_VARIANCE",
+          "target_qualified": false
+        },
+        {
+          "start": "2018-12-26",
+          "end": "2019-12-24",
+          "base_annualized_excess": -0.3574750614623067,
+          "stress_annualized_excess": -0.35988450882982004,
+          "base_sharpe": -1.3600433971433405,
+          "stress_sharpe": -1.482111316583998,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        },
+        {
+          "start": "2019-12-25",
+          "end": "2020-12-23",
+          "base_annualized_excess": -0.22865313880509008,
+          "stress_annualized_excess": -0.2334579121739278,
+          "base_sharpe": 0.676254974926283,
+          "stress_sharpe": 0.5888288827092827,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        },
+        {
+          "start": "2020-12-24",
+          "end": "2021-12-22",
+          "base_annualized_excess": 0.016094360213113473,
+          "stress_annualized_excess": 0.016094360213113473,
+          "base_sharpe": null,
+          "stress_sharpe": null,
+          "base_sharpe_status": "UNDEFINED_ZERO_VARIANCE",
+          "stress_sharpe_status": "UNDEFINED_ZERO_VARIANCE",
+          "target_qualified": false
+        },
+        {
+          "start": "2021-12-23",
+          "end": "2022-12-21",
+          "base_annualized_excess": 0.2428266368011301,
+          "stress_annualized_excess": 0.21104184671072096,
+          "base_sharpe": 0.23903401219229978,
+          "stress_sharpe": 0.02215911996218051,
+          "base_sharpe_status": "DEFINED",
+          "stress_sharpe_status": "DEFINED",
+          "target_qualified": false
+        }
+      ],
+      "non_overlapping_year_block_count": 6,
+      "undefined_zero_variance_year_block_count": 2,
+      "target_qualified_year_block_count": 0
+    },
+    "gates": {
+      "base_annualized_excess_at_least_40pct": false,
+      "stress_annualized_excess_at_least_40pct": false,
+      "base_strategy_sharpe_defined": true,
+      "stress_strategy_sharpe_defined": true,
+      "base_strategy_sharpe_at_least_1_5": false,
+      "stress_strategy_sharpe_at_least_1_5": false,
+      "base_rolling_excess_median_at_least_40pct": false,
+      "stress_rolling_excess_median_at_least_40pct": false,
+      "base_rolling_sharpe_all_windows_defined": false,
+      "stress_rolling_sharpe_all_windows_defined": false,
+      "base_rolling_sharpe_median_at_least_1_5": false,
+      "stress_rolling_sharpe_median_at_least_1_5": false,
+      "base_bootstrap_excess_lower_bound_positive": false,
+      "stress_bootstrap_excess_lower_bound_positive": false,
+      "base_bootstrap_sharpe_all_samples_defined": true,
+      "stress_bootstrap_sharpe_all_samples_defined": true,
+      "base_bootstrap_sharpe_lower_bound_at_least_1": false,
+      "stress_bootstrap_sharpe_lower_bound_at_least_1": false,
+      "minimum_non_overlapping_year_blocks": true,
+      "minimum_target_qualified_year_blocks": false,
+      "data_quality_complete": true,
+      "capacity_pass": true
+    },
+    "all_visible_gates_pass": false
+  },
+  "historical_evidence_limits": {
+    "immutable_vendor_vintage_chain_available": false,
+    "historical_intraday_bid_ask_snapshots_available": false,
+    "official_point_in_time_qdii_nav_used": false,
+    "synthetic_fair_value_is_tradeable_nav": false,
+    "foreign_index_and_fx_are_reference_factors_not_redeemable_baskets": true,
+    "slippage_and_impact_are_modeled_not_observed": true,
+    "performance_screen_label": "DISCOVERY_ONLY_SYNTHETIC_CROSS_MARKET_FAIR_VALUE",
+    "historical_result_may_authorize_paper_or_live": false
+  },
+  "decision": {
+    "sealed_replication_authorized": false,
+    "sealed_replication_open": false,
+    "candidate_may_be_reparameterized_after_failure": false,
+    "historical_result_verifies_40pct_target": false,
+    "next_step": "冻结拒绝本候选；不打开封存期，不改变经济参数救回，转向新的独立机制"
+  },
+  "outputs": {
+    "manifest": "config/qdii_cross_market_discount_reversion_zero_variance_v2_manifest.json",
+    "visible_daily_returns": "data/research/qdii_cross_market_discount_reversion_zero_variance_v2/visible_daily_returns.parquet",
+    "visible_signals": "data/research/qdii_cross_market_discount_reversion_zero_variance_v2/visible_signals.parquet",
+    "visible_trades": "data/research/qdii_cross_market_discount_reversion_zero_variance_v2/visible_trades.parquet",
+    "visible_report_json": "reports/research/qdii_cross_market_discount_reversion_zero_variance_v2_visible.json",
+    "visible_report_markdown": "reports/research/QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_VISIBLE.md",
+    "sealed_report_json": "reports/research/qdii_cross_market_discount_reversion_zero_variance_v2_sealed.json"
+  },
+  "bootstrap_repetitions_override": null,
+  "safety": {
+    "paper_position_generation": false,
+    "shadow_signal_generation": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "live_trading_authorized": false
+  }
+}

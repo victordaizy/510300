@@ -1,0 +1,185 @@
+{
+  "project_id": "510300_X1_COMMON_TAIL_PREDICTION_V1",
+  "version": "1.0.0",
+  "status": "HISTORICAL_REJECTED_FROZEN",
+  "generated_at": "2026-08-18T20:30:37.512090+08:00",
+  "data_cutoff": "2026-08-14",
+  "manifest_sha256": "5705e5d71064b9307cdfd0a0cddc4d6b3cefb74703ee10d20e69633470194d95",
+  "frozen_at": "2026-08-18T20:29:56.626351+08:00",
+  "parent_integrity": {
+    "parent_manifest_sha256": "f787ddcca638ada9f668088d4caab6f25f2cec21973e4bc7d65391b22c9a4728",
+    "core_registry_and_spec_match": true,
+    "full_parent_manifest_drift": [
+      "research/return_tail_data_feasibility.py"
+    ]
+  },
+  "row_counts": {
+    "signal_days": 1611,
+    "ready_signal_days": 850,
+    "no_view_signal_days": 509,
+    "warmup_signal_days": 252,
+    "mature_outcome_rows": 830,
+    "probability_forecasts": 558
+  },
+  "evaluation": {
+    "status": "HISTORICAL_REJECTED_FROZEN",
+    "candidate_id": "X1",
+    "primary_oos_signal_days": 830,
+    "probability_oos_predictions": 558,
+    "first_primary_signal_date": "2023-02-15",
+    "last_mature_primary_signal_date": "2026-07-17",
+    "bad20": {
+      "observations": 830,
+      "selected_observations": 113,
+      "event_count": 66,
+      "selected_event_count": 3,
+      "baseline_rate": 0.07951807228915662,
+      "selected_rate": 0.02654867256637168,
+      "lift": 0.333869670152856
+    },
+    "tail20": {
+      "observations": 830,
+      "selected_observations": 113,
+      "event_count": 32,
+      "selected_event_count": 6,
+      "baseline_rate": 0.03855421686746988,
+      "selected_rate": 0.05309734513274336,
+      "lift": 1.3772123893805308
+    },
+    "bad20_delay1": {
+      "observations": 829,
+      "selected_observations": 112,
+      "event_count": 66,
+      "selected_event_count": 5,
+      "baseline_rate": 0.07961399276236429,
+      "selected_rate": 0.044642857142857144,
+      "lift": 0.5607413419913421
+    },
+    "delay_excess_lift_retention": null,
+    "bad60": {
+      "observations": 790,
+      "selected_observations": 94,
+      "event_count": 69,
+      "selected_event_count": 2,
+      "baseline_rate": 0.08734177215189873,
+      "selected_rate": 0.02127659574468085,
+      "lift": 0.24360160345359236
+    },
+    "tail60": {
+      "observations": 790,
+      "selected_observations": 94,
+      "event_count": 36,
+      "selected_event_count": 0,
+      "baseline_rate": 0.04556962025316456,
+      "selected_rate": 0.0,
+      "lift": 0.0
+    },
+    "first_half_bad20": {
+      "observations": 415,
+      "selected_observations": 48,
+      "event_count": 38,
+      "selected_event_count": 0,
+      "baseline_rate": 0.09156626506024096,
+      "selected_rate": 0.0,
+      "lift": 0.0
+    },
+    "second_half_bad20": {
+      "observations": 415,
+      "selected_observations": 65,
+      "event_count": 28,
+      "selected_event_count": 3,
+      "baseline_rate": 0.06746987951807229,
+      "selected_rate": 0.046153846153846156,
+      "lift": 0.6840659340659341
+    },
+    "bootstrap_bad20_lift": {
+      "observations": 830,
+      "block_length_trading_days": 20,
+      "repetitions": 5000,
+      "median_lift": 0.2924423053128894,
+      "interval_95pct": [
+        0.0,
+        0.976489749746052
+      ]
+    },
+    "probability": {
+      "unconditional_brier": 0.05624579554493558,
+      "x1_brier": 0.05606461205395601,
+      "brier_skill": 0.003221280617051847,
+      "unconditional_log_loss": 0.23299395411072468,
+      "x1_log_loss": 0.23175379345533642,
+      "calibration_event_minus_probability_sum": -19.913471584562956,
+      "calibration_standard_error": 6.852607074228903,
+      "calibration_95pct_compatible": false
+    },
+    "incremental_vs_r6": {
+      "r6_brier": 0.09383670366077815,
+      "r6_plus_x1_brier": 0.08834214409087048,
+      "r6_log_loss": 0.3532938628768059,
+      "r6_plus_x1_log_loss": 0.3436514244106932,
+      "r6_top_decile_bad20": {
+        "observations": 558,
+        "selected_observations": 56,
+        "event_count": 32,
+        "selected_event_count": 1,
+        "baseline_rate": 0.05734767025089606,
+        "selected_rate": 0.017857142857142856,
+        "lift": 0.31138392857142855
+      },
+      "r6_plus_x1_top_decile_bad20": {
+        "observations": 558,
+        "selected_observations": 56,
+        "event_count": 32,
+        "selected_event_count": 4,
+        "baseline_rate": 0.05734767025089606,
+        "selected_rate": 0.07142857142857142,
+        "lift": 1.2455357142857142
+      },
+      "r6_unit_avoidance_contribution": 0.0010097383970269897,
+      "r6_plus_x1_unit_avoidance_contribution": 0.0015272333637630817
+    },
+    "gates": {
+      "bad20_lift": false,
+      "bootstrap_lift_lower_bound": false,
+      "brier_skill": true,
+      "log_loss": true,
+      "calibration_bias": false,
+      "one_day_delay_retention": false,
+      "first_half_direction": false,
+      "second_half_direction": false,
+      "incremental_brier": true,
+      "incremental_log_loss": true,
+      "incremental_bad20_recognition": true,
+      "incremental_unit_avoidance": true
+    },
+    "safety": {
+      "forecast_eligible_emitted": false,
+      "combination_model_built": false,
+      "position_policy_built": false,
+      "position_mapping_enabled": false,
+      "order_generation_enabled": false,
+      "broker_connection_enabled": false
+    }
+  },
+  "governance": {
+    "historical_evidence_label": "HISTORICALLY_CONTAMINATED",
+    "historical_run_may_emit_forecast_eligible": false,
+    "combination_model_build_allowed": false,
+    "position_policy_build_allowed": false,
+    "r6_candidate_reselection_allowed": false,
+    "options_branch_recovery_allowed": false,
+    "earnings_consensus_branch_recovery_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false
+  },
+  "safety": {
+    "forecast_eligible": "NOT_AUTHORIZED",
+    "combination_model": "DISABLED",
+    "position_policy": "DISABLED",
+    "position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema_version": "1.0.0",
+  "report_version": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1",
+  "generated_at": "2026-08-20T17:15:03.993840+08:00",
+  "overall_status": "COLLECTING_FORWARD_WITH_BLOCKERS",
+  "directions": {
+    "primary_market_pcf_iopv": {
+      "priority": 1,
+      "status": "COLLECTING_NOT_ELIGIBLE",
+      "stage": "STAGE_0_19_COLLECTION",
+      "latest_observed_trade_date": "2026-08-18",
+      "observed_trading_days": 4,
+      "full_coverage_days": 2,
+      "task_evidence": {
+        "path": "reports/data_quality/primary_market_task_runs/20260820T0449459315941Z_16468.json",
+        "run_status": "FAILED",
+        "collection_status": "PROGRAM_FAILED",
+        "error": "ParseException: 所在位置 C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_510300_primary_market_forward.ps1:73 字符: 53\r\n+         throw \"2涓囧厓绾搁潰淇″彿鐢熸垚澶辫触锛岄€€鍑虹爜锛?LASTEXITCODE\"\r\n+                                                     ~\n字符串缺少终止符: \"。\r\n\r\n所在位置 C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_510300_primary_market_forward.ps1:44 字符: 23\r\n+ if ($SkipPaperSignal) {\r\n+                       ~\n语句块或类型定义中缺少右“}”。"
+      },
+      "gates": {
+        "quality_audit": {
+          "required": 20,
+          "eligible": false
+        },
+        "feature_freeze": {
+          "required": 40,
+          "eligible": false
+        },
+        "first_unseen_evaluation": {
+          "required": 80,
+          "eligible": false
+        },
+        "replication": {
+          "required": 120,
+          "eligible": false
+        }
+      },
+      "next_action": "CONTINUE_STRICT_FORWARD_COLLECTION"
+    },
+    "industry_expectation_gap": {
+      "priority": 2,
+      "status": "COLLECTING_FORWARD",
+      "origin_collection_status": "WAITING_FOR_NEXT_ORIGIN_EVIDENCE",
+      "outcome_collection_status": "READY_TO_REFRESH_APPEND_ONLY_EVALUATION",
+      "origin_cluster_count": 1,
+      "mature_origin_cluster_count": 0,
+      "non_overlapping_60d_block_count": 0,
+      "origin_blockers": [
+        "CURRENT_MONTH_ALREADY_HAS_ORIGIN",
+        "SOURCE_REGISTRY_CUTOFF_NOT_ADVANCED",
+        "SECTOR_PANEL_MONTH_NOT_ADVANCED",
+        "NEW_OFFICIAL_RELEASES_BELOW_MINIMUM"
+      ],
+      "outcome_blockers": [],
+      "task_run_status": "FAILED",
+      "task_evidence_path": "reports/forward/industry_expectation_gap_v1_evaluation/task_runs/20260820T0905031718764Z_11912.json",
+      "calibration": {
+        "minimum_origin_clusters": 20,
+        "minimum_non_overlapping_60d_blocks": 4,
+        "eligible": false
+      },
+      "model_comparison": {
+        "minimum_origin_clusters": 40,
+        "minimum_non_overlapping_60d_blocks": 8,
+        "eligible": false
+      },
+      "next_action": "WAIT_FOR_NEW_OFFICIAL_PACKAGE_AND_CURRENT_OUTCOME_INPUTS"
+    },
+    "orthogonal_low_vol_replication": {
+      "priority": 3,
+      "status": "NOT_STARTED_GOVERNANCE_GATE_BLOCKED",
+      "required_governance_status": "PASS",
+      "actual_governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "eligible_to_start": false,
+      "next_action": "WAIT_FOR_GOVERNANCE_PASS"
+    }
+  },
+  "governance_status": "BLOCKED_GOVERNANCE_UNVERSIONED",
+  "scheduler": {
+    "status": "CODEX_HEARTBEATS_ACTIVE_WINDOWS_FALLBACK_BLOCKED",
+    "registered_tasks_verified": false,
+    "manual_runners_verified": true,
+    "windows_powershell_5_1_parser_verified": true,
+    "evidence_path": "reports/audit/priority_forward_scheduler_installation_20260819.json",
+    "session_supervisor_status": "RUNNING_SESSION_SCOPED_DEGRADED_AUTOMATION",
+    "session_supervisor_heartbeat_at": "2026-08-20T02:37:16.066881+08:00",
+    "session_supervisor_heartbeat_age_seconds": 52667.926959,
+    "session_supervisor_heartbeat_fresh": false,
+    "login_autostart_verified": false,
+    "supervisor_evidence_path": "reports/audit/priority_forward_supervisor_status.json",
+    "codex_heartbeats_active": true,
+    "primary_market_heartbeat_id": "510300-pcf-iopv",
+    "close_validation_heartbeat_id": "510300",
+    "codex_automation_evidence_path": "reports/audit/priority_forward_codex_automation_v1_4_20260819.json"
+  },
+  "alerts": [
+    {
+      "severity": "WARNING",
+      "direction": "PRIMARY_MARKET_PCF_IOPV",
+      "code": "PROGRAM_FAILED",
+      "message": "ParseException: 所在位置 C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_510300_primary_market_forward.ps1:73 字符: 53\r\n+         throw \"2涓囧厓绾搁潰淇″彿鐢熸垚澶辫触锛岄€€鍑虹爜锛?LASTEXITCODE\"\r\n+                                                     ~\n字符串缺少终止符: \"。\r\n\r\n所在位置 C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_510300_primary_market_forward.ps1:44 字符: 23\r\n+ if ($SkipPaperSignal) {\r\n+                       ~\n语句块或类型定义中缺少右“}”。"
+    },
+    {
+      "severity": "BLOCK",
+      "direction": "ORTHOGONAL_LOW_VOL_REPLICATION",
+      "code": "BLOCKED_GOVERNANCE_UNVERSIONED",
+      "message": "治理未通过，禁止启动正交低波复制。"
+    },
+    {
+      "severity": "WARNING",
+      "direction": "WINDOWS_TASK_SCHEDULER",
+      "code": "CODEX_HEARTBEATS_ACTIVE_WINDOWS_FALLBACK_BLOCKED",
+      "message": "早间严格采集与收盘后验收的Codex心跳均已启用；Windows任务调度器和登录启动项仍无权限，只缺本机持久备用通道。"
+    }
+  ],
+  "safety": {
+    "research_only": true,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "threshold_events": {
+    "ledger_path": "reports/audit/priority_forward_threshold_events.jsonl",
+    "total_event_count": 0,
+    "new_event_count": 0,
+    "new_event_ids": [],
+    "all_event_ids": [],
+    "next_thresholds": {
+      "primary_market_remaining_full_coverage_days": {
+        "quality_audit": 18,
+        "feature_freeze": 38,
+        "first_unseen_evaluation": 78,
+        "replication": 118
+      },
+      "industry_calibration_remaining": {
+        "mature_origin_clusters": 20,
+        "non_overlapping_60d_blocks": 4
+      },
+      "industry_model_comparison_remaining": {
+        "mature_origin_clusters": 40,
+        "non_overlapping_60d_blocks": 8
+      },
+      "orthogonal_low_vol_governance_gate_passed": false
+    }
+  }
+}

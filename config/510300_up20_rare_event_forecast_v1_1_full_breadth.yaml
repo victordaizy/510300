@@ -1,0 +1,129 @@
+protocol:
+  project_id: 510300_UP20_RARE_EVENT_FORECAST_V1_1_FULL_BREADTH
+  version: 1.1.0
+  state: READY_TO_FREEZE_BEFORE_MODEL_OUTCOME_CALCULATION
+  registration_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  evidence_class: CAUSAL_PREQUENTIAL_DATA_COVERAGE_EXTENSION_HISTORICAL_TEST
+  parent_v1_result_known: true
+  parent_v1_rejection_preserved: true
+  new_model_outcomes_read_before_freeze: false
+  parameter_rescue_after_result: forbidden
+  only_permitted_change: FULL_PERIOD_OFFICIAL_PIT_EQUAL_WEIGHT_BREADTH_COVERAGE
+
+parent_protocol:
+  config:
+    path: config/510300_up20_rare_event_forecast_v1.yaml
+    sha256: 8e8029e5f964c4b97867c781acb54a9d672a3a7539f503c80c6d37261255e320
+  manifest:
+    path: config/510300_up20_rare_event_forecast_v1_manifest.json
+    sha256: 3a324e2ad1692a000300bed04f96436c591f9c7e2cd0a55322c167aabb3e4ea8
+  result:
+    path: reports/research/510300_up20_rare_event_forecast_v1_result.json
+    sha256: 66508ec1cba944902c172c330711577bffb57c993b8b4b26dcba6ba15348b7a5
+    required_status: REJECTED_FROZEN_UP20_RARE_EVENT_FORECAST_V1_TARGET_OR_INFORMATION_BUDGET_GATE_FAILED_NO_RESCUE
+  implementation:
+    path: research/up20_rare_event_forecast_v1.py
+    sha256: be9e79f19a40ff3219b392337670fede3491c7e6aee3bea1468f7175ab1af909
+  inherited_without_change:
+    - research_question
+    - scope
+    - dates
+    - source_results
+    - feature_modules
+    - model
+    - decision_rule
+    - evaluation
+    - historical_acceptance_gates
+    - controls
+    - governance
+
+coverage_hypothesis:
+  statement: V1在2015至2019年把广度固定为中性0可能造成机会生成信息缺失；补齐官方PIT成员对应的结果无关价格历史后，同一模型与同一决策门可能达到原信息预算
+  falsification: 若相同模型阈值成本与20相位门仍未全部通过，则拒绝以广度历史缺失解释V1失败，不再调整V1家族
+  target_net_sharpe: 1.20
+  model_or_threshold_change_allowed: false
+
+additional_inputs:
+  external_constituent_price_panel:
+    path: data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet
+    sha256: b35f1bf2a39ed4567d067b35737e7193a9d78642b85a90b4e63da08b4382c24b
+    admitted_columns: [date, con_code, total_return_close]
+    external_membership_flag_used: false
+    external_weights_used: false
+  external_panel_audit:
+    path: reports/data_quality/csi300_external_validation_2014_2021_status.json
+    sha256: 9850c415206019f3387ca2dcee41d05208382c0a3561ecb6cc8a2e13bf9ad716
+    required_status: PASS
+  external_acquisition_implementation:
+    path: scripts/download_csi300_external_validation_2014_2021.py
+    sha256: 89f5348d5b49143ac94c6ca4385ec6b9ab194c5ecc2bd1f7dc835bb6525a14e1
+  current_constituent_price_panel:
+    path: data/raw/constituents/000300_constituent_daily.parquet
+    sha256: e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7
+  official_pit_membership:
+    path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+    admitted_use: OFFICIAL_PIT_EQUAL_WEIGHT_MEMBERSHIP_ONLY
+    historical_weights_used: false
+
+price_splice_contract:
+  external_return_last_date: '2021-08-11'
+  current_return_first_date: '2021-08-12'
+  method: COMPUTE_NATIVE_ONE_DAY_TOTAL_RETURNS_WITHIN_EACH_SOURCE_THEN_RECONSTRUCT_CONTINUOUS_NORMALIZED_PRICE
+  raw_level_splice_forbidden: true
+  source_change_forced_return: false
+  external_membership_used: false
+  current_panel_membership_used: false
+
+feature_data_contract:
+  expected_external_panel_rows: 891399
+  expected_external_valid_panel_rows: 890899
+  expected_external_invalid_price_rows_before_required_from: 500
+  external_price_validity_required_from: '2015-01-05'
+  expected_external_panel_dates: 1736
+  expected_external_first_date: '2014-07-01'
+  expected_external_last_date: '2021-08-11'
+  expected_current_rows_through_cutoff: 483300
+  expected_current_valid_rows_through_cutoff: 483300
+  expected_current_invalid_price_rows_before_required_from: 0
+  current_price_validity_required_from: '2019-12-23'
+  expected_current_dates_through_cutoff: 1611
+  expected_official_membership_rows: 846900
+  expected_official_members_per_day: 300
+  expected_feature_rows: 3456
+  expected_evaluation_rows: 2823
+  expected_feature_first_date: '2012-05-28'
+  expected_feature_last_date: '2026-08-14'
+  expected_first_breadth_available_date: '2015-01-05'
+  minimum_early_official_member_price_coverage: 1.0
+  minimum_post_splice_official_member_price_coverage: 0.99
+  minimum_daily_return_coverage_for_module: 0.95
+  minimum_daily_ma20_coverage_for_module: 0.95
+  minimum_overlap_native_return_correlation: 0.9999
+  maximum_overlap_median_absolute_return_difference: 1.0e-12
+  maximum_overlap_p99_absolute_return_difference: 1.0e-8
+  minimum_overlap_share_within_one_basis_point: 0.99
+  feature_output_contains_future_columns: false
+  feature_output_contains_labels: false
+
+selection_bias:
+  prior_manifest_count: 366
+  expected_total_trial_count_including_current: 367
+  parent_v1_result_known_and_declared: true
+  no_post_result_parameter_selection: true
+
+paths:
+  spec: docs/510300_UP20_RARE_EVENT_FORECAST_V1_1_FULL_BREADTH_SPEC.md
+  manifest: config/510300_up20_rare_event_forecast_v1_1_full_breadth_manifest.json
+  features_prefreeze: data/research/510300_up20_rare_event_forecast_v1_1_full_breadth/features_prefreeze.parquet
+  feature_audit: reports/data_quality/510300_up20_rare_event_forecast_v1_1_full_breadth_features.json
+  daily_predictions: data/research/510300_up20_rare_event_forecast_v1_1_full_breadth/daily_predictions.parquet
+  primary_blocks: data/research/510300_up20_rare_event_forecast_v1_1_full_breadth/primary_blocks.parquet
+  phase_results: data/research/510300_up20_rare_event_forecast_v1_1_full_breadth/phase_results.parquet
+  primary_base_ledger: reports/backtest/510300_up20_rare_event_forecast_v1_1_full_breadth_primary_base_ledger.parquet
+  primary_base_trades: reports/backtest/510300_up20_rare_event_forecast_v1_1_full_breadth_primary_base_trades.parquet
+  primary_stress_ledger: reports/backtest/510300_up20_rare_event_forecast_v1_1_full_breadth_primary_stress_ledger.parquet
+  primary_stress_trades: reports/backtest/510300_up20_rare_event_forecast_v1_1_full_breadth_primary_stress_trades.parquet
+  result_json: reports/research/510300_up20_rare_event_forecast_v1_1_full_breadth_result.json
+  result_markdown: reports/research/510300_UP20_RARE_EVENT_FORECAST_V1_1_FULL_BREADTH_RESULT.md

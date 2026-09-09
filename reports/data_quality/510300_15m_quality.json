@@ -1,0 +1,159 @@
+{
+  "status": "WARN",
+  "scope": "510300未复权15分钟行情接口",
+  "checked_at": "2026-08-12T21:47:36.859334+08:00",
+  "file": "data/raw/market/510300_15m_raw.parquet",
+  "sha256": "040eff2779cb25b6027de74fd40d047cdc588f2b28b2815e0fe51ab6777900cc",
+  "row_count": 1970,
+  "actual_first_bar_end": "2026-02-05T14:45:00",
+  "actual_last_bar_end": "2026-08-12T15:00:00",
+  "errors": [],
+  "warnings": [
+    {
+      "code": "LEADING_PARTIAL_TRADING_DAY",
+      "date": "2026-02-05",
+      "bars": 2,
+      "expected": 16
+    },
+    {
+      "code": "MINUTE_DATA_NEWER_THAN_DAILY_REFERENCE",
+      "dates": [
+        "2026-08-12"
+      ]
+    },
+    {
+      "code": "LEGACY_CLOSE_DEFINITION_DIFFERENCE",
+      "days": [
+        "2026-02-13",
+        "2026-03-10",
+        "2026-03-13",
+        "2026-05-07",
+        "2026-05-14",
+        "2026-05-15",
+        "2026-05-21",
+        "2026-05-22",
+        "2026-06-08",
+        "2026-06-22",
+        "2026-07-01"
+      ],
+      "maximum_absolute_error": 0.0030000000000001137,
+      "explanation": "旧制日线close为最后一分钟VWAP，15分钟close为区间末笔价"
+    },
+    {
+      "code": "POST_CLOSE_DATA_MISSING",
+      "period_start": "2026-07-06",
+      "explanation": "主15分钟K线止于15:00，不含15:05—15:30盘后固定价格交易"
+    },
+    {
+      "code": "POST_CLOSE_VOLUME_PROXY_POSITIVE",
+      "days": [
+        "2026-07-07",
+        "2026-07-13",
+        "2026-07-15",
+        "2026-07-20",
+        "2026-07-22",
+        "2026-07-24",
+        "2026-08-05"
+      ],
+      "total_positive_gap_shares": 5739500.0,
+      "maximum_positive_gap_ratio": 0.0022306468821667114,
+      "interpretation": "日线总量减15分钟总量与缺失盘后量方向一致，但旧制度也存在供应商差异，因此这里只是盘后成交代理上界，不等同于逐日真实盘后量"
+    },
+    {
+      "code": "VOLUME_AMOUNT_RECONCILIATION_NOT_EXACT",
+      "explanation": "日线与15分钟聚合的成交量或成交额并非逐日完全相等"
+    },
+    {
+      "code": "LIMITED_HISTORY_NOT_FIVE_YEARS",
+      "actual_first_bar_end": "2026-02-05T14:45:00",
+      "actual_last_bar_end": "2026-08-12T15:00:00"
+    }
+  ],
+  "evidence": {
+    "bar_count_by_day_distribution": {
+      "2": 1,
+      "16": 123
+    },
+    "full_trading_days": 123,
+    "session_phase_distribution": {
+      "continuous_pm": 862,
+      "continuous_am": 861,
+      "opening_auction_mixed": 123,
+      "legacy_continuous_pm_last": 96,
+      "closing_auction_mixed": 28
+    },
+    "daily_cross_check": {
+      "matched_full_days": 122,
+      "maximum_absolute_price_error": {
+        "open": 0.001000000000000334,
+        "high": 0.0,
+        "low": 0.0,
+        "close": 0.0030000000000001137
+      },
+      "maximum_relative_volume_error": 0.005868381706361211,
+      "maximum_relative_amount_error": 0.005825475589709585,
+      "legacy_close_mismatch_days": 11,
+      "current_regime_close_mismatch_days": 0,
+      "daily_ohlc_boundary_reconciliation": "PASS",
+      "volume_amount_reconciliation": "WARN",
+      "daily_minus_15m_gap_by_market_regime": {
+        "before_2026_07_06": {
+          "period": "before_2026_07_06",
+          "days": 95,
+          "volume_gap_shares": {
+            "mean": 217029.47368421053,
+            "median": 0.0,
+            "total": 20617800.0,
+            "maximum_positive": 15496100.0,
+            "maximum_absolute": 15496100.0,
+            "positive_days": 4,
+            "zero_days": 91,
+            "negative_days": 0,
+            "maximum_positive_ratio": 0.005868381706361211,
+            "maximum_absolute_ratio": 0.005868381706361211
+          },
+          "amount_gap_cny": {
+            "mean": 1077680.2498452312,
+            "median": 0.8537998199462891,
+            "total": 102379623.73529696,
+            "maximum_positive": 77204365.98920059,
+            "maximum_absolute": 77204365.98920059,
+            "positive_days": 51,
+            "zero_days": 0,
+            "negative_days": 44,
+            "maximum_positive_ratio": 0.005825475589709585,
+            "maximum_absolute_ratio": 0.005825475589709585
+          }
+        },
+        "from_2026_07_06": {
+          "period": "from_2026_07_06",
+          "days": 27,
+          "volume_gap_shares": {
+            "mean": 212574.07407407407,
+            "median": 0.0,
+            "total": 5739500.0,
+            "maximum_positive": 1812300.0,
+            "maximum_absolute": 1812300.0,
+            "positive_days": 7,
+            "zero_days": 20,
+            "negative_days": 0,
+            "maximum_positive_ratio": 0.0022306468821667114,
+            "maximum_absolute_ratio": 0.0022306468821667114
+          },
+          "amount_gap_cny": {
+            "mean": 1021326.0402407469,
+            "median": 2.875999927520752,
+            "total": 27575803.086500168,
+            "maximum_positive": 8717099.433699608,
+            "maximum_absolute": 8717099.433699608,
+            "positive_days": 19,
+            "zero_days": 0,
+            "negative_days": 8,
+            "maximum_positive_ratio": 0.0022316086278306065,
+            "maximum_absolute_ratio": 0.0022316086278306065
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+registry_version: 1
+registered_on: "2026-08-13"
+research_status: "POSTHOC_NEW_DATA_BRANCH_NO_STRICT_HOLDOUT"
+registration_timing: "FACTOR_DEFINITIONS_REGISTERED_BEFORE_ROUND3_RESULT_COMPUTATION"
+derivation_note: "第三轮使用首次纳入本项目的历史点时成员与成分股连续总收益日线；定义在计算第三轮因子结果前登记，但仍复用已观察过的历史区间，因此只能产生探索性候选，不能视为独立确认。"
+
+data_governance:
+  membership: "历史点时成员区间；区间采用左闭右开[opt_in,opt_out)，且项目内每个交易日严格300只。"
+  weighting: "每个成员等权1/300；不是中证官方历史权重，不得描述为官方Weighted Breadth。"
+  price: "新浪未复权收盘价乘后复权因子；新调入股票的收益和均线使用其连续股票历史，而非仅用入选期间。"
+  market_cap: "新浪流通股本乘未复权收盘价；仅用于每日横截面大小分层，不是总市值或中证调整市值。"
+
+targets:
+  primary: "exec_total_return_20d_net"
+  sensitivity: "exec_total_return_5d_net"
+
+strategy_rule:
+  long_only: true
+  entry_percentile: 0.70
+  exit_percentile: 0.30
+  retain_between_thresholds: true
+  minimum_history: 252
+  percentile_window: 756
+  initial_position: 0.0
+
+evidence_governance:
+  multiple_testing_family: "第一、二、三轮全部日线假设合并执行Benjamini-Hochberg；证据评分使用全研究q值。"
+  effective_sample_guard:
+    minimum_pseudo_oos_approx_independent_observations: 20
+    action: "若不足20且原评级为WEAK或STRONG，则降为WEAK_SAMPLE_LIMITED。"
+  candidate_boundary: "第三轮复用旧历史，即使通过证据和回测也只能成为ROUND3_PROVISIONAL_FOR_TRUE_FORWARD，不能冻结。"
+
+candidate_gate:
+  primary_d20_uncapped_evidence_ratings: ["WEAK", "STRONG"]
+  sensitivity_d5_audited_evidence_ratings: ["WEAK", "STRONG"]
+  minimum_pseudo_oos_trade_count: 6
+  require_positive_pseudo_oos_excess: true
+  require_risk_adjusted_or_drawdown_improvement: true
+  require_positive_15bps_stress_excess: true
+  note: "D20在现有pseudo-OOS中最多约9个独立观测，只有D20原始证据与样本数充足的D5证据同时通过，才允许进入真正前向观察。"
+
+factor_definitions:
+  - factor_id: "EQ_ADVANCER_SHARE_1D"
+    column: "equal_advancer_share_1d"
+    name_cn: "沪深300点时成员等权上涨家数占比"
+    transform: "当日总收益为正的点时成员数除以有效成员数"
+    lookback: 1
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "breadth_level"
+    economic_hypothesis: "上涨由更多成分股共同参与时，指数短中期延续概率更高。"
+
+  - factor_id: "EQ_POSITIVE_MOMENTUM_20D"
+    column: "equal_positive_momentum_share_20d"
+    name_cn: "沪深300点时成员二十日正动量占比"
+    transform: "二十日总收益为正的点时成员数除以有效成员数"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "breadth_momentum"
+    economic_hypothesis: "中期趋势在多数成分股间扩散时，指数趋势比少数权重股驱动更可持续。"
+
+  - factor_id: "EQ_ABOVE_MA20_SHARE"
+    column: "equal_above_ma20_share"
+    name_cn: "沪深300点时成员站上二十日均线占比"
+    transform: "总收益价格高于自身二十日均线的点时成员数占比"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "breadth_trend_short"
+    economic_hypothesis: "短周期趋势覆盖面扩大时，指数未来收益更有支撑。"
+
+  - factor_id: "EQ_ABOVE_MA60_SHARE"
+    column: "equal_above_ma60_share"
+    name_cn: "沪深300点时成员站上六十日均线占比"
+    transform: "总收益价格高于自身六十日均线的点时成员数占比"
+    lookback: 60
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "breadth_trend_medium"
+    economic_hypothesis: "较长周期趋势覆盖面扩大时，指数中期趋势更稳健。"
+
+  - factor_id: "EQ_RETURN_DISPERSION_1D"
+    column: "equal_return_dispersion_1d"
+    name_cn: "沪深300点时成员单日收益离散度"
+    transform: "点时成员单日总收益的等权横截面标准差"
+    lookback: 1
+    expected_sign: "negative"
+    threshold_mode: "rolling_percentile"
+    role: "cross_sectional_stress"
+    economic_hypothesis: "成员收益分化加剧代表内部结构脆弱，未来指数收益应更低。"
+
+  - factor_id: "SMALL_MINUS_LARGE_ADVANCER_1D"
+    column: "small_minus_large_advancer_share_1d"
+    name_cn: "流通市值小盘减大盘上涨占比"
+    transform: "每日流通市值最低三分之一成员上涨占比减最高三分之一成员上涨占比"
+    lookback: 1
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "capitalization_participation"
+    economic_hypothesis: "行情从大权重扩散到较小流通市值成员时，参与广度提高并可能支持指数延续。"
+
+hypotheses:
+  - {hypothesis_id: "R3H001", factor_id: "EQ_ADVANCER_SHARE_1D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R3H002", factor_id: "EQ_POSITIVE_MOMENTUM_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R3H003", factor_id: "EQ_ABOVE_MA20_SHARE", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R3H004", factor_id: "EQ_ABOVE_MA60_SHARE", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R3H005", factor_id: "EQ_RETURN_DISPERSION_1D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R3H006", factor_id: "SMALL_MINUS_LARGE_ADVANCER_1D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R3H007", factor_id: "EQ_ADVANCER_SHARE_1D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R3H008", factor_id: "EQ_POSITIVE_MOMENTUM_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R3H009", factor_id: "EQ_ABOVE_MA20_SHARE", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R3H010", factor_id: "EQ_ABOVE_MA60_SHARE", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R3H011", factor_id: "EQ_RETURN_DISPERSION_1D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R3H012", factor_id: "SMALL_MINUS_LARGE_ADVANCER_1D", target: "exec_total_return_5d_net"}
+
+blocked_tracks:
+  official_historical_weights: "缺少满足五年覆盖的中证官方点时权重；本轮只使用明确标注的点时成员等权宽度。"
+  historical_sector_classification: "当前只有最新板块权重快照，没有可验证的历史点时行业分类，禁止把当前板块倒填到历史。"
+  pv_lc_order_flow: "没有Level-2逐笔订单、成交、撤单与盘口快照；禁止用OHLCV伪造PV或LC。"
+  historical_total_market_cap: "新浪字段是流通股本，不是总股本；本轮只做流通市值相对分层，不声称总市值因子。"

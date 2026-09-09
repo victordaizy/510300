@@ -1,0 +1,123 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-08-18T14:59:54.922257+08:00",
+  "collector": {
+    "collector_id": "510300_PRIMARY_SECONDARY_FORWARD_V1",
+    "symbol": "510300.SH",
+    "fund_code": "510300",
+    "timezone": "Asia/Shanghai",
+    "timeout_seconds": 15,
+    "observation_interval_seconds": 60,
+    "collection_start_time": "09:30:00",
+    "collection_end_time": "15:00:00",
+    "collection_sessions": [
+      [
+        "09:30:00",
+        "11:30:00"
+      ],
+      [
+        "13:00:00",
+        "15:00:00"
+      ]
+    ],
+    "evidence_scope": "仅从实际接入日起的前向数据，不回填历史IOPV"
+  },
+  "checks": {
+    "same_fund_code": true,
+    "same_trade_date": true,
+    "iopv_publication_enabled": true,
+    "positive_iopv": true,
+    "positive_last_price": true,
+    "positive_creation_unit": true,
+    "snapshot_fresh_during_collection_session": true
+  },
+  "freshness": {
+    "during_collection_session": true,
+    "clock_delay_seconds": 1.922257,
+    "maximum_allowed_seconds_during_session": 180.0
+  },
+  "latest_pcf": {
+    "trading_day": "2026-08-18",
+    "previous_trading_day": "2026-08-17",
+    "fund_code": "510300",
+    "fund_name": "华泰柏瑞沪深300交易型开放式指数证券投资基金",
+    "fund_company": "华泰柏瑞基金管理有限公司",
+    "file_id": "1465021",
+    "etf_type": "8",
+    "nav": 4.8038,
+    "nav_per_creation_unit": 4323446.47,
+    "previous_cash_component": 108343.47,
+    "estimated_cash_component": 108377.47,
+    "maximum_cash_ratio": 0.5,
+    "creation_redemption_unit": 900000,
+    "component_count": 300,
+    "publish_iopv": true,
+    "creation_redemption_status": "申购和赎回皆允许",
+    "creation_redemption_mechanism": "1",
+    "creation_limit": null,
+    "redemption_limit": 3600000000.0,
+    "net_creation_limit": null,
+    "net_redemption_limit": null,
+    "creation_limit_per_account": null,
+    "redemption_limit_per_account": null,
+    "net_creation_limit_per_account": null,
+    "net_redemption_limit_per_account": null,
+    "source": "sse.COMMON_SSE_CP_JJLB_ETFJJGK_GGSGSHQD_JBXX_C",
+    "retrieved_at": "2026-08-18T09:30:05.929758+08:00"
+  },
+  "latest_iopv": {
+    "exchange_timestamp": "2026-08-18 14:59:53",
+    "trade_date": "2026-08-18",
+    "fund_code": "510300",
+    "name": "300ETF",
+    "extended_name": "沪深300ETF华泰柏瑞",
+    "last_price": 4.787,
+    "iopv": 4.7889,
+    "premium_discount_bps": -3.96750819603664,
+    "change_rate_pct": -0.29,
+    "change_cny": -0.014,
+    "open": 4.794,
+    "previous_close": 4.801,
+    "high": 4.803,
+    "low": 4.751,
+    "volume_shares": 654667905.0,
+    "amount_cny": 3129165099.0,
+    "trade_phase_raw": "U111    ",
+    "post_close_volume_shares": 0.0,
+    "post_close_amount_cny": 0.0,
+    "post_close_phase_raw": "A1      ",
+    "product_subtype": "EBS",
+    "source": "sse.yunhq.sh1.snap",
+    "retrieved_at": "2026-08-18T14:59:54.883928+08:00"
+  },
+  "account_feasibility": {
+    "reference_account_cny": 20000.0,
+    "creation_unit_notional_cny": 4308300.0,
+    "can_directly_create_or_redeem": false,
+    "intended_use": "只用PCF和IOPV观察一级市场吸收状态，在二级市场交易510300"
+  },
+  "storage": {
+    "pcf": {
+      "file": "data/raw/primary_market/510300_pcf_daily.parquet",
+      "row_count": 4,
+      "first_key": "2026-08-13",
+      "last_key": "2026-08-18",
+      "sha256": "829c810ec802ff72ad6532eb5255f25a98fef36cad8dec5db46c14c5e37dac65"
+    },
+    "iopv": {
+      "file": "data/raw/primary_market/510300_iopv_snapshots.parquet",
+      "row_count": 390,
+      "first_key": "2026-08-13 16:29:06",
+      "last_key": "2026-08-18 14:59:53",
+      "sha256": "519016d232c5b2cd7436f2d106f6bbf3b2e89bc522a1465242cf161cce75e568"
+    }
+  },
+  "raw_response_files": [
+    "data/raw/primary_market/raw/iopv/20260818/20260818T145951_424093+0800.json"
+  ],
+  "governance": {
+    "use_as_trading_signal": false,
+    "automatic_ordering_authorized": false,
+    "note": "当前只采集和纸面验证；未通过前向门槛前不得映射实盘仓位。"
+  }
+}

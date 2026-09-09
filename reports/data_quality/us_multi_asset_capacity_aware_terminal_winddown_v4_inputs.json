@@ -1,0 +1,105 @@
+{
+  "inputs": {
+    "source_status": "PASS_INPUT_ACQUISITION_ONLY",
+    "panel_columns_read": [
+      "ticker",
+      "date",
+      "raw_open",
+      "raw_high",
+      "raw_low",
+      "raw_close",
+      "raw_volume",
+      "raw_dollar_turnover_usd",
+      "qfq_factor",
+      "adjust",
+      "split_ratio_at_open",
+      "cash_distribution_per_post_event_share_usd",
+      "signal_total_return_index"
+    ],
+    "fx_columns_read": [
+      "date",
+      "cny_per_usd",
+      "source"
+    ],
+    "benchmark_columns_read": [
+      "date",
+      "symbol",
+      "name",
+      "close",
+      "source"
+    ],
+    "visible_panel_path": "data/raw/us_liquid_treasury_multi_asset_v2/visible_panel_through_2019.parquet",
+    "visible_fx_path": "data/raw/us_leveraged_multi_asset_v1r_fx/visible_fx_through_2019.parquet",
+    "sealed_panel_or_benchmark_read": false,
+    "future_open_or_strategy_return_read": true,
+    "signal_only": false
+  },
+  "product_master_rows": 4,
+  "signal": {
+    "common_trading_day_count": 2218,
+    "signal_date_count": 72,
+    "selection_row_count": 119,
+    "dates_with_at_least_one_eligible_asset": 66,
+    "dates_with_two_eligible_assets": 53,
+    "eligible_asset_date_rows": 141,
+    "first_signal_date": "2013-12-31",
+    "last_signal_date": "2019-11-29",
+    "first_execution_date": "2014-01-02",
+    "last_execution_date": "2019-12-02",
+    "signal_columns_used": [
+      "date",
+      "raw_close",
+      "raw_dollar_turnover_usd",
+      "raw_volume",
+      "signal_total_return_index",
+      "ticker"
+    ],
+    "future_open_or_strategy_return_read": false,
+    "sealed_replication_read": false
+  },
+  "terminal_winddown": {
+    "terminal_winddown_common_trading_days": 20,
+    "winddown_start_date": "2019-12-03",
+    "visible_end_date": "2019-12-31",
+    "original_selection_rows": 119,
+    "executed_selection_rows": 119,
+    "original_schedule_rows": 72,
+    "execution_schedule_rows_including_winddown": 73,
+    "new_entries_after_winddown": 0,
+    "market_return_or_future_open_read": false
+  },
+  "portfolio": {
+    "initial_capital_cny": 500000.0,
+    "final_base_nav_cny": 1280573.9500436392,
+    "final_stress_nav_cny": 1227816.2159906835,
+    "entry_transaction_count": 41,
+    "exit_transaction_count": 15,
+    "resize_sell_transaction_count": 43,
+    "blocked_entry_count": 15,
+    "blocked_exit_attempt_count": 0,
+    "blocked_resize_attempt_count": 17,
+    "capacity_block_count": 0,
+    "capacity_target_capped_count": 15,
+    "capacity_sliced_exit_transaction_count": 0,
+    "capacity_sliced_resize_transaction_count": 0,
+    "stale_mark_count": 0,
+    "split_event_count_for_held_positions": 5,
+    "fractional_cash_in_lieu_count": 2,
+    "distribution_event_count_for_held_positions": 25,
+    "maximum_observed_order_capacity_fraction": 0.0004997571222081844,
+    "maximum_gross_exposure": 0.9997584971339967,
+    "maximum_net_exposure": 0.9997584971339967,
+    "maximum_position_count": 2,
+    "base_security_cost_rate_per_leg": 0.0017000000000000001,
+    "stress_security_cost_rate_per_leg": 0.0047,
+    "base_fx_spread_rate_per_conversion": 0.001,
+    "stress_fx_spread_rate_per_conversion": 0.003,
+    "terminal_position_count": 0,
+    "sealed_replication_read": false
+  },
+  "daily_context": {
+    "rows": 1508,
+    "maximum_fx_age_calendar_days": 10,
+    "strictly_lagged_fx": true
+  }
+}

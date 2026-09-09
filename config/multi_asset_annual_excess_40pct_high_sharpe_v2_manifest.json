@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2_MANIFEST",
+  "status": "FROZEN_BEFORE_QDII_RELATIVE_VALUE_CANDIDATE_OUTCOME",
+  "frozen_at": "2026-08-27T02:01:43.944496+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v2.yaml": "fe273cfcfae7c7ae198fdefe28637a408898680ff386752e24a4e04a20bf416f",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2_SPEC.md": "8a20be9aa7b329bdc6176ea34399aaa8606a52e29380df049204ee684099e00b",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v2.py": "9f14fb2d515ef8a55f50256bb599d16008c1dec1eb49d87a7b3d0da26ca8cbaf"
+  },
+  "tracked_content_sha256": "54a41994b3d912fc4311310e58603eb01c6dc6c94fa739ad0e87c0f6361e5fdf",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v1_manifest.json",
+    "manifest_sha256": "103921ca48929309f8c7197641ebed27f46dc0e66000b91bd71d07eb17bd9d8f",
+    "content_sha256": "f6a86b368a982f158360e84a7f302145230323dd20309b3e67eb2d480bf9aee9",
+    "tracked_file_count": 5
+  },
+  "v1_closeout": {
+    "path": "reports/research/multi_asset_annual_excess_40pct_high_sharpe_closeout_20260827.json",
+    "sha256": "4e6af2fcf944780d11b54d890d083fd123f8e1ddcf8801d528ef3775ac263502",
+    "checks": {
+      "goal_not_achieved": true,
+      "no_surviving_candidates": true,
+      "sealed_periods_not_opened": true
+    }
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true,
+    "rolling_and_bootstrap_gates_unchanged_from_v1": true,
+    "forward_726_day_requirement_unchanged_from_v1": true
+  },
+  "new_lane": {
+    "lane": "CROSS_BORDER_QDII_RELATIVE_VALUE",
+    "maximum_candidates_before_new_holdout": 1,
+    "permitted_mechanism": "跨境ETF相对境外跟踪指数及人民币汇率的可执行折价回归",
+    "prohibited_reuse": [
+      "ETF_MOMENTUM_OR_ROTATION",
+      "LIQUIDITY_SHOCK_REVERSAL",
+      "A_SHARE_LOW_VOL_OR_RESIDUAL_TREND",
+      "A_SHARE_SUE_PROTECTIVE_PUT"
+    ],
+    "short_sale_allowed": false,
+    "leverage_allowed": false,
+    "same_open_price_signal_and_execution_allowed": false
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_CSI300_RETURN_DISPERSION_VOLATILITY_INPUTS_V1",
+  "status": "PASS",
+  "checked_at_asia_shanghai": "2026-08-30T22:53:05.689811+08:00",
+  "candidate_future_volatility_outcomes_computed": false,
+  "candidate_portfolio_returns_computed": false,
+  "etf_price_values_read": false,
+  "h00300_values_read": false,
+  "input_builder_scope": "仅构建成分横截面离散度与保存000300价格指数原始输入；不计算指数收益、未来实现方差、510300收益或夏普率",
+  "pre_freeze_contract_corrections": [
+    {
+      "issue": "现有000300_constituent_daily_status.json绑定旧的579879行新浪面板，而当前000300_constituent_daily.parquet为484200行的后续面板",
+      "action": "识别该状态文件实际绑定的旧新浪面板备份；不把它用于当前Tushare文件，改为与哈希完全匹配的pre_tushare_backfill备份共同作为2021至2026统一因子输入",
+      "candidate_outcomes_read_before_correction": false,
+      "portfolio_returns_read_before_correction": false
+    },
+    {
+      "issue": "上游历史成员CSV含4条纳入日期空缺且与同证券其他区间存在歧义的记录；早期月末可审计实际集合为300至301只",
+      "action": "不插值、不伪造日期，明确排除4条未决区间；2005至2014使用剩余点时区间的300至301只实际集合，2015年后改由行情面板自身is_index_member标记提供每日300只集合",
+      "candidate_outcomes_read_before_correction": false,
+      "portfolio_returns_read_before_correction": false
+    },
+    {
+      "issue": "当前Tushare活跃成员面板在2021-12仅有275只月末成员同时具备上月末价格，低于冻结的95%覆盖率",
+      "action": "不放宽覆盖率、不使用调入日至月末伪整月收益；整个2021-08至2026-07区段统一改用已审计新浪全历史备份面板，其2021-12为300/300且保持月内单一数据源",
+      "rejected_tushare_panel_sha256": "e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7",
+      "admitted_sina_backup_sha256": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+      "candidate_outcomes_read_before_correction": false,
+      "portfolio_returns_read_before_correction": false
+    }
+  ],
+  "membership": {
+    "path": "data/raw/constituents/000300_historical_membership_intervals.parquet",
+    "sha256": "f0199e5bf78de66c6e53902dc470b170d26b33fd0597f37d7e1cc38025e69650",
+    "raw_rows": 1225,
+    "admitted_rows": 1221,
+    "excluded_unresolved_null_opt_in_rows": 4,
+    "excluded_unresolved_intervals": [
+      {
+        "symbol": "600312.SH",
+        "opt_out": "2012-01-01"
+      },
+      {
+        "symbol": "600501.SH",
+        "opt_out": "2008-06-14"
+      },
+      {
+        "symbol": "600549.SH",
+        "opt_out": "2019-06-17"
+      },
+      {
+        "symbol": "600786.SH",
+        "opt_out": "2008-06-14"
+      }
+    ],
+    "unique_symbols": 948,
+    "first_opt_in": "2005-04-08",
+    "last_opt_in": "2026-06-12",
+    "early_formal_month_end_count": 116,
+    "early_minimum_active_members": 300,
+    "early_maximum_active_members": 301,
+    "post_2015_member_source": "PANEL_IS_INDEX_MEMBER",
+    "governance_label": "POINT_IN_TIME_MEMBERSHIP_EQUAL_WEIGHT_NOT_OFFICIAL_HISTORICAL_WEIGHT"
+  },
+  "early_component_download": {
+    "requested_symbols": 642,
+    "successful_symbols": 642,
+    "failed_symbols": 0,
+    "failed_examples": [],
+    "successful_parsed_rows": 1251208,
+    "source_archive": {
+      "member_count": 2569,
+      "crc_passed": true,
+      "source_index_sha256": "d4bdca5f47eb27f2101989d692c86fcd9ee5ae60d1db094eaa5733124970c2c3",
+      "path": "data/raw/market/csi300_return_dispersion_v1_early_component_source_archive.zip",
+      "sha256": "d5e7009f5f404cbb317706b79fb9b69e59b52ddf9fed5c3f72ee6bead4ff652c",
+      "bytes": 111777160
+    }
+  },
+  "existing_panels": {
+    "external_2014_2021": {
+      "path": "data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet",
+      "sha256": "b35f1bf2a39ed4567d067b35737e7193a9d78642b85a90b4e63da08b4382c24b",
+      "bytes": 54522173,
+      "rows": 891399,
+      "first_date": "2014-07-01",
+      "last_date": "2021-08-11",
+      "unique_symbols": 565,
+      "active_rows": 518314,
+      "minimum_active_members_per_day": 278,
+      "maximum_active_members_per_day": 300,
+      "price_sources": [
+        "missing_before_first_provider_history",
+        "sina_forward_fill_suspension",
+        "sina_history_node_decoder"
+      ],
+      "adjustment_sources": [
+        "missing_before_first_provider_history",
+        "sina_hfq_factor",
+        "sina_hfq_factor_forward_fill"
+      ]
+    },
+    "sina_backup_2021_2026": {
+      "path": "data/raw/constituents/000300_constituent_daily_pre_tushare_backfill.parquet",
+      "sha256": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+      "bytes": 37055413,
+      "rows": 579879,
+      "first_date": "2021-04-14",
+      "last_date": "2026-08-12",
+      "unique_symbols": 459,
+      "active_rows": 387900,
+      "minimum_active_members_per_day": 300,
+      "maximum_active_members_per_day": 300,
+      "price_sources": [
+        "missing_before_first_provider_history",
+        "sina_forward_fill_suspension",
+        "sina_history_node_decoder"
+      ],
+      "adjustment_sources": [
+        "missing_before_first_provider_history",
+        "sina_hfq_factor",
+        "sina_hfq_factor_forward_fill"
+      ]
+    },
+    "sina_backup_audit_path": "reports/data_quality/000300_constituent_daily_status.json",
+    "sina_backup_audit_sha256": "cbae229ce23d4e75582f321521ce9a434d8ed93462a7ef9b5a2e934942eb329b",
+    "current_tushare_panel_rejected_for_factor_due_to_2021_12_coverage": true
+  },
+  "csi300_price_index": {
+    "path": "data/raw/market/000300_price_index_return_dispersion_v1.parquet",
+    "sha256": "393e4906542184792d5f64ad7919294448e5d55d49f0b111b04a86d775ffcefc",
+    "bytes": 241482,
+    "rows": 5189,
+    "first_date": "2005-04-08",
+    "last_date": "2026-08-14",
+    "source": "akshare.stock_zh_index_daily",
+    "returns_computed": false
+  },
+  "monthly_dispersion_factor": {
+    "path": "data/raw/market/csi300_monthly_return_dispersion_v1.parquet",
+    "sha256": "255035fe9cd77155436d682f427145b0599216a9c42faa013164ffb363b452ac",
+    "bytes": 25854,
+    "rows": 255,
+    "first_month": "2005-05",
+    "last_month": "2026-07",
+    "minimum_valid_return_count": 298,
+    "minimum_valid_return_coverage": 0.9933333333333333,
+    "segments": {
+      "EARLY_SINA_RECONSTRUCTION": {
+        "rows": 116,
+        "first_month": "2005-05",
+        "last_month": "2014-12",
+        "minimum_valid_return_count": 298,
+        "minimum_valid_return_coverage": 0.9933333333333333
+      },
+      "EXISTING_SINA_BACKUP_PANEL": {
+        "rows": 60,
+        "first_month": "2021-08",
+        "last_month": "2026-07",
+        "minimum_valid_return_count": 300,
+        "minimum_valid_return_coverage": 1.0
+      },
+      "EXISTING_SINA_EXTERNAL_PANEL": {
+        "rows": 79,
+        "first_month": "2015-01",
+        "last_month": "2021-07",
+        "minimum_valid_return_count": 299,
+        "minimum_valid_return_coverage": 0.9966666666666667
+      }
+    },
+    "future_outcomes_joined": false
+  },
+  "config": {
+    "path": "config/510300_csi300_return_dispersion_volatility_v1.yaml",
+    "sha256": "fc18ba9bf5eba923cf896bdf1338eed35829a1776c82d9145d7e5775e0c0d939"
+  },
+  "historical_availability_status": "HISTORICAL_ARCHIVE_RECONSTRUCTION_NOT_TIMESTAMP_PROOF",
+  "live_or_forward_use": "月末收盘后且下一交易日开盘前必须捕获当期成分集合与全部所需收盘价；覆盖不足则NO_VIEW并维持原仓位"
+}

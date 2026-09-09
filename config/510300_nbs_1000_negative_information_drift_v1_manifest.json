@@ -1,0 +1,76 @@
+{
+  "model_id": "510300_NBS_1000_NEGATIVE_INFORMATION_DRIFT_V1",
+  "version": "1.0.1",
+  "freeze_id": "510300_NBS_1000_NEGATIVE_INFORMATION_DRIFT_V1_20260904T223322+0800",
+  "freeze_state": "PROTOCOL_FROZEN_BEFORE_EVENT_RETURN_READ",
+  "frozen_at": "2026-09-04T22:33:22.5032421+08:00",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/510300-nbs-1000-negative-information-drift-v1",
+  "parent_commit": "b99a526",
+  "frozen_files": {
+    "docs/510300_NBS_1000_NEGATIVE_INFORMATION_DRIFT_V1.md": "28907fd6fbff857f3ce878703ac7d692808366fc3eb23de4e8c8bef0d7c11764",
+    "config/510300_nbs_1000_negative_information_drift_v1.yaml": "1f3825bf20a3211d03f5bfadc42c5fae67dab7255700e728671ccea66d48b613"
+  },
+  "protocol_remediation": {
+    "supersedes_version": "1.0.0",
+    "superseded_manifest_sha256": "90fc9a64c449cc4507538a9669e61f3bcee141a412014d5a940f49b7ee8c1b1b",
+    "change_class": "CLERICAL_OFFICIAL_INDEX_PATH_CORRECTION",
+    "old_schedule_index": "https://www.stats.gov.cn/xxgk/sjfb/fbrcw/",
+    "new_schedule_index": "https://www.stats.gov.cn/xxgk/sjfb/fbrcb/",
+    "research_definition_changed": false,
+    "event_schedule_collection_before_correction": false,
+    "event_return_read_before_correction": false
+  },
+  "source_dependency": {
+    "data_model_id": "510300_STK_MINS_SOURCE_ADMISSION_V1",
+    "version": "1.0.0",
+    "manifest_path": "config/510300_stk_mins_source_admission_v1_manifest.json",
+    "manifest_sha256": "07044f90bd2748dbe934f4b16cc2b3bb32448daad9b1cbff0eba37ec125ce4d9",
+    "required_state": "PASS_STK_MINS_SOURCE_ADMISSION"
+  },
+  "fixed_external_inputs": {
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "data/reference/510300_dividends_coverage.json": "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"
+  },
+  "archived_branch_boundary": {
+    "model_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1",
+    "state": "ARCHIVED_BLOCKED_G0_AND_FAILED_G1_OBSERVATION",
+    "archive_conclusion_commit": "06ba2ca",
+    "reuse_option_data": false,
+    "rescue_allowed": false
+  },
+  "frozen_research_choices": {
+    "event_family": "NBS_NATIONAL_ECONOMY_SCHEDULED_AT_10_00_ONLY",
+    "timestamp_semantics": "BAR_END",
+    "windows": {
+      "pre": "09:56-10:00",
+      "reaction": "10:01-10:05",
+      "entry": "10:07-10:11",
+      "exit": "14:51-14:55"
+    },
+    "causal_baseline_days": 60,
+    "unique_feature": "MAX_NEGATIVE_STANDARDIZED_REACTION_ZERO",
+    "unique_label": "NEGATIVE_LOG_EXIT_VWAP_DIV_ENTRY_VWAP",
+    "minimum_training_events": 36,
+    "signal_lcb_threshold": 0.0042,
+    "bootstrap_resamples": 10000,
+    "random_seed": 5103001000,
+    "portfolio_is_one_shot_after_g0_to_g3": true,
+    "parameter_rescue_allowed": false
+  },
+  "pre_freeze_attestations": {
+    "minute_source_collection_run": true,
+    "minute_source_state": "BLOCKED_STK_MINS_SOURCE_ADMISSION",
+    "nbs_schedule_collection_run": false,
+    "nbs_event_ledger_created": false,
+    "nbs_event_return_read": false,
+    "nbs_event_label_created": false,
+    "nbs_model_trained": false,
+    "nbs_signal_metric_read": false,
+    "portfolio_evaluation_run": false,
+    "sharpe_calculated": false,
+    "order_generated": false,
+    "position_impact": 0
+  },
+  "drift_rule": "任一frozen_files、来源清单或固定外部输入哈希不匹配时，在事件收益读取、模型训练或组合评价之前停止。"
+}

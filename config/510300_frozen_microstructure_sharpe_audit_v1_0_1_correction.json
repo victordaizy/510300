@@ -1,0 +1,29 @@
+{
+  "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1_0_1",
+  "state": "MECHANICAL_CORRECTION_BEFORE_METRICS",
+  "parent_project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1",
+  "parent_config": "config/510300_frozen_microstructure_sharpe_audit_v1.yaml",
+  "parent_config_sha256": "6b1a17c334cc9fe59ab5f82bfa875d0a13f3eb6622fde7d4d43eb637d8e22687",
+  "parent_manifest": "config/510300_frozen_microstructure_sharpe_audit_v1_manifest.json",
+  "parent_manifest_sha256": "e16788651beda66bc4d2ba86af76708939e10f0a250dc58d38596726cc27cbf2",
+  "parent_implementation": "research/frozen_microstructure_sharpe_audit_v1.py",
+  "parent_implementation_sha256": "23aabf01935fc6f30d20ada9bd346c76ff91f67bfd137b02a61c6ac8a89996e3",
+  "failure_receipt": "reports/audit/510300_frozen_microstructure_sharpe_audit_v1_run_failure.json",
+  "exact_failure": "Pandas返回只读NumPy视图，desired[0] = 0在任何指标计算前失败",
+  "permitted_change": "states.fillna(0).astype(np.int8).to_numpy()改为states.fillna(0).astype(np.int8).to_numpy(copy=True)",
+  "unchanged": [
+    "冻结候选和逐日state_final",
+    "2021年及以后范围",
+    "全部评价期间",
+    "五个起点扰动",
+    "2万元和100股整数倍",
+    "基础及双倍成本",
+    "H00300及510300含分红基准",
+    "全部历史及稳健性门槛",
+    "审计证据等级和非实盘边界"
+  ],
+  "metrics_computed_before_correction_freeze": false,
+  "result_file_created_before_correction_freeze": false,
+  "manifest": "config/510300_frozen_microstructure_sharpe_audit_v1_0_1_manifest.json",
+  "live_trading_authorized": false
+}

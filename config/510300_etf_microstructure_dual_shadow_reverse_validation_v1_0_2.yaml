@@ -1,0 +1,135 @@
+protocol:
+  project_id: 510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_REVERSE_VALIDATION_V1_0_2
+  candidate_project_id: 510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_V1
+  candidate_name: MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW
+  state: FROZEN_MECHANICAL_CORRECTION_BEFORE_EXTERNAL_RESULT_COMPUTATION
+  evidence_class: TIME_REVERSED_FIXED_RULE_EXTERNAL_HISTORICAL_VALIDATION
+  interpretation: 候选规则已在2021年8月以后数据上冻结，本项目把同一规则原样应用到更早历史；不是严格前瞻样本，也不是重新发现参数
+  prefreeze_exposure: 已读取V1.0.1采集失败响应；确认所有2227日单位净值两来源完全一致，仅2012-09-30非交易日累计净值存在单点口径异常；冻结前仍未计算任何候选特征、仓位、收益或目标指标
+
+mechanical_correction:
+  prior_version: 510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_REVERSE_VALIDATION_V1_0_1
+  prior_failure_status: data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_1/snapshots/20260828T125111_0800/collection_status.json
+  inherited_pagination_correction: 新浪分页只删除内容完全相同的相邻页边界重复行，去重后唯一日期数严格等于total
+  exact_failure: 两来源单位净值2227日差异全为0；累计净值仅2012-09-30非交易日差1.466，V1.0.1把未声明且不入模的累计净值也错误套用单位净值容差而停止
+  permitted_change: 单位净值仍在全部来源日期执行0.00005硬门；累计净值在全部510300信号交易日执行同一硬门，非交易日累计净值异常完整登记但不进入候选输入
+  unchanged: 候选公式、信号字段、数据日期、交易日历、数据来源、单位净值容差、成本、基准、三个评价期间、五个起点和全部20个百分点门槛
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  allowed_states:
+    - 0
+    - 1
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+  benchmark: H00300_TOTAL_RETURN
+  derivatives_execution_allowed: false
+  leverage_allowed: false
+  short_selling_allowed: false
+
+dates:
+  signal_collection_start: '2012-07-02'
+  signal_collection_end: '2021-08-12'
+  external_evaluation_start: '2013-07-01'
+  external_evaluation_end: '2021-08-11'
+  execution_market_end: '2021-08-13'
+  seam_overlap_date: '2021-08-12'
+  periods:
+    EARLY_2013_07_TO_2017:
+      start: '2013-07-01'
+      end: '2017-12-29'
+    LATE_2018_TO_2021_08_11:
+      start: '2018-01-02'
+      end: '2021-08-11'
+    COMBINED_2013_07_TO_2021_08_11:
+      start: '2013-07-01'
+      end: '2021-08-11'
+
+candidate_contract:
+  frozen_config: config/510300_etf_microstructure_dual_shadow_v1.yaml
+  frozen_manifest: config/510300_etf_microstructure_dual_shadow_v1_manifest.json
+  frozen_validator: research/validate_etf_microstructure_dual_shadow_v1_frozen.py
+  formula_policy: 直接调用已冻结验证器的特征重建函数；任何阈值、窗口、影子门、成本或状态规则变化均判失败
+
+inputs_at_freeze:
+  etf_market: data/raw/r6/510300_daily.parquet
+  benchmark_total_return: data/raw/r6/H00300_total_return_daily.parquet
+  dividends: data/reference/510300_dividends.csv
+  seam_nav: data/raw/fund/510300_nav_daily_raw.parquet
+  seam_fund_share: data/raw/flow/510300_fund_share_daily_tushare.parquet
+  seam_margin: data/raw/flow/510300_margin_detail_daily_tushare.parquet
+
+acquisition:
+  fund_share:
+    source: 上海证券交易所commonQuery.do
+    sql_id: COMMON_SSE_ZQPZ_ETFZL_ETFJBXX_JJGM_SEARCH_L
+    method: 每个510300交易日按SEC_CODE与STAT_DATE请求唯一记录
+    unit_conversion: TOT_VOL万份乘10000得到份
+  margin:
+    source: 上海证券交易所queryMargin.do
+    method: 按beginDate和endDate分页请求510300全部记录
+    derived_rqye: rqyl乘同日510300收盘价
+    derived_rzrqye: rzye加derived_rqye
+  nav:
+    primary: 东方财富f10.lsjz
+    secondary: 新浪CaihuiFundInfoService.getNav
+    maximum_unit_nav_absolute_difference: 0.00005
+    sina_pagination_boundary_policy: 只删除日期及整行内容完全相同的重复记录，去重后唯一日期数必须等于total，否则失败
+    accumulated_nav_policy: 全部510300信号交易日差异不得超过0.00005；非交易日异常仅登记且不进入候选输入
+  raw_response_policy: 每个响应正文保存为只新增文件并记录SHA256；V1.0.2可哈希不变地复制V1.0.1失败任务的响应，恢复执行只能复用已验证文件，禁止覆盖
+  calendar_policy: 以510300交易日为唯一信号日历，三类信号源必须逐日完整且唯一
+  non_trading_source_rows: 仅审计，不进入规则或评价
+
+objective:
+  initial_capital_cny: 500000.0
+  cash_annual_rate: 0.015
+  annualization_trading_days: 242
+  lot_size_shares: 100
+  commission_rate_per_leg: 0.0001
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  minimum_annualized_net_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_242d_excess_median: 0.20
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  required_pass_periods:
+    - EARLY_2013_07_TO_2017
+    - LATE_2018_TO_2021_08_11
+    - COMBINED_2013_07_TO_2021_08_11
+  final_pass_rule: 三个预声明期间的五个起点在压力成本下必须全部同时通过年化净超额20个百分点和滚动242日净超额中位数20个百分点
+
+seam_crosscheck:
+  required_date: '2021-08-12'
+  nav_absolute_tolerance: 0.000000000001
+  share_absolute_tolerance: 0.0
+  direct_margin_absolute_tolerance: 0.0
+  derived_margin_absolute_tolerance: 0.0001
+
+governance:
+  parameter_rescue_after_result: forbidden
+  date_rescue_after_result: forbidden
+  cost_rescue_after_result: forbidden
+  benchmark_rescue_after_result: forbidden
+  source_substitution_after_result: forbidden
+  failed_period_averaging_rescue: forbidden
+  preserve_failed_collection_receipts: true
+  research_only: true
+  paper_or_shadow_position_mapping: disabled
+  order_generation: disabled
+  broker_connection: disabled
+  live_trading_authorized: false
+
+paths:
+  freeze_manifest: config/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2_manifest.json
+  freeze_receipt: reports/frozen/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2_freeze_receipt.json
+  snapshot_root: data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/snapshots
+  evaluation_root: data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/evaluations
+  validation_report_root: reports/validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2

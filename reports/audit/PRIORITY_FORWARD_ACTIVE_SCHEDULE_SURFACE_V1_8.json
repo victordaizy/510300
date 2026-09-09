@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "PRIORITY_FORWARD_ACTIVE_SCHEDULE_SURFACE_V1_8",
+  "generated_at": "2026-08-26T22:55:54.581625+08:00",
+  "status": "PASS_UNAUTHORIZED_SCHEDULES_PAUSED_OR_DISABLED",
+  "frozen_manifest": {
+    "path": "config/priority_forward_research_operations_v1_8_manifest.json",
+    "sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3"
+  },
+  "runtime_patch_id": "PCF_IOPV_PYTHON_MODULE_ENTRYPOINT_V1_2_1",
+  "effective_from": "2026-08-27T09:20:00+08:00",
+  "checks": {
+    "windows_inventory_readable": true,
+    "only_authorized_windows_tasks_enabled": true,
+    "legacy_windows_tasks_disabled": true,
+    "pcf_windows_task_exact": true,
+    "t_only_windows_task_exact": true,
+    "automation_inventory_readable": true,
+    "only_authorized_automations_active": true,
+    "suppressed_automations_paused": true
+  },
+  "codex_automations": {
+    "authorized_active": [
+      {
+        "id": "510300-pcf-iopv",
+        "status": "PASS",
+        "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-pcf-iopv\\automation.toml",
+        "sha256": "77d8ad60a62170ad6af42fa0c56111d3512569d54d4d931c25007893c3632b75",
+        "target_thread_id": "01a0166e-14e0-77e0-ba63-d118a1a80b0d",
+        "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9;BYMINUTE=20",
+        "failures": []
+      },
+      {
+        "id": "510300",
+        "status": "PASS",
+        "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300\\automation.toml",
+        "sha256": "569d93cc8a224618fca8f6a8a54deec7ddfd7561acd82293f7e59455ac7b576c",
+        "target_thread_id": "019ffba4-af4f-7053-97b1-25a4f51957cf",
+        "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=0",
+        "failures": []
+      }
+    ],
+    "inventory": [
+      {
+        "id": "510300",
+        "status": "ACTIVE",
+        "kind": "heartbeat",
+        "runners": [
+          "run_priority_forward_codex_automation_v1_8.py"
+        ],
+        "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300\\automation.toml",
+        "sha256": "569d93cc8a224618fca8f6a8a54deec7ddfd7561acd82293f7e59455ac7b576c"
+      },
+      {
+        "id": "510300-2",
+        "status": "PAUSED",
+        "kind": "heartbeat",
+        "runners": [
+          "audit_510300_option_forward_orderbook_v1.py",
+          "option_surface_signal_v1.py",
+          "run_510300_option_forward_orderbook_v1_once.ps1"
+        ],
+        "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-2\\automation.toml",
+        "sha256": "9cd7995aedeacf774007a5cff5dfa783f84c8041e3af992e228c7e4db549cb46"
+      },
+      {
+        "id": "510300-pcf-iopv",
+        "status": "ACTIVE",
+        "kind": "heartbeat",
+        "runners": [
+          "run_priority_forward_codex_automation_v1_8.py"
+        ],
+        "path": "C:\\Users\\戴周阳\\.codex\\automations\\510300-pcf-iopv\\automation.toml",
+        "sha256": "77d8ad60a62170ad6af42fa0c56111d3512569d54d4d931c25007893c3632b75"
+      },
+      {
+        "id": "v3-forward-1",
+        "status": "PAUSED",
+        "kind": "cron",
+        "runners": [
+          "run_v3_forward_2_daily.py"
+        ],
+        "path": "C:\\Users\\戴周阳\\.codex\\automations\\v3-forward-1\\automation.toml",
+        "sha256": "6edec1a9c802d4c782ba6a7cbc470ef10415f7723e9d48ec6f769844825cbda8"
+      }
+    ]
+  },
+  "windows_tasks": {
+    "authorized_enabled": [
+      "Codex-510300-Primary-Market-Collector",
+      "Codex-510300-T-Only-Forward-V1"
+    ],
+    "disabled_legacy": [
+      "Codex-Industry-Expectation-Gap-Forward-Operations-V1",
+      "Codex-Priority-Forward-Research-Daily-Status"
+    ],
+    "inventory": [
+      {
+        "task_name": "Codex-510300-Primary-Market-Collector",
+        "task_path": "\\",
+        "state": "Ready",
+        "execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_8.py\" --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_4.yaml\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_research_operations_v1_8_manifest.json\" --expected-manifest-sha256 ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+        "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+      },
+      {
+        "task_name": "Codex-510300-T-Only-Forward-V1",
+        "task_path": "\\",
+        "state": "Ready",
+        "execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_t_only_forward_v1_daily_v1_2.py\" --manifest \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\t_only_forward_v1_1_maturity_only_v1_2_manifest.json\" --expected-manifest-sha256 a390cdb2cbd8c1bfa3dc18dbd1055d2acf1792d39b337ff27bd08d4389a01d29",
+        "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+      },
+      {
+        "task_name": "Codex-Industry-Expectation-Gap-Forward-Operations-V1",
+        "task_path": "\\",
+        "state": "Disabled",
+        "execute": "powershell.exe",
+        "arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_industry_expectation_gap_forward_operations_task.ps1\"",
+        "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+      },
+      {
+        "task_name": "Codex-Priority-Forward-Research-Daily-Status",
+        "task_path": "\\",
+        "state": "Disabled",
+        "execute": "powershell.exe",
+        "arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_research_status_task.ps1\"",
+        "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8"
+      }
+    ]
+  },
+  "actions": {
+    "research_run_triggered_by_deployment": false,
+    "same_day_pcf_retry_performed": false,
+    "historical_evidence_modified": false,
+    "old_schedule_audit_overwritten": false
+  }
+}

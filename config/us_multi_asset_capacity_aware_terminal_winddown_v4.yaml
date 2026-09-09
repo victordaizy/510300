@@ -1,0 +1,48 @@
+protocol:
+  candidate_id: "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10"
+  status: "FROZEN_BEFORE_VISIBLE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+base_candidate_config: "config/us_multi_asset_capacity_aware_absolute_momentum_v3.yaml"
+
+execution_reconstitution:
+  reconstitution_of: "US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM_V3"
+  reason: "V3在绩效形成前因单日期末容量不足失败；V4预留固定20个共同交易日逐日清仓"
+  no_v3_performance_available: true
+  selection_products_costs_capacity_and_gates_unchanged: true
+  terminal_winddown_chosen_before_visible_outcome: true
+
+overrides:
+  protocol:
+    candidate_id: "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4"
+    parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10"
+    lane: "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN"
+    mechanism: "固定四只美国ETF容量感知绝对动量，并在最后20个共同交易日逐日容量清仓"
+  inputs:
+    parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v10_manifest.json"
+  portfolio:
+    terminal_liquidation_time: "FIRST_OPEN_OF_LAST_20_COMMON_US_TRADING_DAYS"
+    terminal_open_positions_policy: "FAIL_IF_NOT_ZERO_BY_VISIBLE_END_AFTER_FROZEN_20_DAY_WINDDOWN"
+    terminal_winddown_common_trading_days: 20
+    stop_new_entries_at_terminal_winddown_start: true
+    terminal_winddown_schedule_mode: "PREDETERMINED_VISIBLE_BOUNDARY_NOT_MARKET_SIGNAL"
+  historical_evidence_limits:
+    performance_screen_label: "DISCOVERY_ONLY_US_CAPACITY_AWARE_TERMINAL_WINDDOWN_VISIBLE"
+  outputs:
+    input_audit_json: "reports/data_quality/us_multi_asset_capacity_aware_terminal_winddown_v4_inputs.json"
+    manifest: "config/us_multi_asset_capacity_aware_terminal_winddown_v4_manifest.json"
+    visible_daily_returns: "data/research/us_multi_asset_capacity_aware_terminal_winddown_v4/visible_daily_returns.parquet"
+    visible_selections: "data/research/us_multi_asset_capacity_aware_terminal_winddown_v4/visible_selections.parquet"
+    visible_trades: "data/research/us_multi_asset_capacity_aware_terminal_winddown_v4/visible_trades.parquet"
+    visible_report_json: "reports/research/us_multi_asset_capacity_aware_terminal_winddown_v4_visible.json"
+    visible_report_markdown: "reports/research/US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4_VISIBLE.md"
+    replication_report_json: "reports/research/us_multi_asset_capacity_aware_terminal_winddown_v4_replication.json"
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

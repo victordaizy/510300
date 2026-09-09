@@ -1,0 +1,83 @@
+protocol:
+  project_id: 510300_OPTION_FORWARD_ORDERBOOK_V1
+  description: 为冻结的O1至O4期权因子采集不可回填的真实收盘盘口
+  research_only: true
+  historical_contamination_cutoff: '2026-08-18'
+  earliest_permitted_capture_date: '2026-08-19'
+  upstream_registry: config/return_tail_hypothesis_registry.yaml
+  candidate_ids: [O1, O2, O3, O4]
+  factor_count: 4
+
+capture:
+  timezone: Asia/Shanghai
+  expected_trade_date_required: true
+  window_start: '14:58:30'
+  window_end: '15:05:30'
+  source: sina.option_sse_spot_price
+  quote_batches_maximum_contracts: 40
+  request_timeout_seconds: 60
+  retry_count: 3
+  append_only_date_files: true
+  overwrite_forbidden: true
+
+universe:
+  underlying: 510300.SH
+  option_provider_code: OP510300.SH
+  exchange: SSE
+  dynamic_contract_master_source: tushare_proxy.opt_basic
+  active_rule: list_date <= expected_trade_date <= delist_date
+  adjusted_contracts_preserved: true
+
+quality:
+  active_contract_coverage_minimum: 1.0
+  positive_bid1_ratio_minimum: 0.99
+  positive_ask1_ratio_minimum: 0.99
+  maximum_inverted_quote_count: 0
+  maximum_duplicate_key_count: 0
+  expected_quote_date_match_required: true
+  capture_window_required: true
+  required_columns:
+    - expected_trade_date
+    - contract_code
+    - option_type
+    - expiry_date
+    - strike
+    - contract_unit
+    - is_adjusted
+    - bid1
+    - ask1
+    - bid1_volume
+    - ask1_volume
+    - last_price
+    - volume
+    - open_interest
+    - quote_timestamp
+    - capture_started_at
+    - capture_finished_at
+    - source
+
+forward_gates:
+  eligible_orderbook_days_minimum: 242
+  matured_20d_outcomes_minimum: 242
+  matured_60d_outcomes_minimum: 242
+  independent_bad_state_episodes_minimum: 5
+  strategy_return_test_authorized_before_gate: false
+
+paths:
+  protocol_manifest: config/510300_option_forward_orderbook_v1_protocol_manifest.json
+  snapshot_directory: data/forward/510300_option_orderbook_v1/snapshots
+  master_snapshot_directory: data/forward/510300_option_orderbook_v1/master_snapshots
+  attempt_directory: reports/forward/510300_option_orderbook_v1/attempts
+  forward_start_status: reports/forward/510300_option_orderbook_v1/forward_start_status.json
+  latest_collection_status: reports/forward/510300_option_orderbook_v1/latest_collection_status.json
+  audit_json: reports/forward/510300_option_orderbook_v1/audit.json
+  audit_markdown: reports/forward/510300_option_orderbook_v1/AUDIT.md
+
+governance:
+  historical_backfill_forbidden: true
+  signal_calculation_before_data_gate: false
+  return_test_before_data_gate: false
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

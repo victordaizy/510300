@@ -1,0 +1,290 @@
+protocol:
+  study_id: 510300_DIRECTION_SWITCH_V1
+  version: 1.0.0
+  state: PREREGISTERED_BEFORE_NEW_OUTCOMES
+  frozen_at: '2026-08-30T16:52:33+08:00'
+  research_stage: DISCOVERY_ONLY
+  trade_assets: [510300.SH, CASH_CNY]
+  validated_alpha: false
+  paper_eligible: false
+  live_trading_authorized: false
+  no_parameter_rescue: true
+  historical_run_limit: 1
+  predecessor_if_family_status: REJECTED_FIXED_IF_TRUE_TERM_STRUCTURE_BINARY_FAMILY_NO_RESCUE
+  predecessor_if_family_reopened: false
+  orthogonal_increment: BASIS_RESIDUAL_X_AGGREGATE_OPEN_INTEREST_SHOCK_WITH_EXHAUSTION
+
+data_scope:
+  diagnostic_start: '2015-01-05'
+  diagnostic_end: '2026-08-25'
+  if_evaluation_start: '2015-01-05'
+  if_evaluation_end: '2026-08-12'
+  if_feature_warmup_start: '2012-05-28'
+  only_completed_observations: true
+
+inputs:
+  diagnostic_etf:
+    file: data/raw/market/510300_daily_2015_v2.parquet
+    sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+  diagnostic_h00300:
+    file: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    sha256: 5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c
+  dividends:
+    file: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_events: 14
+  diagnostic_market_audit:
+    file: reports/data_quality/510300_market_inputs_2015_v2.json
+    sha256: 05f6c86958d03f11dca129d4a0ce8ed210546ad8131ea7585b8d2e4805be3718
+    required_status: PASS
+  macro_result:
+    file: reports/research/510300_macro_stress_avoidance_2015_v2_result.json
+    sha256: f410051a7cc897815ca29fcdb5ccc4f00d8515bbb87e0dd348c54e75eab750bf
+    required_decision: REJECTED_2015_START_SENSITIVITY_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE
+  macro_events:
+    file: reports/research/510300_macro_stress_avoidance_2015_v2_events.parquet
+    sha256: 8eed4005921d819e05f1cc34b375d8fcf7e7ab90c9cae0da2dcafc86f83df63b
+  macro_strategy_ledger:
+    file: reports/research/510300_macro_stress_avoidance_2015_v2_5y_ledger.parquet
+    sha256: 502a1a4f2011a7cf7230e6b26074a2a605b02aeb34396683203b20e575ed93a4
+  macro_strategy_trades:
+    file: reports/research/510300_macro_stress_avoidance_2015_v2_5y_trades.parquet
+    sha256: 8bb4a9e4e3e88989a077860b9035bd3fbcfcd033f86bf2f8d93534ece1d12a4a
+  macro_buy_hold_ledger:
+    file: reports/research/510300_macro_stress_avoidance_2015_v2_buy_hold_ledger.parquet
+    sha256: aeb8751c849ac2af29a2c9f9f140dcd11524a3e081fa2706436a16449271e3c5
+  macro_point_in_time_panel:
+    file: data/processed/macro/macro_point_in_time_panel_2015_v2.parquet
+    sha256: 003853902aac6a74c92020c44b456dd6d7c72f540fa52e0e3b64014a31638142
+  if_spot_index:
+    file: data/raw/r6/000300_daily.parquet
+    sha256: b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1
+  if_execution_etf:
+    file: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+  if_h00300:
+    file: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+  if_contract_daily:
+    file: data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet
+    sha256: a4da6ec1b61d98cc59e9c9ae1850bebe6372a3fc6e04935cccecb094a28dc8a2
+    required_rows: 15860
+    price_field: close
+    required_fields: [symbol, date, close, settle, volume, open_interest, source_url, archive_sha256]
+  if_contract_expiry:
+    file: data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet
+    sha256: ca274f6d80616d106aa924cc401ee3cf41cfa503e8aec5c6d69a11de1f00dbb1
+    required_rows: 199
+  if_acquisition_receipt:
+    file: reports/data_quality/cffex_if_true_term_structure_inputs_v1_0_1.json
+    sha256: 493d07dcd3acb8a55f85f5adba86724ff11decede9e985e5faace59c0c4f1830
+    required_status: SUCCESS_CFFEX_IF_CONTRACT_HISTORY_ACQUIRED
+  backtest_engine:
+    file: backtest/engine.py
+    sha256: 3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc
+
+execution:
+  initial_capital_cny: 200000.0
+  commission_rate_per_leg: 0.0002
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  double_cost_commission_rate_per_leg: 0.0004
+  double_cost_slippage_bps_per_leg: 10.0
+  lot_size_shares: 100
+  stamp_duty_rate: 0.0
+  cash_annual_rate: 0.0
+  t_plus_one: true
+  signal_clock: AFTER_CLOSE
+  execution_clock: NEXT_TRADING_DAY_OPEN
+  dividends: CASH_ENTITLEMENT_ON_EX_DATE_PAYMENT_ON_PAYMENT_DATE
+
+macro_post_mortem:
+  model_id: 510300_MACRO_STRESS_POST_MORTEM_V1
+  status: POST_MORTEM_ONLY_NO_MODEL_CHANGE
+  source_model_status: REJECTED_FROZEN
+  mechanism_evidence: DIRECTIONAL_ASSOCIATION_ONLY
+  portfolio_eligible: false
+  paper_eligible: false
+  live_eligible: false
+  rescue_allowed: false
+  pre_signal_trading_days: 10
+  primary_forward_trading_days: 20
+  recovery_gap_horizons: [1, 3, 5]
+  key_miss_count: 5
+  key_miss_forward_days: 20
+  key_miss_loss_threshold: -0.05
+  key_miss_independence_days: 20
+
+return_anatomy:
+  model_id: 510300_RETURN_ANATOMY_V1
+  tail_day_counts: [10, 20, 40]
+  large_drop_quantile: 0.05
+  recovery_horizons: [1, 2, 3, 5]
+  forward_execution_horizons: [1, 5, 10, 20]
+  identity: TOTAL_RETURN_EQUALS_OVERNIGHT_CONTRIBUTION_PLUS_INTRADAY_CONTRIBUTION
+  overnight_contribution: (open_t_plus_ex_date_cash_minus_close_t_minus_1)/close_t_minus_1
+  intraday_contribution: (close_t_minus_open_t)/close_t_minus_1
+  total_return: (close_t_plus_ex_date_cash)/close_t_minus_1_minus_1
+  standalone_compounding_not_additive: true
+
+constrained_oracle:
+  model_id: 510300_LONG_CASH_CONSTRAINED_ORACLE_V1
+  diagnostic_only: true
+  mathematical_upper_bound_claimed: false
+  decision_block_trading_days: [5, 10, 20]
+  annual_maximum_round_trips: [4, 10, 20]
+  candidate_cash_block: EXECUTABLE_OPEN_TO_NEXT_BLOCK_OPEN_TOTAL_RETURN_BELOW_ZERO
+  consecutive_candidate_blocks: MERGED_TO_ONE_CASH_EPISODE
+  episode_rank: DESCENDING_AVOIDED_GROSS_LOG_LOSS_WITHIN_CALENDAR_YEAR
+  return_oracle: TAKE_UP_TO_CAP_POSITIVE_AVOIDED_LOSS_EPISODES
+  sharpe_oracle_search: ALL_GLOBAL_AVOIDED_LOSS_THRESHOLDS_WITH_ANNUAL_CAP
+  label: FINITE_SEARCH_FAMILY_DIAGNOSTIC_NOT_STRICT_MATHEMATICAL_BOUND
+
+skill_frontier:
+  model_id: 510300_SHARPE_TARGET_SKILL_FRONTIER_V1
+  diagnostic_only: true
+  downside_horizons: [5, 10, 20]
+  recall_grid: [0.50, 0.60, 0.70, 0.80, 0.90, 1.00]
+  false_positive_rate_grid: [0.00, 0.05, 0.10, 0.20]
+  lead_trading_days_grid: [0, 2]
+  recovery_lag_trading_days_grid: [0, 1, 3, 5]
+  annual_maximum_round_trips: [4, 10, 20]
+  deterministic_hash_seeds: [510300, 510301, 510302]
+  annual_cap_tie_break: EARLIEST_SIGNAL_FIRST_NO_FUTURE_SEVERITY_RANKING
+  precision_is_realized_not_independently_set: true
+  required_median_across_seeds: true
+  gates:
+    net_sharpe_min: 1.20
+    annualized_excess_vs_510300_tr_strictly_positive: true
+    annualized_excess_vs_h00300_strictly_positive: true
+    max_drawdown_ratio_vs_510300_max: 0.75
+    double_cost_net_sharpe_min: 0.90
+
+if_data_contract:
+  signal_data_availability_lag_trading_days: 1
+  lag_reason: SAME_DAY_OFFICIAL_PUBLICATION_TIME_NOT_PROVEN
+  no_continuous_contract: true
+  missing_duplicate_date_drift_or_unexplained_roll: NO_VIEW
+  close_settle_mixing_forbidden: true
+  selected_price_field: close
+  open_interest_unit: SINGLE_SIDED_CONTRACTS_AS_REPORTED_BY_CFFEX
+  eligible_days_to_expiry_min_inclusive: 7
+  eligible_days_to_expiry_max_inclusive: 190
+  maturity_buckets_calendar_days:
+    - [7, 29]
+    - [30, 59]
+    - [60, 99]
+    - [100, 190]
+  annualized_basis_formula: log(futures_close/spot_close)*365/calendar_days_to_expiry
+  seasonal_baseline_groups: [calendar_month, maturity_bucket]
+  seasonal_baseline_statistic: EXPANDING_MEDIAN_OF_PRIOR_DAILY_CROSS_CONTRACT_MEDIANS
+  seasonal_baseline_minimum_prior_days: 36
+  cross_contract_basis_aggregation: MEDIAN
+  rolling_history_trading_days: 756
+  rolling_history_minimum_trading_days: 504
+  aggregate_open_interest: SUM_ALL_IF_CONTRACTS_WITH_VALID_EXPIRY_1_TO_190_DAYS
+  open_interest_shock: THREE_TRADING_DAY_LOG_CHANGE
+  robust_standardization: TRAILING_EMPIRICAL_PERCENTILE_PRIOR_DAYS_ONLY
+
+if_signal:
+  model_id: 510300_IF_FORCED_FLOW_STATE_V1
+  states: [NORMAL, FORCED_SELLING_ACTIVE, FORCED_SELLING_EXHAUSTED]
+  etf_past_return_days: 3
+  entry_basis_percentile_max: 0.05
+  entry_open_interest_percentile_min: 0.70
+  entry_etf_three_day_total_return_strictly_negative: true
+  entry_requires_transition_from_non_pressure: true
+  exhaustion_basis_percentile_min: 0.25
+  exhaustion_open_interest_percentile_max: 0.50
+  exhaustion_consecutive_trading_days: 2
+  independent_event_gap_trading_days: 20
+  fixed_horizons_trading_days: [1, 5, 10, 20]
+  direction_reversal_forbidden: true
+  fixed_holding_period_fallback_forbidden: true
+
+matching:
+  covariates:
+    - etf_past_5d_total_return
+    - etf_realized_volatility_20d
+    - etf_same_day_total_return
+    - etf_log_amount_vs_trailing_60d_median
+  representation: TRAILING_756_DAY_EMPIRICAL_PERCENTILE_PRIOR_DAYS_ONLY
+  candidate_pool: SAME_CALENDAR_YEAR_NON_EVENT_NORMAL_DAYS
+  event_exclusion_radius_trading_days: 20
+  controls_per_event: 5
+  maximum_absolute_rank_distance_per_covariate: 0.20
+  maximum_euclidean_rank_distance: 0.30
+  cross_event_control_reuse_allowed: true
+  minimum_matched_events_each_direction: 20
+  maximum_absolute_standardized_mean_difference: 0.20
+
+mechanism_tests:
+  primary_horizon_trading_days: 10
+  economic_effect_minimum_absolute: 0.0075
+  expected_start_effect_maximum: -0.0075
+  expected_exhaustion_effect_minimum: 0.0075
+  one_sided_alpha: 0.05
+  multiple_test_correction: HOLM_BONFERRONI_ACROSS_2_EVENTS_X_4_HORIZONS
+  block_bootstrap:
+    replicates: 10000
+    ordered_event_block_length: 3
+    seed: 510300
+  minimum_independent_events_each_direction: 20
+  minimum_calendar_years_each_direction: 5
+  maximum_single_year_absolute_effect_share: 0.35
+  leave_one_year_out_expected_direction_fraction_min: 0.70
+  both_start_and_exhaustion_must_pass: true
+
+portfolio_gate:
+  run_only_if_all_mechanism_gates_pass: true
+  mapping:
+    NORMAL: 1.0
+    FORCED_SELLING_ACTIVE: 0.0
+    FORCED_SELLING_EXHAUSTED: 1.0
+  partial_position_forbidden: true
+  stop_loss_forbidden: true
+  trend_confirmation_forbidden: true
+  recovery_optimization_forbidden: true
+  hard_gates:
+    net_sharpe_min: 1.20
+    annualized_excess_vs_510300_tr_strictly_positive: true
+    annualized_excess_vs_h00300_strictly_positive: true
+    max_drawdown_ratio_vs_510300_max: 0.75
+    double_cost_net_sharpe_min: 0.90
+    leave_one_year_out_expected_direction_fraction_min: 0.70
+    maximum_single_year_absolute_log_excess_share: 0.35
+  failure_state: REJECTED_FROZEN_NO_RESCUE
+  success_state: HISTORICAL_GATES_PASS_SHADOW_REQUIRED_NO_TRADE
+
+shadow_gate:
+  minimum_new_trading_days: 252
+  minimum_complete_pressure_cycles: 3
+  position_mapping_enabled_before_pass: false
+  order_generation_enabled_before_pass: false
+  broker_connection_enabled_before_pass: false
+  live_trading_authorized_before_pass: false
+
+artifacts:
+  freeze_manifest: config/510300_direction_switch_v1_manifest.json
+  umbrella_report_json: reports/research/510300_direction_switch_v1_result.json
+  umbrella_report_markdown: reports/research/510300_DIRECTION_SWITCH_V1_RESULT.md
+  macro_post_mortem_json: reports/research/510300_macro_stress_post_mortem_v1.json
+  macro_post_mortem_markdown: reports/research/510300_MACRO_STRESS_POST_MORTEM_V1.md
+  macro_post_mortem_events: reports/research/510300_macro_stress_post_mortem_v1_events.parquet
+  return_anatomy_json: reports/research/510300_return_anatomy_v1.json
+  return_anatomy_markdown: reports/research/510300_RETURN_ANATOMY_V1.md
+  return_anatomy_daily: reports/research/510300_return_anatomy_v1_daily.parquet
+  oracle_json: reports/research/510300_long_cash_constrained_oracle_v1.json
+  oracle_markdown: reports/research/510300_LONG_CASH_CONSTRAINED_ORACLE_V1.md
+  oracle_grid: reports/research/510300_long_cash_constrained_oracle_v1_grid.parquet
+  skill_frontier_json: reports/research/510300_sharpe_target_skill_frontier_v1.json
+  skill_frontier_markdown: reports/research/510300_SHARPE_TARGET_SKILL_FRONTIER_V1.md
+  skill_frontier_grid: reports/research/510300_sharpe_target_skill_frontier_v1_grid.parquet
+  if_data_audit_json: reports/data_quality/510300_if_forced_flow_state_v1.json
+  if_features: data/research/510300_if_forced_flow_state_v1/features.parquet
+  if_events: reports/research/510300_if_forced_flow_state_v1_events.parquet
+  if_controls: reports/research/510300_if_forced_flow_state_v1_controls.parquet
+  if_result_json: reports/research/510300_if_forced_flow_state_v1.json
+  if_result_markdown: reports/research/510300_IF_FORCED_FLOW_STATE_V1.md
+  if_portfolio_ledger: reports/research/510300_if_forced_flow_state_v1_ledger.parquet
+  if_portfolio_trades: reports/research/510300_if_forced_flow_state_v1_trades.parquet

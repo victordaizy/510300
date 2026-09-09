@@ -1,0 +1,56 @@
+version: INDUSTRY_EXPECTATION_GAP_ETF_MODEL_V1
+status: FROZEN_BEFORE_FORWARD_OUTCOME
+asset: "510300"
+benchmark: "000300"
+research_mode: RESEARCH_ONLY
+signal_mode: SHADOW_ONLY
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-18T16:30:00+08:00"
+first_forward_observation_date: "2026-08-19"
+
+inputs:
+  sector_panel: data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet
+  sector_panel_status: reports/data_quality/000300_sector_forward_return_data_v1_status.json
+  source_registry: data/reference/industry_expectation_gap_v1_sources.yaml
+  industry_forecast_ledger: paper/industry_expectation_gap_v1/2026-08-18_industry_forecast.json
+  market_state_ledger: paper/industry_expectation_gap_v1/2026-08-18_market_state.json
+  etf_snapshot: paper/industry_expectation_gap_v1/2026-08-18_etf_snapshot.json
+
+outputs:
+  json: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json
+  markdown: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.md
+  manifest: config/industry_expectation_gap_etf_model_v1_manifest.json
+
+rules:
+  required_latest_weight_coverage: 0.98
+  maximum_sector_weight_age_calendar_days: 31
+  minimum_expectation_gap_weight_coverage: 0.65
+  minimum_abs_weighted_gap_for_direction: 0.08
+  minimum_sources_per_industry: 2
+  primary_horizon_trading_days: 60
+  tail_horizon_trading_days: 120
+  minimum_calibration_observations: 20
+  minimum_model_comparison_observations: 40
+  allow_historical_return_read: false
+  allow_model_fitting: false
+  allow_failed_family_reuse: false
+  allow_proxy_identity_inference: false
+  require_market_gate_for_directional_view: true
+  require_all_latest_industries: true
+
+safety:
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+  current_holdings_read_enabled: false
+
+frozen_ablation_order:
+  - M0_FULL_RECORD
+  - M1_INDUSTRY_DIRECTION
+  - M2_EXPECTATION_GAP
+  - M3_INDEX_AGGREGATION
+  - M4_MARKET_LIQUIDITY_GATE
+  - M5_DISCLOSED_TAIL_LAYER
+  - M6_MINIMAL_CANDIDATE
+

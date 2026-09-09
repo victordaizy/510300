@@ -1,0 +1,71 @@
+{
+  "study_id": "510300_IF_TRUE_TERM_STRUCTURE_BINARY_SCREEN_V1_0_1",
+  "version": "1.0.1",
+  "status": "FROZEN_BEFORE_FIRST_SCREEN_RUN",
+  "frozen_at": "2026-08-28T20:37:12.740108+08:00",
+  "protocol_path": "config/510300_if_true_term_structure_binary_screen_v1_0_1.yaml",
+  "protocol_sha256": "39a2cb2e05935fbc5af33349182c2a530d42dbf7e981b60350ae461e03431211",
+  "candidate_contract_path": "config/510300_if_true_term_structure_binary_screen_v1_0_1_candidates.yaml",
+  "candidate_contract_sha256": "0d406748722608296935ec7b398e9e4a1fab153b6d411dd83fb70bbe654fa4c1",
+  "source_artifacts": {
+    "research/if_true_term_structure_binary_screen_v1_0_1.py": "81c8c5bf6c4f9c30b6183e12e5b734480588e6a4c3284b96b9c81f66abe3c578",
+    "research/etf_share_premium_level_binary_screen_v1.py": "d979c25a2daaa4736cbd490b484f025e2cb68ad246e12489750debbdfe56bdbe",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/download_cffex_if_true_term_structure_inputs_v1_0_1.py": "877f21fdcede8c3d863e52cd89187efb5c2de813236a4815a450f846bf60f118",
+    "scripts/freeze_510300_if_true_term_structure_binary_screen_v1_0_1.py": "cf3fb6e289fe2a298b8d31cac1f5ea34231f1a4707481caab235d82643eb5f16",
+    "tests/test_if_true_term_structure_binary_screen_v1_0_1.py": "593983a7caa4a4b31d6c73c11388bcaa6e0087a61d160c202017f0cd9086e5c5"
+  },
+  "input_artifacts": {
+    "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet": "a4da6ec1b61d98cc59e9c9ae1850bebe6372a3fc6e04935cccecb094a28dc8a2",
+    "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet": "ca274f6d80616d106aa924cc401ee3cf41cfa503e8aec5c6d69a11de1f00dbb1",
+    "reports/data_quality/cffex_if_true_term_structure_inputs_v1_0_1.json": "493d07dcd3acb8a55f85f5adba86724ff11decede9e985e5faace59c0c4f1830",
+    "data/raw/r6/000300_daily.parquet": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "candidate_ids": [
+    "IF_NEAR_BASIS_BOTTOM10_CASH",
+    "IF_NEAR_BASIS_TOP10_CASH",
+    "IF_NEAR_NEXT_CURVE_BOTTOM10_CASH",
+    "IF_NEAR_NEXT_CURVE_TOP10_CASH",
+    "IF_NEAR_FAR_CURVE_BOTTOM10_CASH",
+    "IF_NEAR_FAR_CURVE_TOP10_CASH",
+    "IF_OI_WEIGHTED_BASIS_BOTTOM10_CASH",
+    "IF_OI_WEIGHTED_BASIS_TOP10_CASH"
+  ],
+  "candidate_count": 8,
+  "allowed_target_states": [
+    0,
+    1
+  ],
+  "signal_cutoff": "T_CFFEX_CLOSE_AFTER_ALL_IF_CONTRACT_CLOSES_AVAILABLE",
+  "execution_time": "T_PLUS_1_510300_OPEN",
+  "same_day_execution_forbidden": true,
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "start_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "period_ids": [
+    "EARLY_2013_2015",
+    "RESTRICTED_2016_2019",
+    "MID_2020_2022",
+    "LATE_2023_2026",
+    "COMBINED_2013_2026"
+  ],
+  "hard_gates": {
+    "minimum_annualized_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_stress_period_and_start_required": true
+  },
+  "post_run_tail_percentile_dte_or_contract_selection_rescue": "FORBIDDEN",
+  "position_mapping": "DISABLED",
+  "live_trading_authorized": false
+}

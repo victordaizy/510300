@@ -1,0 +1,213 @@
+{
+  "schema_version": "510300_EPISODIC_ALPHA_LIBRARY_DATA_ADMISSION_V1",
+  "project_id": "510300_EPISODIC_ALPHA_LIBRARY_V1",
+  "manifest_sha256": "5576c79749c4c07b21338b37145194248324dbae145d30d0fb3893825b4a7079",
+  "evaluated_at_utc": "2026-08-31T11:42:25.037182+00:00",
+  "branches": {
+    "510300_INFORMED_CREATION_PREMIUM_V1": {
+      "model_id": "510300_INFORMED_CREATION_PREMIUM_V1",
+      "status": "NO_VIEW_DATA_CONTRACT_FAILED",
+      "return_evaluation": "NOT_ALLOWED",
+      "point_in_time_qualified": false,
+      "actual_share_rows": 3430,
+      "actual_share_columns": [
+        "date",
+        "fund_shares",
+        "share_source",
+        "share_retrieved_at",
+        "share_segment",
+        "close_premium_to_nav",
+        "source_primary",
+        "source_secondary",
+        "nav_retrieved_at",
+        "nav_segment",
+        "feature_asof",
+        "execution_earliest"
+      ],
+      "iopv_rows": 390,
+      "iopv_columns": [
+        "exchange_timestamp",
+        "trade_date",
+        "fund_code",
+        "name",
+        "extended_name",
+        "last_price",
+        "iopv",
+        "premium_discount_bps",
+        "change_rate_pct",
+        "change_cny",
+        "open",
+        "previous_close",
+        "high",
+        "low",
+        "volume_shares",
+        "amount_cny",
+        "trade_phase_raw",
+        "post_close_volume_shares",
+        "post_close_amount_cny",
+        "post_close_phase_raw",
+        "product_subtype",
+        "source",
+        "retrieved_at"
+      ],
+      "complete_iopv_quality_days": 1,
+      "reasons": [
+        "ACTUAL_SHARE_STRICT_AVAILABLE_AT_SCHEMA_MISSING:actual_fund_shares,available_at,revision_flag,source,source_document_id,split_flag,trade_date",
+        "HISTORICAL_SHARES_RETRIEVED_RETROSPECTIVELY_NOT_POINT_IN_TIME",
+        "IOPV_BID_ASK_OR_CLOCK_SCHEMA_MISSING:ask_price_1,bid_price_1",
+        "IOPV_COMPLETE_QUALITY_DAYS_BELOW_20:1"
+      ]
+    },
+    "510300_DERIVATIVE_PRESSURE_RELEASE_V1": {
+      "model_id": "510300_DERIVATIVE_PRESSURE_RELEASE_V1",
+      "status": "PASS_RESEARCH_OBSERVED_DISCOVERY_ONLY",
+      "return_evaluation": "ALLOWED_DISCOVERY_ONLY",
+      "point_in_time_qualified": false,
+      "source_caveats": [
+        "IF与上交所期权风险指标是官方历史值，但文件未保存逐日原始发布时间",
+        "期权EOD合约与持仓字段来自事后代理文件，只能用于回溯发现",
+        "不得声称复现主动买卖方向或做市商订单失衡"
+      ],
+      "inventory": {
+        "if_contract_daily": {
+          "rows": 15860,
+          "columns": [
+            "symbol",
+            "date",
+            "open",
+            "high",
+            "low",
+            "volume",
+            "turnover",
+            "open_interest",
+            "close",
+            "settle",
+            "pre_settle",
+            "archive_yyyymm",
+            "archive_sha256",
+            "archive_member",
+            "source_url",
+            "retrieved_at"
+          ]
+        },
+        "if_contract_expiry": {
+          "rows": 199,
+          "columns": [
+            "symbol",
+            "first_date",
+            "last_history_date",
+            "expiry_date",
+            "expiry_source",
+            "active_at_ceiling"
+          ]
+        },
+        "csi300_price_index_daily": {
+          "rows": 3456,
+          "columns": [
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "symbol",
+            "source",
+            "volume_unit",
+            "retrieved_at"
+          ]
+        },
+        "etf_daily": {
+          "rows": 2436,
+          "columns": [
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "amount",
+            "symbol",
+            "source",
+            "volume_unit",
+            "amount_unit",
+            "retrieved_at"
+          ]
+        },
+        "etf_option_eod": {
+          "rows": 194040,
+          "columns": [
+            "trade_date",
+            "contract_code",
+            "option_type",
+            "expiry_date",
+            "strike",
+            "contract_unit",
+            "contract_status",
+            "is_adjusted",
+            "previous_settlement",
+            "previous_close",
+            "open",
+            "high",
+            "low",
+            "close",
+            "settlement",
+            "volume",
+            "turnover_10k_cny",
+            "open_interest",
+            "underlying_close",
+            "exchange",
+            "source",
+            "retrieved_at"
+          ]
+        },
+        "etf_option_risk_indicators": {
+          "rows": 191270,
+          "columns": [
+            "trade_date",
+            "contract_code",
+            "exchange_contract_id",
+            "contract_symbol",
+            "option_type",
+            "delta",
+            "theta",
+            "gamma",
+            "vega",
+            "rho",
+            "implied_volatility",
+            "source",
+            "retrieved_at"
+          ]
+        },
+        "etf_minute": {
+          "rows": 291851,
+          "columns": [
+            "ts_code",
+            "trade_time",
+            "open",
+            "high",
+            "low",
+            "close",
+            "vol",
+            "amount"
+          ]
+        }
+      },
+      "reasons": []
+    },
+    "510300_OPENING_DISCOUNT_RECOVERY_V1": {
+      "model_id": "510300_OPENING_DISCOUNT_RECOVERY_V1",
+      "status": "PASS_RESEARCH_OBSERVED_DISCOVERY_ONLY",
+      "return_evaluation": "ALLOWED_DISCOVERY_ONLY",
+      "point_in_time_qualified": false,
+      "minute_rows": 291851,
+      "first_minute": "2021-08-12T09:30:00",
+      "last_minute": "2026-08-12T15:00:00",
+      "opening_complete_days": 1211,
+      "duplicate_minute_keys": 0,
+      "source_caveat": "分钟历史为事后取得数据，只能用于RESEARCH_OBSERVED_DISCOVERY",
+      "reasons": []
+    }
+  },
+  "historical_evidence_label": "RESEARCH_OBSERVED_DISCOVERY",
+  "live_trading_authorized": false
+}

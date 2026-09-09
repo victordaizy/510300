@@ -1,0 +1,28 @@
+registry_version: 1
+registered_on: "2026-08-13T17:32:00+08:00"
+status: "PRE_REGISTERED_BEFORE_OUTCOME_TEST"
+scope: "只预测未来20日实现波动率，不预测收益方向"
+
+features:
+  - "log_rv_5"
+  - "log_rv_20"
+  - "log_rv_60"
+  - "log_parkinson_rv_20"
+  - "log_component_return_dispersion_20"
+
+model:
+  estimator: "标准化Ridge(alpha=1)的HAR式对数波动率回归"
+  target: "log(future_realized_volatility_20d)"
+  minimum_training_samples: 504
+  refit_interval_trading_days: 5
+  no_hyperparameter_search: true
+
+acceptance_gate:
+  minimum_realized_forecasts: 500
+  require_overall_mae_better_than_rv20_persistence: true
+  require_overall_qlike_better_than_rv20_persistence: true
+  minimum_model_actual_correlation: 0.35
+  require_each_half_mae_better_than_persistence: true
+  require_each_half_qlike_better_than_persistence: true
+  require_non_overlapping_median_mae_improvement_positive: true
+  trading_use_authorized: false

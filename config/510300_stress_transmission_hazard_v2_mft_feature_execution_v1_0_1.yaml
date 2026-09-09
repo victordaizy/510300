@@ -1,0 +1,106 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  correction_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURE_EXECUTION_V1_0_1
+  version: 1.0.1
+  correction_scope: PERSISTED_SCHEMA_CANONICALIZATION_BEFORE_REPLAY_COMPARISON_ONLY
+  research_state: DISCOVERY_ONLY
+  return_evaluation: NOT_ALLOWED
+  position_impact: 0
+
+immutable_parent:
+  manifest:
+    path: config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_manifest.json
+    bytes: 11930
+    sha256: 26223a8e71ef959a72e2166d357af89b4b3997d84169e1ed99e2f10e9aeed079
+  build_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_mft_feature_build_v1.json
+    bytes: 7633
+    sha256: 1ba2d56c10c069b4764f18b80e5131b55a6e295535eef4b68946136d93a8f8c7
+    required_status: PASS_POINT_IN_TIME_M_F_T_WITH_EXPLICIT_NO_VIEW_PENDING_CLEAN_REPLAY
+  feature_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_mft_feature_status_v1.json
+    bytes: 800
+    sha256: 43d10c1cc4c2deb84a2168340e7fc5cc199fa7ab517342d0a988dfcd0eb41bc1
+    required_next_step: RUN_FROZEN_MFT_CLEAN_REPLAY_AND_TARGETED_TESTS
+  mutation_allowed: false
+
+observed_failure:
+  observed_on: "2026-09-03"
+  status: BLOCKED_G0_REPLAY_PERSISTED_DTYPE_COMPARISON_MISMATCH
+  exit_code: 1
+  comparison_stopped_at_output: internal_features
+  comparison_stopped_at_column: tail_diffusion5
+  stored_dtype: float64
+  rebuilt_dtype: object
+  exact_error: Attributes_of_DataFrame_column_tail_diffusion5_dtype_left_float64_right_object
+  replay_receipt_written: false
+  g0_status_written: false
+  actual_label_artifact_read: false
+  actual_performance_artifact_read: false
+  failure_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1_failure_receipt.json
+
+affected_outputs:
+  internal_features:
+    path: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/internal_F_T_features.parquet
+    bytes: 297532
+    sha256: ccb38922aa993fc0fa48fbf8136a120ffbaf2bb7ac5a1ee26744fcd7f2a6ae67
+    original_prewrite_semantic_sha256: f7364fb56fcfc1e1f3781f927e7c37ffe774ceba7114f727e20bf43be424452c
+    persisted_semantic_sha256: b0dd332a82832a333b083413cfc138fcb38792754270881e610d0d820509a686
+  mft_feature_panel:
+    path: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/mft_feature_panel_20150105_20260814.parquet
+    bytes: 787941
+    sha256: 5f8128031ee8c7f8e5699e74aa9c52a9047ed29a4f9b187486fc4ba53ac7deae
+    original_prewrite_semantic_sha256: 5ae46ff1f538e8e2a02ffe8ed7371670d9c1ca7035153bbf2d54ca731f88494c
+    persisted_semantic_sha256: e7fb1f6a076bb6de320348d519688bb0e79dcee5d8f1956b136faf75e92e62e2
+
+canonicalization_rule:
+  canonical_schema_source: IMMUTABLE_PERSISTED_PARQUET_SCHEMA
+  allowed_conversions:
+    internal_features:
+      tail_diffusion5: {from: object, to: float64}
+    mft_feature_panel:
+      tail_diffusion5: {from: object, to: float64}
+  any_other_dtype_difference_allowed: false
+  any_value_difference_allowed: false
+  row_order_difference_allowed: false
+  column_order_difference_allowed: false
+  original_output_overwrite_allowed: false
+  original_receipt_overwrite_allowed: false
+  feature_formula_change_allowed: false
+  information_clock_change_allowed: false
+  input_change_allowed: false
+  coverage_gate_change_allowed: false
+  no_view_change_allowed: false
+
+corrected_outputs:
+  replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1_0_1.json
+  g0_status: reports/research/510300_stress_transmission_hazard_v2_g0_status_v1_0_1.json
+
+targeted_test_files:
+  - tests/test_510300_stress_transmission_hazard_v2.py
+  - tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1.py
+  - tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1.py
+  - tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.py
+  - tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.py
+  - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py
+  - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py
+
+freeze_contract:
+  implementation_files:
+    - scripts/freeze_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py
+    - scripts/replay_510300_stress_transmission_hazard_v2_mft_features_v1_0_1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURE_EXECUTION_V1_0_1_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1_manifest.json
+  receipt_output: reports/audit/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_OR_DELETE_V1_MFT_FREEZE_OUTPUTS_OR_RECEIPTS
+  - CHANGE_FEATURE_FORMULA_CLOCK_INPUT_COVERAGE_OR_NO_VIEW_RULE
+  - CANONICALIZE_ANY_COLUMN_EXCEPT_THE_TWO_DECLARED_TAIL_DIFFUSION5_COLUMNS
+  - ACCEPT_ANY_VALUE_ROW_ORDER_COLUMN_ORDER_OR_UNDECLARED_DTYPE_DIFFERENCE
+  - READ_ACTUAL_BAD10_FUTURE_RETURN_OR_PERFORMANCE_ARTIFACT
+  - TRAIN_MODEL_OR_GENERATE_ALERT
+  - GENERATE_PORTFOLIO_POSITION_ORDER_BROKER_OR_LIVE_ACTION

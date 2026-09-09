@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.1",
+  "project_id": "510300_KNOWN_STATE_POLICY_ORACLE_V1",
+  "state": "FROZEN_BEFORE_ORACLE_OUTCOME_CALCULATION",
+  "frozen_at_asia_shanghai": "2026-08-31T14:13:51.707687+08:00",
+  "config_path": "config/510300_known_state_policy_oracle_v1.yaml",
+  "config_sha256": "8a82608238952df1a283386d6337394df744d501945a27dabd1fa907c56cea14",
+  "oracle_outcomes_read_before_freeze": false,
+  "state_predictability_evaluated": false,
+  "oracle_future_information_declared": true,
+  "tracked_files": {
+    "config/510300_known_state_policy_oracle_v1.yaml": "8a82608238952df1a283386d6337394df744d501945a27dabd1fa907c56cea14",
+    "docs/510300_KNOWN_STATE_POLICY_ORACLE_V1_SPEC.md": "b552b2c819af79cb22db320665747e8b37bdc820c0bd3b2253a4721840f11daa",
+    "research/known_state_policy_oracle_v1.py": "8dfd3449071604241c228735bbdd49692337c84fb8951755b0b5acc39c0ec28e",
+    "research/three_state_trend_router_v1_0_1.py": "b44bc3e3b71aac1f0ee6d941ef968a8913da4a08b5186463c4ed97c5c1c3703b",
+    "scripts/freeze_510300_known_state_policy_oracle_v1_0_1_correction.py": "b353de85686b391fbefb636a14ee1ef4f2b22c5f8ab8b18387d22d537bf7892c",
+    "scripts/run_510300_known_state_policy_oracle_v1.py": "d9faf66277d00d114d8a0bc06b46260c96fcf1d2b88d3d6b1b3a98db5f5fcef7",
+    "tests/test_510300_known_state_policy_oracle_v1.py": "360e610248af5778604d67b87d193186efc0ab74a815192fa4fed8457448778f",
+    "reports/audit/510300_known_state_policy_oracle_v1_prefirstoutcome_contract_key_failure.json": "07998b5758434b0ced2e9a75ff4967f950e749ad18d5ea3c0cc5efc5a462e553",
+    "reports/data_quality/510300_causal_gaussian_hmm_regime_router_v1_inputs.json": "460fdc1b4972241ee4f34cbaa9a08f2fa9504d0d797f1e8baf987341e655ef1a",
+    "backtest/engine.py": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc"
+  },
+  "input_files": {
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/r6/000300_daily.parquet": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "config/510300_known_state_policy_oracle_v1_manifest.json": "2ef902e33b641a9dfba8013a9948929a82bcc188c56e7e0a633b6bec284f4c98"
+  },
+  "selection_bias_control": {
+    "prior_manifest_count": 350,
+    "non_manifest_prefreeze_failed_attempt_count": 1,
+    "total_trial_count_including_current": 352,
+    "diagnostic_oracle_not_promoted_to_strategy": true
+  },
+  "fixed_oracle": {
+    "horizon_trading_days": 20,
+    "primary_threshold": 0.05,
+    "robustness_thresholds": [
+      0.03,
+      0.07
+    ],
+    "primary_policy": {
+      "BULL_TREND": 1.0,
+      "BEAR_TREND": 0.0,
+      "RANGE": 0.0
+    },
+    "account_cny": 20000.0,
+    "base_slippage_bps": 5.0,
+    "stress_slippage_bps": 10.0
+  },
+  "correction": {
+    "class": "PRE_OUTCOME_REQUIRED_FIELD_ALIAS_ONLY",
+    "predecessor_manifest": "config/510300_known_state_policy_oracle_v1_manifest.json",
+    "predecessor_manifest_sha256": "2ef902e33b641a9dfba8013a9948929a82bcc188c56e7e0a633b6bec284f4c98",
+    "failure_audit": "reports/audit/510300_known_state_policy_oracle_v1_prefirstoutcome_contract_key_failure.json",
+    "oracle_or_strategy_parameters_changed": false,
+    "outcomes_read_before_correction": false
+  },
+  "no_rescue": {
+    "threshold": true,
+    "horizon": true,
+    "policy_mapping": true,
+    "range_strategy": true
+  }
+}

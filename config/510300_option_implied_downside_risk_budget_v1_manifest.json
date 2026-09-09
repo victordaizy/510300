@@ -1,0 +1,97 @@
+{
+  "model_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1",
+  "version": "1.0.0",
+  "freeze_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1_20260904T201619+0800",
+  "freeze_state": "PROTOCOL_FROZEN_BEFORE_FIRST_API_PROBE",
+  "frozen_at": "2026-09-04T20:16:19.4046455+08:00",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/510300-option-implied-downside-risk-budget-v1",
+  "parent_commit": "54ad0a53c5e5",
+  "frozen_files": {
+    "docs/510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1.md": "0a5fb3663d909df208a8f77a9d6ad368b47741eea0c7369c0095f5353866ed1b",
+    "config/510300_option_implied_downside_risk_budget_v1.yaml": "d6a84ba1a80d5f8b9822a3d782bf255f1cc7dd35738231d7b10bfcf5dedf3cb4"
+  },
+  "freeze_attestations": {
+    "credentialed_api_probe_run_before_freeze": false,
+    "new_option_surface_metrics_read_before_freeze": false,
+    "future_variance_labels_read_before_freeze": false,
+    "tail_labels_read_before_freeze": false,
+    "portfolio_returns_read_before_freeze": false,
+    "net_value_or_sharpe_generated_before_freeze": false,
+    "position_or_order_generated_before_freeze": false
+  },
+  "known_legacy_evidence_before_freeze": {
+    "separate_study_id": "510300_OPTION_CHAIN_FEASIBILITY_V1",
+    "separate_study_terminal_status": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN",
+    "separate_study_protocol_hash": "e60c7875a6004f0c5f14fa9e4bd9bffc2c3bd06136dd867d545f9416a0c5af1f",
+    "known_option_eod_rows": 194040,
+    "known_contract_master_rows": 2874,
+    "known_trading_days": 1611,
+    "non_transfer_rule": "旧研究使用不同曲面几何、来源证据和硬门；其状态不预判本 V1，也不得被修改或用于结果后调参。"
+  },
+  "public_source_preflight": {
+    "proxy_usage_document_http_200": true,
+    "proxy_usage_document_updated_at": "2026-08-30T10:56:35+08:00",
+    "proxy_root_fast_http_200": true,
+    "proxy_root_fast_elapsed_ms": 601,
+    "proxy_root_tt_http_200": true,
+    "proxy_root_tt_elapsed_ms": 65,
+    "selected_endpoint": "https://tt.xiaodefa.cn",
+    "tushare_trade_cal_document_http_200": true,
+    "tushare_fund_daily_document_http_200": true,
+    "tushare_fund_div_document_http_200": true,
+    "tushare_opt_basic_document_http_200": true,
+    "tushare_opt_daily_document_http_200": true,
+    "tushare_shibor_document_http_200": true,
+    "tushare_etf_mins_document_http_200": true,
+    "sse_510300_option_listing_document_http_200": true,
+    "sse_listing_fact": "2019-12-23 上市；标的为华泰柏瑞沪深300ETF；证券代码 510300"
+  },
+  "credential_policy": {
+    "credential_persisted": false,
+    "credential_in_manifest": false,
+    "credential_in_report_or_receipt": false,
+    "credential_in_git": false,
+    "allowed_runtime_inputs": [
+      "interactive_hidden_prompt",
+      "TUSHARE_PROXY_TOKEN_environment_variable"
+    ]
+  },
+  "implementation_registration": {
+    "required_before_first_api_probe": true,
+    "state": "PENDING_SEPARATE_IMMUTABLE_IMPLEMENTATION_MANIFEST",
+    "planned_manifest": "config/510300_option_implied_downside_risk_budget_v1_implementation_manifest.json",
+    "planned_files": [
+      "research/option_implied_downside_risk_budget_v1.py",
+      "scripts/run_510300_option_implied_downside_risk_budget_v1.py",
+      "tests/test_510300_option_implied_downside_risk_budget_v1.py"
+    ]
+  },
+  "authorized_current_phases": [
+    "A_PROTOCOL_FREEZE",
+    "B_RAW_DOWNLOAD",
+    "C_G0_G1_DATA_ADMISSION"
+  ],
+  "forbidden_current_outputs": [
+    "FUTURE_VARIANCE_LABEL",
+    "TAIL_LABEL",
+    "MODEL_FIT",
+    "FORECAST",
+    "PORTFOLIO_RETURN",
+    "NET_VALUE",
+    "SHARPE",
+    "POSITION",
+    "ORDER",
+    "BROKER_ACTION",
+    "LIVE_TRADE"
+  ],
+  "planned_outputs": [
+    "reports/data_quality/510300_option_implied_downside_risk_budget_v1/permission_probe.json",
+    "reports/data_quality/510300_option_implied_downside_risk_budget_v1/acquisition_checkpoint.json",
+    "reports/data_quality/510300_option_implied_downside_risk_budget_v1/acquisition_summary.json",
+    "data/curated/510300_option_contract_map/510300_option_contract_map.parquet",
+    "data/curated/510300_option_surface/510300_option_surface_quality_ledger.parquet",
+    "data/curated/510300_option_surface/510300_option_surface_daily.parquet",
+    "reports/data_quality/510300_option_implied_downside_risk_budget_v1/G0_G1_ADJUDICATION.json"
+  ]
+}

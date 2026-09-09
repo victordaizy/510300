@@ -1,0 +1,215 @@
+protocol:
+  project_id: "510300_DONCHIAN_DISCOVERY_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  freeze_stage: "PROTOCOL_FROZEN_DATA_GATE_PENDING"
+  user_authorization: "2026-08-18用户同意先冻结协议、后计算"
+  historical_contamination_cutoff: "2026-08-14"
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED"
+  true_forward_start: null
+  candidate_budget: 1
+  candidate_addition_after_freeze_forbidden: true
+  threshold_change_after_freeze_forbidden: true
+  return_calculation_requires_all_data_gates_pass: true
+  return_implementation_freeze_required: true
+
+governance:
+  independent_from_r5_r6_v3: true
+  modifies_r5: false
+  reopens_r6: false
+  creates_r7: false
+  historical_r6_candidate_addition_allowed: false
+  article_macd_candidate_enabled: false
+  martin_candidate_enabled: false
+  divergence_candidate_enabled: false
+  volatility_regime_switch_enabled: false
+  human_segmentation_enabled: false
+  covered_call_enabled: false
+  options_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  missing_or_stale_output: "NO_VIEW"
+
+research_question:
+  primary: "简化唐奇安20/10状态在仅做多510300时，能否在完整成本后创造超过静态暴露的动态择时贡献"
+  target_asset: "510300.SH"
+  allowed_assets: ["510300.SH", "CASH"]
+  benchmark_primary: "510300含分红买入持有"
+  benchmark_secondary: "H00300全收益指数"
+  primary_statistic: "TIMING_CONTRIBUTION_AFTER_COST"
+
+candidate:
+  id: "T0_DONCHIAN_20_10"
+  name: "510300简化唐奇安20日突破10日退出"
+  family: "LONG_ONLY_DONCHIAN"
+  entry_lookback_trading_days: 20
+  exit_lookback_trading_days: 10
+  entry_rule: "空仓状态下，close_t严格大于t-20至t-1的adjusted_high最大值"
+  exit_rule: "持仓状态下，close_t严格小于t-10至t-1的adjusted_low最小值"
+  equality_triggers_signal: false
+  signal_information_cutoff: "t日16:00"
+  execution_time: "t+1交易日开盘"
+  initial_state: "CASH"
+  long_state_research_exposure: 1.0
+  cash_state_research_exposure: 0.0
+  pyramiding_allowed: false
+  atr_position_sizing_allowed: false
+  stop_loss_overlay_allowed: false
+  take_profit_overlay_allowed: false
+  same_day_reversal_allowed: false
+  parameter_search_allowed: false
+  parameter_neighbors_allowed: false
+
+signal_price_contract:
+  channel_price_basis: "POINT_IN_TIME_CASH_DISTRIBUTION_ADJUSTED_OHLC"
+  execution_price_basis: "RAW_NEXT_TRADING_DAY_OPEN"
+  channel_excludes_current_bar: true
+  adjustment_rule: "每个信号日仅使用除息日不晚于该信号日的已知现金分红，对历史OHLC作同因子调整；不得使用未来分红信息"
+  raw_ohlc_and_adjustment_factor_must_both_be_auditable: true
+  missing_bar_action: "NO_VIEW"
+  stale_last_date_action: "NO_VIEW"
+
+execution:
+  research_account_cny: 20000.0
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  long_only: true
+  leverage_allowed: false
+  shorting_allowed: false
+  t_plus_one: true
+  lot_size_shares: 100
+  commission_rate_per_leg: 0.0003
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  stamp_duty_rate: 0.0
+  buy_price: "next_open * (1 + 0.0005)"
+  sell_price: "next_open * (1 - 0.0005)"
+  commission: "max(raw_execution_notional * 0.0003, 5.0)"
+  share_rule: "在不透支且预留买入佣金后，按100份整数倍买入可承受的最大份额"
+  distributions: "权益登记日持有则在支付日计入现金；卖出后不追溯，买入晚于权益登记日不享有"
+  double_cost_stress_multiplier: 2.0
+  live_position_mapping_enabled: false
+
+evaluation:
+  historical_window: ["2012-05-28", "2026-08-14"]
+  true_forward_start: null
+  predefined_periods:
+    - {id: "P1", start: "2012-05-28", end: "2015-12-31"}
+    - {id: "P2", start: "2016-01-04", end: "2019-12-31"}
+    - {id: "P3", start: "2020-01-02", end: "2022-12-30"}
+    - {id: "P4", start: "2023-01-03", end: "2026-08-14"}
+  rolling_window_trading_days: 242
+  event_forward_horizons_trading_days: [5, 20, 60]
+  circular_shift_repetitions: 5000
+  circular_shift_minimum_trading_days: 20
+  block_bootstrap_repetitions: 5000
+  block_bootstrap_length_trading_days: 20
+  random_seed: 20260818
+  minimum_closed_trades: 30
+  required_metrics:
+    - "gross_and_net_total_return"
+    - "cagr"
+    - "annualized_volatility"
+    - "sharpe"
+    - "maximum_drawdown"
+    - "average_exposure"
+    - "turnover"
+    - "closed_trade_count"
+    - "timing_contribution_after_cost"
+    - "excess_vs_510300_total_return_buy_hold"
+    - "excess_vs_h00300"
+    - "excess_vs_static_mean_exposure"
+    - "excess_vs_static_vol_matched"
+    - "rolling_242d_excess_distribution"
+    - "entry_exit_event_audit"
+  gates:
+    annualized_excess_vs_510300_buy_hold_minimum: 0.0
+    annualized_excess_vs_h00300_minimum: 0.0
+    timing_contribution_after_cost_minimum: 0.0
+    excess_vs_static_mean_exposure_minimum: 0.0
+    excess_vs_static_vol_matched_minimum: 0.0
+    sharpe_minimum: 0.8
+    sharpe_improvement_vs_best_primary_benchmark_minimum: 0.25
+    drawdown_ratio_to_510300_buy_hold_maximum: 0.80
+    rolling_242d_excess_median_minimum: 0.0
+    rolling_242d_positive_ratio_minimum: 0.60
+    positive_predefined_periods_minimum: 3
+    predefined_period_count: 4
+    double_cost_timing_contribution_must_remain_positive: true
+    circular_shift_percentile_minimum: 0.95
+    maximum_single_trade_net_profit_contribution_share: 0.35
+    minimum_closed_trades: 30
+
+event_audit:
+  required_fields:
+    - "signal_type"
+    - "signal_date"
+    - "channel_start_date"
+    - "channel_end_date"
+    - "channel_extreme_date"
+    - "raw_close"
+    - "adjusted_close"
+    - "channel_value"
+    - "execution_date"
+    - "raw_open"
+    - "slippage_adjusted_price"
+    - "shares"
+    - "notional"
+    - "commission"
+    - "cash_before_and_after"
+    - "holding_days"
+    - "dividend_cash"
+    - "gross_pnl"
+    - "net_pnl"
+    - "mae"
+    - "mfe"
+    - "forward_return_5d_20d_60d"
+  daily_state_ledger_required: true
+  every_signal_must_be_reported: true
+
+stop_rules:
+  data_gate_failure_action: "NO_VIEW_AND_NO_RETURN_CALCULATION"
+  candidate_gate_failure_action: "REJECT_FAMILY"
+  failed_family_parameter_rescue_allowed: false
+  failed_family_macd_overlay_allowed: false
+  failed_family_divergence_overlay_allowed: false
+  failed_family_volatility_filter_allowed: false
+  pass_action: "仅允许冻结实现并建立独立纸面前向；仍不映射仓位、不生成订单"
+
+data_contracts:
+  market:
+    file: "data/raw/r6/510300_daily.parquet"
+    frozen_snapshot_sha256: "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979"
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    minimum_rows: 3456
+    required_columns: ["date", "open", "high", "low", "close", "volume", "amount", "symbol", "source", "retrieved_at"]
+    required_symbol: "510300.SH"
+    duplicate_dates_allowed: false
+    nonpositive_prices_allowed: false
+    invalid_ohlc_allowed: false
+  benchmark:
+    file: "data/raw/r6/H00300_total_return_daily.parquet"
+    frozen_snapshot_sha256: "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961"
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    minimum_rows: 3457
+    required_columns: ["date", "close", "symbol", "retrieved_at"]
+    required_symbol: "H00300"
+  distributions:
+    file: "data/reference/510300_dividends.csv"
+    frozen_snapshot_sha256: null
+    observed_incomplete_snapshot_sha256: "af1340e8f8fbed9686a12955b16d71eab3ba9e808fa6b496a52973c252887423"
+    coverage_attestation_file: "data/reference/510300_dividends_coverage.json"
+    required_columns: ["symbol", "record_date", "ex_date", "payment_date", "cash_dividend_per_share", "source"]
+    complete_history_required: true
+    coverage_start_required: "2012-05-28"
+    coverage_end_required: "2026-08-14"
+    required_known_events:
+      - ex_date: "2012-12-18"
+        cash_dividend_per_share: 0.033
+        official_source: "https://www.sse.com.cn/disclosure/fund/announcement/c/2013-03-27/510300_2012_n.pdf"
+    official_source_required: true

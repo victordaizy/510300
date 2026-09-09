@@ -1,0 +1,115 @@
+{
+  "status": "DIAGNOSTIC_ONLY_NOT_A_STRATEGY",
+  "checked_at": "2026-08-13T17:35:17.038959+08:00",
+  "scope": "510300现货或现金、20交易日非重叠决策、无杠杆无卖空",
+  "method": "将真实20日净收益正负视为未知标签，以给定对称方向准确率随机翻转；每个准确率2000次、20个错位非重叠组。",
+  "important_limitations": [
+    "这是使用未来真实标签的能力需求模拟，不是可交易策略。",
+    "假设正负样本识别准确率相同且错误独立，现实模型通常不满足。",
+    "每20日强制平仓/重开，成本处理偏保守；现金收益设为0。",
+    "全部历史已参与研究，结果只说明目标难度。"
+  ],
+  "non_overlapping_offset_count": 20,
+  "oracle": {
+    "median_clairvoyant_oracle_excess_cagr": 0.2236768363789846,
+    "minimum_clairvoyant_oracle_excess_cagr_across_offsets": 0.1983969825987153,
+    "median_always_invested_roundtrip_excess_cagr": -0.01927926687334397
+  },
+  "accuracy_simulation": [
+    {
+      "symmetric_direction_accuracy": 0.5,
+      "median_strategy_cagr": -0.0028417050819883327,
+      "median_excess_cagr": -0.017932745368119507,
+      "excess_cagr_10pct": -0.06516078037418702,
+      "excess_cagr_90pct": 0.030828733178515123,
+      "probability_excess_at_least_20pp": 0.0
+    },
+    {
+      "symmetric_direction_accuracy": 0.55,
+      "median_strategy_cagr": 0.018998706795520737,
+      "median_excess_cagr": 0.004034840390978012,
+      "excess_cagr_10pct": -0.04411363824552782,
+      "excess_cagr_90pct": 0.05366073837928855,
+      "probability_excess_at_least_20pp": 0.0
+    },
+    {
+      "symmetric_direction_accuracy": 0.6,
+      "median_strategy_cagr": 0.04132163656238852,
+      "median_excess_cagr": 0.026274239981602276,
+      "excess_cagr_10pct": -0.022772583467027187,
+      "excess_cagr_90pct": 0.07642428164682276,
+      "probability_excess_at_least_20pp": 0.0
+    },
+    {
+      "symmetric_direction_accuracy": 0.65,
+      "median_strategy_cagr": 0.0644235554235767,
+      "median_excess_cagr": 0.04947542734528909,
+      "excess_cagr_10pct": 2.417211214429402e-05,
+      "excess_cagr_90pct": 0.09849018987677059,
+      "probability_excess_at_least_20pp": 0.0
+    },
+    {
+      "symmetric_direction_accuracy": 0.7,
+      "median_strategy_cagr": 0.08834179234571371,
+      "median_excess_cagr": 0.07336781527899883,
+      "excess_cagr_10pct": 0.024035400670544462,
+      "excess_cagr_90pct": 0.1205248382506066,
+      "probability_excess_at_least_20pp": 7.5e-05
+    },
+    {
+      "symmetric_direction_accuracy": 0.75,
+      "median_strategy_cagr": 0.11224666859191623,
+      "median_excess_cagr": 0.09712296199034498,
+      "excess_cagr_10pct": 0.04887971243283427,
+      "excess_cagr_90pct": 0.14205508224238025,
+      "probability_excess_at_least_20pp": 0.00035
+    },
+    {
+      "symmetric_direction_accuracy": 0.8,
+      "median_strategy_cagr": 0.13727856571098052,
+      "median_excess_cagr": 0.12232588398751187,
+      "excess_cagr_10pct": 0.07514478096153021,
+      "excess_cagr_90pct": 0.1641547020877726,
+      "probability_excess_at_least_20pp": 0.005325
+    },
+    {
+      "symmetric_direction_accuracy": 0.85,
+      "median_strategy_cagr": 0.16195927224031903,
+      "median_excess_cagr": 0.14704339297634605,
+      "excess_cagr_10pct": 0.10322268179594563,
+      "excess_cagr_90pct": 0.18532223070886505,
+      "probability_excess_at_least_20pp": 0.029925
+    },
+    {
+      "symmetric_direction_accuracy": 0.9,
+      "median_strategy_cagr": 0.18775815043572341,
+      "median_excess_cagr": 0.1729477702553116,
+      "excess_cagr_10pct": 0.13312428228172807,
+      "excess_cagr_90pct": 0.2046525048653629,
+      "probability_excess_at_least_20pp": 0.140225
+    },
+    {
+      "symmetric_direction_accuracy": 0.95,
+      "median_strategy_cagr": 0.21313965154581127,
+      "median_excess_cagr": 0.1981776776522718,
+      "excess_cagr_10pct": 0.1664321324855432,
+      "excess_cagr_90pct": 0.22264018603456037,
+      "probability_excess_at_least_20pp": 0.464025
+    },
+    {
+      "symmetric_direction_accuracy": 1.0,
+      "median_strategy_cagr": 0.23961633256256398,
+      "median_excess_cagr": 0.2236768363789846,
+      "excess_cagr_10pct": 0.2084156785124227,
+      "excess_cagr_90pct": 0.23753783991339456,
+      "probability_excess_at_least_20pp": 0.95
+    }
+  ],
+  "minimum_grid_accuracy_for_median_20pp_excess": 1.0,
+  "target_annual_excess": 0.2,
+  "trading_use_authorized": false,
+  "input_hashes": {
+    "data/features/510300_registered_factor_dataset.parquet": "0fca3aa3ebf6263fbca34d33623474d0468c839dac9ee9a25e82c125401c302c",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e"
+  }
+}

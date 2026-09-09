@@ -1,0 +1,146 @@
+{
+  "study_id": "510300_TOTAL_REVERSE_REPO_V2",
+  "version": "1.0.0",
+  "evidence_class": "PREQUENTIAL_REPLAY_OF_ALREADY_OBSERVED_HISTORY",
+  "shadow_start": "2015-01-05",
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "gamma": 4.0,
+  "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "weight_band": 0.1,
+  "minimum_train_samples": 300,
+  "random_seed": 20260906,
+  "models": [
+    {
+      "id": "PRICE_RIDGE_H20",
+      "group": "PRICE",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "PRICE_ET_H20",
+      "group": "PRICE",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "FUNDING_RIDGE_H20",
+      "group": "FUNDING",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "FUNDING_ET_H20",
+      "group": "FUNDING",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "SEVEN_RIDGE_H20",
+      "group": "SEVEN",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "SEVEN_ET_H20",
+      "group": "SEVEN",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "REGULAR_RIDGE_H20",
+      "group": "REGULAR",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "REGULAR_ET_H20",
+      "group": "REGULAR",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "ALL_RIDGE_H20",
+      "group": "ALL",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "ALL_ET_H20",
+      "group": "ALL",
+      "kind": "ET",
+      "horizon": 20
+    }
+  ],
+  "rule_names": {
+    "R01_SMA60": "六十日趋势",
+    "R02_SMA120": "一百二十日趋势",
+    "R03_SMA200": "二百日趋势",
+    "R04_MOM20": "二十日动量",
+    "R05_MOM60": "六十日动量",
+    "R06_MOM120": "一百二十日动量",
+    "R07_TREND_VOTE": "三周期趋势投票",
+    "R08_BREAKOUT": "六十日突破",
+    "R09_RSI2": "两日超跌反弹",
+    "R10_RSI2_TREND": "上涨趋势中的超跌反弹",
+    "R11_REGIME": "趋势与震荡切换",
+    "R12_RISK_TREND": "风险约束趋势投票"
+  },
+  "meta_names": {
+    "P1_PRIMARY_TOP3_504": "主方案：过去两年选三种",
+    "P2_TOP1_504": "过去两年选一种",
+    "P3_TOP3_252": "过去一年选三种",
+    "P4_EQUAL_ALL": "全部底层策略固定等权"
+  },
+  "primary": "T1_PRIMARY_ALL",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "bootstrap_repetitions": 2000,
+  "bootstrap_day_block": 20,
+  "inputs": {
+    "prices": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "original_prices": "data/raw/r6/510300_daily.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "calendar": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+    "price_receipt": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "dividend_coverage": "reports/research/510300_adaptive_allocation_v1/frozen_inputs/dividend_coverage.json",
+    "corrections": "data/reference/510300_downside_risk_price_corrections_v1.csv"
+  },
+  "scope": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "live_trading_authorized": false,
+  "position_impact": 0,
+  "future_service_started": false,
+  "one_historical_run": true,
+  "authorization": "config/510300_research_authority_v6.json",
+  "information_clock": "PUBLICATION_TIME_AT_OR_BEFORE_15_00",
+  "quantity_measure": "DISCLOSED_AMOUNT_NOT_ACTUAL_DAILY_NET_CASH",
+  "source_budget": 0,
+  "historical_vendor_first_delivery_proven": false,
+  "common_feature_support": true
+}

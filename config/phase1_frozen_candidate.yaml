@@ -1,0 +1,32 @@
+model_id: "valuation_hysteresis_v1"
+approval_status: "EXPLORATORY_NOT_APPROVED"
+superseded_by: "config/factor_registry.yaml"
+warning: "该文件是旧探索产物，不代表用户批准的策略、阈值或真正前向起点。"
+frozen_at: "2026-08-12T19:20:00+08:00"
+selection_data_end: "2025-06-30"
+true_forward_start: null
+tradable_symbol: "510300.SH"
+direction: "long_cash"
+signal_timing: "t日收盘形成，t+1开盘执行"
+initial_state: 1.0
+feature: "signal_pe_ttm_percentile_5y"
+rules:
+  enter_or_hold_full_when_lte: 0.40
+  exit_or_hold_cash_when_gte: 0.60
+  retain_previous_position_between_thresholds: true
+selection_rationale:
+  - "估值组在开发集与验证集的3至20日IC方向一致。"
+  - "PE分位比绝对PE更能降低长期估值尺度漂移，阈值采用粗粒度经济区间。"
+  - "PE、PB、盈利收益率高度重复，因此只保留一个估值变量。"
+rejected_from_v1:
+  trend: "开发/验证中分位收益稳定性不足；反向使用会构成看结果选方向。"
+  volatility: "部分变量IC同号但分位收益与长周期稳定性不足。"
+  breadth: "缺少可用于点时回测的历史权重。"
+  fvg: "日线基础模型尚未完成独立验证。"
+  pv_lc: "没有历史真实L2订单流。"
+governance:
+  current_status: "SUPERSEDED_EXPLORATORY_ARTIFACT"
+  former_forward_start_status: "INVALIDATED_BEFORE_FORMAL_FACTOR_DISCUSSION"
+  retrospective_test_2025_2026: "contaminated_not_used_for_selection"
+  pristine_holdout_available: false
+  next_valid_oos: "等待正式候选冻结后的下一个交易日；当前没有有效前向起点"

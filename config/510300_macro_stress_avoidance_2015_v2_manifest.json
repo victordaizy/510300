@@ -1,0 +1,146 @@
+{
+  "study_id": "510300_MACRO_STRESS_AVOIDANCE_2015_START_V2",
+  "version": "2.0.0",
+  "status": "HISTORICAL_EVENT_RUN_COMPLETED",
+  "frozen_at": "2026-08-30T16:12:29.975409+08:00",
+  "evidence_class": "POST_REJECTION_WINDOW_SENSITIVITY_ONLY",
+  "protocol_path": "config/510300_macro_stress_avoidance_2015_v2.yaml",
+  "protocol_sha256": "07d2a4fad01fd23b4ccb366ddd551467ed3927c57813bca9fce9f84e87d9e4b8",
+  "source_artifacts": {
+    "research/macro_stress_avoidance_v1.py": "a3bce2ed7bf87df243a97d75f632d05f60f6b097b8f71bae173a8f1b3b79abe2",
+    "research/macro_stress_avoidance_2015_v2.py": "3c6073afbf6cf3a58da3d60e8e762ded030559ce9ba85fdeab4e2ae1001406f3",
+    "scripts/download_510300_macro_stress_inputs_v1.py": "be9fadaaefc2ad50ee5c748901935b4b763136b2e3908454a846b115bc8454f5",
+    "scripts/download_510300_macro_stress_inputs_2015_v2.py": "db2f5bcea58d0a8e6af74d88e4cfb9a99164a65fa4d61d977ed41b17a3fc2762",
+    "scripts/build_510300_macro_stress_market_inputs_2015_v2.py": "bd387733cfe4d711c57a3c037dafc3e4c2e3a7d9d28b94cca3daad404202536c",
+    "scripts/freeze_510300_macro_stress_avoidance_2015_v2.py": "e72b6d81c43212a992f55dde5f2d8613cc64eb4d406bd87647569996e75f2eb6",
+    "scripts/run_510300_macro_stress_avoidance_2015_v2.py": "870c8cdda5e9bcabe7ae53626ba99d01034dc6a430c2bd8a2455052d0c8fbdca",
+    "tests/test_macro_stress_avoidance_v1.py": "a8d56fb2c71d03d4707266bb1ef4d11199aba31c59a1529e67d687b4af5f27d1",
+    "tests/test_macro_stress_avoidance_2015_v2.py": "919e80adad91d1a7fdd0263c50804c337230862d5cfae317a34de073ad2039e9"
+  },
+  "input_artifacts": {
+    "data/raw/macro/510300_macro_stress_2015_v2/fdr007_daily_2015_2026.parquet": "294fcde4552b98e676c45f2375f3e98ed86072fb3f2a3e197d09d01a7c5a80f4",
+    "data/raw/macro/510300_macro_stress_2015_v2/usdcny_midpoint_daily_2015_2026.parquet": "15589a2551c8b816aa5c7e1f47a9cca04f659aff388779b95a64c3a803508974",
+    "data/raw/macro/510300_macro_stress_2015_v2/pmi_new_orders_release_vintage_2015_2026.parquet": "442ab2ec5f0f5a4f89f91b61e896d9bb1a79a79a8d48a6923b301d866aeb9be4",
+    "data/raw/macro/510300_macro_stress_2015_v2/tsf_stock_yoy_release_vintage_2015_2026.parquet": "52677f562785473d0c94f6a33915a8ee3ef1a276f238631a983381cd3e3fc19b",
+    "reports/data_quality/510300_macro_stress_inputs_2015_v2.json": "2a5e33517a8eab2a82d5aaa0131269a1467636c1904bee9bdc1862cca949c31a",
+    "reports/data_quality/510300_market_inputs_2015_v2.json": "05f6c86958d03f11dca129d4a0ce8ed210546ad8131ea7585b8d2e4805be3718",
+    "data/raw/market/510300_daily_2015_v2.parquet": "8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948",
+    "data/raw/market/H00300_total_return_daily_2015_v2.parquet": "5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "backtest/engine.py": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc"
+  },
+  "predecessor": {
+    "result_file": "reports/research/510300_macro_stress_avoidance_v1_result.json",
+    "result_sha256": "85226ac0bb115f6eda8ff22f87514f460186601b289236d5f01d9e6b1448a45f",
+    "manifest_file": "config/510300_macro_stress_avoidance_v1_manifest.json",
+    "manifest_sha256": "067c74b08deac8dd6ebf256af888841bb535989975caba45b990f07675681c85",
+    "required_decision": "REJECTED_FROZEN_INSUFFICIENT_EVENT_SUPPORT_NO_RESCUE",
+    "overridden": false
+  },
+  "data_scope": {
+    "requested_start": "2015-01-01",
+    "end": "2026-08-25",
+    "pre_2021_data_allowed": true,
+    "full_calendar_five_year_history_required": true,
+    "expanding_or_shortened_window_allowed": false,
+    "exact_factor_history_from_2015_available": false,
+    "fdr007_first_official_valid_date": "2017-05-31",
+    "tsf_stock_yoy_first_monthly_reference_period": "2016-01"
+  },
+  "allowed_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "factor_count": 4,
+  "factor_ids": [
+    "FDR007_LIQUIDITY",
+    "PMI_NEW_ORDERS",
+    "TSF_STOCK_YOY",
+    "USDCNY_20D"
+  ],
+  "percentile": 0.9,
+  "current_observation_excluded_from_percentile": true,
+  "event_gate": {
+    "minimum_independent_events": 8,
+    "primary_horizon_trading_days": 20,
+    "minimum_negative_fraction": 0.6,
+    "portfolio_run_before_pass": "NOT_ALLOWED"
+  },
+  "historical_gates": {
+    "five_year_net_sharpe_minimum": 1.2,
+    "five_year_annualized_excess_vs_h00300_strictly_positive": true,
+    "five_year_annualized_excess_vs_buy_hold_strictly_positive": true,
+    "max_drawdown_ratio_vs_buy_hold_maximum": 0.75,
+    "maximum_complete_round_trips_per_year": 10
+  },
+  "robustness_gates": {
+    "three_year_net_sharpe_minimum": 0.9,
+    "three_year_excess_vs_both_benchmarks_strictly_positive": true,
+    "double_cost_five_year_sharpe_minimum": 0.9,
+    "leave_one_calendar_year_out_sharpe_strictly_positive": true,
+    "maximum_single_year_share_of_total_log_excess": 0.5,
+    "maximum_single_risk_cycle_share_of_total_log_excess": 0.5,
+    "minimum_independent_events": 8
+  },
+  "costs": {
+    "base": {
+      "commission_rate": 0.0003,
+      "minimum_commission_cny": 5.0,
+      "stamp_duty_rate": 0.0,
+      "slippage_bps_one_way": 5.0,
+      "cash_annual_rate": 0.0
+    },
+    "double": {
+      "commission_rate": 0.0006,
+      "minimum_commission_cny": 10.0,
+      "stamp_duty_rate": 0.0,
+      "slippage_bps_one_way": 10.0,
+      "cash_annual_rate": 0.0
+    },
+    "dividends": "SEPARATELY_CREDITED_FROM_FROZEN_REFERENCE_FILE"
+  },
+  "benchmarks": {
+    "primary": {
+      "symbol": "H00300",
+      "type": "TOTAL_RETURN_INDEX"
+    },
+    "secondary": {
+      "symbol": "510300.SH",
+      "type": "BUY_AND_HOLD_WITH_DIVIDENDS_AND_BASE_EXECUTION_COSTS"
+    }
+  },
+  "post_rejection_window_sensitivity": true,
+  "original_2021_rejection_overridden": false,
+  "no_parameter_rescue": true,
+  "historical_run_completed": true,
+  "return_outcomes_read_after_freeze": true,
+  "portfolio_backtest_status": "COMPLETED_ONCE_AFTER_EVENT_GATE_PASS",
+  "goal_achieved": false,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_authorized": false,
+  "historical_run_started_at": "2026-08-30T16:12:55.463812+08:00",
+  "historical_run_completed_at": "2026-08-30T16:13:35.217432+08:00",
+  "event_decision": "PASS_EVENT_GATE_PORTFOLIO_RUN_ALLOWED_ONCE",
+  "event_gate_passed": true,
+  "return_evaluation": "COMPLETED_ONCE",
+  "mechanism_decision_before_evidence_class": "REJECTED_FROZEN_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE",
+  "historical_result_status": "REJECTED_2015_START_SENSITIVITY_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE",
+  "result_files": {
+    "data/processed/macro/macro_point_in_time_panel_2015_v2.parquet": "003853902aac6a74c92020c44b456dd6d7c72f540fa52e0e3b64014a31638142",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_events.parquet": "8eed4005921d819e05f1cc34b375d8fcf7e7ab90c9cae0da2dcafc86f83df63b",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_controls.parquet": "2897eb24fbd7098c2c02fbce5ba9046c5d1154b558bc31cc1cba09d6d570c66f",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_5y_ledger.parquet": "502a1a4f2011a7cf7230e6b26074a2a605b02aeb34396683203b20e575ed93a4",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_5y_trades.parquet": "8bb4a9e4e3e88989a077860b9035bd3fbcfcd033f86bf2f8d93534ece1d12a4a",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_3y_ledger.parquet": "8673bc3f30916c10485baa953b1d52d427dfc1128621aec687419bdea3aa9e82",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_3y_trades.parquet": "50055ac4fce3b822b0993b19b82d4fb0082765ab6b11a2ce73327f4b27bf8592",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_5y_double_cost_ledger.parquet": "527d986489252c508ae4dd3709cf1268a8701bbeb90e7f8b50115afb54b69779",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_5y_double_cost_trades.parquet": "a3c81902169bd385700f47d63a1c6497a279a0ff7bcd0a66887205290935073f",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_buy_hold_ledger.parquet": "aeb8751c849ac2af29a2c9f9f140dcd11524a3e081fa2706436a16449271e3c5",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_buy_hold_trades.parquet": "d356d025cb31744e9e01bf4894be75c0f516cf39438be3fdda517f954bc72e28",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_result.json": "f410051a7cc897815ca29fcdb5ccc4f00d8515bbb87e0dd348c54e75eab750bf",
+    "reports/research/510300_macro_stress_avoidance_2015_v2_result.md": "68a0c1404d760ef6c12f62210a4fbd03bd7b15c26c95badf620e7c65eafde044"
+  },
+  "manifest_content_sha256": "4b8f427ad76c6fd444b53d0146032e4af0a27c9716f84ec209e8c16b8be1bb88"
+}

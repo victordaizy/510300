@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "deployment_status": "PASS_SINGLE_ATOMIC_ENTRYPOINT_ACTIVE_AWAITING_NEXT_WINDOW",
+  "audited_at": "2026-08-26T01:44:37.8189360+08:00",
+  "task_name": "Codex-510300-Primary-Market-Collector",
+  "change_type": "IN_PLACE_ACTION_REPLACEMENT_NO_DUPLICATE_TASK_CREATED",
+  "before": {
+    "action_execute": "powershell.exe",
+    "action_arguments": "-NoProfile -ExecutionPolicy Bypass -File \"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_510300_primary_market_collection_task.ps1\"",
+    "last_run_time": "2026-08-25T09:25:00+08:00",
+    "last_task_result": 1,
+    "failure_class": "LEGACY_ENTRYPOINT_WINDOWS_POWERSHELL_5_1_PARSE_FAILURE"
+  },
+  "after": {
+    "state": "Ready",
+    "next_run_time": "2026-08-26T09:25:00+08:00",
+    "action_execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+    "action_arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_5.py\" --phase morning",
+    "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8",
+    "trigger": "WEEKLY_MONDAY_TO_FRIDAY_09_25_ASIA_SHANGHAI",
+    "multiple_instances": "IgnoreNew",
+    "restart_count": 0,
+    "atomic_claim_entrypoint": true,
+    "exact_match": true
+  },
+  "coexistence": {
+    "codex_heartbeat_time": "09:20",
+    "windows_task_time": "09:25",
+    "shared_entrypoint": "scripts/run_priority_forward_codex_automation_v1_5.py --phase morning",
+    "deduplication_key": "task_id_plus_target_date",
+    "expected_launch_count_per_task_date": 1
+  },
+  "files": {
+    "installer": {
+      "path": "scripts/install_priority_forward_morning_task_v1_5.ps1",
+      "sha256": "2284a6de4ef5369f1e6e03244bce0a64539422c11f2089103b94c59d5d24b076",
+      "bytes": 3719
+    },
+    "orchestrator": {
+      "path": "scripts/run_priority_forward_codex_automation_v1_5.py",
+      "sha256": "eafdd19fa9770cff28229b03271ef0aa2c1c1cc5da1a8f015f34bf4a41524a7a",
+      "bytes": 11929
+    },
+    "test": {
+      "path": "tests/test_priority_forward_windows_task_v1_5.py",
+      "sha256": "81ef529b788e957d3dad6bdad6e6440b9d7c28a7a975b36e586f029340d7e377",
+      "bytes": 3215
+    }
+  },
+  "verification": {
+    "powershell_5_1_parse": "PASS",
+    "registered_task_audit": "PASS",
+    "pytest": "3_PASSED",
+    "next_real_run_observed": false
+  }
+}

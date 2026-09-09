@@ -1,0 +1,51 @@
+{
+  "study_id": "CSI300_PIT_FUNDAMENTAL_UNDERREACTION_INCOMPLETE_COVERAGE_ANALYSIS_V1",
+  "addendum_version": "1.0.2",
+  "status": "FROZEN_INPUT_COMPLETENESS_CORRECTION_BEFORE_SIGNAL_OR_FUTURE_OUTCOME_COMPUTATION",
+  "frozen_at": "2026-09-02T11:21:57.9549621+08:00",
+  "trigger": "H00300_TOTAL_RETURN_OPEN_COLUMN_EXISTS_IN_SCHEMA_BUT_IS_NULL_FOR_2486_OF_2831_ROWS",
+  "information_seen_before_addendum": {
+    "input_schema_and_completeness_values_read": true,
+    "signals_computed": false,
+    "scores_computed": false,
+    "future_returns_computed": false,
+    "group_results_computed": false,
+    "pass_fail_result_computed": false
+  },
+  "v1_0_1_disposition": "SUPERSEDED_FOR_FIRST_SESSION_INTRADAY_BENCHMARK_RETURN_ONLY",
+  "benchmark_reaction_implementation": {
+    "first_session_intraday_source": {
+      "path": "data/raw/market/000300_daily_feature_warmup.parquet",
+      "sha256": "dad86334415f64802ef868d7fb15beafaf7c7304e5c1bee99280d6736a3d5eb7",
+      "bytes": 116429,
+      "symbol": "000300.SH",
+      "coverage": "2016-08-12_TO_2026-08-25",
+      "duplicate_dates": 0,
+      "null_open": 0,
+      "null_close": 0,
+      "nonpositive_open": 0,
+      "formula": "PRICE_INDEX_CLOSE_ON_FIRST_SESSION_DIVIDED_BY_PRICE_INDEX_OPEN_ON_FIRST_SESSION_MINUS_ONE"
+    },
+    "sessions_two_through_five_source": {
+      "path": "data/raw/market/H00300_total_return_daily_2015_v2.parquet",
+      "sha256": "5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c",
+      "formula": "H00300_TOTAL_RETURN_CLOSE_DAY5_DIVIDED_BY_H00300_TOTAL_RETURN_CLOSE_DAY1_MINUS_ONE"
+    },
+    "combined_formula": "ONE_PLUS_FIRST_SESSION_000300_INTRADAY_RETURN_TIMES_H00300_CLOSE_DAY5_DIVIDED_BY_H00300_CLOSE_DAY1_MINUS_ONE",
+    "economic_reason": "AN_OPEN_ENTRY_EXCLUDES_DIVIDENDS_AND_OVERNIGHT_MOVES_BEFORE_THE_FIRST_SESSION_OPEN;THE_PRICE_INDEX_MEASURES_ONLY_THAT_SESSION_INTRADAY_MOVE_WHILE_H00300_RETains_TOTAL_RETURN_AFTERWARD"
+  },
+  "benchmark_future_return_implementation": "H00300_TOTAL_RETURN_CLOSE_AT_HORIZON_DIVIDED_BY_H00300_TOTAL_RETURN_CLOSE_AT_FORMATION_MINUS_ONE",
+  "stock_price_coverage_exception": {
+    "missing_symbol": "000671.SZ",
+    "affected_ready_event_count": 14,
+    "rule": "PRICE_NO_VIEW_WITHOUT_PROXY_OR_SYMBOL_SUBSTITUTION"
+  },
+  "hard_cutoff": "2026-08-14",
+  "sample_feature_score_horizons_groups_and_gates_unchanged": true,
+  "outcome_based_change": false,
+  "parameter_search_allowed": false,
+  "original_v1_status": "BLOCKED_OFFICIAL_PDF_FACT_COVERAGE_BELOW_FROZEN_GATE",
+  "phase_2_authority": false,
+  "position_impact": 0,
+  "trade_status": "NO_TRADE"
+}

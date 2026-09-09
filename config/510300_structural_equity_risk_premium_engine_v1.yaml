@@ -1,0 +1,370 @@
+program:
+  program_id: 510300_STRUCTURAL_EQUITY_RISK_PREMIUM_ENGINE_V1
+  version: 1.0.5
+  protocol_revision: OUTCOME_BLIND_DATETIME_UNIT_NORMALIZATION_CORRECTION_5
+  supersedes_manifest: config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_4.json
+  correction_reason: NORMALIZE_PV_RISK_FREE_ASOF_KEYS_TO_DATETIME64_NS_WITHOUT_RETURN_READ
+  timezone: Asia/Shanghai
+  research_stage: MECHANISM_IDENTIFICATION
+  research_scope: DISCOVERY_ONLY
+  trade_asset: 510300.SH_OR_CASH
+  study_start: '2015-01-01'
+  market_data_cutoff: '2026-08-14'
+  primary_horizons_market_days: [20, 60, 120]
+  daily_direction_prediction: NOT_PRIMARY_OBJECTIVE
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+
+governance:
+  outcome_blind_state_build_required: true
+  state_products_must_be_frozen_before_return_read: true
+  parameter_search_allowed: false
+  threshold_search_allowed: false
+  cycle_selection_by_performance_allowed: false
+  position_mapping_allowed: false
+  nav_calculation_allowed: false
+  sharpe_optimization_allowed: false
+  order_generation_allowed: false
+  broker_connection_allowed: false
+  paper_shadow_authorized: false
+  live_authorized: false
+  old_pit_earnings_proxy_remains_frozen: true
+  old_r5_valuation_model_remains_frozen: true
+  rejected_if_option_macro_technical_rules_remain_frozen: true
+  rejected_variables_usage: STATE_MEASUREMENT_ONLY_DISCOVERY_EVIDENCE_ONLY
+
+availability_clocks:
+  financial_primary: NOTICE_DATE
+  financial_update_date: DIAGNOSTIC_ONLY_NOT_INFORMATION_AVAILABILITY
+  financial_revision_limitation: CURRENT_SECONDARY_AGGREGATOR_VALUE_MAY_REFLECT_LATER_REVISION
+  financial_revision_policy: CURRENT_SNAPSHOT_VALUES_INDEXED_BY_NOTICE_DATE_WITH_UPDATE_RISK_DISCLOSED
+  market_cross_section: MARKET_ASOF_DATE_MUST_NOT_EXCEED_ORIGIN
+  membership: OFFICIAL_EFFECTIVE_TRADING_SESSION
+  macro: FIRST_RELEASE_AVAILABLE_AT_WHERE_PRESENT
+  historical_index_weight: DIAGNOSTIC_ONLY_UNVERSIONED_NOT_PIT_ADMITTED
+  revision_safe_first_release_archive_available: false
+  unannounced_current_value_backfill_allowed: false
+
+source_contract:
+  membership:
+    path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    required_status: PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION
+    expected_members_per_session: 300
+  market_cross_section:
+    path: data/staging/a_share_hs_pit_quality_conservative_investment_v1/monthly_signal_panel.parquet
+    allowed_usage: POINT_IN_TIME_PRICE_MARKET_CAP_AND_INDUSTRY_STATE_ONLY
+  market_daily_fallback:
+    allowed_usage: POINT_IN_TIME_CLOSE_ONLY_WHEN_MONTHLY_MARKET_CAP_IS_MISSING
+    files:
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2015.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2016.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2017.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2018.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2019.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2020.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2021.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2022.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2023.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2024.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2025.parquet
+      - data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2026.parquet
+  historical_index_weight_diagnostic:
+    path: data/raw/constituents/000300_historical_weights.parquet
+    required_status: BLOCKED_NO_VERSION_PROVEN_PIT_CSI300_WEIGHTS
+    allowed_usage: DIAGNOSTIC_ONLY
+  independent_financial_crosscheck:
+    path: data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet
+    allowed_usage: PROVIDER_RECONCILIATION_AND_PIT_TOTAL_SHARES_FALLBACK
+    share_fallback_clock: AVAILABLE_AT_MUST_NOT_EXCEED_ORIGIN
+  protocol_history:
+    paths:
+      - config/510300_structural_equity_risk_premium_engine_v1_manifest.json
+      - config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_1.json
+      - config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_2.json
+      - config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_3.json
+      - config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_4.json
+    disposition: SUPERSEDED_OUTCOME_BLIND_DATA_ADMISSION_CORRECTIONS_PRESERVED
+  carry_forward_collection:
+    from_manifest_payload_sha256: 0fc34807a840714c7dc2538be11c7ff137b205bce3e3214c9679924356a3a1d2
+    reason: COLLECTION_CONTRACT_UNCHANGED_CORRECTION_ONLY_AFFECTS_STATE_ADMISSION_AND_GATE_PROPAGATION
+    paths:
+      - reports/data_quality/510300_structural_equity_risk_premium_engine_v1_statement_collection.json
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/income_point_in_time_vintages.parquet
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/cashflow_point_in_time_vintages.parquet
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/balance_point_in_time_vintages.parquet
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/statement_conflicts.parquet
+  financial_sector_statement_supplement:
+    base_url: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis
+    provider: EASTMONEY_PC_HSF10_COMPANY_TYPE_SPECIFIC_SECONDARY_AGGREGATOR
+    raw_snapshot_policy: IMMUTABLE_GZIP_PLUS_SHA256_METADATA
+    member_scope: EVER_MEMBERS_ABSENT_FROM_GENERAL_BALANCE_TABLE
+    allowed_company_types:
+      '1': SECURITIES
+      '2': INSURANCE
+      '3': BANK
+    tables:
+      balance: zcfzb
+      cashflow: xjllb
+    report_date_type: 0
+    report_type: 1
+    maximum_dates_per_request: 5
+    workers: 8
+    timeout_seconds: 45
+    attempts: 4
+    availability_clock: NOTICE_DATE
+    update_date_usage: DIAGNOSTIC_ONLY_NOT_INFORMATION_AVAILABILITY
+    historical_company_type_overrides:
+      000627.SZ: '2'
+    historical_company_type_override_basis: PROFILE_TYPE_1_ZERO_ROWS_ALL_FIXED_BATCHES_BUT_TYPE_2_RETURNS_EXACT_CODE_AND_REQUESTED_REPORT_DATES
+    historical_company_type_override_timing: DIAGNOSTIC_PROBE_AFTER_V1_0_3_COLLECTION_FAILURE_AUDIT_BEFORE_RETURN_READ
+    empty_batch_contract:
+      admitted_shape: EXACT_DOTNET_SERIALIZER_SYSTEM_OBJECT_MARKERS_ONLY
+      admitted_status: SERIALIZER_EMPTY_OBJECT_NO_ROWS
+      semantics: AUDITED_ZERO_ROW_BATCH_NOT_PROVIDER_FAILURE
+      unknown_missing_data_response: HARD_FAILURE
+  carry_forward_financial_sector_raw:
+    from_manifest_payload_sha256: c4a8235b6286ecedc671dee301537d4013fd34d79794596ef082eb1704e1f94d
+    reason: ALL_GENERAL_AND_HISTORICAL_TYPE_OVERRIDE_RAW_SNAPSHOTS_COLLECTED_BEFORE_RETURN_READ
+    roots:
+      - data/raw/510300_structural_equity_risk_premium_engine_v1/financial_sector_statements
+      - data/raw/510300_structural_equity_risk_premium_engine_v1/financial_sector_statements_v1_0_4_type_override
+    expected_profile_payloads: 79
+    expected_batch_payloads: 1920
+  carry_forward_financial_sector_collection:
+    from_manifest_payload_sha256: c4a8235b6286ecedc671dee301537d4013fd34d79794596ef082eb1704e1f94d
+    reason: PRESERVE_V1_0_4_COMPLETE_79_CODE_NORMALIZATION_BEFORE_DATETIME_REPAIR
+    paths:
+      - reports/data_quality/510300_structural_equity_risk_premium_engine_v1_financial_sector_statement_collection_v1_0_4.json
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/financial_sector_balance_point_in_time_vintages_v1_0_4.parquet
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/financial_sector_cashflow_point_in_time_vintages_v1_0_4.parquet
+      - data/curated/510300_structural_equity_risk_premium_engine_v1/financial_sector_statement_conflicts_v1_0_4.parquet
+  statement_acquisition:
+    endpoint: https://datacenter.eastmoney.com/securities/api/data/get
+    provider: EASTMONEY_HSF10_SECONDARY_AGGREGATOR
+    raw_snapshot_policy: IMMUTABLE_GZIP_PLUS_SHA256_METADATA
+    page_size: 500
+    workers: 4
+    timeout_seconds: 45
+    attempts: 4
+    financial_collection_start: '2012-03-31'
+    financial_collection_end: '2026-06-30'
+    member_filter: ALL_SECURITIES_EVER_IN_ADMITTED_CSI300_MEMBERSHIP
+    statements:
+      income:
+        report_type: RPT_F10_FINANCE_GINCOME
+        fields:
+          - SECUCODE
+          - SECURITY_CODE
+          - SECURITY_TYPE_CODE
+          - ORG_CODE
+          - REPORT_DATE
+          - REPORT_TYPE
+          - REPORT_DATE_NAME
+          - NOTICE_DATE
+          - UPDATE_DATE
+          - CURRENCY
+          - TOTAL_OPERATE_INCOME
+          - OPERATE_PROFIT
+          - PARENT_NETPROFIT
+      cashflow:
+        report_type: RPT_F10_FINANCE_GCASHFLOW
+        fields:
+          - SECUCODE
+          - SECURITY_CODE
+          - SECURITY_TYPE_CODE
+          - ORG_CODE
+          - REPORT_DATE
+          - REPORT_TYPE
+          - REPORT_DATE_NAME
+          - NOTICE_DATE
+          - UPDATE_DATE
+          - CURRENCY
+          - NETCASH_OPERATE
+      balance:
+        report_type: RPT_F10_FINANCE_GBALANCE
+        fields:
+          - SECUCODE
+          - SECURITY_CODE
+          - SECURITY_TYPE_CODE
+          - ORG_CODE
+          - REPORT_DATE
+          - REPORT_TYPE
+          - REPORT_DATE_NAME
+          - NOTICE_DATE
+          - UPDATE_DATE
+          - CURRENCY
+          - TOTAL_PARENT_EQUITY
+          - TOTAL_ASSETS
+          - SHARE_CAPITAL
+  risk_bearing_inputs:
+    fdr007: data/raw/macro/510300_macro_stress_2015_v2/fdr007_daily_2015_2026.parquet
+    cgb_curve: data/raw/macro/china_government_bond_yields_daily.parquet
+    credit_spread: data/raw/macro/china_credit_spread_3y_daily.parquet
+    usdcny_midpoint: data/raw/macro/510300_macro_stress_2015_v2/usdcny_midpoint_daily_2015_2026.parquet
+    market_margin_2015_2025: data/raw/market_margin_validation_v2/market_margin_sh_sz_daily_2015_2025.parquet
+    market_margin_extension: data/raw/market_margin_leverage_v0/market_margin_sh_sz_daily.parquet
+    etf_shares: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    constituent_total_return_close: data/raw/market/csi300_absorption_ratio_v1_total_return_close.parquet
+    etf_price: data/raw/market/510300_daily_2015_v2.parquet
+  explanatory_outcomes_locked_until_state_freeze:
+    csi300_total_return: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    etf_dividends: data/reference/510300_dividends.csv
+
+monthly_origin:
+  rule: LAST_ADMITTED_MEMBERSHIP_SESSION_OF_CALENDAR_MONTH
+  include_partial_final_month: true
+  partial_final_month_status: PARTIAL_MONTH_STATE_ONLY
+  market_snapshot_max_age_calendar_days: 35
+  primary_weight_method: POINT_IN_TIME_TOTAL_MARKET_CAP_PROXY
+  minimum_market_cap_member_count: 270
+  official_weight_usage: DIAGNOSTIC_ONLY_UNVERSIONED
+
+cashflow_state:
+  product_id: CSI300_PIT_CASHFLOW_STATE_PANEL_V1
+  core_metrics:
+    - weighted_revenue_yoy
+    - weighted_operating_profit_yoy
+    - weighted_operating_cashflow_yoy
+    - weighted_roe_change
+    - improvement_weight_breadth
+    - deterioration_concentration
+  ttm_formula: CURRENT_YTD_PLUS_PREVIOUS_FY_MINUS_PREVIOUS_SAME_YTD_Q4_USES_ANNUAL
+  growth_validity: PRIOR_VALUE_MUST_BE_POSITIVE
+  growth_clip: [-1.0, 3.0]
+  roe_clip: [-0.5, 0.8]
+  roe_change_clip: [-0.5, 0.5]
+  minimum_weight_coverage:
+    revenue: 0.85
+    operating_profit: 0.80
+    operating_cashflow: 0.70
+    roe_change: 0.80
+  deterioration_concentration: NORMALIZED_HHI_OF_ABSOLUTE_NEGATIVE_OPERATING_PROFIT_GROWTH_CONTRIBUTIONS
+  expanding_state_min_periods: 12
+  expanding_zscore_clip: 4.0
+  state_aggregation: MEDIAN_OF_DIRECTION_ALIGNED_EXPANDING_ZSCORES_AT_LEAST_FOUR_VALID
+
+present_value_state:
+  product_id: CSI300_CROSS_SECTIONAL_PRESENT_VALUE_PANEL_V1
+  ratios: [earnings_to_price, book_to_price, sales_to_price, operating_cashflow_to_price]
+  industry_neutralization: WITHIN_ORIGIN_WITHIN_INDUSTRY_PERCENTILE_RANK
+  minimum_industry_members: 5
+  cross_section_winsorization: [0.01, 0.99]
+  fixed_portfolios:
+    - EP_LOW
+    - EP_MID
+    - EP_HIGH
+    - BP_LOW
+    - BP_MID
+    - BP_HIGH
+    - SP_LOW
+    - SP_MID
+    - SP_HIGH
+    - CFP_LOW
+    - CFP_MID
+    - CFP_HIGH
+    - HIGH_EP_HIGH_QUALITY
+    - HIGH_EP_LOW_QUALITY
+    - LONG_DURATION
+    - SHORT_DURATION
+  latent_factor_method: FULL_SAMPLE_PCA_WITHOUT_RETURN_LABELS_EXPLANATORY_ONLY
+  latent_factor_sign_anchor: POSITIVE_WITH_CROSS_SECTIONAL_MEDIAN_PRESENT_VALUE_YIELD
+  minimum_pca_months: 24
+  dividend_yield_status: NO_VIEW_NO_POINT_IN_TIME_COMPONENT_DIVIDEND_ARCHIVE
+  direct_cashflow_duration_status: NO_VIEW_PROXY_ONLY
+  equity_risk_premium_definition: CAP_WEIGHTED_POSITIVE_EARNINGS_YIELD_MINUS_CGB10Y_YIELD
+
+risk_bearing_capacity:
+  product_id: CSI300_RISK_BEARING_CAPACITY_PANEL_V1
+  frequency: DAILY_WITH_MONTH_END_INTERNAL_MARKET_STATE_UPDATES
+  raw_measures:
+    - fdr007
+    - cgb_10y_minus_1y
+    - credit_spread_3y_bp
+    - usdcny_20d_log_change
+    - etf_amihud_20d
+    - financing_balance_20d_log_change
+    - etf_share_20d_log_change
+    - member_average_pairwise_correlation_60d
+    - industry_average_pairwise_correlation_60d
+    - large_weight_minus_median_member_return_60d
+    - industry_negative_breadth_20d
+  expanding_standardization_min_periods: 60
+  expanding_zscore_clip: 4.0
+  latent_factor_method: FULL_SAMPLE_PCA_WITHOUT_RETURN_LABELS_EXPLANATORY_ONLY
+  factor_sign: HIGHER_MEANS_STRONGER_RISK_BEARING_CAPACITY
+  rejected_input_reuse_status: STATE_MEASUREMENT_ONLY_DISCOVERY_EVIDENCE_ONLY
+
+return_source_decomposition:
+  model_id: 510300_RETURN_SOURCE_DECOMPOSITION_V1
+  status: EXPLANATORY_MECHANISM_STUDY_ONLY
+  return_read_allowed_only_after_state_freeze: true
+  monthly_return_definition: CSI300_TOTAL_RETURN_CLOSE_MONTH_END_TO_MONTH_END
+  state_innovations: FIRST_DIFFERENCE_OF_CF_DR_RC_MONTHLY_FACTORS
+  regression: FULL_SAMPLE_OLS_WITH_INTERCEPT_NO_FEATURE_OR_PENALTY_SELECTION
+  contribution_labels: [CASHFLOW_NEWS, DISCOUNT_RATE_NEWS, RISK_CAPACITY_NEWS, RESIDUAL]
+  accounting_identity_claim_allowed: false
+  forward_horizons_market_days: [20, 60, 120]
+  incomplete_forward_horizon_status: CENSORED_NO_VIEW
+
+cycle_atlas:
+  model_id: 510300_MAJOR_CYCLE_CAUSAL_ATLAS_V1
+  status: EXPLANATORY_MECHANISM_STUDY_ONLY
+  series: CSI300_TOTAL_RETURN_CLOSE
+  drawdown_episode_rule: RUNNING_HIGH_TO_TROUGH_UNTIL_PRIOR_HIGH_RECOVERY
+  drawdown_activation: -0.10
+  major_drawdown_threshold: -0.15
+  recovery_rule: TROUGH_TO_FIRST_PRIOR_PEAK_RECOVERY_OR_RIGHT_CENSORED
+  long_sideways_rule:
+    lookback_market_days: 252
+    absolute_total_return_max: 0.05
+    peak_to_trough_range_max: 0.20
+    overlapping_windows: COALESCE
+  internal_deterioration_rule:
+    lookback_market_days: 60
+    index_return_min: 0.00
+    median_member_return_max: 0.00
+    positive_member_breadth_max: 0.45
+  index_down_earnings_improving_rule:
+    lookback_market_days: 60
+    index_return_max: -0.05
+    cf_operating_profit_yoy_change_3m_min: 0.00
+  event_windows_market_days:
+    pre: [120, 60, 20]
+    post: [20, 60]
+  mechanism_classes:
+    - FUNDAMENTAL_EXPANSION
+    - LIQUIDITY_EXPANSION
+    - LATE_CYCLE_DISCOUNT_RATE_SQUEEZE
+    - TRUE_CONTRACTION
+    - LIQUIDITY_OVERSHOOT
+    - POLICY_OR_DISCOUNT_RATE_REPAIR
+    - MIXED_OR_NO_VIEW
+  class_assignment: FIXED_SIGN_MAP_OF_PRE_EVENT_AND_EVENT_CF_DR_RC_CHANGES_NO_NEWS_NARRATIVE
+
+artifacts:
+  protocol_manifest: config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_5.json
+  raw_statement_root: data/raw/510300_structural_equity_risk_premium_engine_v1/statements
+  statement_income: data/curated/510300_structural_equity_risk_premium_engine_v1/income_point_in_time_vintages.parquet
+  statement_cashflow: data/curated/510300_structural_equity_risk_premium_engine_v1/cashflow_point_in_time_vintages.parquet
+  statement_balance: data/curated/510300_structural_equity_risk_premium_engine_v1/balance_point_in_time_vintages.parquet
+  statement_conflicts: data/curated/510300_structural_equity_risk_premium_engine_v1/statement_conflicts.parquet
+  collection_receipt: reports/data_quality/510300_structural_equity_risk_premium_engine_v1_statement_collection.json
+  raw_financial_sector_statement_root: data/raw/510300_structural_equity_risk_premium_engine_v1/financial_sector_statements
+  raw_financial_sector_statement_override_root: data/raw/510300_structural_equity_risk_premium_engine_v1/financial_sector_statements_v1_0_4_type_override
+  financial_sector_statement_balance: data/curated/510300_structural_equity_risk_premium_engine_v1/financial_sector_balance_point_in_time_vintages_v1_0_5.parquet
+  financial_sector_statement_cashflow: data/curated/510300_structural_equity_risk_premium_engine_v1/financial_sector_cashflow_point_in_time_vintages_v1_0_5.parquet
+  financial_sector_statement_conflicts: data/curated/510300_structural_equity_risk_premium_engine_v1/financial_sector_statement_conflicts_v1_0_5.parquet
+  financial_sector_collection_receipt: reports/data_quality/510300_structural_equity_risk_premium_engine_v1_financial_sector_statement_collection_v1_0_5.json
+  component_monthly_panel: data/curated/510300_structural_equity_risk_premium_engine_v1/csi300_component_monthly_state.parquet
+  cashflow_panel: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_pit_cashflow_state_panel_v1.parquet
+  present_value_panel: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_cross_sectional_present_value_panel_v1.parquet
+  present_value_portfolios: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_present_value_fixed_portfolios_v1.parquet
+  risk_capacity_panel: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_risk_bearing_capacity_panel_v1.parquet
+  state_freeze_receipt: reports/data_quality/510300_structural_equity_risk_premium_engine_v1_state_products.json
+  return_decomposition: reports/research/510300_return_source_decomposition_v1.parquet
+  return_decomposition_json: reports/research/510300_return_source_decomposition_v1.json
+  cycle_atlas: reports/research/510300_major_cycle_causal_atlas_v1.parquet
+  cycle_windows: reports/research/510300_major_cycle_causal_atlas_v1_windows.parquet
+  cycle_atlas_json: reports/research/510300_major_cycle_causal_atlas_v1.json
+  final_report: reports/research/510300_STRUCTURAL_EQUITY_RISK_PREMIUM_ENGINE_V1.md
+  authoritative_status: reports/research/510300_structural_equity_risk_premium_engine_v1_status.json

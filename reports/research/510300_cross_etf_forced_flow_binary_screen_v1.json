@@ -1,0 +1,174 @@
+{
+  "status": "REJECTED_FIXED_CROSS_ETF_FORCED_FLOW_BINARY_FAMILY_NO_RESCUE",
+  "study_id": "510300_CROSS_ETF_FORCED_FLOW_BINARY_SCREEN_V1",
+  "generated_at": "2026-08-28T22:15:01.128976+08:00",
+  "protocol_sha256": "f958791122eec2e68f809b356a88c6862b3457a8942c2b4c91c3394417575354",
+  "freeze_manifest_sha256": "39751765b491940f8514e870caa6249a97e1dfdaf34ddc2bb1705656e5de72f7",
+  "candidate_contract_sha256": "879800a413eac26c137a56d2cb4ea94c9a544a7a1538c7af09ed36550ff6a742",
+  "candidate_prefreeze_receipt_sha256": "632694d9415d3cb9e7e75e27e9bca23e3369f7d77c18d2515acb6c5fe5808e66",
+  "scope": {
+    "signal_funds_not_limited_to_510300": true,
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "benchmark": "H00300 total return",
+    "signal_clock": "SSE_WEEKLY_SHARE_DATE_T_TREATED_AVAILABLE_T_PLUS_1_CLOSE",
+    "execution_time": "T_PLUS_2_OPEN",
+    "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY"
+  },
+  "input_audit": {
+    "hashes": {
+      "data/raw/flow/510300_cross_etf_forced_flow_sse_weekly_v1.parquet": "949d9c3bfd3f842397a774cfc11d1dd413cff8038128cc232837aeb8b7c22769",
+      "reports/data_quality/510300_cross_etf_forced_flow_sse_weekly_v1.json": "4371ca2a60fb69e29e2aeafe0a31ec24757244b938262beb37943e5cc0389f35",
+      "data/raw/all_etf_momentum_v1r/etf_total_return_panel_tushare_adj.parquet": "d6834df6f7a56efc752bd28bc67d7ba4a09d75e6789ae4d99a700ed24faaa550",
+      "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+      "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "reports/frozen/510300_cross_etf_forced_flow_binary_screen_v1_candidate_prefreeze_receipt.json": "632694d9415d3cb9e7e75e27e9bca23e3369f7d77c18d2515acb6c5fe5808e66"
+    },
+    "official_share_rows": 2870,
+    "official_snapshot_count": 287,
+    "official_first_date": "2021-01-08",
+    "official_last_date": "2026-08-14",
+    "official_missing_snapshot_count": 0,
+    "official_missing_symbol_date_count": 0,
+    "official_fill_used": false,
+    "historical_publication_timestamp_verified": false,
+    "conservative_execution_time": "T_PLUS_2_OPEN",
+    "510300_sse_tushare_overlap_audit": {
+      "rows": 255,
+      "exact_rows": 249,
+      "maximum_absolute_share_difference": 10.0
+    },
+    "market_rows": 1391,
+    "benchmark_rows": 1391,
+    "dividend_event_count": 14
+  },
+  "feature_audit": {
+    "weekly_rows": 287,
+    "first_date": "2021-01-08",
+    "last_date": "2026-08-14",
+    "first_rank_dates": {
+      "broad_flow_rank_1w": "2022-01-07",
+      "broad_flow_rank_4w": "2022-01-28",
+      "hs300_flow_rank_1w": "2022-01-07"
+    },
+    "future_510300_return_columns_read": 0,
+    "historical_publication_timestamp_verified": false,
+    "conservative_execution_time": "T_PLUS_2_OPEN"
+  },
+  "candidate_count": 5,
+  "result_rows": 150,
+  "passing_candidates": [],
+  "positive_shadow_candidates": [],
+  "best_candidate": {
+    "candidate_id": "BROAD_FLOW1W_DUALTAIL_HYSTERESIS",
+    "rule": "broad_pool一周流量比分位不高于0.10时转空仓，不低于0.90时转满仓，中间区间保持原状态",
+    "hard_pass": false,
+    "positive_shadow": false,
+    "stress_min_annualized_excess": -0.03404561015784381,
+    "stress_min_rolling_242d_excess_median": 0.01783022422663949,
+    "stress_combined_annualized_excess_offset0": 0.004793965974859669,
+    "stress_combined_rolling_median_offset0": 0.03781292109637845,
+    "base_combined_annualized_excess_offset0": 0.0072374960270861,
+    "base_combined_rolling_median_offset0": 0.03926980361976129,
+    "cash_state_share_combined_window": 0.3037974683544304,
+    "state_change_count_combined_window": 10,
+    "maximum_t_plus_one_violations": 0
+  },
+  "candidate_summaries": [
+    {
+      "candidate_id": "BROAD_FLOW1W_DUALTAIL_HYSTERESIS",
+      "rule": "broad_pool一周流量比分位不高于0.10时转空仓，不低于0.90时转满仓，中间区间保持原状态",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.03404561015784381,
+      "stress_min_rolling_242d_excess_median": 0.01783022422663949,
+      "stress_combined_annualized_excess_offset0": 0.004793965974859669,
+      "stress_combined_rolling_median_offset0": 0.03781292109637845,
+      "base_combined_annualized_excess_offset0": 0.0072374960270861,
+      "base_combined_rolling_median_offset0": 0.03926980361976129,
+      "cash_state_share_combined_window": 0.3037974683544304,
+      "state_change_count_combined_window": 10,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "HS300_FLOW1W_DUALTAIL_HYSTERESIS",
+      "rule": "三只纯沪深300ETF一周流量比分位不高于0.10时转空仓，不低于0.90时转满仓，中间区间保持原状态",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.059330734183835235,
+      "stress_min_rolling_242d_excess_median": -0.04804423567397577,
+      "stress_combined_annualized_excess_offset0": 0.008245346746084022,
+      "stress_combined_rolling_median_offset0": -0.0017107848676706783,
+      "base_combined_annualized_excess_offset0": 0.010270024059914687,
+      "base_combined_rolling_median_offset0": -0.00037335083564349336,
+      "cash_state_share_combined_window": 0.3688969258589512,
+      "state_change_count_combined_window": 8,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "BROAD_FLOW4W_BOTTOM10_CASH_WEEK",
+      "rule": "broad_pool四周累计流量比滚动分位不高于0.10时，T+2开盘转空仓并保持到下一周决策；否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.060426185469103805,
+      "stress_min_rolling_242d_excess_median": -0.02055641387441151,
+      "stress_combined_annualized_excess_offset0": -0.03409895636065403,
+      "stress_combined_rolling_median_offset0": -0.004555827762016268,
+      "base_combined_annualized_excess_offset0": -0.02998702916638377,
+      "base_combined_rolling_median_offset0": -0.004465803253476175,
+      "cash_state_share_combined_window": 0.14828209764918626,
+      "state_change_count_combined_window": 18,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "BROAD_HS300_DUAL_CONFIRM_20_80_HYSTERESIS",
+      "rule": "broad_pool与hs300_pool一周流量比分位均不高于0.20时转空仓，均不低于0.80时转满仓，其余保持原状态",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.08627699431868437,
+      "stress_min_rolling_242d_excess_median": -0.15832514317406662,
+      "stress_combined_annualized_excess_offset0": 0.0020937096714703923,
+      "stress_combined_rolling_median_offset0": -0.05679449080056895,
+      "base_combined_annualized_excess_offset0": 0.006159655802005656,
+      "base_combined_rolling_median_offset0": -0.05136859602340389,
+      "cash_state_share_combined_window": 0.5406871609403255,
+      "state_change_count_combined_window": 17,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "BROAD_FLOW1W_BOTTOM10_CASH_WEEK",
+      "rule": "broad_pool一周流量比滚动分位不高于0.10时，T+2开盘转空仓并保持到下一周决策；否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.12984695259583992,
+      "stress_min_rolling_242d_excess_median": -0.05078773986282828,
+      "stress_combined_annualized_excess_offset0": -0.07731733203532123,
+      "stress_combined_rolling_median_offset0": -0.0049116893746183055,
+      "base_combined_annualized_excess_offset0": -0.07372498942466416,
+      "base_combined_rolling_median_offset0": -0.004802841366096086,
+      "cash_state_share_combined_window": 0.09584086799276673,
+      "state_change_count_combined_window": 16,
+      "maximum_t_plus_one_violations": 0
+    }
+  ],
+  "maximum_t_plus_one_violations": 0,
+  "decision": "五条预先固定规则均未通过双20全门；禁止改阈值、改周数、改ETF池、改执行延迟或组合条件营救。",
+  "artifacts": {
+    "data/research/510300_cross_etf_forced_flow_binary_screen_v1/weekly_features.parquet": "1a2ea09a26928420172dedf8ac4ca92cf454efe306d134f6e4ad54ecbd282124",
+    "data/research/510300_cross_etf_forced_flow_binary_screen_v1/daily_states.parquet": "33241f83f0e19855c41687423c1b9af542b79b1eb636730272de4eb3fad490f0",
+    "data/research/510300_cross_etf_forced_flow_binary_screen_v1/start_perturbation_metrics.parquet": "a3b3fbd9410621e7846a9ed89727ef2d5d62e37b407d1febaec4ef347b6bd8e0"
+  },
+  "manifest_frozen_at": "2026-08-28T22:13:36.282074+08:00",
+  "boundaries": {
+    "current_signal_created": false,
+    "position_mapping": "DISABLED",
+    "paper_or_shadow": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

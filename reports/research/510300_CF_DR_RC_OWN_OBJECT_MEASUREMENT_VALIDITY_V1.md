@@ -1,0 +1,44 @@
+# 510300_CF_DR_RC_OWN_OBJECT_MEASUREMENT_VALIDITY_V1
+
+## 裁决
+
+九个预注册自有对象的历史测量有效性已经检查。本阶段不拟合模型、不预测总回报、不计算组合收益。
+
+- 协议哈希：`5530350f358858cfa4a2c4bbf4b7f782a72341b953f90a5f8d53782da350b0a1`
+- 对象测量：`2421` 行；对象×horizon 汇总：`18` 行。
+- 模块结论：`[{"measurement_status": "NO_VIEW_OR_MIXED_REGISTERED_OBJECT_MEASUREMENTS", "module_id": "CF", "object_status_counts": {"NO_VIEW_MEASUREMENT_COVERAGE_GATE": 4, "PARTIAL_OWN_OBJECT_MEASUREMENT_VALIDITY": 2}, "registered_object_horizon_count": 6}, {"measurement_status": "NO_VIEW_OR_MIXED_REGISTERED_OBJECT_MEASUREMENTS", "module_id": "DR", "object_status_counts": {"NO_VIEW_MEASUREMENT_COVERAGE_GATE": 2, "PARTIAL_OWN_OBJECT_MEASUREMENT_VALIDITY": 2}, "registered_object_horizon_count": 4}, {"measurement_status": "PASS_ALL_REGISTERED_OBJECT_MEASUREMENTS", "module_id": "RC", "object_status_counts": {"PASS_OWN_OBJECT_MEASUREMENT_VALIDITY": 8}, "registered_object_horizon_count": 8}]`
+- `RETURN_PREDICTION_ALLOWED=false`，`PORTFOLIO_EVALUATION_ALLOWED=false`。
+
+## 对象覆盖
+
+| 模块 | 对象 | horizon | origin | 已测量 | PASS | PARTIAL | NO_VIEW | 可用率 | 年份 | 裁决 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| CF | EARNINGS_CASHFLOW_BREADTH | 60D | 136 | 50 | 0 | 50 | 86 | 36.76% | 8 | NO_VIEW_MEASUREMENT_COVERAGE_GATE |
+| CF | EARNINGS_CASHFLOW_BREADTH | 120D | 133 | 54 | 0 | 54 | 79 | 40.60% | 8 | NO_VIEW_MEASUREMENT_COVERAGE_GATE |
+| CF | EARNINGS_GROWTH | 60D | 136 | 136 | 0 | 136 | 0 | 100.00% | 12 | PARTIAL_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| CF | EARNINGS_GROWTH | 120D | 133 | 133 | 0 | 133 | 0 | 100.00% | 12 | PARTIAL_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| CF | OPERATING_CASHFLOW_GROWTH | 60D | 136 | 50 | 0 | 50 | 86 | 36.76% | 8 | NO_VIEW_MEASUREMENT_COVERAGE_GATE |
+| CF | OPERATING_CASHFLOW_GROWTH | 120D | 133 | 54 | 0 | 54 | 79 | 40.60% | 8 | NO_VIEW_MEASUREMENT_COVERAGE_GATE |
+| DR | EQUITY_RISK_PREMIUM_GAP_CHANGE | 60D | 136 | 117 | 0 | 117 | 19 | 86.03% | 11 | NO_VIEW_MEASUREMENT_COVERAGE_GATE |
+| DR | EQUITY_RISK_PREMIUM_GAP_CHANGE | 120D | 133 | 114 | 0 | 114 | 19 | 85.71% | 11 | NO_VIEW_MEASUREMENT_COVERAGE_GATE |
+| DR | VALUATION_MULTIPLE_CHANGE | 60D | 136 | 136 | 0 | 136 | 0 | 100.00% | 12 | PARTIAL_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| DR | VALUATION_MULTIPLE_CHANGE | 120D | 133 | 133 | 0 | 133 | 0 | 100.00% | 12 | PARTIAL_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | DOWNSIDE_SEMIVARIANCE | 60D | 136 | 136 | 136 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | DOWNSIDE_SEMIVARIANCE | 120D | 133 | 133 | 133 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | LIQUIDITY_SHOCK | 60D | 136 | 136 | 136 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | LIQUIDITY_SHOCK | 120D | 133 | 133 | 133 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | MEMBER_CORRELATION | 60D | 136 | 136 | 136 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | MEMBER_CORRELATION | 120D | 133 | 133 | 133 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | REALIZED_VOLATILITY | 60D | 136 | 136 | 136 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+| RC | REALIZED_VOLATILITY | 120D | 133 | 133 | 133 | 0 | 0 | 100.00% | 12 | PASS_OWN_OBJECT_MEASUREMENT_VALIDITY |
+
+## 解释
+
+- CF 的盈利、经营现金流和 breadth 具有足够历史覆盖时仍最多为 `PARTIAL`，因为首次披露日期虽被用作主时钟，但数值来自可能含后修订的二级聚合历史，且成分权重是市值代理。
+- DR 的固定 cohort 倍数变化和 ERP gap 变化同样受财务数值版本与代理权重限制，因此不得提升为完全 PIT 测量。
+- RC 的实现波动、下行半方差、成员相关性和 ETF Amihud 冲击来自已发生市场路径；它们可以作为风险容量对象，但仍不是未来回报标签。
+- 任一 `NO_VIEW` 保持空值，不用插值、当前成分或未来修订值补齐。
+
+## 下一步边界
+
+只有测量为 PASS/PARTIAL 的对象可进入另行冻结的自有对象 walk-forward 诊断；NO_VIEW 必须逐 origin 传播。直接总回报目标、组合评估、仓位映射仍被禁止。当前为 `ABSTAIN / POSITION_UNSET`。

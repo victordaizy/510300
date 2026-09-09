@@ -1,0 +1,148 @@
+{
+  "status": "ACQUIRED_WITH_HISTORICAL_QUOTE_LIMITATION",
+  "checked_at": "2026-08-16T14:44:23.878822+08:00",
+  "scope": {
+    "underlying": "510300.SH",
+    "start_date": "2019-12-23",
+    "end_date": "2026-08-14",
+    "expected_trading_day_count": 1611
+  },
+  "safety": {
+    "paper_research_only": true,
+    "broker_connection_enabled": false,
+    "order_generation_enabled": false,
+    "token_persisted_in_outputs": false
+  },
+  "sources": {
+    "proxy_host": "fast.xiaodefa.cn",
+    "sse_risk_endpoint": "query.sse.com.cn/commonQuery.do",
+    "cffex_history_service": "www.cffex.com.cn/sj/historysj/YYYYMM/zip/YYYYMM.zip"
+  },
+  "datasets": {
+    "contract_master": {
+      "file": "data/raw/return_tail/options/510300_contract_master.parquet",
+      "exists": true,
+      "bytes": 50057,
+      "sha256": "d5bef387d7102b134bc2f1e7f27f7358d3e1fc4978499f7cf65c229087bc4d10",
+      "row_count": 2874,
+      "contract_count": 2874,
+      "adjusted_contract_count": 610,
+      "first_list_date": "2019-12-23",
+      "last_expiry_date": "2027-03-24"
+    },
+    "tushare_eod": {
+      "file": "data/raw/return_tail/options/510300_tushare_eod.parquet",
+      "exists": true,
+      "bytes": 5660510,
+      "sha256": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064",
+      "row_count": 194040,
+      "contract_count": 2874,
+      "trading_day_count": 1611,
+      "first_trade_date": "2019-12-23",
+      "last_trade_date": "2026-08-14",
+      "date_coverage": 1.0,
+      "missing_dates": []
+    },
+    "sse_risk_indicators": {
+      "file": "data/raw/return_tail/options/510300_sse_risk_indicators.parquet",
+      "exists": true,
+      "bytes": 1911084,
+      "sha256": "e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035",
+      "row_count": 191270,
+      "contract_count": 2868,
+      "trading_day_count": 1611,
+      "first_trade_date": "2019-12-23",
+      "last_trade_date": "2026-08-14",
+      "date_coverage": 1.0,
+      "missing_dates": []
+    },
+    "cffex_io_eod": {
+      "file": "data/raw/return_tail/options/IO_eod_chain.parquet",
+      "exists": true,
+      "bytes": 11287335,
+      "sha256": "f63591fa603b1dab068d61177d56d62c66c279372b19849451ec99e0e5031f80",
+      "row_count": 396446,
+      "contract_count": 4736,
+      "trading_day_count": 1611,
+      "first_trade_date": "2019-12-23",
+      "last_trade_date": "2026-08-14",
+      "date_coverage": 1.0,
+      "missing_dates": []
+    }
+  },
+  "dataset_checks": {
+    "tushare_eod": {
+      "duplicate_key_count": 0,
+      "contract_master_coverage": 1.0,
+      "underlying_close_null_ratio": 0.0,
+      "adjusted_quote_row_count": 63232,
+      "close_null_ratio": 0.0021851164708307567,
+      "close_positive_ratio": 0.9978097299525871,
+      "invalid_close_with_positive_volume_count": 0,
+      "open_interest_nonnegative_ratio": 1.0
+    },
+    "underlying_crosscheck": {
+      "matched_day_count": 1611,
+      "maximum_absolute_close_difference": 0.0,
+      "source_day_counts": {
+        "akshare.fund_etf_hist_sina": 1610,
+        "tushare_proxy.fund_daily": 1
+      }
+    },
+    "sse_risk_indicators": {
+      "duplicate_key_count": 0,
+      "implied_volatility_null_ratio": 0.0,
+      "implied_volatility_nonpositive_ratio": 0.11025252261201443,
+      "positive_iv_and_delta_usable_ratio": 0.8897474773879855,
+      "matched_tushare_eod_key_count": 191270,
+      "tushare_eod_key_match_ratio": 0.98572459286745,
+      "risk_key_match_ratio": 1.0,
+      "nonpositive_iv_with_positive_volume_count": 20836,
+      "eod_keys_without_risk_count": 2770,
+      "eod_keys_without_risk_on_expiry_ratio": 1.0
+    },
+    "cffex_io_eod": {
+      "duplicate_key_count": 0,
+      "delta_null_ratio": 0.011335717853125015,
+      "close_positive_ratio": 1.0,
+      "open_interest_nonnegative_ratio": 1.0
+    }
+  },
+  "cache_evidence": {
+    "tushare_daily_chunk_count": 162,
+    "sse_risk_day_count": 1611,
+    "cffex_month_zip_count": 81
+  },
+  "run_evidence": {
+    "cffex": {
+      "downloaded_month_count": 81,
+      "reused_month_count": 0,
+      "total_month_count": 81
+    }
+  },
+  "underlying_merge": null,
+  "quality_gates": {
+    "tushare_eod_full_date_coverage": true,
+    "sse_risk_full_date_coverage": true,
+    "cffex_io_full_date_coverage": true,
+    "adjusted_contracts_preserved": true,
+    "historical_bid1_ask1_available": false,
+    "historical_close_snapshot_timestamp_available": false
+  },
+  "research_boundary": {
+    "frozen_quote_contract_file_created": false,
+    "reason": "已授权日行情只包含成交OHLC、结算价、成交量和持仓量；上交所公开风险指标包含隐含波动率及希腊字母，但两者都不含历史bid1、ask1和收盘快照时间。因此不创建510300_eod_chain.parquet，也不宣称通过冻结的数据门槛。",
+    "exploratory_inputs_now_available_for": [
+      "O2",
+      "O3",
+      "O4"
+    ],
+    "frozen_protocol_blocked_hypotheses": [
+      "O1",
+      "O2",
+      "O3",
+      "O4"
+    ],
+    "return_test_authorized": false
+  }
+}

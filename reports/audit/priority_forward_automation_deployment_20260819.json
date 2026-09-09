@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-08-19T20:16:35+08:00",
+  "status": "RUNNING_SESSION_SCOPED_DEGRADED_AUTOMATION",
+  "deployment": {
+    "windows_task_scheduler_verified": false,
+    "windows_task_scheduler_error": "HRESULT_0x80041003",
+    "login_autostart_verified": false,
+    "login_autostart_error": "HKCU_CURRENT_VERSION_RUN_ACCESS_DENIED",
+    "session_supervisor_started": true,
+    "session_supervisor_heartbeat_verified": true,
+    "automatic_restart_after_logoff_or_reboot": false
+  },
+  "runtime_evidence": [
+    {
+      "path": "reports/audit/priority_forward_supervisor_runs/20260819T121540344893Z_9624.json",
+      "sha256": "7ed79d7dabb0558fc30d23d74a4b02f529d4e2c13753a626d9b9f876b9f95494",
+      "bytes": 472
+    },
+    {
+      "path": "reports/audit/priority_forward_status_task_runs/20260819T1216110275912Z_15832.json",
+      "sha256": "5c216a909098bc8f15a1978377eb905e9a731210a805abb82a6e25e59684ca32",
+      "bytes": 1045
+    },
+    {
+      "path": "reports/audit/priority_forward_status_runs/20260819T1216110275912Z_15832.json",
+      "sha256": "9d9555988dc97e85d5881d29788d6d61943e52bbeb94c85bcca24262d8553359",
+      "bytes": 5362
+    },
+    {
+      "path": "reports/audit/priority_forward_status_runs/20260819T1216110275912Z_15832.md",
+      "sha256": "2104c3e2d6d343e7e849a15371f8657f0dbfe77b199ff4aec28afdb8ced7b3b2",
+      "bytes": 2382
+    }
+  ],
+  "implementation_evidence": [
+    {
+      "path": "scripts/run_priority_forward_supervisor.py",
+      "sha256": "5b3081fd20be8b40b58e297caaf574f4bf374f17ec7f9097b1daa952efa176f1"
+    },
+    {
+      "path": "config/priority_forward_supervisor_v1.yaml",
+      "sha256": "40f4b0ab2d79d94cebf1c6c311a1b23b53fc164c87caecabf8ec9a9a0d69e72d"
+    },
+    {
+      "path": "scripts/start_priority_forward_supervisor.ps1",
+      "sha256": "4eaf0564830b3dcad1945b7eebe4be19f4a8138cc1aef8619cf87614765c1248"
+    },
+    {
+      "path": "scripts/install_priority_forward_supervisor_autostart.ps1",
+      "sha256": "e613c01ad14c88f78cd11ca0d95b99025e56536dbdbc2a275ab6f5f08572677a"
+    }
+  ],
+  "safety": {
+    "research_only": true,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  }
+}

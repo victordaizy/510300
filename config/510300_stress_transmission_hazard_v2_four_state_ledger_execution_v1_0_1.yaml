@@ -1,0 +1,105 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  correction_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_EXECUTION_V1_0_1
+  version: 1.0.1
+  correction_scope: FRESH_DAILY_SYMBOL_UNIVERSE_SELECTOR_ONLY
+  research_state: DISCOVERY_ONLY
+  return_evaluation: NOT_ALLOWED
+  position_impact: 0
+
+predecessor_execution_freeze:
+  manifest_path: config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_manifest.json
+  manifest_bytes: 9120
+  manifest_sha256: 0603abcb36cb02ff861264bbc8b9050f64ea6f607d67a3b6cdb0147264645145
+  mutation_allowed: false
+
+predecessor_execution_failure:
+  observed_on: "2026-09-03"
+  status: BLOCKED_BEFORE_NETWORK_FRESH_DAILY_SYMBOL_COUNT_MISMATCH
+  network_requests_sent: 0
+  checkpoints_written: 0
+  performance_values_read: false
+  expected_by_v1: 493
+  actual_under_v1_selector: 505
+  failure_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_four_state_input_acquisition_v1_failure_receipt.json
+
+selector_correction:
+  legacy_seed_last_date: "2020-02-28"
+  fresh_query_start_date: "2019-12-01"
+  corrected_symbol_universe_rule: ANY_PIT_MEMBERSHIP_STRICTLY_AFTER_LEGACY_SEED_LAST_DATE
+  corrected_expected_symbol_count: 493
+  fresh_query_overlap_purpose: CROSS_SOURCE_IDENTITY_CHECK_ONLY
+  excluded_overlap_only_symbol_count: 12
+  excluded_overlap_only_membership_range: ["2019-12-02", "2019-12-13"]
+  excluded_overlap_only_symbols:
+    - 000402.SZ
+    - 000553.SZ
+    - 002065.SZ
+    - 002310.SZ
+    - 002925.SZ
+    - 300072.SZ
+    - 300296.SZ
+    - 600339.SH
+    - 600688.SH
+    - 600704.SH
+    - 601228.SH
+    - 603858.SH
+  excluded_symbols_fully_covered_by_legacy_seed: true
+  current_constituent_panel_used_to_select_universe: false
+  point_in_time_membership_used_to_select_universe: true
+
+corrected_outputs:
+  raw_root: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1
+  daily_checkpoint_directory: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/daily_checkpoints
+  dividend_checkpoint_directory: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/dividend_checkpoints
+  fresh_daily_panel: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/fresh_daily_observations.parquet
+  dividend_panel: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/dividend_action_candidates.parquet
+  action_candidate_symbols: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/action_candidate_symbols.csv
+  acquisition_manifest: data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/acquisition_manifest.json
+  acquisition_receipt: reports/audit/510300_stress_transmission_hazard_v2_four_state_input_acquisition_v1_0_1.json
+  acquisition_status: reports/research/510300_stress_transmission_hazard_v2_four_state_input_acquisition_status_v1_0_1.json
+  classified_returns: data/curated/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/classified_constituent_returns_20141103_20260814.parquet
+  corporate_actions: data/curated/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/corporate_action_reconciliation_ledger.parquet
+  daily_coverage: reports/data_quality/510300_stress_transmission_hazard_v2_four_state_daily_coverage_v1_0_1.parquet
+  daily_state_counts: reports/data_quality/510300_stress_transmission_hazard_v2_four_state_daily_state_counts_v1_0_1.parquet
+  ledger_report: reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_V1_0_1.md
+  ledger_receipt: reports/audit/510300_stress_transmission_hazard_v2_four_state_ledger_v1_0_1.json
+  ledger_status: reports/research/510300_stress_transmission_hazard_v2_four_state_ledger_status_v1_0_1.json
+
+unchanged_contracts:
+  selected_endpoint: https://fast.xiaodefa.cn
+  maximum_workers: 2
+  minimum_delay_seconds_per_request: 0.5
+  checkpoint_overwrite_allowed: false
+  output_overwrite_allowed: false
+  legacy_adjusted_return_columns_allowed: false
+  provider_suspend_d_is_official_evidence: false
+  missing_return_zero_fill_allowed: false
+  adjusted_price_return_allowed: false
+  model_training_allowed: false
+  performance_read_allowed: false
+  position_impact: 0
+
+freeze_contract:
+  implementation_files:
+    - scripts/freeze_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.py
+    - scripts/acquire_510300_stress_transmission_hazard_v2_four_state_inputs_v1_0_1.py
+    - scripts/build_510300_stress_transmission_hazard_v2_four_state_ledger_v1_0_1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_EXECUTION_V1_0_1_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1_manifest.json
+  receipt_output: reports/audit/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_OR_DELETE_V1_EXECUTION_FREEZE
+  - CHANGE_ANY_RULE_OTHER_THAN_FRESH_DAILY_SYMBOL_SELECTOR_AND_OUTPUT_NAMESPACE
+  - QUERY_OVERLAP_ONLY_SYMBOLS_ALREADY_FULLY_COVERED_BY_LEGACY_SEED
+  - USE_CURRENT_CONSTITUENT_PANEL_TO_SELECT_HISTORY
+  - TREAT_MISSING_DAILY_ROW_OR_PROVIDER_SUSPEND_D_AS_OFFICIAL_SUSPENSION
+  - FILL_MISSING_OR_UNRESOLVED_RETURN_WITH_ZERO
+  - USE_ADJ_FACTOR_OR_POST_ADJUSTED_PRICE_TO_BUILD_RETURN
+  - RUN_MODEL_TRAINING_OR_THRESHOLD_SELECTION
+  - READ_NEW_AUC_RETURN_SHARPE_DRAWDOWN_NAV_POSITION_OR_ORDER_OUTPUT
+  - GENERATE_PORTFOLIO_POSITION_ORDER_BROKER_OR_LIVE_ACTION

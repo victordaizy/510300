@@ -1,0 +1,67 @@
+{
+  "study_id": "510300_ETF_SHARE_PREMIUM_LEVEL_BINARY_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_FIRST_SCREEN_RUN",
+  "frozen_at": "2026-08-28T20:06:50.740715+08:00",
+  "protocol_path": "config/510300_etf_share_premium_level_binary_screen_v1.yaml",
+  "protocol_sha256": "6913b2cbc6b9bb2b8c2883ac4111b580522384b6b4200090ace96f5173d51b91",
+  "candidate_contract_path": "config/510300_etf_share_premium_level_binary_screen_v1_candidates.yaml",
+  "candidate_contract_sha256": "33b62f3917287cbf9dbc194bc7027cac3b5c29c9e409955ed557be8d0f91c658",
+  "source_artifacts": {
+    "research/etf_share_premium_level_binary_screen_v1.py": "d979c25a2daaa4736cbd490b484f025e2cb68ad246e12489750debbdfe56bdbe",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/build_510300_etf_share_premium_level_inputs_v1.py": "5e8e86e40ff12028d7fc5753612554b998023edb32e6d8186a5deb8c631b8bae",
+    "scripts/freeze_510300_etf_share_premium_level_binary_screen_v1.py": "c7afa4233cff33a1df745387e36e4890ee5fc8cf331da2822b799850116ca5c4",
+    "tests/test_etf_share_premium_level_binary_screen_v1.py": "1dfbc5b9ec0e9543bb9baacfec2836b8f3076e7a2b0ea30cdd4458b1b3ccbbd5"
+  },
+  "input_artifacts": {
+    "data/raw/flow/510300_etf_share_premium_level_full_v1.parquet": "656374a6e960f76fb6f6c64d181d81fa0dc75615eb7f4a2110e54fa18fb1dda9",
+    "reports/data_quality/510300_etf_share_premium_level_full_v1.json": "0ad12c16b9e017253bc77ea432b5161f8cdd8e27132470a33f92938f55c97927",
+    "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "candidate_ids": [
+    "ETF_SHARE1D_BOTTOM10_CASH",
+    "ETF_SHARE5D_BOTTOM10_CASH",
+    "ETF_SHARE20D_BOTTOM10_CASH",
+    "ETF_PREMIUM_BOTTOM10_CASH",
+    "ETF_PREMIUM_TOP10_CASH",
+    "ETF_ABS_PREMIUM_TOP10_CASH",
+    "ETF_SHARE5_BOTTOM20_AND_PREMIUM_BOTTOM20_CASH",
+    "ETF_SHARE5_TOP20_AND_PREMIUM_TOP20_CASH"
+  ],
+  "candidate_count": 8,
+  "allowed_target_states": [
+    0,
+    1
+  ],
+  "signal_cutoff": "T_CLOSE_AFTER_NAV_AND_SHARE_RECORD_AVAILABLE",
+  "execution_time": "T_PLUS_1_OPEN",
+  "same_day_close_execution_forbidden": true,
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "start_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "period_ids": [
+    "EARLY_2017_2020",
+    "MID_2021_2023",
+    "LATE_2024_2026",
+    "COMBINED_2017_2026"
+  ],
+  "hard_gates": {
+    "minimum_annualized_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_stress_period_and_start_required": true
+  },
+  "post_run_percentile_direction_window_or_combination_rescue": "FORBIDDEN",
+  "position_mapping": "DISABLED",
+  "live_trading_authorized": false
+}

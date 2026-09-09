@@ -1,0 +1,189 @@
+program:
+  program_id: 510300_CONDITIONAL_MECHANISM_MAP_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_OUTCOME_BLIND_CONDITION_MAP_FREEZE
+  parent_program_id: 510300_STRUCTURAL_EQUITY_RISK_PREMIUM_ENGINE_V1
+  research_stage: CONDITIONAL_MECHANISM_IDENTIFICATION
+  research_scope: DISCOVERY_ONLY
+  trade_asset: 510300.SH_OR_CASH
+  study_start: '2015-01-01'
+  state_origin_cutoff: '2026-08-14'
+  outcome_observation_cutoff: '2026-08-25'
+  horizons_market_days: [20, 60, 120]
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+  sharpe_target_1_2_evaluation_allowed: false
+
+governance:
+  outcome_blind_condition_build_required: true
+  condition_panel_must_be_frozen_before_total_return_read: true
+  reuse_parent_state_definitions_without_refit: true
+  feature_selection_allowed: false
+  parameter_search_allowed: false
+  threshold_search_allowed: false
+  condition_selection_by_return_allowed: false
+  statistical_significance_selection_allowed: false
+  portfolio_mapping_allowed: false
+  nav_calculation_allowed: false
+  sharpe_calculation_allowed: false
+  order_generation_allowed: false
+  paper_shadow_authorized: false
+  live_authorized: false
+  overlapping_forward_windows_are_independent_allowed: false
+
+parent_contract:
+  manifest: config/510300_structural_equity_risk_premium_engine_v1_manifest_v1_0_5.json
+  authoritative_status: reports/research/510300_structural_equity_risk_premium_engine_v1_status.json
+  state_freeze_receipt: reports/data_quality/510300_structural_equity_risk_premium_engine_v1_state_products.json
+  expected_parent_status: STAGE_1_COMPLETE_WITH_EXPLICIT_DATA_LIMITATIONS
+  expected_parent_state_receipt_status: PARTIAL_PASS_MECHANISM_STATE_PRODUCTS_FROZEN_WITH_EXPLICIT_WEIGHT_DIVIDEND_AND_SOURCE_LIMITATIONS
+  expected_parent_manifest_payload_sha256: 8588c7e0e4ea9019525eb85cef52785c56db6743c373db376ee810f846e4c8b2
+  expected_parent_state_receipt_payload_sha256: 1d44b11d46865cc13155adac745f9f73a83f1264b1e7e916a1664d442f695112
+  allowed_parent_usage: FROZEN_STATE_PRODUCTS_ONLY_NO_REFIT
+
+state_inputs:
+  cashflow_panel:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_pit_cashflow_state_panel_v1.parquet
+    availability_clock: NOTICE_DATE_PRIMARY_UPDATE_DATE_DIAGNOSTIC_ONLY
+    required_factor: cf_level
+    required_state_status: PASS_EXPANDING_POINT_IN_TIME_CF_STATE
+    pass_data_status: PASS_PIT_CF_STATE_WITH_MARKET_CAP_PROXY_WEIGHT
+    partial_data_status: PARTIAL_PIT_CF_STATE_COVERAGE_BELOW_ONE_OR_MORE_GATES
+  present_value_panel:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_cross_sectional_present_value_panel_v1.parquet
+    required_factor: equity_risk_premium_expanding_z
+    required_data_status: PASS_EXPLANATORY_CROSS_SECTIONAL_PRESENT_VALUE_STATE
+  risk_capacity_panel:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_risk_bearing_capacity_panel_v1.parquet
+    required_factor: risk_bearing_capacity_factor
+    pass_state_status: PASS_EXPLANATORY_RISK_BEARING_CAPACITY_FACTOR
+    partial_state_status: PARTIAL_EXPLANATORY_RISK_BEARING_CAPACITY_FACTOR
+    origin_asof_tolerance_calendar_days: 10
+  total_return_locked_until_condition_freeze:
+    path: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    series: CSI300_TOTAL_RETURN_INDEX_H00300
+    role_before_condition_freeze: LOCKED_OUTCOME_NOT_VALUE_READ
+
+condition_definition:
+  observation_frequency: MONTHLY_PARENT_ORIGINS
+  innovation_definition: EXACT_ONE_PARENT_ORIGIN_FIRST_DIFFERENCE
+  cashflow_news: cf_level_t_minus_cf_level_t_minus_1
+  discount_rate_easing_news: negative_of_equity_risk_premium_expanding_z_first_difference
+  risk_capacity_news: risk_bearing_capacity_factor_t_minus_t_minus_1
+  numerical_zero_tolerance: 1.0e-12
+  zero_change_policy: NEUTRAL_OUTSIDE_FOUR_QUADRANTS
+  quadrants:
+    CF_IMPROVING_DR_EASING:
+      cashflow_news_sign: POSITIVE
+      discount_rate_easing_news_sign: POSITIVE
+      mechanism_name: FUNDAMENTAL_AND_DISCOUNT_RATE_EXPANSION
+    CF_IMPROVING_DR_TIGHTENING:
+      cashflow_news_sign: POSITIVE
+      discount_rate_easing_news_sign: NEGATIVE
+      mechanism_name: LATE_CYCLE_DISCOUNT_RATE_SQUEEZE
+    CF_DETERIORATING_DR_EASING:
+      cashflow_news_sign: NEGATIVE
+      discount_rate_easing_news_sign: POSITIVE
+      mechanism_name: POLICY_OR_DISCOUNT_RATE_REPAIR
+    CF_DETERIORATING_DR_TIGHTENING:
+      cashflow_news_sign: NEGATIVE
+      discount_rate_easing_news_sign: NEGATIVE
+      mechanism_name: TRUE_CONTRACTION_STATE
+  rc_directions:
+    POSITIVE: RC_SUPPORTIVE
+    NEGATIVE: RC_CONSTRAINING
+    ZERO: RC_NEUTRAL
+  rc_interaction_map:
+    CF_IMPROVING_DR_EASING:
+      RC_SUPPORTIVE: AMPLIFIES_EXPANSION
+      RC_CONSTRAINING: WEAKENS_EXPANSION
+      RC_NEUTRAL: NEUTRAL_TO_EXPANSION
+    CF_IMPROVING_DR_TIGHTENING:
+      RC_SUPPORTIVE: WEAKENS_DISCOUNT_RATE_SQUEEZE
+      RC_CONSTRAINING: AMPLIFIES_DISCOUNT_RATE_SQUEEZE
+      RC_NEUTRAL: NEUTRAL_TO_DISCOUNT_RATE_SQUEEZE
+    CF_DETERIORATING_DR_EASING:
+      RC_SUPPORTIVE: AMPLIFIES_DISCOUNT_RATE_REPAIR
+      RC_CONSTRAINING: WEAKENS_DISCOUNT_RATE_REPAIR
+      RC_NEUTRAL: NEUTRAL_TO_DISCOUNT_RATE_REPAIR
+    CF_DETERIORATING_DR_TIGHTENING:
+      RC_SUPPORTIVE: WEAKENS_TRUE_CONTRACTION
+      RC_CONSTRAINING: AMPLIFIES_TRUE_CONTRACTION
+      RC_NEUTRAL: NEUTRAL_TO_TRUE_CONTRACTION
+
+mechanism_archetypes:
+  MOMENTUM_FUNDAMENTAL_SUPPORT:
+    frozen_definition: TRAILING_60D_POSITIVE_AND_CF_IMPROVING_DR_EASING_AND_RC_SUPPORTIVE
+    expected_forward_direction: POSITIVE
+    primary_evaluation_horizon_market_days: 60
+  REVERSAL_ECONOMIC_BASIS:
+    frozen_definition: TRAILING_60D_NEGATIVE_AND_CF_IMPROVING_DR_EASING_AND_RC_SUPPORTIVE
+    expected_forward_direction: POSITIVE
+    primary_evaluation_horizon_market_days: 60
+  VALUE_SAFETY_MARGIN:
+    frozen_definition: ERP_EXPANDING_Z_NONNEGATIVE_AND_CF_IMPROVING_DR_EASING_AND_RC_NOT_CONSTRAINING
+    expected_forward_direction: POSITIVE
+    primary_evaluation_horizon_market_days: 120
+  TRUE_CONTRACTION_DECLINE:
+    frozen_definition: TRAILING_20D_NEGATIVE_AND_CF_DETERIORATING_DR_TIGHTENING_AND_RC_CONSTRAINING
+    expected_forward_direction: NEGATIVE
+    primary_evaluation_horizon_market_days: 60
+  TEMPORARY_LIQUIDITY_SHOCK_CANDIDATE:
+    frozen_definition: TRAILING_20D_NEGATIVE_AND_CF_IMPROVING_DR_TIGHTENING_AND_RC_CONSTRAINING
+    expected_forward_direction: POSITIVE
+    primary_evaluation_horizon_market_days: 60
+
+evaluation:
+  return_definition: H00300_TOTAL_RETURN_CLOSE_TO_CLOSE_EXACT_MARKET_DAY_OFFSETS
+  trailing_price_context_market_days: [20, 60]
+  sample_scopes:
+    FULL_2015_TO_CUTOFF:
+      start: '2015-01-01'
+      end: '2026-08-14'
+    USER_PRIMARY_2021_TO_CUTOFF:
+      start: '2021-01-01'
+      end: '2026-08-14'
+  views: [QUADRANT, QUADRANT_X_RC, ARCHETYPE]
+  summary_statistics:
+    - MEAN
+    - MEDIAN
+    - POSITIVE_RATE
+    - LOSS_RATE
+    - Q10
+    - Q25
+    - Q75
+    - Q90
+    - MIN
+    - MAX
+  reliability_gate:
+    pass_minimum_observed_origins: 12
+    partial_minimum_observed_origins: 6
+    pass_minimum_distinct_calendar_years: 3
+    partial_minimum_distinct_calendar_years: 2
+    minimum_forward_observation_coverage: 0.80
+    minimum_parent_state_pass_share: 0.80
+  scope_consistency_rule: PRIMARY_HORIZON_MEAN_AND_MEDIAN_MUST_HAVE_EXPECTED_SIGN_IN_BOTH_FROZEN_SCOPES
+  p_values_allowed: false
+  confidence_intervals_allowed: false
+  overlapping_window_warning_required: true
+  result_usage: DESCRIPTIVE_CONDITIONAL_MECHANISM_MAP_ONLY
+
+limitations:
+  financial_revision: CURRENT_SECONDARY_AGGREGATOR_VALUES_MAY_REFLECT_LATER_REVISIONS_NOTICE_DATE_IS_PRIMARY_CLOCK
+  operating_cashflow_crosscheck: NO_INDEPENDENT_LOCAL_CROSSCHECK
+  historical_index_weights: MARKET_CAP_PROXY_PRIMARY_OFFICIAL_HISTORICAL_WEIGHT_NOT_VERSION_PROVEN
+  component_dividend_yield: NO_VIEW
+  cashflow_duration: PROXY_ONLY
+  risk_capacity_clocks: CREDIT_SPREAD_AND_ETF_SHARE_HISTORY_NOT_FULLY_VERSION_PROVEN
+  overlapping_forward_returns: MONTHLY_ORIGINS_WITH_60D_AND_120D_OVERLAP_NOT_INDEPENDENT
+  archetype_semantics: MECHANISM_CANDIDATES_NOT_CAUSAL_IDENTIFICATION_OR_TRADING_RULES
+
+artifacts:
+  protocol_manifest: config/510300_conditional_mechanism_map_v1_manifest.json
+  condition_state_panel: data/processed/510300_conditional_mechanism_map_v1/condition_state_panel.parquet
+  condition_state_receipt: reports/data_quality/510300_conditional_mechanism_map_v1_condition_state.json
+  evaluated_observations: reports/research/510300_conditional_mechanism_map_v1_observations.parquet
+  condition_map: reports/research/510300_conditional_mechanism_map_v1.parquet
+  condition_map_json: reports/research/510300_conditional_mechanism_map_v1.json
+  final_report: reports/research/510300_CONDITIONAL_MECHANISM_MAP_V1.md
+  authoritative_status: reports/research/510300_conditional_mechanism_map_v1_status.json

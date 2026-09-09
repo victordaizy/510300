@@ -1,0 +1,96 @@
+protocol:
+  project_id: "510300_INDEX_DRIVER_EPISODE_DISCOVERY_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  historical_contamination_cutoff: "2026-08-14"
+  true_forward_start: null
+  timezone: "Asia/Shanghai"
+  candidate_budget: 2
+  candidate_addition_after_freeze_forbidden: true
+  threshold_change_after_freeze_forbidden: true
+
+inputs:
+  cross_section: "data/features/000300_point_in_time_index_cross_section_daily_v1_3.parquet"
+  industry_attribution: "data/features/000300_industry_driver_attribution_daily_v1_3.parquet"
+  daily_attribution: "data/features/000300_index_driver_summary_daily_v1_3.parquet"
+  attribution_status: "reports/data_quality/000300_index_driver_attribution_v1_3_status.json"
+  etf_daily: "data/raw/market/510300_daily_raw.parquet"
+  etf_dividends: "data/reference/510300_dividends.csv"
+
+episode_confirmation:
+  lookback_valid_days: 5
+  maximum_core_industries: 3
+  minimum_core_positive_contribution_share: 0.60
+  minimum_core_positive_day_share: 0.80
+  minimum_internal_advancer_weight_share: 0.55
+  minimum_effective_positive_contributors: 5.0
+  maximum_largest_positive_contributor_share: 0.35
+  require_positive_index_contribution: true
+
+phase:
+  short_lookback_valid_days: 3
+  minimum_propagation_noncore_advancer_weight_share: 0.50
+  minimum_propagation_positive_noncore_industry_share: 0.50
+  exhaustion_minimum_hazard_count: 2
+  exhaustion_core_slowdown_ratio: 0.50
+  exhaustion_core_advancer_weight_share: 0.50
+  exhaustion_minimum_core_positive_days: 2
+  exhaustion_maximum_largest_positive_contributor_share: 0.50
+  breakdown_minimum_core_positive_contribution_share: 0.35
+  breakdown_confirmation_days: 2
+  maximum_episode_valid_days: 60
+
+targets:
+  horizon_trading_days: 20
+  execution_start: "t+1交易日开盘"
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  middle_minimum_relative_return: 0.0
+  bad20_terminal_threshold: -0.05
+  tail20_path_threshold: -0.08
+
+evaluation:
+  bootstrap_repetitions: 5000
+  bootstrap_event_block_length: 3
+  random_seed: 20260818
+  signal_delay_stress_trading_days: 1
+  minimum_effect_retention: 0.70
+  fish_middle:
+    candidate_id: "M1"
+    phase: "PROPAGATION"
+    minimum_mature_events: 20
+    minimum_middle20_lift: 1.20
+    bootstrap_lift_lower_bound_strictly_above: 1.0
+    minimum_median_x20: 0.0
+    minimum_positive_x20_rate_strictly_above: 0.55
+    maximum_tail20_rate_relative_to_baseline: 1.0
+    split_minimum_lift_strictly_above: 1.0
+  tail_warning:
+    candidate_id: "T1"
+    phase: "EXHAUSTION"
+    minimum_mature_events: 10
+    minimum_tail20_events: 5
+    minimum_tail20_lift: 2.0
+    bootstrap_lift_lower_bound_strictly_above: 1.0
+    split_minimum_lift_strictly_above: 1.0
+
+outputs:
+  daily_states: "data/features/000300_driver_episode_daily_v1.parquet"
+  episodes: "data/features/000300_driver_episodes_v1.parquet"
+  events: "data/features/000300_driver_episode_events_v1.parquet"
+  outcomes: "data/features/510300_forward_outcomes_20d_v1.parquet"
+  result_json: "reports/discovery/index_driver_episode_v1_result.json"
+  result_markdown: "reports/discovery/index_driver_episode_v1_result.md"
+
+governance:
+  historical_run_may_emit_forecast_eligible: false
+  valuation_may_trigger_entry: false
+  r6_reselection_allowed: false
+  machine_learning_allowed: false
+  predictive_threshold_search_allowed: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  missing_input_output: "NO_VIEW"

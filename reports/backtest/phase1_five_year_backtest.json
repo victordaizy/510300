@@ -1,0 +1,298 @@
+{
+  "execution_status": "PASS",
+  "approval_status": "EXPLORATORY_NOT_APPROVED",
+  "generated_at": "2026-08-12T19:29:30.538575+08:00",
+  "model_id": "valuation_hysteresis_v1",
+  "model_governance": {
+    "retrospective_test_2025_2026": "contaminated_not_used_for_selection",
+    "pristine_holdout_available": false,
+    "next_valid_oos": "等待正式候选冻结后的下一个交易日；当前没有有效前向起点"
+  },
+  "costs": {
+    "commission_rate": 0.0003,
+    "minimum_commission_cny": 5.0,
+    "stamp_duty_rate": 0.0,
+    "slippage_bps": 5.0,
+    "lot_size": 100,
+    "cash_annual_rate": 0.0
+  },
+  "objective": {
+    "annual_excess_target": 0.2,
+    "annual_excess_definition": "自然年度策略总收益率减510300分红再投资买入持有收益率",
+    "optimization_metrics": [
+      "样本外超额收益",
+      "Sharpe",
+      "Calmar",
+      "最大回撤"
+    ],
+    "prohibit_direct_target_optimization": true
+  },
+  "strategy_gate": {
+    "status": "FAIL",
+    "reason": "受污染回顾区间超额为负，且没有自然年度达到20%超额；不能宣称基础Edge成立。"
+  },
+  "anchored_walk_forward": [
+    {
+      "fold": "WF1",
+      "train_end": "2022-12-30",
+      "embargo_trading_days": 20,
+      "test_start": "2023-02-07",
+      "test_end": "2023-12-29",
+      "strategy_total_return": -0.14549090816719978,
+      "etf_total_return": -0.14491691104594318,
+      "excess": -0.0005739971212566086
+    },
+    {
+      "fold": "WF2",
+      "train_end": "2023-12-29",
+      "embargo_trading_days": 20,
+      "test_start": "2024-01-30",
+      "test_end": "2024-12-31",
+      "strategy_total_return": 0.4362530292576503,
+      "etf_total_return": 0.24404577791524917,
+      "excess": 0.19220725134240113
+    },
+    {
+      "fold": "WF3",
+      "train_end": "2024-12-31",
+      "embargo_trading_days": 20,
+      "test_start": "2025-02-07",
+      "test_end": "2025-06-30",
+      "strategy_total_return": 0.0793376761500002,
+      "etf_total_return": 0.02074660233675396,
+      "excess": 0.05859107381324624
+    }
+  ],
+  "periods": {
+    "development": {
+      "governance": "模型开发",
+      "strategy": {
+        "start_date": "2021-08-12",
+        "end_date": "2024-06-28",
+        "observations": 696,
+        "total_return": -0.1533591261987497,
+        "cagr": -0.05621386892355007,
+        "annualized_volatility": 0.14631624798335083,
+        "sharpe_zero_cash_rate": -0.322554376281925,
+        "max_drawdown": -0.2681555119447546,
+        "calmar": -0.20963159964853248,
+        "average_exposure": 0.846459686456163,
+        "trade_count": 15,
+        "total_explicit_cost_cny": 152.50336987499998,
+        "turnover_over_average_equity": 3.363962927272298,
+        "ending_equity": 84664.08738012503
+      },
+      "benchmark_a_etf_total_return": {
+        "total_return": -0.2703441107578819,
+        "cagr": -0.1038418668476766,
+        "annualized_volatility": 0.15754602516812935,
+        "sharpe_zero_cash_rate": -0.6116357339510667,
+        "max_drawdown": -0.34907635146401583
+      },
+      "benchmark_a_tradable_buy_hold": {
+        "start_date": "2021-08-12",
+        "end_date": "2024-06-28",
+        "observations": 696,
+        "total_return": -0.2699588661800999,
+        "cagr": -0.10358395394708864,
+        "annualized_volatility": 0.15683400182952284,
+        "sharpe_zero_cash_rate": -0.6191325142289128,
+        "max_drawdown": -0.34806540984724244,
+        "calmar": -0.297599103549385,
+        "average_exposure": 0.9947455225196026,
+        "trade_count": 5,
+        "total_explicit_cost_cny": 49.91096801,
+        "turnover_over_average_equity": 1.2586395299938065,
+        "ending_equity": 73004.11338199001
+      },
+      "benchmark_b_h00300_total_return": -0.25913029986355307,
+      "excess_vs_etf_total_return": 0.1169849845591322
+    },
+    "validation": {
+      "governance": "顺序验证",
+      "strategy": {
+        "start_date": "2024-08-01",
+        "end_date": "2025-06-30",
+        "observations": 219,
+        "total_return": 0.4489493799572002,
+        "cagr": 0.5019335176044073,
+        "annualized_volatility": 0.17925487018522573,
+        "sharpe_zero_cash_rate": 2.373038130362609,
+        "max_drawdown": -0.06761333347199983,
+        "calmar": 7.423587801838953,
+        "average_exposure": 0.378097031309743,
+        "trade_count": 4,
+        "total_explicit_cost_cny": 153.69400427999997,
+        "turnover_over_average_equity": 3.9488224198349315,
+        "ending_equity": 144894.93799572
+      },
+      "benchmark_a_etf_total_return": {
+        "total_return": 0.17680872737610187,
+        "cagr": 0.19615405545228337,
+        "annualized_volatility": 0.2337887386974607,
+        "sharpe_zero_cash_rate": 0.9072403788758256,
+        "max_drawdown": -0.16251133272892115
+      },
+      "benchmark_a_tradable_buy_hold": {
+        "start_date": "2024-08-01",
+        "end_date": "2025-06-30",
+        "observations": 219,
+        "total_return": 0.17494678352800008,
+        "cagr": 0.1934362859850176,
+        "annualized_volatility": 0.23270699596806865,
+        "sharpe_zero_cash_rate": 0.8813393788369447,
+        "max_drawdown": -0.1621638601524814,
+        "calmar": 1.1928446067029421,
+        "average_exposure": 0.9921994565629123,
+        "trade_count": 2,
+        "total_explicit_cost_cny": 34.9093472,
+        "turnover_over_average_equity": 0.9113030601962987,
+        "ending_equity": 117494.67835280001
+      },
+      "benchmark_b_h00300_total_return": 0.17510852348483152,
+      "excess_vs_etf_total_return": 0.2721406525810983
+    },
+    "retrospective_test": {
+      "governance": "受污染，不用于选参",
+      "strategy": {
+        "start_date": "2025-08-01",
+        "end_date": "2026-08-11",
+        "observations": 249,
+        "total_return": 0.0,
+        "cagr": 0.0,
+        "annualized_volatility": 0.0,
+        "sharpe_zero_cash_rate": null,
+        "max_drawdown": 0.0,
+        "calmar": null,
+        "average_exposure": 0.0,
+        "trade_count": 0,
+        "total_explicit_cost_cny": 0.0,
+        "turnover_over_average_equity": 0.0,
+        "ending_equity": 100000.0
+      },
+      "benchmark_a_etf_total_return": {
+        "total_return": 0.17679291528187657,
+        "cagr": 0.17332191232414718,
+        "annualized_volatility": 0.17476759832954425,
+        "sharpe_zero_cash_rate": 0.9558659788777406,
+        "max_drawdown": -0.09860538204674918
+      },
+      "benchmark_a_tradable_buy_hold": {
+        "start_date": "2025-08-01",
+        "end_date": "2026-08-11",
+        "observations": 249,
+        "total_return": 0.17557365617140008,
+        "cagr": 0.1706399722140619,
+        "annualized_volatility": 0.17411560638742662,
+        "sharpe_zero_cash_rate": 0.9900068999916841,
+        "max_drawdown": -0.09836933514606583,
+        "calmar": 1.7346866476294007,
+        "average_exposure": 0.9932314464826719,
+        "trade_count": 2,
+        "total_explicit_cost_cny": 34.940682859999995,
+        "turnover_over_average_equity": 0.8877915221830229,
+        "ending_equity": 117557.36561714
+      },
+      "benchmark_b_h00300_total_return": 0.17679919247614273,
+      "excess_vs_etf_total_return": -0.17679291528187657
+    },
+    "full_five_years": {
+      "governance": "完整回顾，不是样本外",
+      "strategy": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-11",
+        "observations": 1210,
+        "total_return": 0.2179659876940505,
+        "cagr": 0.040252487471105436,
+        "annualized_volatility": 0.13632569494524854,
+        "sharpe_zero_cash_rate": 0.35638106728304847,
+        "max_drawdown": -0.2681555119447546,
+        "calmar": 0.15010874540366803,
+        "average_exposure": 0.5750366701821634,
+        "trade_count": 18,
+        "total_explicit_cost_cny": 256.475180595,
+        "turnover_over_average_equity": 6.44800961284555,
+        "ending_equity": 121796.59876940504
+      },
+      "benchmark_a_etf_total_return": {
+        "total_return": 0.03789853974847057,
+        "cagr": 0.007476595159954691,
+        "annualized_volatility": 0.17593703234173155,
+        "sharpe_zero_cash_rate": 0.13331088285337014,
+        "max_drawdown": -0.34907635146401583
+      },
+      "benchmark_a_tradable_buy_hold": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-11",
+        "observations": 1210,
+        "total_return": 0.03696503681989993,
+        "cagr": 0.007291066283223735,
+        "annualized_volatility": 0.17536883672927447,
+        "sharpe_zero_cash_rate": 0.12893370675792018,
+        "max_drawdown": -0.34806540984724244,
+        "calmar": 0.020947402634532427,
+        "average_exposure": 0.9957574842680842,
+        "trade_count": 7,
+        "total_explicit_cost_cny": 59.91096801,
+        "turnover_over_average_equity": 1.2566449717082457,
+        "ending_equity": 103696.50368199
+      },
+      "benchmark_b_h00300_total_return": 0.06226964142020308,
+      "excess_vs_etf_total_return": 0.18006744794557994,
+      "stress_15bps": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-11",
+        "observations": 1210,
+        "total_return": 0.20951134884775002,
+        "cagr": 0.038803265018105826,
+        "annualized_volatility": 0.13609473992172363,
+        "sharpe_zero_cash_rate": 0.3465333695837291,
+        "max_drawdown": -0.2681462748279899,
+        "calmar": 0.1447093197285597,
+        "average_exposure": 0.574388894660382,
+        "trade_count": 26,
+        "total_explicit_cost_cny": 295.690615225,
+        "turnover_over_average_equity": 6.482453084247335,
+        "ending_equity": 120951.134884775
+      },
+      "calendar_years": {
+        "2021": {
+          "strategy": 0.044449374112149886,
+          "etf_total_return": -0.004967216371945304,
+          "excess": 0.04941659048409519,
+          "meets_20pct_excess": false
+        },
+        "2022": {
+          "strategy": -0.11727046934660501,
+          "etf_total_return": -0.2013201471787398,
+          "excess": 0.0840496778321348,
+          "meets_20pct_excess": false
+        },
+        "2023": {
+          "strategy": -0.0976351672871274,
+          "etf_total_return": -0.09775224647250846,
+          "excess": 0.00011707918538106377,
+          "meets_20pct_excess": false
+        },
+        "2024": {
+          "strategy": 0.3566172007299331,
+          "etf_total_return": 0.17374101990322122,
+          "excess": 0.18287618082671186,
+          "meets_20pct_excess": false
+        },
+        "2025": {
+          "strategy": 0.07914705589998894,
+          "etf_total_return": 0.20838818873246323,
+          "excess": -0.1292411328324743,
+          "meets_20pct_excess": false
+        },
+        "2026": {
+          "strategy": 0.0,
+          "etf_total_return": 0.020563937890152317,
+          "excess": -0.020563937890152317,
+          "meets_20pct_excess": false
+        }
+      }
+    }
+  }
+}

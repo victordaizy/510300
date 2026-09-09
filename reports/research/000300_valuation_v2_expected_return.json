@@ -1,0 +1,435 @@
+{
+  "status": "RETROSPECTIVE_RANKING_POSITIVE_BUT_TIME_UNSTABLE_NOT_READY",
+  "generated_at": "2026-08-13T19:37:27.604935+08:00",
+  "objective": "预期超额总收益，不预测未来价格",
+  "sample": {
+    "start": "2021-08-31",
+    "end": "2026-07-31",
+    "monthly_snapshots": 60,
+    "minimum_normalized_earnings_weight_coverage": 0.98438,
+    "minimum_expected_growth_weight_coverage": 0.99921
+  },
+  "signal_definition": {
+    "model": {
+      "model_id": "CSI300_VALUATION_V2_EXPECTED_EXCESS_RETURN",
+      "version": "0.1.0-research",
+      "signal_frequency": "monthly_official_weight_snapshot",
+      "horizons_trading_days": [
+        60,
+        120,
+        242
+      ],
+      "objective": "预期超额总收益，不预测未来价格"
+    },
+    "normalization": {
+      "lookback_years": 3,
+      "minimum_ttm_observations": 4,
+      "financial_method": "当前归母权益×过去三年TTM ROE中位数",
+      "cyclical_method": "当前TTM收入×过去三年TTM净利率中位数",
+      "other_method": "三年正TTM利润中位数与当前收入×三年净利率中位数等权",
+      "expected_growth_current_weight": {
+        "financial": 0.25,
+        "cyclical": 0.25,
+        "other": 0.5
+      },
+      "expected_growth_clip": [
+        -0.1,
+        0.15
+      ]
+    },
+    "fair_multiple": {
+      "estimator": "StandardScaler+Ridge",
+      "ridge_alpha": 10.0,
+      "minimum_training_months": 48,
+      "expanding_window": true,
+      "training_cutoff": "strictly_before_signal_date",
+      "features": [
+        "cgb_10y",
+        "cgb_term_spread",
+        "normalized_roe",
+        "expected_earnings_growth",
+        "realized_volatility_3m"
+      ],
+      "current_price_direct_feature": false,
+      "historical_prediction_bounds": [
+        0.1,
+        0.9
+      ]
+    },
+    "return_decomposition": {
+      "dividend": "过去242个交易日全收益指数相对价格指数的股息收益，按期限复利缩放",
+      "earnings_growth": "行业规则正常化后的年化预期增长，按期限复利缩放",
+      "rerating": "lambda_h×log(FairPE/当前正常化PE)",
+      "rerating_half_life_trading_days": 242,
+      "cash": "信号日1年期国债收益率，按期限复利缩放",
+      "edge": "ExpectedTotalReturn_h-CashReturn_h"
+    },
+    "governance": {
+      "parameter_search_performed": false,
+      "trading_use_authorized": false,
+      "industry_mapping": "静态申万一级标签，仅用于方法路由；存在非点时分类限制",
+      "evidence_scope": "全部历史已被研究，只能形成回顾性机制证据；冻结后才开始真正前瞻验证"
+    }
+  },
+  "evaluations": [
+    {
+      "horizon_days": 60,
+      "observations": 57,
+      "first_signal_date": "2021-08-31",
+      "last_realized_signal_date": "2026-04-30",
+      "spearman_ic": 0.28467721026704695,
+      "pearson_correlation": 0.37129056239099567,
+      "non_overlapping_ic_median": 0.20350877192982456,
+      "non_overlapping_positive_ratio": 1.0,
+      "mean_absolute_calibration_error": 0.06162345002684598,
+      "expected_positive_precision": 0.631578947368421,
+      "quintiles": [
+        {
+          "edge_state": "最低Edge20%",
+          "observations": 12,
+          "mean_realized_excess_return": -0.025695474946809377,
+          "median_realized_excess_return": -0.015798043855110022
+        },
+        {
+          "edge_state": "次低",
+          "observations": 11,
+          "mean_realized_excess_return": -0.012321278616596598,
+          "median_realized_excess_return": -0.008034997581194525
+        },
+        {
+          "edge_state": "中性",
+          "observations": 11,
+          "mean_realized_excess_return": -0.03470764003469667,
+          "median_realized_excess_return": -0.032966640769960365
+        },
+        {
+          "edge_state": "次高",
+          "observations": 11,
+          "mean_realized_excess_return": 0.04230548319037052,
+          "median_realized_excess_return": 0.015388730129159756
+        },
+        {
+          "edge_state": "最高Edge20%",
+          "observations": 12,
+          "mean_realized_excess_return": 0.047720084265998386,
+          "median_realized_excess_return": 0.029927289450601524
+        }
+      ],
+      "highest_minus_lowest_mean_realized_excess_return": 0.07341555921280776,
+      "strictly_monotonic_quintile_means": false
+    },
+    {
+      "horizon_days": 120,
+      "observations": 54,
+      "first_signal_date": "2021-08-31",
+      "last_realized_signal_date": "2026-01-30",
+      "spearman_ic": 0.4667429007051648,
+      "pearson_correlation": 0.43995331949272726,
+      "non_overlapping_ic_median": 0.44999999999999996,
+      "non_overlapping_positive_ratio": 1.0,
+      "mean_absolute_calibration_error": 0.07879676920118142,
+      "expected_positive_precision": 0.7142857142857143,
+      "quintiles": [
+        {
+          "edge_state": "最低Edge20%",
+          "observations": 11,
+          "mean_realized_excess_return": -0.07054233412185305,
+          "median_realized_excess_return": -0.07568980681449067
+        },
+        {
+          "edge_state": "次低",
+          "observations": 11,
+          "mean_realized_excess_return": 0.01779461999087276,
+          "median_realized_excess_return": 0.016741207479836095
+        },
+        {
+          "edge_state": "中性",
+          "observations": 10,
+          "mean_realized_excess_return": -0.06135401926982289,
+          "median_realized_excess_return": -0.0736915046891527
+        },
+        {
+          "edge_state": "次高",
+          "observations": 11,
+          "mean_realized_excess_return": 0.06581866057666405,
+          "median_realized_excess_return": 0.009161598960797823
+        },
+        {
+          "edge_state": "最高Edge20%",
+          "observations": 11,
+          "mean_realized_excess_return": 0.05735430840572663,
+          "median_realized_excess_return": 0.06806014676465044
+        }
+      ],
+      "highest_minus_lowest_mean_realized_excess_return": 0.12789664252757968,
+      "strictly_monotonic_quintile_means": false
+    },
+    {
+      "horizon_days": 242,
+      "observations": 48,
+      "first_signal_date": "2021-08-31",
+      "last_realized_signal_date": "2025-07-31",
+      "spearman_ic": 0.4424663482414242,
+      "pearson_correlation": 0.47294164250746523,
+      "non_overlapping_ic_median": 0.6,
+      "non_overlapping_positive_ratio": 0.75,
+      "mean_absolute_calibration_error": 0.12587575978323898,
+      "expected_positive_precision": 0.68,
+      "quintiles": [
+        {
+          "edge_state": "最低Edge20%",
+          "observations": 10,
+          "mean_realized_excess_return": -0.10944089028188783,
+          "median_realized_excess_return": -0.1518618914740193
+        },
+        {
+          "edge_state": "次低",
+          "observations": 9,
+          "mean_realized_excess_return": 0.08852838790130035,
+          "median_realized_excess_return": 0.16134196698843528
+        },
+        {
+          "edge_state": "中性",
+          "observations": 10,
+          "mean_realized_excess_return": -0.05359261692733225,
+          "median_realized_excess_return": -0.08262313418887512
+        },
+        {
+          "edge_state": "次高",
+          "observations": 9,
+          "mean_realized_excess_return": 0.11061938259165303,
+          "median_realized_excess_return": 0.0999643592249051
+        },
+        {
+          "edge_state": "最高Edge20%",
+          "observations": 10,
+          "mean_realized_excess_return": 0.133220079657163,
+          "median_realized_excess_return": 0.1327445690848833
+        }
+      ],
+      "highest_minus_lowest_mean_realized_excess_return": 0.24266096993905084,
+      "strictly_monotonic_quintile_means": false
+    }
+  ],
+  "reference_comparison": [
+    {
+      "horizon_days": 60,
+      "normalized_earnings_cheapness_ic": 0.3495592429349235,
+      "conditioned_normalized_cheapness_ic": 0.3700414830178896,
+      "v2_expected_edge_ic": 0.28467721026704695
+    },
+    {
+      "horizon_days": 120,
+      "normalized_earnings_cheapness_ic": 0.5402325138174194,
+      "conditioned_normalized_cheapness_ic": 0.6686868686868686,
+      "v2_expected_edge_ic": 0.4667429007051648
+    },
+    {
+      "horizon_days": 242,
+      "normalized_earnings_cheapness_ic": 0.5337603126356926,
+      "conditioned_normalized_cheapness_ic": 0.6466565349544073,
+      "v2_expected_edge_ic": 0.4424663482414242
+    }
+  ],
+  "component_ablation": [
+    {
+      "horizon_days": 60,
+      "components": [
+        {
+          "component": "股息",
+          "observations": 57,
+          "spearman_ic_vs_realized_edge": 0.29945553539019965
+        },
+        {
+          "component": "正常化盈利增长",
+          "observations": 57,
+          "spearman_ic_vs_realized_edge": -0.4050427793621987
+        },
+        {
+          "component": "估值重估",
+          "observations": 57,
+          "spearman_ic_vs_realized_edge": 0.3205211304122375
+        },
+        {
+          "component": "预期总收益",
+          "observations": 57,
+          "spearman_ic_vs_realized_edge": 0.28662172673061964
+        },
+        {
+          "component": "现金收益",
+          "observations": 57,
+          "spearman_ic_vs_realized_edge": -0.3112897214843733
+        },
+        {
+          "component": "预期超额总收益",
+          "observations": 57,
+          "spearman_ic_vs_realized_edge": 0.28467721026704695
+        }
+      ]
+    },
+    {
+      "horizon_days": 120,
+      "components": [
+        {
+          "component": "股息",
+          "observations": 54,
+          "spearman_ic_vs_realized_edge": 0.7079473985134361
+        },
+        {
+          "component": "正常化盈利增长",
+          "observations": 54,
+          "spearman_ic_vs_realized_edge": -0.7030684200495521
+        },
+        {
+          "component": "估值重估",
+          "observations": 54,
+          "spearman_ic_vs_realized_edge": 0.5078330474556889
+        },
+        {
+          "component": "预期总收益",
+          "observations": 54,
+          "spearman_ic_vs_realized_edge": 0.44135696588526774
+        },
+        {
+          "component": "现金收益",
+          "observations": 54,
+          "spearman_ic_vs_realized_edge": -0.6103032267780183
+        },
+        {
+          "component": "预期超额总收益",
+          "observations": 54,
+          "spearman_ic_vs_realized_edge": 0.4667429007051648
+        }
+      ]
+    },
+    {
+      "horizon_days": 242,
+      "components": [
+        {
+          "component": "股息",
+          "observations": 48,
+          "spearman_ic_vs_realized_edge": 0.7782240555796787
+        },
+        {
+          "component": "正常化盈利增长",
+          "observations": 48,
+          "spearman_ic_vs_realized_edge": -0.8572514112027789
+        },
+        {
+          "component": "估值重估",
+          "observations": 48,
+          "spearman_ic_vs_realized_edge": 0.48534520191055147
+        },
+        {
+          "component": "预期总收益",
+          "observations": 48,
+          "spearman_ic_vs_realized_edge": 0.4208640903169778
+        },
+        {
+          "component": "现金收益",
+          "observations": 48,
+          "spearman_ic_vs_realized_edge": -0.7374077290490665
+        },
+        {
+          "component": "预期超额总收益",
+          "observations": 48,
+          "spearman_ic_vs_realized_edge": 0.4424663482414242
+        }
+      ]
+    }
+  ],
+  "growth_forecast_diagnostics": {
+    "observations": 48,
+    "spearman_ic": 0.31024750325662176,
+    "pearson_correlation": 0.40446212001808435,
+    "interpretation": "增长项应首先预测未来正常化盈利；其与股票收益可因估值已反映增长而反向。"
+  },
+  "chronological_stability_242d": [
+    {
+      "period": "前半段",
+      "observations": 24,
+      "start": "2021-08-31",
+      "end": "2023-07-31",
+      "spearman_ic": 0.5139130434782608,
+      "mean_expected_edge": -0.025846490688976088,
+      "mean_realized_edge": -0.11461262387877462
+    },
+    {
+      "period": "后半段",
+      "observations": 24,
+      "start": "2023-08-31",
+      "end": "2025-07-31",
+      "spearman_ic": -0.15478260869565216,
+      "mean_expected_edge": 0.02447983024758524,
+      "mean_realized_edge": 0.17687077633360837
+    }
+  ],
+  "latest_signal": {
+    "date": "2026-07-31",
+    "component_normalized_index_eps": 275.62965226165517,
+    "component_normalized_pe": 16.64623875679539,
+    "conditioned_fair_pe_v2": 10.699887709931092,
+    "fair_value_index_v2": 2949.206328727065,
+    "trailing_dividend_yield_annual": 0.022559265054589384,
+    "expected_earnings_growth_annual": 0.07511889082680649,
+    "annual_cash_rate": 0.01146,
+    "fair_pe_training_samples": 107,
+    "horizons": [
+      {
+        "horizon_days": 60,
+        "expected_dividend_return": 0.00554637446149453,
+        "expected_earnings_growth_return": 0.018120378919441293,
+        "expected_rerating_return": -0.06740418975237983,
+        "expected_total_return": -0.04523894658358729,
+        "cash_return": 0.002829159402053305,
+        "expected_excess_total_return": -0.0480681059856406
+      },
+      {
+        "horizon_days": 120,
+        "expected_dividend_return": 0.0111235111926562,
+        "expected_earnings_growth_return": 0.036569105971066884,
+        "expected_rerating_return": -0.12062872341383224,
+        "expected_total_return": -0.07833149788854388,
+        "cash_return": 0.005666322947028624,
+        "expected_excess_total_return": -0.0839978208355725
+      },
+      {
+        "horizon_days": 242,
+        "expected_dividend_return": 0.022559265054589384,
+        "expected_earnings_growth_return": 0.07511889082680656,
+        "expected_rerating_return": -0.19826369480839623,
+        "expected_total_return": -0.11859292704949764,
+        "cash_return": 0.011460000000000026,
+        "expected_excess_total_return": -0.13005292704949767
+      }
+    ]
+  },
+  "acceptance": {
+    "positive_ic_all_horizons": true,
+    "positive_non_overlapping_242d_ic_median": true,
+    "positive_ic_both_chronological_halves_242d": false,
+    "strictly_monotonic_quintiles_all_horizons": false,
+    "trading_use_authorized": false,
+    "next_required_evidence": "冻结规则与数据指纹后的真正前瞻样本"
+  },
+  "limitations": [
+    "申万行业映射是静态标签，不是历史点时行业分类；本轮仅用于固定方法路由。",
+    "点时财务没有经营现金流字段，尚不能加入现金利润质量过滤。",
+    "只有60个月成分股价格与点时聚合历史，242日已兑现样本更少且相互重叠。",
+    "FairPE以历史市场PE为训练目标，但信号日价格和信号日PE不进入评分特征。",
+    "全部历史已参与研究，任何通过都只能说明机制值得冻结，不能称为样本外Alpha。"
+  ],
+  "output_file": "data/features/000300_valuation_v2_expected_return.parquet",
+  "input_hashes": {
+    "config/valuation_v2_expected_return.yaml": "e30dcd17e8fe93d4d18507ebd650915ad172f6ea498f2a870ce673085f5d37a7",
+    "data/raw/market/000300_daily_feature_warmup.parquet": "3b1e03eea5230e6e19c276d32cbd0c606d241288d44129a6e1b0b176e3f4fdaa",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e",
+    "data/raw/valuation/000300_valuation_daily_raw.parquet": "119f009a7045f8b50b1eae3a3f2d7d1f394c372d4723cfd54d2ba348ae66ad52",
+    "data/raw/macro/china_government_bond_yields_daily.parquet": "2a8792679debc7a2b17e08c6a6d8c259513187cb62aecd15799cc6153b0653c1",
+    "data/raw/constituents/000300_historical_weights.parquet": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+    "data/raw/fundamentals/csi300_financials_point_in_time.parquet": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+    "data/raw/constituents/000300_constituent_daily.parquet": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+    "data/raw/reference/a_share_sw_industry_static.parquet": "ffb84191ea84a3a86b7acfb6df5242267630ad54cf17146a8570352c69649bd3"
+  },
+  "output_sha256": "e74f6d4b51b843e62e9a8a610c50a08b0f10489eea4c532fab4c843967b356cf"
+}

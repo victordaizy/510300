@@ -1,0 +1,250 @@
+protocol:
+  model_id: 510300_NBS_1000_NEGATIVE_INFORMATION_DRIFT_V1
+  version: 1.0.1
+  chinese_name: 510300国家统计局10时宏观负向信息漂移策略
+  state: FROZEN_BEFORE_EVENT_RETURN_READ
+  research_stage: SOURCE_AND_EVENT_ADMISSION_ONLY
+  start_date: '2017-01-01'
+  end_date: '2026-09-04'
+  timezone: Asia/Shanghai
+  tradable_universe: [510300.SH, CASH_CNY]
+  default_position: FULL_510300
+  validated_alpha: false
+  live_trading_authorized: false
+  position_impact: 0
+  options_used: false
+  futures_used: false
+  constituents_used: false
+  archived_option_v1_rescue_allowed: false
+
+dependencies:
+  minute_source:
+    data_model_id: 510300_STK_MINS_SOURCE_ADMISSION_V1
+    version: 1.0.0
+    protocol_path: config/510300_stk_mins_source_admission_v1.yaml
+    required_state: PASS_STK_MINS_SOURCE_ADMISSION
+  dividend_ledger:
+    use_only_after_g0_to_g3_pass: true
+    path: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    coverage_receipt: data/reference/510300_dividends_coverage.json
+  trial_registry:
+    path: config/research_registry.jsonl
+    count_rule: UNIQUE_ETF_510300_MODEL_OR_IMPLEMENTATION_ATTEMPTS_BEFORE_THIS_RUN_PLUS_ONE
+
+nbs_event_contract:
+  authority: 国家统计局
+  allowed_hosts: [www.stats.gov.cn, stats.gov.cn]
+  schedule_index: https://www.stats.gov.cn/xxgk/sjfb/fbrcb/
+  canonical_titles:
+    - 国民经济运行情况
+    - 国民经济运行情况新闻发布会
+  title_matching: NORMALIZED_EXACT_OR_TITLE_CONTAINS_CANONICAL_WITHOUT_OTHER_EVENT_FAMILY
+  allowed_scheduled_time: '10:00:00'
+  disallowed_event_families:
+    - PMI
+    - CPI_PPI
+    - LPR
+    - 社会融资规模
+    - 工业企业利润
+    - 房价
+    - 临时政策公告
+  same_timestamp_macro_releases_count_as_one_event: true
+  event_id_template: NBS_NATIONAL_ECONOMY_YYYYMMDD_1000
+  require_schedule_publication_before_event: true
+  require_revision_known_before_revised_event: true
+  unverifiable_revision_state: EXCLUDED_UNVERIFIABLE_SCHEDULE_REVISION
+  non_1000_state: EXCLUDED_NON_1000_RELEASE
+  non_sse_open_day_state: EXCLUDED_NON_TRADING_DAY
+  raw_root: data/raw/official/nbs/national_economy_release_schedule_v1
+  curated_event_ledger: data/curated/510300_nbs_1000_negative_information_drift_v1/event_ledger.parquet
+  pre_return_ledger: data/curated/510300_nbs_1000_negative_information_drift_v1/event_ledger_pre_return.parquet
+  source_inventory: reports/data_quality/510300_nbs_1000_negative_information_drift_v1/nbs_schedule_source_inventory.json
+
+minute_windows:
+  timestamp_semantics: BAR_END
+  pre: ['09:56:00', '09:57:00', '09:58:00', '09:59:00', '10:00:00']
+  reaction: ['10:01:00', '10:02:00', '10:03:00', '10:04:00', '10:05:00']
+  confirmation_buffer_labels: ['10:06:00']
+  entry: ['10:07:00', '10:08:00', '10:09:00', '10:10:00', '10:11:00']
+  exit: ['14:51:00', '14:52:00', '14:53:00', '14:54:00', '14:55:00']
+  required_bars_each_window: 5
+  price_method: SUM_AMOUNT_DIVIDED_BY_SUM_VOLUME
+  require_positive_window_volume: true
+  require_positive_window_amount: true
+  incomplete_state: NO_VIEW_INCOMPLETE_MINUTE_WINDOW
+
+feature:
+  event_reaction: LOG_REACTION_VWAP_DIV_PRE_VWAP
+  causal_baseline_days: 60
+  baseline_day_type: STRICTLY_PRIOR_COMPLETE_NON_EVENT_TRADING_DAYS
+  center: MEDIAN
+  scale: ONE_POINT_4826_TIMES_MAD
+  insufficient_baseline_state: NO_VIEW_INSUFFICIENT_CAUSAL_BASELINE
+  unique_feature: X_EQUALS_MAX_NEGATIVE_Z_ZERO
+  prohibited_features:
+    - VOLUME
+    - PATH_EFFICIENCY
+    - MOVING_AVERAGE
+    - RSI
+    - VOLATILITY_FILTER
+    - OPTION_DATA
+    - FUTURES_DATA
+    - MACRO_ACTUAL
+    - MACRO_CONSENSUS
+    - NEWS_SENTIMENT
+
+label:
+  name: AVOIDED_LOSS_1006_TO_1455
+  formula: NEGATIVE_LOG_EXIT_VWAP_DIV_ENTRY_VWAP
+  matured_at: SAME_EVENT_DATE_14_55_ASIA_SHANGHAI
+  alternatives_allowed: false
+
+models:
+  minimum_training_events: 36
+  refit: BEFORE_EACH_NEW_EVENT
+  training_window: EXPANDING_MATURED_ELIGIBLE_EVENTS_ONLY
+  b0: PRIOR_MATURED_Y_MEAN
+  b1:
+    type: OLS_WITH_INTERCEPT
+    feature: X
+    covariance: HC3
+    coefficient_truncation_allowed: false
+  prediction_lower_bound:
+    confidence: 0.90
+    one_sided_z: 1.645
+    target: CONDITIONAL_MEAN
+  model_selection_allowed: false
+  signal_reversal_allowed: false
+
+eras:
+  training_origin: FIRST_36_ELIGIBLE_EVENTS
+  era_1_event_ordinals: [37, 56]
+  era_2_event_ordinals: [57, 76]
+  era_3_start_ordinal: 77
+  era_3_minimum_events: 15
+  minimum_total_evaluation_events: 40
+
+execution:
+  initial_capital_cny: 200000
+  commission_rate: 0.0002
+  minimum_commission_cny_per_leg: 5
+  lot_size_shares: 100
+  base_slippage_per_leg: 0.0005
+  stress_slippage_per_leg: 0.0010
+  base_round_trip_reference_cost: 0.0014
+  signal_lcb_threshold: 0.0042
+  signal_requirements:
+    x_strictly_positive: true
+    beta_strictly_positive: true
+    lcb_minimum: 0.0042
+  sell_inventory: OLD_AVAILABLE_SHARES_ONLY
+  sell_quantity: ALL_AVAILABLE_ROUNDED_DOWN_TO_100
+  buy_quantity: AVAILABLE_CASH_LESS_COMMISSION_RESERVE_ROUNDED_DOWN_TO_100
+  leverage_allowed: false
+  shorting_allowed: false
+  intraday_t_allowed: false
+  stop_loss_take_profit_allowed: false
+
+statistics:
+  bootstrap:
+    resamples: 10000
+    random_seed: 5103001000
+    unit: EVENT
+    lower_percentile: 0.10
+  spearman_requirement: POINT_ESTIMATE_STRICTLY_POSITIVE
+  prequential_mse_improvement: MEAN_B0_SQUARED_ERROR_MINUS_B1_SQUARED_ERROR
+  annualization_days: 252
+  risk_free_return: 0.0
+
+placebos:
+  shifted_intraday:
+    reaction_labels: ['09:31:00', '09:32:00', '09:33:00', '09:34:00', '09:35:00']
+    entry_labels: ['09:37:00', '09:38:00', '09:39:00', '09:40:00', '09:41:00']
+    candidate_strategy_allowed: false
+  prior_non_event:
+    matching: NEAREST_STRICTLY_PRIOR_COMPLETE_NON_EVENT_DAY
+    reuse_allowed: false
+    candidate_strategy_allowed: false
+  mechanism_requirement: EVENT_RELATION_STRONGER_THAN_BOTH_PLACEBOS
+
+gates:
+  g0:
+    minute_source_general_admission_pass: true
+    open_day_minute_coverage_minimum: 0.98
+    standard_241_bar_day_coverage_minimum: 0.98
+    eligible_event_four_window_coverage_minimum: 1.0
+    daily_ohlc_reconciliation_rate_minimum: 0.999
+    timestamp_semantics_evidence_required: true
+    nbs_schedule_raw_hashes_complete: true
+  g1:
+    eligible_1000_events_minimum: 85
+    complete_window_events_minimum: 80
+    training_events_minimum: 36
+    era_1_events_minimum: 15
+    era_2_events_minimum: 15
+    era_3_events_minimum: 15
+    evaluation_events_minimum: 40
+    failure_state: NO_VIEW_INSUFFICIENT_EVENT_COUNT
+  g2:
+    prequential_mse_improvement_strictly_positive: true
+    full_sample_beta_strictly_positive: true
+    bootstrap_beta_90pct_lower_bound_strictly_positive: true
+    positive_beta_eras_minimum: 2
+    b1_better_mse_eras_minimum: 2
+    spearman_strictly_positive: true
+    stronger_than_both_placebos: true
+    failure_states: [REJECTED_FROZEN_NO_SIGNAL_REVERSAL, REJECTED_MECHANISM_NOT_EVENT_SPECIFIC]
+  g3:
+    independent_signals_minimum: 12
+    eras_with_three_signals_minimum: 2
+    base_cost_mean_net_avoided_loss_strictly_positive: true
+    stress_cost_mean_net_avoided_loss_strictly_positive: true
+    stress_bootstrap_90pct_lower_bound_strictly_positive: true
+    stress_net_hit_rate_minimum: 0.60
+    maximum_single_event_profit_share: 0.30
+    insufficient_signal_state: NO_VIEW_INSUFFICIENT_HIGH_MARGIN_SIGNAL_DENSITY
+  g4:
+    base_net_sharpe_minimum: 1.20
+    base_net_sharpe_minus_p0_minimum: 0.25
+    base_net_sharpe_minus_p1_strictly_positive: true
+    net_cagr_vs_p0_floor_difference: -0.01
+    maximum_drawdown_reduction_vs_p0_minimum: 0.15
+    stress_net_excess_strictly_positive: true
+    positive_net_excess_eras_minimum: 2
+    average_round_trips_per_year_maximum: 4.0
+    maximum_single_event_excess_share: 0.30
+
+portfolio_benchmarks:
+  p0: BUY_AND_HOLD_510300_WITH_OFFICIAL_CASH_DIVIDENDS
+  p1: SAME_FULL_SAMPLE_AVERAGE_INTRADAY_CASH_EXPOSURE_UNIFORMLY_ON_ALL_OPEN_DAYS
+  p2:
+    type: RANDOM_MATCHED_NON_EVENT_CASH_WINDOWS
+    random_seed: 5103001000
+    primary_match: SAME_CALENDAR_YEAR_AND_WEEKDAY_WITHOUT_REPLACEMENT
+    fallback_match: SAME_CALENDAR_YEAR_WITHOUT_REPLACEMENT
+    failure_state: NO_VIEW_CONTROL_MATCH_FAILED
+
+outputs:
+  root: reports/research/510300_nbs_1000_negative_information_drift_v1
+  g0_g1: reports/research/510300_nbs_1000_negative_information_drift_v1/G0_G1_ADJUDICATION.json
+  g2: reports/research/510300_nbs_1000_negative_information_drift_v1/G2_MECHANISM_ADJUDICATION.json
+  g3: reports/research/510300_nbs_1000_negative_information_drift_v1/G3_SIGNAL_ADJUDICATION.json
+  g4: reports/research/510300_nbs_1000_negative_information_drift_v1/G4_PORTFOLIO_ADJUDICATION.json
+  summary: reports/research/510300_nbs_1000_negative_information_drift_v1/RESEARCH_SUMMARY.md
+  event_features: data/curated/510300_nbs_1000_negative_information_drift_v1/event_features.parquet
+  event_predictions: data/curated/510300_nbs_1000_negative_information_drift_v1/event_predictions.parquet
+  event_signals: data/curated/510300_nbs_1000_negative_information_drift_v1/event_signals.parquet
+  portfolio: data/curated/510300_nbs_1000_negative_information_drift_v1/portfolio_daily.parquet
+
+governance:
+  future_return_reads_allowed_before_g0_g1_pass: false
+  model_training_allowed_before_g0_g1_pass: false
+  portfolio_evaluation_allowed_before_g0_g3_pass: false
+  one_shot_portfolio_after_g0_g3_pass: true
+  parameter_rescue_after_result_allowed: false
+  paper_shadow_authorized: false
+  broker_connection_enabled: false
+  order_generation_enabled: false
+  live_trading_authorized: false
+  position_impact: 0

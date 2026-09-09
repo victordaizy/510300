@@ -1,0 +1,67 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10"
+  status: "FROZEN_BEFORE_BTC_LONG_HORIZON_TREND_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v10_manifest.json"
+  v4_manifest: "config/us_multi_asset_capacity_aware_terminal_winddown_v4_manifest.json"
+  v4_visible_report: "reports/research/us_multi_asset_capacity_aware_terminal_winddown_v4_visible.json"
+  digital_v1_prefreeze_failure: "reports/research/digital_asset_spot_volatility_scaled_trend_v1_prefreeze_failure.json"
+
+registered_v4_rejection:
+  candidate_id: "US_MULTI_ASSET_CAPACITY_AWARE_TERMINAL_WINDDOWN_V4"
+  required_status: "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN"
+  performance_metrics_available: true
+  all_visible_gates_pass: false
+  sealed_replication_open: false
+
+registered_digital_v1_prefreeze_failure:
+  candidate_id: "DIGITAL_ASSET_SPOT_VOLATILITY_SCALED_TREND_V1"
+  required_status: "FAILED_PREFREEZE_SIGNAL_COVERAGE"
+  required_signal_dates: 180
+  observed_signal_dates: 176
+  performance_metrics_available: false
+  candidate_frozen: false
+  candidate_closed: true
+
+new_lane:
+  lane: "BTC_SPOT_LONG_HORIZON_TIME_SERIES_TREND"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_product: "BTC-USD"
+  venue: "COINBASE_EXCHANGE"
+  market_type: "SPOT_ONLY"
+  signal_frequency: "WEEKLY_COMPLETED_UTC_SUNDAY"
+  trend_rule: "CLOSE_ABOVE_200_DAY_SMA_AND_126_DAY_RETURN_POSITIVE"
+  realized_volatility_lookback_calendar_days: 60
+  portfolio_target_annualized_volatility: 0.40
+  maximum_gross_weight: 1.0
+  leverage_short_derivatives_staking_or_lending_allowed: false
+  base_total_spot_cost_bps_per_leg: 76.0
+  stress_total_spot_cost_bps_per_leg: 106.0
+  parameter_grid_search_allowed: false
+
+governance:
+  v4_remains_rejected: true
+  digital_v1_remains_closed: true
+  v4_or_digital_v1_parameter_rescue_allowed: false
+  new_candidate_must_freeze_before_visible_outcome: true
+  sealed_replication_may_open_only_after_visible_pass: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

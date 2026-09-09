@@ -1,0 +1,228 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  execution_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_G2_COUNTERFACTUAL_V1
+  version: "1.0.0"
+  stage_id: G2_STRUCTURAL_INCREMENT_COUNTERFACTUAL
+  research_state: DISCOVERY_ONLY
+  evidence_class: RETROSPECTIVE_HISTORICAL_COUNTERFACTUAL
+  return_evaluation: NOT_ALLOWED
+  portfolio_evaluation_allowed: false
+  probability_threshold_selection_allowed: false
+  paper_or_shadow_allowed: false
+  broker_connection_allowed: false
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+  observation_start: "2015-01-05"
+  historical_cutoff: "2026-08-14"
+  observation_after_historical_cutoff_allowed: false
+  timezone: Asia/Shanghai
+
+counterfactual_authority:
+  user_directive: 假设g1通过，进行g2
+  assumption_id: ASSUME_G1_MECHANISM_COUNT_GATE_PASS_FOR_G2_ONLY
+  assumed_G1_DATA_AND_EVENTS: PASS_BY_USER_COUNTERFACTUAL_ASSUMPTION
+  actual_G1_DATA_AND_EVENTS: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  actual_g1_state_may_be_overwritten: false
+  fabricate_events_or_features_allowed: false
+  relax_common_sample_allowed: false
+  impute_no_view_allowed: false
+  promote_counterfactual_result_to_formal_gate_allowed: false
+  formal_g3_authorization_created: false
+
+immutable_parent:
+  v2_protocol_manifest:
+    path: config/510300_stress_transmission_hazard_v2_manifest.json
+    bytes: 17838
+    sha256: 4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be
+  g1_correction_manifest:
+    path: config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1_manifest.json
+    bytes: 5370
+    sha256: 2f8382f90d779fca94bfff0313c3c6d22a867e6b9020872a2abe8a14537b2706
+  g1_terminal_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_g1_status_v1_0_1.json
+    bytes: 2240
+    sha256: af7d5257e288ed532e3078e1aa4067f6f6ddbdae11a6096c3be1da643546f4a6
+    required_g1_state: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+    required_branch_state: STOPPED_AT_G1_NO_FEATURE_OR_LABEL_RESCUE
+  g1_clean_replay_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_0_1.json
+    bytes: 4257
+    sha256: 63f8e6391ce022f7cb86f5ee6d90574e69c7a589f37829c18847fac8930db231
+    required_status: PASS_FRESH_PROCESS_REPLAY_AFTER_FILE_EVIDENCE_SUBSET_CORRECTION
+  historical_coverage_audit_manifest:
+    path: config/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1_manifest.json
+    bytes: 9361
+    sha256: 6182cadeb764d2530502e126954ae7a648b3051e2fe079d2558e817155d94465
+  historical_coverage_audit_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_status_v1.json
+    bytes: 3906
+    sha256: c49fb49b88a1a8da12507d67c77009a79e1463643354a7c36067eddf79954055
+    required_audit_status: PASS_HISTORICAL_COVERAGE_AUDIT_G1_REMAINS_NO_VIEW
+    required_after_cutoff_read: false
+
+inputs:
+  g1_sample_eligibility:
+    path: reports/data_quality/510300_stress_transmission_hazard_v2_g1_sample_eligibility_v1.parquet
+    bytes: 257042
+    sha256: fe6414f7c5cbba822f150d84817f2bc5941f513ee174df78ce4c666b930bd110
+    read_columns:
+      - origin_date
+      - horizon_end_date
+      - bad10
+      - event_id
+      - sample_group_id
+      - bootstrap_event_block_id
+      - calendar_year_block_id
+      - b1_realized_vol20_risk_percentile
+      - b1_drawdown20_risk_percentile
+      - b1_downside_return5_risk_percentile
+      - F
+      - T
+      - T_x_F
+      - b2_vs_b1_eligible
+      - b2_vs_b1_model_weight
+  g1_event_eligibility:
+    path: reports/data_quality/510300_stress_transmission_hazard_v2_g1_event_eligibility_v1.parquet
+    bytes: 8302
+    sha256: 696dac5d58ecf5524a6edbbec49a23593f105cd6c86ff237caf708274aaec36f
+    read_columns:
+      - event_id
+      - total_positive_origin_count
+      - b2_eligible_positive_origin_count
+      - b2_identifiable_event
+
+common_sample_contract:
+  sample: B2_VS_B1_COMMON_SAMPLE_ONLY
+  eligibility_column: b2_vs_b1_eligible
+  B1_features:
+    - b1_realized_vol20_risk_percentile
+    - b1_drawdown20_risk_percentile
+    - b1_downside_return5_risk_percentile
+  B2_features: [T, T_x_F]
+  B2_formula: T_PLUS_T_TIMES_F
+  positive_event_weight_sum: 1.0
+  negative_risk_day_weight: 1.0
+  compare_on_exact_same_rows: true
+  event_may_be_split_within_a_prediction_fold: false
+  missing_or_no_view_imputation_allowed: false
+
+model_contract:
+  family: BINOMIAL_LOGISTIC_REGRESSION
+  objective: WEIGHTED_MEAN_NEGATIVE_LOG_LIKELIHOOD_PLUS_HALF_L2_TIMES_SUM_SLOPE_SQUARED
+  l2_penalty: 1.0
+  intercept_penalized: false
+  feature_standardization: NONE_PERCENTILE_INPUTS_ALREADY_ON_ZERO_ONE_SCALE
+  B1_slope_constraints: NONNEGATIVE
+  B2_beta1_T_constraint: NONNEGATIVE
+  B2_beta2_T_x_F_constraint: NONNEGATIVE
+  optimizer: SCIPY_L_BFGS_B_ANALYTIC_GRADIENT
+  optimizer_max_iterations: 2000
+  optimizer_ftol: 1.0e-12
+  optimizer_gtol: 1.0e-8
+  probability_clip: 1.0e-12
+  hyperparameter_grid_allowed: false
+  automatic_variable_selection_allowed: false
+  sign_reversal_allowed: false
+  tree_boosting_or_neural_model_allowed: false
+
+prequential_split_contract:
+  method: ANNUAL_EXPANDING_LABEL_MATURED_PREQUENTIAL
+  model_vintage_month_day: "01-01"
+  training_row_rule: HORIZON_END_DATE_STRICTLY_BEFORE_MODEL_VINTAGE
+  training_positive_event_rule: WHOLE_EVENT_MAX_HORIZON_END_STRICTLY_BEFORE_MODEL_VINTAGE
+  evaluation_positive_event_vintage: CALENDAR_YEAR_OF_EVENT_MINIMUM_ORIGIN_DATE
+  evaluation_negative_vintage: CALENDAR_YEAR_OF_ORIGIN_DATE
+  positive_event_rows_use_one_vintage_even_if_EVENT_CROSSES_YEAR: true
+  future_calendar_year_training_allowed: false
+  evaluation_row_may_train_its_own_prediction: false
+  minimum_training_positive_events: 1
+  minimum_training_negative_risk_days: 1
+  calibration_split_used: false
+  first_possible_model_vintage_year: 2016
+  last_model_vintage_year: 2026
+
+fixed_eras:
+  - {id: ERA_1_2015_2017, start: "2015-01-05", end: "2017-12-29"}
+  - {id: ERA_2_2018_2020, start: "2018-01-02", end: "2020-12-31"}
+  - {id: ERA_3_2021_2023, start: "2021-01-04", end: "2023-12-29"}
+  - {id: ERA_4_2024_CUTOFF, start: "2024-01-02", end: "2026-08-14"}
+
+g2_gate_contract:
+  comparison: B2_MINUS_B1
+  primary_metric: EVENT_WEIGHTED_LOG_LOSS_IMPROVEMENT_B1_MINUS_B2
+  overall_improvement_minimum_exclusive: 0.0
+  same_direction_eras_required: 3
+  total_eras: 4
+  no_prediction_era_counts_as_positive: false
+  bootstrap_units: [EVENT, CALENDAR_YEAR]
+  bootstrap_repetitions: 5000
+  bootstrap_seed: 20260903
+  bootstrap_interval: PERCENTILE
+  one_sided_confidence: 0.90
+  lower_quantile: 0.10
+  lower_bound_minimum_exclusive: 0.0
+  auc_role: DESCRIPTION_ONLY
+  required_descriptive_metrics:
+    - PR_AUC
+    - BRIER_SCORE
+    - LOG_LOSS
+    - CALIBRATION_SLOPE
+    - CALIBRATION_INTERCEPT
+    - ROC_AUC_DESCRIPTION_ONLY
+  counterfactual_pass_status: PASS_G2_STRUCTURAL_INCREMENT_COUNTERFACTUAL_ONLY
+  counterfactual_fail_status: REJECTED_G2_STRUCTURAL_INCREMENT_COUNTERFACTUAL_ONLY
+  formal_status_always: NOT_ADMISSIBLE_ACTUAL_G1_REMAINS_NO_VIEW
+  next_step_if_counterfactual_passes: MAY_FREEZE_G3_COUNTERFACTUAL_ONLY_IF_USER_DIRECTS
+  next_step_if_counterfactual_fails: STOP_COUNTERFACTUAL_V2_NO_FEATURE_OR_MODEL_RESCUE
+
+expected_actual_parent_state:
+  G1_DATA_AND_EVENTS: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  total_independent_event_count: 58
+  total_positive_origin_count: 463
+  total_non_event_risk_day_count: 2350
+  b2_identifiable_event_count: 23
+
+outputs:
+  predictions: reports/research/510300_stress_transmission_hazard_v2_g2_counterfactual_predictions_v1.parquet
+  model_vintages: reports/research/510300_stress_transmission_hazard_v2_g2_counterfactual_model_vintages_v1.parquet
+  era_metrics: reports/research/510300_stress_transmission_hazard_v2_g2_counterfactual_era_metrics_v1.parquet
+  bootstrap_distribution: reports/research/510300_stress_transmission_hazard_v2_g2_counterfactual_bootstrap_v1.parquet
+  result: reports/research/510300_stress_transmission_hazard_v2_g2_counterfactual_result_v1.json
+  report: reports/research/510300_STRESS_TRANSMISSION_HAZARD_V2_G2_COUNTERFACTUAL_V1.md
+  build_receipt: reports/audit/510300_stress_transmission_hazard_v2_g2_counterfactual_build_v1.json
+  clean_replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_g2_counterfactual_clean_replay_v1.json
+  clean_replay_failure_receipt: reports/audit/510300_stress_transmission_hazard_v2_g2_counterfactual_clean_replay_v1_failure.json
+  status: reports/research/510300_stress_transmission_hazard_v2_g2_counterfactual_status_v1.json
+
+targeted_test_files:
+  - tests/test_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py
+  - tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py
+
+freeze_contract:
+  implementation_files:
+    - research/stress_transmission_hazard_v2_g2_counterfactual_v1.py
+    - scripts/freeze_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py
+    - scripts/build_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py
+    - scripts/replay_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_g2_counterfactual_v1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G2_COUNTERFACTUAL_V1_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_g2_counterfactual_v1_manifest.json
+  freeze_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_g2_counterfactual_v1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_OR_OVERWRITE_ACTUAL_G1_OR_HISTORICAL_AUDIT_ARTIFACTS
+  - PRESENT_ASSUMED_G1_PASS_AS_OBSERVED_FACT
+  - FABRICATE_EVENTS_FEATURES_OR_NO_VIEW_ROWS
+  - USE_OBSERVATION_AFTER_2026_08_14
+  - USE_FUTURE_CALENDAR_YEAR_OR_UNMATURED_LABEL_IN_A_PREDICTION_MODEL
+  - SPLIT_ONE_POSITIVE_EVENT_WITHIN_A_PREDICTION_FOLD
+  - RELAX_B2_VS_B1_COMMON_SAMPLE
+  - CHANGE_BAD10_THRESHOLD_OR_HORIZON
+  - CHANGE_L2_OR_SEARCH_HYPERPARAMETERS
+  - REVERSE_COEFFICIENT_OR_SIGNAL_DIRECTION
+  - SELECT_PROBABILITY_THRESHOLD_OR_RUN_G4
+  - RUN_G3_WITHOUT_NEW_USER_DIRECTION_AND_SEPARATE_FREEZE
+  - READ_OR_GENERATE_PORTFOLIO_RETURN_NAV_SHARPE_OR_DRAWDOWN
+  - CREATE_POSITION_ORDER_BROKER_PAPER_SHADOW_OR_LIVE_ACTION

@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0.1",
+  "project_id": "510300_ORACLE_INFORMATION_BUDGET_V1_0_1_ACCEPTANCE",
+  "state": "FROZEN_BEFORE_CONSERVATIVE_SCENARIO_METRICS",
+  "frozen_at_asia_shanghai": "2026-08-31T15:48:26.566878+08:00",
+  "config_path": "config/510300_oracle_information_budget_v1_0_1_acceptance.yaml",
+  "config_sha256": "c95720c9c05f7d7024a58ac8978fd7091f1676aa9375c271ff85a1d34acc7894",
+  "source_v1_outputs_known": true,
+  "source_robustness_audit_known": true,
+  "conservative_scenario_metrics_computed_before_freeze": false,
+  "tracked_files": {
+    "config/510300_oracle_information_budget_v1_0_1_acceptance.yaml": "c95720c9c05f7d7024a58ac8978fd7091f1676aa9375c271ff85a1d34acc7894",
+    "docs/510300_ORACLE_INFORMATION_BUDGET_V1_0_1_ACCEPTANCE_SPEC.md": "c77d0c8e58468b9980913cf405fdd11f59df3ee26b4274b8bda494698b42e684",
+    "research/oracle_information_budget_v1_0_1_acceptance.py": "bc4956897f03278d8e77fa1cb1df8616669183b6943f7aee8e86fdfda22d9a7c",
+    "scripts/freeze_510300_oracle_information_budget_v1_0_1_acceptance.py": "a3d43d14b880f32a892eb1016ba911447cae2f8f87cd393e1f4fb8d525343796",
+    "scripts/run_510300_oracle_information_budget_v1_0_1_acceptance.py": "5fb230a78410c55b72f7d9ab6bd66fa022816a37f08a10239e821c7559e40f4b",
+    "tests/test_510300_oracle_information_budget_v1_0_1_acceptance.py": "6584dd8eac066d63a0781d46b32d869c95da17322118a988bdabf74174d41593"
+  },
+  "input_files": {
+    "config/510300_oracle_information_budget_v1_manifest.json": "c28dbbd8f9f13f00b114f5022b346b53469dbc437d5fac90699b149cec81a14b",
+    "reports/research/510300_oracle_information_budget_v1_result.json": "d8b8ca3eae2ee9405b70a4f579b3f6fe59045fb77f430d884e6cdfd8dfaea820",
+    "data/research/510300_oracle_information_budget_v1/random_axis_summary.parquet": "4cb023abba842bb54c69c7d38c889afeed8cdafd61e8322cfe460ccc46146d3f",
+    "data/research/510300_oracle_information_budget_v1/random_joint_summary.parquet": "0dadfa258e159139cc3952767ada56b6d9da5400fb01ac94c696efd1e09e6513",
+    "data/research/510300_oracle_information_budget_v1/adversarial_summary.parquet": "d0c0deee8c7e131e12bfda00f116f73b2b547e62a3188dd94d6596c9144fb415",
+    "data/research/510300_oracle_information_budget_v1/timing_summary.parquet": "3f6f497bd381d478cb47d0df5c2bc458edb084fc1402010c86524ce4e8dd4649",
+    "data/research/510300_oracle_information_budget_v1/offset_robustness.parquet": "c1e7ab98dda3c2bd7a279ddce649402d15c2d332daae9dab6f929d6eb7cabdf1",
+    "data/research/510300_oracle_information_budget_v1/label_execution_basis.parquet": "954511b7a4024c61b1c7a34c56e9d7b011f5f66c965b070993ffe63c9d3c9311",
+    "data/research/510300_oracle_information_budget_v1/event_concentration.parquet": "c045041b315745ac83cdbe4f7cdfa0f35354c566293375caf1f3ce4a32e50233",
+    "config/510300_trend_lifecycle_atlas_v1_manifest.json": "30f67e05c5ad7e18ec704c9cf21574b62c1301926275dade3ceacd3635823858",
+    "reports/research/510300_trend_lifecycle_atlas_v1.json": "1454b485bd31b69962cf770f9f2434098aeab561cde985b8940c643a632eb9cd",
+    "data/research/510300_trend_lifecycle_atlas_v1/leading_results.csv": "50d6815129a6690617b997bae7194507fccac23325465fbda72c76f29ba01c74",
+    "config/510300_up20_rare_event_forecast_v1_manifest.json": "3a324e2ad1692a000300bed04f96436c591f9c7e2cd0a55322c167aabb3e4ea8"
+  },
+  "fixed_correction": {
+    "target_net_sharpe": 1.2,
+    "conservative_scenario_sharpe_definition": "MIN_OF_MONTHLY_20D_INTERVAL_AND_LO_HAC",
+    "lo_bartlett_max_lag": 20,
+    "random_seed": 51030020260831,
+    "repetitions_per_random_cell": 500,
+    "joint_grid": {
+      "captured_bull_counts": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        23
+      ],
+      "false_range_counts": [
+        0,
+        5,
+        10,
+        20,
+        40,
+        97
+      ],
+      "false_bear_counts": [
+        0,
+        1,
+        2,
+        4,
+        8,
+        21
+      ]
+    },
+    "timing_error_days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "reported_budget_fields": [
+      "MIN_UP_RECALL_FOR_SHARPE_1_2",
+      "MIN_UP_PRECISION_FOR_SHARPE_1_2",
+      "MAX_DOWN_FALSE_LONG_RATE",
+      "MAX_RANGE_FALSE_LONG_RATE",
+      "MAX_ENTRY_DELAY_DAYS",
+      "MAX_EXIT_DELAY_DAYS",
+      "MIN_ORACLE_RETURN_CAPTURE",
+      "SHARPE_1_2_FEASIBLE_REGION"
+    ],
+    "nondegenerate_advancement_gate": {
+      "maximum_required_adversarial_up_recall": 0.8,
+      "minimum_adversarial_down_false_long_blocks_tolerated": 1,
+      "minimum_adversarial_range_false_long_blocks_tolerated": 10,
+      "minimum_entry_delay_days_tolerated": 3,
+      "conservative_joint_region_must_be_nonempty": true
+    }
+  },
+  "selection_bias_control": {
+    "prior_manifest_count": 361,
+    "total_manifest_count_including_current": 362,
+    "source_outputs_known_and_declared": true,
+    "correction_can_only_tighten_v1": true
+  },
+  "no_rescue": {
+    "ordinary_result": true,
+    "error_grid": true,
+    "random_seed": true,
+    "adversarial_rule": true,
+    "timing_grid": true,
+    "serial_metric": true,
+    "advancement_gate": true
+  },
+  "governance": {
+    "diagnostic_only": true,
+    "realistic_prediction_model_evaluated": false,
+    "atlas_router_created": false,
+    "preexisting_up20_protocol_present": true,
+    "preexisting_up20_protocol_accepted": false,
+    "up20_prediction_model_created": false,
+    "paper_signal_allowed": false,
+    "shadow_signal_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "position_output": "NONE",
+    "live_trading_authorized": false
+  }
+}

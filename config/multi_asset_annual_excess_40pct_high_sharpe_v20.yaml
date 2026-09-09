@@ -1,0 +1,83 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V20"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V19"
+  status: "FROZEN_BEFORE_SPOT_LOW_VOLATILITY_STOP_LOSS_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v19_manifest.json"
+  v9_manifest: "config/digital_asset_cross_sectional_perpetual_basis_v9_manifest.json"
+  v9_visible_report: "reports/research/digital_asset_cross_sectional_perpetual_basis_v9_visible.json"
+
+registered_v9_failure:
+  candidate_id: "DIGITAL_ASSET_CROSS_SECTIONAL_PERPETUAL_BASIS_V9"
+  required_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  required_error_type: "DataContractError"
+  required_error_fragment: "风险减仓后实际净敞口仍超过冻结上限"
+  performance_metrics_available: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "DIGITAL_ASSET_SPOT_LOW_VOLATILITY_STOP_LOSS"
+  maximum_candidates_before_family_specific_replication: 1
+  empirical_reference: "KAYA_MOSTOWFI_2022_FINANCE_RESEARCH_LETTERS"
+  venue: "BINANCE_SPOT_PUBLIC_DATA"
+  fixed_symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+    - "BCHUSDT"
+    - "XRPUSDT"
+    - "EOSUSDT"
+    - "LTCUSDT"
+    - "TRXUSDT"
+    - "ETCUSDT"
+    - "LINKUSDT"
+    - "XLMUSDT"
+    - "ADAUSDT"
+    - "BNBUSDT"
+    - "DASHUSDT"
+    - "ZECUSDT"
+    - "XTZUSDT"
+  fixed_universe_basis: "SAME_15_PRE_2020_02_10_SYMBOLS_WITHOUT_RETURN_OR_VOLATILITY_SCREEN"
+  signal_price: "DAILY_23UTC_SPOT_CLOSE"
+  volatility_lookback_calendar_days: 180
+  selected_count: 3
+  selection_rule: "LOWEST_REALIZED_DAILY_VOLATILITY_THEN_SYMBOL_ASCENDING"
+  selection_rebalance_months: 6
+  selection_execution_dates: "MARCH_1_AND_SEPTEMBER_1_00UTC"
+  within_month_stop_loss: 0.05
+  stop_signal: "PRIOR_COMPLETED_23UTC_CLOSE_VERSUS_CURRENT_MONTH_ENTRY_PRICE"
+  stop_execution: "NEXT_00UTC_OPEN"
+  stopped_slot_policy: "CASH_UNTIL_NEXT_CALENDAR_MONTH_ENTRY"
+  weighting: "EQUAL_DOLLAR_THREE_SLOTS"
+  target_long_gross: 1.0
+  short_or_derivative_allowed: false
+  turnover_lookback_hours: 168
+  maximum_order_fraction: 0.001
+  terminal_winddown_calendar_days: 7
+  base_total_spot_cost_bps_per_leg: 4.0
+  stress_total_spot_cost_bps_per_leg: 16.0
+  parameter_grid_search_allowed: false
+
+governance:
+  v9_remains_frozen_failure: true
+  perpetual_basis_parameter_or_execution_rescue_allowed: false
+  new_lane_uses_spot_long_only_and_no_derivative_netting: true
+  candidate_must_freeze_before_volatility_rank_stop_or_performance_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

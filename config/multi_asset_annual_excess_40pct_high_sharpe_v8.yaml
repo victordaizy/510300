@@ -1,0 +1,60 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V8"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V7"
+  status: "FROZEN_BEFORE_US_LIQUID_TREASURY_RECONSTITUTION_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v7_manifest.json"
+  digital_asset_prefreeze_failure: "reports/research/digital_asset_spot_volatility_scaled_trend_v1_prefreeze_failure.json"
+
+registered_failure:
+  candidate_id: "DIGITAL_ASSET_SPOT_VOLATILITY_SCALED_TREND_V1"
+  required_status: "FAILED_PREFREEZE_SIGNAL_COVERAGE"
+  required_positive_target_dates: 180
+  observed_positive_target_dates: 176
+  performance_metrics_available: false
+  sealed_replication_read: false
+  candidate_frozen: false
+  candidate_closed: true
+
+new_lane:
+  lane: "US_LIQUID_TREASURY_RECONSTITUTED_ABSOLUTE_MOMENTUM"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_tickers: ["UPRO", "TQQQ", "TLT", "UGL"]
+  replaced_infeasible_product: "TMF"
+  replacement_product: "TLT"
+  preserved_risk_source: "ICE_US_TREASURY_20_PLUS_YEAR"
+  replacement_reason: "V1R在形成绩效前已证明TMF历史订单容量不足；TLT承接同一长期美债风险源且不使用嵌入杠杆"
+  all_signal_dates_windows_ranking_weights_costs_and_gates_unchanged_from_v1: true
+  official_fx_source: "CHINAMONEY_CFETS_OFFICIAL_USD_CNY_CENTRAL_PARITY"
+  account_borrowing_allowed: false
+  account_margin_allowed: false
+  short_sale_allowed: false
+  derivative_position_allowed: false
+  maximum_account_gross_exposure: 1.0
+
+governance:
+  v1_and_v1r_remain_closed: true
+  no_v1_or_v1r_performance_was_available: true
+  substitution_may_not_be_interpreted_as_old_candidate_rescue: true
+  replacement_and_formula_must_freeze_before_visible_outcome: true
+  acquisition_may_compute_strategy_return_or_rank: false
+  failed_candidate_reparameterization_allowed: false
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

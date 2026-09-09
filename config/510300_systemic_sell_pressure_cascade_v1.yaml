@@ -1,0 +1,154 @@
+protocol:
+  candidate_id: "510300_SYSTEMIC_SELL_PRESSURE_CASCADE_V1"
+  version: "1.0.0"
+  state: "PREFREEZE_IMPLEMENTATION_COMPLETE"
+  mechanism: "全A股系统性卖压扩散与价格限制导致的次日短暂价格发现延续"
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED_VISIBLE_VALIDATION_WITH_CONDITIONAL_LATER_COHORT_REPLICATION"
+  prior_failed_formula_reused: false
+  prior_failed_family_parameter_rescue: false
+  outcome_used_to_choose_parameters: false
+  is_strategy_candidate: true
+  is_current_signal: false
+  live_trading_authorized: false
+
+scope:
+  execution_asset: "510300.SH"
+  allowed_holdings: ["510300.SH", "CASH_CNY"]
+  allowed_target_states: [0, 1]
+  initial_capital_cny: 500000.0
+  signal_time: "T日收盘后"
+  execution_time: "T+1交易日开盘"
+  cash_exit_holding_days: 1
+  default_state: 1
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_allowed: false
+  full_state_reinvests_paid_cash_dividends: true
+
+objective:
+  benchmark_id: "H00300"
+  benchmark_return_type: "TOTAL_RETURN"
+  primary_metric: "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR"
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_excess_median: 0.20
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+
+inputs:
+  visible_panel: "data/raw/a_share_hash_holdout_v2/training_panel.parquet"
+  replication_panel: "data/raw/a_share_hash_holdout_v2/holdout_panel.parquet"
+  stock_master: "data/raw/a_share_hash_holdout_v2/stock_master_split.parquet"
+  etf_market: "data/raw/r6/510300_daily.parquet"
+  benchmark_total_return: "data/raw/r6/H00300_total_return_daily.parquet"
+  cash_distributions: "data/reference/510300_dividends.csv"
+  v1_config: "config/510300_binary_state_feasibility_v1.yaml"
+  v1_manifest: "config/510300_binary_state_feasibility_v1_manifest.json"
+  v1_engine: "research/binary_state_feasibility_v1.py"
+  v2_report: "reports/research/510300_binary_state_accuracy_frontier_v2.json"
+
+partitions:
+  visible_feature_start: "2014-01-02"
+  visible_feature_end: "2022-12-30"
+  visible_score_calibration_start: "2015-01-05"
+  visible_score_calibration_end: "2018-12-27"
+  visible_validation_signal_start: "2018-12-28"
+  visible_validation_signal_end: "2022-12-29"
+  visible_validation_execution_start: "2019-01-02"
+  visible_validation_execution_end: "2022-12-30"
+  replication_feature_start: "2023-01-03"
+  replication_feature_end: "2026-08-13"
+  replication_score_calibration_start: "2024-01-02"
+  replication_score_calibration_end: "2024-12-30"
+  replication_signal_start: "2024-12-31"
+  replication_signal_end: "2026-08-13"
+  replication_execution_start: "2025-01-02"
+  replication_execution_end: "2026-08-14"
+  replication_panel_may_be_loaded_only_after_visible_gates_pass: true
+
+universe:
+  visible_required_split_group: "TRAIN"
+  replication_required_split_group: "HOLDOUT"
+  master_statuses: ["L", "D"]
+  minimum_observed_history_days: 120
+  pre_panel_listing_age_calendar_days_for_mature_history: 180
+  require_point_in_time_list_and_delist_dates: true
+  require_positive_open_high_low_close: true
+  require_positive_amount: true
+  require_non_suspended_bar: true
+
+signal:
+  family: "A_SHARE_SYSTEMIC_SELL_PRESSURE_CASCADE"
+  raw_feature_prior_window_trading_days: 242
+  raw_feature_prior_minimum_observations: 242
+  percentile_definition: "RIGHT_EMPIRICAL_CDF_CURRENT_VS_STRICTLY_PRIOR_WINDOW"
+  risk_features_equal_weighted:
+    - "down_2_share"
+    - "down_5_share"
+    - "lower_limit_close_share"
+    - "close_low_down_share"
+    - "amount_weighted_down_share"
+    - "amount_weighted_down_5_share"
+    - "negative_cross_section_median_return"
+    - "cross_section_return_dispersion"
+  down_2_threshold: -0.02
+  down_5_threshold: -0.05
+  lower_limit_return_threshold: -0.095
+  lower_limit_close_absolute_tolerance_cny: 0.0051
+  close_location_upper_bound: 0.10
+  score_cutoff_quantile: 0.95
+  score_cutoff_quantile_method: "linear"
+  require_cross_section_median_return_negative: true
+  require_amount_weighted_down_share_at_least: 0.50
+  signal_rule: "risk_score>=calibration_95pct且横截面中位收益<0且下跌股成交额占比>=50%"
+  cash_state_duration_trading_days: 1
+  overlapping_signals_extend_cash_one_day_at_a_time: true
+  parameter_grid_search_allowed: false
+
+visible_acceptance:
+  require_base_annualized_excess_at_least_20pct: true
+  require_stress_annualized_excess_at_least_20pct: true
+  require_base_rolling_excess_median_at_least_20pct: true
+  require_stress_rolling_excess_median_at_least_20pct: true
+  minimum_signal_days: 20
+  base_and_stress_must_both_pass: true
+  open_replication_only_if_all_visible_gates_pass: true
+
+replication_acceptance:
+  require_stress_annualized_excess_at_least_20pct: true
+  require_stress_rolling_excess_median_at_least_20pct: true
+  minimum_signal_days: 8
+
+artifacts:
+  manifest: "config/510300_systemic_sell_pressure_cascade_v1_manifest.json"
+  output_directory: "data/research/510300_systemic_sell_pressure_cascade_v1"
+  visible_daily_features: "data/research/510300_systemic_sell_pressure_cascade_v1/visible_daily_features.parquet"
+  visible_signals: "data/research/510300_systemic_sell_pressure_cascade_v1/visible_signals.parquet"
+  visible_base_ledger: "data/research/510300_systemic_sell_pressure_cascade_v1/visible_base_ledger.parquet"
+  visible_base_trades: "data/research/510300_systemic_sell_pressure_cascade_v1/visible_base_trades.parquet"
+  visible_stress_ledger: "data/research/510300_systemic_sell_pressure_cascade_v1/visible_stress_ledger.parquet"
+  visible_stress_trades: "data/research/510300_systemic_sell_pressure_cascade_v1/visible_stress_trades.parquet"
+  replication_daily_features: "data/research/510300_systemic_sell_pressure_cascade_v1/replication_daily_features.parquet"
+  replication_signals: "data/research/510300_systemic_sell_pressure_cascade_v1/replication_signals.parquet"
+  replication_stress_ledger: "data/research/510300_systemic_sell_pressure_cascade_v1/replication_stress_ledger.parquet"
+  replication_stress_trades: "data/research/510300_systemic_sell_pressure_cascade_v1/replication_stress_trades.parquet"
+  report_json: "reports/research/510300_systemic_sell_pressure_cascade_v1.json"
+  report_markdown: "reports/research/510300_SYSTEMIC_SELL_PRESSURE_CASCADE_V1.md"
+
+governance:
+  visible_failure_is_frozen_rejection: true
+  replication_not_loaded_after_visible_failure: true
+  current_state_signal_created: false
+  paper_or_shadow_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false

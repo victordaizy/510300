@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V13_MANIFEST",
+  "status": "FROZEN_BEFORE_DUAL_DIGITAL_ASSET_LONG_HORIZON_TREND_OUTCOME",
+  "frozen_at": "2026-08-27T06:12:38.758497+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V13",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V12",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v13.yaml": "d19d706f9455a35987f84d5659a0061049b712598f6298032ec7a1a24b3e83a0",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V13_SPEC.md": "be8e74ed84079ad317cbf400a02871259bd7267cdf54c9ad8e16896f8a54969a",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v13.py": "76afc498899834b05edd2b62c5564e3cc180244c3d08492af5fec5c51e3f1b98"
+  },
+  "tracked_content_sha256": "c0af0b3cafc8fe2b4a0138cabfe77d88efbe51308dd731ad4b17b4a45da7829a",
+  "parent_manifest_sha256": "807cb60d18516d27e9be1b0359d6c735f47c16bf55a0be8e59171f67f5adf073",
+  "btc_v3_rejection": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true,
+      "gates_failed": true,
+      "replication_closed": true
+    },
+    "manifest_sha256": "ea2249cb92ef407402fd8269f90ab2448208f82c601da8dc6433f0050e15478a",
+    "report_sha256": "cf668b4ecfd2c3fa96a4b38a235fcc744826050c285a260a929ad9444650e59a",
+    "tracked_content_sha256": "e8201ed2cb0dc032edffa1987ef019509253273d2100e6b63135a685b8d33f5e",
+    "metrics": {
+      "base_annualized_excess": 0.30210521795705836,
+      "stress_annualized_excess": 0.2945876100118018,
+      "base_strategy_net_sharpe": 1.1336222137245424,
+      "stress_strategy_net_sharpe": 1.1047433296831115
+    }
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DUAL_DIGITAL_ASSET_LONG_HORIZON_TIME_SERIES_TREND",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_products": [
+      "BTC-USD",
+      "ETH-USD"
+    ],
+    "venue": "COINBASE_EXCHANGE",
+    "market_type": "SPOT_ONLY",
+    "signal_frequency": "WEEKLY_COMPLETED_UTC_SUNDAY",
+    "per_product_trend_rule": "CLOSE_ABOVE_200_DAY_SMA_AND_126_DAY_RETURN_POSITIVE",
+    "covariance_lookback_calendar_days": 60,
+    "preliminary_weighting": "INVERSE_REALIZED_VOLATILITY_AMONG_ELIGIBLE_PRODUCTS",
+    "portfolio_target_annualized_volatility": 0.4,
+    "maximum_product_weight": 1.0,
+    "maximum_gross_weight": 1.0,
+    "capacity_aware_execution_from_first_version": true,
+    "maximum_order_fraction": 0.003,
+    "terminal_winddown_calendar_days": 30,
+    "base_total_spot_cost_bps_per_leg": 76.0,
+    "stress_total_spot_cost_bps_per_leg": 106.0,
+    "parameter_grid_search_allowed": false
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

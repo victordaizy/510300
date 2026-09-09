@@ -1,0 +1,280 @@
+{
+  "status": "PASS",
+  "generated_at": "2026-08-13T02:52:16.990117+08:00",
+  "source": "data/raw/market/510300_15m_from_1m_raw.parquet",
+  "source_quality": "PASS_WITH_SOURCE_CAVEATS",
+  "hypothesis_count": 6,
+  "results": [
+    {
+      "hypothesis_id": "FVG001",
+      "event": "bullish_3bar_imbalance",
+      "horizon_bars": 4,
+      "expected_sign": "positive",
+      "role": "primary",
+      "event_count": 930,
+      "event_day_count": 628,
+      "mean_hypothetical_net_return": -0.0014773277921596199,
+      "median_hypothetical_net_return": -0.0018460748375749847,
+      "positive_ratio": 0.3064516129032258,
+      "mean_effect_vs_same_slot_baseline": 8.596029209321647e-05,
+      "mean_mae": -0.0030567142794118004,
+      "mean_mfe": 0.0034159795581151296,
+      "same_day_full_fill_rate": 0.556989247311828,
+      "median_bars_to_full_fill": 2.0,
+      "year_effects": {
+        "2021": -0.0001990827371415897,
+        "2022": -0.0002785451178601917,
+        "2023": 0.00026689627755243674,
+        "2024": 0.0004917878635892601,
+        "2025": 0.0001831399996652498,
+        "2026": -0.0002225698415450917
+      },
+      "year_expected_direction_ratio": 0.5,
+      "day_block_bootstrap_effect": {
+        "days": 628,
+        "iterations": 1000,
+        "median": -0.0003891039070562254,
+        "ci_2_5pct": -0.0007038330510375645,
+        "ci_97_5pct": -5.757066569039462e-05
+      },
+      "evidence": {
+        "score": 2,
+        "rating": "INCONCLUSIVE",
+        "checks": {
+          "event_return_expected_direction": false,
+          "slot_adjusted_effect_expected_direction": true,
+          "year_direction_ratio_ge_60pct": false,
+          "bootstrap_median_expected_direction": false,
+          "at_least_100_events": true
+        }
+      },
+      "implementation_status": "EVENT_EVIDENCE_ONLY_NOT_DIRECTLY_TRADABLE_FOR_NEW_T1_SHARES"
+    },
+    {
+      "hypothesis_id": "FVG002",
+      "event": "bearish_3bar_imbalance",
+      "horizon_bars": 4,
+      "expected_sign": "negative",
+      "role": "primary",
+      "event_count": 1014,
+      "event_day_count": 659,
+      "mean_hypothetical_net_return": -0.0013844230823226238,
+      "median_hypothetical_net_return": -0.001593017599999691,
+      "positive_ratio": 0.3224852071005917,
+      "mean_effect_vs_same_slot_baseline": 0.00017897770167010508,
+      "mean_mae": -0.003266303566812464,
+      "mean_mfe": 0.0032189648657029797,
+      "same_day_full_fill_rate": 0.5996055226824457,
+      "median_bars_to_full_fill": 2.0,
+      "year_effects": {
+        "2021": -0.0007547975768422673,
+        "2022": 0.00020032634189405071,
+        "2023": -2.935426566948919e-05,
+        "2024": 0.0005995208256011085,
+        "2025": -0.00016312226957934116,
+        "2026": 0.0008249702892538817
+      },
+      "year_expected_direction_ratio": 0.5,
+      "day_block_bootstrap_effect": {
+        "days": 659,
+        "iterations": 1000,
+        "median": 0.0004186085226442147,
+        "ci_2_5pct": 6.873237554632222e-05,
+        "ci_97_5pct": 0.0007345520948324255
+      },
+      "evidence": {
+        "score": 2,
+        "rating": "INCONCLUSIVE",
+        "checks": {
+          "event_return_expected_direction": true,
+          "slot_adjusted_effect_expected_direction": false,
+          "year_direction_ratio_ge_60pct": false,
+          "bootstrap_median_expected_direction": false,
+          "at_least_100_events": true
+        }
+      },
+      "implementation_status": "EVENT_EVIDENCE_ONLY_NOT_DIRECTLY_TRADABLE_FOR_NEW_T1_SHARES"
+    },
+    {
+      "hypothesis_id": "FVG003",
+      "event": "bullish_3bar_imbalance",
+      "horizon_bars": 1,
+      "expected_sign": "positive",
+      "role": "sensitivity",
+      "event_count": 1287,
+      "event_day_count": 747,
+      "mean_hypothetical_net_return": -0.0014574880109888208,
+      "median_hypothetical_net_return": -0.0015951999999997968,
+      "positive_ratio": 0.20745920745920746,
+      "mean_effect_vs_same_slot_baseline": 0.00013194169803251867,
+      "mean_mae": -0.0015445908052025407,
+      "mean_mfe": 0.001725239183964996,
+      "same_day_full_fill_rate": 0.466977466977467,
+      "median_bars_to_full_fill": 2.0,
+      "year_effects": {
+        "2021": -8.17171481690372e-05,
+        "2022": 0.0003531008361954273,
+        "2023": 0.00016437994695210983,
+        "2024": 0.00013155060248995137,
+        "2025": 0.00013603772900218204,
+        "2026": -0.00012002861727907782
+      },
+      "year_expected_direction_ratio": 0.6666666666666666,
+      "day_block_bootstrap_effect": {
+        "days": 747,
+        "iterations": 1000,
+        "median": -0.00011819371430335068,
+        "ci_2_5pct": -0.00024469562287530566,
+        "ci_97_5pct": 1.2336679807746034e-05
+      },
+      "evidence": {
+        "score": 3,
+        "rating": "WEAK",
+        "checks": {
+          "event_return_expected_direction": false,
+          "slot_adjusted_effect_expected_direction": true,
+          "year_direction_ratio_ge_60pct": true,
+          "bootstrap_median_expected_direction": false,
+          "at_least_100_events": true
+        }
+      },
+      "implementation_status": "EVENT_EVIDENCE_ONLY_NOT_DIRECTLY_TRADABLE_FOR_NEW_T1_SHARES"
+    },
+    {
+      "hypothesis_id": "FVG004",
+      "event": "bearish_3bar_imbalance",
+      "horizon_bars": 1,
+      "expected_sign": "negative",
+      "role": "sensitivity",
+      "event_count": 1419,
+      "event_day_count": 788,
+      "mean_hypothetical_net_return": -0.001628363904027729,
+      "median_hypothetical_net_return": -0.0015949824000000001,
+      "positive_ratio": 0.18040873854827344,
+      "mean_effect_vs_same_slot_baseline": -3.47587375867007e-05,
+      "mean_mae": -0.001681982033184116,
+      "mean_mfe": 0.0015667515000711849,
+      "same_day_full_fill_rate": 0.5179704016913319,
+      "median_bars_to_full_fill": 2.0,
+      "year_effects": {
+        "2021": -9.289543713040559e-05,
+        "2022": 1.4636158617072768e-05,
+        "2023": -5.2031897983796565e-05,
+        "2024": -5.098763557983067e-05,
+        "2025": -0.00012618897904064573,
+        "2026": 7.913023968588108e-05
+      },
+      "year_expected_direction_ratio": 0.6666666666666666,
+      "day_block_bootstrap_effect": {
+        "days": 788,
+        "iterations": 1000,
+        "median": 0.00013348494007967397,
+        "ci_2_5pct": 8.373165812559825e-06,
+        "ci_97_5pct": 0.00026807520729020654
+      },
+      "evidence": {
+        "score": 4,
+        "rating": "WEAK",
+        "checks": {
+          "event_return_expected_direction": true,
+          "slot_adjusted_effect_expected_direction": true,
+          "year_direction_ratio_ge_60pct": true,
+          "bootstrap_median_expected_direction": false,
+          "at_least_100_events": true
+        }
+      },
+      "implementation_status": "EVENT_EVIDENCE_ONLY_NOT_DIRECTLY_TRADABLE_FOR_NEW_T1_SHARES"
+    },
+    {
+      "hypothesis_id": "FVG005",
+      "event": "bullish_3bar_imbalance",
+      "horizon_bars": 8,
+      "expected_sign": "positive",
+      "role": "sensitivity",
+      "event_count": 685,
+      "event_day_count": 487,
+      "mean_hypothetical_net_return": -0.0017086186096876344,
+      "median_hypothetical_net_return": -0.00206800007050012,
+      "positive_ratio": 0.33138686131386863,
+      "mean_effect_vs_same_slot_baseline": -0.00015688676452221633,
+      "mean_mae": -0.004558899737375895,
+      "mean_mfe": 0.004516110118990096,
+      "same_day_full_fill_rate": 0.6087591240875913,
+      "median_bars_to_full_fill": 2.0,
+      "year_effects": {
+        "2021": -0.0005256015088442024,
+        "2022": -0.000514279526042095,
+        "2023": -5.659482078552106e-05,
+        "2024": 0.0009025454617814792,
+        "2025": -0.00019687128236198147,
+        "2026": -0.001224193857643764
+      },
+      "year_expected_direction_ratio": 0.16666666666666666,
+      "day_block_bootstrap_effect": {
+        "days": 487,
+        "iterations": 1000,
+        "median": -0.0006316930435176504,
+        "ci_2_5pct": -0.0011309889143469901,
+        "ci_97_5pct": -8.528185809840387e-05
+      },
+      "evidence": {
+        "score": 1,
+        "rating": "REJECTED",
+        "checks": {
+          "event_return_expected_direction": false,
+          "slot_adjusted_effect_expected_direction": false,
+          "year_direction_ratio_ge_60pct": false,
+          "bootstrap_median_expected_direction": false,
+          "at_least_100_events": true
+        }
+      },
+      "implementation_status": "EVENT_EVIDENCE_ONLY_NOT_DIRECTLY_TRADABLE_FOR_NEW_T1_SHARES"
+    },
+    {
+      "hypothesis_id": "FVG006",
+      "event": "bearish_3bar_imbalance",
+      "horizon_bars": 8,
+      "expected_sign": "negative",
+      "role": "sensitivity",
+      "event_count": 757,
+      "event_day_count": 518,
+      "mean_hypothetical_net_return": -0.0014433622757121125,
+      "median_hypothetical_net_return": -0.0017962536298499199,
+      "positive_ratio": 0.36856010568031705,
+      "mean_effect_vs_same_slot_baseline": 0.00011202134995250685,
+      "mean_mae": -0.004552288189073066,
+      "mean_mfe": 0.004563678652280502,
+      "same_day_full_fill_rate": 0.6235138705416117,
+      "median_bars_to_full_fill": 2.0,
+      "year_effects": {
+        "2021": -0.0008988630157579419,
+        "2022": -0.00010364133052650366,
+        "2023": -0.00025958365090218564,
+        "2024": 0.0006889169014129541,
+        "2025": -7.10941463229897e-05,
+        "2026": 0.0008300682606130446
+      },
+      "year_expected_direction_ratio": 0.6666666666666666,
+      "day_block_bootstrap_effect": {
+        "days": 518,
+        "iterations": 1000,
+        "median": 0.0001783518033276167,
+        "ci_2_5pct": -0.00039641877339249945,
+        "ci_97_5pct": 0.0007564169881131547
+      },
+      "evidence": {
+        "score": 3,
+        "rating": "WEAK",
+        "checks": {
+          "event_return_expected_direction": true,
+          "slot_adjusted_effect_expected_direction": false,
+          "year_direction_ratio_ge_60pct": true,
+          "bootstrap_median_expected_direction": false,
+          "at_least_100_events": true
+        }
+      },
+      "implementation_status": "EVENT_EVIDENCE_ONLY_NOT_DIRECTLY_TRADABLE_FOR_NEW_T1_SHARES"
+    }
+  ],
+  "pv_lc_status": "BLOCKED_NO_LEVEL2_NOT_APPROXIMATED"
+}

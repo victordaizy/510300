@@ -1,0 +1,217 @@
+protocol:
+  candidate_id: "REGIME_AWARE_STRATEGY_ALLOCATOR_V1"
+  version: "1.0.0"
+  status: "PREREGISTERED_BEFORE_FIRST_FORWARD_EVIDENCE"
+  evidence_label: "META_FORWARD_ONLY_HISTORICAL_COMPONENT_RESULTS_ALREADY_VIEWED"
+  frozen_date: "2026-08-27"
+  decision_timezone: "Asia/Shanghai"
+  decision_frequency: "WEEKLY"
+  execution_lag: "NEXT_ELIGIBLE_OBSERVATION"
+  true_forward_start_policy: "STRICTLY_AFTER_MANIFEST_FROZEN_AT"
+  historical_component_result_cutoff: "2026-08-14"
+  research_only: true
+
+inputs:
+  environment_evidence_jsonl: "data/research/regime_aware_strategy_allocator_v1/environment_evidence.jsonl"
+  strategy_evidence_jsonl: "data/research/regime_aware_strategy_allocator_v1/strategy_evidence.jsonl"
+  forward_observation_ledger_jsonl: "data/research/regime_aware_strategy_allocator_v1/forward_observation_ledger.jsonl"
+  missing_evidence_policy: "NO_VIEW_CASH_ONLY"
+  future_available_record_policy: "IGNORE_FOR_CURRENT_DECISION_BUT_VALIDATE_SCHEMA"
+  future_decision_at_allowed: false
+  stale_record_carry_forward_allowed: false
+  append_only_evidence_required: true
+  forward_environment_binding_required: true
+  environment_episode_ids_may_be_user_supplied: false
+  maximum_environment_age_hours: 24
+  source_hash_required_when_view_is_pass: true
+
+forward_evaluation:
+  evaluator_id: "REGIME_AWARE_STRATEGY_FORWARD_EVIDENCE_V1"
+  immutable_report_directory: "reports/forward/regime_aware_strategy_allocator_v1_evidence"
+  latest_build_status_json: "reports/research/regime_aware_strategy_forward_evidence_v1_status.json"
+  immutable_build_receipt_directory: "reports/audit/regime_aware_strategy_forward_evidence_v1_runs"
+  annualization_periods: 365
+  observation_day_timezone: "Asia/Shanghai"
+  observation_return_horizon_hours: 24
+  maximum_outcome_availability_lag_hours: 24
+  rolling_qualification_window_observation_days: 504
+  recent_health_window_observation_days: 90
+  allowed_observation_statuses: ["PASS", "NO_VIEW", "RUNNING", "PARTIAL_SUCCESS", "FAILED", "PROGRAM_FAILED", "SKIPPED", "CENSORED_NO_OUTCOME"]
+  bootstrap:
+    method: "PAIRED_CIRCULAR_MOVING_BLOCK"
+    repetitions: 2000
+    block_length_observations: 20
+    lower_quantile: 0.05
+    random_seed: 20260827
+  deflated_sharpe:
+    independent_trials: 35
+    euler_mascheroni: 0.5772156649015329
+  probability_backtest_overfit:
+    method: "COMBINATORIALLY_SYMMETRIC_CONTIGUOUS_PARTITIONS"
+    candidate_universe: "PERMITTED_STRATEGIES_PLUS_STATIC_EQUAL_RISK_BASELINE"
+    baseline_candidate_id: "STATIC_EQUAL_RISK_FROZEN_POOL"
+    partition_count: 8
+    training_partition_count: 4
+    minimum_complete_observation_days: 504
+  cost_reconciliation:
+    net_return_formula: "STRATEGY_NET_RETURN_EQUALS_GROSS_RETURN_MINUS_SUM_COMPONENT_COSTS"
+    numeric_tolerance: 1.0e-12
+    allocator_switch_cost_source: "FROZEN_STRATEGY_POOL_BPS"
+    stress_component_cost_must_not_be_below_base: true
+    pass_requires_exact_required_component_set: true
+    incomplete_statuses_require_null_returns_and_empty_costs: true
+  confirmation:
+    minimum_elapsed_hours: 168
+    minimum_new_complete_observation_days: 7
+    requires_later_evaluation_window_end: true
+    failure_resets_count: true
+  first_statistical_pass_status: "CONDITIONALLY_PASSING_CONFIRMATION_PENDING"
+  confirmed_pass_status: "CONDITIONAL_FORWARD_PASSED"
+  insufficient_status: "INSUFFICIENT_EVIDENCE"
+
+environment:
+  scope: "DIGITAL_ASSET"
+  allowed_data_statuses: ["PASS", "NO_VIEW", "RUNNING", "PARTIAL_SUCCESS", "FAILED", "PROGRAM_FAILED", "SKIPPED"]
+  minimum_same_environment_episode_separation_hours: 168
+  feature_names:
+    - "slow_trend_score"
+    - "fast_trend_score"
+    - "breadth_score"
+    - "risk_score"
+    - "liquidity_score"
+    - "carry_opportunity_score"
+  feature_ranges:
+    slow_trend_score: [-1.0, 1.0]
+    fast_trend_score: [-1.0, 1.0]
+    breadth_score: [0.0, 1.0]
+    risk_score: [0.0, 1.0]
+    liquidity_score: [0.0, 1.0]
+    carry_opportunity_score: [0.0, 1.0]
+  classification_precedence:
+    - "DEFENSIVE_HIGH_RISK"
+    - "CARRY_DISPERSION"
+    - "TREND_PERSISTENT_UP"
+    - "TREND_PERSISTENT_DOWN"
+    - "TREND_TRANSITION"
+    - "MEAN_REVERTING_LIQUID"
+    - "UNKNOWN"
+  thresholds:
+    high_risk_minimum: 0.70
+    carry_opportunity_minimum: 0.70
+    liquid_minimum: 0.60
+    persistent_trend_absolute_minimum: 0.20
+    persistent_up_breadth_minimum: 0.50
+    persistent_down_breadth_maximum: 0.50
+    transition_fast_slow_gap_minimum: 0.80
+    mean_reverting_trend_absolute_maximum: 0.20
+
+strategy_pool:
+  - strategy_id: "BTC_SPOT_CAPACITY_AWARE_LONG_HORIZON_TREND_V3"
+    family: "DIGITAL_ASSET_LONG_TREND"
+    permitted_environments: ["TREND_PERSISTENT_UP"]
+    component_manifest: "config/btc_spot_capacity_aware_long_horizon_trend_v3_manifest.json"
+    component_status_source: "reports/research/btc_spot_capacity_aware_long_horizon_trend_v3_visible.json"
+    required_cost_components: ["commission", "exchange_fee", "bid_ask_spread", "slippage", "market_impact", "fx", "allocator_switching"]
+    base_allocator_switch_cost_bps: 1.0
+    stress_allocator_switch_cost_bps: 10.0
+  - strategy_id: "DIGITAL_ASSET_DUAL_LONG_HORIZON_TREND_V4"
+    family: "DIGITAL_ASSET_LONG_TREND"
+    permitted_environments: ["TREND_PERSISTENT_UP"]
+    component_manifest: "config/digital_asset_dual_long_horizon_trend_v4_manifest.json"
+    component_status_source: "reports/research/digital_asset_dual_long_horizon_trend_v4_visible.json"
+    required_cost_components: ["commission", "exchange_fee", "bid_ask_spread", "slippage", "market_impact", "fx", "allocator_switching"]
+    base_allocator_switch_cost_bps: 1.0
+    stress_allocator_switch_cost_bps: 10.0
+  - strategy_id: "DIGITAL_ASSET_RELATIVE_STRENGTH_ROTATION_V5"
+    family: "DIGITAL_ASSET_RELATIVE_STRENGTH"
+    permitted_environments: ["TREND_PERSISTENT_UP"]
+    component_manifest: "config/digital_asset_relative_strength_rotation_v5_manifest.json"
+    component_status_source: "reports/research/digital_asset_relative_strength_rotation_v5_visible.json"
+    required_cost_components: ["commission", "exchange_fee", "bid_ask_spread", "slippage", "market_impact", "fx", "allocator_switching"]
+    base_allocator_switch_cost_bps: 1.0
+    stress_allocator_switch_cost_bps: 10.0
+  - strategy_id: "DIGITAL_ASSET_MULTI_HORIZON_TREND_VOTE_V6"
+    family: "DIGITAL_ASSET_LONG_TREND"
+    permitted_environments: ["TREND_PERSISTENT_UP", "TREND_TRANSITION"]
+    component_manifest: "config/digital_asset_multi_horizon_trend_vote_v6_manifest.json"
+    component_status_source: "reports/research/digital_asset_multi_horizon_trend_vote_v6_visible.json"
+    required_cost_components: ["commission", "exchange_fee", "bid_ask_spread", "slippage", "market_impact", "fx", "allocator_switching"]
+    base_allocator_switch_cost_bps: 1.0
+    stress_allocator_switch_cost_bps: 10.0
+  - strategy_id: "DIGITAL_ASSET_CROSS_SECTIONAL_PERPETUAL_BASIS_V15"
+    family: "DIGITAL_ASSET_MARKET_NEUTRAL_BASIS"
+    permitted_environments: ["CARRY_DISPERSION", "DEFENSIVE_HIGH_RISK"]
+    component_manifest: "config/digital_asset_cross_sectional_perpetual_basis_v15_manifest.json"
+    component_status_source: "reports/research/digital_asset_cross_sectional_perpetual_basis_v15_visible.json"
+    required_cost_components: ["commission", "exchange_fee", "bid_ask_spread", "slippage", "market_impact", "funding", "allocator_switching"]
+    base_allocator_switch_cost_bps: 1.0
+    stress_allocator_switch_cost_bps: 10.0
+
+evidence_gates:
+  required_evidence_type: "TRUE_FORWARD_CONDITIONAL"
+  required_meta_evidence_status: "CONDITIONAL_FORWARD_PASSED"
+  minimum_forward_observation_days: 504
+  minimum_independent_environment_episodes: 12
+  minimum_consecutive_entry_confirmations: 2
+  maximum_strategy_evidence_age_hours: 192
+  minimum_base_net_conditional_edge_lcb_after_all_costs: 0.0
+  minimum_stress_net_conditional_edge_lcb_after_all_costs: 0.0
+  minimum_stress_net_incremental_vs_static_equal_risk_lcb_after_all_costs: 0.0
+  minimum_recent_stress_net_edge_vs_cash_after_all_costs: 0.0
+  minimum_recent_stress_net_incremental_vs_static_equal_risk_after_all_costs: 0.0
+  edge_lower_bound_operator: "STRICTLY_GREATER_THAN"
+  minimum_deflated_sharpe_probability: 0.95
+  maximum_probability_backtest_overfit: 0.10
+  maximum_environment_profit_concentration: 0.50
+  maximum_forecast_annualized_volatility: 3.0
+  historical_contamination_allowed: false
+  benchmark_set_complete_required: true
+  cost_model_complete_required: true
+  required_benchmarks:
+    - "CASH_CNY"
+    - "STATIC_EQUAL_RISK_FROZEN_POOL"
+    - "H00300_TOTAL_RETURN_CAPITAL_ALTERNATIVE"
+    - "EACH_STATIC_COMPONENT"
+  forbidden_selection_fields:
+    - "trailing_return"
+    - "trailing_sharpe"
+    - "recent_rank"
+    - "winner_rank"
+    - "best_strategy"
+    - "oracle_weight"
+
+allocation:
+  score_numerator: "stress_net_incremental_vs_static_equal_risk_lcb_after_all_costs"
+  score_denominator: "forecast_annualized_volatility"
+  maximum_total_strategy_weight: 0.80
+  minimum_cash_weight: 0.20
+  maximum_single_strategy_weight: 0.35
+  maximum_single_family_weight: 0.50
+  maximum_positive_risk_increase_per_decision: 0.25
+  risk_reduction_is_never_blocked: true
+  negative_weights_allowed: false
+  leverage_allowed: false
+  cash_asset_id: "CASH_CNY"
+  empty_eligible_set_result: "CASH_ONLY"
+
+governance:
+  rejected_component_status_is_relabelled: false
+  component_parameters_may_change: false
+  strategy_pool_may_expand_after_freeze: false
+  failed_environment_may_be_removed: false
+  threshold_rescue_after_result: false
+  historical_backfill_as_forward_evidence: false
+  latest_winner_selection_used: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_or_exchange_connection_enabled: false
+  live_trading_authorized: false
+
+outputs:
+  latest_status_json: "reports/research/regime_aware_strategy_allocator_v1_status.json"
+  latest_status_markdown: "reports/research/REGIME_AWARE_STRATEGY_ALLOCATOR_V1_STATUS.md"
+  immutable_receipt_directory: "reports/audit/regime_aware_strategy_allocator_v1_runs"

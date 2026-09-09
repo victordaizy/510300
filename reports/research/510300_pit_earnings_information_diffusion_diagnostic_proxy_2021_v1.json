@@ -1,0 +1,199 @@
+{
+  "diagnostic_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_DIAGNOSTIC_PROXY_2021_V1",
+  "formal_candidate_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+  "status": "DIAGNOSTIC_COMPLETED_UNRELIABLE_INPUTS_NOT_ADMISSIBLE",
+  "authoritative_candidate_status": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS",
+  "created_at": "2026-08-30T23:22:24.811968+08:00",
+  "diagnostic_manifest": {
+    "path": "config/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_manifest.json",
+    "sha256": "eff6295755f809418853bef5fa6637b4411c57ecaf0aa6b8e98dd9cb9ec7f73a",
+    "status": "FROZEN_DIAGNOSTIC_PROXY_BEFORE_FUTURE_OUTCOME_READ"
+  },
+  "scope": {
+    "training_start": "2016-10-10",
+    "oos_start": "2021-01-01",
+    "oos_end": "2026-07-30",
+    "price_asset": "510300.SH",
+    "future_label_horizon_trading_days": 10,
+    "initial_training_observations": 504,
+    "calibration_observations": 126,
+    "label_embargo_trading_days": 10,
+    "refit_frequency": "CALENDAR_QUARTER",
+    "test_mode": "ANCHORED_EXPANDING_WALK_FORWARD"
+  },
+  "input_data_gate": {
+    "formal_candidate_data_passed": false,
+    "member_valid_weight_fact_count": 60,
+    "member_valid_weight_fact_count_2021_plus": 46,
+    "a3_success_rate": 0.5541871921182266,
+    "human_review_pairs": 0,
+    "weight_revision_vintage_proven": false,
+    "reliability_labels": [
+      "UNVERIFIED_HISTORICAL_WEIGHT_REVISION_VINTAGE",
+      "FACT_A3_BELOW_FROZEN_MINIMUM",
+      "DUAL_HUMAN_REVIEW_NOT_COMPLETE",
+      "FIRST_PUBLIC_MEMBER_FACTS_TOO_SPARSE",
+      "DIAGNOSTIC_ONLY_NOT_FORMAL_CANDIDATE_EVIDENCE"
+    ]
+  },
+  "refit_summary": {
+    "rows": 23,
+    "completed_refits": 23,
+    "threshold_calibration_passes": 0
+  },
+  "evaluation": {
+    "status": "FAIL_DIAGNOSTIC_PREDICTION_GATES",
+    "observations": 1350,
+    "classification": {
+      "tp": 307,
+      "fn": 412,
+      "fp": 251,
+      "tn": 380,
+      "recall": 0.42698191933240615,
+      "false_positive_rate": 0.3977812995245642,
+      "precision": 0.5501792114695341
+    },
+    "baseline_brier": 0.26068732532682076,
+    "augmented_brier": 0.284265424762583,
+    "brier_improvement": -0.023578099435762223,
+    "brier_skill_vs_price_baseline": -0.09044589876474673,
+    "loss_weighted_recall": 0.37629296190178946,
+    "top_10_upside_observations": 10,
+    "top_upside_miss_ratio": 0.3819519777721487,
+    "round_trips_by_year": {
+      "2021": 10,
+      "2022": 8,
+      "2023": 3,
+      "2024": 14,
+      "2025": 9,
+      "2026": 7
+    },
+    "maximum_annual_round_trips": 14,
+    "yearly_brier": [
+      {
+        "year": 2021,
+        "observations": 243,
+        "baseline_brier": 0.27203986796419893,
+        "augmented_brier": 0.2793612644745127,
+        "brier_improvement": -0.007321396510313771
+      },
+      {
+        "year": 2022,
+        "observations": 242,
+        "baseline_brier": 0.25041954961922963,
+        "augmented_brier": 0.26400245079531587,
+        "brier_improvement": -0.013582901176086237
+      },
+      {
+        "year": 2023,
+        "observations": 242,
+        "baseline_brier": 0.2555055479334231,
+        "augmented_brier": 0.2996616199395803,
+        "brier_improvement": -0.04415607200615718
+      },
+      {
+        "year": 2024,
+        "observations": 242,
+        "baseline_brier": 0.2546093869260525,
+        "augmented_brier": 0.2991098602694109,
+        "brier_improvement": -0.04450047334335838
+      },
+      {
+        "year": 2025,
+        "observations": 243,
+        "baseline_brier": 0.238977017202599,
+        "augmented_brier": 0.25195963143454886,
+        "brier_improvement": -0.012982614231949852
+      },
+      {
+        "year": 2026,
+        "observations": 138,
+        "baseline_brier": 0.316677107621953,
+        "augmented_brier": 0.3322902494242232,
+        "brier_improvement": -0.015613141802270192
+      }
+    ],
+    "positive_brier_improvement_years": 0,
+    "maximum_single_year_positive_improvement_share": null,
+    "block_bootstrap_brier_improvement": {
+      "replicates": 2000,
+      "block_length": 10,
+      "median_improvement": -0.02314957151701455,
+      "ci_2_5": -0.04207918679172535,
+      "ci_97_5": -0.008234973807642711,
+      "positive_fraction": 0.0
+    },
+    "gates": {
+      "oos_event_recall": {
+        "passed": false,
+        "actual": 0.42698191933240615,
+        "required": 0.75
+      },
+      "oos_false_positive_rate": {
+        "passed": false,
+        "actual": 0.3977812995245642,
+        "required_max": 0.2
+      },
+      "oos_precision": {
+        "passed": false,
+        "actual": 0.5501792114695341,
+        "required": 0.6
+      },
+      "brier_skill_vs_price_baseline": {
+        "passed": false,
+        "actual": -0.09044589876474673,
+        "required": "STRICTLY_POSITIVE"
+      },
+      "loss_weighted_recall": {
+        "passed": false,
+        "actual": 0.37629296190178946,
+        "required": 0.7
+      },
+      "top_upside_miss_ratio": {
+        "passed": false,
+        "actual": 0.3819519777721487,
+        "required_max": 0.2
+      },
+      "annual_round_trips": {
+        "passed": false,
+        "actual_max": 14,
+        "required_max": 10
+      },
+      "positive_brier_improvement_years": {
+        "passed": false,
+        "actual": 0,
+        "required": 3
+      },
+      "maximum_single_year_positive_improvement_share": {
+        "passed": false,
+        "actual": null,
+        "required_max": 0.4
+      }
+    },
+    "prediction_gates_passed": false
+  },
+  "formal_interpretation": "NOT_ADMISSIBLE_REGARDLESS_OF_OBSERVED_DIAGNOSTIC_METRICS",
+  "prediction_gate_can_authorize_portfolio": false,
+  "portfolio_evaluation_performed": false,
+  "return_evaluation": "DIAGNOSTIC_PREDICTION_ONLY_NO_PORTFOLIO",
+  "model_action": "ABSTAIN",
+  "model_position_target": "UNSET",
+  "existing_holdings_override_allowed": false,
+  "paper_signal_allowed": false,
+  "shadow_signal_allowed": false,
+  "order_generation_allowed": false,
+  "broker_connection_allowed": false,
+  "live_trading_authorized": false,
+  "artifacts": {
+    "predictions": {
+      "path": "reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_predictions.parquet",
+      "sha256": "85451168c5b1604f6c658a41056199270b4ce78f1dc15c9190015b6e9b72997e",
+      "rows": 1350
+    },
+    "refits": {
+      "path": "reports/research/510300_pit_earnings_information_diffusion_diagnostic_proxy_2021_v1_refits.parquet",
+      "sha256": "ca41297a6c7db0a8c55a548e036a33f5aea60fd3bccbb2863f87a03514012e37",
+      "rows": 23
+    }
+  }
+}

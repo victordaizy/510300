@@ -1,0 +1,146 @@
+{
+  "project_id": "VAL04_PB_ROE_RESIDUAL_DATA_FEASIBILITY_V2",
+  "version": "2.0.0",
+  "status": "FROZEN_DATA_FEASIBILITY_PROTOCOL_NO_RETURN_READING",
+  "frozen_at": "2026-08-19T04:18:17.646363+08:00",
+  "parent_v1_status": "NO_VIEW_DATA_GATE_FAILED_MODEL_FIT_FORBIDDEN",
+  "revision_reason": "以独立的申万点时行业区间替代2019-12以前覆盖不足的中信区间；不改变窗口、财务、价格或质量门槛",
+  "frozen_files": {
+    "config/val04_pb_roe_residual_data_feasibility_v2.yaml": {
+      "sha256": "23177f46659b7152594dbd035832b8a49c6c8903db1afbbed37cf65d0811180c",
+      "size_bytes": 5520
+    },
+    "docs/VAL04_PB_ROE_RESIDUAL_DATA_FEASIBILITY_V2_ADDENDUM.md": {
+      "sha256": "61a1e53eed7c0ef691c744758b51ff18f216cdef4d9acf70d2abaf470a956708",
+      "size_bytes": 1699
+    },
+    "research/val04_pb_roe_residual_data_feasibility_v1.py": {
+      "sha256": "62be6e577e19c78dae5a168dbbda4e26e09fd6d625f7ee0df19afce6c9fd0976",
+      "size_bytes": 24231
+    },
+    "scripts/freeze_val04_pb_roe_residual_data_feasibility_v2_protocol.py": {
+      "sha256": "26e2da93b7c0dffe6306a46980f6bec839de0edeff5498578a14d9b45512cc7a",
+      "size_bytes": 4360
+    },
+    "scripts/audit_val04_pb_roe_residual_data_feasibility_v2.py": {
+      "sha256": "bbf06f8703cd6a1ceae9ed662013f2e519a8903678af4838950ebeaedba13c59",
+      "size_bytes": 3631
+    },
+    "tests/test_val04_pb_roe_residual_data_feasibility_v1.py": {
+      "sha256": "d1ac730e02f7173ab061f763c1c116ce6937789604cb6e1a73daa4c9096ce382",
+      "size_bytes": 4161
+    }
+  },
+  "input_hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "extended_financial_archive",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet",
+        "expected_sha256": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2",
+        "actual_sha256": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2",
+        "matches": true
+      },
+      {
+        "dataset": "historical_snapshot_prices",
+        "file": "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet",
+        "expected_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "actual_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "matches": true
+      },
+      {
+        "dataset": "current_constituent_daily",
+        "file": "data/raw/constituents/000300_constituent_daily.parquet",
+        "expected_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "actual_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "matches": true
+      },
+      {
+        "dataset": "sw_industry_intervals",
+        "file": "data/raw/reference/a_share_sw_industry_static.parquet",
+        "expected_sha256": "dac8502137bc6dd651300eb86d11d5412cec9ef2de700286513207f7c11b52b6",
+        "actual_sha256": "dac8502137bc6dd651300eb86d11d5412cec9ef2de700286513207f7c11b52b6",
+        "matches": true
+      },
+      {
+        "dataset": "sw_industry_acquisition_report",
+        "file": "reports/data_quality/return_tail_auxiliary_acquisition.json",
+        "expected_sha256": "f7b0aff40c4608041159f039deb6ff99f58cd4698c60856abf59aacfaf8f797f",
+        "actual_sha256": "f7b0aff40c4608041159f039deb6ff99f58cd4698c60856abf59aacfaf8f797f",
+        "matches": true
+      }
+    ]
+  },
+  "supplier_audit": {
+    "status": "PASS",
+    "checks": {
+      "overall_status": true,
+      "industry_phase_status": true,
+      "member_day_coverage": true,
+      "overlap_ratio": true
+    },
+    "coverage_ratio": 0.9966728739913098,
+    "overlap_ratio": 0.0
+  },
+  "frozen_candidate_definition": {
+    "dependent_variable": "log(PB_i_t)",
+    "pb_formula": "raw_close / book_value_per_share",
+    "book_value_per_share_rule": "经reported_bps与归母权益/总股本交叉校验后的正值",
+    "industry_effect": "SW_L1_POINT_IN_TIME_SECTOR_FIXED_EFFECT",
+    "industry_standard_transition": "使用供应商in_date/out_date表达的SW2014与SW2021历史分类切换，不做当前分类回填",
+    "roe_variable": "TTM归母净利润/最新已知正归母权益",
+    "growth_variable": "TTM营业收入同比",
+    "growth_choice_reason": "避免上年亏损导致利润同比无定义或符号翻转",
+    "future_model_formula": "log(PB_i_t)=a_sector_t+b1_t*clip(ROE_i_t,-0.5,0.8)+b2_t*clip(RevenueGrowth_i_t,-1,1)+epsilon_i_t",
+    "future_company_cheapness": "-epsilon_i_t",
+    "future_index_aggregation": "对完整样本按当期官方权重重新归一化后加权",
+    "fitting_enabled_in_this_stage": false,
+    "residual_calculation_enabled_in_this_stage": false,
+    "alternative_variant_enabled": false,
+    "parameter_search_enabled": false
+  },
+  "quality_gates": {
+    "member_count_range": [
+      300,
+      300
+    ],
+    "weight_sum_range": [
+      0.98,
+      1.02
+    ],
+    "minimum_price_weight_coverage": 0.99,
+    "minimum_industry_weight_coverage": 0.95,
+    "minimum_book_to_price_weight_coverage": 0.9,
+    "minimum_roe_weight_coverage": 0.9,
+    "minimum_revenue_growth_weight_coverage": 0.9,
+    "minimum_complete_case_weight_coverage": 0.9,
+    "minimum_complete_company_count": 200,
+    "minimum_active_industry_count": 20,
+    "minimum_design_residual_degrees_of_freedom": 150,
+    "duplicate_weight_security_count": 0,
+    "duplicate_active_industry_count": 0,
+    "future_financial_event_count": 0,
+    "passing_snapshot_requirement": "ALL_120_SNAPSHOTS"
+  },
+  "governance": {
+    "parent_v1_files_mutated": false,
+    "future_return_reading_allowed": false,
+    "predictive_model_fitting_allowed": false,
+    "residual_signal_calculation_allowed": false,
+    "strategy_return_calculation_allowed": false,
+    "position_mapping_enabled": false,
+    "target_share_generation_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false,
+    "missing_input_output": "NO_VIEW"
+  },
+  "manifest_content_sha256": "e47c3d9de7dbd500a6c3769a7fcc8f7580b36a8fe6d7adb23b2063e68f014f02"
+}

@@ -1,0 +1,78 @@
+strategy:
+  strategy_id: "510300_VALUATION_INVENTORY_PREVCLOSE_T_V2"
+  name: "510300估值库存-前收盘固定锚日内做T"
+  version: "2.0.0"
+  frozen_at: "2026-08-13"
+  evidence_scope: "V2规则在查看V1累计VWAP失败结果后提出；V2结果生成前冻结；没有严格未见样本"
+  objective: "估值决定隔夜核心库存，固定前收盘锚日内做T收割波动；年化超额10%为最低线、15%为挑战线"
+
+inputs:
+  minute_file: "data/raw/market/510300_1m_tushare_raw.parquet"
+  daily_file: "data/raw/market/510300_daily_raw.parquet"
+  dividend_file: "data/reference/510300_dividends.csv"
+  base_ledger_file: "data/processed/round5_defensive_valuation_timing/enhanced_ledger.parquet"
+  base_trades_file: "data/processed/round5_defensive_valuation_timing/enhanced_trades.csv"
+  h00300_file: "data/raw/market/H00300_total_return_daily_raw.parquet"
+  data_audit_file: "reports/data_quality/510300_1m_t_strategy_readiness.json"
+
+account:
+  initial_cash_cny: 20000
+  minimum_t_shares: 1000
+  maximum_t_shares: 1500
+  lot_size: 100
+  t_plus_one: true
+  maximum_round_trips_per_day: 1
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_rate: 0.0
+  price_tick_cny: 0.001
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+entry:
+  anchor: "前一交易日未复权收盘价"
+  signal_windows:
+    - start: "09:45:00"
+      end: "11:15:00"
+    - start: "13:15:00"
+      end: "14:20:00"
+  reversal_lookback_records: 3
+  rules:
+    buy_low: "价格低于固定锚，3条记录收益为正且当前收盘高于上一条收盘"
+    sell_high: "价格高于固定锚，3条记录收益为负且当前收盘低于上一条收盘"
+  expected_anchor_distance_to_roundtrip_cost_multiple: 2.0
+  next_open_displacement_revalidation_fraction: 0.75
+  maximum_order_to_signal_record_volume_ratio: 0.05
+  sell_first_repurchase_reserve_fraction: 0.11
+  execution: "信号形成后的下一条一分钟记录开盘，加入不利滑点和tick取整"
+
+exit:
+  target: "回到前一交易日固定收盘锚"
+  stop_loss_fraction_from_entry_execution: 0.008
+  maximum_holding_trading_records: 60
+  forced_exit_signal_time: "14:49:00"
+  execution: "退出条件形成后的下一条一分钟记录开盘"
+
+interaction:
+  skip_core_rebalance_days: true
+  end_of_day_share_rule: "做T前后份额完全一致；买低时卖出等量旧仓，卖高时买回等量份额"
+  valuation_role: "第五轮估值增强模型决定每日隔夜核心库存；日内T不得改变该库存"
+  pnl_attribution: "估值核心净值加累计日内T净损益；T利润暂不反向改变核心目标份额"
+
+evaluation:
+  annualized_excess_minimum: 0.10
+  annualized_excess_challenge: 0.15
+  rolling_242d_excess_median_minimum: 0.10
+  rolling_242d_excess_median_challenge: 0.15
+  minimum_round_trips_per_complete_year: 30
+  maximum_round_trips_per_complete_year: 180
+  profit_factor_minimum: 1.20
+  profitable_complete_calendar_year_ratio_minimum: 0.75
+
+governance:
+  no_grid_search: true
+  no_same_sample_retuning: true
+  automatic_ordering_authorized: false
+  v1_failure_used_only_for_mechanism_change: "V1累计VWAP锚在成本前毛收益接近零；V2改为前收盘固定锚，不修改相邻阈值追逐历史结果"

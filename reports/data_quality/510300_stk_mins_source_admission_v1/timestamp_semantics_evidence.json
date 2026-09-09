@@ -1,0 +1,21 @@
+{
+  "state": "PASS_BAR_END_DOCUMENT_AND_SESSION_EVIDENCE",
+  "generated_at": "2026-09-04T22:47:33.284312+08:00",
+  "evidence_file_sha256": {
+    "reports/data_quality/510300_minute_cross_source.json": "a7454203311de1e4c60e6f1b4a5f20d13b115ca43bb6f0f9b6bce61d28cd81a8",
+    "reports/data_quality/510300_15m_from_1m_quality.json": "e7fc50490e038273dbdf205d64688f85838ab1c16d0d6871c01ed4f9dcc95e26",
+    "data/raw/market/510300_1m_tushare_raw.parquet": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268",
+    "data/raw/market/510300_15m_from_1m_raw.parquet": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1"
+  },
+  "missing_files": [],
+  "assertions": {
+    "all_evidence_files_present": true,
+    "legacy_tushare_1m_has_241_bar_session_signature": true,
+    "one_minute_to_15m_has_16_bar_end_labels": true,
+    "cross_source_report_supports_bar_end": true
+  },
+  "pass": true,
+  "interpretation": "BAR_END是冻结的研究适配器语义；供应商文档只称trade_time为交易时间，本结论依赖241标签结构、1分钟向15分钟聚合及独立分钟源交叉证据。",
+  "strategy_return_reads": 0,
+  "position_impact": 0
+}

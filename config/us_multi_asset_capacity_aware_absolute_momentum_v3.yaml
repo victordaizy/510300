@@ -1,0 +1,53 @@
+protocol:
+  candidate_id: "US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM_V3"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9"
+  status: "FROZEN_BEFORE_VISIBLE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+base_candidate_config: "config/us_liquid_treasury_multi_asset_absolute_momentum_v2.yaml"
+
+execution_reconstitution:
+  reconstitution_of: "US_LIQUID_TREASURY_MULTI_ASSET_ABSOLUTE_MOMENTUM_V2"
+  reason: "V2在绩效形成前因目标单超过冻结容量失败；V3把容量约束写入目标仓位并对卖单分日切片"
+  no_v2_performance_available: true
+  selection_dates_windows_ranking_products_costs_and_gates_unchanged: true
+  maximum_capacity_fraction_unchanged: true
+
+overrides:
+  protocol:
+    candidate_id: "US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM_V3"
+    parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9"
+    lane: "US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM"
+    mechanism: "固定四只美国上市ETF月频绝对动量；目标仓位受历史成交额容量硬约束且退出分日切片"
+  inputs:
+    parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v9_manifest.json"
+  portfolio:
+    target_notional_basis: "MINIMUM_BASE_STRESS_PRIOR_CLOSE_CNY_NAV_CONVERTED_AT_LAGGED_FX_CAPPED_BY_PRIOR_TURNOVER"
+    blocked_entry_policy: "CAP_TARGET_TO_ORDER_CAPACITY_AND_HOLD_UNFILLED_USD_CASH"
+    blocked_exit_policy: "DAILY_WHOLE_SHARE_CAPACITY_SLICES_UNTIL_COMPLETE"
+    terminal_open_positions_policy: "FAIL_IF_FULL_TERMINAL_EXIT_CANNOT_COMPLETE_WITHIN_DAILY_CAPACITY"
+    capacity_aware_targeting_enabled: true
+    capacity_target_formula: "MIN_WEIGHT_CEILING_NOTIONAL_AND_PRIOR_MEDIAN_TURNOVER_TIMES_MAXIMUM_ORDER_FRACTION"
+    capacity_target_includes_stress_cost_reserve: true
+    capacity_slice_rounding: "FLOOR_TO_WHOLE_SHARE"
+    pending_resize_policy: "CONTINUE_DAILY_SELL_SLICES_UNTIL_TARGET_OR_NEXT_REBALANCE"
+    final_mandatory_exit_may_ignore_minimum_trade_notional: true
+  historical_evidence_limits:
+    performance_screen_label: "DISCOVERY_ONLY_US_MULTI_ASSET_CAPACITY_AWARE_VISIBLE"
+  outputs:
+    input_audit_json: "reports/data_quality/us_multi_asset_capacity_aware_absolute_momentum_v3_inputs.json"
+    manifest: "config/us_multi_asset_capacity_aware_absolute_momentum_v3_manifest.json"
+    visible_daily_returns: "data/research/us_multi_asset_capacity_aware_absolute_momentum_v3/visible_daily_returns.parquet"
+    visible_selections: "data/research/us_multi_asset_capacity_aware_absolute_momentum_v3/visible_selections.parquet"
+    visible_trades: "data/research/us_multi_asset_capacity_aware_absolute_momentum_v3/visible_trades.parquet"
+    visible_report_json: "reports/research/us_multi_asset_capacity_aware_absolute_momentum_v3_visible.json"
+    visible_report_markdown: "reports/research/US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM_V3_VISIBLE.md"
+    replication_report_json: "reports/research/us_multi_asset_capacity_aware_absolute_momentum_v3_replication.json"
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

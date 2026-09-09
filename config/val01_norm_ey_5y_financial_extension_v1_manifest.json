@@ -1,0 +1,2166 @@
+{
+  "project_id": "VAL01_NORM_EY_5Y_FINANCIAL_EXTENSION_V1",
+  "protocol_version": "1.0.0",
+  "manifest_version": "1.1.0",
+  "status": "FROZEN_DATA_RECONSTRUCTIBILITY_PASS_NO_RETURN_EVALUATION",
+  "frozen_at": "2026-08-19T03:14:02.646140+08:00",
+  "acquisition_status": "PASS_TARGET_SCOPE_CURRENT_ARCHIVE_CAVEAT",
+  "post_acquisition_status": "PASS_VAL01_NORM_EY_5Y_AND_VAL02_SPREAD_DATA_ONLY",
+  "branch_status": {
+    "VAL01_RAW_EY_5Y": "REJECTED_PREDICTIVE_SCREEN_NOT_REOPENED",
+    "VAL01_NORM_EY_5Y": "PASS_LOCAL_RECONSTRUCTIBLE_DATA_ONLY",
+    "VAL02_NORM_EY_SPREAD_5Y": "PASS_LOCAL_RECONSTRUCTIBLE_DATA_ONLY",
+    "VAL01_NORM_EY_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+    "VAL02_NORM_EY_SPREAD_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED"
+  },
+  "five_year_gate": {
+    "required_snapshot_count": 60,
+    "local_weight_snapshot_count": 60,
+    "missing_weight_months": [],
+    "price_coverage_failed_months": [],
+    "ttm_coverage_failed_months": [],
+    "normalized_coverage_failed_months": [],
+    "cgb_10y_exact_date_failed_months": [],
+    "raw_ey_status": "PASS_LOCAL_RECONSTRUCTIBLE",
+    "normalized_ey_status": "PASS_LOCAL_RECONSTRUCTIBLE",
+    "normalized_ey_spread_status": "PASS_LOCAL_RECONSTRUCTIBLE",
+    "minimum_local_coverages": {
+      "price_weight_coverage": 0.9999,
+      "ttm_metric_weight_coverage": 0.9999,
+      "normalized_metric_weight_coverage": 0.99624,
+      "raw_ey_ready_weight_coverage": 0.9999,
+      "normalized_ey_ready_weight_coverage": 0.99624
+    }
+  },
+  "independent_cross_check": {
+    "status": "CROSS_CHECK_ONLY_NON_VINTAGE_NOT_A_SIGNAL_INPUT",
+    "snapshot_count": 60,
+    "positive_normalized_earnings_yield_count": 60,
+    "official_inverse_pe": {
+      "overlap_rows": 60,
+      "spearman_correlation": 0.9457202796172413,
+      "first_date": "2016-08-31",
+      "last_date": "2021-07-30"
+    },
+    "vendor_inverse_pe": {
+      "overlap_rows": 60,
+      "spearman_correlation": 0.9645313217285608,
+      "first_date": "2016-08-31",
+      "last_date": "2021-07-30"
+    },
+    "governance": "官方与第三方PE均为事后回取，且口径是TTM而非正常化盈利；仅核对尺度和同向性，不设收益含义或放行阈值。"
+  },
+  "implementation_files": {
+    "config/val01_norm_ey_5y_financial_extension_v1.yaml": "5d1aba1154e5297506bbb9a8e1651036aa40aca29be5807d2814fd052b401dec",
+    "docs/VAL01_NORM_EY_5Y_FINANCIAL_EXTENSION_V1_PROTOCOL.md": "49c6549e4b0c8a0718706c0711c9ab56e29b7f54d53cd6f99f44550c10fdbbf6",
+    "research/val01_norm_ey_5y_financial_extension.py": "be153fc5a3c18248cd307fb0d33eab7fa72e979ccae549c8797b70030f0b32ef",
+    "research/val01_norm_ey_5y_post_acquisition_audit.py": "10009efe91ecd2d70720aadcfef3aa675c91e86bb8ad0666a78369edfeba67ae",
+    "scripts/download_val01_norm_ey_5y_financial_extension.py": "a3549e14ee1958b504260b11b4daf747264a2a71b0e7097778664fbee842c6e6",
+    "scripts/audit_val01_norm_ey_5y_post_acquisition.py": "2d29e79f773d72f24a1f4dd7375c4e11032422618ea2305bcdb6c43235085d16",
+    "scripts/freeze_val01_norm_ey_5y_financial_extension_protocol.py": "36efaac55a70580f0e6367bfd9768fc374be229d99a7d9e029e480c8deaa95bb",
+    "scripts/freeze_val01_norm_ey_5y_financial_extension_v1.py": "e87456cfd9d8a7d2dea08041aefdc1ba1e5e05486eaaff825cf18bccb5b1a92d",
+    "tests/test_val01_norm_ey_5y_financial_extension.py": "de1fe68b37949fd97a78ce6ecfaceb30f5b36d2b351c464390273b4a95b307c0",
+    "tests/test_val01_norm_ey_5y_post_acquisition_audit.py": "cbcaa3b890455e2049bab2e46f9cfdfe4a000279dd09f819694a878296335c58"
+  },
+  "data_and_evidence_files": {
+    "data/raw/fundamentals/csi300_financials_point_in_time_history_extension_2012_2015.parquet": {
+      "size_bytes": 411076,
+      "sha256": "5ad106849770a1dc08adcfa5256cf7a30fe1e8b2c4f3266c897802bab6ee73b3"
+    },
+    "data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet": {
+      "size_bytes": 2853034,
+      "sha256": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2"
+    },
+    "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage_v1_2.parquet": {
+      "size_bytes": 17103,
+      "sha256": "cd85f1346bd1c32600f6b1fa4ff13391c4f059e06d7da5e7219064abd52ffc48"
+    },
+    "data/audit/000300_val01_norm_ey_5y_metric_audit_panel_v1.parquet": {
+      "size_bytes": 24067,
+      "sha256": "2659c37aa11c4a5a03bb9912bd0dd2de822cbcf7c697b944c148451e5c8a28b2"
+    },
+    "reports/data_quality/000300_normalized_earnings_financial_extension_v1.json": {
+      "size_bytes": 269922,
+      "sha256": "ff2ed23be632d37d017d283f4115664043e7df1eaf8c0925548f55f760cb81bc"
+    },
+    "reports/data_quality/000300_normalized_earnings_financial_extension_v1.md": {
+      "size_bytes": 1001,
+      "sha256": "a498b26ef0f3b928c950a85820289a15df6bdf20f1d08e736fa99180bd901036"
+    },
+    "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_2.json": {
+      "size_bytes": 292672,
+      "sha256": "c5d77d718b1ec00b1994abdcc298b5c56b3035572f9dd81c8de6f57781dac828"
+    },
+    "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_2.md": {
+      "size_bytes": 1170,
+      "sha256": "93aef8a91a7ae29fca9ff5c3db123bce809dfd28276930c577aee06f286d853d"
+    }
+  },
+  "new_checkpoint_inventory": {
+    "directory": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015",
+    "file_count": 396,
+    "content_sha256": "b3f1f849d7538634604c86d8cf9f3c8c7d224a579f855f06f38c39d40ffa73db",
+    "required_group_counts": {
+      "vip/income_vip": 13,
+      "vip/balancesheet_vip": 13,
+      "vip/fina_indicator_vip": 13,
+      "single_security_history/income_vip": 88,
+      "single_security_history/balancesheet_vip": 96,
+      "single_security_history/fina_indicator_vip": 95,
+      "overlap_validation/income_vip": 1,
+      "overlap_validation/balancesheet_vip": 1,
+      "overlap_validation/fina_indicator_vip": 1
+    },
+    "files": [
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/overlap_validation/balancesheet_vip/20150930.parquet",
+        "size_bytes": 78891,
+        "sha256": "784ff102d9d645966a33261b6d9d8cbf78ed5c52077a048ac67113fb90608ac3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/overlap_validation/fina_indicator_vip/20150930.parquet",
+        "size_bytes": 121321,
+        "sha256": "0cb63164bfab415183084efdc62827d8580048fd88e01ea08a9afb4e0a475057"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/overlap_validation/income_vip/20150930.parquet",
+        "size_bytes": 88303,
+        "sha256": "35da983db67155a029667bbc40f35b5a8e051212a272af9ce9e22dc0dd038866"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20120930/002797_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20120930/002939_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/000166_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/001979_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002739_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002773_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002797_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130331/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/001979_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002739_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002773_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130630/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/001979_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002739_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002773_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002797_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20130930/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/001979_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002773_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002797_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002831_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140331/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/001965_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/001979_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140630/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/001965_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002797_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002831_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20140930/002939_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/001965_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002812_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002831_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150331/002938_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/001965_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002821_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002831_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002839_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002841_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002916_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002925_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_fallback/income_vip/20150630/002938_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/000166_SZ.parquet",
+        "size_bytes": 5042,
+        "sha256": "04854b8388faa5acf2d040988e9674741d02ca8618349d59298fff0b379e0db6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/001965_SZ.parquet",
+        "size_bytes": 4532,
+        "sha256": "6595ffb89ad30c9da4e35891a6c6c33fc04df5b56fe674f947983b6f649dd511"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/001979_SZ.parquet",
+        "size_bytes": 4804,
+        "sha256": "d8e460bbabbe9539b6af9ff0ae234f862e54680e35a675cd522246f3ec7423b1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002714_SZ.parquet",
+        "size_bytes": 5082,
+        "sha256": "4eeb2771e5539837443f88d03f00cc38e80de1d6abcf6e0f9b958e1b9c21be19"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002736_SZ.parquet",
+        "size_bytes": 5049,
+        "sha256": "3961b42654c6e0e6369d26b46d5f5d1ab56a28eff4093ce66ad58a30ef061ee3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002739_SZ.parquet",
+        "size_bytes": 4909,
+        "sha256": "a513c35c3e57e024ecdec83880d7f618b057a809277079d971f2aabad7503ef3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002773_SZ.parquet",
+        "size_bytes": 4928,
+        "sha256": "4119f7c4b61cac90804ceb4bc3842088b65be027ea3ffb8b5314da2049c4fd1b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002797_SZ.parquet",
+        "size_bytes": 4891,
+        "sha256": "a6c67bdb583eb7ff34adb0d119f13a3a2492c621870faa8e926e67074033df60"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002812_SZ.parquet",
+        "size_bytes": 4750,
+        "sha256": "2ed7007d2150310cca15769ac079a72e00dd509d79353c438780ea6e0046db59"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002821_SZ.parquet",
+        "size_bytes": 4692,
+        "sha256": "9c3525feabe89a7d53607bc1c6c091d43200164c89053c3cdf5a33537b92843a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002831_SZ.parquet",
+        "size_bytes": 4876,
+        "sha256": "545889730b4fd496323719c99ff7699dd91c467c3d0ed4bc31117a1dc0b729ba"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002839_SZ.parquet",
+        "size_bytes": 4623,
+        "sha256": "5a4fd0b79594a9405953b19c70a34a1988b41556046afedd4c4a4ca73624b013"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002841_SZ.parquet",
+        "size_bytes": 4617,
+        "sha256": "f34b330d61617c8050735b070d3945b91d75125e4669fa728d3f0ad2c524cbf9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002916_SZ.parquet",
+        "size_bytes": 4819,
+        "sha256": "936115c1c15874aa385a04ec00292a77b4f411a49e192235d36685f0ba25cc3d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002925_SZ.parquet",
+        "size_bytes": 4599,
+        "sha256": "6538503175099db3db5ae15d29aa311e7b5d91989497daf29febf81816fd4812"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002938_SZ.parquet",
+        "size_bytes": 3717,
+        "sha256": "c0095e16c2abd2096ad4448d082a4f82da0e62aa69a5ff9b07e636a082b2abcf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002939_SZ.parquet",
+        "size_bytes": 4911,
+        "sha256": "b1222b119b1f09f39f3609bffd04aa209db94ae20d145fbaa35669f797243f94"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002945_SZ.parquet",
+        "size_bytes": 4718,
+        "sha256": "f110045ad8a247d32e6333c4f30410300001c54e328160cd9dc348efa3dfe1fa"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/002958_SZ.parquet",
+        "size_bytes": 4687,
+        "sha256": "af0a2a32b82d3631fa013b3ed8a524b10d5daf2e846883a07a8ac4cdcd921126"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/003816_SZ.parquet",
+        "size_bytes": 4936,
+        "sha256": "efa18b7a2d8daa490c85f6d8fa5209109f076c6f94916da9ab7fcf14d4f27665"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300408_SZ.parquet",
+        "size_bytes": 4953,
+        "sha256": "435d491132d4fb34f6c5fdd053ce76b81f211ff778132ced4173a4614e07ba96"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300413_SZ.parquet",
+        "size_bytes": 4930,
+        "sha256": "cbded9d134b514e3b00ac546dddca6e8bbdbd9d9ed9742165e0505a2dbb0adf7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300433_SZ.parquet",
+        "size_bytes": 4895,
+        "sha256": "f8828c3f2479920463a54fb7702aa2474533d827140a20560ee56729581125ad"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300450_SZ.parquet",
+        "size_bytes": 4909,
+        "sha256": "753d0aae82e1b6650bfad4bded21fc17dcd4086e34a87b70429001a40fdd5230"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300529_SZ.parquet",
+        "size_bytes": 4798,
+        "sha256": "99d10e712a70b16255f96c540d959d4f81859a2a08f9b14c548e4e677073ca87"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300558_SZ.parquet",
+        "size_bytes": 4709,
+        "sha256": "e02a536fe893bd89244edcd75b95870afccb4946cc788105b2def45ddd850a43"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300595_SZ.parquet",
+        "size_bytes": 4563,
+        "sha256": "f384991efaa5256ee59be91ed52a41d25948d19df585bd29c1304893b96f982d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300601_SZ.parquet",
+        "size_bytes": 4571,
+        "sha256": "94fb94552f9623443205ce3c2601054bb87b4ad06c9ee7ec06e8e761239c98ee"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300628_SZ.parquet",
+        "size_bytes": 4591,
+        "sha256": "1582b451d36a192cb4d15777a57caff24477590fada1ff90498245d5fbf37743"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300676_SZ.parquet",
+        "size_bytes": 4625,
+        "sha256": "ea908fdb7afdc7c36d8546b3772c2d8b8d2c15b3de36f00c05d48942ec74ddd1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/300677_SZ.parquet",
+        "size_bytes": 4571,
+        "sha256": "0d6272a314541e73451496fbe7a2c920fc9fbf1599444d424b9a57991d7dd5b6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600023_SH.parquet",
+        "size_bytes": 5054,
+        "sha256": "c9086aa84bc064bf93d3b2f9e9eebcf9c25534610e23c051ac880915510e98b2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600909_SH.parquet",
+        "size_bytes": 4783,
+        "sha256": "0186865cf76b02a2aa4a6c91784dfae3de823416f4ba6c687105e1e2a8063944"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600918_SH.parquet",
+        "size_bytes": 4910,
+        "sha256": "d5ffe3306f6b81c15557ae85ab7a01070c60fb9fd3a10182e5ae535629bd25f4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600919_SH.parquet",
+        "size_bytes": 4773,
+        "sha256": "248086fd21c7f5d3f81d434f4e55360b0fa1f1b82ae6e0b5530d9afdc96420d0"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600926_SH.parquet",
+        "size_bytes": 4776,
+        "sha256": "311062aa3cbf832d3e030a83f2d1a333499a0bc5a3cb6bbc9ae71f2b76710393"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600928_SH.parquet",
+        "size_bytes": 4655,
+        "sha256": "731eec2e1ad81ed2badf057c6e5f7aabe589dd86a7adb7755070fc07a52ddc7f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600958_SH.parquet",
+        "size_bytes": 4973,
+        "sha256": "ae4967b72136b1118c1b665a4c8c5991e7e9c162023c1bac63ce578d6409e49d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600968_SH.parquet",
+        "size_bytes": 3717,
+        "sha256": "c0095e16c2abd2096ad4448d082a4f82da0e62aa69a5ff9b07e636a082b2abcf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/600977_SH.parquet",
+        "size_bytes": 4757,
+        "sha256": "6cf690a0fe290e5b63be915c96cb2a2e594a769949af6e8d3b82bc4fa2dd9127"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601016_SH.parquet",
+        "size_bytes": 5000,
+        "sha256": "7ad73b3694482b166cc54970343643da51a6bceadfa1738e76261351ed90c769"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601021_SH.parquet",
+        "size_bytes": 4870,
+        "sha256": "0dad4c23da13e455dd3ec3fb79a0873660d820d1e97425b65858675ff59c3621"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601066_SH.parquet",
+        "size_bytes": 4840,
+        "sha256": "b2eeb8d5398e65f73e395617a59a62044affd0611a52eb8a33802a4c500fb5fa"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601108_SH.parquet",
+        "size_bytes": 4968,
+        "sha256": "bc54b68e13dd20f5591af96861236787b2dacb513590aa4d556543ae171a404e"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601127_SH.parquet",
+        "size_bytes": 5029,
+        "sha256": "b5986d062bf3005705b866c5fb8018391b2735d6faeb6d769956f2989d5b59e0"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601155_SH.parquet",
+        "size_bytes": 4815,
+        "sha256": "f7b0fac11e8640fe78d3d35c71a542e3676a3e3522f1a8056fb6b5673fe40b20"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601162_SH.parquet",
+        "size_bytes": 4873,
+        "sha256": "c0c21ccb126d7b08c88dc32cc01bde7af9be898d2c77f82eb3b59d41dbc496d4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601163_SH.parquet",
+        "size_bytes": 5111,
+        "sha256": "f8940d6a96ff6af8808b3c1e3747f66180e4bf1463297f2fb4f3819d22d23a77"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601198_SH.parquet",
+        "size_bytes": 4952,
+        "sha256": "818992d9bb7bb77289428664c09c7563f4d0559be014e5ddb828cd789522a2ba"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601211_SH.parquet",
+        "size_bytes": 4956,
+        "sha256": "daa520e024e4c8ae8d9fa34b0f4b7c740af45ba00bc85f9fb63e2a5cf1c09dd8"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601212_SH.parquet",
+        "size_bytes": 4642,
+        "sha256": "9fda72029b3947b1d56265fead6bb98d2cb9a3d19acf601b98a5ceb2a0813e9f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601225_SH.parquet",
+        "size_bytes": 4984,
+        "sha256": "44a7c6736a702cad5ec7f1457de098588bc14a2462ecb038731c5e0bcf05fa19"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601228_SH.parquet",
+        "size_bytes": 4879,
+        "sha256": "42cceed9965bba9c18af8498408e065d3e3b4977f6deb76e44746b21545f3df6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601229_SH.parquet",
+        "size_bytes": 4833,
+        "sha256": "fae096d0fb17389f14b79d73d0ad038b1be95ee0b4b632356321d227cb7f32e3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601298_SH.parquet",
+        "size_bytes": 4655,
+        "sha256": "36b3869f23d751b250d861ef612584f3636dbd00e09a6593ec0c7b084e902b44"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601319_SH.parquet",
+        "size_bytes": 4688,
+        "sha256": "730282707aff26785c543206fc68597dd6bf1c1e958c06b67478b6c035476175"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601375_SH.parquet",
+        "size_bytes": 4796,
+        "sha256": "e65fb6551c8b1a0b281a4ce9a1ed3b77c28e4aa93eadb1889d29d9a4697f887f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601577_SH.parquet",
+        "size_bytes": 4728,
+        "sha256": "729cf18aa7dcda23c3705c4fab7fc3d0d83d4a749230735635503faa1412e03a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601611_SH.parquet",
+        "size_bytes": 5100,
+        "sha256": "b03050478d173c3f1aeb3ac3cbbec34b1c5567829b01cea700ef0bbd19afc9d7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601658_SH.parquet",
+        "size_bytes": 4749,
+        "sha256": "1923ab324a85e6397c3a50dd9b73596f97f5446e15babf54e72d452cffc91dc7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601696_SH.parquet",
+        "size_bytes": 4871,
+        "sha256": "3fe0466694372f79381dc48f4690c6a99ed1a4ccf3e5c7847147825330c3deba"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601698_SH.parquet",
+        "size_bytes": 3717,
+        "sha256": "c0095e16c2abd2096ad4448d082a4f82da0e62aa69a5ff9b07e636a082b2abcf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601816_SH.parquet",
+        "size_bytes": 4489,
+        "sha256": "e1d1841835bd904888baf00cba1d23a55ce6fcbc97cc9093d451416476a81ab4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601838_SH.parquet",
+        "size_bytes": 4585,
+        "sha256": "0cd6101525e17fe2009a4e62f173199f3378b10d9445e96becfb0da92a7231c2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601878_SH.parquet",
+        "size_bytes": 4924,
+        "sha256": "3c56c392a46b81d5fe3ecc10321697c977e5e63eb5aa9e34c3e53641038d4204"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601881_SH.parquet",
+        "size_bytes": 4693,
+        "sha256": "d902038fefef0f888822e4c8c4a51be2927db7da4b79334764a25203e111bd01"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601916_SH.parquet",
+        "size_bytes": 4854,
+        "sha256": "0d792a5ceb992175a8645415512098a1e585ccad717d8c4091deae90d7fcf70f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601966_SH.parquet",
+        "size_bytes": 4751,
+        "sha256": "79486bbd477b7d5e17d5c7a8eb8691e6ae4d3d757b5c2da5d5a00a0c486c0e1d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601990_SH.parquet",
+        "size_bytes": 4682,
+        "sha256": "6ea1ac220ecfc8231b9760204b3855b08d8ff6d9fd04b3303b1565e7254c3d6b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601995_SH.parquet",
+        "size_bytes": 4856,
+        "sha256": "82bbb97d425138a443e45564fe027b975e1bf35d010bcb49d6bd4ba3d679f408"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/601997_SH.parquet",
+        "size_bytes": 4844,
+        "sha256": "4ac8b37625bf1a047ea94b48801b980e4960174e0cf21f69158fe2b57e63608d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603019_SH.parquet",
+        "size_bytes": 4926,
+        "sha256": "fb99ab4ae21d83751799fe7bb50b5533fcc08d74db158848eb87d2c688c11bbd"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603087_SH.parquet",
+        "size_bytes": 4600,
+        "sha256": "98bb245e2f2945c9f41c3ecdbe552a7713c24a1e9a94be46a5b4b629d5eb0098"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603156_SH.parquet",
+        "size_bytes": 3717,
+        "sha256": "c0095e16c2abd2096ad4448d082a4f82da0e62aa69a5ff9b07e636a082b2abcf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603160_SH.parquet",
+        "size_bytes": 4750,
+        "sha256": "590bf1f4b1037ddf3d88df4ab28337deb6c53b5cf073f1403528dc7d97c7caa2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603233_SH.parquet",
+        "size_bytes": 4625,
+        "sha256": "95a7998b3e33d0632872ee82133fe81ede2508f7bcd9f0a9f5cb5cd6c3f54271"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603259_SH.parquet",
+        "size_bytes": 3717,
+        "sha256": "c0095e16c2abd2096ad4448d082a4f82da0e62aa69a5ff9b07e636a082b2abcf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603260_SH.parquet",
+        "size_bytes": 4618,
+        "sha256": "a7d7b037a695b4d41b8b0c1110e07d04bd05c1b0fe8f9dac2c63d284c4025245"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603288_SH.parquet",
+        "size_bytes": 5106,
+        "sha256": "e01e73eca079aefe2b0502e65348803e8c8103032ed6773966dd4106d0251809"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603338_SH.parquet",
+        "size_bytes": 4899,
+        "sha256": "f796e4a244dd37648ca7ce9786fc1af776d8571c342d704b9a74e0e8f60a91a9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603369_SH.parquet",
+        "size_bytes": 4952,
+        "sha256": "203dea502d9fe7d1aa5d0457c12550184e8af57af4dcaeb7ef7f734cde8761ab"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603392_SH.parquet",
+        "size_bytes": 4599,
+        "sha256": "2a4f2d143ff7f7c165149dfb85d2622dec46a3c9c6ebb367fdfc388e8d3a34b2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603501_SH.parquet",
+        "size_bytes": 4633,
+        "sha256": "ca9a5da1660878f551d04b83cce3a6c037bb869de26d71cdd52d7a4440274142"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603517_SH.parquet",
+        "size_bytes": 4617,
+        "sha256": "5a4838c356fd773c6c4df42ebc1c2975bbb8a93978c16a86b669145b1430527f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603658_SH.parquet",
+        "size_bytes": 4768,
+        "sha256": "e23b49c41c06e8994b5d02379c2cfdbec3216a2ecac51480b89428eb7681d322"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603659_SH.parquet",
+        "size_bytes": 4571,
+        "sha256": "161d19824ec4fe5f924360b40f60ae53ecb6d7affe9097cdf4391e93269c3c17"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603806_SH.parquet",
+        "size_bytes": 4945,
+        "sha256": "23d70260f18fdb74250ef50a5834943be1d122168f7e4fd50545ea1f441f6c68"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603833_SH.parquet",
+        "size_bytes": 4649,
+        "sha256": "64d1d3ec1e6bf8d62605620776905614957f2ed10318154b1ed7469e8e811e33"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603858_SH.parquet",
+        "size_bytes": 4692,
+        "sha256": "785c7a13ad87f0244acb83a3e67c7e4dd2021ef250bc481c38ca16a2dfaf78b3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603882_SH.parquet",
+        "size_bytes": 4617,
+        "sha256": "d82f3645a7b340f9ff9ec655112d9a33a39ddcd35424063d707188c8dec29bc1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603885_SH.parquet",
+        "size_bytes": 4884,
+        "sha256": "54a616b2f12626c001f15c4aa8aaa8ce0483314513bc9f3799fd912d15c0686f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603899_SH.parquet",
+        "size_bytes": 4911,
+        "sha256": "3157ed34aacb1b3239f6a155bfe13d6b5742fe035de866cd1ba5f0bcfeaa7d3b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603939_SH.parquet",
+        "size_bytes": 4905,
+        "sha256": "dd89c3c98a6f03a619e854d283b99493d342c2cac5f135cf16df658605d8b0eb"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/603986_SH.parquet",
+        "size_bytes": 4765,
+        "sha256": "dec8b156325db43929b950e9ceb63da7e0a4855bd361dc96b47309cfeaa6b7df"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/688111_SH.parquet",
+        "size_bytes": 3717,
+        "sha256": "c0095e16c2abd2096ad4448d082a4f82da0e62aa69a5ff9b07e636a082b2abcf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/balancesheet_vip/688363_SH.parquet",
+        "size_bytes": 4445,
+        "sha256": "c2833c4441119cbf37eb3d63a4085a1202b94a61a4059a5420fc889d9e6e8dd8"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/000166_SZ.parquet",
+        "size_bytes": 4937,
+        "sha256": "e597b71deacdcc23dadcf08c8f90d71e150882a5912113a74112a08f36d90e9f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/001965_SZ.parquet",
+        "size_bytes": 4249,
+        "sha256": "4d9299d633e72ccac129acb7dc7d83f0db45fd5625c5ce4ce27ab9814d956b91"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/001979_SZ.parquet",
+        "size_bytes": 4730,
+        "sha256": "1f4f7f4ba07320da578a48c11fcd292f13ffcec5dbc09a357f0467c7744e9ee4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002714_SZ.parquet",
+        "size_bytes": 5011,
+        "sha256": "cec4f20d1a4a88472e089eb578646834e06a6479948a77987d8678149aae4631"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002739_SZ.parquet",
+        "size_bytes": 4856,
+        "sha256": "8f2e3feab3a5688a2b62d5a3d3c05f6737bd22528c5feec913a323bdb6b19a69"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002773_SZ.parquet",
+        "size_bytes": 4779,
+        "sha256": "b9fd99120add63bafaf2cb778f14c3adb81f71e77fe38834a38409c4aeed5dae"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002797_SZ.parquet",
+        "size_bytes": 4780,
+        "sha256": "e515ed54821c09d65219a0d1bf7fd98cf4d0072360b62c8570cfa32a77cc8d3d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002812_SZ.parquet",
+        "size_bytes": 4638,
+        "sha256": "79c38d915af21eccef8f459c3c69b8f02e167d31c1e637ddd2caf1d4fb6a6769"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002821_SZ.parquet",
+        "size_bytes": 4597,
+        "sha256": "91e0ba22f3cb9a807a33856f8d61a1106e7ba88838bd9fb6231c97dd77e7a5cf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002831_SZ.parquet",
+        "size_bytes": 4845,
+        "sha256": "d9836ccd0c67403b8d58342bceefdd86f80312382117efad2ecb7253f23a9607"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002839_SZ.parquet",
+        "size_bytes": 4579,
+        "sha256": "e12c9fdacfc7b2993b97085e63f426036ce24f6bdcc191c3b03813b66e7d5373"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002841_SZ.parquet",
+        "size_bytes": 4644,
+        "sha256": "ce3a17a7fbefb217c92231dbfe39173086467afcca6e0dfa1befffeabd4ce3dc"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002916_SZ.parquet",
+        "size_bytes": 4660,
+        "sha256": "50a7ab923f8d0c6958d227afa2a675130e9a931a7d3bfba0ab39284fd5aba28d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002925_SZ.parquet",
+        "size_bytes": 4545,
+        "sha256": "d86c0544fedbf33d9dac75ee55b9d359a584ec2fc05312b753f10f28da6f3bf4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002938_SZ.parquet",
+        "size_bytes": 4386,
+        "sha256": "da0ef4523dfdbbfe3598fa786200f4dbece06d14f127a58217068158743c9331"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002939_SZ.parquet",
+        "size_bytes": 4766,
+        "sha256": "8c60895bb483457355b5f716f6aa4e96da7d208d4de374d949c0354e1e80ad41"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002945_SZ.parquet",
+        "size_bytes": 4582,
+        "sha256": "5b7383c55e7073b825cc1f0953dec097be6d543118958e7995b3d5d539246d0f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/002958_SZ.parquet",
+        "size_bytes": 4536,
+        "sha256": "a8b146dd3a94a5bd5c1717232c6f6673ec6c283eb08d6309f15bf46330eaedf7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/003816_SZ.parquet",
+        "size_bytes": 4652,
+        "sha256": "22c477c1865d6d4f0583d198ff09523a940c39abcd60ef143dd199046baf9a9d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300408_SZ.parquet",
+        "size_bytes": 4895,
+        "sha256": "647485d3e4a4cb413dc9f65c656c9267259bd5e2724fb2723897438b0a25817b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300413_SZ.parquet",
+        "size_bytes": 4899,
+        "sha256": "fd6b4d29b19a7a4ca165e5b81a940096bed4642519e009b289903cf19232b2e8"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300433_SZ.parquet",
+        "size_bytes": 4837,
+        "sha256": "52df38a3e1a0ddb9ffc68541f461dbd770fb81456a5bb815baf67c29ec29a4cc"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300450_SZ.parquet",
+        "size_bytes": 4856,
+        "sha256": "ed58e722986bcf3be4b084cd04065927c774b017e8c66cd5268aaab2df93f17a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300529_SZ.parquet",
+        "size_bytes": 4678,
+        "sha256": "767df1b85cef18c30e4251a9be62d1fc6fb19a47075fd9c78d3587b4c2d408ea"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300558_SZ.parquet",
+        "size_bytes": 4614,
+        "sha256": "32ff77a4eb8bcb596581c32e3dc3e587733f6332850bf4a9e89d1d8ea634d763"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300595_SZ.parquet",
+        "size_bytes": 4596,
+        "sha256": "e8db7fb3ae929df88eb074f6669bc8eee31f9200a8ff628a5e472d8816cdad09"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300601_SZ.parquet",
+        "size_bytes": 4593,
+        "sha256": "b9954a2dcb4e9a5d96a0480d30747b833dafdff842c782cd005aed76b7c41e1c"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300628_SZ.parquet",
+        "size_bytes": 4631,
+        "sha256": "c94d65ad8c8feefb324100cb8f79924ed8caf29bcf36b3c91d0c26890799008a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300676_SZ.parquet",
+        "size_bytes": 4612,
+        "sha256": "c5a1ffe5461a72d0f046f09d3792d0597ca4de74c20f1e30229d03a07ff025e5"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/300677_SZ.parquet",
+        "size_bytes": 4463,
+        "sha256": "074c538e5406fa266945e4ddd92e5e79733432c4c816a435222766c6bf46d19b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600023_SH.parquet",
+        "size_bytes": 4967,
+        "sha256": "55897313f889eaa3da0a2c1a51347cc37e585c97422917ef8d669501b186b2d9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600909_SH.parquet",
+        "size_bytes": 4782,
+        "sha256": "f747839c1d1497443e39154062c772f6ebf393fb397704328e5582a1b8265cc9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600918_SH.parquet",
+        "size_bytes": 4772,
+        "sha256": "5144e173b2de09cdf925dbc5d0853a7d980f6e231bec44ef96bba7923bcd56a9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600919_SH.parquet",
+        "size_bytes": 4686,
+        "sha256": "1be7d3c44a2e51e8b74c8b54f211f9cc5b15b7771b8beb54c9bd6ee0b41c9fea"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600926_SH.parquet",
+        "size_bytes": 4668,
+        "sha256": "467fee80ac9189a2aac26dee4f5ce87294e405b41f132019609b166346b1a259"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600928_SH.parquet",
+        "size_bytes": 4550,
+        "sha256": "696261afd4eef9c1b951e358218a87c2f370d2a838e418a09c4af5cf5be84623"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600958_SH.parquet",
+        "size_bytes": 4980,
+        "sha256": "9c0db2989964e859cf2ad11d85c3bd7900e4c6238057bcb0e9cba43e28f359b1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600968_SH.parquet",
+        "size_bytes": 4390,
+        "sha256": "70c25721d616b5984a6fb9d59985c62a178e2eba651ddc5290dbc5514fcf66f7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/600977_SH.parquet",
+        "size_bytes": 4581,
+        "sha256": "f56de0504686f2cf7822fe656ae9a0336b8b4339afb28ff2318f1b0d26c6b432"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601016_SH.parquet",
+        "size_bytes": 4723,
+        "sha256": "61104f6af22ab263fac70c18326bb4700d46fe89fd19bf8553081592bab9928f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601021_SH.parquet",
+        "size_bytes": 4882,
+        "sha256": "d8ca084cd86ae5c39a674cb2a77f5c48db539b83eebfd13e002709f7a8357a23"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601066_SH.parquet",
+        "size_bytes": 4711,
+        "sha256": "32acc1c9dc7507cf92d83668920df842d1b539e0f64ba33873f1a91d1763cb58"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601108_SH.parquet",
+        "size_bytes": 4930,
+        "sha256": "827856323986a81447fded4fca02c3000f73b817e0a38a73992fe325e95a157f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601127_SH.parquet",
+        "size_bytes": 4819,
+        "sha256": "740813a723609daa5d27a0947b1d179b3bd88cf847ea4bc060d139418650ba32"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601155_SH.parquet",
+        "size_bytes": 4687,
+        "sha256": "abae60c5440c4dccbceda8938b4b05b70c3bd0a60e0dc8294d9fdea148735634"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601162_SH.parquet",
+        "size_bytes": 4784,
+        "sha256": "3381720a41107052d994f310c7cb8d74dc31b340e3fc206c4f10aef1c8e78a16"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601163_SH.parquet",
+        "size_bytes": 4976,
+        "sha256": "90919c97cdda1d058651ac0ad23327b21a207fb41cf91e19dc77772054162ee4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601198_SH.parquet",
+        "size_bytes": 4934,
+        "sha256": "8d19b69754fc93008b1246cc5af1cb7606134d6c3674d0693e66ac8ecc19cd63"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601211_SH.parquet",
+        "size_bytes": 4931,
+        "sha256": "c641edb339a2b7eb6233d83a49005e4985ce19b0a6fbcbd74cf111dbb229ef39"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601212_SH.parquet",
+        "size_bytes": 4607,
+        "sha256": "c3f631cc0194f58a092b5fa6cebbb75ec1417989637f7fb9ce5fff96530c43ed"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601225_SH.parquet",
+        "size_bytes": 4885,
+        "sha256": "6945ad0cfa7bbd48daecf5663de891f17b39ec5f1e1654ce87ab7fad6e81ea76"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601228_SH.parquet",
+        "size_bytes": 4854,
+        "sha256": "74aeda23c39df632abbfaea34e84bd95fea66c2576cabb02b4c25ee96ce5ce13"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601229_SH.parquet",
+        "size_bytes": 4812,
+        "sha256": "9e901bfc773925ccf670a75b675e9dd28d7f974cfef1a7ace263e9c1939a394a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601298_SH.parquet",
+        "size_bytes": 4526,
+        "sha256": "98b78e36bf1b575153d5a962012517163394c140d0360c92190a44509cf576c3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601319_SH.parquet",
+        "size_bytes": 4553,
+        "sha256": "5369fcf1215efd64d07283955f66c38d28981e0c6411ad5d73581fc36a1ba560"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601375_SH.parquet",
+        "size_bytes": 4804,
+        "sha256": "dacaca7b1c6e61dc373ce9d013c893276af34202b496697f9dfa53a508fc6421"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601577_SH.parquet",
+        "size_bytes": 4614,
+        "sha256": "d036e42619e53d1daf3acf89ebd1892b19756ab9c39ebd495e93d4db56f96641"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601658_SH.parquet",
+        "size_bytes": 4653,
+        "sha256": "b7401c78afdbe6295c098b296e1d77dd1ccc270464851cffa41a0b4aafc09b91"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601696_SH.parquet",
+        "size_bytes": 4658,
+        "sha256": "c5f93099b1aa609e6f8ff02c1b85e40a3708db67159b7b3e1c23f10130815374"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601698_SH.parquet",
+        "size_bytes": 4402,
+        "sha256": "6bab0ce30213a8f698d4cdad56d04b5316bc0af5c6e3d0c33915916fb63fe993"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601816_SH.parquet",
+        "size_bytes": 3918,
+        "sha256": "b5d2deffd93d5ff05cd3546bdbd26e058b485d04b8e6be665f78014c0a084650"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601838_SH.parquet",
+        "size_bytes": 4528,
+        "sha256": "bee306bbfec14014c9860033f43144f1c1a589ef41a59e5809d72429a88081a9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601878_SH.parquet",
+        "size_bytes": 4928,
+        "sha256": "f59a081500df96baa1b6d2b96ad187e071446ea6efe0a54c0fb13aaf77a79f05"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601881_SH.parquet",
+        "size_bytes": 4655,
+        "sha256": "10c38f95b88f172b0e78ab3366c0ec6c7de26dbae259142d6330cb1affc6ee25"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601916_SH.parquet",
+        "size_bytes": 4779,
+        "sha256": "87ab7785eea2e3dd3079f481b4818a2bbec4151700decc4f4a87b0faf4c78dea"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601966_SH.parquet",
+        "size_bytes": 4641,
+        "sha256": "ecebef558fe601ce16bbf341d0a7a6af2c77a1c04947aefc04f678851ba02a46"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601990_SH.parquet",
+        "size_bytes": 4625,
+        "sha256": "701957e72f58df1e41fce54b0b2daf73afe7586656b00f4588ed8a50ba8433e1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601995_SH.parquet",
+        "size_bytes": 4651,
+        "sha256": "899cce31eff7ba23d33fa9cb9b1b45f37f6e61996cd2e99c9b511b26ffcaeceb"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/601997_SH.parquet",
+        "size_bytes": 4777,
+        "sha256": "f10e7768e781ce8b4dd9728d5871365c63ab52549106fe6a4c565e539675dcfc"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603019_SH.parquet",
+        "size_bytes": 4838,
+        "sha256": "ee23e039071361bca6b9a26acee97741ba39d32cfc724a69949e27d8113f5402"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603087_SH.parquet",
+        "size_bytes": 4439,
+        "sha256": "9a79452d7eb74436ce05bd106a338b3c2060e982522c26d52211d35d2b9f7508"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603156_SH.parquet",
+        "size_bytes": 4499,
+        "sha256": "9a8c37af1b1bdd0f4ddda4d0b2812c3d5e3693f37c43a21a7b08aa8ec27b8b95"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603160_SH.parquet",
+        "size_bytes": 4691,
+        "sha256": "328f004d95849372e43d62f707b03fbd27fd7e568bf93a321b2d89cb8dc36480"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603233_SH.parquet",
+        "size_bytes": 4593,
+        "sha256": "9a204667ba28b455755ef2853f76e279a54ee22223daa29c3d84ec777180210d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603259_SH.parquet",
+        "size_bytes": 4280,
+        "sha256": "6a271f5860b4bf3154b46bfa31def483c397f3ecbb437fee9abe28fe91b10a2b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603260_SH.parquet",
+        "size_bytes": 4561,
+        "sha256": "16e2425fae04db58a91ccba244d975c1ebe34cfe1ed18f347c6d61b8461c32d9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603288_SH.parquet",
+        "size_bytes": 4987,
+        "sha256": "1dbfe4370f73125d06f0c51adf27cac35529baba435552566a8692572ad7df08"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603338_SH.parquet",
+        "size_bytes": 4829,
+        "sha256": "a4f19202b25db2954c704e55d9a6e2c2e1e34d3e7eca0664f4f23bdb1d6eac5b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603369_SH.parquet",
+        "size_bytes": 4934,
+        "sha256": "10d073f09f352da22f515668b14d39030733b19c57bf8fa2e3bf38b985968236"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603392_SH.parquet",
+        "size_bytes": 4421,
+        "sha256": "860d9faa417d2b6ccf7fb7286b58791d8e4986231cb3d90b5b0251a1dee09a1d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603501_SH.parquet",
+        "size_bytes": 4579,
+        "sha256": "dac46ad040066439c182546a95df3e13fc538802c4d722e92a952d8db81e9eb4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603517_SH.parquet",
+        "size_bytes": 4622,
+        "sha256": "e7dc4b4e0e88e3722c73e61f7ff02dde88c5568d1854b02d57a6e07029c54b54"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603658_SH.parquet",
+        "size_bytes": 4648,
+        "sha256": "1630e70a68b996f8e3b7e8dcc0c94f2b1aa9baf7471bc835bc1a7578f55d1013"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603659_SH.parquet",
+        "size_bytes": 4498,
+        "sha256": "614c0e6bcba278a329b488c5aab6ac6561c12863f161209e911330ada5bfba1f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603806_SH.parquet",
+        "size_bytes": 4921,
+        "sha256": "3c3be273cdceaaccd57d9e254113fbbe5128f91831bbb8dd887c8be5fc1d6c97"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603833_SH.parquet",
+        "size_bytes": 4588,
+        "sha256": "bdd8a85b10d9e93acabbcd5aeeeab2f29701e86074c903d8fde9e6aaae5c216d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603858_SH.parquet",
+        "size_bytes": 4607,
+        "sha256": "6837f789c7b4bf407901b7459577cbcd149017b73c1b4402b83f8d22dc0f1307"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603882_SH.parquet",
+        "size_bytes": 4504,
+        "sha256": "c34003dc00fa613a2c638a697500a03bb436ac6b22bd4deff5356338eefd1818"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603885_SH.parquet",
+        "size_bytes": 4829,
+        "sha256": "8581b3f8941db0311b73ca3b4bde81e288e0db32bd8db0160da9cb3025926020"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603899_SH.parquet",
+        "size_bytes": 4899,
+        "sha256": "11980a33ef4a5ec9ebe7351ac3e8e16d2f84cb9199b513a596f4768c38032bc6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603939_SH.parquet",
+        "size_bytes": 4841,
+        "sha256": "428f6bf462a6fbeb5dcf0dea35f1c02418dc496b30c7372de5a6355d481cf8ce"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/603986_SH.parquet",
+        "size_bytes": 4600,
+        "sha256": "df15b9c5e4b6fd6b849222408722e59b7b5a6506b550097baf29137c922a2f23"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/688008_SH.parquet",
+        "size_bytes": 3928,
+        "sha256": "ac7f80955396fc9b51d6b1bf8830f53c47d56097b1122bb42602fed2bc8c01d5"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/688111_SH.parquet",
+        "size_bytes": 4390,
+        "sha256": "e76746e4e491ae32536e5b113b1845ab92117af063d1a9f2c3853ccfef4fe791"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/fina_indicator_vip/688363_SH.parquet",
+        "size_bytes": 3894,
+        "sha256": "a4316f309f51208ad065c9af5213ee8c6d17973033b9beffc37bdbe042b65202"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/000166_SZ.parquet",
+        "size_bytes": 5057,
+        "sha256": "f575111bd861e3e560af17e07e794fc831e275ac2fbf70165fb18ba54117f0cc"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/001965_SZ.parquet",
+        "size_bytes": 4509,
+        "sha256": "db99fd8d13409e1efb05bb236f11c49ca5954efb61e986ce4281971c5b7fc4b5"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/001979_SZ.parquet",
+        "size_bytes": 4769,
+        "sha256": "40ade781e66cd588e47c3cd46e34b9a8c8430ddf36c1beb13ae14cb49d34f56a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002739_SZ.parquet",
+        "size_bytes": 4867,
+        "sha256": "aef57818da5b2c03742a18e976b77090a28671f06f3112fdcf1e8f4e95b3b0c6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002773_SZ.parquet",
+        "size_bytes": 4885,
+        "sha256": "fd0084948302d1ccb1f2172603861cec3b88b555d3e49f5757b7a52374c41941"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002797_SZ.parquet",
+        "size_bytes": 4870,
+        "sha256": "67eef96acc513374f6d5ebdd10e65ef12c84b46ececb3168031d525e17b29aef"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002812_SZ.parquet",
+        "size_bytes": 4699,
+        "sha256": "72ba48ee9bc38647d209e6b1977f12c1336702a4e5110e9fb236f9be5f94cded"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002821_SZ.parquet",
+        "size_bytes": 4577,
+        "sha256": "5a638d36945cfcb3bbb1ca871eab9f5f16cc4f946c782698c4d1da6f6e666bb8"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002831_SZ.parquet",
+        "size_bytes": 4834,
+        "sha256": "f65d00dbeb93fa68feb1688c9b3263ad29eb5192bc895fb824f775f6ce9b2ca7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002839_SZ.parquet",
+        "size_bytes": 4491,
+        "sha256": "0996dd0cb6872529783d1169bc555796f69cf462dca2c0855087116e7fe07d8c"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002841_SZ.parquet",
+        "size_bytes": 4494,
+        "sha256": "cbebe74f12265e223ef2bf0ab9a385a6fb8b6951165bd47860697ce909b79efe"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002916_SZ.parquet",
+        "size_bytes": 4798,
+        "sha256": "b986fbe4f4187c0beb97b3fea1190d22dfb0c1403463cb94bca3eafb1532492a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002925_SZ.parquet",
+        "size_bytes": 4515,
+        "sha256": "57d3f19e7e837c1a1f49fa996e227fe5013a3cbb52ca8670fe2b06b0f35e459b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002938_SZ.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002939_SZ.parquet",
+        "size_bytes": 4843,
+        "sha256": "03810881a54367b77c51de8052e8cdc599e64c660c1db902a4e966bf20085862"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002945_SZ.parquet",
+        "size_bytes": 4622,
+        "sha256": "bd749aafd840eaa0befd8f790ad98013eebe2e79709710aea42fdea4fcd43ea2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/002958_SZ.parquet",
+        "size_bytes": 4574,
+        "sha256": "85d2b8d1a8500cfa07861d0e186f1b2f25a73616ac365e42b0f11e3453e2c56e"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/003816_SZ.parquet",
+        "size_bytes": 4903,
+        "sha256": "f50b328fd24d6a2c0b5b1d2357cdf6519461b911b6cae742f9213eb19a17d5a4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300408_SZ.parquet",
+        "size_bytes": 4880,
+        "sha256": "da4046dd1251eb41ce8c75bc96d95935a96ffd34e4f1089fbb0c033c2211b814"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300413_SZ.parquet",
+        "size_bytes": 4906,
+        "sha256": "f623bc90f0ef023237081da59496057fa3a1545bc0f4f470cdebf73d3bc00f3a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300433_SZ.parquet",
+        "size_bytes": 4863,
+        "sha256": "a910c5c35b6a52c510693df6afd9c7a139e34abcc7ec1ecaf10124b483803f48"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300450_SZ.parquet",
+        "size_bytes": 4873,
+        "sha256": "c61270787fc18927c4e04c8ce127162d61a30a40f51c974d8b4cb61621158341"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300529_SZ.parquet",
+        "size_bytes": 4752,
+        "sha256": "2cc81097bef1487aee374db35d627e766411dce3033c1836ae9e4c8391e00e25"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300558_SZ.parquet",
+        "size_bytes": 4578,
+        "sha256": "9bd6b86f5c3b87c62c5a9a81825f9fc7764d63da4479acde218cb32c0db54f21"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300595_SZ.parquet",
+        "size_bytes": 4439,
+        "sha256": "a93de583feffaf805386121a368d5eb6890eef620d0fcaeced11118db6130984"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300601_SZ.parquet",
+        "size_bytes": 4439,
+        "sha256": "d8f01b5d686d30a16f176fd7597d5bec4d2731655f30e6ddb4c0f654cd2a5bfb"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300628_SZ.parquet",
+        "size_bytes": 4467,
+        "sha256": "3afd42a353136d77c9853a8d0720da7dcb005a182339b9fafde7bf277c6db015"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300676_SZ.parquet",
+        "size_bytes": 4494,
+        "sha256": "9c14c04b1aa52982d74584daad318a715bf21c0c0e656437ef48c64088f3b28d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/300677_SZ.parquet",
+        "size_bytes": 4439,
+        "sha256": "016d75e7e8fe65cc6dec5101b38579c02220396f0be2bbf760d35d33933b052d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600909_SH.parquet",
+        "size_bytes": 4676,
+        "sha256": "266c1ccea3ec3ad0b30dc360b12b79163829eed3ac6a408ffc593cc78497272a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600918_SH.parquet",
+        "size_bytes": 4861,
+        "sha256": "00adc453cb2536fdb49a6367bc7818300d52de51e74c2db2a95875a7518a15a4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600919_SH.parquet",
+        "size_bytes": 4695,
+        "sha256": "aa1d95494a6ab7a72b795a9d19c34fb7f81163a2dc06d3261a9f86ebc2462e0b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600926_SH.parquet",
+        "size_bytes": 4723,
+        "sha256": "df76fb42cc3fa3cf2c783ab35344082c4a7e411068514a4629a9310adb4e7aaf"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600928_SH.parquet",
+        "size_bytes": 4532,
+        "sha256": "df60504927c8af817895d1cf6fe01bc61134828eac3bfdb963480d1244da258a"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600958_SH.parquet",
+        "size_bytes": 4948,
+        "sha256": "2b2cd83326cf3ec2853808a2f2f8da4227c8ee50b7f7b096acfe514ae15f57c6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600968_SH.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/600977_SH.parquet",
+        "size_bytes": 4713,
+        "sha256": "62c12263c5240d99c61f37737ff3f38a7484cafa508e45158b2105512ba8c2d3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601016_SH.parquet",
+        "size_bytes": 5010,
+        "sha256": "e142476b13f996080d2028ef15000ed6bb761bc3f4bc7dae07c4a0274f771ccd"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601021_SH.parquet",
+        "size_bytes": 4842,
+        "sha256": "1634d8d2d89cc2974ab5dbc367b4a84e94868c7bc073cc0442ca3045d6772622"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601066_SH.parquet",
+        "size_bytes": 4780,
+        "sha256": "544375557df16f740e57c143fd751628e9da491186367eefc5d08136c7bad60e"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601108_SH.parquet",
+        "size_bytes": 4928,
+        "sha256": "9b6423e4ceccd2b5f107bae60faf41e30d7bce318f51da35dde6c4ef5751af35"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601155_SH.parquet",
+        "size_bytes": 4803,
+        "sha256": "7952753e79ddb2f6bd12da276b71c2bfb5bb8b51a71d6cd67d74a888c2bb4547"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601162_SH.parquet",
+        "size_bytes": 4776,
+        "sha256": "cc5e555d7ecf67af1937f1e4ac6efc3a32d240ac72f3b28f02fd13e2c3ff4628"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601163_SH.parquet",
+        "size_bytes": 5230,
+        "sha256": "48c1ccc3941f647b0bef5324aa35db6dab681e98c6ed9e5f8b4416388ca208a2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601198_SH.parquet",
+        "size_bytes": 4917,
+        "sha256": "418585e8660f030486a94676d86048d4e9ab182849f16882f634aa1bb6ce37fc"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601211_SH.parquet",
+        "size_bytes": 4948,
+        "sha256": "40ec05583564d87fb3142fb7d377bdaa0ef7a825ea444243862f4c717cd0105f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601212_SH.parquet",
+        "size_bytes": 4536,
+        "sha256": "fb8a21ab09d4b7f195a3f67a7b2da3fda81691547fce84a05a3ac700f1de0963"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601228_SH.parquet",
+        "size_bytes": 4886,
+        "sha256": "4f77f0e103701e2e92a742420a8f01132c0e729cfb04a5e8c8ec096907072447"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601229_SH.parquet",
+        "size_bytes": 4834,
+        "sha256": "d72ac7e8cd4decf935b5788b5ea459d41649a9a808c0b96cb8c96aa66fcada45"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601298_SH.parquet",
+        "size_bytes": 4553,
+        "sha256": "c8a8bc2757d28e05c3cd652d9b4dcf6de07cedfcde9b4c32bef6de9cb5f0aa32"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601319_SH.parquet",
+        "size_bytes": 4596,
+        "sha256": "74b52b3c85d278a029d910e342a4d09f6121c9304ba633c6e969f1302719a5fe"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601375_SH.parquet",
+        "size_bytes": 4704,
+        "sha256": "b9f466536824a87d840f517cf26e3b7833d00e1d00b29b5974ea29fbbaa10fc4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601577_SH.parquet",
+        "size_bytes": 4608,
+        "sha256": "1d3be98c0bda8979c75cc59bf2b3b5b6e43413d3c20fac36b4ef668cd683b5e6"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601658_SH.parquet",
+        "size_bytes": 4719,
+        "sha256": "ec66a746aa87c1f244edcd78d08e31d5a611a19e92cd9906cf1ed4a9dc475e26"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601696_SH.parquet",
+        "size_bytes": 4795,
+        "sha256": "7d58d6350c54a7a1e304b49a597b113ea6e352b7a522f296bc05f70fdd416224"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601698_SH.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601816_SH.parquet",
+        "size_bytes": 4483,
+        "sha256": "683babb78a17923e6790a98f473735f13d79c3ce14f7a710afe54ad55cc930ef"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601838_SH.parquet",
+        "size_bytes": 4478,
+        "sha256": "f5c15c4da179e843f4f971efce0d5de756913bcc47112b43ce9cabc158545ee8"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601878_SH.parquet",
+        "size_bytes": 4857,
+        "sha256": "29efa766d3c956e1aaff4c64500a75513ac85630c36d94d54858a7c4ddec3070"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601881_SH.parquet",
+        "size_bytes": 4574,
+        "sha256": "9d5a9f7e6fa98adac6fc1af681fb22be88634347a881511a9b1209a717f42047"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601916_SH.parquet",
+        "size_bytes": 4812,
+        "sha256": "839e05b217061f4a518fbad7271a724e4bef189d2fdb4febb8a19e81d6d1556c"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601966_SH.parquet",
+        "size_bytes": 4709,
+        "sha256": "7a5a16bc13c466d8d334d765d2fa9b226b41208cbf4690f0e13263bd021ddce7"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601990_SH.parquet",
+        "size_bytes": 4587,
+        "sha256": "c03131c2994c2c319fbb0cfdb9ffe6f7f02b833562c7e958dc75b3773fbcf0d9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601995_SH.parquet",
+        "size_bytes": 4804,
+        "sha256": "cf07929b1f36725f6f5ad51993d698eed4babeeeba76b5a9727dc8675d9a4dcd"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/601997_SH.parquet",
+        "size_bytes": 4776,
+        "sha256": "d900373ea76a6a7d56ead6b1ec9463ca4876d161097d19e9edc497496c615f79"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603019_SH.parquet",
+        "size_bytes": 4903,
+        "sha256": "edb155ef1b4e6ca2417367d57e66dc81e69e30daff16e56fc0b668fd468c14ef"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603087_SH.parquet",
+        "size_bytes": 4510,
+        "sha256": "876d40d3465b995cc62aa0715b82c3a34d8603495f13bf4c73ad0f25cfaece90"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603156_SH.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603160_SH.parquet",
+        "size_bytes": 4701,
+        "sha256": "2c9c3e3bbfbec7677eaf489c3b55d664a54c7cea402185d74b31990551139e67"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603233_SH.parquet",
+        "size_bytes": 4494,
+        "sha256": "54fd412ace7016b6159421151b6e666866bceb90ec9c94799bafc0edc38b05a0"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603259_SH.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603260_SH.parquet",
+        "size_bytes": 4494,
+        "sha256": "0e77fa5de99e771203ab2fcb124a1ed79fbbf39091c62a53f654381e5dacce70"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603338_SH.parquet",
+        "size_bytes": 4868,
+        "sha256": "524c0cd359656cc0a007d2d240cf22ac5d960e99bbeaa9b9299bf00bde9a22ff"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603392_SH.parquet",
+        "size_bytes": 4467,
+        "sha256": "d52db31788f67e94efd85333981f0283a93f2779b372fc3d9218325771671fe4"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603501_SH.parquet",
+        "size_bytes": 4518,
+        "sha256": "2bd9a327718ce8bc5fe363ed117652d4b58146d6d2b3174cd5e716c2bdcffc59"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603517_SH.parquet",
+        "size_bytes": 4494,
+        "sha256": "63f82ce91cf76fa671dc7a82f7d972e1a107b4cf3a58fd2eb4bcbaef513c1cbc"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603658_SH.parquet",
+        "size_bytes": 4699,
+        "sha256": "95a80083db1b679869aac18be10b67de912e3064f1d1ce35a4b40f6e221d0eed"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603659_SH.parquet",
+        "size_bytes": 4439,
+        "sha256": "896aee4859fcfdc9f068bcd47d7278d2d3c9f53bad8e056f2ba0c0bbd6391d5d"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603806_SH.parquet",
+        "size_bytes": 4984,
+        "sha256": "f7d4508d529bf3e716f7a26a63dab503fa4505fb5c0f72fa2bb7d7f76ce85c7b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603833_SH.parquet",
+        "size_bytes": 4534,
+        "sha256": "9e6519c5d614936651cf9ae79d2ad784642449b4b28c731a6cd5d87eea78a29f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603858_SH.parquet",
+        "size_bytes": 4608,
+        "sha256": "f92bb421969438ecf0299c2cc201705c65a862e922396e6e4144f67a2923d98f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603882_SH.parquet",
+        "size_bytes": 4494,
+        "sha256": "5f23c0a382940439efbf6d9d49940774b9b7945b13e9a97bf2929b66d5ff4067"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603885_SH.parquet",
+        "size_bytes": 4838,
+        "sha256": "e7499d1a60d1a1a1dd8ec6879760975acfafa03c19e5456a9a9ec50bec532eda"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603899_SH.parquet",
+        "size_bytes": 4874,
+        "sha256": "b72435f35fcc8016d17c8a4c0590e8e5bdd12051ea4eb09df5fe4fba1b1f3be2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603939_SH.parquet",
+        "size_bytes": 4981,
+        "sha256": "ef372c80cc37c525877dcedfbf727276accd98713748676340525dd139cc78a9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/603986_SH.parquet",
+        "size_bytes": 4708,
+        "sha256": "07172df896b933202335e8c512810b5e43d3c22e2d180e9594a6d4c3166f9edb"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/688111_SH.parquet",
+        "size_bytes": 3593,
+        "sha256": "98fa4b7971a82e245be783cf998861159cb12cc7e9b18966b916926df6c3eee2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/single_security_history/income_vip/688363_SH.parquet",
+        "size_bytes": 4431,
+        "sha256": "b88f5fa4fd1d4b07e196387d3db384663d264d8b5fe04fb2213bb48330959446"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20120630.parquet",
+        "size_bytes": 86389,
+        "sha256": "fa806c915869a3cd79e071b467fd23f3da0aefe070a1ff82bd0f86203b2151e1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20120930.parquet",
+        "size_bytes": 82858,
+        "sha256": "fa18471852e8e9d02fb85c13f1d05b6c9fd0fd5748cd1c15f4c135a2d0a5a8bb"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20121231.parquet",
+        "size_bytes": 119423,
+        "sha256": "73430d3a675a9f1d3dc650754bc9498518d21d7414a5f6bcc2fe1795285bb49b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20130331.parquet",
+        "size_bytes": 67488,
+        "sha256": "52eb7366dcb8427ee1d3f4e7600c1ee17186e3e181111d0029b590be47411f5e"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20130630.parquet",
+        "size_bytes": 87453,
+        "sha256": "1461d5155fbda1126b1885a12f9cc892a02c97a80ae575e9396a98adbc09d88b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20130930.parquet",
+        "size_bytes": 69544,
+        "sha256": "566eb3f4b89d84459106642f752ac226abeb9887fc88bda74033c7dd6ec8b2fa"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20131231.parquet",
+        "size_bytes": 129931,
+        "sha256": "0e83c79ab9e578b06692405c42f82592f4bbecef509afc5749cd5407283c3203"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20140331.parquet",
+        "size_bytes": 71161,
+        "sha256": "4126d838335faf7cd7ebaa9adacdc62413999d312274a40e2832629eaa98cd7f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20140630.parquet",
+        "size_bytes": 77983,
+        "sha256": "f96e7806f2fe127a36dd5a9d5bf81f89ee02e7d5ec4f8b009583cc604c8ea1d5"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20140930.parquet",
+        "size_bytes": 91932,
+        "sha256": "06bbc6fb070334fc296e18720ca55ff1af146ecb6918d47776cabe0e0d4e962b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20141231.parquet",
+        "size_bytes": 136251,
+        "sha256": "e2247978b5a10f07a4520ddc12472824dc92835dd3472fb86fbd6acb01994346"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20150331.parquet",
+        "size_bytes": 78844,
+        "sha256": "4ee792bafd0f7abfc60bb69768e377a5262ff1526d2e239e94d4ddad8fa9ff94"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/balancesheet_vip/20150630.parquet",
+        "size_bytes": 87153,
+        "sha256": "995dd568c6bb0a300b307ef80f810d99dc169c5dde9b7258dfc2d1e01c29db2f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20120630.parquet",
+        "size_bytes": 111578,
+        "sha256": "0302d3323da8ca1ce4ea17b9d702db8946f98f3dfc7898000e69f457ea9d20b9"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20120930.parquet",
+        "size_bytes": 107717,
+        "sha256": "600c19f728df66d631cc416b3b1ffd2cb15906c0008825f3aad00a2fcefcaf88"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20121231.parquet",
+        "size_bytes": 150930,
+        "sha256": "61271a2fc838a8546052ab1cf104f82d58ead8dff8aa90311a92ae4b272a19ab"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20130331.parquet",
+        "size_bytes": 98993,
+        "sha256": "93cd6750bacdc60661b0428aa92eec59ac4e1dda4d31e7e323a989ed33183721"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20130630.parquet",
+        "size_bytes": 108642,
+        "sha256": "1f52472c29add31a130d8dc80a88b41f5ebad024b67cdb255119c9ce820308bd"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20130930.parquet",
+        "size_bytes": 106758,
+        "sha256": "f7c878a8c1b4a732eea7e58594e21e2fe09b8c392397530592207e3295f69b29"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20131231.parquet",
+        "size_bytes": 179139,
+        "sha256": "7eb683b7951ea1678b581e2af4600bdd8f774fb480a1a3cae0bdbc78ed0a576e"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20140331.parquet",
+        "size_bytes": 106340,
+        "sha256": "593c72d6a7d9cee553d8e8795aebd310d440fcba35069427727195211603e45f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20140630.parquet",
+        "size_bytes": 125794,
+        "sha256": "81dd823010f781b80094841310c17e80ca2cc4e4cea1d7ebc4aed3118e70241f"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20140930.parquet",
+        "size_bytes": 113877,
+        "sha256": "857c32d7db2dadc25262feebbbff281364a5b33d400a3ced1b80ee2bd3617dca"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20141231.parquet",
+        "size_bytes": 193896,
+        "sha256": "8483d2fc3c1192a2940424067425179eb0166230c42ba85a1f6d9c08248c4151"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20150331.parquet",
+        "size_bytes": 116949,
+        "sha256": "89c81a22726c4c45a4b2bc5984df06f4bd097a22eaa075f2e720cb8696d43a13"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/fina_indicator_vip/20150630.parquet",
+        "size_bytes": 151180,
+        "sha256": "8588da8a7d4cd5de544d4750ae14bf91981b95016ad35a0f43a958352240f3fe"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20120630.parquet",
+        "size_bytes": 74095,
+        "sha256": "c59cc5d60ae33431168aec869a6bc5a012713d2bd83e3fffe6e04e93eee027f0"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20120930.parquet",
+        "size_bytes": 73286,
+        "sha256": "92f187f6f8497f417d55b73240e0fdf2d9128d1ec1dc7afbedc3a93ec967adf3"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20121231.parquet",
+        "size_bytes": 109124,
+        "sha256": "180514d72c8d00b75ed2073b96f06fbf7abd98aa309de80f515717da526a21fa"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20130331.parquet",
+        "size_bytes": 72166,
+        "sha256": "892941f4cdfd2c79a82ab14214b4b9ca34ce226d147b01755905699d6bac5fc2"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20130630.parquet",
+        "size_bytes": 76202,
+        "sha256": "c346e78f2b7dc2990871b4c49823ebe01dc8abb07ebfc9788970836b0e3e6ca1"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20130930.parquet",
+        "size_bytes": 75368,
+        "sha256": "8a38f04f6a582d074ca6f7e6890eb30ad439bc0f660f12ae4320067bc2bcf6fa"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20131231.parquet",
+        "size_bytes": 125928,
+        "sha256": "cf78b9c42d1a76607923616a4425f8141d48af310d265d642a13074453f3d570"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20140331.parquet",
+        "size_bytes": 78376,
+        "sha256": "e8e6b096a122ed968d9b57769ef07ce024040716dd3570c48c86822b2127f06b"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20140630.parquet",
+        "size_bytes": 88430,
+        "sha256": "1bff4f621fd20eff7659c7ffc6a72743121b09c73968595a7643bce0f86b37dd"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20140930.parquet",
+        "size_bytes": 82269,
+        "sha256": "866453aa4b8a5227160dc5857c1145cdf7f313e39f1cfa3bb6de78924776d31c"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20141231.parquet",
+        "size_bytes": 133271,
+        "sha256": "eb2f11f2d1b17fd0e9d3bb94cd5fa14a888c8648ef8e331c316936e3406f7164"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20150331.parquet",
+        "size_bytes": 84016,
+        "sha256": "69b7a76d7911fe9259c0e3db50bf50c5f2d3ceb915331b69af689adcee5f8312"
+      },
+      {
+        "file": "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015/vip/income_vip/20150630.parquet",
+        "size_bytes": 98054,
+        "sha256": "690128c25ad8147cdd8d39a37b075fbffbdbbf66971e40937f94bef089247bd9"
+      }
+    ]
+  },
+  "frozen_input_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "base_financial_archive",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time.parquet",
+        "expected_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "actual_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "matches": true
+      },
+      {
+        "dataset": "base_audit_v1_1",
+        "file": "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json",
+        "expected_sha256": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+        "actual_sha256": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+        "matches": true
+      }
+    ],
+    "checkpoint_directory": "data/raw/fundamentals/vip_checkpoints",
+    "checkpoint_file_count": 132,
+    "expected_checkpoint_file_count": 132,
+    "checkpoint_content_sha256": "e9ae8ebcf4e75dabe76104b20a71240a029f70557cf4270da49cda54b49594d3",
+    "expected_checkpoint_content_sha256": "e9ae8ebcf4e75dabe76104b20a71240a029f70557cf4270da49cda54b49594d3",
+    "checkpoint_matches": true
+  },
+  "test_results": {
+    "targeted": {
+      "command": [
+        "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_val01_norm_ey_5y_financial_extension.py",
+        "tests/test_val01_norm_ey_5y_post_acquisition_audit.py",
+        "-q"
+      ],
+      "return_code": 0,
+      "stdout": "............                                                             [100%]\n12 passed in 2.46s"
+    },
+    "full_suite": {
+      "command": [
+        "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "return_code": 0,
+      "stdout": "........................................................................ [ 15%]\n........................................................................ [ 30%]\n........................................................................ [ 45%]\n........................................................................ [ 60%]\n........................................................................ [ 75%]\n........................................................................ [ 90%]\n................................................                         [100%]\n480 passed in 57.41s"
+    }
+  },
+  "governance": {
+    "return_calculation_performed": false,
+    "ic_calculation_performed": false,
+    "position_mapping_performed": false,
+    "order_generation_performed": false,
+    "broker_connection_performed": false,
+    "raw_ey_rejected_branch_reopened": false,
+    "seven_year_branch_unblocked": false,
+    "old_protocol_manifest_overwritten": false
+  },
+  "meaning": "只冻结5年正常化盈利及正常化盈利利差的数据可重建性；不表示预测有效，不包含收益、IC、仓位、订单或券商连接。",
+  "next_allowed_step": "另行冻结VAL01_NORM_EY_5Y与VAL02_NORM_EY_SPREAD_5Y模型卡；在目标、持有期、T+1可捕获部分、成本、基准和拆分验证合同冻结前，不得开展正式收益评估。",
+  "manifest_content_sha256": "3b36b26c94524edc42d470a8722a707119d1c389f63340af7c5e5257ef98ba30"
+}

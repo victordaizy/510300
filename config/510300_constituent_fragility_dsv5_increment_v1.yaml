@@ -1,0 +1,363 @@
+protocol:
+  model_id: 510300_CONSTITUENT_FRAGILITY_DSV5_INCREMENT_V1
+  display_name: 510300成分脆弱性非重叠五日下行半方差增量检验V1
+  version: 1.0.0
+  registration_date: "2026-09-05"
+  timezone: Asia/Shanghai
+  evidence_class: RESEARCH_OBSERVED_PREQUENTIAL
+  new_alpha_family: false
+  new_estimand: true
+  new_policy_evaluation_chain: true
+  parent_feature_family: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  relation_to_parent: NEW_ESTIMAND_NOT_PARENT_RESCUE
+  one_shot_historical_test: true
+  historical_data_already_observed_by_project: true
+  primary_question: >-
+    成分股风险传导T_C与静态脆弱性F，能否在510300自身价格风险之外，
+    稳定提高对非重叠未来5个交易日下行半方差的预测？
+
+source_adjudication:
+  initial_proposal:
+    path: E:/CodexData/.codex/attachments/845b3564-acf8-4350-9411-d41ad8252ab6/pasted-text.txt
+    bytes: 23709
+    sha256: f84cbb87da25d4739dd0cb3923fdaa420896ab2274b72416874576c526f3f914
+  final_review:
+    path: E:/CodexData/.codex/attachments/680c28e5-e2e9-411c-ac61-577f04dcd2e2/pasted-text.txt
+    bytes: 20849
+    sha256: 22db4b1e717bfb3d48252d50889a8680d43f6cf0d63f78bd1ba0cc09e6a489d2
+  precedence: FINAL_REVIEW_SUPERSEDES_INITIAL_PROPOSAL_ON_CONFLICT
+  resolved_conflicts:
+    prediction_target: NONOVERLAPPING_FUTURE_5D_DOWNSIDE_SEMIVARIANCE
+    policy_evaluation: NOT_ALLOWED_UNTIL_B2_PASSES
+    minimum_position: NOT_APPLICABLE_IN_THIS_PREDICTION_ONLY_MODEL
+    constituent_feature_definition: REUSE_FROZEN_PARENT_FEATURE_VALUES
+    causal_percentile_warmup: >-
+      REUSE_PARENT_PERSISTED_DEFINITION_WITHOUT_NEW_252_OBSERVATION_OVERLAY
+    causal_percentile_warmup_rationale: >-
+      最终审校将本研究登记为NEW_ESTIMAND_NOT_PARENT_RESCUE并要求F保持旧定义；
+      因此不得同时重算父特征或新增暖启动门。初稿的252日新暖启动不进入本V1。
+
+scope:
+  executable_assets: [510300.SH, CASH_CNY]
+  signal_inputs:
+    - 510300_TOTAL_WEALTH_DAILY
+    - FROZEN_POINT_IN_TIME_CSI300_CONSTITUENT_F
+    - FROZEN_POINT_IN_TIME_CSI300_CONSTITUENT_T_C
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  industry_feature_allowed: false
+  macro_feature_allowed: false
+  nbs_feature_allowed: false
+  minute_feature_allowed: false
+  signal_time: T_MARKET_CLOSE
+  hypothetical_label_entry_time: NEXT_TRADING_DAY_OFFICIAL_OPEN
+  historical_cutoff_for_features: "2026-08-14"
+  live_trading_authorized: false
+
+lineage:
+  required_audit_output: reports/audit/510300_constituent_fragility_dsv5_increment_v1_lineage_audit.json
+  comparisons:
+    - id: 510300_DOWNSIDE_RISK_BUDGET_V1
+      config_path: config/510300_downside_risk_budget_v1.yaml
+      result_path: reports/research/510300_downside_risk_budget_v1_result.json
+      target: FUTURE_20D_MAXIMUM_ADVERSE_EXCURSION_WITH_20D_DOWNSIDE_SEMIVARIANCE_SECONDARY
+      decision: NOT_EXACT_MATCH
+    - id: HAR_VOLATILITY_CHALLENGER
+      config_path: config/har_volatility_challenger.yaml
+      result_path: reports/research/510300_har_volatility_20d_report.json
+      target: FUTURE_20D_REALIZED_VOLATILITY
+      decision: NOT_EXACT_MATCH
+    - id: 510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1
+      config_path: config/510300_option_implied_downside_risk_budget_v1.yaml
+      result_path: reports/data_quality/510300_option_implied_downside_risk_budget_v1/G0_G1_ADJUDICATION.json
+      target: OVERLAPPING_FUTURE_5D_TOTAL_VARIANCE_WITH_OPTION_INCREMENT
+      decision: NOT_EXACT_MATCH
+    - id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+      config_path: config/510300_stress_transmission_hazard_v2.yaml
+      result_path: reports/research/510300_stress_transmission_hazard_v2_g1b_historical_final_status_v1.json
+      target: BAD10_EVENT_PROBABILITY
+      decision: PARENT_FEATURE_FAMILY_ONLY_NOT_EXACT_ESTIMAND
+  exact_match_expected: false
+  if_exact_match_found: STOP_AND_REUSE_FROZEN_B1_LEDGER
+
+immutable_parent:
+  g0_1_manifest:
+    path: config/510300_stress_transmission_hazard_v2_g0_1_post_remediation_version_lock_v1_manifest.json
+    bytes: 168872
+    sha256: e7c206bcc7ae8906fec9cda3f8a49a54e8acfc7825e7ac7aa197292a3a7a2c1d
+  g0_1_clean_replay:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g0_1_post_remediation_clean_worktree_replay_v1.json
+    bytes: 6645
+    sha256: 987bb84e1af9e36d1acd2395a747e3c656679102578fe4624a1c516df95fcf70
+  g1b_terminal_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_g1b_historical_final_status_v1.json
+    bytes: 2288
+    sha256: 62edfc41504f94d4a604c41ded2162c222044268e6634406c3e067ab2c1aae58
+    required_fields:
+      G1B_PREQUENTIAL_ERA_IDENTIFIABILITY: NO_VIEW_INSUFFICIENT_EVALUABLE_ERAS
+      G2_STRUCTURAL_INCREMENT: NOT_RUN_BLOCKED_BY_G1B
+      MODEL_TRAINED: false
+      PORTFOLIO_EVALUATION: NOT_ALLOWED
+      POSITION_IMPACT: 0
+
+inputs:
+  parent_internal_features:
+    path: data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/internal_F_T_features.parquet
+    bytes: 395102
+    sha256: aecba7fc8b849d41a65eba68e5cea3c735c9f0945155823f6d978b0c8e0b7cf0
+    row_count: 2823
+    required_columns:
+      - date
+      - f1_breadth_risk_percentile
+      - f2_leadership_risk_percentile
+      - f3_comovement_risk_percentile
+      - F
+      - t1_breadth_drop_risk_percentile
+      - t2_tail_diffusion_risk_percentile
+      - t3_comovement_accel_risk_percentile
+      - internal_feature_state
+      - four_state_daily_coverage_state
+      - return20_coverage_ratio
+      - tail_coverage_ratio
+      - comovement_scoreable_member_ratio
+    required_view_state: VIEW_ALLOWED
+    feature_values_are_frozen: true
+    recomputation_or_threshold_change_allowed: false
+  etf_unadjusted_daily:
+    path: data/raw/market/510300_daily_2015_v2.parquet
+    bytes: 116186
+    sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+    symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  etf_cash_dividends:
+    path: data/reference/510300_dividends.csv
+    bytes: 2021
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    symbol: 510300.SH
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+  ordinary_missing_value_rule: NO_VIEW_NO_FORWARD_FILL_NO_ZERO_FILL
+
+parent_feature_contract:
+  F:
+    fields:
+      - f1_breadth_risk_percentile
+      - f2_leadership_risk_percentile
+      - f3_comovement_risk_percentile
+    aggregation: MEDIAN_REQUIRING_ALL_THREE
+    persisted_field: F
+    persisted_value_must_equal_recomputed_median: true
+  T_C:
+    fields:
+      - t1_breadth_drop_risk_percentile
+      - t2_tail_diffusion_risk_percentile
+      - t3_comovement_accel_risk_percentile
+    aggregation: MEDIAN_REQUIRING_ALL_THREE
+    funding_shock_t4_included: false
+  interaction: T_C_TIMES_F
+  prohibited_parent_changes:
+    - RECOMPUTE_PARENT_CAUSAL_PERCENTILES
+    - CHANGE_20_5_60_WINDOWS
+    - CHANGE_PARENT_COVERAGE_GATES
+    - CHANGE_TAIL_SIGMA_MULTIPLE
+    - ADD_FUNDING_SHOCK_OR_OTHER_MACRO
+    - ADD_INDUSTRY
+
+label:
+  name: DSV5
+  definition: ANNUALIZED_FIVE_DAY_DOWNSIDE_SEMIVARIANCE
+  formula: 252_DIV_5_TIMES_SUM_OF_MIN_LOG_RETURN_ZERO_SQUARED
+  horizon_trading_days: 5
+  nonoverlapping_within_each_offset: true
+  signal_origin: T_CLOSE
+  entry_date: NEXT_TRADING_DAY
+  entry_price: OFFICIAL_UNADJUSTED_OPEN
+  first_return: LOG_ENTRY_DAY_CLOSE_DIVIDED_BY_ENTRY_DAY_OPEN
+  later_returns: LOG_CURRENT_TOTAL_WEALTH_CLOSE_DIVIDED_BY_PREVIOUS_TOTAL_WEALTH_CLOSE
+  dividend_contract:
+    wealth_basis: ONE_SHARE_PLUS_ENTITLED_CASH_DIVIDEND_RECEIVABLE
+    entitlement_clock: HOLDER_AT_RECORD_DATE_CLOSE
+    recognition_clock: EX_DATE_RECEIVABLE
+    entry_day_preexisting_entitlement_included: false
+    later_ex_date_cash_included_only_if_record_date_on_or_after_entry_date: true
+    reinvestment: false
+  annualization_days: 252
+  total_variance_diagnostic:
+    enabled: true
+    training_target_allowed: false
+  qlike_epsilon: 1.0e-8
+  labels_may_be_read_only_after_g0_g1_pass_and_prelable_commit: true
+
+b1_features:
+  LOG_RV20:
+    formula: LOG_SQRT_252_DIV_20_TIMES_SUM_LAST_20_LOG_TOTAL_RETURNS_SQUARED
+  NEG5:
+    formula: MAX_NEGATIVE_SUM_LAST_5_LOG_TOTAL_RETURNS_ZERO
+  DD20:
+    formula: MAX_ONE_MINUS_CURRENT_TOTAL_WEALTH_DIV_LAST_20_DAY_MAX_ZERO
+  all_slopes_nonnegative: true
+
+origin_schedule:
+  calendar: ETF_OBSERVED_SSE_OPEN_TRADING_DATES
+  anchor: FIRST_DATE_WITH_COMPLETE_F_T_C_B1_HISTORY_AND_MATURE_FIVE_DAY_PATH
+  cadence_trading_days: 5
+  registered_offsets: [0, 1, 2, 3, 4]
+  primary_offset: 0
+  offset_selection_after_label_read_allowed: false
+  scheduled_no_view_rule: RETAIN_GRID_SKIP_ORIGIN_WITHOUT_SHIFTING_OR_REANCHORING
+  first_training_origins: 80
+  minimum_primary_total_origins: 225
+  minimum_primary_prequential_evaluation_origins: 145
+  evaluation_eras: 3
+  era_assignment: CONTIGUOUS_NEAR_EQUAL_COUNTS_EARLIER_ERA_GETS_ONE_EXTRA
+  minimum_origins_each_era: 48
+  insufficient_state: NO_VIEW_INSUFFICIENT_NONOVERLAPPING_ORIGINS
+
+models:
+  prediction_order: [B0, B1, B2]
+  B0:
+    type: EXPANDING_MATURED_TRAINING_DSV5_MEAN
+  B1:
+    type: EXP_LINK_NONNEGATIVE_QLIKE_RIDGE
+    inputs: [LOG_RV20, NEG5, DD20]
+  B2:
+    type: EXP_LINK_NONNEGATIVE_QLIKE_RIDGE
+    inputs: [LOG_RV20, NEG5, DD20, T_C, T_C_X_F]
+  qlike_objective: MEAN_ACTUAL_DIV_PREDICTED_PLUS_LOG_PREDICTED_PLUS_L2
+  qlike_evaluation: UNIT_INVARIANT_QLIKE_DEVIANCE_WITH_FIXED_EPSILON
+  l2_lambda: 1.0
+  intercept_penalized: false
+  slopes_lower_bound: 0.0
+  standardization: CURRENT_MATURE_TRAINING_SAMPLE_ONLY
+  training_window: EXPANDING
+  refit_every_evaluation_origins: 13
+  training_label_maturity_rule: HORIZON_END_DATE_LE_ORIGIN_DATE
+  coefficient_hold_between_refits: true
+  forbidden_selection:
+    - FEATURE_SELECTION
+    - LAMBDA_GRID_SEARCH
+    - SIGN_REVERSAL
+    - RANDOM_FOREST
+    - XGBOOST
+    - NEURAL_NETWORK
+    - SHARPE_BASED_MODEL_SELECTION
+
+evaluation:
+  primary_metric: QLIKE
+  secondary_metric: LOG_DSV5_PLUS_EPSILON_MSE
+  bootstrap:
+    method: CIRCULAR_MOVING_BLOCK_OVER_EVALUATION_ORIGINS
+    block_length_origins: 13
+    repetitions: 5000
+    one_sided_confidence: 0.90
+    random_seed: 20260905
+  risk_quintiles: 5
+  robustness_offsets_use_same_frozen_model_and_gate: true
+
+gates:
+  G0_DATA_CONTRACT:
+    exact_input_hashes: true
+    unique_trading_dates: true
+    finite_positive_etf_open_close: true
+    parent_feature_median_identity: true
+    no_industry_macro_or_future_feature: true
+  G1_NONOVERLAPPING_ORIGINS:
+    primary_total_origins_minimum: 225
+    initial_training_origins: 80
+    prequential_evaluation_origins_minimum: 145
+    evaluation_eras: 3
+    origins_each_era_minimum: 48
+  G2_B1_VS_B0:
+    overall_qlike_relative_improvement_strictly_positive: true
+    bootstrap_mean_loss_difference_90pct_lower_strictly_positive: true
+    minimum_positive_eras: 2
+    latest_era_must_improve: true
+    failure_state: REJECTED_FROZEN_PRICE_RISK_NOT_FORECASTABLE
+  G3_B2_VS_B1:
+    overall_qlike_relative_improvement_minimum: 0.02
+    log_dsv5_mse_improvement_strictly_positive: true
+    bootstrap_mean_loss_difference_90pct_lower_strictly_positive: true
+    minimum_positive_eras: 2
+    latest_era_must_improve: true
+    minimum_positive_registered_offsets: 4
+    highest_to_lowest_actual_dsv5_quintile_ratio_minimum: 1.5
+    mean_predicted_to_actual_ratio_minimum: 0.80
+    mean_predicted_to_actual_ratio_maximum: 1.25
+    failure_state: REJECTED_FROZEN_CONSTITUENT_FRAGILITY_INCREMENT
+
+cascade:
+  if_g0_or_g1_fails:
+    labels: NOT_READ
+    B0_B1_B2: NOT_RUN
+    portfolio: NOT_ALLOWED
+  if_g2_fails:
+    B2: NOT_RUN
+    macro_extension: NOT_ALLOWED
+    portfolio: NOT_ALLOWED
+  if_g3_fails:
+    macro_extension: NOT_ALLOWED
+    portfolio: NOT_ALLOWED
+  if_g3_passes:
+    next_allowed_step: FREEZE_510300_WEEKLY_DSV5_RISK_BUDGET_POLICY_V1
+    portfolio_in_current_execution: NOT_ALLOWED
+
+governance:
+  research_only: true
+  discovery_only: true
+  position_impact: 0
+  model_position_target: UNSET
+  portfolio_evaluation: NOT_ALLOWED
+  return_evaluation: NOT_ALLOWED
+  sharpe_calculation: NOT_ALLOWED
+  paper_or_shadow: NOT_AUTHORIZED
+  broker_connection: NOT_AUTHORIZED
+  order_generation: false
+  live_trading_authorized: false
+
+one_shot:
+  protocol_and_implementation_must_be_committed_before_prelable_audit: true
+  g0_g1_origin_audit_must_be_committed_before_label_read: true
+  atomic_claim_required_before_label_read: true
+  rerun_after_claim: forbidden
+  implementation_change_after_freeze: NEW_VERSION_REQUIRED
+
+outputs:
+  lineage_audit: reports/audit/510300_constituent_fragility_dsv5_increment_v1_lineage_audit.json
+  manifest: config/510300_constituent_fragility_dsv5_increment_v1_manifest.json
+  freeze_receipt: reports/audit/510300_constituent_fragility_dsv5_increment_v1_freeze_receipt.json
+  g0_g1_audit: reports/data_quality/510300_constituent_fragility_dsv5_increment_v1/G0_G1_ORIGIN_AUDIT.json
+  origin_schedule: reports/data_quality/510300_constituent_fragility_dsv5_increment_v1/origin_schedule.csv
+  one_shot_claim: reports/audit/510300_constituent_fragility_dsv5_increment_v1_one_shot_claim.json
+  label_ledger: data/research/510300_constituent_fragility_dsv5_increment_v1/dsv5_label_ledger.parquet
+  predictions: data/research/510300_constituent_fragility_dsv5_increment_v1/prequential_predictions.parquet
+  coefficients: data/research/510300_constituent_fragility_dsv5_increment_v1/model_coefficients.parquet
+  result_json: reports/research/510300_constituent_fragility_dsv5_increment_v1_result.json
+  result_markdown: reports/research/510300_CONSTITUENT_FRAGILITY_DSV5_INCREMENT_V1.md
+  execution_receipt: reports/audit/510300_constituent_fragility_dsv5_increment_v1_execution_receipt.json
+  final_status: reports/research/510300_constituent_fragility_dsv5_increment_v1_status.json
+
+freeze:
+  required_branch: codex/510300-constituent-fragility-dsv5-increment-v1
+  implementation_files:
+    - .gitattributes
+    - config/510300_constituent_fragility_dsv5_increment_v1.yaml
+    - docs/510300_CONSTITUENT_FRAGILITY_DSV5_INCREMENT_V1_PROTOCOL_20260905.md
+    - research/constituent_fragility_dsv5_increment_v1.py
+    - scripts/freeze_510300_constituent_fragility_dsv5_increment_v1.py
+    - scripts/run_510300_constituent_fragility_dsv5_increment_v1.py
+    - tests/test_510300_constituent_fragility_dsv5_increment_v1.py
+  dsv5_values_read_before_freeze: false
+  model_trained_before_freeze: false
+  portfolio_or_sharpe_read_before_freeze: false
+
+forbidden_actions:
+  - READ_DSV5_BEFORE_FROZEN_IMPLEMENTATION_COMMIT_AND_G0_G1_COMMIT
+  - GENERATE_POSITION_NAV_RETURN_SHARPE_OR_ORDER
+  - ADD_MACRO_NBS_OPTION_MINUTE_INDUSTRY_OR_TECHNICAL_RESCUE
+  - CHANGE_OFFSET_AFTER_LABEL_READ
+  - CHANGE_TARGET_HORIZON_FEATURES_LAMBDA_REFIT_OR_GATES_AFTER_RESULT
+  - REVERSE_NEGATIVE_COEFFICIENT_OR_FEATURE_DIRECTION
+  - SELECT_YEAR_ERA_OR_STRESS_EPISODE
+  - OVERWRITE_PARENT_RESULTS
+  - DESCRIBE_HISTORICAL_PREQUENTIAL_RESULTS_AS_STRICT_FORWARD

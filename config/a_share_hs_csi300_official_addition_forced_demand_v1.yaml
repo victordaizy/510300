@@ -1,0 +1,367 @@
+schema_version: 1.0.0
+strategy_id: A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1
+status_before_return_evaluation: DISCOVERY_ONLY_PRE_REGISTRATION
+research_scope: DISCOVERY_ONLY
+evidence_cutoff: '2026-08-28'
+timezone: Asia/Shanghai
+
+hypothesis:
+  statement: >-
+    CSI300官方定期调整名单公布后，被正式调入的个股在生效日收盘前，
+    可能受到被动指数资金建仓形成的可交易需求压力。
+  unverified: true
+  alpha_claim_allowed_before_all_data_gates_pass: false
+
+event_universe:
+  index_code: '000300'
+  index_name: 沪深300
+  first_cycle: 2016H1
+  last_cycle: 2026H1
+  expected_cycle_count: 21
+  minimum_complete_cycle_count: 20
+  minimum_unique_addition_event_count: 120
+  include_only_official_periodic_rebalances: true
+  exclude_temporary_adjustments: true
+  exclude_merger_replacements: true
+  exclude_fast_entries: true
+  exclude_unknown_official_clock: true
+  no_event_exclusion_based_on_observed_return: true
+  expected_cycles:
+    - cycle_id: 2016H1
+      announcement_id: 3855
+    - cycle_id: 2016H2
+      announcement_id: 4003
+    - cycle_id: 2017H1
+      announcement_id: 12583
+    - cycle_id: 2017H2
+      announcement_id: 12590
+    - cycle_id: 2018H1
+      announcement_id: 11518
+    - cycle_id: 2018H2
+      announcement_id: 11859
+    - cycle_id: 2019H1
+      announcement_id: 11379
+    - cycle_id: 2019H2
+      announcement_id: 11529
+    - cycle_id: 2020H1
+      announcement_id: 11429
+    - cycle_id: 2020H2
+      announcement_id: 11514
+    - cycle_id: 2021H1
+      announcement_id: 12470
+    - cycle_id: 2021H2
+      announcement_id: 13888
+    - cycle_id: 2022H1
+      announcement_id: 14223
+    - cycle_id: 2022H2
+      announcement_id: 14497
+    - cycle_id: 2023H1
+      announcement_id: 14796
+    - cycle_id: 2023H2
+      announcement_id: 15044
+    - cycle_id: 2024H1
+      announcement_id: 15267
+    - cycle_id: 2024H2
+      announcement_id: 15471
+    - cycle_id: 2025H1
+      announcement_id: 15690
+    - cycle_id: 2025H2
+      announcement_id: 3006000
+    - cycle_id: 2026H1
+      announcement_id: 3006137
+
+official_source_contract:
+  provider: 中证指数有限公司
+  list_endpoint: https://www.csindex.com.cn/csindex-home/announcement/queryAnnouncementByVo
+  detail_endpoint_template: https://www.csindex.com.cn/csindex-home/announcement/queryAnnouncementById?id={announcement_id}&lang=cn
+  allowed_hosts:
+    - www.csindex.com.cn
+    - oss-ch.csindex.com.cn
+  list_query:
+    lang: cn
+    searchInput: 沪深300
+    startDate: '2016-01-01'
+    endDate: '2026-08-28'
+    classList:
+      - index
+    indexList:
+      - csi_index
+    relatedTopics:
+      - index_rebalance
+    typeList:
+      - announcement
+    page:
+      key: ''
+      order: asc
+      page: 1
+      rows: 500
+      sortBy: publish_date
+  require_tls_verification: true
+  preserve_raw_list_response: true
+  preserve_raw_detail_response: true
+  preserve_all_official_attachments: true
+  require_sha256_for_every_raw_object: true
+  legacy_workbook_role_contract: >-
+    对2016至2017旧版中证官方工作簿，首个包含000300记录的工作表为调入名单，
+    第二个包含000300记录的工作表为调出名单；该结构只用于官方旧工作簿，
+    不外推到其他来源。
+  source_hopping_allowed: false
+  media_inference_allowed: false
+
+event_clock:
+  signal: OFFICIAL_ANNOUNCEMENT_EXPLICIT_CSI300_ADDITION
+  entry_date: FIRST_TRADING_DAY_STRICTLY_AFTER_ANNOUNCEMENT_DATE
+  entry_price: RAW_UNADJUSTED_OPEN
+  exit_date: OFFICIAL_STATED_EFFECTIVE_CLOSE_DATE
+  exit_price: RAW_UNADJUSTED_CLOSE
+  market_regime_filter: NONE_ALL_STATES_ENTER
+  stop_loss: NONE
+  take_profit: NONE
+  leverage: false
+  short_selling: false
+  entry_no_fill:
+    - SUSPENDED
+    - ONE_PRICE_LIMIT_UP
+  entry_no_fill_disposition: NO_FILL_NO_DELAYED_CHASE
+  blocked_exit_disposition: CENSORED_EXIT_PENDING_FIRST_SELLABLE_OPEN
+
+calendar_contract:
+  path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet
+  sha256: f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd
+  date_field: date
+  open_field: is_open
+  coverage_start: '2014-01-02'
+  coverage_end: '2026-08-14'
+  allowed_use: EVENT_CLOCK_ONLY
+  prohibited_use: RETURN_OR_ALPHA_EVALUATION
+
+ledgers:
+  mechanism:
+    cycle_weighting: EQUAL_WEIGHT_ALL_ACTUALLY_BUYABLE_ADDITIONS
+    capital_reset_between_cycles: true
+    inference_cluster: REBALANCE_CYCLE
+  account_20000:
+    initial_cash_cny: 20000
+    maximum_stocks_per_cycle: 3
+    ranking: PRE_ANNOUNCEMENT_TRADING_DAY_20D_MEDIAN_TURNOVER_DESC
+    minimum_single_stock_notional_cny: 5000
+    board_lot_shares: 100
+    target_weight: EQUAL_WEIGHT_SELECTED_STOCKS
+    minimum_executable_stock_count: 2
+    insufficient_count_status: NO_TRADE_ACCOUNT_LEDGER
+    residual_cash_annual_rate: 0.015
+    observed_return_replacement_allowed: false
+
+matched_control:
+  controls_per_event_stock: 5
+  universe: POINT_IN_TIME_NON_EVENT_A_SHARES
+  matching_inputs:
+    - PRE_ANNOUNCEMENT_FREE_FLOAT_MARKET_CAP
+    - PRE_ANNOUNCEMENT_20D_MEDIAN_TURNOVER
+  matching_clock: ANNOUNCEMENT_PREVIOUS_TRADING_DAY_CLOSE
+  future_information_allowed: false
+  observed_return_matching_allowed: false
+
+cost_contract:
+  decision_cost_case: STRESS
+  base:
+    buy_slippage_bps: 5
+    sell_slippage_bps: 5
+  stress:
+    buy_slippage_bps: 15
+    effective_close_sell_slippage_bps: 30
+    delayed_exit_open_slippage_bps: 30
+  commission:
+    rate_each_side: 0.0003
+    minimum_cny_each_side: 5
+  sell_stamp_duty:
+    before_2023_08_28: 0.001
+    from_2023_08_28: 0.0005
+  dividends: SEPARATE_CASH_LEDGER
+  trading_prices: RAW_UNADJUSTED
+
+time_blocks:
+  - id: A
+    first_cycle: 2016H1
+    last_cycle: 2019H2
+  - id: B
+    first_cycle: 2020H1
+    last_cycle: 2023H2
+  - id: C
+    first_cycle: 2024H1
+    last_cycle: 2026H1
+
+bootstrap:
+  cluster: REBALANCE_CYCLE
+  replications: 10000
+  seed: 20260829
+  confidence_level: 0.95
+
+data_admission_contract:
+  decision: EXISTING_FROZEN_INPUTS_ONLY_NO_SOURCE_RESCUE
+  no_source_rescue_after_observed_shortfall: true
+  prohibit_return_columns_read: true
+  prohibit_price_values_in_outputs: true
+  market_panel:
+    path: data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet
+    sha256: e7552c0c4ee8c8755e91e8dc2fda6233f4a23ac6e59de633d87ea0b8860312b9
+    input_manifest_path: data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/input_manifest.json
+    input_manifest_sha256: 3daade13d46baa11c6479e530725e1b7b9c257a0fb8d077bbf62265506c3b4c3
+    receipt_path: data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/research_panel_receipt.json
+    receipt_sha256: e11f90178e9e46a86383a94e32515c93114fc71298aa74f91b77e13301c4524b
+    coverage_start: '2014-01-02'
+    coverage_end: '2026-08-14'
+    allowed_columns:
+      - con_code
+      - date
+      - pre_close
+      - raw_open
+      - raw_high
+      - raw_low
+      - raw_close
+      - amount
+      - volume
+      - is_suspended
+      - observed_traded_row
+      - observation_status
+      - available_at
+      - linked_adjustment_factor
+      - exchange
+      - market_day_index
+    forbidden_columns:
+      - pct_chg
+      - total_return_open
+      - total_return_high
+      - total_return_low
+      - total_return_close
+      - return_scale_applied
+      - return_scale_bridge_applied
+  security_master:
+    path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/security_master_history.parquet
+    sha256: 1032c9521ed9c0c0efb0b23539593082d6ea19dc87525414740692c6d2f78276
+  security_status_intervals:
+    path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_3_combined_data_audit/security_status_intervals.parquet
+    sha256: ee908ae1479df318fcf449726755b9e911fc8d29df78d9942dffe4c0c730ed50
+    require_exactly_one_interval_per_event_phase: true
+    require_available_at_on_or_before_trade_date_close: true
+    inadmissible_sources:
+      - no_prior_official_transition_current_name_not_backfilled
+  corporate_action_success_receipts:
+    coverage_unit: UNIQUE_CANDIDATE_SECURITY_QUERIED_SUCCESSFULLY
+    paths:
+      - path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_corporate_action_audit/corporate_action_fetch_receipt.json
+        sha256: 104c44363cd121901624cfc784a9d4debcb1b2c3721cf58e5deea0ea6bd58299
+      - path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_1_corporate_action_audit_calendar_corrected/corporate_action_fetch_receipt.json
+        sha256: 4476d846092536bd4d00b2423048137d39104d811ac81fd928422dc655f56ed4
+      - path: data/staging/a_share_hs_concentrated_low_risk_trend_v1_5_2_corporate_action_audit_daily_coverage_corrected/corporate_action_fetch_receipt.json
+        sha256: 43cd8f4fd484474316a3d599d545d976a1b63e1ee3326c82f558ca1e6aaa6f6d
+  expected_market_rows: ALL_OPEN_DAYS_FROM_ENTRY_THROUGH_EFFECTIVE_DATE_PER_EVENT
+  price_limit_status_rows:
+    - ENTRY_DATE
+    - EFFECTIVE_DATE
+    - DELAYED_EXIT_SEARCH_DATES_IF_BLOCKED
+  price_limit_rules:
+    tick_size_cny: 0.01
+    rounding: ROUND_HALF_UP
+    main_board_normal_fraction: 0.10
+    main_board_st_fraction: 0.05
+    star_board_fraction: 0.20
+    chinext_fraction_before_2020_08_24_normal: 0.10
+    chinext_fraction_before_2020_08_24_st: 0.05
+    chinext_fraction_from_2020_08_24: 0.20
+    modern_first_five_listing_days: NO_DAILY_LIMIT
+    unresolved_legacy_ipo_first_day: NO_VIEW_PRICE_LIMIT_RULE_UNRESOLVED
+  d4_component_rule: EACH_COMPONENT_MUST_MEET_MINIMUM_NOT_AGGREGATE_AVERAGE
+  d5_resolution_rule: EVERY_EVENT_HAS_EFFECTIVE_CLOSE_OR_FIRST_SELLABLE_OPEN
+
+data_gates:
+  D1:
+    description: 2016H1至2026H1全部CSI300定期调整周期100%枚举
+    required_cycle_count: 21
+  D2:
+    description: 每周期保存官方公告、名单、生效日和原文SHA-256
+    required_cycle_fraction: 1.0
+  D3:
+    description: 至少20个完整周期且至少120个唯一新增事件
+    minimum_complete_cycles: 20
+    minimum_unique_additions: 120
+  D4:
+    description: 开盘、收盘、成交额、停牌、涨跌停和公司行为覆盖不低于98%
+    minimum_coverage: 0.98
+  D5:
+    description: 所有退出事件最终解决率100%
+    minimum_resolution: 1.0
+  D6:
+    description: 下一交易日、整手、最低佣金、分红、停牌和涨跌停单元测试通过
+    all_required: true
+  D7:
+    description: 协议、代码、输入清单、候选清单和随机种子全部哈希冻结
+    all_required: true
+  D8:
+    description: 正式运行前不得查看收益表、收益分布或曲线
+    price_output_allowed: false
+    return_output_allowed: false
+
+historical_acceptance_gates:
+  G1_stress_mean_excess_vs_510300_min: 0.01
+  G2_cycle_bootstrap_95pct_lower_strictly_positive: true
+  G3_cycle_median_excess_strictly_positive: true
+  G4_positive_excess_cycle_fraction_min: 0.65
+  G5_all_time_block_mean_excess_strictly_positive: true
+  G6_recent_block_median_excess_nonnegative: true
+  G7_matched_control_mean_excess_min: 0.005
+  G7_matched_control_bootstrap_lower_strictly_positive: true
+  G8_max_single_cycle_positive_profit_fraction_lt: 0.25
+  G8_top3_cycle_positive_profit_fraction_lt: 0.50
+  G9_leave_one_cycle_out_mean_excess_always_positive: true
+  G10_buyable_fraction_min: 0.90
+  G10_delayed_exit_fraction_max: 0.05
+  G11_account_20000_annualized_excess_vs_510300_min: 0.015
+  G11_account_20000_block_B_and_C_cumulative_excess_positive: true
+  G12_account_20000_max_drawdown_max: 0.12
+  G12_account_20000_full_period_cumulative_stress_excess_positive: true
+  all_gates_required: true
+
+state_mapping:
+  all_data_and_acceptance_gates_pass: HISTORICAL_ACCEPTANCE_PASS_DISCOVERY_ONLY
+  any_data_gate_not_passed: NO_VIEW_DATA_CONTRACT_FAILED
+  any_acceptance_gate_failed: REJECTED_FROZEN_NO_CSI300_ADDITION_FORCED_DEMAND_ALPHA
+  mechanism_passed_account_failed: MECHANISM_PASSED_NOT_EXECUTABLE_FOR_20K_ACCOUNT
+  return_evaluation_when_data_gate_not_passed: NOT_ALLOWED
+
+forbidden_rescue:
+  - CHANGE_ENTRY_CLOCK
+  - CHANGE_EXIT_CLOCK
+  - REVERSE_OR_SHORT_DELETIONS
+  - ADD_TREND_VALUATION_LOW_VOL_COMPRESSION_OR_REGIME_FILTER
+  - EXPAND_TO_CSI500_CSI1000_OR_OTHER_INDEX
+  - DELETE_SUSPENDED_LIMIT_UP_HIGH_COST_OR_LOSS_EVENTS
+  - REDUCE_COSTS_OR_ECONOMIC_GATES
+  - SELECT_BEST_TIME_BLOCK
+
+governance:
+  protocol_and_candidates_frozen_before_return_read: true
+  parameter_search_allowed: false
+  observed_result_rescue_allowed: false
+  return_evaluation_attempts: 1
+  research_only: true
+  shadow_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+
+artifacts:
+  raw_root: data/raw/a_share_hs_csi300_official_addition_forced_demand_v1
+  curated_root: data/curated/a_share_hs_csi300_official_addition_forced_demand_v1
+  event_ledger_without_returns: data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/event_ledger_without_returns.parquet
+  candidate_list_without_returns: data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/candidate_list_without_returns.csv
+  official_announcement_manifest: data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/official_announcement_manifest.json
+  acquisition_report_json: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.json
+  acquisition_report_md: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.md
+  data_admission_event_status_without_prices: data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/data_admission_event_status_without_prices.parquet
+  data_admission_report_json: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.json
+  data_admission_report_md: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.md
+  protocol_manifest: config/a_share_hs_csi300_official_addition_forced_demand_v1_protocol_manifest.json
+  freeze_receipt: reports/audit/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PRE_RETURN_FREEZE.json
+  freeze_history_root: reports/audit/a_share_hs_csi300_official_addition_forced_demand_v1_pre_return_freeze_runs

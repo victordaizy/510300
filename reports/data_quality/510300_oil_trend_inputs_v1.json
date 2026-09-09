@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_OIL_TREND_INPUTS_V1",
+  "status": "PASS",
+  "checked_at_asia_shanghai": "2026-08-30T16:46:07.081503+08:00",
+  "candidate_outcomes_computed": false,
+  "portfolio_returns_computed": false,
+  "source": {
+    "owner": "U.S. Energy Information Administration",
+    "api_route": "https://api.eia.gov/v2/petroleum/pri/spt/data/",
+    "resolved_url_with_key_omitted": "https://api.eia.gov/v2/petroleum/pri/spt/data/?api_key=REDACTED_PUBLIC_OR_ENV_KEY&frequency=daily&data%5B0%5D=value&facets%5Bseries%5D%5B%5D=RBRTE&start=2012-01-01&end=2026-08-14&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000",
+    "http_resolved_url_was_received": true,
+    "series": [
+      "RBRTE"
+    ],
+    "units": [
+      "$/BBL"
+    ],
+    "request_start": "2012-01-01",
+    "request_end": "2026-08-14",
+    "raw_response_sha256": "f978d48d8839e48a7e70283730ce6f4c7fe809276bf3ca1b0b3aec9385e74b6b",
+    "raw_response_bytes": 1053238,
+    "api_total": 3706,
+    "response_rows": 3706,
+    "description": null,
+    "warnings": []
+  },
+  "oil_daily": {
+    "rows": 3706,
+    "first_date": "2012-01-03",
+    "last_date": "2026-08-14",
+    "duplicate_dates": 0,
+    "missing_values": 0,
+    "nonpositive_values": 0,
+    "minimum_value": 9.12,
+    "maximum_value": 138.21,
+    "maximum_calendar_gap_days": 6,
+    "availability_lag_us_business_days": 5,
+    "robustness_availability_lag_us_business_days": 10
+  },
+  "etf_daily": {
+    "rows": 3456,
+    "first_date": "2012-05-28",
+    "last_date": "2026-08-14",
+    "duplicate_dates": 0,
+    "missing_or_nonpositive_ohlc_rows": 0,
+    "prior_audit_path": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "prior_audit_sha256": "248b1b1cd3d064378bf5e97fcafc190ff438fa4c7935b701dbfa3a7b11d3e417"
+  },
+  "checks": {
+    "api_total_matches_rows": true,
+    "oil_minimum_rows": true,
+    "oil_dates_exact": true,
+    "oil_series_exact": true,
+    "oil_units_exact": true,
+    "oil_dates_unique": true,
+    "oil_values_complete_positive": true,
+    "oil_dates_monotonic": true,
+    "availability_strictly_after_observation": true,
+    "robust_availability_not_earlier": true,
+    "etf_rows_exact": true,
+    "etf_dates_exact": true,
+    "etf_unique_complete_ohlc": true
+  },
+  "boundaries": {
+    "oil_factor_computed": false,
+    "future_510300_returns_read": false,
+    "candidate_outcomes_computed": false,
+    "strategy_returns_read": false,
+    "parameter_selection_performed": false,
+    "live_trading_authorized": false
+  },
+  "bound_input_hashes_before_outputs": {
+    "data/raw/market/510300_daily_downside_risk_v1.parquet": "d58ace846e1596a428b2a31eb8fad888d049e4c89ccfde3082487514a307d8b5",
+    "reports/data_quality/510300_downside_risk_inputs_v1.json": "248b1b1cd3d064378bf5e97fcafc190ff438fa4c7935b701dbfa3a7b11d3e417",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961"
+  },
+  "output_files": {
+    "data/raw/macro/eia_brent_spot_daily_oil_trend_v1_raw.json": {
+      "sha256": "f978d48d8839e48a7e70283730ce6f4c7fe809276bf3ca1b0b3aec9385e74b6b",
+      "bytes": 1053238
+    },
+    "data/raw/macro/eia_brent_spot_daily_oil_trend_v1.parquet": {
+      "sha256": "6704e22f59aeade782eb0ce7556acab819d645f905a4f49fbb8cd8381a2926d0",
+      "bytes": 121469
+    }
+  }
+}

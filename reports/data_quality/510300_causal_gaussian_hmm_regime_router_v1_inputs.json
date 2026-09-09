@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_CAUSAL_GAUSSIAN_HMM_REGIME_ROUTER_V1",
+  "generated_at_asia_shanghai": "2026-08-31T13:45:52.688589+08:00",
+  "status": "PASS_PREFREEZE_CAUSAL_HMM_MODEL_AND_DAILY_INPUTS_RANGE_T_NOT_ALLOWED",
+  "candidate_2015_plus_states_read_or_computed": false,
+  "candidate_2015_plus_outcomes_read_or_computed": false,
+  "candidate_portfolio_returns_read_or_computed": false,
+  "daily_inputs": {
+    "etf_daily": {
+      "path": "data/raw/r6/510300_daily.parquet",
+      "bytes": 137702,
+      "sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14"
+    },
+    "index_daily": {
+      "path": "data/raw/r6/000300_daily.parquet",
+      "bytes": 161662,
+      "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+      "rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14"
+    },
+    "benchmark_total_return": {
+      "path": "data/raw/r6/H00300_total_return_daily.parquet",
+      "bytes": 153211,
+      "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "rows": 3457,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14"
+    },
+    "dividends": {
+      "path": "data/reference/510300_dividends.csv",
+      "bytes": 2021,
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "rows": 14,
+      "first_date": "2012-12-18",
+      "last_date": "2026-01-19"
+    }
+  },
+  "prefreeze_model": {
+    "path": "config/510300_causal_gaussian_hmm_regime_router_v1_model.json",
+    "bytes": 3956,
+    "sha256": "d68054a84702805188576144c89b90d5aff48ec695dbc0f6f9c26d45697d1d22",
+    "status": "PASS_PREFIT_TRAINING_ONLY_MODEL_IDENTIFIABILITY",
+    "training": {
+      "start": "2012-06-26",
+      "end": "2014-12-31",
+      "rows": 613,
+      "candidate_2015_plus_states_computed": false,
+      "candidate_2015_plus_outcomes_read_or_computed": false,
+      "candidate_portfolio_returns_read_or_computed": false
+    },
+    "training_diagnostics": {
+      "converged": true,
+      "iterations": 21,
+      "maximum_iterations": 200,
+      "initial_log_likelihood": -2110.829652967242,
+      "final_log_likelihood": -1918.0402414613438,
+      "last_em_improvement": 7.985136107890867e-08,
+      "minimum_em_improvement": 7.985136107890867e-08,
+      "variance_floor_bindings": 0,
+      "effective_state_mass": [
+        0.319358905862886,
+        0.45888694700403165,
+        0.22175414713308245
+      ],
+      "minimum_effective_state_mass": 0.22175414713308245,
+      "required_minimum_effective_state_mass": 0.05,
+      "training_gate_passed": true
+    },
+    "state_mapping": {
+      "rule": "SORT_FROZEN_RAW_EMISSION_MEAN_OF_LOG_RETURN_20D_LOW_BEAR_MIDDLE_RANGE_HIGH_BULL",
+      "latent_to_semantic": {
+        "0": "BEAR_TREND",
+        "1": "RANGE_OR_UNCONFIRMED",
+        "2": "BULL_TREND"
+      },
+      "semantic_to_latent": {
+        "BEAR_TREND": 0,
+        "RANGE_OR_UNCONFIRMED": 1,
+        "BULL_TREND": 2
+      }
+    },
+    "post_2014_candidate_information_used": false
+  },
+  "range_t_data_gate": {
+    "status": "FAIL_COMPLETE_2015_TO_2026_INTRADAY_COVERAGE",
+    "range_t_return_evaluation": "NOT_ALLOWED",
+    "fallback_range_policy": "NO_TRADE",
+    "coverage_complete": false,
+    "required_first_date": "2015-01-05",
+    "required_last_date": "2026-08-14",
+    "observed_intraday": {
+      "path": "data/raw/market/510300_15m_from_1m_raw.parquet",
+      "bytes": 623885,
+      "sha256": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1",
+      "rows": 19376,
+      "first_date": "2021-08-12",
+      "last_date": "2026-08-12",
+      "trading_days": 1211
+    },
+    "source_quality_receipt": {
+      "path": "reports/data_quality/510300_15m_from_1m_quality.json",
+      "sha256": "e7fc50490e038273dbdf205d64688f85838ab1c16d0d6871c01ed4f9dcc95e26",
+      "status": "PASS_WITH_SOURCE_CAVEATS"
+    },
+    "existing_intraday_family_status": "REJECTED_FIXED_INTRADAY_FAMILY_NO_RESCUE"
+  },
+  "official_trading_rule": {
+    "stock_etf_t_plus_one": true,
+    "same_day_new_buy_then_sell_allowed": false,
+    "inventory_sell_then_buy_back_requires_separate_inventory_model": true,
+    "sources": [
+      "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml",
+      "https://etf.sse.com.cn/fund/quertion/"
+    ]
+  },
+  "admission": {
+    "daily_probabilistic_three_state_strategy_allowed": true,
+    "historical_range_t_allowed": false,
+    "reason": "训练期模型可识别且日线合同完整；完整分钟合同不足，震荡阶段固定不交易。"
+  }
+}

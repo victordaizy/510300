@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V7_MANIFEST",
+  "status": "FROZEN_BEFORE_DIGITAL_ASSET_SPOT_VOLATILITY_SCALED_TREND_OUTCOME",
+  "frozen_at": "2026-08-27T04:43:44.479702+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V7",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V6",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v7.yaml": "82b30e970a9c24687cc88c068137119e0810a2b41129d58cb392cfcc44b9df4c",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V7_SPEC.md": "89fb3337bfe48d1df9fdc5380fd144f7d9d62c4ddb806f3c86deeb9a66a588db",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v7.py": "d17b692d2c9979dd74bfd554c5037f7dd7125581c8b0ce11cfe36ee9508c9ba7"
+  },
+  "tracked_content_sha256": "78bc4f26fe23d1fd38fd0769d160af3c846a3c10be6d986909d477ea62517d75",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V6_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v6_manifest.json",
+    "manifest_sha256": "732cae0e75fc1b177b992a0c4e0dac57b2df893e0772690bea45e62702e19b7c",
+    "tracked_content_sha256": "37a551add545d7fe994f2d604186908283e102c942c82cd31fa408b0399cd04d",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V5_MANIFEST_VERIFIED",
+    "v1_manifest_status": "PASS_US_LEVERAGED_MULTI_ASSET_MANIFEST_VERIFIED"
+  },
+  "v1r_manifest_verification": {
+    "status": "PASS_US_LEVERAGED_MULTI_ASSET_V1R_FX_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/us_leveraged_multi_asset_absolute_momentum_v1r_fx_source_correction_manifest.json",
+    "manifest_sha256": "8c51b1c29fed7526b3c26137898849ef46085d0135603f3d770a8ecb240f3f0e",
+    "tracked_content_sha256": "0b1efa65b2ec9b34c10bc7caa4e4c1f240a90f4b4da8f6173f0b4426f8610d0c",
+    "tracked_file_count": 8,
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V6_MANIFEST_VERIFIED",
+    "v1_manifest_status": "PASS_US_LEVERAGED_MULTI_ASSET_MANIFEST_VERIFIED",
+    "conservative_evaluator_manifest_status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+  },
+  "v1r_failure": {
+    "checks": {
+      "status": true,
+      "error": true,
+      "performance_unavailable": true,
+      "replication_closed": true,
+      "target_not_verified": true
+    },
+    "report_path": "reports/research/us_leveraged_multi_asset_absolute_momentum_v1r_fx_visible.json",
+    "report_sha256": "1ecdfab64ca99119b5420553fa4783fc6ad1bda593b9b6959dd9d092f8679b6b",
+    "error": "历史路径容量失败"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DIGITAL_ASSET_SPOT_VOLATILITY_SCALED_TIME_SERIES_MOMENTUM",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_spot_products": [
+      "BTC-USD",
+      "ETH-USD"
+    ],
+    "official_market_data_source": "COINBASE_EXCHANGE_PUBLIC_PRODUCT_CANDLES",
+    "economic_mechanism": "数字资产趋势持续性与波动缩放，而非杠杆ETF跨风险源轮动",
+    "account_borrowing_allowed": false,
+    "account_margin_allowed": false,
+    "short_sale_allowed": false,
+    "derivative_position_allowed": false,
+    "maximum_account_gross_exposure": 1.0
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

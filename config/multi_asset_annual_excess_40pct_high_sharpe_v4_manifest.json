@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V4_MANIFEST",
+  "status": "FROZEN_BEFORE_CB_DOUBLE_LOW_CANDIDATE_OUTCOME",
+  "frozen_at": "2026-08-27T03:24:52.495084+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V4",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V3",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v4.yaml": "cab7d4e941aacc23ff319725ebd9e1ae82ca2e7e58f47ea44944a9c2ecd84e3d",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V4_SPEC.md": "7970294ec4d55ef18aff365032821de0b27d517f71e55cc184c9800364de16a6",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v4.py": "f290f137bbd294ba652f9162a0fc9aa384f7bea6f44f9dc94049c564a60f88ef"
+  },
+  "tracked_content_sha256": "4e022aeb71f69fd95ce48e4f5c979077ac47e823a6f5f902cd9ea0e8b70ae998",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V3_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v3_manifest.json",
+    "manifest_sha256": "5e1269e62511ce40a1bfd77a07c58c6606a7786f1c273add65c5d3c34e51b39a",
+    "tracked_content_sha256": "cb137dc31b7e5801656b6a283737d901d270172ba05d9f2ae40b95d6a4797167",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V2_MANIFEST_VERIFIED"
+  },
+  "limit_up_manifest_verification": {
+    "status": "PASS_A_SHARE_LIMIT_UP_CONTINUATION_V1_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/a_share_limit_up_continuation_v1_manifest.json",
+    "manifest_sha256": "816bb2ed343b70ccc72176558309521155a2fdf353a2b5a71a5832f3e50540b3",
+    "tracked_content_sha256": "cfffbb2936d3b367da8454792c256bec955a36eb6a484205c9f4478aad5c12a8",
+    "tracked_file_count": 5,
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V3_MANIFEST_VERIFIED",
+    "conservative_evaluator_manifest_status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+  },
+  "limit_up_rejection": {
+    "checks": {
+      "rejected": true,
+      "all_visible_gates_failed": true,
+      "replication_closed": true,
+      "historical_target_not_verified": true
+    },
+    "report_path": "reports/research/a_share_limit_up_continuation_v1_visible.json",
+    "report_sha256": "3422b58349ba8634826c13cf68ace9efcc6f1df69b9c242e178cdd9de7cb81fc"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true,
+    "rolling_and_bootstrap_gates_unchanged": true,
+    "forward_726_day_requirement_unchanged": true
+  },
+  "new_lane": {
+    "lane": "CHINA_CONVERTIBLE_BOND_RELATIVE_VALUE",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "permitted_mechanism": "含已退市债券的全历史可转债中，按收盘价加点时转股溢价百分点的传统双低分数排序，下一交易日开盘等权轮动",
+    "distinct_from_prior_cb_lane": "既有新债股东配售研究不属于二级市场双低轮动",
+    "required_inputs": [
+      "INCLUDING_DELISTED_BONDS",
+      "POINT_IN_TIME_DAILY_CONVERSION_PREMIUM",
+      "OBSERVED_DAILY_OPEN_CLOSE_VOLUME"
+    ],
+    "prohibited_reuse": [
+      "NEW_BOND_SUBSCRIPTION_OR_SHAREHOLDER_PRIORITY_ALLOCATION",
+      "A_SHARE_PRICE_LIMIT_CONTINUATION",
+      "ETF_MOMENTUM_OR_ROTATION",
+      "QDII_DISCOUNT_REVERSION",
+      "A_SHARE_LOW_VOLATILITY_SIZE_VALUE_OR_TREND"
+    ],
+    "short_sale_allowed": false,
+    "leverage_allowed": false,
+    "stock_conversion_or_arbitrage_allowed": false,
+    "same_close_signal_and_execution_allowed": false
+  },
+  "strategy_return_or_rank_computed_during_acquisition": false,
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

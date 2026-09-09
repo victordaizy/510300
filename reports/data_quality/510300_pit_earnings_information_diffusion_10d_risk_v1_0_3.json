@@ -1,0 +1,168 @@
+{
+  "data_correction_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1_0_3",
+  "formal_candidate_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+  "status": "PASS_OUTCOME_BLIND_PANEL_BUILT_WITH_EXPLICIT_LIMITATIONS",
+  "authoritative_candidate_status": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS",
+  "created_at": "2026-08-30T23:16:36.769726+08:00",
+  "source_manifest": {
+    "path": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3_source_manifest.json",
+    "sha256": "799b19916bc90d6af745839cde1cfd98b98572d8602b5e7032d3247cb5aad27e",
+    "status": "FROZEN_OUTCOME_BLIND_SOURCE_CORRECTION_BEFORE_OUTPUT"
+  },
+  "membership": {
+    "rows": 846900,
+    "sessions": 2823,
+    "first_date": "2015-01-05",
+    "last_date": "2026-08-14",
+    "members_min": 300,
+    "members_max": 300,
+    "duplicate_date_symbol_rows": 0,
+    "source_contracts": [
+      "CSI_OFFICIAL_REBALANCE_REPLAY_V1_0_1",
+      "CSI_OFFICIAL_REBALANCE_REPLAY_V1_0_2_2015_EXTENSION"
+    ]
+  },
+  "membership_independent_audit_status": "PASS_MEMBERSHIP_ADMISSION_WEIGHT_BLOCK_PRESERVED",
+  "weights": {
+    "rows": 36000,
+    "snapshots": 120,
+    "first_snapshot": "2016-08-31",
+    "last_snapshot": "2026-07-31",
+    "members_min": 300,
+    "members_max": 300,
+    "weight_sum_min_percent": 99.988,
+    "weight_sum_max_percent": 100.011,
+    "duplicate_date_security_rows": 0,
+    "sources": {
+      "tushare.index_weight": 36000
+    },
+    "revision_vintage_proven": false,
+    "reliability_status": "UNVERIFIED_HISTORICAL_WEIGHT_REVISION_VINTAGE"
+  },
+  "weights_source_receipt_status": "PASS",
+  "facts_gate": {
+    "automation_status": "BLOCKED_DATA_CONTRACT_FAILED",
+    "a2_status": "PASS",
+    "a3_status": "FAIL",
+    "a3_denominator_count": 1624,
+    "a3_success_count": 900,
+    "a3_success_rate": 0.5541871921182266,
+    "required_rate": 0.9,
+    "actual_completed_human_review_pairs": 0,
+    "fact_status_counts": {
+      "NO_VIEW_PARENT_NET_PROFIT_ONLY_WITHOUT_CORE_PROFIT": 78605,
+      "NO_VIEW_FINANCIAL_PERIOD_MISSING": 8417,
+      "PASS_COMPLETE_CUMULATIVE_CORE_PARENT_NET_PROFIT_FACT": 900,
+      "NO_VIEW_FINANCIAL_PERIOD_AMBIGUOUS": 291,
+      "NO_VIEW_CORE_ABSOLUTE_AMOUNT_MISSING_OR_UNIT_UNDETERMINED": 215,
+      "NO_VIEW_CORE_AMOUNT_NOT_UNIQUE": 155,
+      "NO_VIEW_PDF_TEXT_UNREADABLE_NO_OCR": 80,
+      "NO_VIEW_OFFICIAL_PDF_UNAVAILABLE": 10,
+      "NO_VIEW_CUMULATIVE_VS_SINGLE_QUARTER_UNDETERMINED": 4
+    },
+    "first_public_status_counts": {
+      "NO_VIEW_MISSING_COMPLETE_CUMULATIVE_CORE_FACT": 53369,
+      "NO_VIEW_NO_PRIOR_OR_CURRENT_NUMERIC_EARNINGS_FACT": 34408,
+      "PASS_FIRST_NUMERIC_CORE_EVENT": 852,
+      "NO_VIEW_NOT_FIRST_NUMERIC_EARNINGS_EVENT": 48
+    }
+  },
+  "prevalence": {
+    "all_first_public_complete_fact_count": 852,
+    "member_first_public_complete_fact_count": 62,
+    "member_valid_weight_fact_count": 60,
+    "member_valid_weight_fact_count_2021_plus": 46,
+    "member_negative_fact_count_2021_plus": 10,
+    "valid_weight_member_facts_by_year": {
+      "2017": 1,
+      "2018": 5,
+      "2019": 6,
+      "2020": 2,
+      "2021": 2,
+      "2022": 8,
+      "2023": 10,
+      "2024": 9,
+      "2025": 9,
+      "2026": 8
+    },
+    "years_with_at_least_20_valid_weight_member_facts": 0
+  },
+  "formal_gates": {
+    "official_daily_membership": {
+      "passed": true,
+      "actual": {
+        "rows": 846900,
+        "sessions": 2823,
+        "first_date": "2015-01-05",
+        "last_date": "2026-08-14",
+        "members_min": 300,
+        "members_max": 300,
+        "duplicate_date_symbol_rows": 0,
+        "source_contracts": [
+          "CSI_OFFICIAL_REBALANCE_REPLAY_V1_0_1",
+          "CSI_OFFICIAL_REBALANCE_REPLAY_V1_0_2_2015_EXTENSION"
+        ]
+      },
+      "required": "300_MEMBERS_EACH_OPEN_SESSION"
+    },
+    "version_proven_pit_weights": {
+      "passed": false,
+      "actual": "UNVERIFIED_HISTORICAL_WEIGHT_REVISION_VINTAGE",
+      "required": "VERSION_PROVEN_PIT_WEIGHTS"
+    },
+    "fact_automation_a3": {
+      "passed": false,
+      "actual": 0.5541871921182266,
+      "required": 0.9
+    },
+    "dual_human_review": {
+      "passed": false,
+      "actual_completed_pairs": 0,
+      "required": "TWO_REAL_INDEPENDENT_REVIEWERS_COMPLETE"
+    },
+    "first_public_weighted_fact_prevalence": {
+      "passed": false,
+      "actual": {
+        "count": 60,
+        "years_with_at_least_20": 0
+      },
+      "required": {
+        "minimum_count": 300,
+        "minimum_years_with_at_least_20": 8
+      }
+    }
+  },
+  "formal_candidate_data_passed": false,
+  "limitations": [
+    "UNVERIFIED_HISTORICAL_WEIGHT_REVISION_VINTAGE",
+    "FACT_A3_BELOW_FROZEN_MINIMUM",
+    "DUAL_HUMAN_REVIEW_NOT_COMPLETE",
+    "FIRST_PUBLIC_MEMBER_FACTS_TOO_SPARSE",
+    "DIAGNOSTIC_ONLY_NOT_FORMAL_CANDIDATE_EVIDENCE"
+  ],
+  "artifacts": {
+    "member_event_panel": {
+      "path": "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/member_first_public_facts.parquet",
+      "sha256": "dfb655d50ab96fad2e494f8070e84470cd8d0dda094109da1a7c48da8d1b2740",
+      "rows": 62
+    },
+    "daily_outcome_blind_features": {
+      "path": "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/daily_outcome_blind_features.parquet",
+      "sha256": "ed11240b2855bc93c354af85cb08d22ec3bc6e2021c72c11dcc7f8bb11ec4358",
+      "rows": 2823,
+      "first_date": "2015-01-05",
+      "last_date": "2026-08-14"
+    }
+  },
+  "market_price_reads": 0,
+  "future_return_reads": 0,
+  "target_label_created": false,
+  "prediction_model_created": false,
+  "portfolio_evaluation_performed": false,
+  "model_action": "ABSTAIN",
+  "model_position_target": "UNSET",
+  "paper_signal_allowed": false,
+  "shadow_signal_allowed": false,
+  "live_trading_authorized": false,
+  "return_evaluation": "NOT_ALLOWED_IN_OUTCOME_BLIND_DATA_STAGE"
+}

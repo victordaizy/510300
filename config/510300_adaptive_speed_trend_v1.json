@@ -1,0 +1,90 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "study_id": "510300_ADAPTIVE_SPEED_TREND_V1",
+  "round": 48,
+  "registered_at": "2026-09-07T18:00:21.531178+08:00",
+  "candidate_configurations": 2,
+  "primary": "ADAPTIVE_SPEED",
+  "names": {
+    "ADAPTIVE_SPEED": "方向效率决定均线反应速度",
+    "FIXED_NEUTRAL_SPEED": "效率固定为一半的同规则对照"
+  },
+  "efficiency_window": 10,
+  "fast_period": 2,
+  "slow_period": 30,
+  "neutral_efficiency": 0.5,
+  "confirmation_closes": 2,
+  "rules": "docs/510300_ADAPTIVE_SPEED_TREND_V1.md",
+  "specification": {
+    "cooldown": 0,
+    "modes": {
+      "1": {
+        "loss": null,
+        "trail": null,
+        "take": null,
+        "days": null
+      }
+    }
+  },
+  "new_model_fits": 0,
+  "position_impact": 0,
+  "evidence_class": "NEW_METHOD_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "frozen_files": [
+    {
+      "path": "research\\adaptive_speed_trend_v1.py",
+      "sha256": "df73f6a53469fc98a0531d224a9d0e64a8011b952c06ff27a2bcc2e1a8d43373"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "tests\\test_adaptive_speed_trend_v1.py",
+      "sha256": "bbbbf747e3303f0514acf0147653d50b212fa8683ec38ae99d6b6475c370c8c7"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_ADAPTIVE_SPEED_TREND_V1.md",
+      "sha256": "739756779c5e167dad35cd11b6899d3db093f9094c062220f97f0d91ca056d25"
+    }
+  ]
+}

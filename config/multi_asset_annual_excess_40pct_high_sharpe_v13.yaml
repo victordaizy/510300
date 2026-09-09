@@ -1,0 +1,60 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V13"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V12"
+  status: "FROZEN_BEFORE_DUAL_DIGITAL_ASSET_LONG_HORIZON_TREND_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v12_manifest.json"
+  btc_v3_manifest: "config/btc_spot_capacity_aware_long_horizon_trend_v3_manifest.json"
+  btc_v3_visible_report: "reports/research/btc_spot_capacity_aware_long_horizon_trend_v3_visible.json"
+
+registered_btc_v3_rejection:
+  candidate_id: "BTC_SPOT_CAPACITY_AWARE_LONG_HORIZON_TREND_V3"
+  required_status: "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN"
+  all_visible_gates_pass: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "DUAL_DIGITAL_ASSET_LONG_HORIZON_TIME_SERIES_TREND"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_products: ["BTC-USD", "ETH-USD"]
+  venue: "COINBASE_EXCHANGE"
+  market_type: "SPOT_ONLY"
+  signal_frequency: "WEEKLY_COMPLETED_UTC_SUNDAY"
+  per_product_trend_rule: "CLOSE_ABOVE_200_DAY_SMA_AND_126_DAY_RETURN_POSITIVE"
+  covariance_lookback_calendar_days: 60
+  preliminary_weighting: "INVERSE_REALIZED_VOLATILITY_AMONG_ELIGIBLE_PRODUCTS"
+  portfolio_target_annualized_volatility: 0.40
+  maximum_product_weight: 1.0
+  maximum_gross_weight: 1.0
+  capacity_aware_execution_from_first_version: true
+  maximum_order_fraction: 0.003
+  terminal_winddown_calendar_days: 30
+  base_total_spot_cost_bps_per_leg: 76.0
+  stress_total_spot_cost_bps_per_leg: 106.0
+  parameter_grid_search_allowed: false
+
+governance:
+  btc_v3_remains_rejected: true
+  btc_v3_parameter_or_universe_change_allowed: false
+  dual_asset_candidate_is_separate_fixed_mechanism: true
+  new_candidate_must_freeze_before_visible_outcome: true
+  sealed_replication_may_open_only_after_visible_pass: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

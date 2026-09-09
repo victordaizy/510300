@@ -1,0 +1,92 @@
+collector:
+  collector_id: "510300_PRIMARY_SECONDARY_FORWARD_V1_3_STRICT_TLS_ROUTE"
+  symbol: "510300.SH"
+  fund_code: "510300"
+  timezone: "Asia/Shanghai"
+  timeout_seconds: 15
+  observation_interval_seconds: 60
+  retry_delay_seconds: 15
+  maximum_consecutive_failures: 5
+  daily_crosscheck_retry_count: 5
+  daily_crosscheck_retry_delay_seconds: 10
+  collection_start_time: "09:30:00"
+  collection_end_time: "15:00:00"
+  collection_sessions:
+    - ["09:30:00", "11:30:00"]
+    - ["13:00:00", "15:00:00"]
+  evidence_scope: "2026-08-31起新增严格TLS路线证据；沿用既有前瞻序列，禁止回填或重跑2026-08-28"
+
+inputs:
+  legacy_pcf_daily_file: "data/raw/primary_market/510300_pcf_daily.parquet"
+  legacy_iopv_snapshot_file: "data/raw/primary_market/510300_iopv_snapshots.parquet"
+  trading_calendar_file: "data/reference/sse_trade_calendar_2026.csv"
+
+outputs:
+  pcf_daily_file: "data/raw/primary_market_v1_2/510300_pcf_daily_v1_2.parquet"
+  iopv_snapshot_file: "data/raw/primary_market_v1_2/510300_iopv_snapshots_v1_2.parquet"
+  daily_crosscheck_file: "data/raw/primary_market_v1_2/510300_etf_daily_crosscheck_v1_2.parquet"
+  raw_response_directory: "data/raw/primary_market_v1_2/raw"
+  source_receipt_directory: "reports/data_quality/free_source_acquisitions/primary_market_v1_3"
+  quality_report_file: "reports/data_quality/510300_primary_market_forward_status_v1_3.json"
+  daily_crosscheck_status_file: "reports/data_quality/510300_primary_market_daily_crosscheck_status_v1_3.json"
+  readiness_report_file: "reports/data_quality/510300_primary_market_readiness_v1_2.json"
+  task_status_file: "reports/data_quality/510300_primary_market_task_status_v1_3.json"
+
+source_contract:
+  schema_version: "FREE_SOURCE_ACQUISITION_RECEIPT_V1"
+  sources:
+    pcf:
+      source_id: "SSE_PCF_COMMON_QUERY"
+      source_url_or_endpoint: "https://query.sse.com.cn/commonQuery.do"
+      parser_version: "SsePcfProviderV1_3@1"
+      fallback_source: ""
+      access_cost_cny: 0
+    iopv:
+      source_id: "SSE_YUNHQ_IOPV_SNAPSHOT"
+      source_url_or_endpoint: "https://yunhq.sse.com.cn:32042/v1/sh1/snap/{fund_code}"
+      parser_version: "SseIopvSnapshotProviderV1_3@1"
+      fallback_source: "SSE_ETF_DAILY_TURNOVER_OFFICIAL"
+      access_cost_cny: 0
+    daily_crosscheck:
+      source_id: "SSE_ETF_DAILY_TURNOVER_OFFICIAL"
+      source_url_or_endpoint: "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_CJGK_MRGK_C"
+      parser_version: "SseEtfDailyCrosscheckProviderV1_3@1"
+      fallback_source: ""
+      access_cost_cny: 0
+
+transport_contract:
+  schema_version: "SSE_STRICT_TRANSPORT_CONTRACT_V1"
+  tls_verification_required: true
+  insecure_tls_allowed: false
+  environment_route_first: true
+  direct_fallback:
+    enabled: true
+    trigger_only_on: "CERTIFICATE_VERIFICATION_FAILED"
+    maximum_attempts_per_request: 1
+    trust_environment_proxy: false
+  allowed_https_endpoints:
+    - "query.sse.com.cn:443"
+    - "yunhq.sse.com.cn:32042"
+
+quality:
+  require_iopv_publication: true
+  maximum_pcf_nav_relative_error: 0.01
+  maximum_clock_delay_seconds_during_session: 180
+  maximum_negative_clock_skew_seconds: 5
+  crosscheck_required_from: "2026-08-26"
+  minimum_final_snapshot_time: "14:59:00"
+  maximum_ohl_price_difference_cny: 0.005
+  maximum_close_price_difference_cny: 0.01
+
+readiness:
+  minimum_full_coverage_days: 20
+  recommended_full_coverage_days: 40
+  first_unseen_evaluation_full_coverage_days: 80
+  replication_full_coverage_days: 120
+  minimum_snapshots_per_day: 120
+  day_cluster_unit: "trade_date"
+
+governance:
+  use_as_trading_signal: false
+  automatic_ordering_authorized: false
+  note: "V1.3仅修复上交所严格TLS传输路线；来源、解析定义、质量阈值、成熟度门槛和零付费预算不变。"

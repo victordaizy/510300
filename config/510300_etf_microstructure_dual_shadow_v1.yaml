@@ -1,0 +1,191 @@
+protocol:
+  project_id: 510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_V1
+  state: FROZEN_AFTER_HISTORICAL_DISCOVERY_BEFORE_POST_CUTOFF_HOLDOUT
+  discovered_by: 510300_ETF_MICROSTRUCTURE_SHADOW_GATE_DISCOVERY_V5
+  candidate_name: MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW
+  deployable_strategy: false
+  historical_evidence_limit: 所有截至2026-08-14的行情及截至2026-08-12的信号输入均已在开发中读取，不宣称未见样本
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  allowed_states:
+    - 0
+    - 1
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+
+dates:
+  signal_history_start: '2021-08-12'
+  development_start: '2022-03-09'
+  development_end: '2025-12-31'
+  temporal_replication_start: '2026-01-02'
+  temporal_replication_end: '2026-08-14'
+  frozen_signal_cutoff: '2026-08-12'
+  frozen_execution_market_cutoff: '2026-08-14'
+  post_cutoff_holdout_first_signal_date: 首个严格晚于2026-08-12且在冻结后首次读取的合格交易日
+  prospective_forward_first_signal_date: 首个严格晚于冻结时刻的合格交易日
+
+inputs:
+  nav_daily:
+    path: data/raw/fund/510300_nav_daily_raw.parquet
+    date_column: date
+    required_column: close_premium_to_nav
+  fund_share_daily:
+    path: data/raw/flow/510300_fund_share_daily_tushare.parquet
+    date_column: date
+    required_column: fund_shares
+  margin_detail_daily:
+    path: data/raw/flow/510300_margin_detail_daily_tushare.parquet
+    date_column: date
+    required_columns:
+      - rzye
+      - rqye
+      - rqyl
+      - rzrqye
+  etf_execution:
+    path: data/raw/r6/510300_daily.parquet
+    date_column: date
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    benchmark_id: H00300
+  cash_distributions:
+    path: data/reference/510300_dividends.csv
+
+calendar:
+  definition: 以510300交易日为唯一信号日历；净值、基金份额、融资融券必须在该交易日同时存在
+  non_trading_source_rows: 忽略，不进入滚动窗口、状态机或投票
+  duplicate_policy: reject
+  sort: date_ascending
+
+rolling_percentile:
+  window_trading_rows: 252
+  minimum_valid_rows: 126
+  definition: 当前有效值在最近252个510300交易日有效值中的小于等于比例
+  missing_current_value: 不触发新状态，滞回状态保持不变
+
+micro_consensus:
+  required_votes_for_cash: 3
+  domains:
+    premium_std20:
+      raw: close_premium_to_nav的20日总体标准差
+      enter: 滚动分位不高于0.10
+      recover: 滚动分位不低于0.30
+    premium_range20:
+      raw: close_premium_to_nav的20日最高减最低
+      enter: 滚动分位不高于0.15
+      recover: 滚动分位不低于0.30
+    premium_std10:
+      raw: close_premium_to_nav的10日总体标准差
+      enter: 滚动分位不高于0.20
+      recover: 滚动分位不低于0.60
+    fund_share_contraction:
+      raw: log(fund_shares)-log(fund_shares_lag20)
+      enter: 滚动分位不高于0.15
+      recover: 滚动分位不低于0.70
+    financing_expansion40:
+      raw: log(rzye)-log(rzye_lag40)
+      enter: 滚动分位不低于0.85
+      recover: 滚动分位不高于0.50
+    total_margin_shock3:
+      raw: log(rzrqye)-log(rzrqye_lag3)
+      enter: 滚动分位不高于0.02
+      recover: 滚动分位不低于0.95
+    short_balance_contraction20:
+      raw: log(rqye)-log(rqye_lag20)
+      trigger: 滚动分位不高于0.08
+      persistence: 仅当日
+
+short_inventory_extremes:
+  raw: rolling_sum_20(rqyl)/rzrqye
+  interpretation: 20日融券余量相对当日融资融券总余额的历史尺度；仅使用同一ETF时间序列分位
+  drought_trigger: 滚动分位不高于0.01，仅当日
+  crowding_enter: 滚动分位不低于0.95
+  crowding_recover: 滚动分位不高于0.70
+
+raw_cash_rule:
+  cash: 微观共识至少3票，或融券库存枯竭，或融券库存拥挤滞回状态成立
+  full: 其他全部情况
+
+dual_shadow_gate:
+  counterfactual: 原始规则持续影子运行，不受最终仓位是否启用影响
+  one_day_target: T日信号对应T+1开盘至T+2开盘的510300含现金分红总收益
+  cash_return_daily: 0.015/242
+  stress_cost_per_raw_transition: 0.0016
+  maturity_lag_signal_rows: 2
+  long_window:
+    matured_signal_rows: 242
+    minimum_matured_rows: 20
+    active_when_net_sum_above: 0.0
+  short_window:
+    matured_signal_rows: 60
+    minimum_matured_rows: 10
+    active_when_net_sum_above: -0.01
+  insufficient_history: 对应影子门保持开启
+  final_cash: 原始空仓条件成立且长期、短期影子门同时开启
+
+account:
+  initial_capital_cny: 500000.0
+  lot_size_shares: 100
+  paid_dividends_reinvested_at_earliest_next_open: true
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+objective:
+  benchmark: H00300_TOTAL_RETURN
+  primary_metric: strategy_net_cagr_minus_benchmark_cagr
+  minimum_annualized_net_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_242d_excess_median: 0.20
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  every_start_must_pass_both_gates: true
+
+historical_evidence:
+  discovery_script: research/etf_microstructure_shadow_gate_discovery_v5.py
+  discovery_report: reports/discovery/510300_etf_microstructure_shadow_gate_discovery_v5.json
+  discovery_features: data/features/510300_etf_microstructure_shadow_gate_discovery_v5.parquet
+  discovery_metrics: data/research/510300_etf_microstructure_shadow_gate_discovery_v5/start_perturbation_metrics.parquet
+  robustness_script: research/etf_microstructure_shadow_gate_robustness_v5.py
+  robustness_report: reports/discovery/510300_etf_microstructure_shadow_gate_robustness_v5.json
+  robustness_metrics: data/research/510300_etf_microstructure_shadow_gate_discovery_v5/robustness_metrics.parquet
+  development_stress_annualized_excess_minimum: 0.256015982356722
+  development_stress_rolling_242d_excess_minimum: 0.262219088528117
+  combined_stress_annualized_excess_minimum: 0.2157732173750673
+  combined_stress_rolling_242d_excess_minimum: 0.23744164168918475
+  combined_start_pass_ratio: 1.0
+  robustness_combined_pass_ratio: 0.8333333333333334
+
+governance:
+  historical_formula_change_after_freeze: forbidden
+  threshold_change_after_freeze: forbidden
+  cost_change_after_freeze: forbidden
+  benchmark_change_after_freeze: forbidden
+  failed_holdout_parameter_rescue: forbidden
+  research_signal_status: FROZEN_RESEARCH_CANDIDATE
+  paper_or_shadow_position_mapping: disabled_until_explicitly_enabled
+  order_generation: disabled
+  broker_connection: disabled
+  live_trading: not_authorized
+
+paths:
+  manifest: config/510300_etf_microstructure_dual_shadow_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_etf_microstructure_dual_shadow_v1_freeze_receipt.json
+  independent_validation_report: reports/validation/510300_etf_microstructure_dual_shadow_v1_replication.json
+  forward_status: reports/forward/510300_etf_microstructure_dual_shadow_v1_status.json

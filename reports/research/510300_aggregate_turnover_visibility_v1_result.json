@@ -1,0 +1,202 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_AGGREGATE_TURNOVER_VISIBILITY_V1",
+  "candidate_model_id": "510300_AGGREGATE_TURNOVER_VISIBILITY_V1",
+  "status": "REJECTED_FROZEN_AGGREGATE_TURNOVER_VISIBILITY_PREDICTIVE_GATE_FAILED_NO_RESCUE",
+  "evidence_class": "RETROSPECTIVE_EXTERNAL_COEFFICIENT_POST_PAPER_SAMPLE_ONE_SHOT_AFTER_PRICE_INPUT_COVERAGE_INSPECTION",
+  "manifest_sha256": "707877d85b46993dfbecd0efd0000231b7b5dd9e7aefa64aba7b805694fafe51",
+  "config_sha256": "18654497584dcca9ce5ea09636d9377cf18361f6bdcd1dcb6dca3fd7db288eb4",
+  "paper_transfer": {
+    "title": "Predicting the Chinese Equity Premium with Trading Volume",
+    "paper_sample_end": "2009-06",
+    "evaluation_start": "2015-01-05",
+    "intercept": -0.019,
+    "turnover_coefficient": 0.258,
+    "risk_aversion_gamma": 5.0,
+    "fixed_monthly_standard_deviation": 0.0901,
+    "local_return_fitting": false
+  },
+  "signal_summary": {
+    "rows": 140,
+    "first_decision_date": "2014-12-31",
+    "last_decision_date": "2026-07-31",
+    "minimum_target_weight": 0.1825749134506062,
+    "maximum_target_weight": 1.0,
+    "mean_target_weight": 0.8363602784282514,
+    "cash_target_months": 0,
+    "full_weight_months": 70
+  },
+  "mechanism_gate_passed": false,
+  "mechanism": {
+    "passed": false,
+    "observations": 139,
+    "turnover_minimum": 0.10236715064227045,
+    "turnover_maximum": 0.6278981190707271,
+    "future_return_mean": 0.00532384040841983,
+    "newey_west_regression": {
+      "observations": 139,
+      "intercept": 0.029685372457533426,
+      "slope": -0.09357527973795107,
+      "standard_error": 0.056319309178396525,
+      "t_stat": -1.6615132732104878,
+      "max_lag": 3
+    },
+    "bootstrap": {
+      "repetitions": 5000,
+      "block_length_months": 6,
+      "valid_draws": 5000,
+      "confidence_interval": [
+        -0.17772244156316366,
+        -0.008784841839697778
+      ],
+      "confidence_level": 0.9,
+      "seed": 20260830
+    },
+    "structural_periods": {
+      "EARLY_POST_PAPER_SAMPLE": {
+        "observations": 60,
+        "intercept": 0.04419169877615695,
+        "slope": -0.16176552719495219,
+        "standard_error": 0.08100241026864584,
+        "t_stat": -1.9970458491105898,
+        "max_lag": 3
+      },
+      "LATE_POST_PAPER_SAMPLE": {
+        "observations": 79,
+        "intercept": 0.009211436520091942,
+        "slope": -0.015339305322253378,
+        "standard_error": 0.058315947694815844,
+        "t_stat": -0.26303791550346367,
+        "max_lag": 3
+      }
+    },
+    "gates": {
+      "minimum_complete_monthly_targets": true,
+      "full_sample_slope_positive": false,
+      "newey_west_one_sided_t": false,
+      "bootstrap_90pct_lower_positive": false,
+      "every_structural_period_slope_positive": false
+    }
+  },
+  "mechanism_table_rows": 139,
+  "portfolio_evaluated": false,
+  "portfolio": null,
+  "selection_bias_control": {
+    "rule": "COUNT_ALL_PREEXISTING_510300_MANIFESTS_AS_CONSERVATIVE_UPPER_BOUND",
+    "prior_510300_manifest_count": 51,
+    "total_trial_count_including_current": 52,
+    "prior_manifest_hashes": {
+      "config/510300_annual_excess_20pct_forward_v1_manifest.json": "5ddf063ae53762c0633d0b118dd217dec569ed8184a052a7ef0384b5972c5d94",
+      "config/510300_binary_state_accuracy_frontier_v2_manifest.json": "f2570c979f1576c77278ea42a5588b95e877964f01b618331f31730adecb5205",
+      "config/510300_binary_state_feasibility_v1_manifest.json": "6913bc6642abd3ade9aefdac29d87a044f9f3de295d4a7de82ed54c5495dffd7",
+      "config/510300_cffex_member_position_binary_screen_v1_manifest.json": "babeb04588ee8df25fe496090b3d5868f52ae429cb05b74079c6afe97fc08da4",
+      "config/510300_cross_etf_forced_flow_binary_screen_v1_manifest.json": "39751765b491940f8514e870caa6249a97e1dfdaf34ddc2bb1705656e5de72f7",
+      "config/510300_cross_market_chart_ml_v1_manifest.json": "4649184f084b70595be76fc05968ff17be8ba50a4d3093d8c1b48c05f8b6dd01",
+      "config/510300_csi300_pit_membership_weights_source_remediation_v1_protocol_manifest.json": "9d42049265071aff30bf3a1217eb931eca3e664a3ab90b3e3cd1969cb12c838f",
+      "config/510300_direction_switch_v1_manifest.json": "bf72bfdf1f68bb289f557c8c61f4abd3058f9a1c0708382ed273aa41a14bcc35",
+      "config/510300_downside_risk_budget_v1_manifest.json": "1baf3a7cd3ebc11bc5e12ee5926d71e9468919530b168364885f2cbfe5b045b7",
+      "config/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_1_manifest.json": "f866d2aa231f07e1f13174b0b9cfb5c71c1932640ab9f854962a8d178d169cce",
+      "config/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2_manifest.json": "e95400ebdf53a2e616f373c0a2ca8a3d428c730df0629f9a7ffeef11090d4d25",
+      "config/510300_etf_microstructure_dual_shadow_reverse_validation_v1_manifest.json": "94cd65d5f45703e64b9b7c503b7476b99a305a0e9e96ec1cb8cd6a4710a45724",
+      "config/510300_etf_microstructure_dual_shadow_v1_manifest.json": "dbe0183495ab81b497b7b28cb7fc4e43d3fd73594cd6552b3a8a58f44fdd024f",
+      "config/510300_etf_share_premium_level_binary_screen_v1_manifest.json": "a37ba17ff5e1f601051f1f33c666625e0c59d2bd90d60a8ce6102b317bf254b6",
+      "config/510300_exchange_ivs_etf_binary_screen_v1_manifest.json": "35a2323aeebfb9a6cae5ac773a7eab619af37fbee3bdcdcbdead2ac8db1d17f3",
+      "config/510300_fixed_expert_dual_shadow_union_discovery_v1_0_1_manifest.json": "0e65d4b85e06dc4f059fdb0dfede66cb1270127b9c24d76e8b9bfc3a2f7a59ef",
+      "config/510300_fixed_expert_dual_shadow_union_discovery_v1_manifest.json": "4e7f50dc94d220919a79937e49016ea19555e17515b701657ab6b56e12fb211a",
+      "config/510300_frozen_microstructure_sharpe_audit_v1_0_1_manifest.json": "b54d2673839dc6c2df318b8bba2b077943766472dbef195984a423362c985c27",
+      "config/510300_frozen_microstructure_sharpe_audit_v1_0_2_manifest.json": "468d6c55b95c5641f5cd1b7b8985f344e04dc77396cc79e3163a13f6c99cd99b",
+      "config/510300_frozen_microstructure_sharpe_audit_v1_0_3_manifest.json": "209ea2d7e112b45b65cf1c8b0d7da352622809121575a95ad5053a3a641309be",
+      "config/510300_frozen_microstructure_sharpe_audit_v1_manifest.json": "e16788651beda66bc4d2ba86af76708939e10f0a250dc58d38596726cc27cbf2",
+      "config/510300_futures_option_bridge_v1_manifest.json": "cc913823522e7399a89b53854988b501e87ab36c7773bb2338cce569d425a030",
+      "config/510300_if_true_term_structure_binary_screen_v1_0_1_manifest.json": "63c5c642c8261bbd235d4d8e200cba2a494c426b9651b45231f496b38dc5a9a1",
+      "config/510300_intraday_binary_livermore_screen_v1_manifest.json": "0420dc8f1766af1ea60e178c9dccb50c64ba8121feebb6a37e4d6f7a0de86c7f",
+      "config/510300_macd_breadth_downside_preflight_v1_0_1_manifest.json": "6de1818e5816284aeb919b2bac0cf4d23572681877f8125062fde84c1eb54b1a",
+      "config/510300_macd_breadth_downside_preflight_v1_manifest.json": "3479026e268a1c6a4c44f6213dd962728a3f459a0cb0e6f1e9c917e5d6a2bcc8",
+      "config/510300_macro_stress_avoidance_2015_v2_manifest.json": "3707424fd81dbf00049ffc65aabfccd56615d196ed40b52486658f84d6456983",
+      "config/510300_macro_stress_avoidance_v1_manifest.json": "067c74b08deac8dd6ebf256af888841bb535989975caba45b990f07675681c85",
+      "config/510300_macro_surprise_event_binary_screen_v1_manifest.json": "dcc7425b0f55025f78009a38e4201482ddcad2b3aa4a66203e1ae2c5e3ff1a8a",
+      "config/510300_mechanism_atlas_v1_manifest.json": "47590bddabeae294f7e562f62d201055ff67d326f7a893da79afaf2406f98442",
+      "config/510300_northbound_legacy_flow_binary_screen_v1_manifest.json": "a13209e18f899a3c4c17cf0376b037a38e541d2b525ae3d7d960f0310d9fbe87",
+      "config/510300_oil_trend_monthly_timing_v1_manifest.json": "0c61d4ad717afe8c5979cdc84b0196ece40dc40b463e39514abd9ab51d207d7c",
+      "config/510300_option_chain_feasibility_v1_manifest.json": "63d27f268ea97cce0581c2a673e72b3ccbb50c9ea03dac16833d6f704f987573",
+      "config/510300_option_forward_orderbook_v1_protocol_manifest.json": "6e602f189ed2ed4b9dbbdaf75889abc5572f480840b53a687ee59a269255f53e",
+      "config/510300_option_futures_breadth_domain_union_v1_manifest.json": "0a547782f1ad2e7b733b5073fc4f351aa6cdb100bc6e9a97a59d6b798c09a801",
+      "config/510300_option_gamma_oi_pressure_v1_manifest.json": "7b46dc9ddb48d3d8b0168ccb668dd0a97a11455633abe08f5c030d9e346d9a74",
+      "config/510300_option_ivs_transfer_v1_manifest.json": "dd27abe1fec35bab903b0d23dab941f3e0cfcc077bba3d4aec9b360721451f49",
+      "config/510300_option_ivs_transfer_v1_validation_2024_manifest.json": "19ea5765e5bb6a1d36f6ce46973509c3a77eea67a49b1efc00dcd5354378243c",
+      "config/510300_option_long_horizon_tsmom_v1_manifest.json": "1e50cd4a9f7c341f28a3df71efa65022c625cf74641c31bda46fe64edbacfeef",
+      "config/510300_option_smirk_gamma1_v1_manifest.json": "e59a16191f4aeeb6baa78b33e9854658887c53f1d5ff4f340e6bdfa8bf2712be",
+      "config/510300_option_smirk_gamma1_v2_manifest.json": "fc87e638b246f7cc43f3b57d41b0964f2908b17f16a8de2cb3c85d97cd7c4ef3",
+      "config/510300_option_surface_signal_v1_manifest.json": "fd7bb915f6ae3fb45668573dac9a7c61d9a2e7b3cf33202ba4a2fe1dc8eb0651",
+      "config/510300_option_technical_rule_discovery_v1_manifest.json": "6e1f7bb62c6f29b727cf0e50dc4ba82422d82ac439c2c97ad5d7c5e8a9be9b93",
+      "config/510300_option_ten_factor_direction_v1_manifest.json": "472565fe2a5db1b472fc1583411f5adda2d3e070716e17ceb727471629276672",
+      "config/510300_option_trade_envelope_v1_manifest.json": "85f17e9598757189fc8fa59875341a8bd44c652eda7807caa60a046651bdcb54",
+      "config/510300_pit_earnings_information_diffusion_10d_risk_v1_manifest.json": "e0c20345da2170415f98be7581c9b461f8bbfb8537d3d0f765877e077ea7a751",
+      "config/510300_predictable_fish_middle_decision_v1_manifest.json": "08e06bca381356b1a56675506d1ca7a3e53b777f5d1e36d3c3e18526940dd854",
+      "config/510300_primary_flow_p05_etf_binary_screen_v1_manifest.json": "9183254ca12d119c015077596ebe390704eef46149e38ee5f9c7dcb0de3c22e5",
+      "config/510300_regime_transition_router_v1_manifest.json": "224e79f918e278f9c7af14419c0a0cc5fdf17a217e232576027aafa6c07a8423",
+      "config/510300_systemic_sell_pressure_cascade_v1_manifest.json": "a911e61e425f41ddbdb02c37d6a11812c627165b8ec15497fe338304ecf8933d",
+      "config/510300_us_china_overnight_binary_screen_v1_manifest.json": "e5311485d15fb32c349e9be07f48c678a3fdd07ddda5ca9f1a1a3618c217a3ef"
+    },
+    "count_is_conservative_upper_bound_not_independence_claim": true
+  },
+  "input_snapshot": {
+    "data/raw/market/510300_daily_downside_risk_v1.parquet": {
+      "sha256": "d58ace846e1596a428b2a31eb8fad888d049e4c89ccfde3082487514a307d8b5",
+      "bytes": 139835
+    },
+    "reports/data_quality/510300_downside_risk_inputs_v1.json": {
+      "sha256": "248b1b1cd3d064378bf5e97fcafc190ff438fa4c7935b701dbfa3a7b11d3e417",
+      "bytes": 4445
+    },
+    "data/reference/510300_dividends.csv": {
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "bytes": 2021
+    },
+    "data/raw/r6/H00300_total_return_daily.parquet": {
+      "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "bytes": 153211
+    },
+    "data/raw/market/official_exchange_aggregate_turnover_v1_source_archive.zip": {
+      "sha256": "7d72496a3f153d61f3b8754374e99c7713bfa3a065262037397b3fe738a23f5c",
+      "bytes": 158766419
+    },
+    "data/raw/market/official_exchange_aggregate_turnover_v1_components.parquet": {
+      "sha256": "5eb178e6053c861d93ab68e07bc948a117a75f5c58ef1105eca15119f77b487e",
+      "bytes": 33028
+    },
+    "data/raw/market/official_exchange_aggregate_turnover_v1_monthly.parquet": {
+      "sha256": "bc34eb89ab702b28119ec677a6c86da1a54a172c97f245b7e0a6fbd4bf9747fa",
+      "bytes": 13252
+    },
+    "reports/data_quality/510300_aggregate_turnover_visibility_inputs_v1.json": {
+      "sha256": "3219c695833393f1bb333eda43c42b55a1722b7611b0b05fd15afc1c3dd853e6",
+      "bytes": 23326
+    },
+    "backtest/engine.py": {
+      "sha256": "3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc",
+      "bytes": 13300
+    }
+  },
+  "adjudication": {
+    "return_evaluation": "NOT_ALLOWED",
+    "net_sharpe": "NOT_COMPUTED",
+    "target_net_sharpe": 1.2,
+    "historical_target_achieved": false,
+    "verified_forward_target_achieved": false,
+    "goal_achieved": false,
+    "no_rescue": true
+  },
+  "execution_boundaries": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "position_change": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

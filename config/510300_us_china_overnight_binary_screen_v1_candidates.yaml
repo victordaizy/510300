@@ -1,0 +1,99 @@
+protocol:
+  study_id: 510300_US_CHINA_OVERNIGHT_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: CANDIDATE_FAMILY_FIXED_BEFORE_DATA_ACQUISITION
+  candidate_family_size: 8
+  no_parameter_rescue: true
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  leverage_allowed: false
+  shorting_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+
+information_clock:
+  decision_day: D
+  signal_cutoff: D_09_15_ASIA_SHANGHAI
+  execution_time: D_OPEN_CALL_AUCTION
+  previous_china_trading_day: P
+  baseline_us_close: 最新一个交易日期严格早于P的美国收盘
+  latest_us_close: 最新一个交易日期严格早于D的美国收盘
+  interval_return: latest_us_adjusted_close除以baseline_us_adjusted_close减1
+  normal_day_interpretation: 使用中国P日收盘后开始并在D日开盘前结束的美国P日交易时段
+  china_holiday_interpretation: 累计中国休市期间所有已经结束的美国交易时段
+  same_calendar_day_us_bar_forbidden: true
+  missing_or_stale_signal_state: 1
+
+features:
+  china_etfs: [ASHR, FXI, MCHI, KWEB]
+  global_control: SPY
+  volatility_index: ^VIX
+  china_basket_return: 四只中国ETF区间收益的中位数
+  china_specific_return: 中国ETF篮子区间收益减SPY同期区间收益
+  all4_negative: 四只中国ETF区间收益均小于0
+  rolling_percentile_window_china_days: 252
+  rolling_percentile_minimum_observations: 126
+  percentile_definition: 当前值在包含当前值的最近252个有限历史观测中的小于等于比例
+  distribution_or_threshold_search: FORBIDDEN
+
+candidates:
+  - candidate_id: USCN_ASHR_NEG_CONTINUATION_CASH
+    rule: ASHR区间收益小于0则D日开盘空仓，否则满仓
+    mechanism: 美国时段对沪深300新增负面信息延续
+  - candidate_id: USCN_BASKET_NEG_CONTINUATION_CASH
+    rule: 中国ETF篮子区间收益小于0则D日开盘空仓，否则满仓
+    mechanism: 多产品一致负向定价延续
+  - candidate_id: USCN_BASKET_BOTTOM10_CONTINUATION_CASH
+    rule: 中国ETF篮子区间收益滚动分位不高于0.10则D日开盘空仓，否则满仓
+    mechanism: 极端隔夜风险延续
+  - candidate_id: USCN_SPECIFIC_BOTTOM10_CASH
+    rule: 中国特异区间收益滚动分位不高于0.10则D日开盘空仓，否则满仓
+    mechanism: 剔除美国大盘方向后的中国特异负面信息
+  - candidate_id: USCN_ALL4_NEG_BREADTH_CASH
+    rule: 四只中国ETF区间收益全部小于0则D日开盘空仓，否则满仓
+    mechanism: 中国资产隔夜负向广度确认
+  - candidate_id: USCN_BASKET_BOTTOM20_VIX_TOP80_CASH
+    rule: 中国ETF篮子收益分位不高于0.20且VIX区间收益分位不低于0.80则D日开盘空仓，否则满仓
+    mechanism: 中国负面信息与全球风险厌恶共同确认
+  - candidate_id: USCN_ASHR_TOP10_OVERREACTION_CASH
+    rule: ASHR区间收益滚动分位不低于0.90则D日开盘空仓，否则满仓
+    mechanism: 开盘已吸收极端正向隔夜定价后的短期反转
+  - candidate_id: USCN_BASKET_TOP10_OVERREACTION_CASH
+    rule: 中国ETF篮子区间收益滚动分位不低于0.90则D日开盘空仓，否则满仓
+    mechanism: 多产品极端正向隔夜定价在开盘吸收后的短期反转
+
+objective:
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  minimum_rolling_excess_median: 0.20
+  rolling_window_trading_days: 242
+  hard_gate: 每个压力成本时期和每个起点扰动均同时通过双20门槛
+
+evaluation:
+  cost_scenarios: [BASE, STRESS]
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_2017_2020
+      start_date: '2017-07-03'
+      end_date: '2020-12-31'
+    - id: MID_2021_2023
+      start_date: '2021-01-04'
+      end_date: '2023-12-29'
+    - id: LATE_2024_2026
+      start_date: '2024-01-02'
+      end_date: '2026-08-25'
+    - id: COMBINED_2017_2026
+      start_date: '2017-07-03'
+      end_date: '2026-08-25'
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

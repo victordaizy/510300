@@ -1,0 +1,68 @@
+protocol:
+  study_id: 510300_MACRO_SURPRISE_EVENT_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  candidate_contract: config/510300_macro_surprise_event_binary_screen_v1_candidates.yaml
+  candidate_contract_sha256: 60ffdf04bc4e7ec8bec83f8333de241f47d1d1b3fb53e6ad703eff71141130e7
+  no_parameter_rescue: true
+
+initial_capital_cny: 500000.0
+annualization_trading_days: 242
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  stamp_duty_rate: 0.0
+
+evaluation_window:
+  feature_start_date: '2016-08-12'
+  end_date: '2025-09-30'
+
+data_contracts:
+  macro_events:
+    file: data/raw/macro/macro_surprise_calendar_raw_v1.parquet
+    required_sha256: 1034b0d260fd79a5ce1236e70e2d3dc9d844fb38ff2d1d7494684074e929c77f
+    required_rows: 754
+    required_columns: [product, release_date, actual, forecast, previous, series_id, source_function, source, retrieved_at]
+  acquisition_audit:
+    file: reports/data_quality/macro_surprise_calendar_raw_v1.json
+    required_sha256: 62aa2d82c5bd12d7293d7c50dc89d1e8f102585eb57784a56375c878f44a227d
+  execution_daily:
+    file: data/raw/market/510300_daily_raw.parquet
+    required_sha256: 640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4
+    required_symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  benchmark_total_return:
+    file: data/raw/market/H00300_total_return_daily_raw.parquet
+    required_sha256: 49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733
+    required_symbol: H00300
+    required_columns: [date, close, symbol]
+  cash_distributions:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_event_count: 14
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+
+source_contracts:
+  acquisition_implementation:
+    file: scripts/download_macro_surprise_event_inputs_v1.py
+    required_sha256: 48cc8e6d98bf828b12ac823f87db5d5b853a401914763fc1d460d7dba2ea943a
+  preopen_execution_ledger:
+    file: research/us_china_overnight_binary_screen_v1.py
+    required_sha256: 50bb6774298e1152fab48d8a8c294b1d5a82c5b487b775c399b41bb2ec63a80e
+  execution_ledger_dependency:
+    file: research/intraday_binary_livermore_screen_v1.py
+    required_sha256: 17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa
+
+artifacts:
+  freeze_manifest: config/510300_macro_surprise_event_binary_screen_v1_manifest.json
+  event_features: data/research/510300_macro_surprise_event_binary_screen_v1/event_features.parquet
+  daily_event_features: data/research/510300_macro_surprise_event_binary_screen_v1/daily_event_features.parquet
+  daily_states: data/research/510300_macro_surprise_event_binary_screen_v1/daily_states.parquet
+  metrics: data/research/510300_macro_surprise_event_binary_screen_v1/start_perturbation_metrics.parquet
+  report_json: reports/research/510300_macro_surprise_event_binary_screen_v1.json
+  report_markdown: reports/research/510300_MACRO_SURPRISE_EVENT_BINARY_SCREEN_V1.md

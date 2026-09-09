@@ -1,0 +1,316 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_ORACLE_INFORMATION_BUDGET_V1",
+  "status": "INFORMATION_BUDGET_QUANTIFIED_CONSERVATIVE_GATE_PASS_PROCEED_TO_UP20_FORECAST_RESEARCH_NOT_TRADABLE",
+  "evidence_class": "EX_POST_ORACLE_INFORMATION_DEGRADATION_AND_ROBUSTNESS_DIAGNOSTIC",
+  "research_question": {
+    "primary": "从完美未来20日信息的压力净夏普1.740出发，现实预测器最多可以承受多少上涨漏判、震荡误入、大跌误入、进入延迟、退出偏差与信号反复",
+    "target_net_sharpe": 1.2,
+    "prediction_target": "UP20",
+    "prediction_target_definition": "H00300未来20交易日全收益不低于5%",
+    "excluded": [
+      "训练或选择现实预测器",
+      "用总体分类准确率晋级",
+      "震荡做T",
+      "Paper或实盘信号"
+    ]
+  },
+  "source_oracle_boundary": {
+    "source_project_id": "510300_KNOWN_STATE_POLICY_ORACLE_V1",
+    "source_oracle_outcomes_already_known": true,
+    "source_conditional_policy_value": "PASS",
+    "source_primary_stress_net_sharpe": 1.740134238934748,
+    "source_result_unchanged": true,
+    "future_information_used": true,
+    "prediction_model_evaluated": false,
+    "not_a_tradable_signal": true
+  },
+  "evaluation_window": {
+    "start": "2015-01-05",
+    "end": "2026-08-14",
+    "trading_days": 2823,
+    "complete_oracle_blocks": 141,
+    "state_counts": {
+      "BULL_TREND": 23,
+      "BEAR_TREND": 21,
+      "RANGE": 97
+    }
+  },
+  "freeze": {
+    "manifest_path": "config/510300_oracle_information_budget_v1_manifest.json",
+    "manifest_sha256": "c28dbbd8f9f13f00b114f5022b346b53469dbc437d5fac90699b149cec81a14b",
+    "frozen_at_asia_shanghai": "2026-08-31T14:56:32.806225+08:00",
+    "source_oracle_outcomes_already_known": true,
+    "information_budget_outputs_computed_before_freeze": false
+  },
+  "engine_replay": {
+    "status": "PASS_EXACT_SOURCE_ORACLE_REPLAY_WITHIN_5E_12",
+    "comparisons": {
+      "stress_net_sharpe": {
+        "fast": 1.7401342389347485,
+        "source": 1.740134238934748
+      },
+      "stress_total_return": {
+        "fast": 6.230701461180504,
+        "source": 6.230701461180504
+      },
+      "stress_max_drawdown": {
+        "fast": -0.12440004958028628,
+        "source": -0.12440004958028628
+      },
+      "average_exposure": {
+        "fast": 0.16173026955672357,
+        "source": 0.16173026955672357
+      },
+      "trade_count": {
+        "fast": 36,
+        "source": 36
+      }
+    }
+  },
+  "simulation_counts": {
+    "random_axis_draws": 72000,
+    "random_joint_draws": 108000,
+    "adversarial_scenarios": 360,
+    "timing_scenarios": 33,
+    "whipsaw_rows": 513,
+    "phase_offsets": 20,
+    "event_bootstrap_repetitions": 10000
+  },
+  "information_budget": {
+    "definitions": {
+      "precision": "区间级TP/(TP+震荡FP+大跌FP)，仅在冻结联合随机网格内取95%稳健门通过单元的最低值",
+      "recall": "零误入逐轴中从该捕获数起所有更高捕获数均通过的后缀边界",
+      "false_long": "捕获全部上涨且另一类误入为零时，从0起所有更低误入数均通过的前缀边界",
+      "entry_delay": "连续上涨事件起点统一延迟，0日起连续通过的最大天数",
+      "return_capture": "通过的召回或时序场景相对完美Oracle压力净对数财富的最低捕获比例",
+      "whipsaw_legs": "对抗性一日错误往返从0起连续通过的最大计划交易腿数"
+    },
+    "MIN_UP_PRECISION_FOR_SHARPE_1_2": {
+      "cell_id": "UP_23_R_40_D_00",
+      "up_precision": 0.36507936507936506,
+      "up_recall": 1.0,
+      "range_false_long_rate": 0.41237113402061853,
+      "down_false_long_rate": 0.0,
+      "captured_bull_count": 23,
+      "false_range_count": 40,
+      "false_bear_count": 0,
+      "stress_net_sharpe_q05": 1.2084653562868093,
+      "probability_sharpe_at_least_1_2": 0.962
+    },
+    "MIN_UP_RECALL_FOR_SHARPE_1_2": {
+      "random_95pct_robust": {
+        "captured_bull_blocks": 14,
+        "rate": 0.6086956521739131
+      },
+      "adversarial": {
+        "captured_bull_blocks": 14,
+        "rate": 0.6086956521739131
+      }
+    },
+    "MAX_DOWN_FALSE_LONG_RATE": {
+      "random_95pct_robust": {
+        "false_bear_blocks": 2,
+        "rate": 0.09523809523809523
+      },
+      "adversarial": {
+        "false_bear_blocks": 1,
+        "rate": 0.047619047619047616
+      }
+    },
+    "MAX_RANGE_FALSE_LONG_RATE": {
+      "random_95pct_robust": {
+        "false_range_blocks": 39,
+        "rate": 0.4020618556701031
+      },
+      "adversarial": {
+        "false_range_blocks": 10,
+        "rate": 0.10309278350515463
+      }
+    },
+    "MAX_ENTRY_DELAY_DAYS": 8,
+    "MIN_ORACLE_RETURN_CAPTURE": 0.4140090160453626,
+    "MAX_ACCEPTABLE_WHIPSAW_LEGS": 8,
+    "MAX_ACCEPTABLE_WHIPSAW_ROUND_TRIPS": 4
+  },
+  "robustness": {
+    "phase_offsets": {
+      "count": 20,
+      "stress_net_sharpe_minimum": 1.6556471047630428,
+      "stress_net_sharpe_q05": 1.6561119933264825,
+      "stress_net_sharpe_median": 1.7437758760671653,
+      "stress_net_sharpe_maximum": 1.9596134707586639,
+      "all_offsets_at_least_1_2": true
+    },
+    "label_execution_basis": {
+      "complete_block_count": 141,
+      "bull_block_count": 23,
+      "bull_label_return_mean": 0.09280962982151726,
+      "bull_executable_return_mean": 0.0937054898637793,
+      "bull_execution_minus_label_mean": 0.0008958600422620484,
+      "bull_label_execution_correlation": 0.9868947946795027,
+      "bull_entry_untradeable_overnight_mean": -0.0007480964213910597,
+      "bull_exit_actual_overnight_mean": 0.0006234468467475233,
+      "bull_entry_untradeable_overnight_log_sum": -0.017724669543722545,
+      "bull_executable_return_log_sum": 2.035398333761334
+    },
+    "serial_correlation": {
+      "daily_observations": 2823,
+      "ordinary_daily_annualized_sharpe": 1.7401342389347478,
+      "monthly_observations": 140,
+      "monthly_compounded_return_sharpe": 1.2776849784638402,
+      "twenty_day_interval_observations": 141,
+      "twenty_day_interval_return_sharpe": 1.3092623185109415,
+      "maximum_lag": 20,
+      "bartlett_long_run_variance": 6.699717539278708e-05,
+      "lo_adjusted_annualized_sharpe": 1.371490482124125,
+      "autocorrelations_lag_1_to_q": [
+        0.12587195680778068,
+        0.03645985195474987,
+        0.004373147557110332,
+        0.05695867268850861,
+        -0.0006276885120330828,
+        -0.009270320805800198,
+        -0.02153303342882865,
+        0.004680729603835718,
+        0.059667079450697415,
+        0.08589911167006845,
+        0.03676264552236047,
+        0.016450123239674583,
+        0.00473576407850711,
+        -0.0020802105570201486,
+        0.04010243530790509,
+        0.02222504136326826,
+        0.00958950896664145,
+        -0.015139134576881548,
+        -0.006597719438704797,
+        0.010338598087362063
+      ]
+    },
+    "event_concentration": {
+      "independent_bull_event_count": 17,
+      "total_oracle_bull_block_count": 23,
+      "largest_event_share_of_total_log_wealth": 0.2047762563819994,
+      "largest_two_event_share_of_total_log_wealth": 0.33331367316017774,
+      "event_return_mean": 0.12855041878050258,
+      "event_return_median": 0.08600490901563251,
+      "event_return_win_rate": 1.0,
+      "event_return_mean_to_std": 1.0884530522699831,
+      "remove_largest_events": [
+        {
+          "remove_largest_event_count": 1,
+          "removed_event_ids": [
+            0
+          ],
+          "stress_net_sharpe": 1.5745959466335044,
+          "stress_total_return": 3.8243256711240043,
+          "stress_max_drawdown": -0.12431315567372325,
+          "trade_count": 33
+        },
+        {
+          "remove_largest_event_count": 2,
+          "removed_event_ids": [
+            0,
+            5
+          ],
+          "stress_net_sharpe": 1.4564012728063138,
+          "stress_total_return": 2.726822781841004,
+          "stress_max_drawdown": -0.12420971039613526,
+          "trade_count": 30
+        }
+      ],
+      "event_bootstrap": {
+        "repetitions": 10000,
+        "sharpe_q05": 1.5002284340897283,
+        "sharpe_median": 1.7578971679062543,
+        "sharpe_q95": 2.01931009700105,
+        "probability_sharpe_at_least_1_2": 1.0
+      }
+    }
+  },
+  "adjudication": {
+    "conservative_up20_forecast_research_advancement_gate_passed": true,
+    "gates": {
+      "adversarial_up_recall_not_near_perfect": true,
+      "adversarial_down_error_tolerance_nonzero": true,
+      "adversarial_range_error_tolerance_material": true,
+      "entry_delay_tolerance": true,
+      "phase_offset_robustness": true,
+      "lo_adjusted_sharpe": true,
+      "remove_largest_event": true,
+      "event_bootstrap_fifth_percentile": true
+    },
+    "interpretation": "历史信息预算在冻结的随机、对抗和稳健性门下足够宽，可以启动低自由度UP20预测器研究",
+    "realistic_up20_forecast": "NOT_EVALUATED",
+    "historical_tradable_strategy_target_achieved": false,
+    "verified_forward_target_achieved": false,
+    "goal_achieved": false,
+    "live_trading_authorized": false
+  },
+  "governance": {
+    "diagnostic_only": true,
+    "source_oracle_result_immutable": true,
+    "prediction_model_trained": false,
+    "historical_strategy_target_can_pass": false,
+    "verified_forward_target_can_pass": false,
+    "paper_signal_allowed": false,
+    "shadow_signal_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "position_change": false,
+    "live_trading_authorized": false
+  },
+  "artifacts": {
+    "random_axis_draws": {
+      "path": "data/research/510300_oracle_information_budget_v1/random_axis_draws.parquet",
+      "bytes": 7153230,
+      "sha256": "340db0d8781ce36fcb204bd6564563abc7e495473f88aeb5f8d7f44dbf54f4f7"
+    },
+    "random_axis_summary": {
+      "path": "data/research/510300_oracle_information_budget_v1/random_axis_summary.parquet",
+      "bytes": 53372,
+      "sha256": "4cb023abba842bb54c69c7d38c889afeed8cdafd61e8322cfe460ccc46146d3f"
+    },
+    "random_joint_draws": {
+      "path": "data/research/510300_oracle_information_budget_v1/random_joint_draws.parquet",
+      "bytes": 11418377,
+      "sha256": "9e68cb0e4b50aec7dc6fbfc25070d2d572fc8a4ce475930dc2bf869e4d8643cd"
+    },
+    "random_joint_summary": {
+      "path": "data/research/510300_oracle_information_budget_v1/random_joint_summary.parquet",
+      "bytes": 65826,
+      "sha256": "0dadfa258e159139cc3952767ada56b6d9da5400fb01ac94c696efd1e09e6513"
+    },
+    "adversarial_summary": {
+      "path": "data/research/510300_oracle_information_budget_v1/adversarial_summary.parquet",
+      "bytes": 59183,
+      "sha256": "d0c0deee8c7e131e12bfda00f116f73b2b547e62a3188dd94d6596c9144fb415"
+    },
+    "timing_summary": {
+      "path": "data/research/510300_oracle_information_budget_v1/timing_summary.parquet",
+      "bytes": 16840,
+      "sha256": "3f6f497bd381d478cb47d0df5c2bc458edb084fc1402010c86524ce4e8dd4649"
+    },
+    "whipsaw_summary": {
+      "path": "data/research/510300_oracle_information_budget_v1/whipsaw_summary.parquet",
+      "bytes": 74415,
+      "sha256": "5e4d6523de2883bd3b8f91aa32b124c60eb9fe7604159ac12adbc11f8e4360b6"
+    },
+    "offset_robustness": {
+      "path": "data/research/510300_oracle_information_budget_v1/offset_robustness.parquet",
+      "bytes": 17338,
+      "sha256": "c1e7ab98dda3c2bd7a279ddce649402d15c2d332daae9dab6f929d6eb7cabdf1"
+    },
+    "label_execution_basis": {
+      "path": "data/research/510300_oracle_information_budget_v1/label_execution_basis.parquet",
+      "bytes": 28277,
+      "sha256": "954511b7a4024c61b1c7a34c56e9d7b011f5f66c965b070993ffe63c9d3c9311"
+    },
+    "event_concentration": {
+      "path": "data/research/510300_oracle_information_budget_v1/event_concentration.parquet",
+      "bytes": 11592,
+      "sha256": "c045041b315745ac83cdbe4f7cdfa0f35354c566293375caf1f3ce4a32e50233"
+    }
+  }
+}

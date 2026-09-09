@@ -1,0 +1,45 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V5"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V4"
+  status: "FROZEN_BEFORE_US_LEVERAGED_MULTI_ASSET_CANDIDATE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  holdings_universe: "UNRESTRICTED_BY_USER_CANDIDATE_SPECIFIC_ELIGIBILITY_APPLIES"
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  cb_failure_report: "reports/research/cb_double_low_rotation_v1_visible.json"
+  cb_manifest: "config/cb_double_low_rotation_v1_manifest.json"
+
+new_lane:
+  lane: "US_LISTED_DAILY_LEVERAGED_MULTI_ASSET_ABSOLUTE_MOMENTUM"
+  economic_mechanism: "跨股票、美债和黄金风险源的绝对动量与月频风险分散"
+  fixed_product_universe: ["UPRO", "TQQQ", "TMF", "UGL"]
+  maximum_candidates_before_family_specific_replication: 1
+  account_level_borrowing_allowed: false
+  account_level_margin_allowed: false
+  short_sale_allowed: false
+  product_embedded_daily_leverage_allowed: true
+  maximum_account_gross_exposure: 1.0
+
+governance:
+  formula_costs_dates_and_universe_must_freeze_before_visible_outcome: true
+  price_acquisition_may_not_compute_strategy_return_or_rank: true
+  cb_exit_failure_may_not_be_repaired_or_reinterpreted: true
+  official_product_page_performance_partly_visible_during_identity_check: true
+  historical_result_is_discovery_only: true
+  historical_result_may_not_authorize_paper_or_live: true
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

@@ -1,0 +1,164 @@
+{
+  "status": "WARN",
+  "scope": "510300五年未复权15分钟覆盖与因子可用性",
+  "checked_at": "2026-08-13T00:24:03.194885+08:00",
+  "file": "data/raw/market/510300_15m_full_raw.parquet",
+  "sha256": "64dbb289886ede57289177508bb0d745e368cc8718ad93b4a6624a32f438a7cc",
+  "coverage": {
+    "status": "PASS",
+    "row_count": 19376,
+    "trading_day_count": 1211,
+    "first_bar_end": "2021-08-12T09:45:00",
+    "last_bar_end": "2026-08-12T15:00:00",
+    "bars_per_day_distribution": {
+      "16": 1211
+    }
+  },
+  "daily_reconciliation_by_construction": {
+    "exchange_15m_kline": {
+      "days": 495,
+      "price": {
+        "open": {
+          "exact_days": 495,
+          "within_one_tick_days": 495,
+          "mismatch_over_one_tick_days": 0,
+          "maximum_absolute_error": 0.0
+        },
+        "high": {
+          "exact_days": 495,
+          "within_one_tick_days": 495,
+          "mismatch_over_one_tick_days": 0,
+          "maximum_absolute_error": 0.0
+        },
+        "low": {
+          "exact_days": 495,
+          "within_one_tick_days": 495,
+          "mismatch_over_one_tick_days": 0,
+          "maximum_absolute_error": 0.0
+        },
+        "close": {
+          "exact_days": 495,
+          "within_one_tick_days": 495,
+          "mismatch_over_one_tick_days": 0,
+          "maximum_absolute_error": 0.0
+        }
+      },
+      "maximum_relative_volume_error": 1.1624318806845475e-07,
+      "maximum_relative_amount_error": 6.616118291626265e-08
+    },
+    "transaction_reconstructed_15m": {
+      "days": 716,
+      "price": {
+        "open": {
+          "exact_days": 716,
+          "within_one_tick_days": 716,
+          "mismatch_over_one_tick_days": 0,
+          "maximum_absolute_error": 8.881784197001252e-16
+        },
+        "high": {
+          "exact_days": 434,
+          "within_one_tick_days": 691,
+          "mismatch_over_one_tick_days": 25,
+          "maximum_absolute_error": 0.007000000000000561
+        },
+        "low": {
+          "exact_days": 404,
+          "within_one_tick_days": 668,
+          "mismatch_over_one_tick_days": 48,
+          "maximum_absolute_error": 0.009999999999999343
+        },
+        "close": {
+          "exact_days": 716,
+          "within_one_tick_days": 716,
+          "mismatch_over_one_tick_days": 0,
+          "maximum_absolute_error": 8.881784197001252e-16
+        }
+      },
+      "maximum_relative_volume_error": 2.918617511492693e-07,
+      "maximum_relative_amount_error": 9.032250860938988e-05
+    }
+  },
+  "reconstruction_overlap_audit": {
+    "status": "PASS",
+    "sample_days": 48,
+    "sample_bars": 768,
+    "price": {
+      "open": {
+        "bars": 768,
+        "exact_count": 767,
+        "exact_rate": 0.9986979166666666,
+        "within_one_tick_count": 768,
+        "within_one_tick_rate": 1.0,
+        "maximum_absolute_error": 0.0009999999999998899,
+        "mean_absolute_error": 1.3020833334852673e-06
+      },
+      "high": {
+        "bars": 768,
+        "exact_count": 688,
+        "exact_rate": 0.8958333333333334,
+        "within_one_tick_count": 753,
+        "within_one_tick_rate": 0.98046875,
+        "maximum_absolute_error": 0.004999999999999893,
+        "mean_absolute_error": 0.0001406250000001655
+      },
+      "low": {
+        "bars": 768,
+        "exact_count": 697,
+        "exact_rate": 0.9075520833333334,
+        "within_one_tick_count": 763,
+        "within_one_tick_rate": 0.9934895833333334,
+        "maximum_absolute_error": 0.0030000000000001137,
+        "mean_absolute_error": 0.000100260416666821
+      },
+      "close": {
+        "bars": 768,
+        "exact_count": 768,
+        "exact_rate": 1.0,
+        "within_one_tick_count": 768,
+        "within_one_tick_rate": 1.0,
+        "maximum_absolute_error": 8.881784197001252e-16,
+        "mean_absolute_error": 1.6595521253511455e-16
+      }
+    },
+    "volume": {
+      "exact_bars": 768,
+      "maximum_relative_error": 9.846661873311667e-08
+    },
+    "amount": {
+      "definition": "重建值为成交价乘成交量估算",
+      "maximum_relative_error": 0.00036600585627056994
+    },
+    "failures": []
+  },
+  "factor_readiness": {
+    "all_five_years": {
+      "status": "LIMITED",
+      "allowed_for_prototype": [
+        "以bar收盘价构造的收益、动量和实现波动代理",
+        "成交量及相对成交量",
+        "交易时段位置和日历特征"
+      ],
+      "not_allowed_for_formal_backtest": [
+        "依赖精确high/low的FVG、影线、ATR极值",
+        "使用bar内high/low判定成交、止损或止盈"
+      ]
+    },
+    "direct_period_from_2024_07_29": {
+      "status": "READY_WITH_EXECUTION_CAVEATS",
+      "allowed": "可计算OHLCV技术因子；成交仍不能假设在bar最高或最低价完成"
+    }
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "RECONSTRUCTED_EXTREME_PRICE_UNDERCOVERAGE",
+      "high_mismatch_over_one_tick_days": 25,
+      "low_mismatch_over_one_tick_days": 48,
+      "impact": "重建区间不应直接用于依赖影线、FVG、ATR极值或盘中止损触发的正式回测"
+    },
+    {
+      "code": "POST_CLOSE_EXCLUDED",
+      "impact": "2026-07-06以后15:05至15:30盘后固定价格成交不在主15分钟序列中"
+    }
+  ]
+}

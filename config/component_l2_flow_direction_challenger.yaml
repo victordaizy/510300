@@ -1,0 +1,36 @@
+registry_version: 1
+registered_on: "2026-08-13T17:31:00+08:00"
+status: "PRE_REGISTERED_BEFORE_OUTCOME_TEST"
+research_family_sequence: 3
+scope: "官方历史权重聚合的沪深300成分股L2分类资金流预测510300未来20日净收益方向"
+
+features:
+  - column: "official_weighted_net_mf_intensity_5d"
+    expected_sign: "positive"
+    mechanism: "成分股净主力主动流入持续时，指数未来方向更强。"
+  - column: "official_weighted_large_extra_large_intensity_5d"
+    expected_sign: "positive"
+    mechanism: "大单和特大单主动净流入代表机构型需求。"
+  - column: "official_weighted_positive_net_mf_share_5d"
+    expected_sign: "positive"
+    mechanism: "净主力流入扩散到更多指数权重时，比少数权重股孤立流入更可靠。"
+
+model:
+  estimator: "固定C=0.1的标准化L2 Logistic"
+  horizon_trading_days: 20
+  minimum_training_samples: 504
+  refit_interval_trading_days: 5
+  no_hyperparameter_search: true
+
+acceptance_gate:
+  minimum_realized_forecasts: 500
+  minimum_overall_auc: 0.55
+  minimum_overall_brier_skill: 0.0
+  minimum_each_half_auc: 0.53
+  minimum_each_half_brier_skill: 0.0
+  calibration_slope_low: 0.5
+  calibration_slope_high: 1.5
+  minimum_expected_sign_share_each_feature: 0.60
+  minimum_non_overlapping_auc_above_half_share: 0.60
+  require_top_minus_bottom_mean_net_return_positive: true
+  trading_use_authorized: false

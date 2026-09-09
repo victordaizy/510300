@@ -1,0 +1,209 @@
+{
+  "status": "REJECTED_FIXED_ETF_SHARE_PREMIUM_LEVEL_BINARY_FAMILY_NO_RESCUE",
+  "study_id": "510300_ETF_SHARE_PREMIUM_LEVEL_BINARY_SCREEN_V1",
+  "generated_at": "2026-08-28T20:13:04.977259+08:00",
+  "protocol_sha256": "6913b2cbc6b9bb2b8c2883ac4111b580522384b6b4200090ace96f5173d51b91",
+  "freeze_manifest_sha256": "a37ba17ff5e1f601051f1f33c666625e0c59d2bd90d60a8ce6102b317bf254b6",
+  "candidate_contract_sha256": "33b62f3917287cbf9dbc194bc7027cac3b5c29c9e409955ed557be8d0f91c658",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "benchmark": "H00300 total return",
+    "signal_time": "T_CLOSE_AFTER_NAV_AND_SHARE_RECORD_AVAILABLE",
+    "execution_time": "T_PLUS_1_OPEN",
+    "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY"
+  },
+  "input_audit": {
+    "hashes": {
+      "data/raw/flow/510300_etf_share_premium_level_full_v1.parquet": "656374a6e960f76fb6f6c64d181d81fa0dc75615eb7f4a2110e54fa18fb1dda9",
+      "reports/data_quality/510300_etf_share_premium_level_full_v1.json": "0ad12c16b9e017253bc77ea432b5161f8cdd8e27132470a33f92938f55c97927",
+      "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+      "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    "feature_rows": 3430,
+    "feature_first_date": "2012-07-02",
+    "feature_last_date": "2026-08-12",
+    "merge_audit_status": "SUCCESS_FIXED_CANDIDATE_HISTORY_MERGE_NO_FILL",
+    "merge_excluded_dates_without_fill": [
+      "2022-12-31",
+      "2023-09-30",
+      "2023-12-31",
+      "2024-03-31",
+      "2024-06-30"
+    ],
+    "market_rows": 2355,
+    "benchmark_rows": 2356,
+    "dividend_event_count": 14
+  },
+  "feature_audit": {
+    "feature_rows": 3430,
+    "first_rank_dates": {
+      "share_rank_1d": "2013-01-04",
+      "share_rank_5d": "2013-01-10",
+      "share_rank_20d": "2013-01-31",
+      "premium_rank": "2012-12-31",
+      "absolute_premium_rank": "2012-12-31"
+    },
+    "market_days_without_joint_feature": 0,
+    "future_510300_return_columns_read": 0
+  },
+  "candidate_count": 8,
+  "result_rows": 320,
+  "passing_candidates": [],
+  "positive_shadow_candidates": [],
+  "best_candidate": {
+    "candidate_id": "ETF_SHARE5D_BOTTOM10_CASH",
+    "rule": "5日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+    "hard_pass": false,
+    "positive_shadow": false,
+    "stress_min_annualized_excess": -0.07364346580672362,
+    "stress_min_rolling_242d_excess_median": -0.054487001840493855,
+    "stress_combined_annualized_excess_offset0": -0.044040954649521534,
+    "stress_combined_rolling_median_offset0": -0.02445517460912988,
+    "base_combined_annualized_excess_offset0": -0.029055512785382695,
+    "base_combined_rolling_median_offset0": -0.015570907006013362,
+    "cash_state_share_full_input_window": 0.10658174097664544,
+    "state_change_count_full_input_window": 140,
+    "maximum_t_plus_one_violations": 0
+  },
+  "candidate_summaries": [
+    {
+      "candidate_id": "ETF_SHARE5D_BOTTOM10_CASH",
+      "rule": "5日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.07364346580672362,
+      "stress_min_rolling_242d_excess_median": -0.054487001840493855,
+      "stress_combined_annualized_excess_offset0": -0.044040954649521534,
+      "stress_combined_rolling_median_offset0": -0.02445517460912988,
+      "base_combined_annualized_excess_offset0": -0.029055512785382695,
+      "base_combined_rolling_median_offset0": -0.015570907006013362,
+      "cash_state_share_full_input_window": 0.10658174097664544,
+      "state_change_count_full_input_window": 140,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE5_BOTTOM20_AND_PREMIUM_BOTTOM20_CASH",
+      "rule": "5日份额变化与折溢价水平均不高于各自0.20分位则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.07815521881479505,
+      "stress_min_rolling_242d_excess_median": -0.08088569359210651,
+      "stress_combined_annualized_excess_offset0": -0.035121829322153963,
+      "stress_combined_rolling_median_offset0": -0.01997005058011702,
+      "base_combined_annualized_excess_offset0": -0.016101223189273234,
+      "base_combined_rolling_median_offset0": -0.008870031737252725,
+      "cash_state_share_full_input_window": 0.052653927813163484,
+      "state_change_count_full_input_window": 177,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE5_TOP20_AND_PREMIUM_TOP20_CASH",
+      "rule": "5日份额变化与折溢价水平均不低于各自0.80分位则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.08144859012674187,
+      "stress_min_rolling_242d_excess_median": -0.0631356360401407,
+      "stress_combined_annualized_excess_offset0": -0.043526366105324524,
+      "stress_combined_rolling_median_offset0": -0.04610447093666792,
+      "base_combined_annualized_excess_offset0": -0.024243305192258445,
+      "base_combined_rolling_median_offset0": -0.03216817856383023,
+      "cash_state_share_full_input_window": 0.05222929936305733,
+      "state_change_count_full_input_window": 182,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE20D_BOTTOM10_CASH",
+      "rule": "20日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.095403037840394,
+      "stress_min_rolling_242d_excess_median": -0.07757615095718426,
+      "stress_combined_annualized_excess_offset0": -0.027102922690137067,
+      "stress_combined_rolling_median_offset0": -0.007968938769477678,
+      "base_combined_annualized_excess_offset0": -0.02009853602800679,
+      "base_combined_rolling_median_offset0": -0.005019741196381669,
+      "cash_state_share_full_input_window": 0.10148619957537156,
+      "state_change_count_full_input_window": 64,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE1D_BOTTOM10_CASH",
+      "rule": "1日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.098981200793584,
+      "stress_min_rolling_242d_excess_median": -0.10244671997714822,
+      "stress_combined_annualized_excess_offset0": -0.0715965420687374,
+      "stress_combined_rolling_median_offset0": -0.0769702729446379,
+      "base_combined_annualized_excess_offset0": -0.03405460911060836,
+      "base_combined_rolling_median_offset0": -0.03418855936091511,
+      "cash_state_share_full_input_window": 0.10828025477707007,
+      "state_change_count_full_input_window": 361,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_PREMIUM_BOTTOM10_CASH",
+      "rule": "收盘折溢价水平分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.10538799188969694,
+      "stress_min_rolling_242d_excess_median": -0.10168768374808554,
+      "stress_combined_annualized_excess_offset0": -0.0779411836864454,
+      "stress_combined_rolling_median_offset0": -0.0650769469496397,
+      "base_combined_annualized_excess_offset0": -0.047367547537586756,
+      "base_combined_rolling_median_offset0": -0.035753750780752463,
+      "cash_state_share_full_input_window": 0.08195329087048832,
+      "state_change_count_full_input_window": 297,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_PREMIUM_TOP10_CASH",
+      "rule": "收盘折溢价水平分位不低于0.90则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.13488357481019936,
+      "stress_min_rolling_242d_excess_median": -0.13772111575446805,
+      "stress_combined_annualized_excess_offset0": -0.09729815543656745,
+      "stress_combined_rolling_median_offset0": -0.08891177775688118,
+      "base_combined_annualized_excess_offset0": -0.056570145802198546,
+      "base_combined_rolling_median_offset0": -0.04768011734809196,
+      "cash_state_share_full_input_window": 0.09893842887473461,
+      "state_change_count_full_input_window": 400,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_ABS_PREMIUM_TOP10_CASH",
+      "rule": "收盘折溢价绝对值分位不低于0.90则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.15349840870751566,
+      "stress_min_rolling_242d_excess_median": -0.12373213420445345,
+      "stress_combined_annualized_excess_offset0": -0.0939613115229492,
+      "stress_combined_rolling_median_offset0": -0.08269965659955905,
+      "base_combined_annualized_excess_offset0": -0.05910919685407415,
+      "base_combined_rolling_median_offset0": -0.05433271205539891,
+      "cash_state_share_full_input_window": 0.09087048832271762,
+      "state_change_count_full_input_window": 340,
+      "maximum_t_plus_one_violations": 0
+    }
+  ],
+  "maximum_t_plus_one_violations": 0,
+  "artifacts": {
+    "data/research/510300_etf_share_premium_level_binary_screen_v1/daily_states.parquet": "96cd8e257a96cccfc6e8f00d9fa216b548817f9591804f5e41d3ed32d2a1fa18",
+    "data/research/510300_etf_share_premium_level_binary_screen_v1/start_perturbation_metrics.parquet": "b42bff650ddba4c274edd3ad04b588e7900ba6eb12c51a5de5c062431c440365"
+  },
+  "decision": "八个预先固定规则均未过双20门槛；禁止改分位、改方向、改窗口或组合条件营救。",
+  "boundaries": {
+    "current_signal_created": false,
+    "position_mapping": "DISABLED",
+    "paper_or_shadow": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

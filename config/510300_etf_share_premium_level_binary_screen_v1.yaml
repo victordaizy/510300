@@ -1,0 +1,68 @@
+protocol:
+  study_id: 510300_ETF_SHARE_PREMIUM_LEVEL_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  candidate_contract: config/510300_etf_share_premium_level_binary_screen_v1_candidates.yaml
+  candidate_contract_sha256: 33b62f3917287cbf9dbc194bc7027cac3b5c29c9e409955ed557be8d0f91c658
+  no_parameter_rescue: true
+
+initial_capital_cny: 500000.0
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  stamp_duty_rate: 0.0
+
+data_contracts:
+  feature_input:
+    file: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    required_sha256: 656374a6e960f76fb6f6c64d181d81fa0dc75615eb7f4a2110e54fa18fb1dda9
+    required_rows: 3430
+    required_first_date: '2012-07-02'
+    required_last_date: '2026-08-12'
+    required_columns: [date, fund_shares, close_premium_to_nav, feature_asof, execution_earliest, share_source, source_primary, source_secondary]
+  merge_audit:
+    file: reports/data_quality/510300_etf_share_premium_level_full_v1.json
+    required_sha256: 0ad12c16b9e017253bc77ea432b5161f8cdd8e27132470a33f92938f55c97927
+  execution_daily:
+    file: data/raw/market/510300_daily_raw.parquet
+    required_sha256: 640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4
+    required_symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  benchmark_total_return:
+    file: data/raw/market/H00300_total_return_daily_raw.parquet
+    required_sha256: 49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733
+    required_symbol: H00300
+    required_columns: [date, close, symbol]
+  cash_distributions:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_event_count: 14
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+
+source_contracts:
+  input_merge_implementation:
+    file: scripts/build_510300_etf_share_premium_level_inputs_v1.py
+    required_sha256: 5e8e86e40ff12028d7fc5753612554b998023edb32e6d8186a5deb8c631b8bae
+  execution_ledger_dependency:
+    file: research/intraday_binary_livermore_screen_v1.py
+    required_sha256: 17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa
+
+artifacts:
+  freeze_manifest: config/510300_etf_share_premium_level_binary_screen_v1_manifest.json
+  daily_states: data/research/510300_etf_share_premium_level_binary_screen_v1/daily_states.parquet
+  metrics: data/research/510300_etf_share_premium_level_binary_screen_v1/start_perturbation_metrics.parquet
+  report_json: reports/research/510300_etf_share_premium_level_binary_screen_v1.json
+  report_markdown: reports/research/510300_ETF_SHARE_PREMIUM_LEVEL_BINARY_SCREEN_V1.md
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

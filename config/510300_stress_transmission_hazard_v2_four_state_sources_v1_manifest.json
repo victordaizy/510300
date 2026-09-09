@@ -1,0 +1,258 @@
+{
+  "addendum_id": "510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_SOURCES_V1",
+  "config_bytes": 9282,
+  "config_canonical_sha256": "ffd6d5c8ed43ac2ebd019b476445b6b3a39b3d9c5368ca43232126dff59f7ddb",
+  "config_file": "config/510300_stress_transmission_hazard_v2_four_state_sources_v1.yaml",
+  "config_sha256": "f74ef7b653b74d5ed6c3930d3d811fe9f2d7de81526d077be6b42cd189c43e8a",
+  "corporate_action_reconciliation": {
+    "comparison": {
+      "absolute_tolerance_cny": 0.011,
+      "expected_ex_reference_formula": "ROUND_TO_CENT((PREVIOUS_CLOSE_MINUS_GROSS_CASH_PLUS_SUBSCRIPTION_OUTFLOW)/POST_TO_PRE_SHARE_RATIO)",
+      "pct_chg_identity_absolute_tolerance_percentage_points": 0.011,
+      "previous_unadjusted_close_source": "PRIOR_OBSERVED_DAILY_CLOSE",
+      "provider_ex_reference_source": "DAILY_PRE_CLOSE"
+    },
+    "none_confirmed": {
+      "required": true,
+      "rule": "DAILY_PRE_CLOSE_EQUALS_PRIOR_OBSERVED_UNADJUSTED_CLOSE_WITHIN_TOLERANCE_AND_NO_CONFLICTING_ACTION_ROW"
+    },
+    "resolved": {
+      "required": true,
+      "rule": "IMPLEMENTED_TERMS_AVAILABLE_BEFORE_EX_DATE_AND_EXPECTED_EX_REFERENCE_MATCHES_DAILY_PRE_CLOSE"
+    },
+    "unresolved_triggers": [
+      "DAILY_PRE_CLOSE_DIFFERS_FROM_PRIOR_OBSERVED_CLOSE_WITHOUT_MATCHED_IMPLEMENTED_TERMS",
+      "IMPLEMENTATION_ANNOUNCEMENT_NOT_STRICTLY_BEFORE_EX_DATE",
+      "CONFLICTING_DUPLICATE_ACTION_TERMS",
+      "RIGHTS_ISSUE_OR_SUBSCRIPTION_TERMS_NOT_AVAILABLE",
+      "ADJ_FACTOR_CHANGE_WITHOUT_RESOLVED_TERMS",
+      "INVALID_OR_NONFINITE_ECONOMIC_TERMS"
+    ]
+  },
+  "coverage_and_new_member_contract": {
+    "below_gate_state": "NO_VIEW",
+    "breadth_equal_weight_minimum_usable_member_ratio": 0.98,
+    "comovement_minimum_scoreable_member_ratio": 0.9,
+    "comovement_minimum_valid_observations_in_20": 15,
+    "listing_or_first_observation_without_previous_close_state": "SUPPLIER_MISSING_OR_CONFLICT",
+    "ordinary_missing_member_may_be_excluded_above_gate": true,
+    "ordinary_missing_member_may_be_zero_filled": false,
+    "pre_membership_public_price_history": {
+      "comovement_peer_membership_rule": "ACTUAL_POINT_IN_TIME_MEMBERS_ON_EACH_LOOKBACK_SESSION",
+      "conservative_comovement_eligibility": "REQUIRE_AT_LEAST_15_VALID_MEMBER_SESSION_OBSERVATIONS_AFTER_ENTRY",
+      "individual_return_window_use_allowed": true,
+      "membership_identity_backfill_allowed": false
+    },
+    "reliable_point_in_time_weight_minimum_usable_ratio": 0.99
+  },
+  "dependencies": {
+    "legacy_daily_observation_seed": {
+      "bytes": 35681160,
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_original_route_g2/constituent_history_20141101_20200228.parquet",
+      "sha256": "260ef92fd7239d7101c7c1916f2fa5ed1b0e843afe1b43d92ca1d99d0b98e5fd"
+    },
+    "parent_config": {
+      "bytes": 18495,
+      "path": "config/510300_stress_transmission_hazard_v2.yaml",
+      "sha256": "06064c26ef4a0dc3a8c7a8c6b5d49bd44d05d351bee0083c1839e79b52e609d8"
+    },
+    "parent_manifest": {
+      "bytes": 17838,
+      "path": "config/510300_stress_transmission_hazard_v2_manifest.json",
+      "sha256": "4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be"
+    },
+    "point_in_time_membership": {
+      "bytes": 139181,
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    }
+  },
+  "forbidden_actions": [
+    "MUTATE_PARENT_V2_FREEZE",
+    "USE_LEGACY_TOTAL_RETURN_OR_FORWARD_FILLED_SUSPENSION_COLUMNS",
+    "TREAT_PROVIDER_SUSPEND_D_AS_EXCHANGE_OFFICIAL_EVIDENCE",
+    "USE_ADJ_FACTOR_TO_BUILD_DIRECT_RETURN_SERIES",
+    "USE_POST_ADJUSTED_PRICE_WITH_FUTURE_ACTION_INFORMATION",
+    "FILL_MISSING_CONSTITUENT_RETURN_WITH_ZERO",
+    "RUN_BULK_COLLECTION_BEFORE_PROBE_PASS",
+    "READ_NEW_AUC_RETURN_SHARPE_DRAWDOWN_NAV_POSITION_OR_ORDER_OUTPUT",
+    "TRAIN_MODEL_OR_SELECT_THRESHOLD",
+    "GENERATE_PORTFOLIO_POSITION_ORDER_BROKER_OR_LIVE_ACTION"
+  ],
+  "four_state_mapping": {
+    "CORPORATE_ACTION_UNRESOLVED": {
+      "feature_use_allowed": false,
+      "return_value": null
+    },
+    "OFFICIAL_SUSPENSION": {
+      "current_source_path_available": false,
+      "provider_suspend_d_sufficient": false,
+      "requirements": [
+        "EXCHANGE_OFFICIAL_SUSPENSION_EVIDENCE",
+        "CORPORATE_ACTION_RECONCILED"
+      ],
+      "return_value": 0.0
+    },
+    "SUPPLIER_MISSING_OR_CONFLICT": {
+      "feature_use_allowed": false,
+      "return_value": null
+    },
+    "TRADED_VALID": {
+      "requirements": [
+        "DAILY_ROW_PRESENT",
+        "DAILY_INTERNAL_IDENTITY_PASS",
+        "CORPORATE_ACTION_NONE_CONFIRMED_OR_RESOLVED"
+      ],
+      "return_formula": "(UNADJUSTED_CLOSE*POST_TO_PRE_SHARE_RATIO+GROSS_CASH_DISTRIBUTION-SUBSCRIPTION_CASH_OUTFLOW)/PREVIOUS_UNADJUSTED_CLOSE-1"
+    },
+    "blanket_zero_fill_allowed": false,
+    "supplier_suspension_candidate_default_state_without_exchange_evidence": "SUPPLIER_MISSING_OR_CONFLICT"
+  },
+  "frozen_at": "2026-09-03T12:08:28.005310+08:00",
+  "governance_files": {
+    "config/510300_stress_transmission_hazard_v2_four_state_sources_v1.yaml": {
+      "bytes": 9282,
+      "sha256": "f74ef7b653b74d5ed6c3930d3d811fe9f2d7de81526d077be6b42cd189c43e8a"
+    },
+    "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_SOURCE_ADMISSION_20260903.md": {
+      "bytes": 4301,
+      "sha256": "06cb994b93e0192cc2d4ad92f284e8e579cd97534fa16be046a03a1d6c391802"
+    },
+    "tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1.py": {
+      "bytes": 4697,
+      "sha256": "9c12e27866573b2cb48165599e645823e482931ab77d39bf40544bedd5ce1b55"
+    }
+  },
+  "implementation_files": {
+    "scripts/freeze_510300_stress_transmission_hazard_v2_four_state_sources_v1.py": {
+      "bytes": 15189,
+      "sha256": "5b282e1bd29f95c3513136a0d00002fec78283a200c564ed5dc4210b5144ad41"
+    },
+    "scripts/probe_510300_stress_transmission_hazard_v2_four_state_sources_v1.py": {
+      "bytes": 9865,
+      "sha256": "b7de2135274ae5acfd1de20ff1287887735ab42f0e5cda72a8b6cfee4de16009"
+    }
+  },
+  "manifest_payload_sha256": "4a284380845add46b2eadbe94e3ce9da58568e001cac74c26078eaf001118d68",
+  "model_trained": false,
+  "portfolio_results_read": false,
+  "position_impact": 0,
+  "probe_contract": {
+    "adj_factor_end": "2020-03-13",
+    "adj_factor_start": "2020-03-11",
+    "adj_factor_symbol": "000001.SZ",
+    "daily_end": "2020-03-13",
+    "daily_start": "2020-03-11",
+    "daily_symbol": "000001.SZ",
+    "dividend_symbol": "000001.SZ",
+    "full_history_or_bulk_member_download_allowed": false,
+    "must_verify_frozen_addendum_before_network_call": true,
+    "receipt_path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_source_probe_v1.json",
+    "snapshot_directory": "data/raw/510300_stress_transmission_hazard_v2_four_state_sources_v1/probe",
+    "status_path": "reports/research/510300_stress_transmission_hazard_v2_four_state_source_status_v1.json",
+    "suspension_trade_date": "2020-03-12",
+    "suspension_type": "S"
+  },
+  "provider_contract": {
+    "adj_factor": {
+      "adjusted_price_construction_allowed": false,
+      "api_name": "adj_factor",
+      "direct_return_construction_allowed": false,
+      "documentation_url": "https://tushare.pro/document/2?doc_id=28",
+      "future_revision_safe_assumed": false,
+      "required_fields": [
+        "ts_code",
+        "trade_date",
+        "adj_factor"
+      ],
+      "role": "ACTION_CANDIDATE_AND_CROSSCHECK_ONLY"
+    },
+    "allowed_endpoint_hosts": [
+      "api.tushare.pro",
+      "fast.xiaodefa.cn",
+      "tt.xiaodefa.cn"
+    ],
+    "credential_persistence_allowed": false,
+    "credential_source": "EPHEMERAL_ENV_ONLY",
+    "daily": {
+      "api_name": "daily",
+      "documentation_url": "https://tushare.pro/document/1?doc_id=27",
+      "missing_row_implies_official_suspension": false,
+      "pre_close_semantics": "EX_RIGHTS_REFERENCE_PREVIOUS_CLOSE",
+      "provider_semantics": "UNADJUSTED_DAILY_NO_ROWS_DURING_SUSPENSION",
+      "required_fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "return_series_direct_use_allowed": false,
+      "unadjusted_ohlc_use_allowed_after_validation": true,
+      "value_availability": "SAME_SESSION_AFTER_DAILY_INGEST_FOR_NEXT_OPEN_DECISION"
+    },
+    "dividend": {
+      "admitted_div_proc": "实施",
+      "api_name": "dividend",
+      "availability_field": "imp_ann_date",
+      "availability_rule": "IMPLEMENTATION_ANNOUNCEMENT_DATE_STRICTLY_BEFORE_EX_DATE",
+      "cash_field": "cash_div_tax",
+      "cash_semantics": "GROSS_CASH_DISTRIBUTION_PER_PRE_EVENT_SHARE",
+      "conflicting_duplicate_rule": "FAIL_CLOSED_UNRESOLVED",
+      "documentation_url": "https://tushare.pro/document/2?doc_id=103",
+      "missing_rights_issue_terms_rule": "FAIL_CLOSED_UNRESOLVED",
+      "required_fields": [
+        "ts_code",
+        "end_date",
+        "ann_date",
+        "div_proc",
+        "stk_div",
+        "stk_bo_rate",
+        "stk_co_rate",
+        "cash_div",
+        "cash_div_tax",
+        "record_date",
+        "ex_date",
+        "pay_date",
+        "div_listdate",
+        "imp_ann_date",
+        "base_date",
+        "base_share"
+      ],
+      "share_ratio_formula": "ONE_PLUS_STK_DIV",
+      "subscription_cash_outflow_supported": false
+    },
+    "provider": "TUSHARE_PRO",
+    "request_strategy_after_probe": {
+      "bounded_workers_maximum": 2,
+      "bulk_collection_allowed_only_after_probe_pass": true,
+      "checkpoint_required": true,
+      "one_symbol_one_history_request_preferred": true,
+      "overwrite_existing_checkpoint_allowed": false
+    },
+    "suspend_d": {
+      "api_name": "suspend_d",
+      "documentation_url": "https://tushare.pro/document/2?doc_id=214",
+      "official_exchange_evidence_eligible": false,
+      "provider_semantics": "PROVIDER_MAINTAINED_DAILY_SUSPEND_RESUME_CANDIDATE",
+      "required_fields": [
+        "ts_code",
+        "trade_date",
+        "suspend_timing",
+        "suspend_type"
+      ],
+      "role": "CANDIDATE_DIAGNOSTIC_ONLY",
+      "zero_return_authorization": false
+    }
+  },
+  "research_state": "DISCOVERY_ONLY",
+  "return_evaluation": "NOT_ALLOWED",
+  "status": "FROZEN_BEFORE_ANY_FOUR_STATE_SOURCE_NETWORK_PROBE",
+  "version": "1.0.0"
+}

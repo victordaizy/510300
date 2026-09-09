@@ -1,0 +1,80 @@
+{
+  "project_id": "510300_FIXED_EXPERT_DUAL_SHADOW_UNION_DISCOVERY_V1_0_1",
+  "status": "NO_NEW_POLICY_PASSED_KEEP_EXISTING_MICRO_BASELINE",
+  "adjudicated_at_asia_shanghai": "2026-08-28T12:29:30+08:00",
+  "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY",
+  "source_report": "reports/discovery/510300_fixed_expert_dual_shadow_union_discovery_v1.json",
+  "source_daily_states_sha256": "a4e5219bb2719e6c906583afa472ad62353f1b0976b7af7ee5675494426e9839",
+  "source_start_metrics_sha256": "4cf1716c1b3f841253e59d942c84092730d623bab098f9aeb3c5c14b87fa770b",
+  "independent_micro_gate_replication": {
+    "rows": 1063,
+    "mismatches": 0,
+    "status": "PASS"
+  },
+  "reference_policy": {
+    "policy": "MICRO_DUAL_REFERENCE",
+    "all_five_starts_pass": true,
+    "stress_annualized_excess_minimum": 0.256015982356722,
+    "stress_rolling_242d_excess_median_minimum": 0.262219088528117,
+    "interpretation": "仅复现既有冻结候选，不算新发现"
+  },
+  "new_policy_results": [
+    {
+      "policy": "OPTION_DOMAIN_DUAL",
+      "starts_passing_both_gates": 0,
+      "start_count": 5,
+      "stress_annualized_excess_minimum": -0.02074385847868062,
+      "stress_rolling_242d_excess_median_minimum": -0.027639493790218073,
+      "decision": "REJECT"
+    },
+    {
+      "policy": "CONSENSUS_DUAL",
+      "starts_passing_both_gates": 0,
+      "start_count": 5,
+      "stress_annualized_excess_minimum": -0.03728770982432148,
+      "stress_rolling_242d_excess_median_minimum": -0.023971307040076065,
+      "decision": "REJECT"
+    },
+    {
+      "policy": "INDIVIDUAL_GATED_UNION",
+      "starts_passing_both_gates": 4,
+      "start_count": 5,
+      "stress_annualized_excess_minimum": 0.19762814549335433,
+      "annualized_gate_shortfall": 0.002371854506645681,
+      "stress_rolling_242d_excess_median_minimum": 0.24415943036249205,
+      "failed_start_perturbation": 1,
+      "decision": "REJECT_NO_ROUNDING_NO_PARAMETER_RESCUE"
+    },
+    {
+      "policy": "INDIVIDUAL_GATED_VOTE2",
+      "starts_passing_both_gates": 0,
+      "start_count": 5,
+      "stress_annualized_excess_minimum": 0.004465971302627693,
+      "stress_rolling_242d_excess_median_minimum": -0.000589065009650537,
+      "decision": "REJECT"
+    },
+    {
+      "policy": "RAW_UNION_SHARED_DUAL",
+      "starts_passing_both_gates": 0,
+      "start_count": 5,
+      "stress_annualized_excess_minimum": 0.05361274261327475,
+      "stress_rolling_242d_excess_median_minimum": 0.04032572636060261,
+      "decision": "REJECT"
+    }
+  ],
+  "conclusion": {
+    "new_candidate_found": false,
+    "existing_candidate_displaced": false,
+    "keep_candidate": "MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW",
+    "diagnosis": "期权/期指/宽度与全球/杠杆共识专家的固定空仓日即使经过同一反事实双影子门，仍未提供足以覆盖新增交易成本的稳定正增量",
+    "parameter_rescue": "FORBIDDEN",
+    "next_search_constraint": "新信息源必须先证明自身固定原始空仓影子贡献为正；不再用简单并集放大交易"
+  },
+  "boundaries": {
+    "current_state_signal_created": false,
+    "position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

@@ -1,0 +1,55 @@
+version: PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1
+status: RESEARCH_ONLY
+timezone: Asia/Shanghai
+
+inputs:
+  primary_market_readiness: reports/data_quality/510300_primary_market_readiness.json
+  primary_market_current_task_status: reports/data_quality/510300_primary_market_task_status.json
+  primary_market_historical_task_status_glob: reports/data_quality/510300_primary_market_task_status_*.json
+  primary_market_task_receipt_glob: reports/data_quality/primary_market_task_runs/*.json
+  industry_operations_status: reports/forward/industry_expectation_gap_v1_evaluation/operations_status.json
+  industry_task_status: reports/forward/industry_expectation_gap_v1_evaluation/operations_task_status.json
+  industry_task_receipt_glob: reports/forward/industry_expectation_gap_v1_evaluation/task_runs/*.json
+  governance_status: reports/audit/research_status_current.json
+  scheduler_installation_status: reports/audit/priority_forward_scheduler_installation_20260819.json
+  supervisor_status: reports/audit/priority_forward_supervisor_status.json
+  codex_automation_status: reports/audit/priority_forward_codex_automation_v1_4_20260819.json
+
+outputs:
+  json: reports/audit/priority_forward_research_status_current.json
+  markdown: reports/audit/PRIORITY_FORWARD_RESEARCH_STATUS_CURRENT.md
+  task_status: reports/audit/priority_forward_research_status_task.json
+  task_log_directory: output/priority_forward_research_status_logs
+  threshold_event_ledger: reports/audit/priority_forward_threshold_events.jsonl
+
+direction_order:
+  - id: PRIMARY_MARKET_PCF_IOPV
+    priority: 1
+    action: CONTINUE_STRICT_FORWARD_COLLECTION
+  - id: INDUSTRY_EXPECTATION_GAP
+    priority: 2
+    action: CONTINUE_DISTINCT_ORIGIN_COLLECTION
+  - id: ORTHOGONAL_LOW_VOL_REPLICATION
+    priority: 3
+    action: WAIT_FOR_GOVERNANCE_PASS
+
+gates:
+  primary_market:
+    minimum_quality_days: 20
+    feature_freeze_days: 40
+    first_unseen_evaluation_days: 80
+    replication_days: 120
+  industry_expectation_gap:
+    calibration_origin_clusters: 20
+    calibration_non_overlapping_60d_blocks: 4
+    model_comparison_origin_clusters: 40
+    model_comparison_non_overlapping_60d_blocks: 8
+  orthogonal_low_vol:
+    required_governance_status: PASS
+
+safety:
+  research_only: true
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

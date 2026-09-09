@@ -1,0 +1,55 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V12"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11"
+  status: "FROZEN_BEFORE_BTC_CAPACITY_AWARE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v11_manifest.json"
+  v2_manifest: "config/btc_spot_long_horizon_trend_v2_manifest.json"
+  v2_failure_report: "reports/research/btc_spot_long_horizon_trend_v2_visible.json"
+
+registered_failure:
+  candidate_id: "BTC_SPOT_LONG_HORIZON_TREND_V2"
+  required_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  required_error: "历史路径容量失败"
+  performance_metrics_available: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "BTC_SPOT_LONG_HORIZON_TREND_CAPACITY_AWARE_EXECUTION"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_product: "BTC-USD"
+  signal_windows_unchanged: [200, 126, 60]
+  target_volatility_unchanged: 0.40
+  costs_and_hard_gates_unchanged: true
+  maximum_order_fraction_unchanged: 0.003
+  capacity_target_formula: "MIN_WEIGHT_TARGET_NOTIONAL_AND_PRIOR_MEDIAN_TURNOVER_TIMES_0_003"
+  daily_capacity_sliced_exits_and_resize_sells: true
+  terminal_winddown_calendar_days: 30
+  stop_new_entries_at_winddown_start: true
+  terminal_positions_must_be_zero: true
+
+governance:
+  v2_remains_closed: true
+  no_v2_performance_was_available: true
+  signal_or_cost_change_allowed: false
+  capacity_fraction_relaxation_allowed: false
+  winddown_must_freeze_before_visible_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

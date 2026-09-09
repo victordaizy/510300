@@ -1,0 +1,243 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "BROAD_LIQUID_ETF_LIQUIDITY_SHOCK_REVERSAL_V1_VISIBLE",
+  "generated_at": "2026-08-27T01:14:03.035384+08:00",
+  "phase": "visible",
+  "status": "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN",
+  "goal_achieved": false,
+  "candidate_id": "BROAD_LIQUID_ETF_LIQUIDITY_SHOCK_REVERSAL_V1",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1",
+  "period": {
+    "start": "2016-01-04",
+    "end": "2021-12-31"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5
+  },
+  "manifest_verification": {
+    "status": "PASS_BROAD_LIQUID_ETF_LIQUIDITY_SHOCK_REVERSAL_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/broad_liquid_etf_liquidity_shock_reversal_v1_manifest.json",
+    "manifest_sha256": "d7fab82f9ff1767c833d3cb1fa87d3c96791d5e48aa474dbfc28b06e86ca6e72",
+    "tracked_content_sha256": "2fa345c8d85f5a4418824715a46aac7da32310c74fd17c10e877b7129b59e15d",
+    "tracked_file_count": 5,
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_MANIFEST_VERIFIED"
+  },
+  "data_audit": {
+    "liquidity_shock_signal": {
+      "signal_rows_before_entry_filter": 822,
+      "executable_signal_rows": 821,
+      "signal_day_count": 266,
+      "entry_day_count": 266,
+      "unique_etf_count": 65,
+      "signal_rows_by_year": {
+        "2016": 73,
+        "2017": 52,
+        "2018": 94,
+        "2019": 82,
+        "2020": 183,
+        "2021": 337
+      },
+      "first_signal_date": "2016-01-04",
+      "last_signal_date": "2021-12-22",
+      "future_return_used_in_signal_construction": false
+    },
+    "portfolio": {
+      "initial_capital_cny": 500000.0,
+      "final_base_nav_cny": 525941.6377710568,
+      "final_stress_nav_cny": 464512.4035498359,
+      "entry_candidate_count": 564,
+      "entry_transaction_count": 261,
+      "exit_transaction_count": 261,
+      "correlation_rejection_count": 153,
+      "missing_correlation_rejection_count": 0,
+      "blocked_exit_attempt_count": 0,
+      "stale_mark_count": 1,
+      "maximum_capacity_fraction": 0.0009720193591772959,
+      "maximum_gross_exposure": 0.9999689673877594,
+      "maximum_net_exposure": 0.9999689673877594,
+      "maximum_position_count": 5,
+      "historical_bid_ask_observed": false,
+      "execution_cost_status": "MODELED_BASE_AND_STRESS_COSTS"
+    }
+  },
+  "evaluation": {
+    "eligible_historical_day_count": 1461,
+    "first_trade_date": "2016-01-04",
+    "last_trade_date": "2021-12-31",
+    "metrics": {
+      "benchmark_total_return_cagr": 0.0699272010713507,
+      "strategy_base_net_cagr": 0.008413623742096319,
+      "strategy_stress_net_cagr": -0.012120337626745607,
+      "base_annualized_excess": -0.06151357732925438,
+      "stress_annualized_excess": -0.0820475386980963,
+      "base_strategy_net_sharpe": -0.047370993433209115,
+      "stress_strategy_net_sharpe": -0.29533072963869617,
+      "base_maximum_drawdown": -0.1355393901757329,
+      "stress_maximum_drawdown": -0.1395398667427502,
+      "base_rolling_242d_excess_median": -0.12701018793199875,
+      "stress_rolling_242d_excess_median": -0.1421686277191444,
+      "base_rolling_242d_sharpe_median": 0.07185857760860913,
+      "stress_rolling_242d_sharpe_median": -0.19671369715111736,
+      "base_bootstrap": {
+        "repetitions": 5000,
+        "block_length_trading_days": 20,
+        "annualized_excess_median": -0.07762574875622531,
+        "annualized_excess_interval_95pct": [
+          -0.23211186003878861,
+          0.04919393493356155
+        ],
+        "strategy_sharpe_median": 0.09996516673651637,
+        "strategy_sharpe_interval_95pct": [
+          -0.5391489163857611,
+          0.7685948101415951
+        ]
+      },
+      "stress_bootstrap": {
+        "repetitions": 5000,
+        "block_length_trading_days": 20,
+        "annualized_excess_median": -0.09606770761943104,
+        "annualized_excess_interval_95pct": [
+          -0.24855515093927028,
+          0.027738948526325618
+        ],
+        "strategy_sharpe_median": -0.16326237874982874,
+        "strategy_sharpe_interval_95pct": [
+          -0.7721017189781298,
+          0.4896414038885876
+        ]
+      },
+      "non_overlapping_years": [
+        {
+          "start": "2016-01-04",
+          "end": "2016-12-28",
+          "base_annualized_excess": 0.04064606127472124,
+          "stress_annualized_excess": 0.026668396512419465,
+          "base_sharpe": -0.7170904144527768,
+          "stress_sharpe": -0.8760488579674647,
+          "target_qualified": false
+        },
+        {
+          "start": "2016-12-29",
+          "end": "2017-12-25",
+          "base_annualized_excess": -0.2396655065444493,
+          "stress_annualized_excess": -0.2535803096335148,
+          "base_sharpe": -0.17850664568503766,
+          "stress_sharpe": -0.644039213860436,
+          "target_qualified": false
+        },
+        {
+          "start": "2017-12-26",
+          "end": "2018-12-21",
+          "base_annualized_excess": 0.28360977688738376,
+          "stress_annualized_excess": 0.26271744958092874,
+          "base_sharpe": 0.5006232505604016,
+          "stress_sharpe": 0.21947559886371898,
+          "target_qualified": false
+        },
+        {
+          "start": "2018-12-24",
+          "end": "2019-12-20",
+          "base_annualized_excess": -0.3425452562052095,
+          "stress_annualized_excess": -0.3550400337741978,
+          "base_sharpe": 0.0028117743969255657,
+          "stress_sharpe": -0.23631298066776638,
+          "target_qualified": false
+        },
+        {
+          "start": "2019-12-23",
+          "end": "2020-12-21",
+          "base_annualized_excess": -0.21117577422861636,
+          "stress_annualized_excess": -0.23208200686193822,
+          "base_sharpe": 0.6413828662607297,
+          "stress_sharpe": 0.4036073502040301,
+          "target_qualified": false
+        },
+        {
+          "start": "2020-12-22",
+          "end": "2021-12-20",
+          "base_annualized_excess": -0.022483029867177224,
+          "stress_annualized_excess": -0.061284986248198794,
+          "base_sharpe": -0.4943084496437161,
+          "stress_sharpe": -0.8067692514376335,
+          "target_qualified": false
+        }
+      ],
+      "target_qualified_year_block_count": 0
+    },
+    "gates": {
+      "base_annualized_excess_at_least_40pct": false,
+      "stress_annualized_excess_at_least_40pct": false,
+      "base_strategy_sharpe_at_least_1_5": false,
+      "stress_strategy_sharpe_at_least_1_5": false,
+      "base_rolling_excess_median_at_least_40pct": false,
+      "stress_rolling_excess_median_at_least_40pct": false,
+      "base_rolling_sharpe_median_at_least_1_5": false,
+      "stress_rolling_sharpe_median_at_least_1_5": false,
+      "base_bootstrap_excess_lower_bound_positive": false,
+      "stress_bootstrap_excess_lower_bound_positive": false,
+      "base_bootstrap_sharpe_lower_bound_at_least_1": false,
+      "stress_bootstrap_sharpe_lower_bound_at_least_1": false,
+      "minimum_non_overlapping_year_blocks": true,
+      "minimum_target_qualified_year_blocks": false,
+      "data_quality_complete": true,
+      "capacity_pass": true
+    },
+    "all_visible_gates_pass": false
+  },
+  "historical_evidence_limits": {
+    "immutable_vendor_vintage_chain_available": false,
+    "historical_bid_ask_snapshots_available": false,
+    "fund_master_is_current_archive_with_point_in_time_dates": true,
+    "slippage_and_impact_are_modeled_not_observed": true,
+    "performance_screen_label": "DISCOVERY_ONLY_CURRENT_ARCHIVE_AND_MODELED_EXECUTION",
+    "historical_result_may_authorize_paper_or_live": false
+  },
+  "decision": {
+    "sealed_replication_open": false,
+    "candidate_may_be_reparameterized_after_failure": false,
+    "historical_result_verifies_40pct_target": false,
+    "next_step": "冻结拒绝本候选，不打开封存期，不调参救回"
+  },
+  "inputs": {
+    "config": {
+      "path": "config/broad_liquid_etf_liquidity_shock_reversal_v1.yaml",
+      "sha256": "a9dc1569d8438a0487ff10bb67eb545fcd0f7ffac3baaac082ace611fb5adc0c"
+    },
+    "etf_total_return_panel": {
+      "path": "data/raw/all_etf_momentum_v1/etf_total_return_panel.parquet",
+      "sha256": "5594e8de81a74c95d80d6e562a652656d0fb9ed755eef6d40e8fe3c59904192e"
+    },
+    "fund_master": {
+      "path": "data/raw/all_etf_momentum_v1/fund_master.parquet",
+      "sha256": "e2d9bebf12dcf58f2af76a3dcc617573502716f2c600c1efe8655bc7db20e3f5"
+    },
+    "benchmark_total_return": {
+      "path": "data/raw/all_etf_momentum_v1/H00300_total_return.parquet",
+      "sha256": "c79aa0212d4065d7057f553f3aa2206d7a3dcf0e2e1af02311c9ed00566c4dcb"
+    },
+    "benchmark_price_ohlc": {
+      "path": "data/raw/r6/000300_daily.parquet",
+      "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1"
+    },
+    "parent_manifest": {
+      "path": "config/multi_asset_annual_excess_40pct_high_sharpe_v1_manifest.json",
+      "sha256": "103921ca48929309f8c7197641ebed27f46dc0e66000b91bd71d07eb17bd9d8f"
+    }
+  },
+  "outputs": {
+    "daily_row_count": 1461,
+    "trade_row_count": 522
+  },
+  "bootstrap_repetitions_override": null,
+  "safety": {
+    "paper_position_generation": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "live_trading_authorized": false
+  }
+}

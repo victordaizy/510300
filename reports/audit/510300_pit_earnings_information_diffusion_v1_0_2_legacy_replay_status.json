@@ -1,0 +1,34 @@
+{
+  "audit_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_V1_0_2_LEGACY_REPLAY_STATUS",
+  "status": "EXPECTED_LEGACY_REPLAY_FAILED_UPSTREAM_MUTABLE_PATH_OVERWRITTEN",
+  "checked_at": "2026-08-30T23:29:00+08:00",
+  "legacy_manifest": {
+    "path": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_manifest.json",
+    "frozen_pdf_inventory_path": "data/raw/cninfo/a_share_hs_first_preliminary_core_earnings_pdf_inventory_v1.parquet",
+    "expected_sha256": "49465b1190f813d7e179ee102d9f566f67a13c25a53f242ef194ed729f3e3e95",
+    "expected_bytes": 7807930
+  },
+  "current_same_path": {
+    "sha256": "632b7fbca399945681b831435b759409de38f55d53eaeb3541aad144294f6fbc",
+    "bytes": 7807560,
+    "last_write_time": "2026-08-30T21:25:09.8333112+08:00"
+  },
+  "diagnosis": "The upstream full fact execution completed after the V1.0.2 feasibility manifest was frozen and rewrote the mutable PDF inventory path. No second local file with the frozen byte length and hash was found. The legacy manifest remains immutable and therefore cannot be replayed from the current workspace bytes.",
+  "superseding_current_data_contract": {
+    "path": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3_source_manifest.json",
+    "sha256": "f0493669639c71fcb4ffe80788a760367b66623f6144755a879a5df5bacdd8e6",
+    "status": "FROZEN_OUTCOME_BLIND_SOURCE_CORRECTION_BEFORE_OUTPUT"
+  },
+  "test_evidence": {
+    "legacy_test": "tests/test_510300_pit_earnings_information_diffusion_10d_risk_v1.py::test_manifest_hashes_match_if_manifest_exists",
+    "observed": "FAIL_EXPECTED_HASH_49465B_CURRENT_HASH_632B7F",
+    "current_manifest_and_remediation_suite": "14_PASSED"
+  },
+  "interpretation": {
+    "old_hash_silently_updated": false,
+    "old_bytes_reconstructed_or_fabricated": false,
+    "formal_candidate_status_changed": false,
+    "portfolio_evaluation_authorized": false,
+    "trading_authorized": false
+  }
+}

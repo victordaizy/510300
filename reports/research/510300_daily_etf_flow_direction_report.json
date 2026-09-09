@@ -1,0 +1,228 @@
+{
+  "status": "DAILY_ETF_FLOW_DIRECTION_REJECTED",
+  "checked_at": "2026-08-13T17:03:53.575595+08:00",
+  "registry_status_before_test": "PRE_REGISTERED_BEFORE_OUTCOME_TEST",
+  "research_family_sequence": 2,
+  "features": [
+    {
+      "column": "fund_share_change_5d_pct",
+      "expected_sign": "positive",
+      "definition": "截至t日已披露510300基金份额相对5个交易日前变化率",
+      "mechanism": "ETF净申购代表资金持续进入沪深300风险敞口。"
+    },
+    {
+      "column": "financing_net_buy_5d_to_turnover",
+      "expected_sign": "positive",
+      "definition": "510300过去5日融资买入额减偿还额之和/ETF成交额之和",
+      "mechanism": "融资净买入强度代表杠杆资金风险偏好。"
+    },
+    {
+      "column": "financing_balance_change_5d_pct",
+      "expected_sign": "positive",
+      "definition": "510300融资余额相对5个交易日前变化率",
+      "mechanism": "融资余额持续增长代表方向性多头敞口累积。"
+    }
+  ],
+  "model": {
+    "estimator": "固定C=0.1的标准化L2 Logistic",
+    "horizon_trading_days": 20,
+    "minimum_training_samples": 504,
+    "refit_interval_trading_days": 5,
+    "no_hyperparameter_search": true
+  },
+  "acceptance_gate": {
+    "minimum_realized_forecasts": 500,
+    "minimum_overall_auc": 0.55,
+    "minimum_overall_brier_skill": 0.0,
+    "minimum_each_half_auc": 0.53,
+    "minimum_each_half_brier_skill": 0.0,
+    "calibration_slope_low": 0.5,
+    "calibration_slope_high": 1.5,
+    "minimum_expected_sign_share_each_feature": 0.6,
+    "minimum_non_overlapping_auc_above_half_share": 0.6,
+    "require_top_minus_bottom_mean_net_return_positive": true,
+    "trading_use_authorized": false
+  },
+  "gate_checks": {
+    "minimum_realized_forecasts": true,
+    "overall_auc": false,
+    "overall_brier_skill": false,
+    "each_half_auc": false,
+    "each_half_brier_skill": false,
+    "calibration_slope": false,
+    "expected_coefficient_signs": false,
+    "non_overlapping_auc": false,
+    "top_minus_bottom_return": false
+  },
+  "evaluation": {
+    "realized_forecast_count": 663,
+    "positive_base_rate": 0.530920060331825,
+    "brier_score": 0.2830277741517953,
+    "expanding_base_rate_brier_score": 0.2671892735909658,
+    "brier_skill_score": -0.059278205101438,
+    "log_loss": 0.7862161856693427,
+    "auc": 0.46992838351359256,
+    "accuracy_at_0_5": 0.4555052790346908,
+    "calibration_slope": -0.7529168011221005,
+    "probability_quintiles": [
+      {
+        "observations": 133,
+        "mean_probability": 0.31781861633792813,
+        "realized_hit_rate": 0.5639097744360902,
+        "mean_net_return": 0.02404950960844674
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.3653093145940987,
+        "realized_hit_rate": 0.4393939393939394,
+        "mean_net_return": 0.004777000167190629
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.3840597438606045,
+        "realized_hit_rate": 0.6015037593984962,
+        "mean_net_return": 0.011266724300382076
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.42641530931978483,
+        "realized_hit_rate": 0.6136363636363636,
+        "mean_net_return": 0.013008115833444439
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.4742519636282928,
+        "realized_hit_rate": 0.43609022556390975,
+        "mean_net_return": -0.0036595393517837105
+      }
+    ],
+    "top_minus_bottom_mean_net_return": -0.02770904896023045,
+    "non_overlapping_cohort_auc_median": 0.4723311546840958,
+    "non_overlapping_cohort_auc_above_half_share": 0.2,
+    "direction_gate_passed": false
+  },
+  "chronological_halves": {
+    "first_half": {
+      "realized_forecast_count": 331,
+      "positive_base_rate": 0.4350453172205438,
+      "brier_score": 0.2846232237161235,
+      "expanding_base_rate_brier_score": 0.2542307961232914,
+      "brier_skill_score": -0.11954660118396121,
+      "log_loss": 0.8155098096271467,
+      "auc": 0.3150995246583482,
+      "accuracy_at_0_5": 0.5377643504531722,
+      "calibration_slope": -2.9604717654732364,
+      "probability_quintiles": [
+        {
+          "observations": 67,
+          "mean_probability": 0.2851084288327078,
+          "realized_hit_rate": 0.6716417910447762,
+          "mean_net_return": 0.03441998612919267
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.3510244127447427,
+          "realized_hit_rate": 0.45454545454545453,
+          "mean_net_return": 0.013521904655568297
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.36166195259407774,
+          "realized_hit_rate": 0.5,
+          "mean_net_return": 0.01487280133755316
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.37181788986749975,
+          "realized_hit_rate": 0.3333333333333333,
+          "mean_net_return": -0.005039442469816565
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.45547907554405587,
+          "realized_hit_rate": 0.21212121212121213,
+          "mean_net_return": -0.01776331240280972
+        }
+      ],
+      "top_minus_bottom_mean_net_return": -0.05218329853200239,
+      "non_overlapping_cohort_auc_median": 0.3027777777777778,
+      "non_overlapping_cohort_auc_above_half_share": 0.0,
+      "direction_gate_passed": false
+    },
+    "second_half": {
+      "realized_forecast_count": 332,
+      "positive_base_rate": 0.6265060240963856,
+      "brier_score": 0.28143713015844407,
+      "expanding_base_rate_brier_score": 0.2801087195000025,
+      "brier_skill_score": -0.004742482350470256,
+      "log_loss": 0.7570107955186403,
+      "auc": 0.39209832506203474,
+      "accuracy_at_0_5": 0.37349397590361444,
+      "calibration_slope": -2.5602217166365753,
+      "probability_quintiles": [
+        {
+          "observations": 67,
+          "mean_probability": 0.37554312428979575,
+          "realized_hit_rate": 0.6119402985074627,
+          "mean_net_return": 0.006178887179220977
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.40186619633633924,
+          "realized_hit_rate": 0.8787878787878788,
+          "mean_net_return": 0.03987831767895995
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.4303111661397896,
+          "realized_hit_rate": 0.6363636363636364,
+          "mean_net_return": 0.011242813008783494
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.44371690160310945,
+          "realized_hit_rate": 0.5454545454545454,
+          "mean_net_return": 0.003914035119992536
+        },
+        {
+          "observations": 67,
+          "mean_probability": 0.4600210165319122,
+          "realized_hit_rate": 0.4626865671641791,
+          "mean_net_return": -0.0024408737426289857
+        }
+      ],
+      "top_minus_bottom_mean_net_return": -0.008619760921849962,
+      "non_overlapping_cohort_auc_median": 0.3604166666666667,
+      "non_overlapping_cohort_auc_above_half_share": 0.2,
+      "direction_gate_passed": false
+    }
+  },
+  "coefficient_signs": {
+    "fund_share_change_5d_pct": {
+      "expected_sign": "positive",
+      "positive_share": 0.8243045387994143,
+      "latest_standardized_coefficient": 0.09466219314811018
+    },
+    "financing_net_buy_5d_to_turnover": {
+      "expected_sign": "positive",
+      "positive_share": 0.3733528550512445,
+      "latest_standardized_coefficient": -0.03424955470565451
+    },
+    "financing_balance_change_5d_pct": {
+      "expected_sign": "positive",
+      "positive_share": 0.4685212298682284,
+      "latest_standardized_coefficient": -0.04828332146306592
+    }
+  },
+  "latest_forecast": {
+    "signal_date": "2026-08-12",
+    "direction_probability_positive_20d_net": 0.45577123095158867
+  },
+  "trading_use_authorized": false,
+  "excluded_data": {
+    "northbound_money": "2024-08-19后披露语义改变，无法作为全样本连续净流量。"
+  },
+  "output_file": "data/features/510300_daily_etf_flow_direction_forecasts.parquet",
+  "output_sha256": "f82b66ca9767155260f712b9879816ae7e578f45d4ae2a859f43b114e98949ef",
+  "registry_sha256": "ab4e12bae9102c4de6465705f18a9060a246564cde3d7eaac7feffd3f177ca98"
+}

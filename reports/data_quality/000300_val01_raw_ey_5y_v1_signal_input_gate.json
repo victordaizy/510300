@@ -1,0 +1,175 @@
+{
+  "project_id": "VAL01_RAW_EY_5Y_V1",
+  "version": "1.0.0",
+  "generated_at": "2026-08-19T00:26:38.694577+08:00",
+  "status": "PASS_SIGNAL_INPUTS_NO_RETURN_LABELS",
+  "research_state": "RESEARCH_ONLY_SIGNAL_INPUT_FREEZE_HISTORICALLY_CONTAMINATED",
+  "hash_audit": {
+    "status": "PASS",
+    "rows": [
+      {
+        "dataset": "upstream_v1_1_manifest",
+        "file": "config/point_in_time_valuation_v2_audit_v1_1_manifest.json",
+        "expected_sha256": "9c5f799087679ddfed0151c196caca84c3551b6ca3515011f6c2078657923930",
+        "actual_sha256": "9c5f799087679ddfed0151c196caca84c3551b6ca3515011f6c2078657923930",
+        "matches": true
+      },
+      {
+        "dataset": "upstream_v1_1_report",
+        "file": "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json",
+        "expected_sha256": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+        "actual_sha256": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+        "matches": true
+      },
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "snapshot_prices",
+        "file": "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet",
+        "expected_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "actual_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "matches": true
+      },
+      {
+        "dataset": "point_in_time_financials",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time.parquet",
+        "expected_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "actual_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "matches": true
+      },
+      {
+        "dataset": "current_constituent_daily",
+        "file": "data/raw/constituents/000300_constituent_daily.parquet",
+        "expected_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "actual_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "matches": true
+      },
+      {
+        "dataset": "index_trading_calendar",
+        "file": "data/raw/market/000300_daily_feature_warmup.parquet",
+        "expected_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "actual_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "matches": true
+      },
+      {
+        "dataset": "vendor_valuation_cross_check",
+        "file": "data/raw/valuation/000300_valuation_daily_raw.parquet",
+        "expected_sha256": "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3",
+        "actual_sha256": "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3",
+        "matches": true
+      },
+      {
+        "dataset": "official_pe_cross_check",
+        "file": "data/raw/valuation/000300_pe_official_raw.parquet",
+        "expected_sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73",
+        "actual_sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73",
+        "matches": true
+      }
+    ]
+  },
+  "signal_input_summary": {
+    "row_count": 120,
+    "first_observation_date": "2016-08-31",
+    "last_observation_date": "2026-07-31",
+    "input_pass_month_count": 120,
+    "warmup_month_count": 59,
+    "percentile_ready_month_count": 61,
+    "first_percentile_ready_date": "2021-07-30",
+    "first_earliest_execution_date": "2021-08-02",
+    "minimum_price_weight_coverage": 0.9950700000000001,
+    "minimum_price_weight_coverage_date": "2025-02-28",
+    "minimum_ttm_earnings_weight_coverage": 0.98573,
+    "minimum_ttm_earnings_weight_coverage_date": "2016-08-31",
+    "minimum_joint_valid_weight_coverage": 0.98573,
+    "minimum_joint_valid_weight_coverage_date": "2016-08-31",
+    "missing_price_constituent_row_count": 2,
+    "missing_ttm_constituent_row_count": 67,
+    "minimum_valid_price_constituent_count": 299,
+    "minimum_valid_ttm_constituent_count": 296,
+    "minimum_valid_joint_constituent_count": 296,
+    "maximum_stale_price_constituent_count": 21,
+    "maximum_stale_price_constituent_count_date": "2017-08-31",
+    "maximum_price_age_calendar_days": 524,
+    "maximum_price_age_calendar_days_date": "2018-05-31",
+    "minimum_percentile": 0.008333333333333333,
+    "maximum_percentile": 0.9916666666666667
+  },
+  "structure_gate_passed": true,
+  "independent_cross_checks": {
+    "official_csindex_pe": {
+      "status": "PASS_DIAGNOSTIC",
+      "warmup_window": {
+        "aligned_months": 60,
+        "spearman_correlation": 0.9546673336199666,
+        "pearson_correlation": 0.9679609816671697,
+        "median_relative_difference_vs_inverse_pe": -0.08017309572321213,
+        "median_absolute_relative_difference_vs_inverse_pe": 0.08017309572321213
+      },
+      "full_history": {
+        "aligned_months": 120,
+        "spearman_correlation": 0.8710350086514796,
+        "pearson_correlation": 0.867560361723509,
+        "median_relative_difference_vs_inverse_pe": -0.09482176962394334,
+        "median_absolute_relative_difference_vs_inverse_pe": 0.09482176962394334
+      }
+    },
+    "vendor_pe": {
+      "status": "PASS_DIAGNOSTIC",
+      "warmup_window": {
+        "aligned_months": 60,
+        "spearman_correlation": 0.968699204027967,
+        "pearson_correlation": 0.9678305898470835,
+        "median_relative_difference_vs_inverse_pe": -0.15198628895714522,
+        "median_absolute_relative_difference_vs_inverse_pe": 0.15198628895714522
+      },
+      "full_history": {
+        "aligned_months": 120,
+        "spearman_correlation": 0.8456527327219058,
+        "pearson_correlation": 0.8490711983965649,
+        "median_relative_difference_vs_inverse_pe": -0.1653205933160551,
+        "median_absolute_relative_difference_vs_inverse_pe": 0.1653205933160551
+      }
+    }
+  },
+  "cross_check_gate_passed": true,
+  "semantic_caveat": "官方与供应商PE通常采用盈利公司或市值聚合口径，和本模型包含亏损公司的官方权重平均EY不要求数值相等",
+  "trial_registration": {
+    "existing_registered_valuation_trial_count": 8,
+    "consumes_one_existing_trial": true,
+    "creates_additional_trial": false,
+    "forbidden_alternatives_without_new_registration": [
+      "改变60月窗口长度",
+      "排除亏损公司",
+      "对盈利收益率缩尾或裁剪",
+      "改变并列值规则",
+      "改变覆盖门槛",
+      "改用供应商PE作为正式输入"
+    ]
+  },
+  "true_forward": {
+    "start": null,
+    "status": "NOT_STARTED",
+    "activation_rule": "冻结后首个按时记录且未回填的月度信号，其下一交易日才可作为真实前向起点"
+  },
+  "governance": {
+    "future_return_labels_generated": false,
+    "return_calculation_performed": false,
+    "ic_calculation_performed": false,
+    "position_mapping_performed": false,
+    "order_generation_performed": false,
+    "broker_connection_performed": false,
+    "upstream_v1_1_files_mutated": false
+  },
+  "artifacts": {
+    "signal_inputs": "data/features/000300_val01_raw_ey_5y_monthly_signal_inputs.parquet",
+    "report_json": "reports/data_quality/000300_val01_raw_ey_5y_v1_signal_input_gate.json",
+    "report_markdown": "reports/data_quality/000300_val01_raw_ey_5y_v1_signal_input_gate.md",
+    "manifest": "config/val01_raw_ey_5y_v1_manifest.json",
+    "signal_inputs_sha256": "2e83ff0e5a02010ef7e1e708d11e2bd87cbeb6567a9932dd99bd9a1650ba21d0"
+  }
+}

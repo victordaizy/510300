@@ -1,0 +1,80 @@
+version: INDUSTRY_SECTOR_SCORECARD_V1_2
+status: DUAL_AXIS_DECISION_LAYER_FROZEN_BEFORE_TRUE_FORWARD
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-19T03:30:00+08:00"
+research_mode: RESEARCH_ONLY
+signal_mode: SHADOW_ONLY
+
+parents:
+  v1_1_config: config/industry_sector_scorecard_v1_1.yaml
+  v1_1_manifest: config/industry_sector_scorecard_v1_1_manifest.json
+  v1_1_report: reports/forward/industry_sector_scorecard_v1_1_2026-08-18.json
+
+parent_integrity:
+  industry_sector_scorecard_v1_1_manifest_sha256: 92fa2cad58fecaeb6d3dc615a731d23a770aa600b0bd4b1c7d93d43e6858c522
+
+outputs:
+  dual_axis_table: data/features/industry_sector_dual_axis_decision_v1_2.parquet
+  json: reports/forward/industry_sector_scorecard_v1_2_2026-08-18.json
+  markdown: reports/forward/industry_sector_scorecard_v1_2_2026-08-18.md
+  manifest: config/industry_sector_scorecard_v1_2_manifest.json
+
+current_forward_axis:
+  source: v1_1_current_score
+  positive_minimum: 65.0
+  watch_minimum: 55.0
+  labels:
+    positive: CURRENT_FORWARD_POSITIVE
+    watch: CURRENT_FORWARD_WATCH
+    weak: CURRENT_FORWARD_WEAK
+  threshold_origin: inherited_from_frozen_v1_grade_boundaries_not_tuned_on_odds
+
+historical_odds_axis:
+  adverse_in_sample_requires:
+    - block_bootstrap_expectancy_high_lt_zero
+  favorable_point_estimate_requires_all:
+    - mean_excess_return_60d_gt_zero
+    - profit_factor_gt_one
+    - average_payoff_ratio_gt_one
+    - nonoverlap_cohort_win_rate_min_gt_breakeven_win_rate
+  favorable_label: FAVORABLE_POINT_ESTIMATE_UNCONFIRMED
+  mixed_label: MIXED_HISTORICAL_ODDS_UNCERTAIN
+  unfavorable_label: UNFAVORABLE_POINT_ESTIMATE_UNCONFIRMED
+  adverse_label: ADVERSE_IN_SAMPLE_NOT_OOS
+  multiple_comparison_adjusted: false
+  historical_odds_are_current_conditional_probability: false
+
+decision_matrix:
+  P1_DUAL_AXIS_ALIGN_UNCONFIRMED:
+    rule: current_forward_positive_and_favorable_historical_point_estimate
+    action: RESEARCH_WATCHLIST_NO_POSITION
+  P2_ONE_AXIS_ONLY:
+    rule: exactly_one_of_current_forward_positive_or_favorable_historical_point_estimate
+    action: MONITOR_CONFLICT_NO_POSITION
+  P3_NO_POSITIVE_ALIGNMENT:
+    rule: neither_axis_positive_and_not_adverse_in_sample
+    action: NO_VIEW_NO_POSITION
+  P4_HISTORICAL_ADVERSE_IN_SAMPLE:
+    rule: block_bootstrap_expectancy_high_lt_zero
+    action: NEGATIVE_CONTROL_NO_POSITION
+  tier_order:
+    - P1_DUAL_AXIS_ALIGN_UNCONFIRMED
+    - P2_ONE_AXIS_ONLY
+    - P3_NO_POSITIVE_ALIGNMENT
+    - P4_HISTORICAL_ADVERSE_IN_SAMPLE
+
+simplification_rules:
+  synthetic_combined_numeric_score_allowed: false
+  current_score_converted_to_probability: false
+  unconditional_win_rate_used_as_current_forecast: false
+  odds_used_for_position_sizing: false
+  ranking_scope: research_priority_within_entity_type_only
+
+governance:
+  score_conditioned_win_rate: UNAVAILABLE_AWAITING_TRUE_FORWARD
+  may_call_predictive_edge: false
+  kelly_position_sizing_allowed: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

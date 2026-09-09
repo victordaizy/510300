@@ -1,0 +1,62 @@
+objective:
+  objective_id: "510300_NET_EXCESS_VS_H00300_V1"
+  name: "510300相对沪深300全收益指数净超额目标"
+  primary_metric: "net_annualized_excess_vs_h00300"
+  benchmark: "H00300沪深300全收益指数"
+  tradable_reference: "510300含分红买入持有"
+  status: "RETROSPECTIVE_OBJECTIVE_AUDIT"
+
+data:
+  benchmark_file: "data/raw/market/H00300_total_return_daily_raw.parquet"
+
+evaluation:
+  initial_cash_cny: 20000.0
+  trading_days_per_year: 242
+  rolling_window_trading_days: 242
+  minimum_evaluation_years: 4.5
+
+gates:
+  minimum_base_annualized_excess: 0.0
+  minimum_stress_annualized_excess: 0.0
+  require_both_chronological_halves_positive: true
+  minimum_rolling_excess_median: 0.0
+  minimum_rolling_positive_ratio: 0.55
+  minimum_information_ratio: 0.0
+  maximum_relative_drawdown: -0.20
+
+strategies:
+  - strategy_id: "CONTINUOUS_VALUATION_ONLY_V2"
+    description: "连续估值基础库存，不含短波战术偏移"
+    base_ledger: "data/processed/510300_continuous_inventory/strategic_only_ledger.parquet"
+    stress_ledger: "data/processed/510300_continuous_inventory/strategic_only_stress_ledger.parquet"
+    eligible_for_selection: true
+  - strategy_id: "CONTINUOUS_VALUATION_TECHNICAL_V2"
+    description: "连续估值库存加短波与FVG执行"
+    base_ledger: "data/processed/510300_continuous_inventory/daily_inventory_ledger.parquet"
+    stress_ledger: "data/processed/510300_continuous_inventory/stress_inventory_ledger.parquet"
+    eligible_for_selection: true
+  - strategy_id: "ROUND5_DEFENSIVE_VALUATION"
+    description: "第五轮防守趋势与估值增强旧路径"
+    base_ledger: "data/processed/round5_defensive_valuation_timing/enhanced_ledger.parquet"
+    stress_ledger: "data/processed/round5_defensive_valuation_timing/enhanced_stress_ledger.parquet"
+    eligible_for_selection: true
+  - strategy_id: "VALUATION_FVG_V1_SUPERSEDED"
+    description: "已废止的离散估值与FVG旧路径，仅作审计对照"
+    base_ledger: "data/processed/510300_valuation_fvg/daily_ledger.parquet"
+    stress_ledger: null
+    eligible_for_selection: false
+  - strategy_id: "LATEST_MACD_OVERLAY"
+    description: "当前两万元估值仓位加MACD择时诊断"
+    base_ledger: "data/processed/valuation_technical_candidate_screen/macd_12_26_9_cross_ledger.parquet"
+    stress_ledger: null
+    eligible_for_selection: false
+
+governance:
+  all_history_already_inspected: true
+  strict_holdout_available: false
+  live_trading_authorized: false
+  selection_rule: "只有基础与压力成本全部通过门槛的可选策略，才可冻结进入纸面前向观察"
+
+output:
+  report_json: "reports/backtest/benchmark_relative_objective_audit.json"
+  report_markdown: "reports/backtest/benchmark_relative_objective_audit.md"

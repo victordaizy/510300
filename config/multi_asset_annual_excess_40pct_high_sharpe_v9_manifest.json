@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9_MANIFEST",
+  "status": "FROZEN_BEFORE_CAPACITY_AWARE_EXECUTION_OUTCOME",
+  "frozen_at": "2026-08-27T05:26:07.347405+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V8",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v9.yaml": "c50516f3d1fa169e867426cbbec376b385c1f126ebf743050c0857269b36c4eb",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V9_SPEC.md": "20736c2ce4245c09fb49d4d0d25a1ae3932ed95ba5aba240b933b0a5c31b1af5",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v9.py": "dc06877a7f2f60662d8c8545a8fad06639427a767791dbaa69bd18bd49159c23"
+  },
+  "tracked_content_sha256": "f63ddc378a20650ac1512b6cd164b83b13f44c84cf128663bfb470b6519949c1",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V8_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v8_manifest.json",
+    "manifest_sha256": "6f7d6d26e13998dfb5815c976f77f105f8da6a44640976fe516514370bf95417",
+    "tracked_content_sha256": "104b267db2047ac0006235ff02927ec332174d804120c207a8387a8a14ffd414",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V7_MANIFEST_VERIFIED"
+  },
+  "v2_manifest_verification": {
+    "status": "PASS_US_LIQUID_TREASURY_V2_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/us_liquid_treasury_multi_asset_absolute_momentum_v2_manifest.json",
+    "manifest_sha256": "277544021ec9c8e4429666b8d3f45a5f5b06f72eef5692ebbf6d9cffe9d91ef0",
+    "tracked_content_sha256": "7974de63d94a6dccd34029730f86e4ee6719c6a199e1b9d7680be402ec487f3c",
+    "tracked_file_count": 7,
+    "dependency_statuses": {
+      "parent": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V8_MANIFEST_VERIFIED",
+      "v1": "PASS_US_LEVERAGED_MULTI_ASSET_MANIFEST_VERIFIED",
+      "v1r": "PASS_US_LEVERAGED_MULTI_ASSET_V1R_FX_MANIFEST_VERIFIED",
+      "evaluator": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+    }
+  },
+  "v2_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "error": true,
+      "performance_unavailable": true,
+      "replication_closed": true,
+      "target_not_verified": true
+    },
+    "report_path": "reports/research/us_liquid_treasury_multi_asset_absolute_momentum_v2_visible.json",
+    "report_sha256": "5da9a7deb6b72dffcf1f49781e9e702a5894253764fa7d02f0dd4237338aac04",
+    "error": "历史路径容量失败"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "US_MULTI_ASSET_CAPACITY_AWARE_ABSOLUTE_MOMENTUM",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_tickers": [
+      "UPRO",
+      "TQQQ",
+      "TLT",
+      "UGL"
+    ],
+    "selection_formula_unchanged_from_v2": true,
+    "target_weight_ceiling_per_selected_asset": 0.5,
+    "maximum_order_fraction_of_prior_median_dollar_turnover": 0.0005,
+    "target_notional_formula": "MIN_50PCT_NAV_STRESS_RESERVED_CAPACITY_NOTIONAL",
+    "capacity_exceeding_order_policy": "SLICE_WITHIN_CAPACITY_NO_CAPACITY_RELAXATION",
+    "pending_exit_reselection_policy": "PENDING_EXIT_REMAINS_MANDATORY",
+    "account_borrowing_allowed": false,
+    "account_margin_allowed": false,
+    "short_sale_allowed": false,
+    "derivative_position_allowed": false,
+    "maximum_account_gross_exposure": 1.0
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

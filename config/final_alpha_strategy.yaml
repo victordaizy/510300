@@ -1,0 +1,92 @@
+strategy:
+  strategy_id: "CSI300_REGIME_DUAL_SLEEVE_ALPHA_V1"
+  name: "沪深300点时成分股双袖带Alpha策略"
+  version: "1.0.0"
+  frozen_at: "2026-08-13"
+  status: "SUPERSEDED_WRONG_SCOPE_DO_NOT_USE"
+  superseded_by: "config/510300_valuation_fvg_strategy.yaml"
+  superseded_reason: "用户明确要求只操作510300 ETF；本策略交易成分股，超出授权范围"
+  evidence_scope: "全部历史均已用于研究；没有未查看的严格样本外"
+  benchmark: "H00300沪深300全收益指数"
+  target: "全样本年化超额及滚动242日超额中位数均不低于20%"
+
+universe:
+  membership: "信号日点时沪深300成员"
+  minimum_20d_average_amount_cny: 50000000
+  exclude_suspended_on_signal: true
+  maximum_open_total_return_gap_for_trade: 0.095
+
+schedule:
+  start_date: "2021-08-12"
+  end_date: "2026-08-12"
+  rebalance_every_trading_days: 10
+  signal_time: "t日收盘后"
+  execution_time: "t+1交易日开盘"
+  first_signal: "研究区间首个交易日"
+
+regime:
+  bull_when_all:
+    index_close_above_ma_days: 120
+    index_return_days: 20
+    index_return_minimum: 0.0
+    equal_weight_members_above_ma_days: 60
+    breadth_minimum: 0.50
+  otherwise: "DEFENSIVE"
+
+sleeves:
+  concentrated:
+    capital_weight: 0.40
+    holdings: 3
+    bull_score:
+      member_rank_momentum_60d: 0.50
+      member_rank_momentum_20d: 0.30
+      member_rank_drawdown_60d: 0.20
+    defensive_score:
+      inverse_member_rank_volatility_60d: 0.60
+      inverse_member_rank_volatility_20d: 0.20
+      member_rank_drawdown_60d: 0.20
+  diversified:
+    capital_weight: 0.60
+    holdings: 8
+    bull_score:
+      member_rank_momentum_120d: 0.45
+      member_rank_momentum_60d: 0.30
+      inverse_member_rank_volatility_60d: 0.15
+      member_rank_drawdown_60d: 0.10
+    defensive_score:
+      inverse_member_rank_volatility_60d: 0.60
+      inverse_member_rank_volatility_20d: 0.20
+      member_rank_drawdown_60d: 0.20
+
+account:
+  initial_cash_cny: 5000000
+  cash_annual_rate: 0.015
+  lot_size: 100
+  long_only: true
+  leverage_allowed: false
+  target_weights_are_rounded_down_to_board_lots: true
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0005
+  stamp_duty_sell_rate_before_reduction: 0.001
+  stamp_duty_reduction_effective_date: "2023-08-28"
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+risk:
+  maximum_merged_single_name_weight: 0.21
+  minimum_target_names: 3
+  unavailable_target_allocation: "保留现金"
+  suspended_or_limit_down_existing_position: "保留至可卖"
+  limit_up_new_position: "跳过并保留现金"
+  data_quality_failure: "不生成新目标，保留原持仓"
+
+governance:
+  selection_is_post_hoc: true
+  strict_holdout_available: false
+  true_forward_start: "2026-08-13"
+  paper_trade_required_before_live: true
+  live_capital_authorized: false
+  warning: "历史达到目标不构成未来收益承诺；终稿冻结后不得用同一历史继续调参。"

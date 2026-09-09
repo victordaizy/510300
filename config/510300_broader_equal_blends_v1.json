@@ -1,0 +1,118 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_BROADER_EQUAL_BLENDS_V1",
+  "round": 47,
+  "registered_at": "2026-09-07T17:48:50.727516+08:00",
+  "candidate_configurations": 2,
+  "primary": "ADD_VOLUME_BREAKOUT",
+  "names": {
+    "ADD_VOLUME_BREAKOUT": "加入放量突破，三个信号各三分之一",
+    "ADD_REGULAR_REBOUND": "加入普通均值回升，三个信号各三分之一"
+  },
+  "fixed_weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "rules": "docs/510300_BROADER_EQUAL_BLENDS_V1.md",
+  "new_model_fits": 0,
+  "position_impact": 0,
+  "volume_specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.06,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "frozen_files": [
+    {
+      "path": "research\\broader_equal_blends_v1.py",
+      "sha256": "85d2eb6508b379fdc99efec6203314a7b7ebe95fdf293580806f7f0b439f03c9"
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\simple_signal_blend_v1.py",
+      "sha256": "4abc19cb70f715c1d4637ae22fd989d4a9954d15caee9013df40861e209dfb27"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_BROADER_EQUAL_BLENDS_V1.md",
+      "sha256": "79d5dadce37c0cadab15711d961ac21ec571776c08c51fdda877910d1a27828e"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation_states.parquet",
+      "sha256": "cde2ad3c2cc5006fac3c3558e91897395379fc49c35d67211e9f204a9f01e24f"
+    },
+    {
+      "path": "reports\\research\\510300_simple_price_entry_exit_v1\\evaluation\\BASE\\R2_Z_CONFIRM_decisions.parquet",
+      "sha256": "706cb1832a20634e21b5c268a214668df6b80b6dd27f0c5a02fe67a872113b3e"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic_states.parquet",
+      "sha256": "456fe77dc7c290f0ecc627f9cb8b84c12ff173a1d98a59aa80a2e5c61d70b78d"
+    },
+    {
+      "path": "reports\\research\\510300_learned_cycle_exit_v1\\earlier_diagnostic\\BASE\\R2_Z_CONFIRM__CLOSE_NEXT_OPEN_decisions.parquet",
+      "sha256": "4f75280313334fd64c40d5f00761a33ff42071c7efc60e0ca917220159c39b7e"
+    },
+    {
+      "path": "reports\\research\\510300_simple_volume_reversal_v1\\evaluation\\BASE\\V3_VOLUME_BREAKOUT_decisions.parquet",
+      "sha256": "ddf96f8a15029ef5ab803627814988953b368a006b176eb50cc87603bd5bfe95"
+    }
+  ]
+}

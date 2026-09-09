@@ -1,0 +1,103 @@
+protocol:
+  project_id: "000300_POINT_IN_TIME_VALUATION_V2_RECONSTRUCTIBILITY"
+  version: "1.0.0"
+  audit_date: "2026-08-18"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_DATA_AUDIT"
+  evaluation_start: "2021-08-12"
+  evaluation_end: "2026-08-12"
+  return_calculation_enabled: false
+  ic_calculation_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+history_requirements:
+  monthly_review_rule: "只在官方月度权重快照日收盘数据可得后更新，快照日前不得回填"
+  first_evaluation_information_cutoff: "2021-08-12"
+  five_year:
+    required_first_month: "2016-08"
+    required_last_month_before_evaluation: "2021-07"
+    required_monthly_snapshots_before_evaluation: 60
+  seven_year:
+    required_first_month: "2014-08"
+    required_last_month_before_evaluation: "2021-07"
+    required_monthly_snapshots_before_evaluation: 84
+  minimum_price_weight_coverage: 0.99
+  minimum_ttm_earnings_weight_coverage: 0.90
+  minimum_normalized_earnings_weight_coverage: 0.90
+
+definitions:
+  raw_earnings_yield: "官方权重加权的成分股TTM每股归母净利润除以同日未复权收盘价；亏损公司保留，不以盈利公司PE替代"
+  normalized_earnings: "仅审计既有固定定义的可重建性：公司三年正TTM利润中位数与当前TTM收入乘三年TTM净利率中位数等权；不足四个TTM观察则缺失"
+  normalized_earnings_yield: "官方权重加权的公司标准化每股盈利除以同日未复权收盘价"
+  earnings_yield_spread: "标准化盈利收益率减同日10年期中国国债收益率"
+  suspension_price_rule: "停牌日使用该证券在快照日以前最后一笔未复权收盘价并显式标记陈旧天数；不得使用快照日后的价格"
+  financial_availability_rule: "available_at取实际公告日f_ann_date，缺失时回退ann_date；任何信号只允许available_at不晚于快照日的版本"
+  vendor_valuation_role: "乐咕PE/PB仅作独立交叉核验，不作为VAL-01或VAL-02正式信号输入"
+  official_pe_role: "中证官网滚动PE历史仅作独立交叉核验；本地文件为事后下载，不能单独证明历史不可修订的点时版本"
+
+data_contracts:
+  historical_weights:
+    file: "data/raw/constituents/000300_historical_weights.parquet"
+    sha256: "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559"
+  point_in_time_financials:
+    file: "data/raw/fundamentals/csi300_financials_point_in_time.parquet"
+    sha256: "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92"
+  financial_checkpoints:
+    directory: "data/raw/fundamentals/vip_checkpoints"
+    expected_api_names: ["income_vip", "balancesheet_vip", "fina_indicator_vip"]
+    expected_quarter_count_per_api: 44
+    expected_file_count: 132
+  current_constituent_daily:
+    file: "data/raw/constituents/000300_constituent_daily.parquet"
+    sha256: "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0"
+  pre_tushare_constituent_backup:
+    file: "data/raw/constituents/000300_constituent_daily_pre_tushare_backfill.parquet"
+    sha256: "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9"
+  index_daily:
+    file: "data/raw/market/000300_daily_feature_warmup.parquet"
+    sha256: "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec"
+  vendor_valuation:
+    file: "data/raw/valuation/000300_valuation_daily_raw.parquet"
+    sha256: "85fea6a2b8fe91b6a99792809dd8b2f6cc298bd203637f260a89741cd23c1ef3"
+    point_in_time_vintage_proven: false
+  official_pe:
+    file: "data/raw/valuation/000300_pe_official_raw.parquet"
+    sha256: "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73"
+    point_in_time_vintage_proven: false
+  government_bond_yields:
+    file: "data/raw/macro/china_government_bond_yields_daily.parquet"
+    sha256: "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d"
+  existing_monthly_fundamental_panel:
+    file: "data/features/000300_point_in_time_fundamental_monthly.parquet"
+    sha256: "c964b18a4d1716fc82587f91d7e1150e0528fc61615b971eb5bc32caab895121"
+  existing_monthly_status:
+    file: "reports/data_quality/000300_point_in_time_fundamental_status.json"
+    sha256: "12819b084bbd94c5beda74ebc3d9071ebef385984137aa8831b3bcc85e143e14"
+  stale_constituent_status:
+    file: "reports/data_quality/000300_constituent_daily_status.json"
+    sha256: "cbae229ce23d4e75582f321521ce9a434d8ed93462a7ef9b5a2e934942eb329b"
+  stale_vendor_metadata:
+    file: "data/raw/valuation/000300_valuation_daily_raw.metadata.json"
+    sha256: "63803e1fca1b5d7c9ea596bc2d92a517997178917fff9e89a88bb791f5ff0671"
+  r5_config:
+    file: "config/round5_defensive_valuation_timing.yaml"
+    sha256: "dbe073815eb4a3f2f05af3cbe8fc1af7287315095f2b4e7f771d75f2e988e033"
+  preserved_r5_enhanced_signals:
+    file: "data/processed/round5_defensive_valuation_timing/enhanced_signals.parquet"
+    sha256: "59d5016e42aec972dd6a0f7e2aa972bfa04ac87205f5026f5f4f1b7d2a1ea289"
+
+source_documents:
+  tushare_index_weight: "https://tushare.pro/document/2?doc_id=96"
+  tushare_daily: "https://tushare.pro/document/2?doc_id=27"
+  tushare_income: "https://tushare.pro/document/2?doc_id=33"
+  tushare_balancesheet: "https://tushare.pro/document/2?doc_id=36"
+  tushare_fina_indicator: "https://tushare.pro/document/2?doc_id=79"
+  csindex_pe_endpoint: "https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000300"
+
+artifacts:
+  snapshot_coverage: "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage.parquet"
+  report_json: "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility.json"
+  report_markdown: "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility.md"
+  manifest: "config/point_in_time_valuation_v2_audit_manifest.json"

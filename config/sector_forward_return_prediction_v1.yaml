@@ -1,0 +1,98 @@
+protocol:
+  project_id: "510300_SECTOR_FORWARD_RETURN_PREDICTION_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  historical_contamination_cutoff: "2026-08-14"
+  true_forward_start: null
+  candidate_budget: 1
+  candidate_addition_after_freeze_forbidden: true
+  threshold_change_after_freeze_forbidden: true
+
+inputs:
+  sector_panel: "data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet"
+  sector_data_status: "reports/data_quality/000300_sector_forward_return_data_v1_status.json"
+  weights: "data/raw/constituents/000300_historical_weights.parquet"
+  constituent_daily: "data/raw/constituents/000300_constituent_daily.parquet"
+  industry_intervals: "data/raw/reference/a_share_citic_industry_point_in_time.parquet"
+  etf_daily: "data/raw/market/510300_daily_raw.parquet"
+  etf_dividends: "data/reference/510300_dividends.csv"
+
+target:
+  horizon_trading_days: 60
+  execution_start: "t+1交易日开盘"
+  maturity: "第60个交易日收盘"
+  minimum_endpoint_weight_coverage: 0.95
+  missing_component_reweighting_allowed: false
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+
+model:
+  candidate_id: "S1_SECTOR_FUNDAMENTAL_RIDGE_V1"
+  estimator: "RIDGE_FIXED"
+  alpha: 10.0
+  fit_intercept: false
+  minimum_mature_training_snapshot_dates: 36
+  numeric_features:
+    - "sector_weight"
+    - "weighted_earnings_yield"
+    - "weighted_book_yield"
+    - "weighted_ttm_roe"
+    - "weighted_ttm_profit_growth_yoy"
+    - "weighted_ttm_revenue_growth_yoy"
+  industry_interaction_features:
+    - "weighted_earnings_yield"
+    - "weighted_book_yield"
+    - "weighted_ttm_roe"
+    - "weighted_ttm_profit_growth_yoy"
+    - "weighted_ttm_revenue_growth_yoy"
+  imputation: "TRAINING_MEDIAN_ONLY"
+  scaling: "TRAINING_STANDARD_SCALE_WITHOUT_CENTERING"
+  feature_selection_allowed: false
+  hyperparameter_search_allowed: false
+
+baseline:
+  aggregate_id: "B0_AGGREGATE_VALUATION_RIDGE"
+  estimator: "RIDGE_FIXED"
+  alpha: 10.0
+  minimum_mature_training_snapshot_dates: 36
+  expanding_mean_id: "B_MEAN_EXPANDING_MATURE_ONLY"
+
+calibration:
+  minimum_prior_mature_oos_errors: 12
+  error_quantiles: [0.10, 0.50, 0.90]
+
+evaluation:
+  pseudo_oos_start: "2023-01-03"
+  minimum_mature_oos_predictions: 30
+  minimum_spearman: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_months: 3
+  random_seed: 20260818
+  bootstrap_spearman_lower_bound_strictly_above: 0.0
+  minimum_mae_improvement_vs_aggregate: 0.10
+  minimum_mae_improvement_vs_expanding_mean: 0.10
+  direction_accuracy_strictly_above: 0.55
+  split_spearman_strictly_above: 0.0
+  etf_x60_spearman_strictly_above: 0.0
+  minimum_calibrated_predictions: 12
+  brier_skill_strictly_above: 0.0
+  interval_80_coverage_range: [0.65, 0.95]
+
+outputs:
+  targets: "data/features/000300_sector_forward_contribution_60d_v1.parquet"
+  forecasts: "data/features/000300_sector_forward_prediction_oos_v1.parquet"
+  result_json: "reports/discovery/sector_forward_return_prediction_v1_result.json"
+  result_markdown: "reports/discovery/sector_forward_return_prediction_v1_result.md"
+
+governance:
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED"
+  historical_run_may_emit_forecast_eligible: false
+  driver_episode_features_allowed: false
+  x1_features_allowed: false
+  r6_reselection_allowed: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  missing_input_output: "NO_VIEW"

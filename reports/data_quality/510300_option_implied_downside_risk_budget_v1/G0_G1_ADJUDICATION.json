@@ -1,0 +1,165 @@
+{
+  "model_id": "510300_OPTION_IMPLIED_DOWNSIDE_RISK_BUDGET_V1",
+  "phase": "C_G0_G1_DATA_ADMISSION",
+  "state": "BLOCKED_G0_DATA_ADMISSION",
+  "generated_at": "2026-09-04T20:57:50.395007+08:00",
+  "decision_fingerprint": "ff8d2eb92a99adbe0d8cae9a06813efcadae1a5584ea7ff5ecfb64990c1c796f",
+  "replay_state": "PASS_CLEAN_NEW_PROCESS_REPLAY",
+  "g0": {
+    "prediction_data_admission_pass": false,
+    "final_execution_data_admission_pass": false,
+    "checks": {
+      "acquisition_complete": true,
+      "all_open_dates_have_opt_daily": true,
+      "no_unexpected_opt_daily_dates": true,
+      "all_expected_shibor_years_present": true,
+      "raw_hashes_complete": true,
+      "all_primary_keys_unique": false,
+      "official_510300_underlying_cross_check": false,
+      "exact_tushare_contract_mapping_nonempty": true,
+      "clean_new_process_replay": true
+    },
+    "duplicate_primary_key_rows": {
+      "trade_cal": 0,
+      "fund_daily": 0,
+      "fund_div": 16,
+      "opt_basic": 0,
+      "opt_daily_all_sse": 0,
+      "shibor": 0,
+      "etf_mins": 0
+    },
+    "execution_window": {
+      "available": false,
+      "eligible_open_dates": 1626,
+      "complete_dates": 0,
+      "coverage": 0.0
+    },
+    "missing_option_dates": [],
+    "unexpected_option_dates": [],
+    "missing_shibor_years": [],
+    "missing_minute_months": [],
+    "invalid_option_partitions": [],
+    "invalid_shibor_partitions": [],
+    "invalid_minute_partitions": [
+      "目录缺失：data/raw/tushare/510300_option_implied_downside_risk_budget_v1/etf_mins/510300.SH/1min"
+    ]
+  },
+  "g1": {
+    "pass": false,
+    "checks": {
+      "minimum_valid_surface_days": false,
+      "minimum_overall_valid_coverage": false,
+      "minimum_each_complete_calendar_year_coverage": false,
+      "legal_30d_and_60d_interpolation": true,
+      "no_arbitrage_pass_for_every_admitted_surface": true,
+      "put_call_parity_pass_for_every_admitted_surface": true,
+      "missing_preserved_as_no_view": true
+    },
+    "valid_surface_days": 347,
+    "open_trade_days": 1626,
+    "overall_valid_coverage": 0.2134071340713407,
+    "yearly_coverage": [
+      {
+        "year": 2019,
+        "complete_calendar_year": false,
+        "open_days": 7,
+        "valid_surface_days": 7,
+        "coverage": 1.0
+      },
+      {
+        "year": 2020,
+        "complete_calendar_year": true,
+        "open_days": 243,
+        "valid_surface_days": 51,
+        "coverage": 0.20987654320987653
+      },
+      {
+        "year": 2021,
+        "complete_calendar_year": true,
+        "open_days": 243,
+        "valid_surface_days": 56,
+        "coverage": 0.23045267489711935
+      },
+      {
+        "year": 2022,
+        "complete_calendar_year": true,
+        "open_days": 242,
+        "valid_surface_days": 56,
+        "coverage": 0.23140495867768596
+      },
+      {
+        "year": 2023,
+        "complete_calendar_year": true,
+        "open_days": 242,
+        "valid_surface_days": 60,
+        "coverage": 0.24793388429752067
+      },
+      {
+        "year": 2024,
+        "complete_calendar_year": true,
+        "open_days": 242,
+        "valid_surface_days": 47,
+        "coverage": 0.19421487603305784
+      },
+      {
+        "year": 2025,
+        "complete_calendar_year": true,
+        "open_days": 243,
+        "valid_surface_days": 36,
+        "coverage": 0.14814814814814814
+      },
+      {
+        "year": 2026,
+        "complete_calendar_year": false,
+        "open_days": 164,
+        "valid_surface_days": 34,
+        "coverage": 0.2073170731707317
+      }
+    ],
+    "surface_state_counts": {
+      "NO_VIEW_NO_ELIGIBLE_CONTRACTS": 105,
+      "NO_VIEW_NO_MATURITY_BRACKET": 1159,
+      "NO_VIEW_NO_VALID_EXPIRY": 15,
+      "PASS_VALID_SURFACE": 347
+    }
+  },
+  "data_counts": {
+    "all_sse_option_rows": 706806,
+    "target_option_rows": 195548,
+    "contract_rows": 2894,
+    "standard_contract_rows": 2284,
+    "fund_daily_rows": 1626,
+    "fund_div_rows": 22,
+    "shibor_rows": 1657
+  },
+  "official_underlying_cross_check": {
+    "source": "上海证券交易所",
+    "url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250611_10781547.shtml",
+    "retrieved_at": "2026-09-04T20:55:52.182618+08:00",
+    "http_status": 200,
+    "response_bytes": 32782,
+    "response_sha256": "b4872f6326f62171c100e3bd8bf96fc69586d3b5357889ea156bf7e49450b031",
+    "raw_relative_path": "data/raw/official/sse/510300_option_listing/retrieved_at=20260904T205552177948+0800/listing_page.html",
+    "assertions": {
+      "http_200": true,
+      "contains_510300": true,
+      "contains_listing_date": false,
+      "contains_underlying_name": false
+    },
+    "pass": false
+  },
+  "outputs": {
+    "contract_map": "data/curated/510300_option_contract_map/510300_option_contract_map.parquet",
+    "quality_ledger": "data/curated/510300_option_surface/510300_option_surface_quality_ledger.parquet",
+    "daily_surface": "data/curated/510300_option_surface/510300_option_surface_daily.parquet"
+  },
+  "future_return_reads": 0,
+  "future_labels_created": false,
+  "model_training_run": false,
+  "portfolio_evaluation_run": false,
+  "net_value_or_sharpe_generated": false,
+  "position_impact": 0,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_authorized": false
+}

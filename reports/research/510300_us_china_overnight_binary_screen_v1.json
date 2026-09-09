@@ -1,0 +1,255 @@
+{
+  "status": "REJECTED_FIXED_US_CHINA_OVERNIGHT_BINARY_FAMILY_NO_RESCUE",
+  "study_id": "510300_US_CHINA_OVERNIGHT_BINARY_SCREEN_V1",
+  "generated_at": "2026-08-28T19:29:40.429685+08:00",
+  "protocol_sha256": "b255344f369b0af4aaa6ceffaf877560f7f2c0ff0b5d97f27562dc8f624bbb2a",
+  "candidate_contract_sha256": "836f662330d489007bbd35c700629643d5f3e5f5777dc9777a138ac587dff160",
+  "freeze_manifest_sha256": "e5311485d15fb32c349e9be07f48c678a3fdd07ddda5ca9f1a1a3618c217a3ef",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "benchmark": "H00300 total return",
+    "signal_cutoff": "D 09:15 Asia/Shanghai",
+    "execution_time": "D open call auction",
+    "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY"
+  },
+  "input_audit": {
+    "hashes": {
+      "data/raw/us_china_overnight_v1/ASHR_daily.parquet": "c6ba24c5cfe6e958590079b7dfc8f85dd7be87c4cccb6cbce721e404548199d4",
+      "data/raw/us_china_overnight_v1/FXI_daily.parquet": "18fbf404e5a6b2c90fcd2dcf2c11d8dd13a3351c0e5be16b2a10eff14a0f88ff",
+      "data/raw/us_china_overnight_v1/MCHI_daily.parquet": "a47f08f1275650319ca645dc5718d4c05b8319c0a5f80bde09082d602c0fc8c8",
+      "data/raw/us_china_overnight_v1/KWEB_daily.parquet": "9dfc2e74841c8162634a3d70caf0637623a77db30b99169b45bd80376359f2c6",
+      "data/raw/us_china_overnight_v1/SPY_daily.parquet": "d3093ba065ea978850de85a796d054334a2c0ffa074d7079c84f033580d73f3b",
+      "data/raw/us_china_overnight_v1/VIX_daily.parquet": "9ad6d7f985d0770b2e56b36223a1aef1a687eeebcd16c400339fe6f89be6acb1",
+      "reports/data_quality/us_china_overnight_inputs_v1.json": "1ab58c9c3566e0f53f8c1625e79b16d3bd2a9d896c14e2921523a2056f83327a",
+      "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+      "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    "us_symbols": {
+      "ASHR": {
+        "rows": 3218,
+        "first_date": "2013-11-06",
+        "last_date": "2026-08-25"
+      },
+      "FXI": {
+        "rows": 3432,
+        "first_date": "2013-01-02",
+        "last_date": "2026-08-25"
+      },
+      "MCHI": {
+        "rows": 3432,
+        "first_date": "2013-01-02",
+        "last_date": "2026-08-25"
+      },
+      "KWEB": {
+        "rows": 3286,
+        "first_date": "2013-08-01",
+        "last_date": "2026-08-25"
+      },
+      "SPY": {
+        "rows": 3432,
+        "first_date": "2013-01-02",
+        "last_date": "2026-08-25"
+      },
+      "^VIX": {
+        "rows": 3433,
+        "first_date": "2013-01-02",
+        "last_date": "2026-08-25"
+      }
+    },
+    "market_rows": 2436,
+    "market_first_date": "2016-08-12",
+    "market_last_date": "2026-08-25",
+    "benchmark_rows": 2437,
+    "dividend_event_count": 14
+  },
+  "feature_audit": {
+    "feature_rows": 2436,
+    "complete_signal_rows": 2355,
+    "incomplete_signal_rows_default_full": 81,
+    "first_complete_signal_date": "2016-08-15",
+    "last_complete_signal_date": "2026-08-25",
+    "same_calendar_day_us_bar_used_count": 0,
+    "maximum_us_sessions_aggregated": 7,
+    "future_return_columns_read": 0
+  },
+  "candidate_count": 8,
+  "result_rows": 320,
+  "passing_candidates": [],
+  "positive_shadow_candidates": [],
+  "best_candidate": {
+    "candidate_id": "USCN_ASHR_TOP10_OVERREACTION_CASH",
+    "rule": "ASHR区间收益滚动分位不低于0.90则D日开盘空仓，否则满仓",
+    "mechanism": "开盘已吸收极端正向隔夜定价后的短期反转",
+    "hard_pass": false,
+    "positive_shadow": false,
+    "stress_min_annualized_excess": -0.08923159231371637,
+    "stress_min_rolling_242d_excess_median": -0.09097161531278058,
+    "stress_combined_annualized_excess_offset0": -0.05567177801985618,
+    "stress_combined_rolling_median_offset0": -0.05204355846295101,
+    "base_combined_annualized_excess_offset0": -0.010722499087135053,
+    "base_combined_rolling_median_offset0": -0.013308433573518533,
+    "cash_state_share_full_input_window": 0.0960591133004926,
+    "state_change_count_full_input_window": 424,
+    "maximum_t_plus_one_violations": 0,
+    "maximum_same_or_future_signal_date_violations": 0
+  },
+  "candidate_summaries": [
+    {
+      "candidate_id": "USCN_ASHR_TOP10_OVERREACTION_CASH",
+      "rule": "ASHR区间收益滚动分位不低于0.90则D日开盘空仓，否则满仓",
+      "mechanism": "开盘已吸收极端正向隔夜定价后的短期反转",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.08923159231371637,
+      "stress_min_rolling_242d_excess_median": -0.09097161531278058,
+      "stress_combined_annualized_excess_offset0": -0.05567177801985618,
+      "stress_combined_rolling_median_offset0": -0.05204355846295101,
+      "base_combined_annualized_excess_offset0": -0.010722499087135053,
+      "base_combined_rolling_median_offset0": -0.013308433573518533,
+      "cash_state_share_full_input_window": 0.0960591133004926,
+      "state_change_count_full_input_window": 424,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_BASKET_TOP10_OVERREACTION_CASH",
+      "rule": "中国ETF篮子区间收益滚动分位不低于0.90则D日开盘空仓，否则满仓",
+      "mechanism": "多产品极端正向隔夜定价在开盘吸收后的短期反转",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.10225419212404911,
+      "stress_min_rolling_242d_excess_median": -0.07996937571889036,
+      "stress_combined_annualized_excess_offset0": -0.04546533547915174,
+      "stress_combined_rolling_median_offset0": -0.04607696691427015,
+      "base_combined_annualized_excess_offset0": -0.0005321185833712175,
+      "base_combined_rolling_median_offset0": -0.003962285906469777,
+      "cash_state_share_full_input_window": 0.0931855500821018,
+      "state_change_count_full_input_window": 414,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_BASKET_BOTTOM20_VIX_TOP80_CASH",
+      "rule": "中国ETF篮子收益分位不高于0.20且VIX区间收益分位不低于0.80则D日开盘空仓，否则满仓",
+      "mechanism": "中国负面信息与全球风险厌恶共同确认",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.11961986304541096,
+      "stress_min_rolling_242d_excess_median": -0.11856721355434605,
+      "stress_combined_annualized_excess_offset0": -0.11000402404994677,
+      "stress_combined_rolling_median_offset0": -0.11043929644029862,
+      "base_combined_annualized_excess_offset0": -0.07411146462120949,
+      "base_combined_rolling_median_offset0": -0.07168503621159864,
+      "cash_state_share_full_input_window": 0.07963875205254516,
+      "state_change_count_full_input_window": 356,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_BASKET_BOTTOM10_CONTINUATION_CASH",
+      "rule": "中国ETF篮子区间收益滚动分位不高于0.10则D日开盘空仓，否则满仓",
+      "mechanism": "极端隔夜风险延续",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.12680827657522478,
+      "stress_min_rolling_242d_excess_median": -0.14141001454546923,
+      "stress_combined_annualized_excess_offset0": -0.08931976439503075,
+      "stress_combined_rolling_median_offset0": -0.08231919117279095,
+      "base_combined_annualized_excess_offset0": -0.04786523776276563,
+      "base_combined_rolling_median_offset0": -0.040920259814013905,
+      "cash_state_share_full_input_window": 0.09400656814449918,
+      "state_change_count_full_input_window": 400,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_SPECIFIC_BOTTOM10_CASH",
+      "rule": "中国特异区间收益滚动分位不高于0.10则D日开盘空仓，否则满仓",
+      "mechanism": "剔除美国大盘方向后的中国特异负面信息",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.14446351413494157,
+      "stress_min_rolling_242d_excess_median": -0.16518487500745327,
+      "stress_combined_annualized_excess_offset0": -0.06989914460992526,
+      "stress_combined_rolling_median_offset0": -0.06525857678712194,
+      "base_combined_annualized_excess_offset0": -0.02733121399901751,
+      "base_combined_rolling_median_offset0": -0.0209891000422271,
+      "cash_state_share_full_input_window": 0.09523809523809523,
+      "state_change_count_full_input_window": 402,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_BASKET_NEG_CONTINUATION_CASH",
+      "rule": "中国ETF篮子区间收益小于0则D日开盘空仓，否则满仓",
+      "mechanism": "多产品一致负向定价延续",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.2967227416531396,
+      "stress_min_rolling_242d_excess_median": -0.3015805683266234,
+      "stress_combined_annualized_excess_offset0": -0.21856336933191522,
+      "stress_combined_rolling_median_offset0": -0.23509872751527416,
+      "base_combined_annualized_excess_offset0": -0.10959546887615641,
+      "base_combined_rolling_median_offset0": -0.12325202355517273,
+      "cash_state_share_full_input_window": 0.49137931034482757,
+      "state_change_count_full_input_window": 1251,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_ALL4_NEG_BREADTH_CASH",
+      "rule": "四只中国ETF区间收益全部小于0则D日开盘空仓，否则满仓",
+      "mechanism": "中国资产隔夜负向广度确认",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.3388564868080961,
+      "stress_min_rolling_242d_excess_median": -0.34050915092014594,
+      "stress_combined_annualized_excess_offset0": -0.22533293790672654,
+      "stress_combined_rolling_median_offset0": -0.23803915850027862,
+      "base_combined_annualized_excess_offset0": -0.12947234509440464,
+      "base_combined_rolling_median_offset0": -0.1336505597680663,
+      "cash_state_share_full_input_window": 0.3123973727422003,
+      "state_change_count_full_input_window": 1083,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    },
+    {
+      "candidate_id": "USCN_ASHR_NEG_CONTINUATION_CASH",
+      "rule": "ASHR区间收益小于0则D日开盘空仓，否则满仓",
+      "mechanism": "美国时段对沪深300新增负面信息延续",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.3616337736219435,
+      "stress_min_rolling_242d_excess_median": -0.3697790211394898,
+      "stress_combined_annualized_excess_offset0": -0.24274910089244747,
+      "stress_combined_rolling_median_offset0": -0.2596249754646568,
+      "base_combined_annualized_excess_offset0": -0.1337950990657784,
+      "base_combined_rolling_median_offset0": -0.1480952448125618,
+      "cash_state_share_full_input_window": 0.4782430213464696,
+      "state_change_count_full_input_window": 1283,
+      "maximum_t_plus_one_violations": 0,
+      "maximum_same_or_future_signal_date_violations": 0
+    }
+  ],
+  "maximum_t_plus_one_violations": 0,
+  "maximum_same_or_future_signal_date_violations": 0,
+  "artifacts": {
+    "data/research/510300_us_china_overnight_binary_screen_v1/preopen_features.parquet": "324eb6d1fd6d8511615555d888250d8564c70cb8694e6c82c783875ab68e2356",
+    "data/research/510300_us_china_overnight_binary_screen_v1/daily_states.parquet": "9b74296ef00b4aa29e32659c7b6806b47f9fb91f61e58f6968e3bad3cd50d928",
+    "data/research/510300_us_china_overnight_binary_screen_v1/start_perturbation_metrics.parquet": "747163ad1c656dd2ef2853d194900f92bff67f1b9e8f9d1e517a8c99f469dc92"
+  },
+  "decision": "八个预先固定规则均未过双20门槛；禁止改阈值、改符号或改信息时钟营救。",
+  "boundaries": {
+    "current_signal_created": false,
+    "position_mapping": "DISABLED",
+    "paper_or_shadow": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

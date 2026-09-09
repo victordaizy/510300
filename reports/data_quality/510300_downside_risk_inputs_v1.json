@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_DOWNSIDE_RISK_INPUTS_V1",
+  "status": "PASS",
+  "checked_at_asia_shanghai": "2026-08-30T16:07:38.882429+08:00",
+  "candidate_outcomes_computed": false,
+  "portfolio_returns_computed": false,
+  "evaluation_window": {
+    "start": "2015-01-05",
+    "end": "2026-08-12",
+    "trading_rows": 2821
+  },
+  "canonical_price": {
+    "source_path": "data/raw/r6/510300_daily.parquet",
+    "output_path": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "source_rows": 3456,
+    "source_first_date": "2012-05-28",
+    "source_last_date": "2026-08-14",
+    "corrections": [
+      {
+        "date": "2015-12-07",
+        "field": "close",
+        "original_value": 3.737,
+        "tushare_value": 3.735,
+        "tencent_value": 3.735,
+        "adjudicated_value": 3.735,
+        "absolute_change": 0.002000000000000224,
+        "reason": "两项独立来源一致且与新浪主源相差2个最小价位"
+      },
+      {
+        "date": "2017-02-21",
+        "field": "close",
+        "original_value": 3.475,
+        "tushare_value": 3.474,
+        "tencent_value": 3.474,
+        "adjudicated_value": 3.474,
+        "absolute_change": 0.0009999999999998899,
+        "reason": "两项独立来源一致且与新浪主源相差1个最小价位"
+      },
+      {
+        "date": "2018-09-04",
+        "field": "close",
+        "original_value": 3.424,
+        "tushare_value": 3.423,
+        "tencent_value": 3.423,
+        "adjudicated_value": 3.423,
+        "absolute_change": 0.0009999999999998899,
+        "reason": "两项独立来源一致且与新浪主源相差1个最小价位"
+      }
+    ],
+    "output_sha256": "d58ace846e1596a428b2a31eb8fad888d049e4c89ccfde3082487514a307d8b5",
+    "output_bytes": 139835
+  },
+  "price_cross_check": {
+    "overlap_rows": 2821,
+    "unmatched_dates": [],
+    "differences": {
+      "open": {
+        "maximum_absolute": 0.0,
+        "nonzero_rows": 0
+      },
+      "high": {
+        "maximum_absolute": 0.0,
+        "nonzero_rows": 0
+      },
+      "low": {
+        "maximum_absolute": 0.0,
+        "nonzero_rows": 0
+      },
+      "close": {
+        "maximum_absolute": 0.0,
+        "nonzero_rows": 0
+      }
+    }
+  },
+  "benchmark_cross_check": {
+    "overlap_rows": 1611,
+    "unmatched_dates": [],
+    "maximum_close_difference": 0.0,
+    "nonzero_close_difference_rows": 0
+  },
+  "calendar": {
+    "missing_benchmark_dates": [],
+    "benchmark_only_dates": [
+      "2018-06-18"
+    ],
+    "benchmark_only_dates_exactly_allowed": true
+  },
+  "dividends": {
+    "event_count": 14,
+    "unmatched_rows": 0,
+    "maximum_cash_difference": 5.551115123125783e-17,
+    "invalid_date_order_rows": 0,
+    "non_https_source_rows": 0,
+    "evaluation_event_count": 12
+  },
+  "checks": {
+    "canonical_full_rows_3456": true,
+    "evaluation_rows_2821": true,
+    "evaluation_dates_exact": true,
+    "correction_rows_exact": true,
+    "post_correction_tushare_dates_exact": true,
+    "post_correction_tushare_ohlc_exact": true,
+    "benchmark_overlap_exact": true,
+    "calendar_matches_allowed_exception": true,
+    "dividends_complete_and_reconciled": true
+  },
+  "input_hashes": {
+    "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "data/raw/all_etf_momentum_v1r/fund_daily_checkpoints/510300_SH.parquet": "c51c4431791b410c104a195f3849b269178c9ff1ec0951103cedf41e01920895",
+    "data/reference/510300_downside_risk_price_corrections_v1.csv": "7d8dc9364dcad8dbd081e419243673968f11a59903883ce80c7228920ca6ca4a",
+    "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "data/raw/external_validation/csi300_2014_2021/H00300_total_return_2014_2021.parquet": "e8f91f7c56df4cd01be6d498ddc89abf9251389c34586d050add07f1af038a79",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+    "data/raw/fund/510300_dividend_cumulative_sina.parquet": "adce91af6fdbb2b0cc182d25c290a1ce03a65941d237b172ab4eebb1231fc75d"
+  },
+  "boundaries": {
+    "original_source_overwritten": false,
+    "price_or_factor_parameters_selected": false,
+    "future_risk_labels_read": false,
+    "strategy_returns_read": false,
+    "live_trading_authorized": false
+  }
+}

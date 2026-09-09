@@ -1,0 +1,104 @@
+program:
+  program_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1
+  remediation_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1_SOURCE_REMEDIATION_V1_0_2
+  stage_id: POINT_IN_TIME_M_F_T_SOURCE_REMEDIATION_V1_0_2
+  version: 1.0.2
+  research_state: DISCOVERY_ONLY
+  executable_assets: [510300.SH, CASH_CNY]
+  position_impact: 0
+  observation_start: 2015-01-05
+  observation_cutoff: 2026-08-14
+
+immutable_parent:
+  version: 1.0.1
+  status_path: reports/data_quality/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1.json
+  status_sha256: 4611fb45fdee3abec7514bb826cfbcf5d66e9b15b632e9520982ed789795c7fc
+  required_status: NO_VIEW_SOURCE_REMEDIATION_PARTIAL_DR007_BLOCKED
+  required_blocked_channels: [M2]
+  receipt_path: reports/audit/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1_receipt.json
+  receipt_sha256: 3539978246a3a2a9beb1762dc1ae829344cecce4b0847bed290b2d3f513980ba
+  receipt_payload_sha256: 74767fa1299dbf818ada55d3ed96376892002f1e3da23a5515b7e357434bfb5b
+  contract_path: config/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1.yaml
+  contract_sha256: 7e7ad13926040327e3abbef02860628e51caec40cb9d5dc8b78b740f3379d243
+  sw_manifest_path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/sw_source_acquisition_manifest.json
+  sw_manifest_sha256: 1d0f9496577bb3cb55c33175de97787bff445e9f5e6417468d2a70b7b8fee98c
+  required_sw_status: PASS_OFFICIAL_SW_PIT_WITH_DATE_LEVEL_NO_VIEW
+  pboc_manifest_path: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_source_acquisition_manifest.json
+  pboc_manifest_sha256: a600dace4b823c2d194396ec4045f752b1c960d8b006209ca047d16b287f123e
+  required_pboc_status: PASS_OFFICIAL_PBOC_7D_RATE_WITH_PRE_WINDOW_ANCHOR
+  parent_mutation_allowed: false
+
+market_calendar:
+  path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+  sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+  date_column: membership_date
+
+dr007_source:
+  provider: TUSHARE_PRO
+  provider_documentation: https://tushare.pro/document/2?doc_id=256
+  api_name: repo_daily
+  required_provider_points: 2000
+  ts_code: DR007.IB
+  repo_maturity: DR007
+  selected_field: weight
+  selected_field_documented_semantics: 加权价百分比
+  series_code: DR007
+  value_semantics: WEIGHTED_AVERAGE_RATE_PERCENT
+  availability_rule: NEXT_TRADING_DAY_OPEN_AFTER_RATE_DATE
+  missing_date_rule: NO_VIEW_NO_INTERPOLATION
+  interpolation_allowed: false
+  forbidden_substitutes: [FDR007, R007, FR007, EXCHANGE_REPO_R_007]
+  query_chunk_rule: CALENDAR_YEAR_INCLUSIVE
+  provider_single_call_max_rows: 2000
+  expected_max_rows_per_chunk: 366
+  raw_response_format: UTF8_JSON
+
+transport:
+  require_https: true
+  official_api_base: https://api.tushare.pro
+  allowed_official_endpoints:
+    - https://api.tushare.pro
+  default_proxy_endpoint: https://fast.xiaodefa.cn
+  allowed_proxy_endpoints:
+    - https://fast.xiaodefa.cn
+    - https://tt.xiaodefa.cn
+  standard_credential_env_priority: [TUSHARE_TOKEN, TS_TOKEN]
+  proxy_credential_env: TUSHARE_PROXY_TOKEN
+  proxy_expiry_env: TUSHARE_PROXY_TOKEN_EXPIRES_AT
+  credential_archival_allowed: false
+  tls_verification_required: true
+  connect_timeout_seconds: 12
+  read_timeout_seconds: 45
+  max_attempts_per_endpoint: 2
+  retry_status_codes: [429, 500, 502, 503, 504]
+  request_interval_seconds: 0.5
+
+outputs:
+  raw_root: data/raw/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2
+  curated_root: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2
+  curated_artifact: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_daily_20150105_20260814.parquet
+  acquisition_manifest: data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_tushare_source_acquisition_manifest.json
+  final_status: reports/data_quality/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2.json
+  final_receipt: reports/audit/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2_receipt.json
+  human_report: reports/research/510300_ASYMMETRIC_STRESS_HAZARD_V1_SOURCE_REMEDIATION_V1_0_2.md
+  attempt_report_root: reports/data_quality/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2_attempts
+  attempt_receipt_root: reports/audit/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2_attempts
+
+admission:
+  required_first_date: 2015-01-05
+  required_last_date: 2026-08-14
+  full_market_session_coverage_required: false
+  missing_market_session_disposition: DATE_LEVEL_NO_VIEW
+  source_identity: TUSHARE_PRO_REPO_DAILY_DR007_IB
+  exact_semantics_required: true
+  proxy_transport_is_not_series_proxy: true
+  series_proxy_rescue_allowed: false
+  feature_construction_allowed_before_all_sources_admitted: false
+  g2_allowed_before_all_sources_admitted: false
+  return_evaluation_allowed_in_this_stage: false
+  label_artifacts_read_allowed: false
+  portfolio_metrics_read_allowed: false
+  model_training_allowed: false
+  position_generation_allowed: false
+  order_generation_allowed: false
+  live_trading_authorized: false

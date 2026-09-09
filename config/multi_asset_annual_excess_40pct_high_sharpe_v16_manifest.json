@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V16_MANIFEST",
+  "status": "FROZEN_BEFORE_DELTA_NEUTRAL_FUNDING_CARRY_OUTCOME",
+  "frozen_at": "2026-08-27T06:39:12.498578+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V16",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V15",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v16.yaml": "3cf7c24db4bdaa8534dd4d92535a4d6f9ec422181f749710afd4538a1a5d73cd",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V16_SPEC.md": "b576a5c0c2bd0377f44852c49c621135632158fc2afa10caf88be000d93faab4",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v16.py": "40acf66de6e495826b5ab9f26b0b0c0f4cbe8f7455ce426b324bbb9271f0e8f0"
+  },
+  "tracked_content_sha256": "75d54787b86ae8a145e914582acaa0f36a64babe44e0c9c7e2ebea89eb7cb544",
+  "parent_manifest_sha256": "456527dbebb294dd3ae04a6919cec0b12ac3d89d307c5787a51bb22969f35961",
+  "v6_rejection": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true,
+      "gates_failed": true,
+      "replication_closed": true
+    },
+    "manifest_sha256": "ebef97865189bedf9913ceb2a9b60588b82d7e7cf7334c23c9e0aa30969725f5",
+    "report_sha256": "bfff0a3a31b18aaacb87da85df5edbe144c8110f36ce4338b095833755ef7ecf",
+    "tracked_content_sha256": "eba8628ef1a5783801f54490df572d78d4b8e14c99f7b4b4efadbee56f2fb267",
+    "metrics": {
+      "base_annualized_excess": 0.39649791687345903,
+      "stress_annualized_excess": 0.37397642785788454,
+      "base_strategy_net_sharpe": 0.8879238675374509,
+      "stress_strategy_net_sharpe": 0.8525776177093592,
+      "base_maximum_drawdown": -0.6545004646550179,
+      "stress_maximum_drawdown": -0.6822554367224825
+    }
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "BTC_ETH_DELTA_NEUTRAL_FUNDING_CARRY",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "venue": "BINANCE_SPOT_AND_USDS_M_PERPETUAL_PUBLIC_DATA",
+    "fixed_symbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "bar_interval": "8h",
+    "trailing_funding_observations": 21,
+    "entry_minimum_annualized_trailing_funding_rate": 0.25,
+    "entry_minimum_positive_funding_fraction": 0.8,
+    "exit_maximum_annualized_trailing_funding_rate": 0.05,
+    "exit_minimum_positive_funding_fraction": 0.5,
+    "decision_time": "COMPLETED_UTC_SUNDAY_16H_BAR_AND_FUNDING",
+    "execution_time": "NEXT_UTC_MONDAY_00H_OPEN",
+    "allocation_rule": "EQUAL_PAIRED_NOTIONAL_AMONG_ELIGIBLE_SYMBOLS",
+    "maximum_paired_notional_per_side_multiple_of_prior_nav": 2.0,
+    "maximum_total_gross_exposure": 4.0,
+    "direction": "LONG_SPOT_SHORT_USDS_M_PERPETUAL",
+    "base_annual_financing_rate": 0.08,
+    "stress_annual_financing_rate": 0.15,
+    "stress_positive_funding_receipt_multiplier": 0.75,
+    "negative_funding_payment_multiplier": 1.0,
+    "terminal_winddown_calendar_days": 30,
+    "parameter_grid_search_allowed": false
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

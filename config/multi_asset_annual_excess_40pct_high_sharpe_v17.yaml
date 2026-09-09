@@ -1,0 +1,48 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V17"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V16"
+  status: "FROZEN_BEFORE_FUNDING_CARRY_TIME_DTYPE_CORRECTION_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v16_manifest.json"
+  v7_manifest: "config/digital_asset_delta_neutral_funding_carry_v7_manifest.json"
+  v7_visible_report: "reports/research/digital_asset_delta_neutral_funding_carry_v7_visible.json"
+
+registered_v7_failure:
+  candidate_id: "DIGITAL_ASSET_DELTA_NEUTRAL_FUNDING_CARRY_V7"
+  required_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  required_error_type: "MergeError"
+  required_error_fragment: "incompatible merge keys"
+  performance_metrics_available: false
+  sealed_replication_open: false
+
+authorized_correction:
+  corrected_candidate_id: "DIGITAL_ASSET_DELTA_NEUTRAL_FUNDING_CARRY_V7R_TIME_DTYPE_CORRECTION"
+  correction_class: "TIME_DTYPE_EXECUTION_CORRECTION_ONLY"
+  exact_change: "CAST_DAILY_CALENDAR_FX_AND_BENCHMARK_MERGE_KEYS_TO_DATETIME64_NS_BEFORE_MERGE_ASOF"
+  products_funding_window_signal_thresholds_allocation_leverage_costs_financing_stress_capacity_and_gates_unchanged: true
+  original_v7_remains_frozen_and_failed: true
+  original_v7_had_no_performance_metrics: true
+  parameter_grid_search_allowed: false
+
+governance:
+  correction_must_freeze_before_visible_outcome: true
+  corrected_candidate_may_run_once: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

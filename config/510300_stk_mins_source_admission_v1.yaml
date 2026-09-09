@@ -1,0 +1,184 @@
+data_protocol:
+  data_model_id: 510300_STK_MINS_SOURCE_ADMISSION_V1
+  version: 1.0.0
+  state: SOURCE_PROTOCOL_FROZEN_BEFORE_BULK_ACQUISITION
+  purpose: 510300_PUBLIC_MINUTE_DATA_FOUNDATION
+  symbol: 510300.SH
+  frequency: 1min
+  start_date: '2017-01-01'
+  end_date: '2026-09-04'
+  timezone: Asia/Shanghai
+  position_impact: 0
+  strategy_result_reads_allowed: false
+  option_v1_rescue_allowed: false
+
+source_contract:
+  provider: TUSHARE_COMPATIBLE_PROXY
+  endpoint: https://tt.xiaodefa.cn
+  method: HTTPS_POST_JSON
+  api_name: stk_mins
+  authentication: X_API_KEY_HEADER_EPHEMERAL_ONLY
+  accept_encoding: gzip
+  token_environment_name: TUSHARE_PROXY_TOKEN
+  token_length: 56
+  persist_token: false
+  request_chunking: CALENDAR_MONTH
+  documented_maximum_rows: 8000
+  at_or_above_limit_state: BLOCKED_POSSIBLE_TRUNCATION
+  minimum_request_interval_seconds: 0.65
+  connect_timeout_seconds: 15
+  read_timeout_seconds: 90
+  maximum_attempts: 5
+  retry_delays_seconds: [2, 4, 8, 16]
+  retry_only:
+    - CONNECTION_ERROR
+    - TIMEOUT
+    - HTTP_429
+    - HTTP_500
+    - HTTP_502
+    - HTTP_503
+    - HTTP_504
+  no_retry:
+    - AUTHENTICATION_FAILURE
+    - ENTITLEMENT_FAILURE
+    - INVALID_PARAMETER
+    - EMPTY_SUCCESS_RESPONSE
+  fallbacks_allowed: false
+  documentation:
+    tushare_stk_mins: https://tushare.pro/document/2?doc_id=370
+    tushare_etf_mins: https://tushare.pro/document/2?doc_id=387
+    tushare_interface_index: https://github.com/waditu/tushare-data/blob/master/tushare/references/%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3.md
+    proxy_tutorial: https://www.yuque.com/aimiao-ke7gj/vosp6x/tsdwcwttw15976iv
+
+api_contracts:
+  trade_cal:
+    api_name: trade_cal
+    parameters:
+      exchange: SSE
+      start_date: '20170101'
+      end_date: '20260904'
+    required_columns: [exchange, cal_date, is_open, pretrade_date]
+    primary_key: [exchange, cal_date]
+  fund_daily:
+    api_name: fund_daily
+    parameters:
+      ts_code: 510300.SH
+      start_date: '20170101'
+      end_date: '20260904'
+    required_columns: [ts_code, trade_date, open, high, low, close, pre_close, vol, amount]
+    primary_key: [ts_code, trade_date]
+  stk_mins:
+    api_name: stk_mins
+    common_parameters:
+      ts_code: 510300.SH
+      freq: 1min
+    date_parameter_format: '%Y-%m-%d %H:%M:%S'
+    required_columns: [ts_code, trade_time, open, high, low, close, vol, amount]
+    primary_key: [ts_code, trade_time]
+    price_adjustment: RAW_UNADJUSTED
+    volume_unit: SHARE
+    amount_unit: CNY
+    returned_order: DESCENDING_EXPECTED_NORMALIZE_ASCENDING
+
+timestamp_contract:
+  semantics: BAR_END
+  ordinary_bar_interval: OPEN_LEFT_CLOSE_RIGHT
+  ordinary_bar_formula: '(label_minus_1_minute,label]'
+  opening_bar_label: '09:30:00'
+  opening_bar_special_state: OPENING_AUCTION_INCLUDED
+  morning_first: '09:30:00'
+  morning_last: '11:30:00'
+  afternoon_first: '13:01:00'
+  afternoon_last: '15:00:00'
+  forbidden_label: '13:00:00'
+  expected_standard_bars_per_day: 241
+  post_close_fixed_price_included: false
+  research_windows:
+    pre:
+      real_interval: '(09:55:00,10:00:00]'
+      bar_labels: ['09:56:00', '09:57:00', '09:58:00', '09:59:00', '10:00:00']
+    reaction:
+      real_interval: '(10:00:00,10:05:00]'
+      bar_labels: ['10:01:00', '10:02:00', '10:03:00', '10:04:00', '10:05:00']
+    entry:
+      real_interval: '(10:06:00,10:11:00]'
+      bar_labels: ['10:07:00', '10:08:00', '10:09:00', '10:10:00', '10:11:00']
+    exit:
+      real_interval: '(14:50:00,14:55:00]'
+      bar_labels: ['14:51:00', '14:52:00', '14:53:00', '14:54:00', '14:55:00']
+
+normalization:
+  sort_order: trade_time_ascending
+  numeric_columns: [open, high, low, close, vol, amount]
+  require_finite_prices: true
+  require_strictly_positive_prices: true
+  require_nonnegative_volume: true
+  require_nonnegative_amount: true
+  daily_reference_units:
+    fund_daily_vol: LOT_100_SHARES
+    fund_daily_amount: THOUSAND_CNY
+  fixed_reconciliation_transform:
+    minute_vol_to_fund_daily: DIVIDE_BY_100
+    minute_amount_to_fund_daily: DIVIDE_BY_1000
+
+storage:
+  raw_root: data/raw/tushare/510300_stk_mins_source_admission_v1
+  official_doc_root: data/raw/official/tushare/510300_stk_mins_source_admission_v1
+  immutable_retrieval_directories: true
+  overwrite_existing_retrieval: false
+  atomic_derivative_writes: true
+  checkpoint: reports/data_quality/510300_stk_mins_source_admission_v1/acquisition_checkpoint.json
+  acquisition_summary: reports/data_quality/510300_stk_mins_source_admission_v1/acquisition_summary.json
+  permission_probe: reports/data_quality/510300_stk_mins_source_admission_v1/permission_probe.json
+  source_adjudication: reports/data_quality/510300_stk_mins_source_admission_v1/source_adjudication.json
+  markdown_summary: reports/data_quality/510300_stk_mins_source_admission_v1/SOURCE_ADMISSION_SUMMARY.md
+  curated_minute: data/curated/510300_stk_mins_source_admission_v1/510300_1min.parquet
+  daily_quality_ledger: data/curated/510300_stk_mins_source_admission_v1/daily_quality_ledger.parquet
+  request_receipt_required: true
+  receipt_fields:
+    - source
+    - api
+    - request_parameters
+    - request_started_at
+    - retrieved_at
+    - http_status
+    - business_code
+    - success
+    - row_count
+    - columns
+    - response_bytes
+    - response_sha256
+    - raw_relative_path
+    - normalized_relative_path
+    - normalized_sha256
+    - endpoint_origin
+    - credential_persisted
+
+quality_gates:
+  permission_probe_pass: true
+  all_expected_month_partitions_present_and_hash_valid: true
+  duplicate_primary_keys_maximum: 0
+  unexpected_symbol_rows_maximum: 0
+  invalid_ohlc_rows_maximum: 0
+  negative_volume_or_amount_rows_maximum: 0
+  open_trading_day_any_data_coverage_minimum: 0.98
+  standard_241_bar_day_coverage_minimum: 0.98
+  nbs_eligible_event_four_window_coverage_minimum: 1.0
+  daily_ohlc_reconciliation_rate_minimum: 0.999
+  price_absolute_tolerance: 0.001
+  pre_post_close_regime_boundary: '2026-07-06'
+  pre_regime_volume_relative_error_maximum: 0.001
+  pre_regime_amount_relative_error_maximum: 0.001
+  unexplained_timestamp_drift_maximum: 0
+  preliminary_pass_state: PASS_GENERAL_MINUTE_SOURCE_PENDING_EVENT_WINDOW_GATE
+  full_pass_state: PASS_STK_MINS_SOURCE_ADMISSION
+  failure_state: BLOCKED_STK_MINS_SOURCE_ADMISSION
+
+governance:
+  future_return_reads: 0
+  strategy_training_allowed: false
+  portfolio_evaluation_allowed: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  position_impact: 0

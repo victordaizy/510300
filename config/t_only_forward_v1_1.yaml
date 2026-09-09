@@ -1,0 +1,42 @@
+protocol:
+  project_id: "510300_T_ONLY_FORWARD_V1_1"
+  version: "1.1.0"
+  parent_project_id: "510300_T_ONLY_ROBUSTNESS_FORWARD_V1"
+  parent_manifest: "config/t_only_forward_v1_freeze_manifest.json"
+  change_class: "FORWARD_CAUSALITY_FIX_BEFORE_FIRST_ELIGIBLE_SIGNAL"
+  historical_strategy_parameters_changed: false
+  forward_signal_start: "2026-08-19"
+  earliest_forward_execution: "2026-08-20"
+  supersedes_forward_runtime: "T_ONLY_FORWARD_V1"
+
+calendar_contract:
+  file: "data/reference/sse_trade_calendar_2026.csv"
+  metadata_file: "data/reference/sse_trade_calendar_2026.metadata.json"
+  required_source: "https://www.sse.com.cn/disclosure/dealinstruc/closed/c/c_20251222_10802510.shtml"
+  required_year: 2026
+  require_market_dates_in_calendar: true
+  require_calendar_coverage_through_market_date: true
+
+weekly_causality:
+  rule: "仅交易日历认定的当周最后交易日可使用本周周线状态；其余交易日只能使用上一个已完成周状态"
+  overwrite_uncorrected_runtime_state: true
+  preserve_uncorrected_state_for_audit: true
+
+daily_guide:
+  json_file: "reports/forward/t_only_forward_v1_1_daily_guide.json"
+  markdown_file: "reports/forward/t_only_forward_v1_1_daily_guide.md"
+  model_actions:
+    TREND_ENTRY: {label: "下一交易日开盘影子建仓至32.5%", target_exposure: 0.325}
+    TREND_ADD_2: {label: "下一交易日开盘影子加仓至65.0%", target_exposure: 0.650}
+    TREND_ADD_3: {label: "下一交易日开盘影子加仓至97.5%", target_exposure: 0.975}
+    TREND_EXIT_WEEKLY_BEAR: {label: "下一交易日开盘影子清仓", target_exposure: 0.0}
+    TREND_EXIT_DONCHIAN_10: {label: "下一交易日开盘影子清仓", target_exposure: 0.0}
+    TREND_EXIT_2ATR_STOP: {label: "下一交易日开盘影子清仓", target_exposure: 0.0}
+
+governance:
+  discovery_only: true
+  shadow_ledger_only: true
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+

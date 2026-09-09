@@ -1,0 +1,281 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "confirmation_days": 2,
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "feature_columns": [
+    "log_holding_days",
+    "cycle_return",
+    "cycle_drawdown",
+    "entry_mode",
+    "mom5",
+    "mom20",
+    "sma120",
+    "vol20"
+  ],
+  "feature_names": [
+    "持仓时间对数",
+    "含分红浮盈浮亏",
+    "持仓回撤",
+    "入场模式",
+    "五日涨跌",
+    "二十日涨跌",
+    "一百二十日均线偏离",
+    "二十日波动"
+  ],
+  "feature_clip": 5.0,
+  "ridge_alpha": 1.0,
+  "recent_cycles": 20,
+  "minimum_cycles": 10,
+  "minimum_rows": 100,
+  "study_id": "510300_CYCLE_SERIAL_ERROR_EXIT_V1",
+  "round": 152,
+  "registered_at": "2026-09-09T16:18:30.731483+08:00",
+  "primary": "CYCLE_SERIAL_ERROR_EXIT",
+  "candidate_configurations": 1,
+  "source_models": "reports\\research\\510300_within_cycle_exit_v1\\saved_models.json",
+  "samples": "reports\\research\\510300_within_cycle_exit_v1\\extended_reference_samples.parquet",
+  "correlation_bounds": [
+    -0.99,
+    0.99
+  ],
+  "model_loss": "CYCLE_EQUAL_WEIGHT_AR1_GLS_WITH_UNPENALIZED_CYCLE_INTERCEPTS_AND_BETA_RIDGE_ONE",
+  "first_row": "PRESERVED_UNSCALED",
+  "solver": "CHOLESKY_EIGHT_DIMENSION_SCHUR_COMPLEMENT",
+  "failure_solver_fallback": false,
+  "model_selection_clock": "FIRST_CLOSE_OF_ACTUAL_FILLED_ENTRY",
+  "model_reselection": "ONLY_ON_NEW_ACTUAL_CYCLE",
+  "cache": "EARLIER_IDENTICAL_SOURCE_MODEL_AND_ORDERED_MEMBERS_SUCCESS_OR_FAILURE",
+  "planned_distinct_fits": 25,
+  "planned_monthly_records": 141,
+  "planned_eligible_months": 114,
+  "rules": "docs/510300_CYCLE_SERIAL_ERROR_EXIT_V1.md",
+  "new_reference_accounts": 0,
+  "source_budget_cny": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "config\\510300_entry_vintage_exit_v1.json",
+      "sha256": "7b99ec0d1c7e15c870aca6a517dcd4335b48bbe3f3673e42b9620d85308de447"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "config\\510300_within_cycle_exit_v1.json",
+      "sha256": "9fa814fcea42b92f62f9c19eef25d78061702c847c3b0c1f206f7099cf2656d6"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_CYCLE_SERIAL_ERROR_CACHE_20260909.md",
+      "sha256": "72745a52b06b956df2e36806dab53e262ffbf092b2eb84ff6974a4167c3463ba"
+    },
+    {
+      "path": "docs\\510300_CYCLE_SERIAL_ERROR_EXIT_V1.md",
+      "sha256": "c70d4639801926dc95257a60784434e622ea6f07fdb02e2b21a2dae8c3341793"
+    },
+    {
+      "path": "docs\\510300_CYCLE_SERIAL_ERROR_NEXT_20260909.md",
+      "sha256": "4a4630ab16ff9dbe01752161a303b13ba916ba93ee1caa7762e1ddd88d4f3aad"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_cycle_serial_error_exit_v1\\tests_receipt.json",
+      "sha256": "a16a24819d1b79c8be3bf410b088700b316fe4bb762e687248732d0fbab04322"
+    },
+    {
+      "path": "reports\\research\\510300_cycle_serial_error_preflight_20260909\\INPUTS_BOUND.json",
+      "sha256": "e78e1f36ee90ec2d681efef50516561069cdbffee329847d6cae2d46117d3950"
+    },
+    {
+      "path": "reports\\research\\510300_cycle_serial_error_preflight_20260909\\result.json",
+      "sha256": "d9c7ee813a1872afb9c9c31a82d3deda9ddad383bf8cf794bd90a365e59e102b"
+    },
+    {
+      "path": "reports\\research\\510300_cycle_serial_error_preflight_20260909\\saved_cycle_pair_moments.csv",
+      "sha256": "b9649c43c5a1d75e3848a49f42355bbdf3fd1bbe4c3ee862ec8f66ae44eafdcd"
+    },
+    {
+      "path": "reports\\research\\510300_cycle_serial_error_preflight_20260909\\saved_monthly_residual_correlation.csv",
+      "sha256": "160407ce09e43eed2761d12cd852938f7e7cd80226ef6a3034387868bc7f393a"
+    },
+    {
+      "path": "reports\\research\\510300_entry_vintage_exit_v1\\earlier_diagnostic\\BASE\\ENTRY_VINTAGE_EXIT_ledger.parquet",
+      "sha256": "78a6a1ec6024b25393007f8a3b8946b4dc88e30d62db503459ad40e7157453fe"
+    },
+    {
+      "path": "reports\\research\\510300_entry_vintage_exit_v1\\earlier_diagnostic\\STRESS\\ENTRY_VINTAGE_EXIT_ledger.parquet",
+      "sha256": "6b2ab03a99dc820e4b340e9113bc9478681534ecdc50ba670ad518232d6c3dea"
+    },
+    {
+      "path": "reports\\research\\510300_entry_vintage_exit_v1\\evaluation\\BASE\\ENTRY_VINTAGE_EXIT_ledger.parquet",
+      "sha256": "da8525233fece4b59eb152f533a3835c067917475cfff6d66cae11e7a72b65c6"
+    },
+    {
+      "path": "reports\\research\\510300_entry_vintage_exit_v1\\evaluation\\STRESS\\ENTRY_VINTAGE_EXIT_ledger.parquet",
+      "sha256": "b63c8314849483176d0a613923695a4404ee1679f8c8f39900dbe3773771585d"
+    },
+    {
+      "path": "reports\\research\\510300_learned_cycle_exit_v1\\all_reference_samples.parquet",
+      "sha256": "93af4797c91e5778ef85ba4f4b6d4659dc78d87606e27dac8909798e3d81d8d8"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_saved_state_failure_diagnostic_v1\\saved_verification_receipt.json",
+      "sha256": "69054f686da61d7fca2835a0cf01ded7258a096966c97a0c733d02f95d9f6b6a"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\earlier_diagnostic\\BASE\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "e979ce1e8746d22a8013115176fa4759ae61e1df9d1eb46dc37cfddae1c8aed0"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\earlier_diagnostic\\STRESS\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "cdea80fd718f0e3dffc532f4cf9908e813d4e25c654894c0633a63d3cf05c33c"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\evaluation\\BASE\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "ecccf0ce43a7f11690b15fff7386d8983abcc69fc6389dd72589f006a2da5154"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\evaluation\\STRESS\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "a58949244c3b50e7ea03611f8d3b0242fb970044fd6522cfc86dce34f5661a56"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\earlier_diagnostic\\BASE\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "ce47e6f1bcdbbf9d2256b92d89c8f5c79800453f1785e8889ee9bd77e10fe9a7"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\earlier_diagnostic\\STRESS\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "e2b326e0c9533f3bf6ece7ddfee18b74429597d1df3272cc98e1cb63ecc720dc"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\evaluation\\BASE\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "da8525233fece4b59eb152f533a3835c067917475cfff6d66cae11e7a72b65c6"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\evaluation\\STRESS\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "b63c8314849483176d0a613923695a4404ee1679f8c8f39900dbe3773771585d"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\extended_reference_samples.parquet",
+      "sha256": "41a8e9f5c639fbda5c6dd54efe622c263f4157a98abce92f63ab446ee84fc9f7"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\saved_models.json",
+      "sha256": "04de336c81d2d98013627bcc03a32dfe63a39a6fa7dcc71020e0becc67f1ecd8"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\training_memberships.parquet",
+      "sha256": "058ae0645a48a356682f87ce5985eb88391f4f3369f463fa8581b05c0c0fa966"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\cycle_serial_error_exit_inputs_v1.py",
+      "sha256": "086628a172444b200df3d013199e6cdbd59061c1f6ce566886c3c0f22f914e85"
+    },
+    {
+      "path": "research\\cycle_serial_error_exit_v1.py",
+      "sha256": "60b56fc95946be6f15f59c538d29794b7b25bd2c385e6e583d72b6637d686454"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research\\rearmed_cycle_exit_account_v1.py",
+      "sha256": "212fc0ce478232e2b05c0db3b48f90e30e641507e7fda1849da2f1fc861795d2"
+    },
+    {
+      "path": "research\\simple_intraday_protection_v1.py",
+      "sha256": "ac6bdee0269638142c19a68c4562e927adce6a0bedadbe3e0e220d310f6b993b"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research\\within_cycle_exit_inputs_v1.py",
+      "sha256": "986db7742140db8bbf59794c6250f8ab3cef99d48788262de8e2bcc4964c4c37"
+    },
+    {
+      "path": "scripts\\preflight_cycle_serial_error_20260909.py",
+      "sha256": "1057c526f9db263f9bc1a4bd2f71a187b13de7096c89d39f6408cfa64a9bb58c"
+    },
+    {
+      "path": "tests\\test_cycle_serial_error_exit_v1.py",
+      "sha256": "337bc2b150671f4a78ac05ef0dff1d034e01e1b71143aa976b3a67405ed43603"
+    },
+    {
+      "path": "tests\\test_median_continuation_v1.py",
+      "sha256": "53be97388b80087f215799d85f13d71da5d28f91b0beef45a1a108550f673cdc"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-08-13T00:46:59.287968+08:00",
+  "snapshot_dates": {
+    "feature": "2026-08-12",
+    "industry": "2026-08-12",
+    "top10": "2026-08-12",
+    "market": "2026-08-12",
+    "pe_last": "2026-08-12"
+  },
+  "snapshot_dates_match": true,
+  "industry_level_weight_sums_pct": {
+    "1": 99.99999999999999,
+    "2": 100.0,
+    "3": 100.0,
+    "4": 100.0
+  },
+  "market_weight_sums_pct": {
+    "exchange": 100.0,
+    "listing_board": 99.99000000000001
+  },
+  "top10_row_count": 10,
+  "top10_precise_weight_sum_pct": 23.455283606147102,
+  "provider_top10_display_sum_pct": 23.46,
+  "official_pe": {
+    "row_count": 3752,
+    "first_date": "2011-06-28",
+    "last_date": "2026-08-12",
+    "provider_original_field": "peg",
+    "semantic_basis": "接口路径indexCsiDsPe；不自行改写为静态PE或TTM PE。",
+    "factsheet_rolling_pe_date": "2026-07-31",
+    "factsheet_rolling_pe": 14.36,
+    "official_api_pe_on_factsheet_date": 14.36,
+    "factsheet_semantic_cross_check": true
+  },
+  "factsheet_metrics": {
+    "index_code": "000300",
+    "rolling_pe": 14.36,
+    "pb": 1.41,
+    "dividend_yield_pct": 2.23,
+    "volatility_1y_annualized_pct": 17.77,
+    "volatility_3y_annualized_pct": 17.78,
+    "volatility_5y_annualized_pct": 17.49,
+    "constituent_total_market_cap_cny_100m": 549275.0,
+    "index_calculated_market_cap_cny_100m": 260603.0,
+    "constituent_market_cap_max_cny_100m": 22028.0,
+    "constituent_market_cap_min_cny_100m": 306.0,
+    "constituent_market_cap_average_cny_100m": 1831.0,
+    "unit_market_cap": "CNY_100_million",
+    "source": "csindex.000300factsheet.pdf",
+    "date": "2026-07-31"
+  },
+  "feature_snapshot": {
+    "indexCode": "000300",
+    "tradeDate": "20260812",
+    "consNum": 300.0,
+    "calMkvSum": "266507.95",
+    "calMkvMax": "10419.50",
+    "calMkvMin": "62.56",
+    "calMkvAvg": "888.36",
+    "calMkvMedian": "479.19"
+  },
+  "annualized_provider_fields": {
+    "oneYearNianHua": "18.27",
+    "threeYearNianHua": "18.17",
+    "fiveYearNianHua": "17.88"
+  },
+  "files": {
+    "data/raw/constituents/000300_industry_weights_current.parquet": {
+      "bytes": 14046,
+      "sha256": "0431a86586df3d98880db95a007012dbcae9527caa7eef1b6b20b89e6d4e4cc4"
+    },
+    "data/raw/constituents/000300_top10_weights_current.parquet": {
+      "bytes": 10821,
+      "sha256": "73a7b089c525af2fcd167916c94b12fb4bb4a523560194467d097aa2ba0bbedd"
+    },
+    "data/raw/constituents/000300_market_weights_current.parquet": {
+      "bytes": 5607,
+      "sha256": "2eee31a75a8b269077d4bae705b5af82b5b535a416ae6a317cd08ecabed04e19"
+    },
+    "data/raw/valuation/000300_pe_official_raw.parquet": {
+      "bytes": 45675,
+      "sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73"
+    },
+    "data/raw/constituents/000300_feature_current.parquet": {
+      "bytes": 8704,
+      "sha256": "6ef579d1c46775f0700279095e3c05b0f0eafcb90ce3795161d4674c1c8bb8d5"
+    },
+    "data/raw/constituents/000300_factsheet_metrics_current.parquet": {
+      "bytes": 11524,
+      "sha256": "3a7ba6dfbd7368e325c08da9c8a6033225bc8d194af993d6bc370db8ef212b00"
+    },
+    "data/reference/000300_factsheet.pdf": {
+      "bytes": 453832,
+      "sha256": "9fe2b2e975c954ec40faebc681408ab39cf2e5e17955050b013bba448ef087a8"
+    },
+    "data/raw/constituents/000300_official_snapshot_raw.json": {
+      "bytes": 661945,
+      "sha256": "8aabfa5d699641bfe23e13971eb0d436938dcf5b91123759178e13520f49c6d4"
+    }
+  },
+  "limitations": [
+    "行业、市场、板块和前十大权重是当前截面，不是历史点时序列。",
+    "官方PE接口原字段名为peg；已用事实表的滚动市盈率做同日语义交叉验证，仍保留原字段名。",
+    "年化字段保留在原始快照中，未经产品页语义复核前不当作策略因子。"
+  ]
+}

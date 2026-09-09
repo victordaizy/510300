@@ -1,0 +1,166 @@
+protocol:
+  protocol_id: CSI300_PIT_FUNDAMENTAL_UNDERREACTION_OFFICIAL_FACTS_V1_3
+  version: 1.3.0
+  timezone: Asia/Shanghai
+  state: PRE_REGISTERED_FORMAT_AND_BOUNDED_IMAGE_STATEMENT_REVISION_AFTER_V1_2_PILOT_BEFORE_V1_3_BULK_AND_ANY_FUTURE_RETURN_READ
+  purpose: 保留V1.2冻结失败证据，以版本化解析器处理多重附注编号、跨页Q3利润表、组合应收款、错标题报表、正文附件和有界图像报表
+
+parent_freeze:
+  path: config/csi300_pit_fundamental_underreaction_enhancement_v1_manifest.json
+  expected_status: FROZEN_BEFORE_OFFICIAL_FACT_ACQUISITION_AND_ANY_FUTURE_RETURN_READ
+  expected_content_sha256: 17017a08faf16cdd450a3dd2e85dc59fc3360002c698266b86fd71c21ff1beec
+
+supersedes:
+  protocol_manifest:
+    path: config/csi300_pit_fundamental_underreaction_official_facts_v1_2_manifest.json
+    expected_status: FROZEN_CROSS_PAGE_TABLE_REVISION_AFTER_V1_1_PILOT_BEFORE_V1_2_BULK_AND_ANY_FUTURE_RETURN_READ
+    expected_content_sha256: 051571668c5983915f90eed6f815af4c14f732d59317ef211326a2f24cb17092
+    expected_file_sha256: dedf5d5d5a7a60915799fcc6a704562d368a3bd7fb58580d4834a0c36ea63cd4
+  pilot_receipt:
+    path: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/receipt.json
+    expected_sha256: 47ed1d15a7dbcd4868dd7fec0091d2ba874f36f5ff3eb78319f4d1d48d03c016
+    expected_status: PARTIAL_OFFICIAL_PDF_FACT_ACQUISITION
+    expected_parser_version: CSI300_PIT_OFFICIAL_FINANCIAL_FACTS_PDFIUM_PDFPLUMBER_V1_6_0
+    expected_terminal_document_count: 120
+    expected_complete_document_count: 109
+    expected_incomplete_terminal_document_count: 11
+    required_return_evaluation: NOT_ALLOWED
+  legacy_checkpoint_root: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_2
+  legacy_checkpoint_mutation_forbidden: true
+
+inputs:
+  target_inventory:
+    path: data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/target_event_inventory_without_returns.parquet
+    expected_sha256: b9c24f90316d80eb0945b27eabd79e97f134fafae92f3aa94100c05ebf97c694
+    target_flag: included_in_phase1_fact_target
+    expected_target_event_count: 8223
+  official_events:
+    path: data/raw/cninfo/a_share_hs_periodic_report_events_v2_1.parquet
+    expected_sha256: 028c9a68335b719916e1b735888f6f444bca7f4dfba2bc051a0088a10e98512b
+    required_unique_key: [ts_code, report_period]
+
+dependency_contract:
+  fiscal_quarter_frequency: Q_DEC
+  quarters_including_target: 9
+  reason: 覆盖当前与前8个标准季度，以构造单季度同比加速度、最近三期连续性、当前及上年可比TTM和期末资产平均值
+  dependency_publication_must_not_exceed_target_publication: true
+  missing_dependency_status: NO_VIEW_REQUIRED_OFFICIAL_PERIODIC_REPORT_MISSING
+  duplicate_document_download_forbidden: true
+
+official_pdf:
+  accepted_host: static.cninfo.com.cn
+  search_page_url: https://www.cninfo.com.cn/new/commonUrl/pageOfSearch?url=disclosure/list/search
+  query_url: https://www.cninfo.com.cn/new/hisAnnouncement/query
+  pdf_base_url: https://static.cninfo.com.cn/
+  required_header: '%PDF-'
+  timeout_seconds: 120
+  maximum_attempts_per_run: 3
+  retry_backoff_seconds: [1, 2]
+  workers_default: 6
+  download_chunk_bytes: 1048576
+  maximum_pdf_bytes: 104857600
+  retain_full_pdf: false
+  retain_full_pdf_sha256: true
+  same_event_official_full_pdf_sibling_fallback: true
+  sibling_query_page_size: 30
+  sibling_maximum_candidates: 10
+  sibling_required_same_security_report_period_and_publication_date: true
+  sibling_selection_rule: FIRST_COMPLETE_NINE_METRIC_PDF_BY_OFFICIAL_TIMESTAMP_THEN_ANNOUNCEMENT_ID
+  sibling_excluded_title_tokens: [摘要, 取消, 更正, 修订, 更新后, 英文, 英文版, 提示性公告]
+
+extraction:
+  parser_version: CSI300_PIT_OFFICIAL_FINANCIAL_FACTS_PDFIUM_PDFPLUMBER_WINDOWS_OCR_V1_7_0
+  engine: pypdfium2_primary_pdfplumber_secondary_windows_media_ocr_bounded_image_statement_fallback
+  statement_scope: CONSOLIDATED_ONLY
+  current_period_column_rule: Q1_H1_FY_FIRST_AMOUNT_AFTER_PROVABLE_OPTIONAL_NOTE_Q3_FROZEN_YTD_COLUMN
+  multiple_note_reference_rule: SKIP_AT_LEAST_TWO_SYNTACTIC_NOTE_REFERENCES_ONLY_WHEN_AN_IMMEDIATE_GROUPED_OR_AT_LEAST_1000_AMOUNT_FOLLOWS
+  q3_income_ytd_rule: START_AT_FIRST_YTD_HEADER_KEEP_CONTIGUOUS_PAGES_UNTIL_NEXT_INCOME_STATEMENT_AND_SELECT_THIRD_AMOUNT_ONLY_FOR_COMBINED_COLUMNS
+  annual_core_profit_rule: PARSE_ANNUAL_SUMMARY_REGION_ONLY_BEFORE_QUARTERLY_MAIN_FINANCIAL_INDICATOR_HEADING
+  extended_income_label_rule: ACCEPT_ONLY_FROZEN_LOSS_FILL_ALIASES_AND_OWNERSHIP_CLASSIFICATION_PARENT_LABEL_INSIDE_CONSOLIDATED_INCOME_STATEMENT
+  content_classified_balance_rule: ACCEPT_MISTITLED_TWO_PAGE_BALANCE_CONTENT_ONLY_WITH_REQUIRED_MARKERS_NUMERIC_DENSITY_UNIT_AND_ASSETS_EQUALS_LIABILITIES_PLUS_EQUITY
+  combined_receivable_note_rule: CURRENT_AND_PRIOR_BILLS_PLUS_PURE_ACCOUNTS_RECEIVABLE_MUST_EQUAL_COMBINED_TOTAL
+  explicit_blank_accounts_receivable_rule: ZERO_ONLY_WHEN_EXACT_TABLE_ROW_HAS_CURRENT_AND_PRIOR_AMOUNT_CELLS_ALL_BLANK
+  pdfplumber_secondary_text_rule: ONLY_FOR_TEXT_CORRUPTION_OR_SHORT_DOCUMENT_WITH_ALL_STATEMENT_SECTIONS_MISSING
+  ocr_allowed: true
+  ocr_engine: Windows.Media.Ocr.OcrEngine
+  ocr_language_tag: zh-Hans-CN
+  ocr_render_scales: [2.25, 3.0]
+  ocr_image_statement_detection_rule: CONTENTS_PAGE_CONSOLIDATED_TO_COMPANY_STATEMENT_PAGE_COUNT_AND_BOUNDED_TEXTLESS_RUN_ONLY
+  ocr_maximum_consolidated_statement_pages: 12
+  ocr_unit_rule: UNIQUE_EXPLICIT_UNIT_WITHIN_THREE_PAGES_BEFORE_OR_TWENTY_FIVE_PAGES_AFTER_IMAGE_STATEMENT_RUN
+  ocr_value_rule: EXACT_DECIMAL_AGREEMENT_AT_BOTH_RENDER_SCALES
+  ocr_accounting_identity_rules:
+    - TOTAL_ASSETS_EQUALS_TOTAL_LIABILITIES_PLUS_TOTAL_EQUITY
+    - TOTAL_ASSETS_EQUALS_TOTAL_LIABILITIES_AND_EQUITY_TOTAL
+    - OPERATING_PROFIT_PLUS_NONOPERATING_INCOME_MINUS_EXPENSE_EQUALS_PROFIT_TOTAL
+    - PARENT_PROFIT_PLUS_MINORITY_PROFIT_EQUALS_NET_PROFIT
+  ocr_summary_duplicate_rule: EVERY_AVAILABLE_REVENUE_PARENT_PROFIT_OPERATING_CASH_FLOW_AND_TOTAL_ASSETS_DUPLICATE_MUST_MATCH
+  ocr_failure_status: NO_VIEW_REQUIRED_OFFICIAL_FINANCIAL_FACTS_INCOMPLETE
+  units: [元, 千元, 万元, 百万元, 亿元]
+  currency: CNY
+  required_metrics:
+    - OPERATING_REVENUE_YTD
+    - OPERATING_PROFIT_YTD
+    - PARENT_NET_PROFIT_YTD
+    - CORE_PARENT_NET_PROFIT_YTD
+    - OPERATING_CASH_FLOW_YTD
+    - ACCOUNTS_RECEIVABLE_END
+    - INVENTORY_END
+    - TOTAL_ASSETS_END
+    - TOTAL_LIABILITIES_END
+  every_metric_requires_page_label_raw_value_unit_and_locator: true
+  admitted_verification_status: PASS_OFFICIAL_ORIGINAL_PDF_LABEL_VALUE_UNIT_VERIFIED
+  ambiguous_or_missing_value_status: NO_VIEW_REQUIRED_OFFICIAL_FINANCIAL_FACTS_INCOMPLETE
+
+representative_revision_gate:
+  source: ELEVEN_V1_2_PILOT_FAILURES_REPLAYED_WITH_V1_3_PARSER_BEFORE_FREEZE
+  target_announcement_ids: ['1204703637', '1205560057', '1206102062', '1207410601', '1208614626', '1209728461', '1212709321', '1216128807', '1219266488', '1219652725', '1221058985']
+  selected_full_sibling_mapping: {'1205560057': '1205560059', '1208614626': '1208614627'}
+  target_document_count: 11
+  complete_target_count: 11
+  incomplete_target_count: 0
+  ocr_target_announcement_id: '1221058985'
+  ocr_balance_identity_passed: true
+  ocr_profit_identity_passed: true
+  ocr_summary_duplicate_checks_passed: true
+  market_price_read: false
+  future_return_read: false
+
+admission:
+  required_complete_event_ratio: 0.90
+  required_complete_event_ratio_each_publication_year: 0.80
+  required_complete_event_ratio_each_industry_with_at_least_50_targets: 0.75
+  pass_status: PASS_OFFICIAL_PDF_VERIFIED_PIT_FINANCIAL_FACTS_V1
+  partial_status: PARTIAL_OFFICIAL_PDF_FACT_ACQUISITION
+  coverage_fail_status: BLOCKED_OFFICIAL_PDF_FACT_COVERAGE_BELOW_FROZEN_GATE
+
+checkpoint:
+  parser_version_mismatch_requires_reparse: true
+  parsed_incomplete_checkpoint_reused: true
+  failed_download_checkpoint_retried_on_next_run: true
+  atomic_gzip_json: true
+
+governance:
+  read_market_prices: false
+  read_future_returns: false
+  create_future_labels: false
+  calculate_signal: false
+  calculate_ic: false
+  calculate_quantiles: false
+  calculate_portfolio_return: false
+  calculate_strategy_sharpe: false
+  position_mapping: false
+  order_generation: false
+  broker_connection: false
+  trading_authorization: false
+
+artifacts:
+  protocol_document: docs/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_OFFICIAL_FACTS_V1_3_PROTOCOL.md
+  protocol_manifest: config/csi300_pit_fundamental_underreaction_official_facts_v1_3_manifest.json
+  requirement_ledger: data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/official_fact_requirement_ledger.parquet
+  document_queue: data/audit/csi300_pit_fundamental_underreaction_enhancement_v1/official_fact_document_queue.parquet
+  checkpoint_root: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/checkpoints_v1_3
+  facts: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/official_financial_facts.parquet
+  dependency_ledger: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/event_fact_dependency_ledger.parquet
+  receipt: data/raw/cninfo/csi300_pit_fundamental_underreaction_enhancement_v1/receipt.json
+  report_markdown: reports/data_quality/CSI300_PIT_FUNDAMENTAL_UNDERREACTION_OFFICIAL_FACTS_V1_3.md

@@ -1,0 +1,98 @@
+{
+  "status": "REJECTED_FIXED_PRIMARY_FLOW_P05_ETF_BINARY_NO_RESCUE",
+  "study_id": "510300_PRIMARY_FLOW_P05_ETF_BINARY_SCREEN_V1",
+  "generated_at": "2026-08-28T18:31:33.710826+08:00",
+  "protocol_sha256": "53037adbb9246a7aa13a261e02292f23733578a5c1f7306706c25b6101a23443",
+  "freeze_manifest_sha256": "9183254ca12d119c015077596ebe390704eef46149e38ee5f9c7dcb0de3c22e5",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "benchmark": "H00300 total return",
+    "threshold": 0.5,
+    "historical_evidence_label": "RETROSPECTIVE_CONVERSION_OF_PREVIOUSLY_EVALUATED_PREQUENTIAL_FORECASTS"
+  },
+  "input_audit": {
+    "hashes": {
+      "data/features/510300_primary_flow_direction_forecasts.parquet": "063a53f162e03952d1d8196906a7b9acda21a9056f6f7c8b11ddfea32980a33f",
+      "config/primary_flow_direction_challenger.yaml": "b6b60086ec9993588017d37c14d62bef89c75c8f76359a1d76727a1d81ef566e",
+      "research/primary_flow_direction_challenger.py": "691d06e7261d7ac3ce9594e07c79b1d82fadd452f255f3cfec801dfe643be26a",
+      "reports/research/510300_primary_flow_direction_report.json": "ef00e4f0337c2bd20c2f4c8faaa4d04b7070b6a06fe25a38908dbda7302dabd5",
+      "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa"
+    },
+    "forecast_columns_read": [
+      "signal_date",
+      "model_fit_date",
+      "latest_training_label_end_date",
+      "training_sample_count",
+      "direction_probability_positive_20d_net",
+      "share_snapshot_date",
+      "share_snapshot_age_calendar_days"
+    ],
+    "forbidden_forecast_columns_read": [],
+    "market_rows": 678,
+    "benchmark_rows": 678,
+    "dividend_events": 14
+  },
+  "forecast_audit": {
+    "forecast_rows": 675,
+    "first_signal_date": "2023-11-01",
+    "last_signal_date": "2026-08-12",
+    "minimum_training_samples": 504,
+    "maximum_training_samples": 1174,
+    "training_label_after_fit_violations": 0,
+    "model_fit_after_signal_violations": 0,
+    "probability_minimum": 0.002453252432672997,
+    "probability_maximum": 0.962973917194909,
+    "signal_full_share": 0.44,
+    "future_outcome_columns_read": 0
+  },
+  "period_result_rows": 30,
+  "maximum_t_plus_one_violations": 0,
+  "summary": {
+    "candidate_id": "PRIMARY_FLOW_P_GE_050",
+    "hard_pass": false,
+    "positive_shadow": false,
+    "stress_min_annualized_excess": -0.1025287029747082,
+    "stress_min_rolling_242d_excess_median": -0.16339225462779397,
+    "stress_combined_annualized_excess_offset0": -0.07043930701897283,
+    "stress_combined_rolling_median_offset0": -0.14221294539114793,
+    "base_combined_annualized_excess_offset0": -0.058639012063277846,
+    "base_combined_rolling_median_offset0": -0.12565731758314413,
+    "stress_trade_leg_count_total": 311,
+    "stress_execution_cost_cny_total": 261105.05768018105
+  },
+  "combined_stress_diagnostics": {
+    "t_plus_one_blocked_exit_attempts": 0,
+    "t_plus_one_violations": 0,
+    "full_state_reinvestment_buy_legs": 0,
+    "anchor_date": "2023-11-01",
+    "actual_start_date": "2023-11-02",
+    "actual_end_date": "2026-08-14"
+  },
+  "artifacts": {
+    "data/research/510300_primary_flow_p05_etf_binary_screen_v1/period_results.parquet": "fa675d30f611512b2229715bdc4a2a14901cecab4f0618ecce17d367c4fdf963",
+    "data/research/510300_primary_flow_p05_etf_binary_screen_v1/daily_states.parquet": "89cfdaeedb12f91d1fe8769a85fcca1f458f3386e104ebb767562db24f5a4535",
+    "data/research/510300_primary_flow_p05_etf_binary_screen_v1/stress_daily_ledger.parquet": "c27edc832cde276453beea4ed22e7a79075df622f13ff562c44bd997ad7b4c72",
+    "data/research/510300_primary_flow_p05_etf_binary_screen_v1/stress_trades.parquet": "1142d1fb22a58732ec146a92ee981afdcf44ba0423b7d929a9862060202fc582"
+  },
+  "decision": "固定0.50映射未通过；禁止改阈值、校准概率或加滞回营救。",
+  "governance": {
+    "all_forecast_outcomes_already_inspected": true,
+    "strict_holdout_available": false,
+    "result_label_if_passed": "RETROSPECTIVE_PASS_REQUIRES_246_DAY_PROSPECTIVE_VALIDATION",
+    "result_label_if_rejected": "REJECTED_FIXED_PRIMARY_FLOW_P05_ETF_BINARY_NO_RESCUE",
+    "trading_probability_recalibration": "FORBIDDEN",
+    "alternate_thresholds": "FORBIDDEN",
+    "paper_or_shadow_requires_separate_freeze": true,
+    "position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading": "NOT_AUTHORIZED"
+  }
+}

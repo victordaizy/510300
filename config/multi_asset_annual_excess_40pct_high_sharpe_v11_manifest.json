@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11_MANIFEST",
+  "status": "FROZEN_BEFORE_BTC_LONG_HORIZON_TREND_OUTCOME",
+  "frozen_at": "2026-08-27T05:55:08.901790+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V10",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v11.yaml": "7c25173ced344df41fb07e16fe8ecce201196cba3d1300cbc22de081b7053d73",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11_SPEC.md": "6c41c4b0317f9e12649dfa13f16eec66f54e115409aa73a053a8137e79394971",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v11.py": "0a1b7c659e06cf939ca552e355e6c1e74b2439e6d572e164998f10e883419cb3"
+  },
+  "tracked_content_sha256": "d5178e05a395c61218881396f7bd49844b2bb58a8b7a1a482be7919f7dc6fcca",
+  "parent_manifest_sha256": "278c8e577a01a0abb26dfdf6e266e848e7a1acd3a4b6e5ea9b912482b469a91e",
+  "v4_rejection": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true,
+      "gates_failed": true,
+      "replication_closed": true
+    },
+    "manifest_sha256": "8a50957218950b388cea045e2c5895518246195908615d89e9b8c7323082ab1f",
+    "report_sha256": "90e787c646e5d8218b75001b046dde585da5857a47182c2f6c1d4705b4810704",
+    "tracked_content_sha256": "e9eff6ae896a4c8f836158473852e056e736a8dfdc8e6f971e42a6beaef9cd00",
+    "metrics": {
+      "base_annualized_excess": 0.0471510863428575,
+      "stress_annualized_excess": 0.03895301779722052,
+      "base_strategy_net_sharpe": 0.6041921000010738,
+      "stress_strategy_net_sharpe": 0.5794482508413443
+    }
+  },
+  "digital_v1_prefreeze_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "required": true,
+      "observed": true,
+      "performance_unavailable": true,
+      "not_frozen": true,
+      "closed": true
+    },
+    "report_sha256": "38fcd6e31bf9b59eff20ca50001f990292e8b5ffd7490a8af227f64a376e32d3"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "BTC_SPOT_LONG_HORIZON_TIME_SERIES_TREND",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_product": "BTC-USD",
+    "venue": "COINBASE_EXCHANGE",
+    "market_type": "SPOT_ONLY",
+    "signal_frequency": "WEEKLY_COMPLETED_UTC_SUNDAY",
+    "trend_rule": "CLOSE_ABOVE_200_DAY_SMA_AND_126_DAY_RETURN_POSITIVE",
+    "realized_volatility_lookback_calendar_days": 60,
+    "portfolio_target_annualized_volatility": 0.4,
+    "maximum_gross_weight": 1.0,
+    "leverage_short_derivatives_staking_or_lending_allowed": false,
+    "base_total_spot_cost_bps_per_leg": 76.0,
+    "stress_total_spot_cost_bps_per_leg": 106.0,
+    "parameter_grid_search_allowed": false
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

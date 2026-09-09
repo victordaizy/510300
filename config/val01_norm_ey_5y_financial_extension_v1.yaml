@@ -1,0 +1,107 @@
+protocol:
+  project_id: "VAL01_NORM_EY_5Y_FINANCIAL_EXTENSION_V1"
+  version: "1.0.0"
+  audit_date: "2026-08-19"
+  timezone: "Asia/Shanghai"
+  state: "RESEARCH_ONLY_DATA_ACQUISITION"
+  model_branch: "VAL01_NORM_EY_5Y"
+  return_calculation_enabled: false
+  ic_calculation_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+normalization_contract:
+  first_required_signal_month: "2016-08"
+  last_required_signal_month: "2021-07"
+  required_weight_snapshot_count: 60
+  expected_target_symbol_count: 516
+  lookback_years: 3
+  minimum_ttm_observations: 4
+  earliest_selected_report_period: "2016-06-30"
+  history_window_lower_bound: "2013-06-30"
+  ttm_dependency_lower_bound: "2012-06-30"
+  normalized_profit_formula: "三年窗口内正TTM归母利润中位数，与当前TTM收入乘三年TTM净利率中位数等权；单项有效时使用该项"
+  fixed_parameters_only: true
+  industry_labels_used: false
+  parameter_search_enabled: false
+
+acquisition:
+  first_report_period: "2012-06-30"
+  last_report_period: "2015-06-30"
+  expected_quarter_count: 13
+  overlap_validation_period: "2015-09-30"
+  single_security_history_start_date: "2012-01-01"
+  single_security_history_end_date: "2016-10-31"
+  single_security_standard_row_limit: 100
+  request_interval_seconds: 6.0
+  minimum_request_interval_seconds: 0.5
+  retry_attempts: 4
+  require_https: true
+  allow_plain_http: false
+  official_api_url: "https://api.tushare.pro"
+  secure_proxy_api_url: "https://fast.xiaodefa.cn"
+  vip_pagination_documented: false
+  completeness_strategy: "按季度拉取VIP全市场原始响应；以2015Q3冻结检查点为锚，识别目标证券报告期连续性缺口；按证券批量调用同名非VIP历史接口，达到100行边界或批量响应仍缺期时再逐报告期确认"
+  empty_single_security_response_semantics: "仅表示该证券该报告期在当前供应商档案中无记录；必须保留空检查点作为审计证据"
+
+api_contracts:
+  income_vip:
+    standard_api: "income"
+    official_document: "https://tushare.pro/document/2?doc_id=33"
+    quarterly_vip_permission_points: 5000
+    fields: ["ts_code", "ann_date", "f_ann_date", "end_date", "report_type", "revenue", "n_income_attr_p"]
+    availability_field: "f_ann_date"
+    units:
+      revenue: "CNY"
+      n_income_attr_p: "CNY"
+  balancesheet_vip:
+    standard_api: "balancesheet"
+    official_document: "https://tushare.pro/document/2?doc_id=36"
+    quarterly_vip_permission_points: 5000
+    fields: ["ts_code", "ann_date", "f_ann_date", "end_date", "report_type", "total_hldr_eqy_exc_min_int", "total_share"]
+    availability_field: "f_ann_date"
+    units:
+      total_hldr_eqy_exc_min_int: "CNY"
+      total_share: "shares"
+  fina_indicator_vip:
+    standard_api: "fina_indicator"
+    official_document: "https://tushare.pro/document/2?doc_id=79"
+    quarterly_vip_permission_points: 5000
+    fields: ["ts_code", "ann_date", "end_date", "eps", "dt_eps", "bps", "roe"]
+    availability_field: "ann_date"
+    units:
+      eps: "CNY_per_share"
+      dt_eps: "CNY_per_share"
+      bps: "CNY_per_share"
+      roe: "percent_vendor_definition"
+
+frozen_inputs:
+  historical_weights:
+    file: "data/raw/constituents/000300_historical_weights.parquet"
+    sha256: "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559"
+  base_financial_archive:
+    file: "data/raw/fundamentals/csi300_financials_point_in_time.parquet"
+    sha256: "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92"
+    first_report_period: "2015-09-30"
+    row_count: 39158
+  base_financial_checkpoints:
+    directory: "data/raw/fundamentals/vip_checkpoints"
+    file_count: 132
+    content_sha256: "e9ae8ebcf4e75dabe76104b20a71240a029f70557cf4270da49cda54b49594d3"
+  base_audit_v1_1:
+    file: "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json"
+    sha256: "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac"
+
+artifacts:
+  checkpoint_directory: "data/raw/fundamentals/vip_checkpoints_normalized_2012_2015"
+  extension_events: "data/raw/fundamentals/csi300_financials_point_in_time_history_extension_2012_2015.parquet"
+  extended_financial_archive: "data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet"
+  acquisition_report_json: "reports/data_quality/000300_normalized_earnings_financial_extension_v1.json"
+  acquisition_report_markdown: "reports/data_quality/000300_normalized_earnings_financial_extension_v1.md"
+  post_acquisition_coverage: "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage_v1_2.parquet"
+  normalized_metric_audit_panel: "data/audit/000300_val01_norm_ey_5y_metric_audit_panel_v1.parquet"
+  post_acquisition_report_json: "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_2.json"
+  post_acquisition_report_markdown: "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_2.md"
+  protocol_manifest: "config/val01_norm_ey_5y_financial_extension_v1_protocol_manifest.json"
+  manifest: "config/val01_norm_ey_5y_financial_extension_v1_manifest.json"

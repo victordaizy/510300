@@ -1,0 +1,1274 @@
+{
+  "strategy_id": "510300_INVENTORY_VWAP_REVERSION_V1",
+  "strategy_version": "1.0.1",
+  "research_status": "REJECTED_V1",
+  "evidence_scope": "RETROSPECTIVE_ONLY_NO_STRICT_HOLDOUT",
+  "inputs": {
+    "strategy_config": {
+      "path": "config/intraday_t_strategy.yaml",
+      "sha256": "668322c3c99b7fe31fb943d8fb33a70db048f09b78ff31f986e192f3246ac19c"
+    },
+    "data_audit": {
+      "path": "reports/data_quality/510300_1m_t_strategy_readiness.json",
+      "sha256": "4e9f75dcc069bf763a5abbc962cb275448de123c0948a8be17328904abfab81b"
+    },
+    "minute_data": {
+      "path": "data/raw/market/510300_1m_tushare_raw.parquet",
+      "sha256": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268"
+    },
+    "dividends": {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "af1340e8f8fbed9686a12955b16d71eab3ba9e808fa6b496a52973c252887423"
+    }
+  },
+  "outputs": {
+    "trades": "data/backtests/intraday_t_v1_trades.parquet",
+    "daily_ledger": "data/backtests/intraday_t_v1_daily_ledger.parquet"
+  },
+  "summaries": {
+    "BASE_COST": {
+      "full_period": {
+        "scenario": "BASE_COST",
+        "period": "full_period",
+        "requested_start": "2021-08-12T00:00:00",
+        "requested_end": "2026-08-12T00:00:00",
+        "actual_start": "2021-08-12T00:00:00",
+        "actual_end": "2026-08-12T00:00:00",
+        "strategy": {
+          "trading_days": 1211,
+          "final_nav_cny": 14555.900000000005,
+          "total_pnl_cny": -5444.099999999995,
+          "total_return": -0.2722049999999997,
+          "cagr": -0.06152090472041161,
+          "annualized_volatility": 0.1229435813738843,
+          "sharpe_zero_cash_rate": -0.4548786364806443,
+          "maximum_drawdown": 0.4086049999999999,
+          "calmar": -0.1505632694666282,
+          "rolling_242_day_observations": 970,
+          "rolling_242_day_median_return": -0.08024176961500462,
+          "rolling_242_day_minimum_return": -0.2848691824419277,
+          "rolling_242_day_maximum_return": 0.253806677432173,
+          "rolling_242_day_return_above_20pct_ratio": 0.01752577319587629
+        },
+        "static_2500_core": {
+          "trading_days": 1211,
+          "final_nav_cny": 20255.0,
+          "total_pnl_cny": 255.0,
+          "total_return": 0.012750000000000039,
+          "cagr": 0.002534995915478122,
+          "annualized_volatility": 0.10107413965073472,
+          "sharpe_zero_cash_rate": 0.07553944925250616,
+          "maximum_drawdown": 0.2177190164339553,
+          "calmar": 0.011643429026086515,
+          "rolling_242_day_observations": 970,
+          "rolling_242_day_median_return": -0.0011347541997586696,
+          "rolling_242_day_minimum_return": -0.16772151898734178,
+          "rolling_242_day_maximum_return": 0.23371527232773515,
+          "rolling_242_day_return_above_20pct_ratio": 0.01443298969072165
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 1211,
+          "final_nav_cny": 20399.67629,
+          "total_pnl_cny": 399.6762899999994,
+          "total_return": 0.019983814499999975,
+          "cagr": 0.0039619116723619285,
+          "annualized_volatility": 0.16727936540859026,
+          "sharpe_zero_cash_rate": 0.10714062733929458,
+          "maximum_drawdown": 0.33743888908576947,
+          "calmar": 0.011741123505639857,
+          "rolling_242_day_observations": 970,
+          "rolling_242_day_median_return": -0.001914817778174649,
+          "rolling_242_day_minimum_return": -0.2634883028828243,
+          "rolling_242_day_maximum_return": 0.42546671412987136,
+          "rolling_242_day_return_above_20pct_ratio": 0.17010309278350516
+        },
+        "intraday_t": {
+          "round_trip_count": 312,
+          "winning_round_trip_count": 94,
+          "win_rate": 0.30128205128205127,
+          "profit_factor": 0.2040918930242308,
+          "gross_raw_pnl_cny": -146.900000000009,
+          "execution_gross_pnl_cny": -2579.0999999999967,
+          "commission_cny": 3120.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 2432.199999999988,
+          "net_pnl_cny": -5699.099999999997,
+          "average_net_pnl_cny": -18.266346153846143,
+          "median_net_pnl_cny": -14.50000000000017,
+          "average_holding_trading_records": 47.84615384615385,
+          "by_direction": {
+            "SELL_HIGH": 225,
+            "BUY_LOW": 87
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 147,
+            "VWAP_TARGET": 71,
+            "STOP_LOSS": 47,
+            "FORCED_EXIT": 47
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2021,
+            "trading_days": 95,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 19194.0,
+            "strategy_return": -0.0403,
+            "static_core_end_nav_cny": 19857.5,
+            "static_core_return": -0.007125000000000048,
+            "round_trip_count": 36,
+            "t_net_pnl_cny": -663.5000000000006
+          },
+          {
+            "year": 2022,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 19194.0,
+            "strategy_end_nav_cny": 14431.799999999997,
+            "strategy_return": -0.24810878399499858,
+            "static_core_end_nav_cny": 17370.0,
+            "static_core_return": -0.1252675311595115,
+            "round_trip_count": 116,
+            "t_net_pnl_cny": -2274.7000000000016
+          },
+          {
+            "year": 2023,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 14431.799999999997,
+            "strategy_end_nav_cny": 12702.8,
+            "strategy_return": -0.11980487534472473,
+            "static_core_end_nav_cny": 16432.5,
+            "static_core_return": -0.05397236614853196,
+            "round_trip_count": 32,
+            "t_net_pnl_cny": -791.4999999999983
+          },
+          {
+            "year": 2024,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 12702.8,
+            "strategy_end_nav_cny": 13544.400000000001,
+            "strategy_return": 0.06625310955065045,
+            "static_core_end_nav_cny": 17912.5,
+            "static_core_return": 0.09006541913890165,
+            "round_trip_count": 48,
+            "t_net_pnl_cny": -638.4000000000004
+          },
+          {
+            "year": 2025,
+            "trading_days": 243,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 13544.400000000001,
+            "strategy_end_nav_cny": 14783.900000000001,
+            "strategy_return": 0.09151383597649221,
+            "static_core_end_nav_cny": 19960.0,
+            "static_core_return": 0.11430565247732027,
+            "round_trip_count": 40,
+            "t_net_pnl_cny": -807.9999999999964
+          },
+          {
+            "year": 2026,
+            "trading_days": 147,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 14783.900000000001,
+            "strategy_end_nav_cny": 14555.900000000005,
+            "strategy_return": -0.015422182238786553,
+            "static_core_end_nav_cny": 20255.0,
+            "static_core_return": 0.014779559118236474,
+            "round_trip_count": 40,
+            "t_net_pnl_cny": -522.9999999999998
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": 255.0,
+          "intraday_t_net_pnl_cny": -5699.099999999997,
+          "strategy_total_pnl_cny": -5444.099999999995,
+          "static_plus_t_pnl_cny": -5444.099999999997,
+          "attribution_error_cny": 1.8189894035458565e-12
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2021-08-12T00:00:00",
+          "last_trade_date": "2026-08-12T00:00:00",
+          "core_acquisition_raw_open_cny": 5.06,
+          "core_acquisition_execution_price_cny": 5.063,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 7337.5,
+          "full_buyhold_acquisition_shares": 3900,
+          "full_buyhold_acquisition_commission_cny": 5.92371,
+          "slippage_bps_per_leg": 5.0,
+          "trading_day_count": 1211,
+          "round_trip_count": 312
+        }
+      },
+      "development": {
+        "scenario": "BASE_COST",
+        "period": "development",
+        "requested_start": "2021-08-12T00:00:00",
+        "requested_end": "2024-06-28T00:00:00",
+        "actual_start": "2021-08-12T00:00:00",
+        "actual_end": "2024-06-28T00:00:00",
+        "strategy": {
+          "trading_days": 696,
+          "final_nav_cny": 12589.900000000001,
+          "total_pnl_cny": -7410.0999999999985,
+          "total_return": -0.370505,
+          "cagr": -0.14864755734876678,
+          "annualized_volatility": 0.10347926565118008,
+          "sharpe_zero_cash_rate": -1.5029150901039652,
+          "maximum_drawdown": 0.39608999999999994,
+          "calmar": -0.37528732699327627,
+          "rolling_242_day_observations": 455,
+          "rolling_242_day_median_return": -0.13264477750414416,
+          "rolling_242_day_minimum_return": -0.2848691824419277,
+          "rolling_242_day_maximum_return": -0.04639670555936848,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "static_2500_core": {
+          "trading_days": 696,
+          "final_nav_cny": 16575.0,
+          "total_pnl_cny": -3425.0,
+          "total_return": -0.17125,
+          "cagr": -0.06322396568688304,
+          "annualized_volatility": 0.09055941017489523,
+          "sharpe_zero_cash_rate": -0.6758835810342605,
+          "maximum_drawdown": 0.2177190164339553,
+          "calmar": -0.2903924825788561,
+          "rolling_242_day_observations": 455,
+          "rolling_242_day_median_return": -0.05175102793137676,
+          "rolling_242_day_minimum_return": -0.16772151898734178,
+          "rolling_242_day_maximum_return": 0.041184229810933504,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 696,
+          "final_nav_cny": 14658.87629,
+          "total_pnl_cny": -5341.12371,
+          "total_return": -0.2670561855,
+          "cagr": -0.10239570549215649,
+          "annualized_volatility": 0.15220954545951978,
+          "sharpe_zero_cash_rate": -0.6335879052969932,
+          "maximum_drawdown": 0.33743888908576947,
+          "calmar": -0.30344962837442774,
+          "rolling_242_day_observations": 455,
+          "rolling_242_day_median_return": -0.08623002325365314,
+          "rolling_242_day_minimum_return": -0.2634883028828243,
+          "rolling_242_day_maximum_return": 0.07110888460585896,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "intraday_t": {
+          "round_trip_count": 203,
+          "winning_round_trip_count": 62,
+          "win_rate": 0.3054187192118227,
+          "profit_factor": 0.1816202895574501,
+          "gross_raw_pnl_cny": -440.90000000001044,
+          "execution_gross_pnl_cny": -1955.0999999999992,
+          "commission_cny": 2030.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 1514.1999999999884,
+          "net_pnl_cny": -3985.099999999999,
+          "average_net_pnl_cny": -19.631034482758615,
+          "median_net_pnl_cny": -16.59999999999976,
+          "average_holding_trading_records": 48.55172413793103,
+          "by_direction": {
+            "SELL_HIGH": 116,
+            "BUY_LOW": 87
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 97,
+            "VWAP_TARGET": 43,
+            "STOP_LOSS": 35,
+            "FORCED_EXIT": 28
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2021,
+            "trading_days": 95,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 19194.0,
+            "strategy_return": -0.0403,
+            "static_core_end_nav_cny": 19857.5,
+            "static_core_return": -0.007125000000000048,
+            "round_trip_count": 36,
+            "t_net_pnl_cny": -663.5000000000006
+          },
+          {
+            "year": 2022,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 19194.0,
+            "strategy_end_nav_cny": 14431.799999999997,
+            "strategy_return": -0.24810878399499858,
+            "static_core_end_nav_cny": 17370.0,
+            "static_core_return": -0.1252675311595115,
+            "round_trip_count": 116,
+            "t_net_pnl_cny": -2274.7000000000016
+          },
+          {
+            "year": 2023,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 14431.799999999997,
+            "strategy_end_nav_cny": 12702.8,
+            "strategy_return": -0.11980487534472473,
+            "static_core_end_nav_cny": 16432.5,
+            "static_core_return": -0.05397236614853196,
+            "round_trip_count": 32,
+            "t_net_pnl_cny": -791.4999999999983
+          },
+          {
+            "year": 2024,
+            "trading_days": 117,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 12702.8,
+            "strategy_end_nav_cny": 12589.900000000001,
+            "strategy_return": -0.008887804263626786,
+            "static_core_end_nav_cny": 16575.0,
+            "static_core_return": 0.00867183934276583,
+            "round_trip_count": 19,
+            "t_net_pnl_cny": -255.39999999999864
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": -3425.0,
+          "intraday_t_net_pnl_cny": -3985.099999999999,
+          "strategy_total_pnl_cny": -7410.0999999999985,
+          "static_plus_t_pnl_cny": -7410.0999999999985,
+          "attribution_error_cny": 4.547473508864641e-13
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2021-08-12T00:00:00",
+          "last_trade_date": "2024-06-28T00:00:00",
+          "core_acquisition_raw_open_cny": 5.06,
+          "core_acquisition_execution_price_cny": 5.063,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 7337.5,
+          "full_buyhold_acquisition_shares": 3900,
+          "full_buyhold_acquisition_commission_cny": 5.92371,
+          "slippage_bps_per_leg": 5.0,
+          "trading_day_count": 696,
+          "round_trip_count": 203
+        }
+      },
+      "pseudo_out_of_sample": {
+        "scenario": "BASE_COST",
+        "period": "pseudo_out_of_sample",
+        "requested_start": "2024-08-01T00:00:00",
+        "requested_end": "2025-06-30T00:00:00",
+        "actual_start": "2024-08-01T00:00:00",
+        "actual_end": "2025-06-30T00:00:00",
+        "strategy": {
+          "trading_days": 219,
+          "final_nav_cny": 20463.0,
+          "total_pnl_cny": 463.0,
+          "total_return": 0.023150000000000004,
+          "cagr": 0.02561216370230568,
+          "annualized_volatility": 0.10839479560136521,
+          "sharpe_zero_cash_rate": 0.28721059592947373,
+          "maximum_drawdown": 0.10256702016294206,
+          "calmar": 0.2497114926573588,
+          "rolling_242_day_observations": 0,
+          "rolling_242_day_median_return": null,
+          "rolling_242_day_minimum_return": null,
+          "rolling_242_day_maximum_return": null,
+          "rolling_242_day_return_above_20pct_ratio": null
+        },
+        "static_2500_core": {
+          "trading_days": 219,
+          "final_nav_cny": 21410.0,
+          "total_pnl_cny": 1410.0,
+          "total_return": 0.07050000000000001,
+          "cagr": 0.07818664382242524,
+          "annualized_volatility": 0.11019726466177866,
+          "sharpe_zero_cash_rate": 0.7380735051626498,
+          "maximum_drawdown": 0.08050752301818997,
+          "calmar": 0.9711718966283392,
+          "rolling_242_day_observations": 0,
+          "rolling_242_day_median_return": null,
+          "rolling_242_day_minimum_return": null,
+          "rolling_242_day_maximum_return": null,
+          "rolling_242_day_return_above_20pct_ratio": null
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 219,
+          "final_nav_cny": 23220.208160000002,
+          "total_pnl_cny": 3220.208160000002,
+          "total_return": 0.1610104080000001,
+          "cagr": 0.17935726086645598,
+          "annualized_volatility": 0.23553849209563055,
+          "sharpe_zero_cash_rate": 0.8175207277985953,
+          "maximum_drawdown": 0.16237439907765328,
+          "calmar": 1.1045907599059437,
+          "rolling_242_day_observations": 0,
+          "rolling_242_day_median_return": null,
+          "rolling_242_day_minimum_return": null,
+          "rolling_242_day_maximum_return": null,
+          "rolling_242_day_return_above_20pct_ratio": null
+        },
+        "intraday_t": {
+          "round_trip_count": 62,
+          "winning_round_trip_count": 20,
+          "win_rate": 0.3225806451612903,
+          "profit_factor": 0.32041621815572247,
+          "gross_raw_pnl_cny": 124.49999999999628,
+          "execution_gross_pnl_cny": -326.9999999999992,
+          "commission_cny": 620.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 451.49999999999557,
+          "net_pnl_cny": -946.9999999999994,
+          "average_net_pnl_cny": -15.274193548387087,
+          "median_net_pnl_cny": -15.250000000000421,
+          "average_holding_trading_records": 44.82258064516129,
+          "by_direction": {
+            "SELL_HIGH": 33,
+            "BUY_LOW": 29
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 28,
+            "VWAP_TARGET": 16,
+            "FORCED_EXIT": 9,
+            "STOP_LOSS": 9
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2024,
+            "trading_days": 102,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 20861.0,
+            "strategy_return": 0.04305000000000003,
+            "static_core_end_nav_cny": 21290.0,
+            "static_core_return": 0.0645,
+            "round_trip_count": 42,
+            "t_net_pnl_cny": -429.0000000000024
+          },
+          {
+            "year": 2025,
+            "trading_days": 117,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20861.0,
+            "strategy_end_nav_cny": 20463.0,
+            "strategy_return": -0.01907866353482579,
+            "static_core_end_nav_cny": 21410.0,
+            "static_core_return": 0.005636449037106583,
+            "round_trip_count": 20,
+            "t_net_pnl_cny": -517.9999999999969
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": 1410.0,
+          "intraday_t_net_pnl_cny": -946.9999999999994,
+          "strategy_total_pnl_cny": 463.0,
+          "static_plus_t_pnl_cny": 463.00000000000057,
+          "attribution_error_cny": -5.684341886080801e-13
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2024-08-01T00:00:00",
+          "last_trade_date": "2025-06-30T00:00:00",
+          "core_acquisition_raw_open_cny": 3.502,
+          "core_acquisition_execution_price_cny": 3.504,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 11235.0,
+          "full_buyhold_acquisition_shares": 5700,
+          "full_buyhold_acquisition_commission_cny": 5.99184,
+          "slippage_bps_per_leg": 5.0,
+          "trading_day_count": 219,
+          "round_trip_count": 62
+        }
+      },
+      "contaminated_recent_period": {
+        "scenario": "BASE_COST",
+        "period": "contaminated_recent_period",
+        "requested_start": "2025-08-01T00:00:00",
+        "requested_end": "2026-08-11T00:00:00",
+        "actual_start": "2025-08-01T00:00:00",
+        "actual_end": "2026-08-11T00:00:00",
+        "strategy": {
+          "trading_days": 249,
+          "final_nav_cny": 19388.000000000004,
+          "total_pnl_cny": -611.9999999999964,
+          "total_return": -0.03059999999999985,
+          "cagr": -0.029752686979357956,
+          "annualized_volatility": 0.10830059305350426,
+          "sharpe_zero_cash_rate": -0.224777421312297,
+          "maximum_drawdown": 0.10319254131939526,
+          "calmar": -0.2883220686199524,
+          "rolling_242_day_observations": 8,
+          "rolling_242_day_median_return": -0.03831706681340302,
+          "rolling_242_day_minimum_return": -0.045338345864661456,
+          "rolling_242_day_maximum_return": -0.03036114570361126,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "static_2500_core": {
+          "trading_days": 249,
+          "final_nav_cny": 21745.0,
+          "total_pnl_cny": 1745.0,
+          "total_return": 0.08725000000000005,
+          "cagr": 0.08469617188261402,
+          "annualized_volatility": 0.09693312837456255,
+          "sharpe_zero_cash_rate": 0.8871720491806844,
+          "maximum_drawdown": 0.055402273479748354,
+          "calmar": 1.5287490307337968,
+          "rolling_242_day_observations": 8,
+          "rolling_242_day_median_return": 0.07998724977773786,
+          "rolling_242_day_minimum_return": 0.07380952380952377,
+          "rolling_242_day_maximum_return": 0.08704856787048576,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 249,
+          "final_nav_cny": 23354.022559999998,
+          "total_pnl_cny": 3354.0225599999976,
+          "total_return": 0.1677011279999998,
+          "cagr": 0.16262281372918452,
+          "annualized_volatility": 0.17407840199276858,
+          "sharpe_zero_cash_rate": 0.9526404183318103,
+          "maximum_drawdown": 0.09601368458947401,
+          "calmar": 1.6937462032054218,
+          "rolling_242_day_observations": 8,
+          "rolling_242_day_median_return": 0.15276139340541162,
+          "rolling_242_day_minimum_return": 0.1420159535112262,
+          "rolling_242_day_maximum_return": 0.1665308147404565,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "intraday_t": {
+          "round_trip_count": 119,
+          "winning_round_trip_count": 37,
+          "win_rate": 0.31092436974789917,
+          "profit_factor": 0.1969335604770022,
+          "gross_raw_pnl_cny": -95.99999999999609,
+          "execution_gross_pnl_cny": -1166.9999999999968,
+          "commission_cny": 1190.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 1071.000000000001,
+          "net_pnl_cny": -2356.9999999999964,
+          "average_net_pnl_cny": -19.8067226890756,
+          "median_net_pnl_cny": -17.49999999999984,
+          "average_holding_trading_records": 47.46218487394958,
+          "by_direction": {
+            "SELL_HIGH": 61,
+            "BUY_LOW": 58
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 56,
+            "VWAP_TARGET": 30,
+            "FORCED_EXIT": 19,
+            "STOP_LOSS": 14
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2025,
+            "trading_days": 103,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 20516.000000000004,
+            "strategy_return": 0.025800000000000267,
+            "static_core_end_nav_cny": 21500.0,
+            "static_core_return": 0.07499999999999996,
+            "round_trip_count": 45,
+            "t_net_pnl_cny": -983.9999999999972
+          },
+          {
+            "year": 2026,
+            "trading_days": 146,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20516.000000000004,
+            "strategy_end_nav_cny": 19388.000000000004,
+            "strategy_return": -0.054981477870929996,
+            "static_core_end_nav_cny": 21745.0,
+            "static_core_return": 0.011395348837209385,
+            "round_trip_count": 74,
+            "t_net_pnl_cny": -1372.9999999999998
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": 1745.0,
+          "intraday_t_net_pnl_cny": -2356.9999999999964,
+          "strategy_total_pnl_cny": -611.9999999999964,
+          "static_plus_t_pnl_cny": -611.9999999999964,
+          "attribution_error_cny": 0.0
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2025-08-01T00:00:00",
+          "last_trade_date": "2026-08-11T00:00:00",
+          "core_acquisition_raw_open_cny": 4.148,
+          "core_acquisition_execution_price_cny": 4.151,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 9617.5,
+          "full_buyhold_acquisition_shares": 4800,
+          "full_buyhold_acquisition_commission_cny": 5.97744,
+          "slippage_bps_per_leg": 5.0,
+          "trading_day_count": 249,
+          "round_trip_count": 119
+        }
+      }
+    },
+    "STRESS_SLIPPAGE": {
+      "full_period": {
+        "scenario": "STRESS_SLIPPAGE",
+        "period": "full_period",
+        "requested_start": "2021-08-12T00:00:00",
+        "requested_end": "2026-08-12T00:00:00",
+        "actual_start": "2021-08-12T00:00:00",
+        "actual_end": "2026-08-12T00:00:00",
+        "strategy": {
+          "trading_days": 1211,
+          "final_nav_cny": 11912.399999999996,
+          "total_pnl_cny": -8087.600000000004,
+          "total_return": -0.4043800000000002,
+          "cagr": -0.09836446658728792,
+          "annualized_volatility": 0.1385536269179126,
+          "sharpe_zero_cash_rate": -0.6778097686854306,
+          "maximum_drawdown": 0.4935050000000001,
+          "calmar": -0.19931807496841553,
+          "rolling_242_day_observations": 970,
+          "rolling_242_day_median_return": -0.09717530527608864,
+          "rolling_242_day_minimum_return": -0.33443126690309044,
+          "rolling_242_day_maximum_return": 0.23993326686344396,
+          "rolling_242_day_return_above_20pct_ratio": 0.012371134020618556
+        },
+        "static_2500_core": {
+          "trading_days": 1211,
+          "final_nav_cny": 20242.5,
+          "total_pnl_cny": 242.5,
+          "total_return": 0.012124999999999941,
+          "cagr": 0.0024113283574069833,
+          "annualized_volatility": 0.10114688268974259,
+          "sharpe_zero_cash_rate": 0.07433808287439629,
+          "maximum_drawdown": 0.21785361028684458,
+          "calmar": 0.011068571937972584,
+          "rolling_242_day_observations": 970,
+          "rolling_242_day_median_return": -0.0011355596848998117,
+          "rolling_242_day_minimum_return": -0.1678277390753642,
+          "rolling_242_day_maximum_return": 0.23389883757461494,
+          "rolling_242_day_return_above_20pct_ratio": 0.01443298969072165
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 1211,
+          "final_nav_cny": 20380.170440000005,
+          "total_pnl_cny": 380.1704400000053,
+          "total_return": 0.01900852200000025,
+          "cagr": 0.003770002263349115,
+          "annualized_volatility": 0.1674767289859255,
+          "sharpe_zero_cash_rate": 0.10606951473193606,
+          "maximum_drawdown": 0.3377624088481651,
+          "calmar": 0.011161698769870658,
+          "rolling_242_day_observations": 970,
+          "rolling_242_day_median_return": -0.001917113769651646,
+          "rolling_242_day_minimum_return": -0.2637506276142051,
+          "rolling_242_day_maximum_return": 0.426075630795099,
+          "rolling_242_day_return_above_20pct_ratio": 0.17010309278350516
+        },
+        "intraday_t": {
+          "round_trip_count": 266,
+          "winning_round_trip_count": 45,
+          "win_rate": 0.16917293233082706,
+          "profit_factor": 0.048608335141679254,
+          "gross_raw_pnl_cny": -353.0000000000098,
+          "execution_gross_pnl_cny": -5670.100000000002,
+          "commission_cny": 2660.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 5317.099999999991,
+          "net_pnl_cny": -8330.100000000002,
+          "average_net_pnl_cny": -31.31616541353384,
+          "median_net_pnl_cny": -27.999999999999815,
+          "average_holding_trading_records": 46.53007518796993,
+          "by_direction": {
+            "SELL_HIGH": 209,
+            "BUY_LOW": 57
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 115,
+            "STOP_LOSS": 60,
+            "VWAP_TARGET": 55,
+            "FORCED_EXIT": 36
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2021,
+            "trading_days": 95,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 18732.19999999999,
+            "strategy_return": -0.0633900000000005,
+            "static_core_end_nav_cny": 19845.0,
+            "static_core_return": -0.007750000000000035,
+            "round_trip_count": 36,
+            "t_net_pnl_cny": -1112.8000000000084
+          },
+          {
+            "year": 2022,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 18732.19999999999,
+            "strategy_end_nav_cny": 13179.900000000001,
+            "strategy_return": -0.2964040529142328,
+            "static_core_end_nav_cny": 17357.5,
+            "static_core_return": -0.12534643487024444,
+            "round_trip_count": 99,
+            "t_net_pnl_cny": -3064.7999999999956
+          },
+          {
+            "year": 2023,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 13179.900000000001,
+            "strategy_end_nav_cny": 11400.399999999998,
+            "strategy_return": -0.1350161989089449,
+            "static_core_end_nav_cny": 16420.0,
+            "static_core_return": -0.05401123433674204,
+            "round_trip_count": 23,
+            "t_net_pnl_cny": -842.0000000000006
+          },
+          {
+            "year": 2024,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 11400.399999999998,
+            "strategy_end_nav_cny": 11571.899999999994,
+            "strategy_return": 0.015043331812918614,
+            "static_core_end_nav_cny": 17900.0,
+            "static_core_return": 0.09013398294762487,
+            "round_trip_count": 47,
+            "t_net_pnl_cny": -1308.4999999999982
+          },
+          {
+            "year": 2025,
+            "trading_days": 243,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 11571.899999999994,
+            "strategy_end_nav_cny": 12262.399999999998,
+            "strategy_return": 0.05967040848953098,
+            "static_core_end_nav_cny": 19947.5,
+            "static_core_return": 0.11438547486033523,
+            "round_trip_count": 40,
+            "t_net_pnl_cny": -1356.9999999999977
+          },
+          {
+            "year": 2026,
+            "trading_days": 147,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 12262.399999999998,
+            "strategy_end_nav_cny": 11912.399999999996,
+            "strategy_return": -0.02854253653444694,
+            "static_core_end_nav_cny": 20242.5,
+            "static_core_return": 0.014788820654217272,
+            "round_trip_count": 21,
+            "t_net_pnl_cny": -645.0000000000016
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": 242.5,
+          "intraday_t_net_pnl_cny": -8330.100000000002,
+          "strategy_total_pnl_cny": -8087.600000000004,
+          "static_plus_t_pnl_cny": -8087.600000000002,
+          "attribution_error_cny": -1.8189894035458565e-12
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2021-08-12T00:00:00",
+          "last_trade_date": "2026-08-12T00:00:00",
+          "core_acquisition_raw_open_cny": 5.06,
+          "core_acquisition_execution_price_cny": 5.068,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 7325.000000000002,
+          "full_buyhold_acquisition_shares": 3900,
+          "full_buyhold_acquisition_commission_cny": 5.92956,
+          "slippage_bps_per_leg": 15.0,
+          "trading_day_count": 1211,
+          "round_trip_count": 266
+        }
+      },
+      "development": {
+        "scenario": "STRESS_SLIPPAGE",
+        "period": "development",
+        "requested_start": "2021-08-12T00:00:00",
+        "requested_end": "2024-06-28T00:00:00",
+        "actual_start": "2021-08-12T00:00:00",
+        "actual_end": "2024-06-28T00:00:00",
+        "strategy": {
+          "trading_days": 696,
+          "final_nav_cny": 10939.899999999998,
+          "total_pnl_cny": -9060.100000000002,
+          "total_return": -0.4530050000000001,
+          "cagr": -0.1892321631667626,
+          "annualized_volatility": 0.10862946539274393,
+          "sharpe_zero_cash_rate": -1.87590831494116,
+          "maximum_drawdown": 0.47003000000000006,
+          "calmar": -0.4025959261467621,
+          "rolling_242_day_observations": 455,
+          "rolling_242_day_median_return": -0.15927236809613965,
+          "rolling_242_day_minimum_return": -0.33443126690309044,
+          "rolling_242_day_maximum_return": -0.05676158552974875,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "static_2500_core": {
+          "trading_days": 696,
+          "final_nav_cny": 16562.5,
+          "total_pnl_cny": -3437.5,
+          "total_return": -0.171875,
+          "cagr": -0.06346966572639356,
+          "annualized_volatility": 0.09062895670247538,
+          "sharpe_zero_cash_rate": -0.6781891602095773,
+          "maximum_drawdown": 0.21785361028684458,
+          "calmar": -0.29134089466235613,
+          "rolling_242_day_observations": 455,
+          "rolling_242_day_median_return": -0.051787741203178195,
+          "rolling_242_day_minimum_return": -0.1678277390753642,
+          "rolling_242_day_maximum_return": 0.04121443238486355,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 696,
+          "final_nav_cny": 14639.370440000004,
+          "total_pnl_cny": -5360.629559999996,
+          "total_return": -0.2680314779999998,
+          "cagr": -0.10281117946786356,
+          "annualized_volatility": 0.1523994381781525,
+          "sharpe_zero_cash_rate": -0.6356457255528407,
+          "maximum_drawdown": 0.3377624088481651,
+          "calmar": -0.3043890521105338,
+          "rolling_242_day_observations": 455,
+          "rolling_242_day_median_return": -0.08633402910159471,
+          "rolling_242_day_minimum_return": -0.2637506276142051,
+          "rolling_242_day_maximum_return": 0.07119899848899092,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "intraday_t": {
+          "round_trip_count": 176,
+          "winning_round_trip_count": 29,
+          "win_rate": 0.16477272727272727,
+          "profit_factor": 0.0388225037181396,
+          "gross_raw_pnl_cny": -454.70000000000766,
+          "execution_gross_pnl_cny": -3862.600000000004,
+          "commission_cny": 1760.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 3407.899999999996,
+          "net_pnl_cny": -5622.600000000004,
+          "average_net_pnl_cny": -31.946590909090933,
+          "median_net_pnl_cny": -31.300000000000054,
+          "average_holding_trading_records": 46.84659090909091,
+          "by_direction": {
+            "SELL_HIGH": 119,
+            "BUY_LOW": 57
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 74,
+            "STOP_LOSS": 43,
+            "VWAP_TARGET": 36,
+            "FORCED_EXIT": 23
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2021,
+            "trading_days": 95,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 18732.19999999999,
+            "strategy_return": -0.0633900000000005,
+            "static_core_end_nav_cny": 19845.0,
+            "static_core_return": -0.007750000000000035,
+            "round_trip_count": 36,
+            "t_net_pnl_cny": -1112.8000000000084
+          },
+          {
+            "year": 2022,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 18732.19999999999,
+            "strategy_end_nav_cny": 13179.900000000001,
+            "strategy_return": -0.2964040529142328,
+            "static_core_end_nav_cny": 17357.5,
+            "static_core_return": -0.12534643487024444,
+            "round_trip_count": 99,
+            "t_net_pnl_cny": -3064.7999999999956
+          },
+          {
+            "year": 2023,
+            "trading_days": 242,
+            "is_complete_calendar_year": true,
+            "strategy_start_nav_cny": 13179.900000000001,
+            "strategy_end_nav_cny": 11400.399999999998,
+            "strategy_return": -0.1350161989089449,
+            "static_core_end_nav_cny": 16420.0,
+            "static_core_return": -0.05401123433674204,
+            "round_trip_count": 23,
+            "t_net_pnl_cny": -842.0000000000006
+          },
+          {
+            "year": 2024,
+            "trading_days": 117,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 11400.399999999998,
+            "strategy_end_nav_cny": 10939.899999999998,
+            "strategy_return": -0.04039331953264802,
+            "static_core_end_nav_cny": 16562.5,
+            "static_core_return": 0.00867844092570036,
+            "round_trip_count": 18,
+            "t_net_pnl_cny": -603.0
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": -3437.5,
+          "intraday_t_net_pnl_cny": -5622.600000000004,
+          "strategy_total_pnl_cny": -9060.100000000002,
+          "static_plus_t_pnl_cny": -9060.100000000004,
+          "attribution_error_cny": 1.8189894035458565e-12
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2021-08-12T00:00:00",
+          "last_trade_date": "2024-06-28T00:00:00",
+          "core_acquisition_raw_open_cny": 5.06,
+          "core_acquisition_execution_price_cny": 5.068,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 7325.000000000002,
+          "full_buyhold_acquisition_shares": 3900,
+          "full_buyhold_acquisition_commission_cny": 5.92956,
+          "slippage_bps_per_leg": 15.0,
+          "trading_day_count": 696,
+          "round_trip_count": 176
+        }
+      },
+      "pseudo_out_of_sample": {
+        "scenario": "STRESS_SLIPPAGE",
+        "period": "pseudo_out_of_sample",
+        "requested_start": "2024-08-01T00:00:00",
+        "requested_end": "2025-06-30T00:00:00",
+        "actual_start": "2024-08-01T00:00:00",
+        "actual_end": "2025-06-30T00:00:00",
+        "strategy": {
+          "trading_days": 219,
+          "final_nav_cny": 19694.0,
+          "total_pnl_cny": -306.0,
+          "total_return": -0.01529999999999998,
+          "cagr": -0.01689320348227985,
+          "annualized_volatility": 0.11001296212565051,
+          "sharpe_zero_cash_rate": -0.10011722476725121,
+          "maximum_drawdown": 0.12877000938924132,
+          "calmar": -0.13118895900066052,
+          "rolling_242_day_observations": 0,
+          "rolling_242_day_median_return": null,
+          "rolling_242_day_minimum_return": null,
+          "rolling_242_day_maximum_return": null,
+          "rolling_242_day_return_above_20pct_ratio": null
+        },
+        "static_2500_core": {
+          "trading_days": 219,
+          "final_nav_cny": 21400.0,
+          "total_pnl_cny": 1400.0,
+          "total_return": 0.07000000000000006,
+          "cagr": 0.07763017879113088,
+          "annualized_volatility": 0.11026679009350054,
+          "sharpe_zero_cash_rate": 0.7329939597555667,
+          "maximum_drawdown": 0.08054369804538308,
+          "calmar": 0.9638268502073178,
+          "rolling_242_day_observations": 0,
+          "rolling_242_day_median_return": null,
+          "rolling_242_day_minimum_return": null,
+          "rolling_242_day_maximum_return": null,
+          "rolling_242_day_return_above_20pct_ratio": null
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 219,
+          "final_nav_cny": 23141.30656,
+          "total_pnl_cny": 3141.306560000001,
+          "total_return": 0.15706532800000006,
+          "cagr": 0.174929758928432,
+          "annualized_volatility": 0.23211437042175204,
+          "sharpe_zero_cash_rate": 0.8099528831689815,
+          "maximum_drawdown": 0.16024580243799158,
+          "calmar": 1.0916339540071416,
+          "rolling_242_day_observations": 0,
+          "rolling_242_day_median_return": null,
+          "rolling_242_day_minimum_return": null,
+          "rolling_242_day_maximum_return": null,
+          "rolling_242_day_return_above_20pct_ratio": null
+        },
+        "intraday_t": {
+          "round_trip_count": 62,
+          "winning_round_trip_count": 14,
+          "win_rate": 0.22580645161290322,
+          "profit_factor": 0.1251282051282049,
+          "gross_raw_pnl_cny": 104.99999999999443,
+          "execution_gross_pnl_cny": -1086.0000000000011,
+          "commission_cny": 620.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 1190.9999999999955,
+          "net_pnl_cny": -1706.000000000001,
+          "average_net_pnl_cny": -27.51612903225808,
+          "median_net_pnl_cny": -30.24999999999943,
+          "average_holding_trading_records": 43.67741935483871,
+          "by_direction": {
+            "SELL_HIGH": 33,
+            "BUY_LOW": 29
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 26,
+            "VWAP_TARGET": 16,
+            "STOP_LOSS": 12,
+            "FORCED_EXIT": 8
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2024,
+            "trading_days": 102,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 20317.0,
+            "strategy_return": 0.01584999999999992,
+            "static_core_end_nav_cny": 21280.0,
+            "static_core_return": 0.06400000000000006,
+            "round_trip_count": 42,
+            "t_net_pnl_cny": -963.0000000000002
+          },
+          {
+            "year": 2025,
+            "trading_days": 117,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20317.0,
+            "strategy_end_nav_cny": 19694.0,
+            "strategy_return": -0.030663975980705804,
+            "static_core_end_nav_cny": 21400.0,
+            "static_core_return": 0.005639097744360999,
+            "round_trip_count": 20,
+            "t_net_pnl_cny": -743.0000000000008
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": 1400.0,
+          "intraday_t_net_pnl_cny": -1706.000000000001,
+          "strategy_total_pnl_cny": -306.0,
+          "static_plus_t_pnl_cny": -306.0000000000009,
+          "attribution_error_cny": 9.094947017729282e-13
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2024-08-01T00:00:00",
+          "last_trade_date": "2025-06-30T00:00:00",
+          "core_acquisition_raw_open_cny": 3.502,
+          "core_acquisition_execution_price_cny": 3.508,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 11225.0,
+          "full_buyhold_acquisition_shares": 5600,
+          "full_buyhold_acquisition_commission_cny": 5.89344,
+          "slippage_bps_per_leg": 15.0,
+          "trading_day_count": 219,
+          "round_trip_count": 62
+        }
+      },
+      "contaminated_recent_period": {
+        "scenario": "STRESS_SLIPPAGE",
+        "period": "contaminated_recent_period",
+        "requested_start": "2025-08-01T00:00:00",
+        "requested_end": "2026-08-11T00:00:00",
+        "actual_start": "2025-08-01T00:00:00",
+        "actual_end": "2026-08-11T00:00:00",
+        "strategy": {
+          "trading_days": 249,
+          "final_nav_cny": 17836.09999999999,
+          "total_pnl_cny": -2163.9000000000087,
+          "total_return": -0.10819500000000049,
+          "cagr": -0.10531957002081394,
+          "annualized_volatility": 0.11368589234337141,
+          "sharpe_zero_cash_rate": -0.9218591884649734,
+          "maximum_drawdown": 0.16182382430174302,
+          "calmar": -0.6508285814852017,
+          "rolling_242_day_observations": 8,
+          "rolling_242_day_median_return": -0.11392400978290862,
+          "rolling_242_day_minimum_return": -0.11957873620862636,
+          "rolling_242_day_maximum_return": -0.1072215300274113,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "static_2500_core": {
+          "trading_days": 249,
+          "final_nav_cny": 21735.0,
+          "total_pnl_cny": 1735.0,
+          "total_return": 0.0867500000000001,
+          "cagr": 0.08421136640054083,
+          "annualized_volatility": 0.09699353576601522,
+          "sharpe_zero_cash_rate": 0.8820690421752109,
+          "maximum_drawdown": 0.05542674174671525,
+          "calmar": 1.5193273814535824,
+          "rolling_242_day_observations": 8,
+          "rolling_242_day_median_return": 0.08002703933091304,
+          "rolling_242_day_minimum_return": 0.07384653961885657,
+          "rolling_242_day_maximum_return": 0.08709195115873403,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "full_capital_buy_and_hold": {
+          "trading_days": 249,
+          "final_nav_cny": 23334.816799999997,
+          "total_pnl_cny": 3334.816799999997,
+          "total_return": 0.1667408399999999,
+          "cagr": 0.1616935699052564,
+          "annualized_volatility": 0.17425431914680722,
+          "sharpe_zero_cash_rate": 0.9472623977082328,
+          "maximum_drawdown": 0.09608721809989695,
+          "calmar": 1.6827791781540797,
+          "rolling_242_day_observations": 8,
+          "rolling_242_day_median_return": 0.15290663199886056,
+          "rolling_242_day_minimum_return": 0.14215309486072303,
+          "rolling_242_day_maximum_return": 0.16668971202941307,
+          "rolling_242_day_return_above_20pct_ratio": 0.0
+        },
+        "intraday_t": {
+          "round_trip_count": 117,
+          "winning_round_trip_count": 20,
+          "win_rate": 0.17094017094017094,
+          "profit_factor": 0.04045972485418242,
+          "gross_raw_pnl_cny": -109.8999999999967,
+          "execution_gross_pnl_cny": -2728.8999999999974,
+          "commission_cny": 1170.0,
+          "stamp_duty_cny": 0.0,
+          "slippage_and_tick_cost_cny": 2619.0000000000014,
+          "net_pnl_cny": -3898.899999999998,
+          "average_net_pnl_cny": -33.32393162393161,
+          "median_net_pnl_cny": -29.50000000000074,
+          "average_holding_trading_records": 46.17094017094017,
+          "by_direction": {
+            "SELL_HIGH": 62,
+            "BUY_LOW": 55
+          },
+          "by_exit_reason": {
+            "MAX_HOLDING": 49,
+            "VWAP_TARGET": 29,
+            "STOP_LOSS": 24,
+            "FORCED_EXIT": 15
+          }
+        },
+        "calendar_years": [
+          {
+            "year": 2025,
+            "trading_days": 103,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 20000.0,
+            "strategy_end_nav_cny": 19883.500000000004,
+            "strategy_return": -0.005824999999999858,
+            "static_core_end_nav_cny": 21490.0,
+            "static_core_return": 0.07450000000000001,
+            "round_trip_count": 45,
+            "t_net_pnl_cny": -1606.4999999999945
+          },
+          {
+            "year": 2026,
+            "trading_days": 146,
+            "is_complete_calendar_year": false,
+            "strategy_start_nav_cny": 19883.500000000004,
+            "strategy_end_nav_cny": 17836.09999999999,
+            "strategy_return": -0.10296979907963955,
+            "static_core_end_nav_cny": 21735.0,
+            "static_core_return": 0.01140065146579805,
+            "round_trip_count": 72,
+            "t_net_pnl_cny": -2292.4000000000033
+          }
+        ],
+        "pnl_attribution": {
+          "static_core_total_pnl_cny": 1735.0,
+          "intraday_t_net_pnl_cny": -3898.899999999998,
+          "strategy_total_pnl_cny": -2163.9000000000087,
+          "static_plus_t_pnl_cny": -2163.899999999998,
+          "attribution_error_cny": -1.0913936421275139e-11
+        },
+        "execution_metadata": {
+          "initial_cash_cny": 20000.0,
+          "first_trade_date": "2025-08-01T00:00:00",
+          "last_trade_date": "2026-08-11T00:00:00",
+          "core_acquisition_raw_open_cny": 4.148,
+          "core_acquisition_execution_price_cny": 4.155,
+          "core_acquisition_shares": 2500,
+          "core_acquisition_commission_cny": 5.0,
+          "cash_after_core_acquisition_cny": 9607.5,
+          "full_buyhold_acquisition_shares": 4800,
+          "full_buyhold_acquisition_commission_cny": 5.9832,
+          "slippage_bps_per_leg": 15.0,
+          "trading_day_count": 249,
+          "round_trip_count": 117
+        }
+      }
+    }
+  },
+  "decision": {
+    "decision": "REJECTED_V1",
+    "all_gates_passed": false,
+    "strict_holdout_available": false,
+    "complete_calendar_years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "checks": {
+      "full_period_cagr": {
+        "actual": -0.06152090472041161,
+        "requirement": ">=20.00%",
+        "passed": false
+      },
+      "rolling_242_day_median_return": {
+        "actual": -0.08024176961500462,
+        "requirement": ">=20.00%",
+        "passed": false
+      },
+      "rolling_242_day_above_20pct_ratio": {
+        "actual": 0.01752577319587629,
+        "requirement": ">=60.00%",
+        "passed": false
+      },
+      "maximum_drawdown": {
+        "actual": 0.4086049999999999,
+        "requirement": "<=15.00%",
+        "passed": false
+      },
+      "pseudo_out_of_sample_t_net_pnl": {
+        "actual": -946.9999999999994,
+        "requirement": ">0.00元",
+        "passed": false
+      },
+      "pseudo_out_of_sample_stress_t_net_pnl": {
+        "actual": -1706.000000000001,
+        "requirement": ">0.00元",
+        "passed": false
+      },
+      "profitable_complete_calendar_year_ratio": {
+        "actual": 0.0,
+        "requirement": ">=75.00%",
+        "passed": false
+      },
+      "full_period_profit_factor": {
+        "actual": 0.2040918930242308,
+        "requirement": ">=1.20",
+        "passed": false
+      },
+      "minimum_round_trips_each_complete_year": {
+        "actual": 32,
+        "requirement": ">=30",
+        "passed": true
+      },
+      "maximum_round_trips_each_complete_year": {
+        "actual": 116,
+        "requirement": "<=180",
+        "passed": true
+      }
+    },
+    "next_action": "保留V1拒绝记录，不在同一样本调参；先做机制归因，再预注册结构不同的V2"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "weight_band": 0.1,
+  "study_id": "510300_SIMPLE_VOLUME_REVERSAL_V1",
+  "round": 26,
+  "registered_at": "2026-09-07T12:58:13.320583+08:00",
+  "primary": "V5_FAILED_BREAKDOWN",
+  "candidate_count": 6,
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "rules": "docs/510300_SIMPLE_VOLUME_REVERSAL_V1.md",
+  "position_impact": 0,
+  "evidence_class": "RESEARCH_SCREEN_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "independent_validation": "NOT_ESTABLISHED",
+  "candidate_specs": {
+    "V1_CLIMAX_RECOVERY": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.04,
+          "trail": null,
+          "take": 0.06,
+          "days": 10
+        }
+      }
+    },
+    "V2_QUIET_PULLBACK": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.04,
+          "trail": null,
+          "take": null,
+          "days": 10
+        }
+      }
+    },
+    "V3_VOLUME_BREAKOUT": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.06,
+          "trail": 0.06,
+          "take": null,
+          "days": 60
+        }
+      }
+    },
+    "V4_SELLING_ABSORBED": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.03,
+          "trail": null,
+          "take": null,
+          "days": 5
+        }
+      }
+    },
+    "V5_FAILED_BREAKDOWN": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.03,
+          "trail": null,
+          "take": 0.05,
+          "days": 5
+        }
+      }
+    },
+    "V6_PANIC_RECOVERY": {
+      "cooldown": 2,
+      "modes": {
+        "1": {
+          "loss": 0.04,
+          "trail": null,
+          "take": 0.06,
+          "days": 10
+        }
+      }
+    }
+  },
+  "candidate_names": {
+    "V1_CLIMAX_RECOVERY": "急跌后放量收强",
+    "V2_QUIET_PULLBACK": "上涨趋势中缩量回调转升",
+    "V3_VOLUME_BREAKOUT": "放量突破二十日高点",
+    "V4_SELLING_ABSORBED": "放量大跌后缩量回升",
+    "V5_FAILED_BREAKDOWN": "跌破二十日低点后当日收复",
+    "V6_PANIC_RECOVERY": "短期高波动急跌后回升"
+  },
+  "frozen_files": [
+    {
+      "path": "research\\simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "docs\\510300_SIMPLE_VOLUME_REVERSAL_V1.md",
+      "sha256": "b1f92d9e146f435081a202c1045d174c133c7f0f126d7134cb8636710770a769"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  ]
+}

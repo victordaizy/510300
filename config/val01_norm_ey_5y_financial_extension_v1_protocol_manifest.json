@@ -1,0 +1,90 @@
+{
+  "project_id": "VAL01_NORM_EY_5Y_FINANCIAL_EXTENSION_V1",
+  "version": "1.0.0",
+  "status": "BLOCKED_DATA_ACQUISITION_PROTOCOL_IMPLEMENTATION_FROZEN",
+  "frozen_at": "2026-08-19T01:14:16.919417+08:00",
+  "data_acquisition_status": "BLOCKED_SECURE_TRANSPORT_TLS",
+  "data_outputs_created": false,
+  "implementation_files": {
+    "config/val01_norm_ey_5y_financial_extension_v1.yaml": "b8b8849577e0f165e1f34607c019ce90beee90a3129eb8321845d43770a3b063",
+    "docs/VAL01_NORM_EY_5Y_FINANCIAL_EXTENSION_V1_PROTOCOL.md": "a90bd2374dec8ff9c1cbb97e5dbe6e6e96cb82d13609244f6204fb88ea49fb2d",
+    "research/val01_norm_ey_5y_financial_extension.py": "f290463666f86e1c6d57aced0153a0b8e5c69b9167541232564c6945237e588e",
+    "research/val01_norm_ey_5y_post_acquisition_audit.py": "10009efe91ecd2d70720aadcfef3aa675c91e86bb8ad0666a78369edfeba67ae",
+    "scripts/download_val01_norm_ey_5y_financial_extension.py": "a3549e14ee1958b504260b11b4daf747264a2a71b0e7097778664fbee842c6e6",
+    "scripts/audit_val01_norm_ey_5y_post_acquisition.py": "2d29e79f773d72f24a1f4dd7375c4e11032422618ea2305bcdb6c43235085d16",
+    "scripts/freeze_val01_norm_ey_5y_financial_extension_protocol.py": "36efaac55a70580f0e6367bfd9768fc374be229d99a7d9e029e480c8deaa95bb",
+    "tests/test_val01_norm_ey_5y_financial_extension.py": "bd7e0b34a5f6a7b13efe3910f270cb2f7c30c9749c7e1dd6c4d140073b35989c",
+    "tests/test_val01_norm_ey_5y_post_acquisition_audit.py": "cbcaa3b890455e2049bab2e46f9cfdfe4a000279dd09f819694a878296335c58"
+  },
+  "evidence_files": {
+    "reports/data_quality/000300_normalized_earnings_financial_extension_v1.json": "0b9b8061855e9a8e2aaaae268d1f2917a1cdcafe5a8f073da8c52bfa8b3d00de",
+    "reports/data_quality/000300_normalized_earnings_financial_extension_v1.md": "ff115804b797b15684fad1043a1ed8f54928e1b6592b701d42e5769160fe4b05"
+  },
+  "frozen_input_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "base_financial_archive",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time.parquet",
+        "expected_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "actual_sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+        "matches": true
+      },
+      {
+        "dataset": "base_audit_v1_1",
+        "file": "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json",
+        "expected_sha256": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+        "actual_sha256": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+        "matches": true
+      }
+    ],
+    "checkpoint_directory": "data/raw/fundamentals/vip_checkpoints",
+    "checkpoint_file_count": 132,
+    "expected_checkpoint_file_count": 132,
+    "checkpoint_content_sha256": "e9ae8ebcf4e75dabe76104b20a71240a029f70557cf4270da49cda54b49594d3",
+    "expected_checkpoint_content_sha256": "e9ae8ebcf4e75dabe76104b20a71240a029f70557cf4270da49cda54b49594d3",
+    "checkpoint_matches": true
+  },
+  "test_results": {
+    "targeted": {
+      "command": [
+        "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_val01_norm_ey_5y_financial_extension.py",
+        "tests/test_val01_norm_ey_5y_post_acquisition_audit.py",
+        "-q"
+      ],
+      "return_code": 0,
+      "stdout": "..........                                                               [100%]\n10 passed in 2.24s"
+    },
+    "full_suite": {
+      "command": [
+        "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "return_code": 0,
+      "stdout": "........................................................................ [ 16%]\n........................................................................ [ 33%]\n........................................................................ [ 50%]\n........................................................................ [ 67%]\n........................................................................ [ 84%]\n.................................................................        [100%]\n425 passed in 46.20s"
+    }
+  },
+  "governance": {
+    "return_calculation_performed": false,
+    "ic_calculation_performed": false,
+    "position_mapping_performed": false,
+    "order_generation_performed": false,
+    "broker_connection_performed": false,
+    "base_financial_archive_mutated": false,
+    "base_checkpoint_archive_mutated": false
+  },
+  "meaning": "只冻结协议实现和TLS阻塞证据；不表示财务扩展数据、正常化盈利覆盖或模型预测闸门已经通过。",
+  "manifest_content_sha256": "efce27d9ca099032131bf47af6afd0bfd1dbb9bb679ee3cc821e33a7e4e37fb1"
+}

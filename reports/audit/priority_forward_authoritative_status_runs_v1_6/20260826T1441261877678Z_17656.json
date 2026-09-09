@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.6.0",
+  "report_version": "PRIORITY_FORWARD_AUTHORITATIVE_STATUS_V1_6",
+  "generated_at": "2026-08-26T22:41:26.713174+08:00",
+  "overall_research_status": "NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET",
+  "decision": "PAUSE_AND_FIX_FOUNDATION",
+  "foundation_status": "PARTIAL_SUCCESS_FOUNDATION_GATES_PENDING",
+  "contract": {
+    "data_purchase_budget_cny": 0,
+    "zero_purchase_lock_days": 180,
+    "maximum_active_research_streams": 2,
+    "active_research_stream_count": 2,
+    "only_new_frozen_test": "A_SHARE_HS_OFFICIAL_CASH_OPTION_FLOOR_ALPHA_V1",
+    "option_orderbook_policy": "CONDITIONAL_FORWARD_ONLY"
+  },
+  "active_research_streams": [
+    {
+      "id": "PRIMARY_MARKET_PCF_IOPV",
+      "priority": 1,
+      "status": "COLLECTING_NOT_ELIGIBLE",
+      "stage": "STAGE_0_19_COLLECTION",
+      "latest_observed_trade_date": "2026-08-18",
+      "observed_trading_days": 4,
+      "full_quality_days": 2,
+      "quality_day_gate": 20,
+      "feature_freeze_gate": 40,
+      "first_unseen_gate": 80,
+      "replication_gate": 120,
+      "v1_2_official_crosscheck_rows": 0,
+      "latest_task": {
+        "path": "reports/data_quality/primary_market_task_runs_v1_2/20260826T0125005282393Z_11696.json",
+        "run_status": "FAILED",
+        "collection_status": "PROGRAM_FAILED",
+        "error": "RuntimeException: 研究采集运行器退出码为1"
+      },
+      "next_action": "CONTINUE_STRICT_FORWARD_COLLECTION"
+    },
+    {
+      "id": "INDUSTRY_EXPECTATION_GAP",
+      "priority": 2,
+      "status": "COLLECTING_FORWARD",
+      "origin_collection_status": "WAITING_FOR_NEXT_ORIGIN_EVIDENCE",
+      "outcome_collection_status": "COLLECTING_OUTCOME_INPUT_STALE",
+      "origin_cluster_count": 1,
+      "mature_origin_cluster_count": 0,
+      "non_overlapping_60d_block_count": 0,
+      "calibration_eligible": false,
+      "model_comparison_eligible": false,
+      "latest_task": {
+        "path": "reports/forward/industry_expectation_gap_v1_evaluation/task_runs_v1_2/20260826T1441125539729Z_15388.json",
+        "run_status": "FAILED",
+        "collection_status": "BLOCKED_ZERO_COST_SOURCE_UNAVAILABLE",
+        "error": "RemoteException: 行业结果输入阻塞：BLOCKED_ZERO_COST_SOURCE_UNAVAILABLE"
+      },
+      "next_action": "WAIT_FOR_NEW_OFFICIAL_PACKAGE_AND_CURRENT_OUTCOME_INPUTS"
+    }
+  ],
+  "maintenance_protocols": [
+    {
+      "id": "T_ONLY_V1_1",
+      "mode": "FROZEN_FORWARD_LEDGER_MAINTENANCE_NOT_ACTIVE_STREAM"
+    }
+  ],
+  "data_admission_only": {
+    "test_id": "A_SHARE_HS_OFFICIAL_CASH_OPTION_FLOOR_ALPHA_V1",
+    "status": "NO_VIEW_FREE_DATA_INSUFFICIENT",
+    "pre_repair_status": "BLOCKED_FREE_DATA_INCOMPLETE_BEFORE_FINAL_REPAIR",
+    "event_count": 21,
+    "data_gate_pass_count": 0,
+    "price_values_read": false,
+    "return_values_read": false,
+    "attempt_consumed": true,
+    "second_repair_allowed": false,
+    "candidate_closed_for_free_source_repair": true,
+    "counts_as_active_research_stream": false
+  },
+  "free_source_registry": {
+    "path": "data/governance/FREE_SOURCE_REGISTRY_V1_1.csv",
+    "exists": true,
+    "sha256": "13e37ed91ea25148b7f94565881bfa6cc1a6a7e59bf022c3b657ef8602338d7b",
+    "bytes": 9133,
+    "row_count": 16,
+    "unique_source_id_count": 16,
+    "nonzero_cost_source_ids": [],
+    "second_official_endpoint": {
+      "source_id": "SSE_ETF_DAILY_TURNOVER_OFFICIAL",
+      "grade": "B",
+      "research_line": "PCF_IOPV",
+      "provider": "上海证券交易所",
+      "source_url_or_endpoint": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_CP_GPJCTPZ_GPLB_CJGK_MRGK_C",
+      "access_cost_cny": "0",
+      "allowed_use": "510300收盘OHLC与盘中末次快照交叉核验",
+      "prohibited_use": "冒充独立供应商或代替盘中IOPV快照",
+      "fields_or_evidence": "证券代码,交易日期,开盘,最高,最低,收盘,成交量,成交额",
+      "time_coverage": "2026-08-26起严格前瞻",
+      "point_in_time_status": "FORWARD_OFFICIAL_DAILY_PUBLICATION",
+      "raw_preservation_required": "true",
+      "parser_version": "SseEtfDailyCrosscheckProvider@1.2",
+      "receipt_schema_version": "FREE_SOURCE_ACQUISITION_RECEIPT_V1",
+      "fallback_source": "",
+      "admission_status": "ADMITTED_FORWARD_OFFICIAL_SECOND_ENDPOINT",
+      "quality_status": "IMPLEMENTED_TESTED_AWAITING_REAL_DAY",
+      "failure_reason": "下一真实交易日尚未形成可重放完整质量日",
+      "terms_or_license_note": "上交所公开日端点；仅内部非商业研究归档；不是独立供应商",
+      "last_audited_at": "2026-08-26T02:45:00+08:00"
+    }
+  },
+  "source_health": {
+    "status": "IMPLEMENTED_AWAITING_REAL_FORWARD_DAY",
+    "pcf_iopv_real_forward_crosscheck_rows": 0,
+    "industry_official_release_status": "WAITING_FOR_NEXT_ORIGIN_EVIDENCE",
+    "nonzero_cost_source_ids": []
+  },
+  "foundation_gates": {
+    "zero_purchase_budget": {
+      "passed": true,
+      "budget_cny": 0,
+      "lock_days": 180
+    },
+    "active_stream_cap": {
+      "passed": true,
+      "active_count": 2,
+      "maximum": 2
+    },
+    "second_official_etf_endpoint": {
+      "passed": true,
+      "source_id": "SSE_ETF_DAILY_TURNOVER_OFFICIAL",
+      "independent_vendor": false,
+      "real_forward_quality_day_observed": false
+    },
+    "authoritative_status_generation": {
+      "passed": true
+    },
+    "windows_logout_reboot_persistence": {
+      "path": "reports/audit/PRIORITY_FORWARD_WINDOWS_SCHEDULER_V1_6_PERSISTENCE_VALIDATION.json",
+      "exists": true,
+      "sha256": "620ac58b2f4d89a4482681f11dd7216efe41dae0a135722d7e75d2f1f27c21a3",
+      "bytes": 3591,
+      "status": "BLOCKED_PERMISSION_S4U_REGISTRATION_ACCESS_DENIED",
+      "passed": false
+    },
+    "frozen_input_content_addressing": {
+      "path": "reports/audit/PRIORITY_FORWARD_FROZEN_INPUT_CONTENT_ADDRESSING_V1.json",
+      "exists": true,
+      "sha256": "2a6af3dee5de0478c216df7ffd51472cbd80e1396fa6314021bdfd61e318f780",
+      "bytes": 5653,
+      "status": "PASS_FROZEN_INPUTS_CONTENT_ADDRESSED_AND_LATEST_ISOLATED",
+      "passed": true
+    },
+    "option_orderbook_zero_cost_qualification": {
+      "path": "reports/audit/OPTION_ORDERBOOK_ZERO_COST_SOURCE_QUALIFICATION_V1.json",
+      "exists": true,
+      "sha256": "acc4c3d6284bbcc8facf4d50df390e6a4f0ec5417f80bef4dba0b73e43c68e7b",
+      "bytes": 3773,
+      "status": "BLOCKED_ZERO_COST_SOURCE_UNAVAILABLE",
+      "passed": true
+    },
+    "cash_option_final_free_source_repair": {
+      "path": "reports/audit/A_SHARE_HS_OFFICIAL_CASH_OPTION_FLOOR_ALPHA_V1_FINAL_FREE_SOURCE_REPAIR.json",
+      "exists": true,
+      "sha256": "af3f00730cd4053285b38f3c17f1e4096bdf9692d82bbad134266aaefd2022e2",
+      "bytes": 61987,
+      "status": "NO_VIEW_FREE_DATA_INSUFFICIENT",
+      "passed": true
+    },
+    "v1_6_manifest_frozen": {
+      "path": "config/priority_forward_research_operations_v1_6_manifest.json",
+      "exists": true,
+      "sha256": "b08f2c335bdf87b438fd2a068f736e76ad5f7a12eb6411aab7dd1deb3292487a",
+      "bytes": 8940,
+      "status": "FROZEN_ZERO_PAID_FOUNDATION_ACTIVE_AWAITING_NEXT_WINDOW",
+      "passed": true
+    }
+  },
+  "pending_foundation_gate_ids": [
+    "windows_logout_reboot_persistence"
+  ],
+  "alerts": [
+    {
+      "code": "PCF_IOPV_V1_2_REAL_DAY_PENDING",
+      "message": "第二官方端点已实现，但尚无 V1.2 真实完整质量日。"
+    },
+    {
+      "code": "COLLECTING_OUTCOME_INPUT_STALE",
+      "message": "行业预期差结果输入尚未达到日期闸门。"
+    },
+    {
+      "code": "WINDOWS_LOGOUT_REBOOT_PERSISTENCE",
+      "message": "BLOCKED_PERMISSION_S4U_REGISTRATION_ACCESS_DENIED"
+    }
+  ],
+  "input_evidence": {
+    "primary_market_readiness": {
+      "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+      "exists": true,
+      "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383",
+      "bytes": 6001
+    },
+    "industry_operations_status": {
+      "path": "reports/forward/industry_expectation_gap_v1_evaluation/operations_status_v1_2.json",
+      "exists": true,
+      "sha256": "60eeeb6cc5767472b0eea0a779552913fd8e18d211e8a244db426b844f2b37fe",
+      "bytes": 9681
+    },
+    "cash_option_admission_audit": {
+      "path": "reports/audit/ZERO_PAID_DATA_AND_CASH_OPTION_ADMISSION_V1.json",
+      "exists": true,
+      "sha256": "56b4d0700b337f0e83026c3213c292cabb1846595e39d60f559c01dc1abd43bc",
+      "bytes": 2060
+    },
+    "cash_option_final_free_source_repair": {
+      "path": "reports/audit/A_SHARE_HS_OFFICIAL_CASH_OPTION_FLOOR_ALPHA_V1_FINAL_FREE_SOURCE_REPAIR.json",
+      "exists": true,
+      "sha256": "af3f00730cd4053285b38f3c17f1e4096bdf9692d82bbad134266aaefd2022e2",
+      "bytes": 61987
+    },
+    "scheduler_deployment": {
+      "path": "reports/audit/PRIORITY_FORWARD_WINDOWS_SCHEDULER_V1_5_DEPLOYMENT_20260826.json",
+      "exists": true,
+      "sha256": "29bebf3b4bcc8613611b4897ffcac6e1a9e451107e68ba15128d060121272f32",
+      "bytes": 2355
+    }
+  },
+  "execution_authorization": {
+    "research_only": true,
+    "shadow_enabled": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  }
+}

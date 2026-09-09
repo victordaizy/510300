@@ -1,0 +1,195 @@
+{
+  "status": "FIXED_RULE_VALIDATION_REJECTED_NO_PARAMETER_RESCUE",
+  "project_id": "510300_OPTION_FUTURES_BREADTH_DOMAIN_UNION_V1",
+  "candidate_name": "OPTION_OR_FOUR_DOMAIN_VOTE2",
+  "frozen_protocol": {
+    "config_sha256": "4cb9067cba5d9aec1585a24dceaacb0daade9ae478d1d3f47a779c06903067ff",
+    "manifest_sha256": "0a547782f1ad2e7b733b5073fc4f351aa6cdb100bc6e9a97a59d6b798c09a801",
+    "freeze_timestamp": "2026-08-28T05:00:10.981638+08:00",
+    "validation_implementation_sha256": "89d6afe5fc4498a7c245d2750df6a0a43bce5e7d532e1aea02225ca960a55333"
+  },
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "benchmark": "H00300_TOTAL_RETURN",
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘",
+    "information_only_assets": [
+      "510300期权",
+      "IF0股指期货",
+      "全A横截面"
+    ]
+  },
+  "independent_implementation_checks": {
+    "development_state_drift": {
+      "status": "PASS",
+      "current_rows": 443,
+      "frozen_rows": 443,
+      "matched_rows": 443,
+      "mismatch_by_field": {
+        "option_cash_state": 0,
+        "domain_breadth": 0,
+        "domain_basis": 0,
+        "domain_futures_oi": 0,
+        "domain_option_put_call_volume": 0,
+        "orthogonal_domain_vote_count": 0
+      }
+    },
+    "development_metric_reproduction": {
+      "status": "PASS",
+      "maximum_absolute_difference": 0.0,
+      "absolute_difference_by_field": {
+        "stress_annualized_excess_minimum": 0.0,
+        "stress_annualized_excess_median": 0.0,
+        "stress_annualized_excess_maximum": 0.0,
+        "stress_rolling_242d_excess_minimum": 0.0,
+        "stress_rolling_242d_excess_median": 0.0,
+        "cash_day_share_median": 0.0,
+        "stress_trade_leg_count_median": 0.0,
+        "stress_perturbation_pass_ratio": 0.0
+      }
+    }
+  },
+  "development_reproduction": {
+    "period": "DEVELOPMENT_REPRODUCTION_2022_2023",
+    "perturbation_count": 5,
+    "base_annualized_excess_minimum": 0.2419327339225045,
+    "base_annualized_excess_median": 0.2539505938200687,
+    "base_rolling_242d_excess_minimum": 0.2543860937652799,
+    "stress_annualized_excess_minimum": 0.20229535165327542,
+    "stress_annualized_excess_median": 0.21328939319805107,
+    "stress_annualized_excess_maximum": 0.2174801659889634,
+    "stress_rolling_242d_excess_minimum": 0.217327826086752,
+    "stress_rolling_242d_excess_median": 0.21740255678231896,
+    "cash_day_share_median": 0.37188208616780044,
+    "stress_trade_leg_count_median": 64.0,
+    "stress_perturbation_pass_ratio": 1.0,
+    "every_start_both_gates": true,
+    "rolling_metric_available_count": 5
+  },
+  "fixed_rule_2024": {
+    "period": "FIXED_RULE_2024",
+    "perturbation_count": 5,
+    "base_annualized_excess_minimum": -0.022229858496240207,
+    "base_annualized_excess_median": -0.020147523721285893,
+    "base_rolling_242d_excess_minimum": -0.022638170367794336,
+    "stress_annualized_excess_minimum": -0.06213646968448053,
+    "stress_annualized_excess_median": -0.061659143087462925,
+    "stress_annualized_excess_maximum": -0.05975878135178489,
+    "stress_rolling_242d_excess_minimum": -0.06281835423043387,
+    "stress_rolling_242d_excess_median": -0.06114591448720614,
+    "cash_day_share_median": 0.43333333333333335,
+    "stress_trade_leg_count_median": 35.0,
+    "stress_perturbation_pass_ratio": 0.0,
+    "every_start_both_gates": false,
+    "rolling_metric_available_count": 2
+  },
+  "fixed_rule_2025": {
+    "period": "FIXED_RULE_2025",
+    "perturbation_count": 5,
+    "base_annualized_excess_minimum": -0.1437017926877669,
+    "base_annualized_excess_median": -0.14064328035724,
+    "base_rolling_242d_excess_minimum": -0.14300531700210758,
+    "stress_annualized_excess_minimum": -0.17359001670985608,
+    "stress_annualized_excess_median": -0.1700195482486142,
+    "stress_annualized_excess_maximum": -0.16270143546402435,
+    "stress_rolling_242d_excess_minimum": -0.17275791770189658,
+    "stress_rolling_242d_excess_median": -0.17062774779365275,
+    "cash_day_share_median": 0.4024896265560166,
+    "stress_trade_leg_count_median": 27.0,
+    "stress_perturbation_pass_ratio": 0.0,
+    "every_start_both_gates": false,
+    "rolling_metric_available_count": 3
+  },
+  "primary_fixed_rule_combined_2024_2025": {
+    "period": "FIXED_RULE_COMBINED_2024_2025",
+    "perturbation_count": 5,
+    "base_annualized_excess_minimum": -0.07958050012795481,
+    "base_annualized_excess_median": -0.07908469812047858,
+    "base_rolling_242d_excess_minimum": -0.021620115411198182,
+    "stress_annualized_excess_minimum": -0.1138726095832575,
+    "stress_annualized_excess_median": -0.11276511839925119,
+    "stress_annualized_excess_maximum": -0.1118677725179468,
+    "stress_rolling_242d_excess_minimum": -0.06452007086405159,
+    "stress_rolling_242d_excess_median": -0.06209003120789894,
+    "cash_day_share_median": 0.4161490683229814,
+    "stress_trade_leg_count_median": 61.0,
+    "stress_perturbation_pass_ratio": 0.0,
+    "every_start_both_gates": false,
+    "rolling_metric_available_count": 5
+  },
+  "decision": {
+    "goal_gate_passed": false,
+    "next_action": "永久淘汰该固定候选，禁止用2024-2025结果调整参数",
+    "historical_evidence_limit": "历史输入已被多轮研究查看，验证只能称固定规则检验，不宣称未见样本"
+  },
+  "input_audit": {
+    "market_rows": 2674,
+    "market_first_date": "2015-01-05",
+    "market_last_date": "2025-12-31",
+    "option": {
+      "option_eod_rows": 174990,
+      "option_risk_rows": 172500,
+      "eligible_contract_rows": 74056,
+      "option_calendar_rows": 1462,
+      "option_first_date": "2019-12-23",
+      "option_last_date": "2025-12-31"
+    },
+    "domains": {
+      "futures_rows": 1064,
+      "spot_rows": 1064,
+      "statistics_rows": 1462,
+      "all_a_rows": 2280,
+      "common_rows": 1064,
+      "common_first_date": "2021-08-12",
+      "common_last_date": "2025-12-31"
+    },
+    "post_2025_rows_read": 0
+  },
+  "input_sha256": {
+    "option_eod": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064",
+    "option_risk": "e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035",
+    "option_statistics": "a504a4b9aaa84603949d8312c65126b9e47be8ea4d1c4f8bb3bd48d0157cd75e",
+    "if0_futures": "6a361e083fb7e20595aee55f0455680dd5a2577ac872dc7436a083a45f2c8f92",
+    "csi300_spot": "cb2fee88cf69a756e3078956f4bb9bec8e7cce6ceb62f910343436ba68dd8a8d",
+    "all_a_features": "a901625e7431e520a515cf713699b91a53328d32423cd675fdc3e4ac7f074a8b",
+    "etf_execution": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+    "benchmark_total_return": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+    "cash_distributions": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "cost_models": {
+    "base": {
+      "commission_rate": 0.0001,
+      "minimum_commission": 0.0,
+      "slippage_bps": 5.0,
+      "cash_annual_rate": 0.015,
+      "trading_days_per_year": 242,
+      "lot_size": 100
+    },
+    "stress": {
+      "commission_rate": 0.0001,
+      "minimum_commission": 0.0,
+      "slippage_bps": 15.0,
+      "cash_annual_rate": 0.015,
+      "trading_days_per_year": 242,
+      "lot_size": 100
+    }
+  },
+  "artifacts": {
+    "metrics": "data/validation/510300_option_futures_breadth_domain_union_v1/start_perturbation_metrics.parquet",
+    "states": "data/validation/510300_option_futures_breadth_domain_union_v1/daily_states.parquet",
+    "report": "reports/validation/510300_option_futures_breadth_domain_union_v1_validation.json"
+  },
+  "boundaries": {
+    "data_ceiling": "2025-12-31",
+    "post_2025_rows_read": 0,
+    "formula_or_threshold_changes_after_freeze": 0,
+    "position_mapping": "DISABLED",
+    "orders": "DISABLED",
+    "broker": "DISABLED",
+    "live_trading": "NOT_AUTHORIZED"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "study_id": "510300_ORIGINAL_EARNINGS_BREADTH_V1",
+  "version": "1.0.0",
+  "evidence_class": "PREQUENTIAL_REPLAY_OF_ALREADY_OBSERVED_HISTORY",
+  "shadow_start": "2015-01-05",
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "gamma": 4.0,
+  "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "weight_band": 0.1,
+  "minimum_train_samples": 300,
+  "random_seed": 20260906,
+  "models": [
+    {
+      "id": "PRICE_RIDGE_H20",
+      "group": "PRICE",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "PRICE_ET_H20",
+      "group": "PRICE",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "PRICE_RIDGE_H60",
+      "group": "PRICE",
+      "kind": "RIDGE",
+      "horizon": 60
+    },
+    {
+      "id": "PRICE_ET_H60",
+      "group": "PRICE",
+      "kind": "ET",
+      "horizon": 60
+    },
+    {
+      "id": "EARNINGS_RIDGE_H20",
+      "group": "EARNINGS",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "EARNINGS_ET_H20",
+      "group": "EARNINGS",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "EARNINGS_RIDGE_H60",
+      "group": "EARNINGS",
+      "kind": "RIDGE",
+      "horizon": 60
+    },
+    {
+      "id": "EARNINGS_ET_H60",
+      "group": "EARNINGS",
+      "kind": "ET",
+      "horizon": 60
+    },
+    {
+      "id": "FULL_RIDGE_H20",
+      "group": "FULL",
+      "kind": "RIDGE",
+      "horizon": 20
+    },
+    {
+      "id": "FULL_ET_H20",
+      "group": "FULL",
+      "kind": "ET",
+      "horizon": 20
+    },
+    {
+      "id": "FULL_RIDGE_H60",
+      "group": "FULL",
+      "kind": "RIDGE",
+      "horizon": 60
+    },
+    {
+      "id": "FULL_ET_H60",
+      "group": "FULL",
+      "kind": "ET",
+      "horizon": 60
+    }
+  ],
+  "primary": "F1_PRIMARY_FULL_H60",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "bootstrap_repetitions": 2000,
+  "bootstrap_day_block": 60,
+  "inputs": {
+    "prices": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "original_prices": "data/raw/r6/510300_daily.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "calendar": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+    "price_receipt": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "dividend_coverage": "reports/research/510300_adaptive_allocation_v1/frozen_inputs/dividend_coverage.json",
+    "corrections": "data/reference/510300_downside_risk_price_corrections_v1.csv"
+  },
+  "scope": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "live_trading_authorized": false,
+  "position_impact": 0,
+  "future_service_started": false,
+  "one_historical_run": true,
+  "authorization": "config/510300_research_authority_v6.json",
+  "source_budget": 0,
+  "historical_vendor_first_delivery_proven": false,
+  "common_feature_support": true,
+  "minimum_valid_companies": 240,
+  "maximum_report_age_calendar_days": 200,
+  "information_clock": "NEXT_A_SHARE_SESSION_OPEN_AFTER_PUBLICATION_DATE",
+  "primary_horizon": 60,
+  "missing_latest_report_fallback": false,
+  "financial_weighting": "EQUAL_WEIGHT_BREADTH_NOT_INDEX_EPS",
+  "fund_flow_included": false,
+  "revised_vendor_financials_included": false
+}

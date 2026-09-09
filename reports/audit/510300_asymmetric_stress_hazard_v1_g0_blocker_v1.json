@@ -1,0 +1,59 @@
+{
+  "study_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1",
+  "audit_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1_G0_BLOCKER_V1",
+  "generated_at": "2026-09-02T15:03:38.9440634+08:00",
+  "status": "BLOCKED_G0_PROJECT_GLOBAL_FIXED_INPUT_EVIDENCE_DRIFT",
+  "research_state": "DISCOVERY_ONLY",
+  "model_position_target": "UNSET",
+  "position_impact": 0,
+  "live_trading_authorized": false,
+  "bad10_label_values_read": false,
+  "bad10_one_shot_claim_created": false,
+  "bad10_census_executed": false,
+  "scoped_clean_replay": {
+    "status": "PASS_G0_READY_FOR_ONE_SHOT_BAD10_CENSUS",
+    "commit": "c5be19675d144473dbe71f89a5c58e99095e5720",
+    "manifest_payload_sha256": "6e040088e8789dc7eab951c99b4787d03302b463a98557d95a8a5c978d70d5e8",
+    "note": "新协议的提交文件、注册数据根和输入哈希在独立干净worktree中验证通过。"
+  },
+  "project_global_test": {
+    "command": ".\\.venv\\Scripts\\python.exe -m pytest -q -x",
+    "exit_code": 1,
+    "progress_before_stop": {
+      "passed": 272,
+      "xfailed": 1,
+      "failed": 1
+    },
+    "failed_node_id": "tests/test_510300_pit_earnings_information_diffusion_10d_risk_v1.py::test_manifest_hashes_match_if_manifest_exists"
+  },
+  "blocking_evidence": {
+    "frozen_manifest": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_manifest.json",
+    "frozen_manifest_status": "FROZEN_OUTCOME_BLIND_PIT_EARNINGS_DATA_FEASIBILITY_BEFORE_ANY_POST_EVENT_OUTCOME",
+    "frozen_manifest_commit": "51272d2",
+    "input_path": "data/raw/cninfo/a_share_hs_first_preliminary_core_earnings_pdf_inventory_v1.parquet",
+    "input_tracked_by_git": false,
+    "expected_sha256": "49465b1190f813d7e179ee102d9f566f67a13c25a53f242ef194ed729f3e3e95",
+    "actual_sha256": "632b7fbca399945681b831435b759409de38f55d53eaeb3541aad144294f6fbc",
+    "actual_size_bytes": 7807560,
+    "actual_last_write_time": "2026-08-30T21:25:09.8333112+08:00",
+    "matching_expected_hash_copy_found_in_active_workspace_or_registered_data_root": false
+  },
+  "adjudication": {
+    "g0_project_global": "FAIL",
+    "g1_bad10_label_identifiability": "NOT_EVALUATED",
+    "census_authorized_now": false,
+    "reason": "G0要求项目级工程可重放；旧冻结清单的固定输入证据已漂移，因此不得读取新BAD10标签。",
+    "forbidden_rescues": [
+      "不得改写旧冻结清单中的预期哈希",
+      "不得把真实哈希失败改成跳过或预期失败",
+      "不得用当前动态文件冒充冻结时输入",
+      "不得在G0失败时创建BAD10一次性claim",
+      "不得运行特征、模型、阈值、收益或组合评估"
+    ],
+    "admissible_remediation": [
+      "从可验证的不可变备份恢复预期哈希对应的原始字节，并以版本化只读路径登记",
+      "若原始字节永久丢失，则以新版本治理明确关闭旧PIT重放，不得声称旧清单可重放",
+      "完成修复后从项目根重新运行全量pytest和BAD10的G0，只在两者均通过后触发一次性census"
+    ]
+  }
+}

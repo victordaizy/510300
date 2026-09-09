@@ -1,0 +1,1405 @@
+{
+  "status": "POST_HOC_DIAGNOSTIC_ONLY_TIME_OR_DEPENDENCE_GATES_FAILED",
+  "generated_at": "2026-08-13T20:05:06.642608+08:00",
+  "purpose": "诊断V2重叠样本、时间失效、增长计价与PE回归速度；不做仓位。",
+  "configuration": {
+    "model": {
+      "model_id": "CSI300_VALUATION_V3_STATE_AWARE_EXPECTED_RETURN",
+      "version": "0.1.0-diagnostic",
+      "horizons_trading_days": [
+        20,
+        60,
+        120,
+        242
+      ],
+      "identity": "FutureNormalizedEPS×PartiallyRevertedPE/CurrentPrice + Dividend - 1"
+    },
+    "dependence_adjustment": {
+      "exact_non_overlapping": true,
+      "newey_west_lag_rule": "ceil(horizon_trading_days/21)-1",
+      "moving_block_bootstrap_repetitions": 5000,
+      "moving_block_length_rule": "ceil(horizon_trading_days/21) monthly observations",
+      "random_seed": 20260813
+    },
+    "mean_reversion": {
+      "estimator": "walk-forward no-intercept OLS of next-12-month normalized-PE change on same-basis log FairPE gap",
+      "minimum_completed_annual_pairs": 12,
+      "annual_speed_bounds": [
+        0.0,
+        1.0
+      ],
+      "horizon_scaling": "1-(1-annual_speed)^(horizon/242)",
+      "state_dependent_speed_used_in_signal": false
+    },
+    "regimes": {
+      "rate": "10年国债收益率6个月变化的正负",
+      "earnings": "正常化指数EPS过去12个月变化的正负",
+      "market": "指数相对10个月均线与3个月动量共同判定牛/熊/震荡",
+      "risk_premium": "正常化盈利收益率减10年国债，和信号日前扩展中位数比较",
+      "roe": "正常化ROE和信号日前扩展中位数比较",
+      "volatility": "3个月实现波动率和信号日前扩展中位数比较",
+      "foreign_flow": "UNAVAILABLE"
+    },
+    "governance": {
+      "parameter_search_performed": false,
+      "architecture_selected_after_v2_inspection": true,
+      "trading_use_authorized": false,
+      "note": "V3用于诊断V2时变失效；不得把回顾结果描述为预注册或样本外证据。"
+    }
+  },
+  "sample": {
+    "start": "2021-08-31",
+    "end": "2026-07-31",
+    "monthly_snapshots": 60,
+    "first_reversion_speed_date": "2023-07-31"
+  },
+  "evaluations": [
+    {
+      "horizon_days": 20,
+      "overlapping_monthly_observations": 36,
+      "spearman_ic": 0.027799227799227798,
+      "newey_west": {
+        "observations": 36,
+        "max_lag": 0,
+        "slope": 1.4275052245483832,
+        "hac_standard_error": 1.204824779424635,
+        "t_statistic": 1.1848239253761776,
+        "two_sided_p_value_normal_approximation": 0.23608707084047098
+      },
+      "moving_block_bootstrap": {
+        "observations": 36,
+        "block_length_months": 1,
+        "repetitions": 5000,
+        "median_ic": 0.02633279547640328,
+        "probability_ic_positive": 0.5626,
+        "ic_95pct_interval": [
+          -0.29091078400668124,
+          0.33421221230399134
+        ]
+      },
+      "exact_non_overlapping": {
+        "warning": "不同起点队列是敏感性分析，彼此仍共享原始时间序列，不得把队列数当独立样本数。",
+        "queue_count": 1,
+        "observations_per_queue": [
+          27
+        ],
+        "queue_ic_median": -0.018925518925518924,
+        "queue_ic_positive_ratio": 0.0,
+        "queues": [
+          {
+            "start_offset": 0,
+            "observations": 27,
+            "first_date": "2023-07-31",
+            "last_date": "2026-06-30",
+            "spearman_ic": -0.018925518925518924,
+            "trading_positions": [
+              1692,
+              1715,
+              1735,
+              1774,
+              1795,
+              1817,
+              1853,
+              1873,
+              1893,
+              1935,
+              1957,
+              1994,
+              2015,
+              2037,
+              2073,
+              2094,
+              2115,
+              2154,
+              2177,
+              2198,
+              2220,
+              2257,
+              2280,
+              2300,
+              2336,
+              2357,
+              2396
+            ]
+          }
+        ]
+      },
+      "chronological_halves": [
+        {
+          "period": "前半段",
+          "observations": 18,
+          "start": "2023-07-31",
+          "end": "2024-12-31",
+          "spearman_ic": -0.0010319917440660476
+        },
+        {
+          "period": "后半段",
+          "observations": 18,
+          "start": "2025-01-27",
+          "end": "2026-06-30",
+          "spearman_ic": 0.4716202270381837
+        }
+      ],
+      "strictly_monotonic_quintile_means": false,
+      "highest_minus_lowest_mean_realized_edge": 0.002078877231404081,
+      "quintiles": [
+        {
+          "state": "最低20%",
+          "observations": 8,
+          "mean_realized_edge": -0.004801273895922664,
+          "median_realized_edge": -0.0035377756896918244
+        },
+        {
+          "state": "次低",
+          "observations": 7,
+          "mean_realized_edge": -0.0011000348563857992,
+          "median_realized_edge": 0.0166102140217097
+        },
+        {
+          "state": "中性",
+          "observations": 7,
+          "mean_realized_edge": -0.0010358486420127186,
+          "median_realized_edge": -0.021175882732534124
+        },
+        {
+          "state": "次高",
+          "observations": 7,
+          "mean_realized_edge": 0.052802515292857004,
+          "median_realized_edge": 0.022097784540354715
+        },
+        {
+          "state": "最高20%",
+          "observations": 7,
+          "mean_realized_edge": -0.002722396664518583,
+          "median_realized_edge": -0.02186592392371345
+        }
+      ],
+      "rolling_ic_24m": {
+        "window_months": 24,
+        "window_count": 13,
+        "minimum_ic": -0.08956521739130434,
+        "median_ic": 0.1034782608695652,
+        "latest_ic": 0.3521739130434782,
+        "positive_window_ratio": 0.6923076923076923,
+        "series": [
+          {
+            "end_date": "2025-06-30",
+            "spearman_ic": 0.013913043478260868
+          },
+          {
+            "end_date": "2025-07-31",
+            "spearman_ic": -0.034782608695652174
+          },
+          {
+            "end_date": "2025-08-29",
+            "spearman_ic": -0.06173913043478261
+          },
+          {
+            "end_date": "2025-09-30",
+            "spearman_ic": -0.08956521739130434
+          },
+          {
+            "end_date": "2025-10-31",
+            "spearman_ic": -0.03826086956521739
+          },
+          {
+            "end_date": "2025-11-28",
+            "spearman_ic": 0.05913043478260869
+          },
+          {
+            "end_date": "2025-12-31",
+            "spearman_ic": 0.2026086956521739
+          },
+          {
+            "end_date": "2026-01-30",
+            "spearman_ic": 0.1034782608695652
+          },
+          {
+            "end_date": "2026-02-27",
+            "spearman_ic": 0.1252173913043478
+          },
+          {
+            "end_date": "2026-03-31",
+            "spearman_ic": 0.12608695652173912
+          },
+          {
+            "end_date": "2026-04-30",
+            "spearman_ic": 0.23130434782608694
+          },
+          {
+            "end_date": "2026-05-29",
+            "spearman_ic": 0.3417391304347826
+          },
+          {
+            "end_date": "2026-06-30",
+            "spearman_ic": 0.3521739130434782
+          }
+        ]
+      },
+      "regime_ic": [
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率上升",
+          "observations": 7,
+          "spearman_ic": 0.4642857142857144,
+          "mean_realized_edge": 0.015276305971699837,
+          "mean_signal": -0.00940302230457714
+        },
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率下降",
+          "observations": 29,
+          "spearman_ic": 0.026600985221674867,
+          "mean_realized_edge": 0.006560872860010315,
+          "mean_signal": -0.0029213238917300886
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利上行",
+          "observations": 19,
+          "spearman_ic": 0.015789473684210527,
+          "mean_realized_edge": -8.608990989771537e-05,
+          "mean_signal": -0.0033779509835346142
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利下行",
+          "observations": 17,
+          "spearman_ic": 0.04656862745098039,
+          "mean_realized_edge": 0.01757853900177968,
+          "mean_signal": -0.005079910606179699
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "熊市",
+          "observations": 11,
+          "spearman_ic": -0.17272727272727276,
+          "mean_realized_edge": 0.027406547723472386,
+          "mean_signal": 0.0015280258841664507
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "牛市",
+          "observations": 16,
+          "spearman_ic": 0.0029411764705882353,
+          "mean_realized_edge": 0.0014095225039296236,
+          "mean_signal": -0.00721902334031195
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "震荡",
+          "observations": 9,
+          "spearman_ic": 0.41666666666666663,
+          "mean_realized_edge": -0.002980547808763581,
+          "mean_signal": -0.00576038447478359
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "低风险溢价",
+          "observations": 12,
+          "spearman_ic": -0.006993006993006993,
+          "mean_realized_edge": -0.0012885958113214395,
+          "mean_signal": -0.009508110320164178
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "高风险溢价",
+          "observations": 24,
+          "spearman_ic": -0.00608695652173913,
+          "mean_realized_edge": 0.01302760851991897,
+          "mean_signal": -0.0015184260479267676
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "低ROE",
+          "observations": 31,
+          "spearman_ic": 0.12379032258064517,
+          "mean_realized_edge": 0.014643992487422269,
+          "mean_signal": -0.004607919874374331
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "高ROE",
+          "observations": 5,
+          "spearman_ic": 0.49999999999999994,
+          "mean_realized_edge": -0.03135286247357847,
+          "mean_signal": -0.0015388065773216607
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "低波动",
+          "observations": 20,
+          "spearman_ic": -0.10225563909774435,
+          "mean_realized_edge": 0.011294102064186361,
+          "mean_signal": -0.0031153161610143086
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "高波动",
+          "observations": 16,
+          "spearman_ic": 0.3529411764705882,
+          "mean_realized_edge": 0.004457338341154422,
+          "mean_signal": -0.005514576610745399
+        }
+      ]
+    },
+    {
+      "horizon_days": 60,
+      "overlapping_monthly_observations": 34,
+      "spearman_ic": 0.1825821237585943,
+      "newey_west": {
+        "observations": 34,
+        "max_lag": 2,
+        "slope": 1.1800593712744678,
+        "hac_standard_error": 0.6236121470473311,
+        "t_statistic": 1.8922969619206331,
+        "two_sided_p_value_normal_approximation": 0.05845142550734464
+      },
+      "moving_block_bootstrap": {
+        "observations": 34,
+        "block_length_months": 3,
+        "repetitions": 5000,
+        "median_ic": 0.21157823719176064,
+        "probability_ic_positive": 0.8606,
+        "ic_95pct_interval": [
+          -0.19466945565786975,
+          0.6213560473246831
+        ]
+      },
+      "exact_non_overlapping": {
+        "warning": "不同起点队列是敏感性分析，彼此仍共享原始时间序列，不得把队列数当独立样本数。",
+        "queue_count": 3,
+        "observations_per_queue": [
+          10,
+          10,
+          10
+        ],
+        "queue_ic_median": 0.24848484848484845,
+        "queue_ic_positive_ratio": 1.0,
+        "queues": [
+          {
+            "start_offset": 0,
+            "observations": 10,
+            "first_date": "2023-07-31",
+            "last_date": "2026-01-30",
+            "spearman_ic": 0.18787878787878787,
+            "trading_positions": [
+              1692,
+              1752,
+              1817,
+              1893,
+              1957,
+              2037,
+              2115,
+              2177,
+              2237,
+              2300
+            ]
+          },
+          {
+            "start_offset": 1,
+            "observations": 10,
+            "first_date": "2023-08-31",
+            "last_date": "2026-04-30",
+            "spearman_ic": 0.24848484848484845,
+            "trading_positions": [
+              1715,
+              1795,
+              1873,
+              1935,
+              2015,
+              2094,
+              2154,
+              2220,
+              2280,
+              2357
+            ]
+          },
+          {
+            "start_offset": 2,
+            "observations": 10,
+            "first_date": "2023-09-28",
+            "last_date": "2026-04-30",
+            "spearman_ic": 0.24848484848484845,
+            "trading_positions": [
+              1735,
+              1795,
+              1873,
+              1935,
+              2015,
+              2094,
+              2154,
+              2220,
+              2280,
+              2357
+            ]
+          }
+        ]
+      },
+      "chronological_halves": [
+        {
+          "period": "前半段",
+          "observations": 17,
+          "start": "2023-07-31",
+          "end": "2024-11-29",
+          "spearman_ic": 0.39460784313725494
+        },
+        {
+          "period": "后半段",
+          "observations": 17,
+          "start": "2024-12-31",
+          "end": "2026-04-30",
+          "spearman_ic": 0.6936274509803922
+        }
+      ],
+      "strictly_monotonic_quintile_means": false,
+      "highest_minus_lowest_mean_realized_edge": 0.038225876778172144,
+      "quintiles": [
+        {
+          "state": "最低20%",
+          "observations": 7,
+          "mean_realized_edge": -0.005318953139805365,
+          "median_realized_edge": -0.008034997581194525
+        },
+        {
+          "state": "次低",
+          "observations": 7,
+          "mean_realized_edge": 0.010287906323456553,
+          "median_realized_edge": 0.01716231870911389
+        },
+        {
+          "state": "中性",
+          "observations": 6,
+          "mean_realized_edge": -0.005459309281075113,
+          "median_realized_edge": -0.05430598219199534
+        },
+        {
+          "state": "次高",
+          "observations": 7,
+          "mean_realized_edge": 0.07624982472405274,
+          "median_realized_edge": 0.11578379472162381
+        },
+        {
+          "state": "最高20%",
+          "observations": 7,
+          "mean_realized_edge": 0.03290692363836678,
+          "median_realized_edge": 0.0080885706301137
+        }
+      ],
+      "rolling_ic_24m": {
+        "window_months": 24,
+        "window_count": 11,
+        "minimum_ic": 0.13130434782608694,
+        "median_ic": 0.18521739130434778,
+        "latest_ic": 0.37217391304347824,
+        "positive_window_ratio": 1.0,
+        "series": [
+          {
+            "end_date": "2025-06-30",
+            "spearman_ic": 0.2452173913043478
+          },
+          {
+            "end_date": "2025-07-31",
+            "spearman_ic": 0.19478260869565217
+          },
+          {
+            "end_date": "2025-08-29",
+            "spearman_ic": 0.16347826086956518
+          },
+          {
+            "end_date": "2025-09-30",
+            "spearman_ic": 0.1391304347826087
+          },
+          {
+            "end_date": "2025-10-31",
+            "spearman_ic": 0.18521739130434778
+          },
+          {
+            "end_date": "2025-11-28",
+            "spearman_ic": 0.21043478260869564
+          },
+          {
+            "end_date": "2025-12-31",
+            "spearman_ic": 0.17043478260869566
+          },
+          {
+            "end_date": "2026-01-30",
+            "spearman_ic": 0.13130434782608694
+          },
+          {
+            "end_date": "2026-02-27",
+            "spearman_ic": 0.15304347826086956
+          },
+          {
+            "end_date": "2026-03-31",
+            "spearman_ic": 0.2678260869565217
+          },
+          {
+            "end_date": "2026-04-30",
+            "spearman_ic": 0.37217391304347824
+          }
+        ]
+      },
+      "regime_ic": [
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率上升",
+          "observations": 7,
+          "spearman_ic": 0.642857142857143,
+          "mean_realized_edge": 0.025902083707865096,
+          "mean_signal": -0.025817065434256357
+        },
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率下降",
+          "observations": 27,
+          "spearman_ic": 0.18925518925518922,
+          "mean_realized_edge": 0.021659609969666246,
+          "mean_signal": -0.006003709147081132
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利上行",
+          "observations": 19,
+          "spearman_ic": 0.06140350877192983,
+          "mean_realized_edge": 0.021936213358990642,
+          "mean_signal": -0.008380130108326441
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利下行",
+          "observations": 15,
+          "spearman_ic": 0.4892857142857142,
+          "mean_realized_edge": 0.023289066754348144,
+          "mean_signal": -0.012239808863518846
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "熊市",
+          "observations": 11,
+          "spearman_ic": 0.3181818181818182,
+          "mean_realized_edge": 0.0443246179097724,
+          "mean_signal": 0.005703665351606985
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "牛市",
+          "observations": 14,
+          "spearman_ic": 0.002197802197802198,
+          "mean_realized_edge": 0.018795468038812095,
+          "mean_signal": -0.01944641978764398
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "震荡",
+          "observations": 9,
+          "spearman_ic": 0.2833333333333333,
+          "mean_realized_edge": 0.001712967287242067,
+          "mean_signal": -0.014812227427960685
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "低风险溢价",
+          "observations": 10,
+          "spearman_ic": 0.43030303030303024,
+          "mean_realized_edge": 0.016854016032982234,
+          "mean_signal": -0.02769023084627461
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "高风险溢价",
+          "observations": 24,
+          "spearman_ic": 0.2417391304347826,
+          "mean_realized_edge": 0.024899328950259248,
+          "mean_signal": -0.00274655402284329
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "低ROE",
+          "observations": 29,
+          "spearman_ic": 0.27044334975369455,
+          "mean_realized_edge": 0.03822011493700687,
+          "mean_signal": -0.01134450771711508
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "高ROE",
+          "observations": 5,
+          "spearman_ic": 0.7,
+          "mean_realized_edge": -0.06845185560743097,
+          "mean_signal": -0.0027657762429295516
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "低波动",
+          "observations": 20,
+          "spearman_ic": 0.18496240601503755,
+          "mean_realized_edge": 0.020441060531900507,
+          "mean_signal": -0.007575761431083206
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "高波动",
+          "observations": 14,
+          "spearman_ic": 0.18681318681318684,
+          "mean_realized_edge": 0.025521631749859584,
+          "mean_signal": -0.013664598313522926
+        }
+      ]
+    },
+    {
+      "horizon_days": 120,
+      "overlapping_monthly_observations": 31,
+      "spearman_ic": 0.330241935483871,
+      "newey_west": {
+        "observations": 31,
+        "max_lag": 5,
+        "slope": 0.7554380424507271,
+        "hac_standard_error": 0.4736234899699777,
+        "t_statistic": 1.5950181071015148,
+        "two_sided_p_value_normal_approximation": 0.11070818672034743
+      },
+      "moving_block_bootstrap": {
+        "observations": 31,
+        "block_length_months": 6,
+        "repetitions": 5000,
+        "median_ic": 0.3697409823890084,
+        "probability_ic_positive": 0.9344,
+        "ic_95pct_interval": [
+          -0.10491312870931367,
+          0.8770029214504315
+        ]
+      },
+      "exact_non_overlapping": {
+        "warning": "不同起点队列是敏感性分析，彼此仍共享原始时间序列，不得把队列数当独立样本数。",
+        "queue_count": 6,
+        "observations_per_queue": [
+          5,
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "queue_ic_median": 0.5499999999999999,
+        "queue_ic_positive_ratio": 1.0,
+        "queues": [
+          {
+            "start_offset": 0,
+            "observations": 5,
+            "first_date": "2023-07-31",
+            "last_date": "2025-09-30",
+            "spearman_ic": 0.3,
+            "trading_positions": [
+              1692,
+              1817,
+              1957,
+              2094,
+              2220
+            ]
+          },
+          {
+            "start_offset": 1,
+            "observations": 5,
+            "first_date": "2023-08-31",
+            "last_date": "2025-10-31",
+            "spearman_ic": 0.3,
+            "trading_positions": [
+              1715,
+              1853,
+              1976,
+              2115,
+              2237
+            ]
+          },
+          {
+            "start_offset": 2,
+            "observations": 5,
+            "first_date": "2023-09-28",
+            "last_date": "2025-10-31",
+            "spearman_ic": 0.6,
+            "trading_positions": [
+              1735,
+              1873,
+              1994,
+              2115,
+              2237
+            ]
+          },
+          {
+            "start_offset": 3,
+            "observations": 5,
+            "first_date": "2023-10-31",
+            "last_date": "2025-10-31",
+            "spearman_ic": 0.7999999999999999,
+            "trading_positions": [
+              1752,
+              1873,
+              1994,
+              2115,
+              2237
+            ]
+          },
+          {
+            "start_offset": 4,
+            "observations": 5,
+            "first_date": "2023-11-30",
+            "last_date": "2026-01-30",
+            "spearman_ic": 0.7999999999999999,
+            "trading_positions": [
+              1774,
+              1912,
+              2037,
+              2177,
+              2300
+            ]
+          },
+          {
+            "start_offset": 5,
+            "observations": 5,
+            "first_date": "2023-12-29",
+            "last_date": "2026-01-30",
+            "spearman_ic": 0.49999999999999994,
+            "trading_positions": [
+              1795,
+              1935,
+              2055,
+              2177,
+              2300
+            ]
+          }
+        ]
+      },
+      "chronological_halves": [
+        {
+          "period": "前半段",
+          "observations": 15,
+          "start": "2023-07-31",
+          "end": "2024-09-30",
+          "spearman_ic": 0.6357142857142856
+        },
+        {
+          "period": "后半段",
+          "observations": 16,
+          "start": "2024-10-31",
+          "end": "2026-01-30",
+          "spearman_ic": 0.8382352941176471
+        }
+      ],
+      "strictly_monotonic_quintile_means": false,
+      "highest_minus_lowest_mean_realized_edge": 0.08480168394303218,
+      "quintiles": [
+        {
+          "state": "最低20%",
+          "observations": 7,
+          "mean_realized_edge": -0.0034643029393425545,
+          "median_realized_edge": -0.016806930393626573
+        },
+        {
+          "state": "次低",
+          "observations": 6,
+          "mean_realized_edge": 0.08569709969836747,
+          "median_realized_edge": 0.09348993630418267
+        },
+        {
+          "state": "中性",
+          "observations": 6,
+          "mean_realized_edge": 0.04116349985038912,
+          "median_realized_edge": 0.05980056128204164
+        },
+        {
+          "state": "次高",
+          "observations": 6,
+          "mean_realized_edge": 0.08532852609251207,
+          "median_realized_edge": 0.052881424972712865
+        },
+        {
+          "state": "最高20%",
+          "observations": 6,
+          "mean_realized_edge": 0.08133738100368963,
+          "median_realized_edge": 0.08986877568681184
+        }
+      ],
+      "rolling_ic_24m": {
+        "window_months": 24,
+        "window_count": 8,
+        "minimum_ic": 0.20173913043478262,
+        "median_ic": 0.29478260869565215,
+        "latest_ic": 0.5121739130434783,
+        "positive_window_ratio": 1.0,
+        "series": [
+          {
+            "end_date": "2025-06-30",
+            "spearman_ic": 0.2478260869565217
+          },
+          {
+            "end_date": "2025-07-31",
+            "spearman_ic": 0.20956521739130432
+          },
+          {
+            "end_date": "2025-08-29",
+            "spearman_ic": 0.20173913043478262
+          },
+          {
+            "end_date": "2025-09-30",
+            "spearman_ic": 0.27391304347826084
+          },
+          {
+            "end_date": "2025-10-31",
+            "spearman_ic": 0.31565217391304345
+          },
+          {
+            "end_date": "2025-11-28",
+            "spearman_ic": 0.37478260869565216
+          },
+          {
+            "end_date": "2025-12-31",
+            "spearman_ic": 0.48
+          },
+          {
+            "end_date": "2026-01-30",
+            "spearman_ic": 0.5121739130434783
+          }
+        ]
+      },
+      "regime_ic": [
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率上升",
+          "observations": 7,
+          "spearman_ic": 0.5357142857142858,
+          "mean_realized_edge": 0.04177321454566285,
+          "mean_signal": -0.04508142512479934
+        },
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率下降",
+          "observations": 24,
+          "spearman_ic": 0.2478260869565217,
+          "mean_realized_edge": 0.06018735072811299,
+          "mean_signal": -0.0029199980713387197
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利上行",
+          "observations": 18,
+          "spearman_ic": 0.5521155830753354,
+          "mean_realized_edge": 0.06245656044379839,
+          "mean_signal": -0.010435233473587997
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利下行",
+          "observations": 13,
+          "spearman_ic": 0.19780219780219782,
+          "mean_realized_edge": 0.04713006394661391,
+          "mean_signal": -0.015216594389318515
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "熊市",
+          "observations": 10,
+          "spearman_ic": 0.4424242424242424,
+          "mean_realized_edge": 0.07548131552688694,
+          "mean_signal": 0.019821064168454427
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "牛市",
+          "observations": 12,
+          "spearman_ic": 0.8531468531468532,
+          "mean_realized_edge": 0.04634890601722921,
+          "mean_signal": -0.031422000343411714
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "震荡",
+          "observations": 9,
+          "spearman_ic": -0.26666666666666666,
+          "mean_realized_edge": 0.047323210202081314,
+          "mean_signal": -0.022977396349925374
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "低风险溢价",
+          "observations": 7,
+          "spearman_ic": 0.5357142857142858,
+          "mean_realized_edge": 0.014338671219325543,
+          "mean_signal": -0.05292894159011469
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "高风险溢价",
+          "observations": 24,
+          "spearman_ic": 0.17739130434782607,
+          "mean_realized_edge": 0.06818909253162804,
+          "mean_signal": -0.0006311391022884074
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "低ROE",
+          "observations": 26,
+          "spearman_ic": 0.4167521367521367,
+          "mean_realized_edge": 0.07688875976824132,
+          "mean_signal": -0.01472796704368699
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "高ROE",
+          "observations": 5,
+          "spearman_ic": 0.9999999999999999,
+          "mean_realized_edge": -0.05243976693598447,
+          "mean_signal": -0.0005445572899725803
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "低波动",
+          "observations": 18,
+          "spearman_ic": 0.2549019607843137,
+          "mean_realized_edge": 0.04943064097200479,
+          "mean_signal": -0.007092686868149265
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "高波动",
+          "observations": 13,
+          "spearman_ic": 0.2967032967032967,
+          "mean_realized_edge": 0.06516595244602044,
+          "mean_signal": -0.019844735843002913
+        }
+      ]
+    },
+    {
+      "horizon_days": 242,
+      "overlapping_monthly_observations": 25,
+      "spearman_ic": -0.11692307692307692,
+      "newey_west": {
+        "observations": 25,
+        "max_lag": 11,
+        "slope": 0.012807209080750582,
+        "hac_standard_error": 0.23797057727538598,
+        "t_statistic": 0.053818456161199006,
+        "two_sided_p_value_normal_approximation": 0.9570798049385847
+      },
+      "moving_block_bootstrap": {
+        "observations": 25,
+        "block_length_months": 12,
+        "repetitions": 5000,
+        "median_ic": -0.10580992689495958,
+        "probability_ic_positive": 0.3486,
+        "ic_95pct_interval": [
+          -0.2749034749034749,
+          0.5718701700154559
+        ]
+      },
+      "exact_non_overlapping": {
+        "warning": "不同起点队列是敏感性分析，彼此仍共享原始时间序列，不得把队列数当独立样本数。",
+        "queue_count": 1,
+        "observations_per_queue": [
+          3
+        ],
+        "queue_ic_median": null,
+        "queue_ic_positive_ratio": null,
+        "queues": [
+          {
+            "start_offset": 0,
+            "observations": 3,
+            "first_date": "2023-07-31",
+            "last_date": "2025-07-31",
+            "spearman_ic": NaN,
+            "trading_positions": [
+              1692,
+              1935,
+              2177
+            ]
+          }
+        ]
+      },
+      "chronological_halves": [
+        {
+          "period": "前半段",
+          "observations": 12,
+          "start": "2023-07-31",
+          "end": "2024-06-28",
+          "spearman_ic": 0.6503496503496504
+        },
+        {
+          "period": "后半段",
+          "observations": 13,
+          "start": "2024-07-31",
+          "end": "2025-07-31",
+          "spearman_ic": 0.5164835164835164
+        }
+      ],
+      "strictly_monotonic_quintile_means": false,
+      "highest_minus_lowest_mean_realized_edge": -0.018655312139705338,
+      "quintiles": [
+        {
+          "state": "最低20%",
+          "observations": 5,
+          "mean_realized_edge": 0.1984889815540017,
+          "median_realized_edge": 0.20457010743274373
+        },
+        {
+          "state": "次低",
+          "observations": 5,
+          "mean_realized_edge": 0.06272167421341553,
+          "median_realized_edge": 0.16134196698843528
+        },
+        {
+          "state": "中性",
+          "observations": 5,
+          "mean_realized_edge": 0.23725362458509186,
+          "median_realized_edge": 0.2817602844979403
+        },
+        {
+          "state": "次高",
+          "observations": 5,
+          "mean_realized_edge": 0.13964048677252228,
+          "median_realized_edge": 0.11846091903679867
+        },
+        {
+          "state": "最高20%",
+          "observations": 5,
+          "mean_realized_edge": 0.17983366941429635,
+          "median_realized_edge": 0.16159862886982457
+        }
+      ],
+      "rolling_ic_24m": {
+        "window_months": 24,
+        "window_count": 2,
+        "minimum_ic": -0.17043478260869566,
+        "median_ic": -0.15130434782608695,
+        "latest_ic": -0.17043478260869566,
+        "positive_window_ratio": 0.0,
+        "series": [
+          {
+            "end_date": "2025-06-30",
+            "spearman_ic": -0.13217391304347825
+          },
+          {
+            "end_date": "2025-07-31",
+            "spearman_ic": -0.17043478260869566
+          }
+        ]
+      },
+      "regime_ic": [
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率上升",
+          "observations": 1,
+          "spearman_ic": null,
+          "mean_realized_edge": 0.13736429080068957,
+          "mean_signal": 0.005669401511454675
+        },
+        {
+          "regime_dimension": "rate_regime",
+          "state": "利率下降",
+          "observations": 24,
+          "spearman_ic": -0.13217391304347825,
+          "mean_realized_edge": 0.16468032882899786,
+          "mean_signal": 0.011502520004682201
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利上行",
+          "observations": 12,
+          "spearman_ic": 0.27272727272727276,
+          "mean_realized_edge": 0.1280600473196668,
+          "mean_signal": 0.033452925496450264
+        },
+        {
+          "regime_dimension": "earnings_regime",
+          "state": "盈利下行",
+          "observations": 13,
+          "spearman_ic": -0.12637362637362637,
+          "mean_realized_edge": 0.19638243191235666,
+          "mean_signal": -0.00920809417950582
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "熊市",
+          "observations": 10,
+          "spearman_ic": 0.2606060606060606,
+          "mean_realized_edge": 0.17330292411811438,
+          "mean_signal": 0.05016279228816735
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "牛市",
+          "observations": 7,
+          "spearman_ic": -0.4642857142857144,
+          "mean_realized_edge": 0.16182155331593795,
+          "mean_signal": -0.011932398050685007
+        },
+        {
+          "regime_dimension": "market_regime",
+          "state": "震荡",
+          "observations": 8,
+          "spearman_ic": -0.3571428571428572,
+          "mean_realized_edge": 0.15298900853799113,
+          "mean_signal": -0.017046406862881364
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "低风险溢价",
+          "observations": 1,
+          "spearman_ic": null,
+          "mean_realized_edge": 0.14933878600704054,
+          "mean_signal": -0.08323958016235511
+        },
+        {
+          "regime_dimension": "risk_premium_regime",
+          "state": "高风险溢价",
+          "observations": 24,
+          "spearman_ic": -0.15130434782608695,
+          "mean_realized_edge": 0.16418139152873326,
+          "mean_signal": 0.015207060907757608
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "低ROE",
+          "observations": 20,
+          "spearman_ic": -0.19548872180451127,
+          "mean_realized_edge": 0.19750017443958592,
+          "mean_signal": 0.010115153452384928
+        },
+        {
+          "regime_dimension": "roe_regime",
+          "state": "高ROE",
+          "observations": 5,
+          "spearman_ic": 0.7,
+          "mean_realized_edge": 0.027937738780983955,
+          "mean_signal": 0.015885362515225786
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "低波动",
+          "observations": 14,
+          "spearman_ic": 0.1912087912087912,
+          "mean_realized_edge": 0.13650414882712228,
+          "mean_signal": 0.02698954252113209
+        },
+        {
+          "regime_dimension": "volatility_regime",
+          "state": "高波动",
+          "observations": 11,
+          "spearman_ic": -0.24545454545454545,
+          "mean_realized_edge": 0.19805764537426607,
+          "mean_signal": -0.008738519424729252
+        }
+      ]
+    }
+  ],
+  "same_sample_comparison": [
+    {
+      "horizon_days": 60,
+      "common_observations": 34,
+      "ics": {
+        "simple_normalized_cheapness": 0.1495798319327731,
+        "conditioned_normalized_cheapness": 0.20488922841864018,
+        "v2_expected_edge": 0.09732620320855614,
+        "v3_expected_edge": 0.1825821237585943
+      }
+    },
+    {
+      "horizon_days": 120,
+      "common_observations": 31,
+      "ics": {
+        "simple_normalized_cheapness": 0.342741935483871,
+        "conditioned_normalized_cheapness": 0.47983870967741943,
+        "v2_expected_edge": 0.3056451612903226,
+        "v3_expected_edge": 0.330241935483871
+      }
+    },
+    {
+      "horizon_days": 242,
+      "common_observations": 25,
+      "ics": {
+        "simple_normalized_cheapness": -0.03153846153846154,
+        "conditioned_normalized_cheapness": 0.03230769230769231,
+        "v2_expected_edge": -0.10307692307692308,
+        "v3_expected_edge": -0.11692307692307692
+      }
+    }
+  ],
+  "realized_reversion_by_regime_242d": [
+    {
+      "regime_dimension": "rate_regime",
+      "state": "利率上升",
+      "observations": 9,
+      "median_realized_reversion_ratio": 0.7700356529160073,
+      "positive_reversion_ratio": 0.8888888888888888,
+      "full_or_more_reversion_ratio": 0.1111111111111111
+    },
+    {
+      "regime_dimension": "rate_regime",
+      "state": "利率下降",
+      "observations": 21,
+      "median_realized_reversion_ratio": -0.2082345223558438,
+      "positive_reversion_ratio": 0.47619047619047616,
+      "full_or_more_reversion_ratio": 0.0
+    },
+    {
+      "regime_dimension": "earnings_regime",
+      "state": "盈利上行",
+      "observations": 13,
+      "median_realized_reversion_ratio": 0.7700356529160073,
+      "positive_reversion_ratio": 0.7692307692307693,
+      "full_or_more_reversion_ratio": 0.07692307692307693
+    },
+    {
+      "regime_dimension": "earnings_regime",
+      "state": "盈利下行",
+      "observations": 11,
+      "median_realized_reversion_ratio": -0.35678945358354086,
+      "positive_reversion_ratio": 0.18181818181818182,
+      "full_or_more_reversion_ratio": 0.0
+    },
+    {
+      "regime_dimension": "market_regime",
+      "state": "熊市",
+      "observations": 10,
+      "median_realized_reversion_ratio": 0.5032382353833742,
+      "positive_reversion_ratio": 0.7,
+      "full_or_more_reversion_ratio": 0.0
+    },
+    {
+      "regime_dimension": "market_regime",
+      "state": "牛市",
+      "observations": 8,
+      "median_realized_reversion_ratio": -0.21238764691626905,
+      "positive_reversion_ratio": 0.375,
+      "full_or_more_reversion_ratio": 0.125
+    },
+    {
+      "regime_dimension": "market_regime",
+      "state": "震荡",
+      "observations": 9,
+      "median_realized_reversion_ratio": 0.4424136587167156,
+      "positive_reversion_ratio": 0.5555555555555556,
+      "full_or_more_reversion_ratio": 0.0
+    },
+    {
+      "regime_dimension": "risk_premium_regime",
+      "state": "低风险溢价",
+      "observations": 1,
+      "median_realized_reversion_ratio": -0.35678945358354086,
+      "positive_reversion_ratio": 0.0,
+      "full_or_more_reversion_ratio": 0.0
+    },
+    {
+      "regime_dimension": "risk_premium_regime",
+      "state": "高风险溢价",
+      "observations": 23,
+      "median_realized_reversion_ratio": 0.42813431939604824,
+      "positive_reversion_ratio": 0.5217391304347826,
+      "full_or_more_reversion_ratio": 0.043478260869565216
+    },
+    {
+      "regime_dimension": "roe_regime",
+      "state": "低ROE",
+      "observations": 10,
+      "median_realized_reversion_ratio": -0.46758630364173737,
+      "positive_reversion_ratio": 0.0,
+      "full_or_more_reversion_ratio": 0.0
+    },
+    {
+      "regime_dimension": "roe_regime",
+      "state": "高ROE",
+      "observations": 14,
+      "median_realized_reversion_ratio": 0.7421800561169525,
+      "positive_reversion_ratio": 0.8571428571428571,
+      "full_or_more_reversion_ratio": 0.07142857142857142
+    },
+    {
+      "regime_dimension": "volatility_regime",
+      "state": "低波动",
+      "observations": 16,
+      "median_realized_reversion_ratio": 0.5032382353833742,
+      "positive_reversion_ratio": 0.625,
+      "full_or_more_reversion_ratio": 0.0625
+    },
+    {
+      "regime_dimension": "volatility_regime",
+      "state": "高波动",
+      "observations": 8,
+      "median_realized_reversion_ratio": -0.2566447461210106,
+      "positive_reversion_ratio": 0.25,
+      "full_or_more_reversion_ratio": 0.0
+    }
+  ],
+  "latest_signal": {
+    "date": "2026-07-31",
+    "current_normalized_pe": 16.64623875679539,
+    "fair_pe": 10.699887709931092,
+    "annual_reversion_speed": 0.3374309932944419,
+    "rejected_vendor_proxy_annual_speed": 0.7800170497940342,
+    "reversion_training_pairs": 48,
+    "target_pe_242d": 14.639755616574526,
+    "future_normalized_eps_242d": 296.3346460185291,
+    "valuation_change_242d": -0.1205367272172383,
+    "v2_valuation_change_242d": -0.19826369480839623,
+    "expected_price_return_242d": -0.054472421642883795,
+    "expected_dividend_return_242d": 0.022559265054589384,
+    "cash_return_242d": 0.011460000000000026,
+    "expected_edge_242d": -0.04337315658829444,
+    "regimes": {
+      "rate_regime": "利率下降",
+      "earnings_regime": "盈利下行",
+      "market_regime": "熊市",
+      "risk_premium_regime": "低风险溢价",
+      "roe_regime": "低ROE",
+      "volatility_regime": "高波动"
+    }
+  },
+  "acceptance": {
+    "stable_positive_242d_overall_halves_and_latest_rolling_ic": false,
+    "dependence_adjusted_242d_evidence_supported": false,
+    "strictly_monotonic_quintiles_all_horizons": false,
+    "architecture_pre_registered": false,
+    "trading_use_authorized": false
+  },
+  "hypothesis_results": {
+    "overlapping_242d_labels_inflate_confidence": "SUPPORTED_DEPENDENCE_ADJUSTED_INTERVAL_CROSSES_ZERO_NONOVERLAP_N3",
+    "mean_reversion_is_state_dependent": "SUPPORTED_DESCRIPTIVE_SIGN_REVERSALS_BUT_TOO_FEW_TO_FIT",
+    "growth_should_enter_future_eps_once": "IMPLEMENTED_STRUCTURALLY_NOT_VALIDATED_AS_ALPHA",
+    "cross_basis_reversion_speed_is_invalid": "SUPPORTED_VENDOR_PROXY_78PCT_REJECTED_SAME_BASIS_34PCT",
+    "fixed_state_independent_reversion_is_ready": "NOT_SUPPORTED",
+    "tradable_510300_excess_is_established": "NOT_TESTED_AND_NOT_AUTHORIZED"
+  },
+  "researcher_degrees_of_freedom": {
+    "architecture_selected_after_v2_results": true,
+    "horizons_requested_before_v3_run": [
+      20,
+      60,
+      120,
+      242
+    ],
+    "weights_searched": false,
+    "state_thresholds_searched": false,
+    "mean_reversion_bounds_searched": false,
+    "interpretation": "V3只能用于形成下一轮冻结假设，不能把本轮结果升级为样本外证据。"
+  },
+  "limitations": [
+    "V3因同口径回归速度需要先积累12个已完成年度转移，242日真实非重叠队列只剩3个观测，低于报告IC所需的最少4个。",
+    "不同起点的非重叠队列来自同一条历史路径，不得把队列数当独立重复实验。",
+    "HAC正态近似在约60个月小样本下仍不稳健，必须与移动块Bootstrap共同解释。",
+    "状态拆分样本更小，当前只用于定位失效，不足以拟合状态专属参数。",
+    "FairPE训练目标仍是历史市场PE，可能保留内生性；V3只消除了收益恒等式中的显式增长重复相加。",
+    "被拒绝的vendor PE一月转移代理给出约78%年化速度；V3改用成分正常化PE同口径年度转移，但这些年度训练对仍高度重叠。",
+    "没有点时外资流数据，因此外资流入/流出状态未检验。",
+    "全部架构是在查看V2结果后形成，属于后验诊断而非预注册验证。",
+    "IC与510300可交易超额仍有距离，本轮没有仓位、交易成本或执行回测。"
+  ],
+  "output_file": "data/features/000300_valuation_v3_state_aware_return.parquet",
+  "input_hashes": {
+    "config/valuation_v3_state_aware_return.yaml": "d5832df95d9e1d946533b446f16c8ee1396b3cec35d3c2f87ae7084b790a20a1",
+    "data/features/000300_valuation_v2_expected_return.parquet": "e74f6d4b51b843e62e9a8a610c50a08b0f10489eea4c532fab4c843967b356cf",
+    "data/raw/market/000300_daily_feature_warmup.parquet": "3b1e03eea5230e6e19c276d32cbd0c606d241288d44129a6e1b0b176e3f4fdaa",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e",
+    "data/raw/valuation/000300_valuation_daily_raw.parquet": "119f009a7045f8b50b1eae3a3f2d7d1f394c372d4723cfd54d2ba348ae66ad52",
+    "data/raw/macro/china_government_bond_yields_daily.parquet": "2a8792679debc7a2b17e08c6a6d8c259513187cb62aecd15799cc6153b0653c1"
+  },
+  "output_sha256": "d175431396ce8c0aa03b6a918dae38856835e6ff800a9aa6ece744c8233de155"
+}

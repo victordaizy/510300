@@ -1,0 +1,191 @@
+protocol:
+  study_id: 510300_EXCHANGE_IVS_ETF_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  created_date: '2026-08-28'
+  historical_evidence_label: RETROSPECTIVE_DISCOVERY_ALL_HISTORY_PREVIOUSLY_EXPOSED
+  purpose: 将交易所逐合约认购减认沽隐含波动率差按原论文期限迁移为只持有510300或现金的二元状态
+  no_parameter_rescue: true
+  strict_holdout_available: false
+  is_trading_signal: false
+  paper_or_shadow_authorized: false
+  live_trading_authorized: false
+
+parent_evidence:
+  rejected_basis_audit:
+    report: reports/research/510300_option_cash_basis_feature_audit_v1.json
+    report_sha256: 29477feda0846d932dd18340af914bd22b343d14edc9be9a1e10f77c297878aa
+    status: FAILED_FEATURE_CONSTRUCTION_STOP
+    rule: 期权现货基差不得作为本筛选信号；只复用其已测试的同条款认购认沽匹配函数
+  distinction_from_prior_option_projects: 既有IVS迁移交易的是期权，既有ETF二元期权信息筛选未包含全市场合计持仓量加权IVS及文献五期限递归预测
+
+external_source:
+  title: Implied Volatility Spreads and Stock Market Return Predictability in China
+  authors: Zhuofan Hao, Zhongfei Li, Ti Zhou
+  url: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5178093
+  transferred_findings: 认购减认沽IVS对未来1、2、4、8周及1个月中国市场收益呈负向样本外预测
+  original_underlying: SSE50 ETF options
+  transfer_underlying: 510300 ETF options and H00300 total-return target
+  transfer_warning: 标的、样本和二元配置均属迁移；历史已暴露，只能形成回溯发现
+
+scope:
+  execution_asset: 510300.SH
+  information_asset: 510300 ETF options
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  initial_capital_cny: 500000.0
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+  full_state_definition: 按100份整手使用可用现金买入最大可负担份额
+  cash_state_definition: 卖出全部510300份额且不保留策略性底仓
+
+objective:
+  benchmark_id: H00300
+  benchmark_return_type: TOTAL_RETURN
+  primary_metric: STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_excess_median: 0.20
+  diagnostic_positive_floor: 0.0
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  etf_stamp_duty_rate: 0.0
+
+data_contracts:
+  option_eod:
+    file: data/raw/return_tail/options/510300_tushare_eod.parquet
+    required_sha256: 6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064
+  option_risk_indicators:
+    file: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    required_sha256: e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035
+  government_bond_short_curve:
+    file: data/raw/macro/china_government_bond_short_curve_v1.parquet
+    required_sha256: 8ce76001fa741de9c8aea6f86d4a808019b259c0bb26e2d4c93059c336e52603
+  execution_daily:
+    file: data/raw/r6/510300_daily.parquet
+    required_sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+    required_symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  benchmark_total_return:
+    file: data/raw/r6/H00300_total_return_daily.parquet
+    required_sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+    required_symbol: H00300
+    required_columns: [date, close, symbol]
+  cash_distributions:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_event_count: 14
+  pair_builder_dependency:
+    file: research/option_cash_basis_feature_audit_v1.py
+    required_sha256: 8bfec9724e768d35b801eac24272f63c42d50cfe013fd202dac9cee23af36eca
+  execution_ledger_dependency:
+    file: research/intraday_binary_livermore_screen_v1.py
+    required_sha256: 17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa
+
+ivs_construction:
+  feature_start: '2019-12-23'
+  feature_end: '2026-08-14'
+  minimum_calendar_days_to_expiry: 5
+  adjusted_contracts_allowed: true
+  matching: 同交易日、同到期日、同执行价、同合约单位、同调整状态的认购认沽
+  no_arbitrage_filter: 使用锁定依赖中的期限匹配国债曲线和标准上下界
+  pair_ivs: call_exchange_implied_volatility - put_exchange_implied_volatility
+  daily_weight: call_open_interest + put_open_interest
+  required_feature_days: 1500
+  forbidden_signal: option_cash_basis
+
+forecast:
+  model: 仅含常数项和当期IVS的一元递归普通最小二乘
+  target: 未来期限H00300对数全收益减按1.5%现金日收益累计；周期限再除以周数
+  training_label_maturity: 只有目标终点不晚于当前信号日的标签可进入回归
+  predictor_standardization: 不要求；一元OLS预测对线性标准化不变
+  state_rule: 预测未来超额严格大于0则目标状态1，否则目标状态0
+  between_rebalances: 延续最近一次已就绪预测状态
+  before_first_ready_forecast: 状态0
+
+candidate_family:
+  family_name: 原论文五个预测期限的递归IVS二元配置
+  candidate_count: 5
+  candidates:
+    - id: IVS_WEEKLY_OOS_1W
+      schedule: WEEKLY_LAST_TRADING_DAY
+      horizon_periods: 1
+      minimum_training_observations: 156
+    - id: IVS_WEEKLY_OOS_2W
+      schedule: WEEKLY_LAST_TRADING_DAY
+      horizon_periods: 2
+      minimum_training_observations: 156
+    - id: IVS_WEEKLY_OOS_4W
+      schedule: WEEKLY_LAST_TRADING_DAY
+      horizon_periods: 4
+      minimum_training_observations: 156
+    - id: IVS_WEEKLY_OOS_8W
+      schedule: WEEKLY_LAST_TRADING_DAY
+      horizon_periods: 8
+      minimum_training_observations: 156
+    - id: IVS_MONTHLY_OOS_1M
+      schedule: MONTHLY_LAST_TRADING_DAY
+      horizon_periods: 1
+      minimum_training_observations: 36
+
+evaluation:
+  base_start_date: '2023-01-03'
+  end_date: '2026-08-14'
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_2023_2024
+      start_date: '2023-01-03'
+      end_date: '2024-12-31'
+    - id: LATE_2025_2026
+      start_date: '2025-01-02'
+      end_date: '2026-08-14'
+    - id: COMBINED
+      start_date: '2023-01-03'
+      end_date: '2026-08-14'
+  cost_scenarios: [BASE, STRESS]
+  primary_selection_cost_scenario: STRESS
+  require_every_period_and_start_to_pass: true
+  initial_portfolio_state_at_each_perturbation: 0
+  dividend_entitlement_policy: 除息日开盘前持有份额取得权益，支付日收盘转现金，满仓状态次日开盘再投资
+
+selection:
+  hard_pass_definition: 压力成本下三个时期及五个起点的年化净超额与滚动242日超额中位数全部不低于20%
+  positive_shadow_definition: 压力成本下三个时期及五个起点的两项指标全部大于0
+  rank_key: 所有压力成本时期与起点中min(年化净超额,滚动242日超额中位数)的最小值
+  tie_breakers: [更少交易腿数, 更低压力执行成本, 候选ID字典序]
+  no_parameter_rescue_after_evaluation: true
+
+governance:
+  all_history_already_inspected: true
+  strict_holdout_available: false
+  result_label_if_passed: RETROSPECTIVE_PASS_REQUIRES_246_DAY_PROSPECTIVE_VALIDATION
+  result_label_if_rejected: REJECTED_FIXED_EXCHANGE_IVS_ETF_BINARY_FAMILY_NO_RESCUE
+  basis_v1_rescue: FORBIDDEN
+  paper_or_shadow_requires_separate_freeze: true
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED
+
+artifacts:
+  freeze_manifest: config/510300_exchange_ivs_etf_binary_screen_v1_manifest.json
+  report_json: reports/research/510300_exchange_ivs_etf_binary_screen_v1.json
+  report_markdown: reports/research/510300_EXCHANGE_IVS_ETF_BINARY_SCREEN_V1.md
+  output_directory: data/research/510300_exchange_ivs_etf_binary_screen_v1
+  ivs_feature_parquet: data/research/510300_exchange_ivs_etf_binary_screen_v1/ivs_feature.parquet
+  forecasts_parquet: data/research/510300_exchange_ivs_etf_binary_screen_v1/forecasts.parquet
+  candidate_summary_parquet: data/research/510300_exchange_ivs_etf_binary_screen_v1/candidate_summary.parquet
+  period_results_parquet: data/research/510300_exchange_ivs_etf_binary_screen_v1/period_results.parquet
+  top_candidate_daily_ledger_parquet: data/research/510300_exchange_ivs_etf_binary_screen_v1/top_candidate_stress_daily_ledger.parquet
+  top_candidate_trades_parquet: data/research/510300_exchange_ivs_etf_binary_screen_v1/top_candidate_stress_trades.parquet

@@ -1,0 +1,229 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "confirmation_days": 2,
+  "saved_models": "reports\\research\\510300_learned_cycle_exit_v1\\saved_models.json",
+  "study_id": "510300_BREADTH_LEARNED_ENTRY_GATE_V1",
+  "round": 63,
+  "registered_at": "2026-09-07T22:33:47.910699+08:00",
+  "primary": "BREADTH_GATED_REARM_RIDGE",
+  "candidate_configurations": 1,
+  "breadth": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/internal_F_T_features.parquet",
+  "breadth_threshold": 0.5,
+  "coverage_threshold": 0.98,
+  "breadth_role": "OPTIONAL_ENTRY_FILTER_ONLY",
+  "missing_breadth": "PRESERVE_NO_VIEW_AND_USE_EXISTING_BASELINE_ENTRY_DECISION",
+  "rearm": "ONLY_ORIGINAL_D60_ENTRY_CONDITION_DISAPPEARANCE",
+  "exit": "ORIGINAL_D60_AND_RIDGE_PLUS_ORIGINAL_PROTECTIONS_NO_BREADTH_EXIT",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "saved_model_key": "D60_INTRA__RIDGE",
+  "rules": "docs/510300_BREADTH_LEARNED_ENTRY_GATE_V1.md",
+  "source_recomputation_receipt": "reports/research/510300_breadth_majority_trend_v1/saved_verification_receipt.json",
+  "chinese_saved_models": "deliverables/510300持仓累积转弱_第60轮_20260907/原学习模型逐月中文规则.md",
+  "position_impact": 0,
+  "goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "pre_run_test_representation_correction": "首次6项逻辑测试通过，4个完整基线净值比对通过，但未保存决策中的NaN与Parquet读回的None被当成不同。冻结前统一将验证重放按原Parquet格式保存读回再逐字段比较，缺失仍保持缺失，不填零、不改正式逻辑。",
+  "previously_saved_baseline_verification_replays": 4,
+  "frozen_files": [
+    {
+      "path": "research\\breadth_learned_entry_gate_v1.py",
+      "sha256": "ad54bb1f0fa03629077e7f46ce9feb8e975b7d1df2639e56b5b8cc49b3e1326e"
+    },
+    {
+      "path": "research\\breadth_learned_gate_inputs_v1.py",
+      "sha256": "a4b3273fd9c34038d2e19901461e8747dd27a9001b96c523ae053b0b6dfc9d5e"
+    },
+    {
+      "path": "research\\breadth_majority_inputs_v1.py",
+      "sha256": "e6b6a330d69259c5d89390d1e99d9a92e5504ecfb44962c29ea85fac28d9c45f"
+    },
+    {
+      "path": "research\\source_aware_cycle_account_v1.py",
+      "sha256": "d0b6e2946a37018afbda833995f811e21a0ba22c75c44839b45bd195d8e4145f"
+    },
+    {
+      "path": "research\\learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research\\rearmed_cycle_exit_account_v1.py",
+      "sha256": "212fc0ce478232e2b05c0db3b48f90e30e641507e7fda1849da2f1fc861795d2"
+    },
+    {
+      "path": "research\\simple_intraday_protection_v1.py",
+      "sha256": "ac6bdee0269638142c19a68c4562e927adce6a0bedadbe3e0e220d310f6b993b"
+    },
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "data\\curated\\510300_stress_transmission_hazard_v2_g1_historical_remediation_v1\\internal_F_T_features.parquet",
+      "sha256": "aecba7fc8b849d41a65eba68e5cea3c735c9f0945155823f6d978b0c8e0b7cf0"
+    },
+    {
+      "path": "reports\\research\\510300_learned_cycle_exit_v1\\saved_models.json",
+      "sha256": "9ef162200cd1bb30d7aa6de4a0dd66b158ae391ba58e5ed29dc9a1b050d64621"
+    },
+    {
+      "path": "docs\\510300_BREADTH_LEARNED_ENTRY_GATE_V1.md",
+      "sha256": "fd52c6e6322459611feac49de6159d676ba586091b2b633a19ed405c97d02c94"
+    },
+    {
+      "path": "deliverables\\510300持仓累积转弱_第60轮_20260907\\原学习模型逐月中文规则.md",
+      "sha256": "31baa4f755f18b3bf64defd9e2719588a3e96b04de718ebd053b3d879fc7fdcd"
+    },
+    {
+      "path": "reports\\research\\510300_breadth_majority_trend_v1\\saved_verification_receipt.json",
+      "sha256": "1f27290102c92889d2c0a466df3ecb5e2fe49633e8413349097ca01d9fdee2f5"
+    },
+    {
+      "path": "tests\\test_breadth_learned_entry_gate_v1.py",
+      "sha256": "85db168a0f03857f8b077e29d4bd7d12a2463ee39b5bf45e04c2802381a9b3dd"
+    },
+    {
+      "path": "tests\\test_cycle_cusum_exit_v1.py",
+      "sha256": "2761b1447c253d65c4a2f5d574dd9e48f1f1bf8e4ee86c19481017be6b0f51f2"
+    },
+    {
+      "path": "reports\\research\\510300_breadth_learned_entry_gate_v1\\tests_receipt.json",
+      "sha256": "25dba74e72136b3c32d87362661b44f46f0163736d1cc982ec2191e179d9d470"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "9e057b46a57b8bf8c843bbc19da8b990bffc4cb2c4b2dddf122a36c94cdddfd2"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "47328ffcbb2a67ad7ae2af51204c66bd23a8c0f2b9c8950b9498a4d79a5060b5"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_RIDGE_decisions.parquet",
+      "sha256": "ed16eb96538c383ff359ecd699352bdf0d4dfaf3fa1fb756f7ecad7435409e8a"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_RIDGE_cycles.csv",
+      "sha256": "8ec2695aefd3e281192d4299c5efc45120f22e7ce977bd02c5a52af514ee10be"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "5576e8e5b7286d1bf8486356223a4576ca9a8f77fa61500affdce5ccfe1f2a7b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\evaluation\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "b7aa5bd819ef522cffcd6e6a09a9ae7601449748355d8eacf83300084170bded"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_RIDGE_decisions.parquet",
+      "sha256": "587f5eeb42d3a46d581f786c0cc743a76146d36e53c6c891723520042f465a98"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_RIDGE_cycles.csv",
+      "sha256": "82a0827214c662c554af6d45267dd98b9add10f6c958d0c20041529073699c3d"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "942f26e0431eb1b0273d59bf3b152516e648ddee1cd5aa242a05767d5170b298"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\BASE\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "1413b70183eeae7136150eba5bc874210c3c4385ee8de4e19d0eb5a4492fa555"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_decisions.parquet",
+      "sha256": "c2e5c2b7c91663dc7f51daf601a82e2d5c6ebdba7cf6d7fd4c1442e9fa97d0e9"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_cycles.csv",
+      "sha256": "7154c6bb3f77213da554430c6b15bff0a84fea04b6cc4dd3b18647e89a66dc00"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "debb0bd6bbfe47cce41cd9863ccbf41edfe1c13f01df6d607179bd7d07642a5b"
+    },
+    {
+      "path": "reports\\research\\510300_panic_learned_equal_blend_v1\\earlier_diagnostic\\STRESS\\PANIC_LEARNED_HALF_ledger.parquet",
+      "sha256": "36141ad66ed2e9378c45664f9e8181cd693f1245158f240367abf8bac190407a"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_decisions.parquet",
+      "sha256": "45661cc5e3756a0f7ecff43c2f5c118d602269b794edad4d2bda16e78b5e074f"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_cycles.csv",
+      "sha256": "6fa801b896d085e497d5fa4cfcc2e94ff18b873531ecfedaeb502113257a512d"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "CANDIDATE_FAMILY_FROZEN_BEFORE_SSE_WEEKLY_HISTORY_COLLECTION",
+  "study_id": "510300_CROSS_ETF_FORCED_FLOW_BINARY_SCREEN_V1",
+  "frozen_at": "2026-08-28T22:00:19.6641421+08:00",
+  "candidate_contract": {
+    "path": "config/510300_cross_etf_forced_flow_binary_screen_v1_candidates.yaml",
+    "sha256": "879800a413eac26c137a56d2cb4ea94c9a544a7a1538c7af09ed36550ff6a742"
+  },
+  "universe_selection_inputs": {
+    "data/raw/all_etf_momentum_v1r/etf_total_return_panel_tushare_adj.parquet": "d6834df6f7a56efc752bd28bc67d7ba4a09d75e6789ae4d99a700ed24faaa550",
+    "data/raw/all_etf_momentum_v1/H00300_total_return.parquet": "c79aa0212d4065d7057f553f3aa2206d7a3dcf0e2e1af02311c9ed00566c4dcb"
+  },
+  "fixed_before_collection": {
+    "broad_pool_expected_symbol_count": 10,
+    "hs300_pool_symbol_count": 3,
+    "candidate_count": 5,
+    "thresholds": [0.10, 0.20, 0.80, 0.90],
+    "rolling_percentile_window_weeks": 104,
+    "rolling_percentile_minimum_weeks": 52,
+    "execution_time": "T_PLUS_2_OPEN",
+    "cost_scenarios": ["BASE", "STRESS"],
+    "start_date_perturbations_trading_days": [0, 1, 2, 3, 4],
+    "minimum_annualized_excess": 0.20,
+    "minimum_rolling_excess_median": 0.20
+  },
+  "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY",
+  "declarations": {
+    "post_2021_sse_weekly_share_history_collected_before_this_receipt": false,
+    "candidate_performance_read_before_this_receipt": false,
+    "prior_project_market_outcomes_already_known": true,
+    "parameter_rescue_after_first_screen": false
+  }
+}

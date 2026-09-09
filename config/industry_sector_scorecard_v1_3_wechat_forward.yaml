@@ -1,0 +1,199 @@
+version: INDUSTRY_SECTOR_SCORECARD_V1_3_WECHAT_FORWARD
+status: WECHAT_FORWARD_OVERLAY_FROZEN_AS_RESEARCH_INPUT
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-18T23:59:59+08:00"
+research_mode: RESEARCH_ONLY
+signal_mode: SHADOW_ONLY
+
+parents:
+  v1_2_config: config/industry_sector_scorecard_v1_2.yaml
+  v1_2_manifest: config/industry_sector_scorecard_v1_2_manifest.json
+  v1_2_report: reports/forward/industry_sector_scorecard_v1_2_2026-08-18.json
+  v1_scorecard_report: reports/forward/industry_sector_scorecard_v1_2026-08-18.json
+  sector_taxonomy: config/industry_expectation_gap_etf_model_v2.yaml
+
+parent_integrity:
+  industry_sector_scorecard_v1_2_manifest_sha256: f12d667f503438c8b67e811bf309d53234b79d0ce2e3d3a2aa0bcdcb7c77a6f1
+
+wechat_snapshot:
+  root: C:/Users/戴周阳/Documents/ChatGPT/量化1
+  audit_json: reports/2026-08-18-公众号近一个月完整性审计.json
+  article_csv: reports/2026-08-18-公众号近一个月文章清单.csv
+  source_config: config/source_candidates.json
+  expected_hashes:
+    audit_json: a5a728a08ecd1eb168721048f939bf52072ba72106e094b54ac07057be26f9a2
+    article_csv: 59bae0bfeb5b095ed9c92cde0d412476159bd065ad83a0b4de8f172d3c506745
+    source_config: 1f36592941f86f9723b90711968098d94a86c755355fd02220bff71ad2a99245
+  expected_account_count: 12
+  expected_article_count: 180
+  expected_archive_complete_count: 158
+  expected_archive_partial_count: 22
+  accepted_corpus_status: PARTIAL_SUCCESS
+  selected_articles:
+    - {id: 12, markdown_sha256: ba449ff60767a71742562a1b3fd1e26b3d15c49818319b89c465a937dac4c12b}
+    - {id: 21, markdown_sha256: 8077bb2d241bf3f84b08df00f12539ae4848e5e2831beaff733f3d4e0f1c6008}
+    - {id: 22, markdown_sha256: 35cfad232bfea0f9fe05b0083b8f4439547dacab8ae162a445ba84adbeef1ec8}
+    - {id: 23, markdown_sha256: 36bf2d65f15d241ef6d8daac9035a841a9aaab297214b250c28820aeeb66904e}
+    - {id: 72, markdown_sha256: 7f0464973799b4c7f3bbb4984c7ac15c51d582de6bd06654850ee69b519572dc}
+    - {id: 77, markdown_sha256: 066cedbb5f3582358229612be6afaaa85e641e41fdefe810a841e3edea8bd8d6}
+    - {id: 86, markdown_sha256: e5b7a09940f89a54ff71697e7a7c6c640fbf8e4474fb72ae32448e3ed0cbe923}
+    - {id: 122, markdown_sha256: b49287d63f3e1b1603bcd5f336edfc495e02dea6dae3d51c19a471cb1867516c}
+    - {id: 126, markdown_sha256: 5ddb831ab4ca8666e4d24381c392a7b34c907fcca7e2d171f6e3833244841867}
+    - {id: 161, markdown_sha256: 4afc89bf55aa37797ed06e535f4c43bfac0ffb33bc874c8b1ffce60f33119536}
+    - {id: 162, markdown_sha256: 0981e1cf9663f542656c18061f7a6b368480ee440e836db9a516355a022e74d5}
+    - {id: 167, markdown_sha256: dd7e3c986f25cf244b4044aec5c4627458074253a4d9ffafd7eca0a68066a68e}
+    - {id: 168, markdown_sha256: 2401c000fa32e8d579de9d7c09f9350f05542f09f6a3d3d1cc288db0604c7b46}
+    - {id: 171, markdown_sha256: 9c24b030a09bcfc216d6e553031ada835b5ca0a0ea0b85dc69f6488fa17756e9}
+    - {id: 184, markdown_sha256: 50462d25ff95107792df65542ae8497c0f5c752fc717f165b6f84e2cffaf079c}
+
+evidence_rules:
+  use_raw_article_count_as_vote: false
+  minimum_independent_sources_for_high_confidence: 3
+  single_source_company_study_maximum_role: SECONDARY_CONFIRMATION
+  screenshot_only_may_drive_direction: false
+  publication_time_is_point_in_time_availability: true
+  article_after_cutoff_allowed: false
+  direction_labels: [POSITIVE, MIXED, NEGATIVE]
+  confidence_labels: [HIGH, MEDIUM, LOW]
+
+economic_bucket_assessments:
+  - entity_id: ENERGY_RESOURCES
+    entity_name_cn: 能源资源
+    direction: POSITIVE
+    confidence: HIGH
+    support_article_ids: [21, 22, 162, 167]
+    adverse_article_ids: [168]
+    thesis: 有色价格与低库存、实物资产注意力迁移形成正向线索，但原油加工和总需求仍弱，资源内部必须分化。
+    risk_flags: [DEMAND_RECOVERY_NOT_CONFIRMED, GOLD_NARRATIVE_ALREADY_MATURE]
+  - entity_id: CORE_TECHNOLOGY
+    entity_name_cn: 核心科技
+    direction: POSITIVE
+    confidence: HIGH
+    support_article_ids: [21, 23, 122, 161]
+    adverse_article_ids: [12, 167]
+    thesis: 高技术制造、数字产品、集成电路与工业机器人仍显著增长，但AI进入回报验证期，不能再做全链条外推。
+    risk_flags: [AI_RETURN_VALIDATION, INSTITUTIONAL_CROWDING]
+  - entity_id: DIGITAL_COMMUNICATION
+    entity_name_cn: 数字内容与通信
+    direction: POSITIVE
+    confidence: MEDIUM
+    support_article_ids: [23, 86, 161]
+    adverse_article_ids: [167]
+    thesis: 传媒与计算机获得主动资金和盈利预测支持，AI价值可能从基础设施向应用迁移，但通信资金流仍有分歧。
+    risk_flags: [APPLICATION_MONETIZATION_UNPROVEN]
+  - entity_id: ADVANCED_MANUFACTURING
+    entity_name_cn: 先进制造
+    direction: POSITIVE
+    confidence: HIGH
+    support_article_ids: [21, 72, 122, 162, 168]
+    adverse_article_ids: [21, 126]
+    thesis: 装备制造、机器人、锂电排产和设备需求改善构成定性领先信号；汽车终端和光伏主产业链仍是拖累。
+    risk_flags: [AUTO_DEMAND_WEAK, SOLAR_OVERcapacity]
+  - entity_id: FINANCE
+    entity_name_cn: 金融
+    direction: MIXED
+    confidence: MEDIUM
+    support_article_ids: [171, 184]
+    adverse_article_ids: [161, 171]
+    thesis: 居民存款向非银迁移提高金融资产购买力，但弱信贷、银行净息差和ETF及北上流出限制金融板块盈利弹性。
+    risk_flags: [WEAK_CREDIT_DEMAND, BANK_NET_INTEREST_MARGIN]
+  - entity_id: CONSUMER_STAPLES
+    entity_name_cn: 必选消费
+    direction: NEGATIVE
+    confidence: MEDIUM
+    support_article_ids: []
+    adverse_article_ids: [122]
+    thesis: 社零低位且总需求缺少广泛改善，必选消费仅表现为相对稳定，尚无明确加速证据。
+    risk_flags: [NO_ACCELERATION_EVIDENCE]
+  - entity_id: CONSUMER_DISCRETIONARY
+    entity_name_cn: 可选消费
+    direction: NEGATIVE
+    confidence: MEDIUM
+    support_article_ids: []
+    adverse_article_ids: [21, 122, 168]
+    thesis: 汽车、家电及地产链耐用品需求仍弱，稳消费政策尚未转化为高频数据拐点。
+    risk_flags: [AUTO_SALES_CONTRACTION, APPLIANCE_PRODUCTION_CONTRACTION]
+  - entity_id: HEALTHCARE
+    entity_name_cn: 医疗健康
+    direction: POSITIVE
+    confidence: MEDIUM
+    support_article_ids: [77, 122, 161]
+    adverse_article_ids: []
+    thesis: 医疗设备产量、行业盈利预测及龙头订单出现改善，但现有价格阶段偏后且历史赔率不利，属于鱼尾风险观察而非追涨。
+    risk_flags: [LATE_PRICE_PHASE, SINGLE_COMPANY_CONFIRMATION]
+  - entity_id: MIDSTREAM_MATERIALS
+    entity_name_cn: 中游材料
+    direction: NEGATIVE
+    confidence: MEDIUM
+    support_article_ids: []
+    adverse_article_ids: [21, 122, 168]
+    thesis: 钢铁、水泥、化工开工和产量仍弱；文章所称中游需求改善主要指设备和装备制造，不能误映射为传统材料改善。
+    risk_flags: [TERMINOLOGY_MAPPING_TRAP]
+  - entity_id: REAL_ESTATE_INFRASTRUCTURE
+    entity_name_cn: 地产基建
+    direction: NEGATIVE
+    confidence: HIGH
+    support_article_ids: []
+    adverse_article_ids: [12, 21, 122, 168]
+    thesis: 地产销售再转负、基建水泥和混凝土同比下滑、投资继续走弱，尚未出现可确认的景气反转。
+    risk_flags: [POLICY_EXPECTATION_NOT_DATA_TURN]
+  - entity_id: UTILITIES_TRANSPORT
+    entity_name_cn: 公用运输
+    direction: MIXED
+    confidence: MEDIUM
+    support_article_ids: [21]
+    adverse_article_ids: [21, 161]
+    thesis: 港口与航班仍增长，但发电、运输需求和资金流存在分化，不能形成统一方向。
+    risk_flags: [SUBSECTOR_DIVERGENCE]
+
+theme_assessments:
+  - {entity_id: BROAD_TECHNOLOGY, entity_name_cn: 科技大类, direction: POSITIVE, confidence: HIGH, support_article_ids: [12, 21, 23, 122, 161], adverse_article_ids: [167], thesis: 科技基本面仍强但进入结构化选择阶段。, risk_flags: [NO_BROAD_BETA_CHASE]}
+  - {entity_id: AI_DIGITAL_INFRASTRUCTURE, entity_name_cn: AI与数字基础设施, direction: POSITIVE, confidence: HIGH, support_article_ids: [12, 21, 23], adverse_article_ids: [162, 167], thesis: 产业仍处扩散中段，但资本开支回报验证和筹码拥挤已成为鱼尾预警。, risk_flags: [AI_RETURN_VALIDATION, INSTITUTIONAL_CROWDING]}
+  - {entity_id: NEW_QUALITY_PRODUCTIVITY, entity_name_cn: 新质生产力, direction: POSITIVE, confidence: HIGH, support_article_ids: [21, 23, 122, 168], adverse_article_ids: [126, 167], thesis: 高技术与装备制造共同改善，结构强于总量。, risk_flags: [SOLAR_AND_AUTO_DRAG]}
+  - {entity_id: ADVANCED_MANUFACTURING_THEME, entity_name_cn: 先进制造主题, direction: POSITIVE, confidence: HIGH, support_article_ids: [21, 72, 122, 162, 168], adverse_article_ids: [21, 126], thesis: 定性数据领先现有量化分数，重点看机器人、设备、锂电而非全板块。, risk_flags: [AUTO_DEMAND_WEAK, SOLAR_OVERcapacity]}
+  - {entity_id: GREEN_TRANSITION, entity_name_cn: 绿色转型, direction: MIXED, confidence: HIGH, support_article_ids: [21, 72], adverse_article_ids: [21, 126], thesis: 锂电和电网设备改善，但光伏供给出清远未完成。, risk_flags: [SOLAR_OVERcapacity]}
+  - {entity_id: DOMESTIC_DEMAND, entity_name_cn: 内需, direction: NEGATIVE, confidence: MEDIUM, support_article_ids: [], adverse_article_ids: [21, 122, 168], thesis: 消费、地产相关需求和耐用品仍弱，政策预期尚未成为数据拐点。, risk_flags: [POLICY_EXPECTATION_NOT_DATA_TURN]}
+  - {entity_id: REAL_ESTATE_CHAIN, entity_name_cn: 地产链, direction: NEGATIVE, confidence: HIGH, support_article_ids: [], adverse_article_ids: [12, 21, 122, 168], thesis: 销售、投资和建材施工数据共同偏弱。, risk_flags: [NO_TURN_CONFIRMED]}
+  - {entity_id: PRO_CYCLICAL, entity_name_cn: 顺周期, direction: MIXED, confidence: HIGH, support_article_ids: [21, 162, 167], adverse_article_ids: [122, 168], thesis: 资源价格改善但传统需求和金融信用仍弱，不能把资源行情外推成全面顺周期。, risk_flags: [RESOURCE_NOT_EQUAL_BROAD_RECOVERY]}
+  - {entity_id: DIVIDEND_DEFENSIVE, entity_name_cn: 红利防御, direction: MIXED, confidence: MEDIUM, support_article_ids: [162, 167, 184], adverse_article_ids: [161], thesis: 欠配和绝对收益资金支持红利，但ETF流出及盈利弹性有限。, risk_flags: [FLOW_REVERSAL_RISK]}
+  - {entity_id: EXPORT_MANUFACTURING, entity_name_cn: 出口制造, direction: POSITIVE, confidence: MEDIUM, support_article_ids: [21, 72, 122, 162, 168], adverse_article_ids: [21, 167], thesis: 机电、装备与电子出口仍有韧性，但半导体出口增速放缓且汽车和光伏分化。, risk_flags: [EXPORT_GROWTH_DECELERATION]}
+
+market_forward_context:
+  liquidity_state: MIXED_INTERNAL_RECOVERY_EXTERNAL_OUTFLOW
+  liquidity_support_article_ids: [161, 171, 184]
+  liquidity_summary: 两融和主动偏股资金回补、非银购买力增强，但股票ETF与北上仍净流出，市场转震荡且需要新催化。
+  policy_state: STRUCTURAL_EASING_AND_STEADY_GROWTH_PROBABILITY_RISING
+  policy_support_article_ids: [122, 168, 171]
+  policy_summary: 总量数据放缓提高稳增长概率，但短期更可能依赖结构性工具和政策性金融工具，降准降息并非确定事件。
+  national_team_holdings_state: NO_VIEW_NO_AUDITABLE_POSITION_LEVEL_DATA
+  national_team_note: 公众号快照只包含ETF与资金流描述，没有中央汇金或其他国家队的点时持仓明细；禁止代理推断。
+
+integration_rules:
+  fish_middle_phases: [EARLY_RECOVERY_FROM_WEAK_BASE, MIDDLE_TREND]
+  wait_for_turn_phases: [WEAK_BASE_NOT_TURNED, MIXED_OR_SOFT]
+  tail_risk_phases: [LATE_OR_EXTENDED]
+  qualitative_leads_requires:
+    - wechat_direction_positive
+    - wechat_confidence_high
+    - historical_odds_favorable
+    - price_phase_early_or_middle
+    - current_forward_not_positive
+  synthetic_numeric_score_allowed: false
+  wechat_direction_is_probability: false
+  wechat_may_override_missing_quantitative_data: false
+
+outputs:
+  selected_article_audit: data/features/industry_wechat_selected_article_audit_v1_3.parquet
+  forward_evidence: data/features/industry_wechat_forward_evidence_v1_3.parquet
+  integrated_scorecard: data/features/industry_sector_integrated_forward_v1_3.parquet
+  json: reports/forward/industry_sector_scorecard_v1_3_wechat_2026-08-18.json
+  markdown: reports/forward/industry_sector_scorecard_v1_3_wechat_2026-08-18.md
+  manifest: config/industry_sector_scorecard_v1_3_wechat_manifest.json
+
+governance:
+  score_conditioned_win_rate: UNAVAILABLE_AWAITING_TRUE_FORWARD
+  may_call_predictive_edge: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

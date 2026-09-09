@@ -1,0 +1,139 @@
+{
+  "status": "WARN",
+  "scope": "510300分钟数据跨源与交易时段语义审计",
+  "checked_at": "2026-08-12T21:47:38.486302+08:00",
+  "errors": [],
+  "warnings": [
+    {
+      "code": "SECONDARY_15M_BAR_BOUNDARY_DIFFERENCES",
+      "explanation": "腾讯与新浪逐柱存在价格/成交量差异，但重叠日总成交量大多一致；不得混源拼接单根K线"
+    },
+    {
+      "code": "POST_CLOSE_HISTORY_ONLY_ACCUMULATES_FROM_CONNECTION_DATE",
+      "explanation": "腾讯当日分时接口能识别盘后交易，但不能回补既往盘后分钟历史"
+    }
+  ],
+  "evidence": {
+    "sina_1m_to_sina_15m": {
+      "one_minute_rows_by_day": {
+        "2026-07-31": 66,
+        "2026-08-03": 238,
+        "2026-08-04": 238,
+        "2026-08-05": 238,
+        "2026-08-06": 238,
+        "2026-08-07": 238,
+        "2026-08-10": 238,
+        "2026-08-11": 238,
+        "2026-08-12": 238
+      },
+      "full_validation_days": 8,
+      "reaggregated_bars": 128,
+      "matched_bars": 128,
+      "source_minute_count_distribution": {
+        "13": 8,
+        "15": 120
+      },
+      "comparisons": {
+        "open": {
+          "exact_count": 128,
+          "maximum_absolute_error": 0.0
+        },
+        "high": {
+          "exact_count": 128,
+          "maximum_absolute_error": 0.0
+        },
+        "low": {
+          "exact_count": 128,
+          "maximum_absolute_error": 0.0
+        },
+        "close": {
+          "exact_count": 128,
+          "maximum_absolute_error": 0.0
+        },
+        "volume": {
+          "exact_count": 128,
+          "maximum_absolute_error": 0.0
+        },
+        "amount": {
+          "exact_count": 49,
+          "maximum_absolute_error": 0.0003001689910888672
+        }
+      },
+      "timestamp_conclusion": "确认bar_end语义：10:00柱由09:46—10:00组成；新制15:00柱由14:46—14:57连续竞价记录加15:00收盘集合竞价记录组成"
+    },
+    "sina_15m_vs_tencent_15m": {
+      "overlapping_bars": 320,
+      "overlapping_days": 20,
+      "price_fields": {
+        "open": {
+          "exact_count": 209,
+          "exact_rate": 0.653125,
+          "within_one_tick_count": 298,
+          "within_one_tick_rate": 0.93125,
+          "maximum_absolute_error": 0.010000000000000675,
+          "mean_absolute_error": 0.00048750000000001293
+        },
+        "high": {
+          "exact_count": 194,
+          "exact_rate": 0.60625,
+          "within_one_tick_count": 300,
+          "within_one_tick_rate": 0.9375,
+          "maximum_absolute_error": 0.006999999999999673,
+          "mean_absolute_error": 0.0005000000000000171
+        },
+        "low": {
+          "exact_count": 205,
+          "exact_rate": 0.640625,
+          "within_one_tick_count": 301,
+          "within_one_tick_rate": 0.940625,
+          "maximum_absolute_error": 0.004999999999999893,
+          "mean_absolute_error": 0.0004343749999999924
+        },
+        "close": {
+          "exact_count": 205,
+          "exact_rate": 0.640625,
+          "within_one_tick_count": 310,
+          "within_one_tick_rate": 0.96875,
+          "maximum_absolute_error": 0.0039999999999995595,
+          "mean_absolute_error": 0.00039999999999999205
+        }
+      },
+      "volume_bar_comparison": {
+        "exact_count": 14,
+        "maximum_absolute_difference_shares": 2042799.0,
+        "mean_signed_difference_shares": 8201.740625000331
+      },
+      "volume_daily_comparison": {
+        "days": 20,
+        "exact_days": 15,
+        "maximum_absolute_difference_shares": 1812300.0,
+        "maximum_relative_difference": 0.0014346605556275279
+      },
+      "amount_comparison": {
+        "status": "UNAVAILABLE",
+        "reason": "腾讯mkline末字段不是可靠成交额定义，未用于交叉且未伪造"
+      }
+    },
+    "tencent_post_close_snapshot": {
+      "latest_trade_date": "2026-08-12",
+      "last_snapshot_time": "2026-08-12T15:30:00",
+      "post_close_records": 25,
+      "post_close_observed": true,
+      "first_post_close_timestamp": "2026-08-12T15:06:00",
+      "post_close_volume_shares": 404000.0,
+      "post_close_amount_cny": 1918192.0,
+      "post_close_price_unique_count": 1,
+      "post_close_price": 4.748,
+      "three_way_reconciliation_at_15_00": {
+        "sina_15m_volume_shares": 901013743.0,
+        "tencent_15m_volume_shares": 901013700.0,
+        "tencent_snapshot_volume_shares": 901013700.0,
+        "sina_15m_minus_snapshot_shares": 43.0,
+        "tencent_15m_minus_snapshot_shares": 0.0,
+        "sina_15m_amount_cny": 4275919613.5595,
+        "tencent_snapshot_amount_cny": 4275919420.94,
+        "sina_15m_minus_snapshot_amount_cny": 192.61950016021729
+      }
+    }
+  }
+}

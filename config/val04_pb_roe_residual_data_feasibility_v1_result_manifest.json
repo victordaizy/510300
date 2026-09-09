@@ -1,0 +1,86 @@
+{
+  "project_id": "VAL04_PB_ROE_RESIDUAL_DATA_FEASIBILITY_V1",
+  "version": "1.0.0",
+  "status": "NO_VIEW_DATA_GATE_FAILED_MODEL_FIT_FORBIDDEN",
+  "generated_at": "2026-08-19T04:08:55.976634+08:00",
+  "artifacts": {
+    "constituent_panel": {
+      "file": "data/features/000300_val04_pb_roe_residual_feasibility_constituents_v1.parquet",
+      "sha256": "f468fb2e94de694fb0875ce5ab7641d467018a458ad58e4fe8d012174c5ecb8a",
+      "size_bytes": 1854575
+    },
+    "snapshot_audit": {
+      "file": "data/audit/000300_val04_pb_roe_residual_feasibility_snapshots_v1.parquet",
+      "sha256": "1741b74b9a4f6fc1a7811a4c0a6650da2e63a12d27b13780898808ff529cabe1",
+      "size_bytes": 20545
+    },
+    "status_json": {
+      "file": "reports/data_quality/000300_val04_pb_roe_residual_data_feasibility_v1.json",
+      "sha256": "fc4b6b6f03ada5b5e54e890fceecf7d1512ba0684f8aaa37db3635dab0e77790",
+      "size_bytes": 11284
+    },
+    "status_markdown": {
+      "file": "reports/data_quality/000300_val04_pb_roe_residual_data_feasibility_v1.md",
+      "sha256": "a2106d6c3798aa2329ba262782457a0c6b68a41dc9167018afa0b43bfe9fd063",
+      "size_bytes": 5191
+    }
+  },
+  "input_hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "historical_weights",
+        "file": "data/raw/constituents/000300_historical_weights.parquet",
+        "expected_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "actual_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+        "matches": true
+      },
+      {
+        "dataset": "extended_financial_archive",
+        "file": "data/raw/fundamentals/csi300_financials_point_in_time_extended_v2.parquet",
+        "expected_sha256": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2",
+        "actual_sha256": "7b1d333b00d00e7567c3070ae7354d6532420e4a927741ec648435639b09fba2",
+        "matches": true
+      },
+      {
+        "dataset": "historical_snapshot_prices",
+        "file": "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet",
+        "expected_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "actual_sha256": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+        "matches": true
+      },
+      {
+        "dataset": "current_constituent_daily",
+        "file": "data/raw/constituents/000300_constituent_daily.parquet",
+        "expected_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "actual_sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+        "matches": true
+      },
+      {
+        "dataset": "citic_industry_intervals",
+        "file": "data/raw/reference/a_share_citic_industry_point_in_time.parquet",
+        "expected_sha256": "773364a72bced848b5cc54ba1e95360a729686954c6e435e07972faaf8f795ce",
+        "actual_sha256": "773364a72bced848b5cc54ba1e95360a729686954c6e435e07972faaf8f795ce",
+        "matches": true
+      }
+    ]
+  },
+  "window": {
+    "first_snapshot": "2016-08-31",
+    "last_snapshot": "2026-07-31",
+    "snapshot_count": 120,
+    "passing_snapshot_count": 80,
+    "failed_snapshot_count": 40
+  },
+  "governance": {
+    "future_returns_read": false,
+    "model_fitted": false,
+    "residual_signal_calculated": false,
+    "ic_calculated": false,
+    "strategy_returns_calculated": false,
+    "positions_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false
+  },
+  "manifest_content_sha256": "c49600f43c9ce4791537248284db84318948093d3912aeeef8f830f5ac555e2e"
+}

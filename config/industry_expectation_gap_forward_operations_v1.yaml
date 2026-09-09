@@ -1,0 +1,59 @@
+version: INDUSTRY_EXPECTATION_GAP_FORWARD_OPERATIONS_V1
+status: RESEARCH_ONLY_FORWARD_COLLECTION
+asset: "510300"
+benchmark: "000300"
+timezone: Asia/Shanghai
+
+frozen_parent:
+  start_audit_manifest: config/industry_expectation_gap_forward_start_audit_20260819_manifest.json
+  evaluation_manifest: config/industry_expectation_gap_forward_evaluation_v1_manifest.json
+  evaluation_config: config/industry_expectation_gap_forward_evaluation_v1.yaml
+  recovery_execution_manifest: config/industry_expectation_gap_forward_evaluation_v1_1_recovery_manifest.json
+  evaluation_runner: scripts/run_industry_expectation_gap_forward_evaluation_v1_1.py
+  maturity_runner: scripts/build_industry_expectation_gap_origin_maturity.py
+
+inputs:
+  source_registry: data/reference/industry_expectation_gap_v1_sources.yaml
+  origin_ledger_glob: paper/industry_expectation_gap_v1/*_industry_forecast.json
+  sector_point_in_time_panel: data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet
+  constituent_total_return_daily: data/raw/constituents/000300_constituent_daily.parquet
+  etf_total_return_daily: data/processed/510300_daily_total_return.parquet
+  trading_calendar: data/reference/sse_trade_calendar_2026.csv
+  maturity_status: reports/forward/industry_expectation_gap_v1_evaluation/origin_cluster_maturity_status.json
+
+outputs:
+  status_json: reports/forward/industry_expectation_gap_v1_evaluation/operations_status.json
+  status_markdown: reports/forward/industry_expectation_gap_v1_evaluation/operations_status.md
+  task_status_json: reports/forward/industry_expectation_gap_v1_evaluation/operations_task_status.json
+  task_log_directory: output/industry_expectation_gap_forward_logs
+
+origin_collection:
+  cadence: MONTHLY_DISTINCT_PREDICTION_DATE
+  minimum_sources_per_industry: 2
+  minimum_new_official_releases: 2
+  require_source_registry_cutoff_advance: true
+  require_sector_panel_month_advance: true
+  require_manual_evidence_package: true
+  automatic_origin_generation_enabled: false
+  historical_backfill_enabled: false
+  duplicate_prediction_date_enabled: false
+
+outcome_collection:
+  scheduled_after_close_time: "17:05:00"
+  market_close_confirmation_time: "15:30:00"
+  evaluate_existing_origins_when_inputs_current: true
+  partial_horizon_return_output_enabled: false
+
+maturity:
+  calibration_minimum_origin_clusters: 20
+  calibration_minimum_non_overlapping_60d_blocks: 4
+  model_comparison_minimum_origin_clusters: 40
+  model_comparison_minimum_non_overlapping_60d_blocks: 8
+
+safety:
+  research_only: true
+  may_upgrade_original_no_view: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

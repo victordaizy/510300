@@ -1,0 +1,27 @@
+{
+  "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1_0_2",
+  "status": "PROGRAM_FAILED_AFTER_METRICS_BEFORE_OUTPUT_UNREAD",
+  "attempted_at_asia_shanghai": "2026-08-30T01:51:42.7478409+08:00",
+  "exit_code": 1,
+  "failure_type": "PYTHON_BOOLEAN_LITERAL_NAME_ERROR_REMAINDER",
+  "failure_message": "NameError: name 'true' is not defined. Did you mean: 'True'?",
+  "failure_location": "research/frozen_microstructure_sharpe_audit_v1.py:676",
+  "diagnosis": {
+    "root_cause": "V1.0.2只处理了小写false；报告边界仍有两处小写true",
+    "static_scan_remaining_json_style_literals": [
+      "line 676: historical_rows_were_seen_before_this_audit = true",
+      "line 680: research_only = true"
+    ],
+    "performance_metrics_computed_in_memory": true,
+    "performance_metric_values_printed_or_read_by_operator": false,
+    "all_output_files_created": false
+  },
+  "frozen_v1_0_2": {
+    "manifest_sha256": "468d6c55b95c5641f5cd1b7b8985f344e04dc77396cc79e3163a13f6c99cd99b",
+    "implementation_sha256": "c0ea6c153696ae3bd6242ba43afa6b7bd16955accea4a31fc2853a6305630d91"
+  },
+  "correction_policy": "V1.0.3同时绑定true=True与false=False；静态扫描确认父报告构造中不存在其他JSON风格字面量",
+  "position_mapping": "DISABLED",
+  "order_generation": "DISABLED",
+  "live_trading_authorized": false
+}

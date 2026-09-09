@@ -1,0 +1,184 @@
+{
+  "study_id": "510300_OPTION_CHAIN_FEASIBILITY_V1",
+  "version": "1.0.0",
+  "status": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN",
+  "research_stage": "DATA_FEASIBILITY_ONLY",
+  "scope": {
+    "underlying": "510300.SH",
+    "start": "2019-12-23",
+    "end": "2026-08-14",
+    "calendar_days": 1611,
+    "option_eod_rows": 194040,
+    "official_risk_rows": 191270,
+    "contract_master_rows": 2874,
+    "adjusted_contract_count": 610,
+    "in_scope_dividend_events": 6
+  },
+  "price_contract": {
+    "field": "settlement",
+    "close_and_settlement_mixed": false,
+    "surface_geometry_uses_adjusted_contracts": false,
+    "static_arbitrage_repair_method": "NONE_AUDIT_ONLY"
+  },
+  "coverage": {
+    "actual_first_trade_date": "2019-12-23",
+    "actual_last_trade_date": "2026-08-14",
+    "trading_date_coverage_ratio": 1.0,
+    "duplicate_option_eod_rows": 0,
+    "duplicate_official_risk_rows": 0,
+    "duplicate_contract_master_rows": 0,
+    "calendar_day_count": 1611,
+    "valid_surface_day_count": 271,
+    "valid_surface_day_ratio": 0.16821849782743636,
+    "minimum_valid_maturities_observed": 0,
+    "median_valid_maturities": 1.0,
+    "maximum_valid_maturities": 4,
+    "maturity_rows": 4185,
+    "valid_maturity_rows": 2032,
+    "risk_key_match_ratio": 0.98572459286745
+  },
+  "adjustment_ledger": {
+    "ledger_path": "data/reference/510300_option_contract_adjustment_ledger_v1.parquet",
+    "evidence_path": "data/reference/510300_option_contract_adjustment_evidence_v1.json",
+    "ledger_exists": false,
+    "evidence_exists": false,
+    "adjusted_contract_count": 610,
+    "covered_adjusted_contract_count": 0,
+    "coverage_ratio": 0.0,
+    "complete": false
+  },
+  "dividend_ledger": {
+    "in_scope_event_count": 6,
+    "all_sources_are_sse_urls": true,
+    "complete_for_data_gate": true
+  },
+  "point_in_time_evidence": {
+    "vendor_entitlement_evidence_path": "data/reference/510300_option_history_entitlement_evidence.json",
+    "vendor_entitlement_evidence_present": false,
+    "vendor_entitlement_status": null,
+    "official_risk_history_revalidated": true,
+    "same_day_publication_time_proven": false,
+    "conservative_availability_lag_trading_days": 1,
+    "complete_point_in_time_option_chain": false
+  },
+  "outcome_blindness": {
+    "future_data_reads": 0,
+    "inspected_inputs": {
+      "contract_master": [
+        "contract_code",
+        "underlying_code",
+        "option_type",
+        "list_date",
+        "expiry_date",
+        "delist_date",
+        "strike",
+        "contract_unit",
+        "is_adjusted",
+        "contract_status",
+        "source",
+        "retrieved_at",
+        "provider_name",
+        "provider_opt_code",
+        "provider_per_unit",
+        "provider_opt_multiplier"
+      ],
+      "option_eod": [
+        "trade_date",
+        "contract_code",
+        "option_type",
+        "expiry_date",
+        "strike",
+        "contract_unit",
+        "contract_status",
+        "is_adjusted",
+        "previous_settlement",
+        "previous_close",
+        "open",
+        "high",
+        "low",
+        "close",
+        "settlement",
+        "volume",
+        "turnover_10k_cny",
+        "open_interest",
+        "underlying_close",
+        "exchange",
+        "source",
+        "retrieved_at"
+      ],
+      "official_risk_indicators": [
+        "trade_date",
+        "contract_code",
+        "exchange_contract_id",
+        "contract_symbol",
+        "option_type",
+        "delta",
+        "theta",
+        "gamma",
+        "vega",
+        "rho",
+        "implied_volatility",
+        "source",
+        "retrieved_at"
+      ],
+      "trading_calendar": [
+        "exchange",
+        "cal_date",
+        "is_open",
+        "pretrade_date",
+        "trade_date",
+        "source",
+        "retrieved_at"
+      ],
+      "dividends": [
+        "symbol",
+        "record_date",
+        "ex_date",
+        "payment_date",
+        "cash_dividend_per_share",
+        "source"
+      ]
+    },
+    "violations": []
+  },
+  "hard_gates": {
+    "start_date_at_listing": true,
+    "end_date_matches_frozen_cutoff": true,
+    "full_trading_date_coverage": true,
+    "valid_surface_day_ratio": false,
+    "contract_adjustment_ledger_complete": false,
+    "no_duplicate_date_contract_rows": true,
+    "unique_contract_master": true,
+    "official_risk_history_revalidation": true,
+    "complete_point_in_time_option_chain": false,
+    "future_data_reads_zero": true
+  },
+  "failed_hard_gates": [
+    "valid_surface_day_ratio",
+    "contract_adjustment_ledger_complete",
+    "complete_point_in_time_option_chain"
+  ],
+  "input_sha256": {
+    "data/raw/return_tail/options/510300_contract_master.parquet": "d5bef387d7102b134bc2f1e7f27f7358d3e1fc4978499f7cf65c229087bc4d10",
+    "data/raw/return_tail/options/510300_tushare_eod.parquet": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064",
+    "data/raw/return_tail/options/510300_sse_risk_indicators.parquet": "e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035",
+    "data/raw/return_tail/options/sse_trading_calendar.parquet": "5609a3d7dd8c8e0af276f89291fa12c2bf3f6d79c410e8e9e01e03bb4a6a8eea",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "governance": {
+    "prediction_model_created": false,
+    "future_10d_label_read": false,
+    "portfolio_evaluation_run": false,
+    "position_mapping_enabled": false,
+    "paper_signal_allowed": false,
+    "shadow_signal_allowed": false,
+    "order_generation_enabled": false,
+    "live_trading_authorized": false,
+    "model_action": "ABSTAIN",
+    "model_position_target": "UNSET"
+  },
+  "next_stage": "OPTION_MODEL_NOT_ALLOWED_BACKUP_CANDIDATE_MAY_START_SEPARATELY",
+  "generated_at": "2026-08-30T18:55:06.636397+08:00",
+  "protocol_sha256": "e60c7875a6004f0c5f14fa9e4bd9bffc2c3bd06136dd867d545f9416a0c5af1f",
+  "manifest_freeze_id": "510300_OPTION_CHAIN_FEASIBILITY_V1_20260830T184730+0800"
+}

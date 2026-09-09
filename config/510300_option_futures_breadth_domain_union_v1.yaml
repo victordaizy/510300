@@ -1,0 +1,173 @@
+protocol:
+  project_id: 510300_OPTION_FUTURES_BREADTH_DOMAIN_UNION_V1
+  state: FROZEN_BEFORE_2024_2025_FIXED_RULE_VALIDATION
+  discovered_by: 510300_OPTION_FUTURES_BREADTH_DOMAIN_UNION_DISCOVERY_V4
+  candidate_name: OPTION_OR_FOUR_DOMAIN_VOTE2
+  deployable_strategy: false
+  historical_evidence_limit: 历史输入已被多轮研究查看，验证只能称固定规则检验，不宣称未见样本
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  allowed_states:
+    - 0
+    - 1
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  option_and_futures_information_only: true
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+
+dates:
+  development_start: '2022-03-09'
+  development_end: '2023-12-29'
+  fixed_rule_validation_start: '2024-01-02'
+  fixed_rule_validation_end: '2024-12-31'
+  fixed_rule_replication_start: '2025-01-02'
+  fixed_rule_replication_end: '2025-12-31'
+  validation_or_replication_read_before_freeze: false
+
+inputs:
+  option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    signal_date_column: trade_date
+  option_risk:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    signal_date_column: trade_date
+  option_statistics:
+    path: data/raw/return_tail/options/510300_sse_daily_statistics.parquet
+    signal_date_column: trade_date
+  if0_futures:
+    path: data/raw/futures/IF0_daily_raw.parquet
+    signal_date_column: date
+    tradable: false
+  csi300_spot:
+    path: data/raw/market/000300_daily_raw.parquet
+    signal_date_column: date
+  all_a_features:
+    path: data/validation/510300_daily_consensus_catchup_v1/all_a_features_2016_2025.parquet
+    signal_date_column: date
+  etf_execution:
+    path: data/raw/r6/510300_daily.parquet
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    benchmark_id: H00300
+  cash_distributions:
+    path: data/reference/510300_dividends.csv
+
+common_clock:
+  definition: IF0、000300、期权日统计、全A特征四类信息均存在的交易日交集
+  sort: date_ascending
+  duplicate_policy: reject
+  percentile_window_rows: 252
+  percentile_minimum_rows: 126
+  percentile_definition: 当前值在含当前行的最近252个共同信息日有效值中的小于等于比例
+
+option_gamma_domain:
+  contract_filter:
+    adjusted_contracts_allowed: false
+    minimum_calendar_days_to_expiry: 5
+    maximum_calendar_days_to_expiry: 90
+    contract_unit_must_be_positive: true
+    volume_must_be_nonnegative: true
+    open_interest_must_be_nonnegative: true
+    required_nonmissing:
+      - contract_unit
+      - volume
+      - open_interest
+      - underlying_close
+      - delta
+      - gamma
+      - implied_volatility
+  gamma_weight: abs(gamma)*open_interest*contract_unit*underlying_close^2
+  option_sign: call=1,put=-1
+  gamma_balance: sum(option_sign*gamma_weight)/sum(gamma_weight)
+  rank: gamma_balance的滚动252共同期权日百分位，最少126日
+  state_machine:
+    initial_state: 1
+    enter_cash_when_rank_at_least: 0.90
+    return_full_when_rank_below: 0.50
+    missing_rank_while_full: 保持满仓
+    missing_rank_while_cash: 保持空仓
+
+orthogonal_domains:
+  breadth:
+    raw_feature: top10pct_amount_share
+    trigger: 滚动百分位小于等于0.20
+  basis:
+    basis: log(IF0_close/000300_close)
+    basis_z60: (basis-rolling_mean60)/rolling_sample_std60
+    basis_change5: basis-basis_lag5
+    trigger: basis_z60滚动百分位小于等于0.10，或basis_change5滚动百分位小于等于0.05
+    vote_cap: 两个基差信号合并且最多只计一票
+  futures_open_interest:
+    raw_feature: log(IF0_open_interest/IF0_open_interest_lag5)
+    trigger: 滚动百分位小于等于0.15
+  option_put_call_volume:
+    raw_feature: log((put_volume+1)/(call_volume+1))
+    trigger: 滚动百分位小于等于0.10
+  required_votes_for_cash: 2
+
+final_state_rule:
+  cash_state: 期权Gamma滞回状态为空仓，或信号日四个正交域至少两票触发
+  full_state: 其他全部情况
+  option_state_applies_on_execution_date: true
+  orthogonal_votes_use_previous_signal_date: true
+
+account:
+  initial_capital_cny: 500000.0
+  lot_size_shares: 100
+  paid_dividends_reinvested_at_earliest_next_open: true
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+objective:
+  benchmark: H00300_TOTAL_RETURN
+  primary_metric: strategy_net_cagr_minus_benchmark_cagr
+  minimum_annualized_net_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_242d_excess_median: 0.20
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+  every_start_must_pass_both_gates: true
+
+development_evidence:
+  discovery_script: research/option_futures_breadth_domain_union_discovery_v4.py
+  discovery_report: reports/discovery/510300_option_futures_breadth_domain_union_discovery_v4.json
+  discovery_features: data/features/510300_option_futures_breadth_domain_union_discovery_v4.parquet
+  discovery_metrics: data/research/510300_option_futures_breadth_domain_union_discovery_v4/start_perturbation_metrics.parquet
+  stress_annualized_excess_minimum: 0.20229535165327542
+  stress_annualized_excess_median: 0.21328939319805107
+  stress_rolling_242d_excess_minimum: 0.217327826086752
+  stress_start_pass_ratio: 1.0
+
+validation_governance:
+  formula_change_after_freeze: forbidden
+  threshold_change_after_freeze: forbidden
+  cost_change_after_freeze: forbidden
+  failed_validation_parameter_rescue: forbidden
+  position_mapping: disabled
+  order_generation: disabled
+  broker_connection: disabled
+  live_trading: not_authorized
+
+paths:
+  manifest: config/510300_option_futures_breadth_domain_union_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_option_futures_breadth_domain_union_v1_freeze_receipt.json
+  validation_report: reports/validation/510300_option_futures_breadth_domain_union_v1_validation.json
+  validation_metrics: data/validation/510300_option_futures_breadth_domain_union_v1/start_perturbation_metrics.parquet
+  validation_states: data/validation/510300_option_futures_breadth_domain_union_v1/daily_states.parquet

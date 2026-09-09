@@ -1,0 +1,101 @@
+{
+  "experiment_id": "INFORMATION_PROPAGATION_510300_NO_IF_V1",
+  "experiment_status": "PREREGISTERED_BEFORE_FIRST_FORMAL_SCAN",
+  "target_asset": "510300.SH",
+  "index_role": "仅作领先信息对照，不是收益或交易标的",
+  "inputs": {
+    "etf": {
+      "path": "data\\raw\\market\\510300_1m_tushare_raw.parquet",
+      "exists": true,
+      "required_columns": [
+        "trade_time",
+        "open",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "status": "READY",
+      "row_count": 291851,
+      "columns": [
+        "ts_code",
+        "trade_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "missing_columns": [],
+      "first_trade_time": "2021-08-12T09:30:00",
+      "last_trade_time": "2026-08-12T15:00:00",
+      "trading_day_count": 1211
+    },
+    "index": {
+      "path": "data\\raw\\market\\000300_1m_tushare_raw.parquet",
+      "exists": true,
+      "required_columns": [
+        "trade_time",
+        "close"
+      ],
+      "status": "READY",
+      "row_count": 291851,
+      "columns": [
+        "ts_code",
+        "trade_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "missing_columns": [],
+      "first_trade_time": "2021-08-12T09:30:00",
+      "last_trade_time": "2026-08-12T15:00:00",
+      "trading_day_count": 1211
+    },
+    "breadth": {
+      "path": "data\\features\\top50_breadth_no_if_1m.parquet",
+      "exists": true,
+      "required_columns": [
+        "trade_time",
+        "leader_return",
+        "top50_breadth",
+        "top50_breadth_impulse_5m"
+      ],
+      "status": "READY",
+      "row_count": 291610,
+      "columns": [
+        "trade_time",
+        "session_date",
+        "weight_snapshot_date",
+        "leader_weight_coverage",
+        "available_component_count",
+        "leader_return",
+        "top50_breadth",
+        "top50_weighted_breadth",
+        "top50_breadth_impulse_5m",
+        "top50_weighted_breadth_impulse_5m"
+      ],
+      "missing_columns": [],
+      "first_trade_time": "2021-08-12T09:30:00",
+      "last_trade_time": "2026-08-11T15:00:00",
+      "trading_day_count": 1210
+    }
+  },
+  "governance_note": "本实验在首次正式扫描前冻结；既有历史已被其他510300研究触及，因此不宣称严格样本外",
+  "timestamp_audit_status": "PASS",
+  "breadth_build_status": "PASS",
+  "overlap": {
+    "row_count": 270000,
+    "trading_day_count": 1200,
+    "minimum_required_sessions": 500
+  },
+  "status": "PASS_RESEARCH_SCAN_COMPLETE",
+  "feature_row_count": 291851,
+  "decile_row_count": 2250,
+  "yearly_extreme_row_count": 600,
+  "base_round_trip_cost_bps": 18.5,
+  "stress_round_trip_cost_bps": 25.0
+}

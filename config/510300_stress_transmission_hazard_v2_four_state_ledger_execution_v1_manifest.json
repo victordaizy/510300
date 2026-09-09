@@ -1,0 +1,209 @@
+{
+  "acquisition_contract": {
+    "dividend": {
+      "api_name": "dividend",
+      "checkpoint_directory": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1/dividend_checkpoints",
+      "conflicting_economic_terms_rule": "CORPORATE_ACTION_UNRESOLVED",
+      "exact_duplicate_rows_may_be_collapsed": true,
+      "fields": [
+        "ts_code",
+        "end_date",
+        "ann_date",
+        "div_proc",
+        "stk_div",
+        "stk_bo_rate",
+        "stk_co_rate",
+        "cash_div",
+        "cash_div_tax",
+        "record_date",
+        "ex_date",
+        "pay_date",
+        "div_listdate",
+        "imp_ann_date"
+      ],
+      "normalized_panel_output": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1/dividend_action_candidates.parquet",
+      "symbol_universe_rule": "SYMBOLS_WITH_DAILY_PRE_CLOSE_ACTION_CANDIDATE_AFTER_LEGACY_AND_FRESH_UNION"
+    },
+    "excluded_bulk_sources": {
+      "adj_factor": {
+        "reason": "NOT_REQUIRED_FOR_DAILY_PRE_CLOSE_ACTION_DETECTION_AND_DIRECT_RETURN_USE_IS_PROHIBITED"
+      },
+      "suspend_d": {
+        "missing_daily_row_state": "SUPPLIER_MISSING_OR_CONFLICT",
+        "reason": "CANNOT_CHANGE_STATE_WITHOUT_EXCHANGE_OFFICIAL_EVIDENCE"
+      }
+    },
+    "fresh_daily": {
+      "api_name": "daily",
+      "checkpoint_directory": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1/daily_checkpoints",
+      "end_date": "2026-08-14",
+      "expected_symbol_count": 493,
+      "fields": [
+        "ts_code",
+        "trade_date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_close",
+        "change",
+        "pct_chg",
+        "vol",
+        "amount"
+      ],
+      "normalized_panel_output": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1/fresh_daily_observations.parquet",
+      "start_date": "2019-12-01",
+      "symbol_universe_rule": "ANY_PIT_MEMBERSHIP_ON_OR_AFTER_FRESH_DAILY_START"
+    },
+    "outputs": {
+      "acquisition_manifest": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1/acquisition_manifest.json",
+      "acquisition_receipt": "reports/audit/510300_stress_transmission_hazard_v2_four_state_input_acquisition_v1.json",
+      "acquisition_status": "reports/research/510300_stress_transmission_hazard_v2_four_state_input_acquisition_status_v1.json",
+      "action_candidate_symbols": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1/action_candidate_symbols.csv"
+    },
+    "request_control": {
+      "checkpoint_overwrite_allowed": false,
+      "checkpoint_reuse_allowed": true,
+      "maximum_workers": 2,
+      "minimum_delay_seconds_per_request": 0.5,
+      "output_overwrite_allowed": false,
+      "retries": 3
+    }
+  },
+  "config_bytes": 8743,
+  "config_canonical_sha256": "4e5713f11461985e271ed556ef6dd2623a2a1654b5d67b76c309ea9e3e509191",
+  "config_file": "config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.yaml",
+  "config_sha256": "5212456bd862567a5029c9128cf4db4d5db6bf7858b41ca62836c16205ce43c4",
+  "corporate_action_reconciliation": {
+    "admitted_process": "实施",
+    "availability_rule": "IMP_ANN_DATE_STRICTLY_BEFORE_EX_DATE",
+    "candidate_rule": "ABS(DAILY_PRE_CLOSE-PRIOR_OBSERVED_UNADJUSTED_CLOSE)>0.011",
+    "exact_action_date_rule": "DIVIDEND_EX_DATE_EQUALS_CURRENT_DAILY_DATE",
+    "expected_pre_close": "ROUND_TO_CENT((PREVIOUS_RAW_CLOSE-GROSS_CASH+SUBSCRIPTION_OUTFLOW)/POST_TO_PRE_SHARE_RATIO)",
+    "expected_pre_close_absolute_tolerance_cny": 0.011,
+    "gross_cash_field": "cash_div_tax",
+    "multi_action_or_suspension_interval_rule": "FAIL_CLOSED_UNRESOLVED",
+    "no_action_rule": "PRE_CLOSE_MATCHES_PREVIOUS_RAW_CLOSE_AND_NO_NONZERO_IMPLEMENTED_ACTION_ON_DATE",
+    "post_to_pre_share_ratio": "ONE_PLUS_STK_DIV",
+    "previous_close_rule": "PRIOR_OBSERVED_DAILY_RAW_CLOSE_FOR_SAME_SYMBOL",
+    "rights_issue_terms_available": false,
+    "subscription_cash_outflow": 0.0,
+    "unresolved_return_value": null
+  },
+  "daily_validation": {
+    "cross_source_overlap": {
+      "conflict_state": "SUPPLIER_MISSING_OR_CONFLICT",
+      "pct_chg_absolute_tolerance_percentage_points": 0.011,
+      "preferred_source": "FRESH_TUSHARE_DAILY",
+      "price_absolute_tolerance_cny": 0.011
+    },
+    "ohlc_envelope_required": true,
+    "pct_chg_absolute_tolerance_percentage_points": 0.011,
+    "pct_chg_identity": "(RAW_CLOSE/PRE_CLOSE-1)*100",
+    "price_columns": [
+      "raw_open",
+      "raw_high",
+      "raw_low",
+      "raw_close",
+      "pre_close"
+    ],
+    "prices_must_be_finite_positive": true,
+    "unique_key": [
+      "symbol",
+      "date"
+    ],
+    "volume_and_amount_must_be_finite_nonnegative": true
+  },
+  "dependencies": {
+    "correction_manifest": {
+      "bytes": 4482,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1_manifest.json",
+      "sha256": "3d94e61e70d075949efde87ac733bc15303273b8107da8e823d840e489969027"
+    },
+    "legacy_seed": {
+      "bytes": 35681160,
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_original_route_g2/constituent_history_20141101_20200228.parquet",
+      "sha256": "260ef92fd7239d7101c7c1916f2fa5ed1b0e843afe1b43d92ca1d99d0b98e5fd"
+    },
+    "membership": {
+      "bytes": 139181,
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    },
+    "probe_receipt": {
+      "bytes": 2705,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_source_probe_v1_0_1.json",
+      "sha256": "d791f4ef3d620a21c279518fff393215a0fe23b1a51f274f2b499bf4b6c8078f"
+    }
+  },
+  "execution_id": "510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_EXECUTION_V1",
+  "forbidden_actions": [
+    "MODIFY_PARENT_V2_OR_SOURCE_ADMISSION_FREEZE",
+    "USE_LEGACY_TOTAL_RETURN_LINKED_ADJUSTMENT_OR_SUSPENSION_COLUMNS",
+    "USE_CURRENT_CONSTITUENTS_TO_BACKFILL_HISTORY",
+    "TREAT_MISSING_DAILY_ROW_OR_PROVIDER_SUSPEND_D_AS_OFFICIAL_SUSPENSION",
+    "FILL_MISSING_OR_UNRESOLVED_RETURN_WITH_ZERO",
+    "USE_ADJ_FACTOR_OR_POST_ADJUSTED_PRICE_TO_BUILD_RETURN",
+    "RESOLVE_RIGHTS_ISSUE_WITHOUT_SUBSCRIPTION_TERMS",
+    "RUN_MODEL_TRAINING_OR_THRESHOLD_SELECTION",
+    "READ_NEW_AUC_RETURN_SHARPE_DRAWDOWN_NAV_POSITION_OR_ORDER_OUTPUT",
+    "GENERATE_PORTFOLIO_POSITION_ORDER_BROKER_OR_LIVE_ACTION"
+  ],
+  "four_state_execution": {
+    "blanket_zero_fill_allowed": false,
+    "classifier": "research.stress_transmission_hazard_v2.classify_constituent_returns",
+    "daily_member_coverage_minimum": 0.98,
+    "missing_member_day_source_observed": false,
+    "missing_member_day_state": "SUPPLIER_MISSING_OR_CONFLICT",
+    "missing_member_day_supplier_conflict": true,
+    "missing_or_unresolved_return_value": null,
+    "new_member": {
+      "first_observation_without_previous_close_state": "SUPPLIER_MISSING_OR_CONFLICT",
+      "membership_backfill_allowed": false,
+      "own_public_pre_membership_history_allowed": true
+    },
+    "official_exchange_suspension_source_admitted": false,
+    "official_suspension_rows_expected": 0,
+    "reliable_point_in_time_weights_available": false
+  },
+  "frozen_at": "2026-09-03T12:25:38.474202+08:00",
+  "governance_files": {
+    "config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.yaml": {
+      "bytes": 8743,
+      "sha256": "5212456bd862567a5029c9128cf4db4d5db6bf7858b41ca62836c16205ce43c4"
+    },
+    "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_EXECUTION_V1_20260903.md": {
+      "bytes": 3440,
+      "sha256": "00c0f007b196d27923d07bb311af40ceeff3d4b52a44cf6649f4115b5849f58e"
+    },
+    "tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.py": {
+      "bytes": 10689,
+      "sha256": "a056a9e83a5e1ec97987cc65b3cdd3dd7699ab2edb23f4e97f25370ca036ad74"
+    }
+  },
+  "implementation_files": {
+    "research/stress_transmission_hazard_v2_four_state_ledger_v1.py": {
+      "bytes": 25215,
+      "sha256": "b75c81fb9adbe7e2d1a8f40cea704496d8b0f8be77f84babe3898da27d7b92eb"
+    },
+    "scripts/acquire_510300_stress_transmission_hazard_v2_four_state_inputs_v1.py": {
+      "bytes": 16679,
+      "sha256": "f702ad716eefa9595685d31ae2371ddbc84d58a2f884bb7c67e288ba8e351655"
+    },
+    "scripts/build_510300_stress_transmission_hazard_v2_four_state_ledger_v1.py": {
+      "bytes": 11582,
+      "sha256": "c8c0de1b17ea577a21921a815d382dd52ecf4d04d353c83d5b9f02f38d46c207"
+    },
+    "scripts/freeze_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.py": {
+      "bytes": 13309,
+      "sha256": "d4cb9e2f99bf188953ebd6d3c7bb023cdf8947b52b9ec6039d654d197fe68190"
+    }
+  },
+  "manifest_payload_sha256": "a2d2cb681359d1dfe2bc5e70e7635f1762ef49a345c5c92b687076315c4c1068",
+  "model_trained": false,
+  "portfolio_results_read": false,
+  "position_impact": 0,
+  "return_evaluation": "NOT_ALLOWED",
+  "status": "FROZEN_BEFORE_HISTORICAL_NETWORK_ACQUISITION",
+  "version": "1.0.0"
+}

@@ -1,0 +1,316 @@
+protocol:
+  project_id: 510300_MECHANISM_ATLAS_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  registration_date: '2026-08-30'
+  timezone: Asia/Shanghai
+  research_stage: MECHANISM_DISCOVERY
+  evidence_class: RETROSPECTIVE_MECHANISM_DISCOVERY_HISTORICALLY_CONTAMINATED
+  one_shot: true
+  parameter_rescue_after_result: forbidden
+  alternate_window_after_result: forbidden
+  alternate_label_after_result: forbidden
+  reverse_direction_after_result: forbidden
+  sharpe_target_is_downstream_acceptance_gate_not_optimization_objective: true
+
+source_branch:
+  project_id: 510300_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1_0_1
+  required_status: REJECTED_FROZEN_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1_0_1_NO_RESCUE
+  source_result: reports/research/510300_macd_breadth_downside_preflight_v1_0_1.json
+  source_daily_features: data/research/510300_macd_breadth_downside_preflight_v1_0_1/daily_features.parquet
+  source_events: data/research/510300_macd_breadth_downside_preflight_v1_0_1/events.parquet
+  reuse_rule: 仅把六个高质量事件作为机制病例，不恢复、不改名、不回测原冻结候选
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  observational_information:
+    - CSI300_POINT_IN_TIME_CONSTITUENTS_AND_OFFICIAL_WEIGHTS
+    - CFFEX_IF_CONTRACT_TERM_STRUCTURE
+    - FIRST_RELEASE_MACRO_AND_LIQUIDITY
+    - 510300_FUND_SHARES_MARGIN_AND_CLOSE_NAV_PREMIUM
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  options_execution_allowed: false
+  futures_execution_allowed: false
+  return_backtest_allowed: false
+  event_outcome_diagnostics_allowed: true
+  paper_or_shadow_mapping: disabled
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+clocks:
+  research_signal_cutoff: T日15:00后
+  earliest_hypothetical_execution: T+1交易日开盘
+  constituent_weight_rule: 仅使用当日及以前最近的官方月末权重快照
+  constituent_industry_rule: 仅使用当日有效的行业区间
+  macro_rule: available_at不晚于T日15:00且只使用first_release_value
+  if_rule: T日中金所收盘数据只作为T日收盘观测
+  future_outcomes: 与状态面板物理分离，不进入匹配距离或特征构造
+
+windows:
+  common_phase1_start: '2021-08-12'
+  common_phase1_end: '2026-08-12'
+  structural_split_date: '2023-01-01'
+  long_history_roles:
+    price_and_if: 2012年至今仅用于价格和衍生品失败模式库
+    point_in_time_constituent_cross_section: 2019-12-23起
+    complete_common_mechanism_panel: 2021-08-12起
+  dossier_pre_trading_days: 60
+  dossier_post_trading_days: 20
+  local_projection_horizons_trading_days: [5, 10, 20, 60]
+
+inputs:
+  source_result:
+    path: reports/research/510300_macd_breadth_downside_preflight_v1_0_1.json
+    type: json
+    required_status: REJECTED_FROZEN_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1_0_1_NO_RESCUE
+  source_daily_features:
+    path: data/research/510300_macd_breadth_downside_preflight_v1_0_1/daily_features.parquet
+    key: [date]
+    required_columns: [date, open, high, low, close, amount, total_return_close, record_dividend_cumulative, macd_histogram, macd_velocity_3d, macd_acceleration_3d, downside_deviation_5, downside_deviation_20, downside_vol_ratio_5_20]
+  source_events:
+    path: data/research/510300_macd_breadth_downside_preflight_v1_0_1/events.parquet
+    key: [date]
+    required_columns: [date, is_selected_event, primary_class, conditional_class, forward_return_10d]
+  official_weighted_breadth:
+    path: data/features/000300_official_weighted_breadth_daily_v1_0_1_warmup.parquet
+    key: [date]
+    required_columns: [date, weight_snapshot_date, weight_snapshot_age_calendar_days, component_count, weight_sum, ma20_weight_coverage, ma60_weight_coverage, official_weighted_advancer_share_1d, official_weighted_above_ma20_share, official_weighted_above_ma60_share, official_weighted_return_dispersion_1d, official_weight_hhi, official_top10_weight_share, official_weighted_above_ma20_share_change_5d, valid_for_direction_model]
+  equal_weight_breadth:
+    path: data/features/000300_equal_weight_breadth_daily.parquet
+    key: [date]
+    required_columns: [date, component_count, equal_advancer_share_1d, equal_positive_momentum_share_20d, equal_above_ma20_share, equal_above_ma60_share, equal_return_1d, equal_return_dispersion_1d, valid_for_price_breadth]
+  point_in_time_cross_section:
+    path: data/features/000300_point_in_time_index_cross_section_daily_v1_3.parquet
+    key: [date, con_code]
+    required_columns: [date, con_code, snapshot_weight, weight_snapshot_date, constituent_return_1d, industry_l1, price_available, return_available, industry_available, component_return_contribution_1d]
+  index_driver_summary:
+    path: data/features/000300_index_driver_summary_daily_v1_3.parquet
+    key: [date]
+    required_columns: [date, component_count, weight_sum, price_coverage_weight, return_coverage_weight, industry_coverage_weight, positive_industry_contribution_total_1d, negative_industry_contribution_total_1d, positive_industry_weight_share_1d, industry_return_dispersion_1d, valid_for_attribution]
+  industry_attribution:
+    path: data/features/000300_industry_driver_attribution_daily_v1_3.parquet
+    key: [date, industry_l1]
+    required_columns: [date, industry_l1, industry_weight, return_coverage_weight, industry_return_1d, weighted_return_contribution_1d, industry_advancer_share_1d, component_count, return_component_count]
+  constituent_daily:
+    path: data/raw/constituents/000300_constituent_daily.parquet
+    key: [date, con_code]
+    required_columns: [date, con_code, volume, amount, total_market_cap_cny, market_cap_asof_date, is_index_member, is_suspended]
+  if_term_structure:
+    path: data/research/510300_if_true_term_structure_binary_screen_v1_0_1/daily_features.parquet
+    key: [date]
+    required_columns: [date, eligible_contract_count, near_symbol, near_dte, annualized_near_basis, annualized_near_next_curve, annualized_near_far_curve, annualized_oi_weighted_basis, feature_asof]
+    semantic_limit: 基差未扣除完整点时股息与融资成本，只能标记为RAW_ANNUALIZED_BASIS，禁止称为公平基差
+  fdr007:
+    path: data/raw/macro/fdr007_daily.parquet
+    key: [date]
+    required_columns: [date, available_at, first_release_value, latest_revised_value, source, source_hash]
+  pmi_new_orders:
+    path: data/raw/macro/pmi_new_orders_release_vintage.parquet
+    key: [reference_period]
+    required_columns: [reference_period, available_at, first_release_value, latest_revised_value, source, source_hash]
+  tsf_stock_yoy:
+    path: data/raw/macro/tsf_stock_yoy_release_vintage.parquet
+    key: [reference_period]
+    required_columns: [reference_period, available_at, first_release_value, latest_revised_value, source, source_hash]
+  usdcny_midpoint:
+    path: data/raw/macro/usdcny_midpoint_daily.parquet
+    key: [date]
+    required_columns: [date, available_at, first_release_value, latest_revised_value, source, source_hash]
+  etf_fund_shares:
+    path: data/raw/flow/510300_fund_share_daily_tushare.parquet
+    key: [date]
+    required_columns: [date, ts_code, fund_shares, source]
+  etf_margin:
+    path: data/raw/flow/510300_margin_detail_daily_tushare.parquet
+    key: [date]
+    required_columns: [date, ts_code, financing_net_buy_cny, rzrqye, source]
+  etf_nav:
+    path: data/raw/fund/510300_nav_daily_raw.parquet
+    key: [date]
+    required_columns: [date, unit_nav, close, close_premium_bps, source_primary, source_secondary]
+
+excluded_or_blocked_inputs:
+  if_fair_basis:
+    status: NOT_AVAILABLE_NO_COMPLETE_POINT_IN_TIME_CARRY
+  option_skew_and_term_structure:
+    status: NOT_ADMITTED_IN_V1
+    reason: 历史数据与冻结协议完整性不足，不用短覆盖或失败分支填补
+  pcf_iopv_history:
+    status: NOT_ADMITTED_IN_V1
+    reason: 当前仅四个质量日左右，不能覆盖六病例或匹配对照
+  csi300_earnings_breadth:
+    status: NOT_AVAILABLE_POINT_IN_TIME_CONTRACT_MISSING
+
+data_gates:
+  expected_common_rows: 1211
+  expected_component_count: 300
+  minimum_weight_coverage: 0.99
+  maximum_weight_snapshot_age_calendar_days: 35
+  source_branch_must_remain_rejected: true
+  all_six_anchor_dates_required: true
+  no_duplicate_primary_keys: true
+  no_future_weight_snapshots: true
+  macro_latest_revision_used: false
+
+features:
+  price_risk:
+    return_5d: total_return_close / lag_5 - 1
+    return_20d: total_return_close / lag_20 - 1
+    trend_slope_20d: OLS斜率log_total_return_close对0至19
+    trend_slope_60d: OLS斜率log_total_return_close对0至59
+    distance_60d_high: close / rolling_max_close_60 - 1
+    distance_60d_low: close / rolling_min_close_60 - 1
+    gap_1d: open / prior_close - 1
+    path_efficiency_20d: abs_20d_log_return / sum_abs_daily_log_returns_20d
+    rv20_annualized: std_total_return_20d乘sqrt_242
+    negative_jump_share_20d: 过去20日中return_1d小于负2倍前一日RV20日化值的比例
+  internal_structure:
+    top10_weight_contribution_1d: 当日官方快照权重最高十只的贡献合计
+    constituent_return_median_1d: 可得成分股当日收益中位数
+    constituent_return_dispersion_1d: 可得成分股当日收益标准差
+    positive_industry_count_1d: 行业收益严格大于零的行业数
+    top5_industry_contribution_1d: 当日贡献最高五个行业的贡献合计
+    amount_expansion_share_1d: 成分股当日成交额高于此前20日中位数的等权比例
+    weighted_amount_expansion_share_1d: 同上但使用当日可得官方权重
+  derivatives_and_flow:
+    if_basis_change_3d: RAW_ANNUALIZED_NEAR_BASIS差分3日
+    if_basis_change_5d: RAW_ANNUALIZED_NEAR_BASIS差分5日
+    fund_share_change_5d: fund_shares / lag_5 - 1
+    close_premium_bps: 收盘价相对单位净值的基点差
+  macro:
+    fdr007_change_5d: first_release_value差分5个观测
+    pmi_new_orders_change_3_release: 当前发布值减三次发布前值
+    tsf_stock_yoy_change_3_release: 当前发布值减三次发布前值
+    usdcny_change_20d: first_release_value / lag_20 - 1
+
+anchor_events:
+  source_rule: source_events中conditional_class等于HIGH_QUALITY_CONVERGING且is_selected_event为真
+  expected_count: 6
+  fixed_dates: ['2023-07-12', '2024-02-29', '2024-05-13', '2025-01-27', '2025-07-10', '2026-07-01']
+  interpretation: 机制线索，不是成功交易样本；其中允许存在后续负收益
+
+matching:
+  controls_per_case: 3
+  replacement: false
+  control_pool:
+    primary_class: CONVERGING
+    exclude_conditional_class: HIGH_QUALITY_CONVERGING
+    start_date: '2023-01-01'
+    failed_outcome_definition: forward_return_10d <= 0
+    require_valid_index_attribution_on_event_date: true
+    require_complete_dossier_window: true
+    minimum_gap_from_any_anchor_trading_days: 20
+  covariates:
+    - macd_histogram
+    - past_return_20d
+    - rv20_annualized
+    - distance_60d_high
+    - season_sin
+    - season_cos
+  standardization: POOLED_CASE_AND_ELIGIBLE_CONTROL_ZSCORE
+  assignment: GLOBAL_MINIMUM_COST_HUNGARIAN_WITH_UNIQUE_CONTROLS
+  distance: EUCLIDEAN
+  maximum_pair_distance: 3.25
+  maximum_absolute_standardized_mean_difference: 0.75
+  descriptive_only_due_to_outcome_conditioned_control_pool: true
+
+transmission_chronology:
+  lookback_trading_days: 20
+  risk_pressure_peak: downside_vol_ratio_5_20在负20日至事件日的最大值日期
+  risk_relief_required_drop: 0.10
+  if_confirmation: 负10日至事件日首次出现if_basis_change_3d严格大于零
+  breadth_turn: 负10日至事件日首次由非正转为official_weighted_above_ma20_share_change_5d严格大于零
+  macd_turn: anchor_event_date
+  price_trend_confirmation: 事件日至正20日首次同时满足total_return_close高于MA20且trend_slope_20d大于零
+  canonical_order: RISK_PEAK_THEN_IF_THEN_BREADTH_THEN_MACD_THEN_PRICE
+  chronology_is_descriptive_not_causal_proof: true
+
+continuous_response:
+  model: LOCAL_PROJECTION_OLS_HAC
+  macd_conversion: macd_velocity_3d
+  breadth_diffusion: official_weighted_above_ma20_share_change_5d
+  downside_pressure: log_downside_vol_ratio_5_20
+  interactions: [MACD_X_BREADTH, MACD_X_DOWNSIDE]
+  controls: [past_return_5d, past_return_20d, rv20_annualized, distance_60d_high]
+  standardization: FULL_COMMON_SAMPLE_ZSCORE_FOR_RETROSPECTIVE_INFERENCE_ONLY
+  horizons_trading_days: [5, 10, 20, 60]
+  primary_outcome: next_open_to_horizon_close_total_return
+  secondary_outcomes: [maximum_adverse_excursion, maximum_favorable_excursion, future_realized_volatility, time_to_positive_censored, positive_wealth_fraction]
+  hac_lag_rule: horizon_trading_days
+  primary_interaction_tests: 8
+  multiple_testing: HOLM_FAMILYWISE_5PCT_ON_PRIMARY_INTERACTIONS
+  structural_periods:
+    early: ['2021-08-12', '2022-12-31']
+    late: ['2023-01-01', '2026-08-12']
+  rolling_window_trading_days: 756
+  rolling_step_trading_days: 21
+
+mechanism_hypotheses:
+  H1_TREND_DIFFUSION:
+    description: 慢趋势、内部扩散、风险未加速且IF未恶化是否对应20日趋势延续
+    primary_horizon: 20
+  H2_TRUE_FALSE_REPAIR:
+    description: MACD负值收敛在内部扩散、风险降温和IF确认下是否呈现不同条件响应
+    primary_horizon: 10
+  H3_DELEVERAGING_RELIEF:
+    description: 风险压力见顶并下降后，资金与广度是否先于价格修复
+    primary_horizon: 10
+  H4_INTRADAY_TEMPORARY_PRESSURE:
+    status: NO_VIEW_DATA_CONTRACT_FAILED
+    reason: 缺少覆盖六病例及长期对照的同步ETF-IF与可靠IOPV日内历史
+
+classification:
+  labels: [STRUCTURAL, CONDITIONAL, DECAYING, DESCRIPTIVE_ONLY, REJECTED, DATA_BLOCKED]
+  significance_level_after_holm: 0.05
+  direction_consistency_required_across_early_late: true
+  no_strategy_promotion_from_atlas_v1: true
+
+downstream_acceptance_not_run_in_v1:
+  target_net_sharpe: 1.20
+  target_cumulative_net_excess: 0.20
+  benchmark_primary: H00300_TOTAL_RETURN
+  benchmark_secondary: 510300_BUY_AND_HOLD_WITH_DIVIDENDS
+  costs:
+    initial_capital_cny: 20000.0
+    lot_size_shares: 100
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    base_slippage_bps_per_leg: 5.0
+    stress_slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+  strict_oos_required: true
+  minimum_forward_shadow_trading_days: 252
+  separate_new_frozen_strategy_id_required: true
+
+adjudication:
+  completion_status: MECHANISM_ATLAS_DISCOVERY_COMPLETE_NO_STRATEGY_AUTHORIZATION
+  data_fail_status: NO_VIEW_DATA_CONTRACT_FAILED
+  analysis_fail_status: FAILED_MECHANISM_ATLAS_PROGRAM
+  return_evaluation: NOT_ALLOWED
+  net_sharpe: NOT_COMPUTED
+  cumulative_net_excess: NOT_COMPUTED
+  current_signal: NOT_CREATED
+  no_trade: true
+
+paths:
+  spec: docs/510300_MECHANISM_ATLAS_V1_SPEC.md
+  manifest: config/510300_mechanism_atlas_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_mechanism_atlas_v1_freeze_receipt.json
+  input_audit: reports/data_quality/510300_mechanism_atlas_v1_input_audit.json
+  state_panel: data/research/510300_mechanism_atlas_v1/state_panel.parquet
+  outcome_panel: data/research/510300_mechanism_atlas_v1/outcome_panel.parquet
+  matched_controls: data/research/510300_mechanism_atlas_v1/matched_controls.parquet
+  event_window_panel: data/research/510300_mechanism_atlas_v1/event_window_panel.parquet
+  local_projection_results: data/research/510300_mechanism_atlas_v1/local_projection_results.parquet
+  rolling_coefficients: data/research/510300_mechanism_atlas_v1/rolling_coefficients.parquet
+  opportunity_frequency: data/research/510300_mechanism_atlas_v1/opportunity_frequency.parquet
+  factor_matrix: data/research/510300_mechanism_atlas_v1/factor_matrix.parquet
+  dossier_directory: reports/research/510300_mechanism_event_dossiers_v1
+  result_json: reports/research/510300_mechanism_atlas_v1.json
+  result_markdown: reports/research/510300_MECHANISM_ATLAS_V1.md

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <Description>工作日以Python模块入口运行零付费 V1.10 冻结清单；PCF严格TLS，错过窗口不补跑。</Description>
+    <URI>\Codex-510300-Primary-Market-Collector</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-4186397120-3293097669-1030578484-1001</UserId>
+      <LogonType>InteractiveToken</LogonType>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <ExecutionTimeLimit>PT8H</ExecutionTimeLimit>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <WakeToRun>true</WakeToRun>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+  </Settings>
+  <Triggers>
+    <CalendarTrigger>
+      <StartBoundary>2026-08-29T09:25:00+08:00</StartBoundary>
+      <ScheduleByWeek>
+        <WeeksInterval>1</WeeksInterval>
+        <DaysOfWeek>
+          <Monday />
+          <Tuesday />
+          <Wednesday />
+          <Thursday />
+          <Friday />
+        </DaysOfWeek>
+      </ScheduleByWeek>
+    </CalendarTrigger>
+  </Triggers>
+  <Actions Context="Author">
+    <Exec>
+      <Command>C:\Users\戴周阳\Documents\New project 8\.venv\Scripts\python.exe</Command>
+      <Arguments>-m scripts.run_priority_forward_codex_automation_v1_10 --phase morning --config "C:\Users\戴周阳\Documents\New project 8\config\priority_forward_supervisor_v1_6.yaml" --manifest "C:\Users\戴周阳\Documents\New project 8\config\priority_forward_research_operations_v1_10_manifest.json" --expected-manifest-sha256 fe1192ffd8f76aeb2ff1ba486c6f1a299e941519ef9a4d5ba098c85733820b94</Arguments>
+      <WorkingDirectory>C:\Users\戴周阳\Documents\New project 8</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>

@@ -1,0 +1,226 @@
+{
+  "evaluation_version": "INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1",
+  "evaluation_status": "FROZEN_BEFORE_FIRST_FORWARD_OBSERVATION",
+  "prediction_model_version": "INDUSTRY_EXPECTATION_GAP_ETF_MODEL_V1",
+  "prediction_date": "2026-08-18",
+  "information_cutoff": "2026-08-18T16:30:00+08:00",
+  "entry_date": "2026-08-19",
+  "observation_date": "2026-08-18",
+  "primary_state": "WAITING_FOR_ENTRY",
+  "original_prediction_state": "NO_VIEW",
+  "original_index_aggregation_state": "BALANCED_NO_EDGE",
+  "original_index_direction_evaluation": "ABSTAINED_AT_FORECAST",
+  "market_gate_evaluation": "NOT_SCORABLE_MISSING_AT_FORECAST",
+  "national_team_evaluation": "NOT_SCORABLE_UNOBSERVED_AT_FORECAST",
+  "may_upgrade_original_no_view": false,
+  "mature_prediction_origin_count": 0,
+  "calibration_minimum": 20,
+  "model_comparison_minimum": 40,
+  "horizons": [
+    {
+      "horizon_trading_days": 60,
+      "entry_date": "2026-08-19",
+      "maturity_date": "2026-11-18",
+      "calendar_state": "RESOLVED",
+      "missing_calendar_days": 0,
+      "state": "WAITING_FOR_ENTRY",
+      "observed_common_forward_trading_days": 0,
+      "price_evaluation": {
+        "status": "WAITING_FOR_ENTRY",
+        "partial_return_output": false
+      },
+      "fundamental_evaluation": {
+        "status": "WAITING_FOR_ENTRY",
+        "partial_result_output": false
+      },
+      "etf_observation": {
+        "status": "WAITING_FOR_ENTRY",
+        "partial_return_output": false
+      }
+    },
+    {
+      "horizon_trading_days": 120,
+      "entry_date": "2026-08-19",
+      "maturity_date": null,
+      "calendar_state": "UNRESOLVED_CALENDAR",
+      "missing_calendar_days": 29,
+      "state": "UNRESOLVED_CALENDAR",
+      "observed_common_forward_trading_days": 0,
+      "price_evaluation": {
+        "status": "UNRESOLVED_CALENDAR",
+        "partial_return_output": false
+      },
+      "fundamental_evaluation": {
+        "status": "UNRESOLVED_CALENDAR",
+        "partial_result_output": false
+      },
+      "etf_observation": {
+        "status": "UNRESOLVED_CALENDAR",
+        "partial_return_output": false
+      }
+    }
+  ],
+  "data_cutoffs": {
+    "constituent_latest_date": "2026-08-14",
+    "etf_latest_date": "2026-08-11",
+    "common_forward_latest_date": null
+  },
+  "runtime_sources": {
+    "trading_calendars": [
+      {
+        "path": "data/reference/sse_trade_calendar_2026.csv",
+        "sha256": "1683446371fd20e3899222382d28da2fb8f2195654587649cc42648613960b62",
+        "bytes": 30510
+      }
+    ],
+    "trading_calendar_metadata": [
+      {
+        "path": "data/reference/sse_trade_calendar_2026.metadata.json",
+        "sha256": "652bbf345e570f9199dad2b0a12c3d5c993f902bb496246bda1fccca445d4dbb",
+        "bytes": 1354
+      }
+    ],
+    "constituent_total_return_daily": {
+      "path": "data/raw/constituents/000300_constituent_daily.parquet",
+      "sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0",
+      "bytes": 26800503,
+      "rows": 483300,
+      "columns": [
+        "date",
+        "con_code",
+        "raw_open",
+        "raw_high",
+        "raw_low",
+        "raw_close",
+        "total_return_open",
+        "total_return_high",
+        "total_return_low",
+        "total_return_close",
+        "volume",
+        "amount",
+        "adj_factor",
+        "price_source",
+        "adjustment_source",
+        "retrieved_at",
+        "is_index_member",
+        "is_suspended",
+        "outstanding_share",
+        "total_market_cap_cny",
+        "market_cap_asof_date"
+      ],
+      "date_min": "2019-12-23",
+      "date_max": "2026-08-14"
+    },
+    "historical_weights": {
+      "path": "data/raw/constituents/000300_historical_weights.parquet",
+      "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+      "bytes": 80108,
+      "rows": 36000,
+      "columns": [
+        "index_code",
+        "con_code",
+        "trade_date",
+        "weight",
+        "source",
+        "retrieved_at"
+      ]
+    },
+    "industry_intervals": {
+      "path": "data/raw/reference/a_share_citic_industry_intervals_raw.parquet",
+      "sha256": "3216150918c2dab02f9848c94bf4189b71019d8eda3869439e49d1bccbc63bfe",
+      "bytes": 169703,
+      "rows": 9088,
+      "columns": [
+        "l1_code",
+        "l1_name",
+        "l2_code",
+        "l2_name",
+        "l3_code",
+        "l3_name",
+        "ts_code",
+        "name",
+        "in_date",
+        "out_date",
+        "is_new",
+        "source",
+        "retrieved_at"
+      ]
+    },
+    "sector_point_in_time_panel": {
+      "path": "data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet",
+      "sha256": "22eb09d296ba815b5663a5c48e69f2d7304badd979b410c6fbe2f24d624bec75",
+      "bytes": 166250,
+      "rows": 2198,
+      "columns": [
+        "date",
+        "industry_l1",
+        "sector_weight",
+        "component_count",
+        "price_coverage_ratio",
+        "earnings_coverage_ratio",
+        "book_coverage_ratio",
+        "roe_coverage_ratio",
+        "profit_growth_coverage_ratio",
+        "revenue_growth_coverage_ratio",
+        "core_feature_coverage_ratio",
+        "weighted_earnings_yield",
+        "weighted_book_yield",
+        "weighted_ttm_roe",
+        "weighted_ttm_profit_growth_yoy",
+        "weighted_ttm_revenue_growth_yoy",
+        "profitable_market_cap_pe_ttm",
+        "eligible_for_target_freeze",
+        "data_output",
+        "failure_category"
+      ],
+      "date_min": "2019-12-31",
+      "date_max": "2026-07-31"
+    },
+    "etf_total_return_daily": {
+      "path": "data/processed/510300_daily_total_return.parquet",
+      "sha256": "50b9ddbe49733895fb082a23a84006987345bd45d15909abdd9270029a884522",
+      "bytes": 151121,
+      "rows": 1210,
+      "columns": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "amount",
+        "symbol",
+        "source",
+        "volume_unit",
+        "amount_unit",
+        "retrieved_at",
+        "cash_dividend_per_share",
+        "prev_close",
+        "price_return",
+        "dividend_yield",
+        "total_return",
+        "overnight_price_return",
+        "overnight_total_contribution",
+        "intraday_return",
+        "intraday_contribution",
+        "decomposition_error",
+        "range_return",
+        "year"
+      ],
+      "date_min": "2021-08-12",
+      "date_max": "2026-08-11"
+    },
+    "frozen_prediction_manifest": {
+      "path": "config/industry_expectation_gap_etf_model_v1_manifest.json",
+      "sha256": "dc0070434375b032f2c316db0b12cf026e042ed7647d5924b6cad368ccbe3e09"
+    }
+  },
+  "safety": {
+    "may_upgrade_original_no_view": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "interpretation": "未成熟期不输出部分收益；成熟后只评价冻结行业分支，不得把原NO_VIEW改写为交易观点。"
+}

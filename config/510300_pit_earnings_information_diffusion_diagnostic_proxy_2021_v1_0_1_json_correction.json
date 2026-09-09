@@ -1,0 +1,32 @@
+{
+  "correction_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_DIAGNOSTIC_PROXY_2021_V1_0_1_STRICT_JSON_NONFINITE_CORRECTION",
+  "status": "FROZEN_BEFORE_CORRECTED_SERIALIZATION_RERUN",
+  "frozen_at": "2026-08-30T23:22:00+08:00",
+  "observed_issue": "The first diagnostic JSON encoded a non-finite maximum single-year share as the JavaScript extension token NaN. Python accepted it, but strict RFC-compatible JSON consumers must receive null.",
+  "previous_evidence": {
+    "source_manifest_sha256": "799b19916bc90d6af745839cde1cfd98b98572d8602b5e7032d3247cb5aad27e",
+    "diagnostic_manifest_sha256": "3379038f1f8dbb315d950848fddb76a12c29625d90d498c8fdb9b5957d7b711f",
+    "runner_module_sha256": "cbd5a71b007c6a48f2feab8f21715a2109dc6fc21512272f5a68ce7378d3eac8",
+    "diagnostic_result_sha256": "872357927e1ba2855c4565a79ab0bfceb18ff00894442cb49c17da307e9df679",
+    "predictions_sha256": "85451168c5b1604f6c658a41056199270b4ce78f1dc15c9190015b6e9b72997e",
+    "refits_sha256": "ca41297a6c7db0a8c55a548e036a33f5aea60fd3bccbb2863f87a03514012e37"
+  },
+  "allowed_change": {
+    "scope": "JSON serialization only",
+    "rule": "Recursively replace non-finite numeric values with JSON null and reject any remaining NaN or Infinity at serialization.",
+    "model_logic_changed": false,
+    "features_changed": false,
+    "labels_changed": false,
+    "training_or_calibration_windows_changed": false,
+    "thresholds_changed": false,
+    "prediction_values_allowed_to_change": false,
+    "observed_metrics_allowed_to_change": false,
+    "portfolio_evaluation_allowed": false
+  },
+  "required_reconciliation": {
+    "predictions_sha256_must_remain": "85451168c5b1604f6c658a41056199270b4ce78f1dc15c9190015b6e9b72997e",
+    "refits_sha256_must_remain": "ca41297a6c7db0a8c55a548e036a33f5aea60fd3bccbb2863f87a03514012e37",
+    "evaluation_status_must_remain": "FAIL_DIAGNOSTIC_PREDICTION_GATES",
+    "formal_candidate_status_must_remain": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS"
+  }
+}

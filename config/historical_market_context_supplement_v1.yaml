@@ -1,0 +1,73 @@
+version: HISTORICAL_MARKET_CONTEXT_SUPPLEMENT_V1
+status: FROZEN_BEFORE_ANALOGUE_OUTCOME_READ
+asset: "510300"
+benchmark: "H00300"
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-18T20:30:00+08:00"
+
+frozen_prediction:
+  manifest: config/industry_expectation_gap_etf_model_v1_manifest.json
+  manifest_sha256: DC0070434375B032F2C316DB0B12CF026E042ED7647D5924B6CAD368CCBE3E09
+  result: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json
+
+inputs:
+  market_total_return_daily: data/raw/market/H00300_total_return_daily_raw.parquet
+  industry_return_daily: data/features/000300_industry_driver_attribution_daily_v1_3.parquet
+  trading_calendar_glob: data/reference/sse_trade_calendar_*.csv
+  trading_calendar_metadata_glob: data/reference/sse_trade_calendar_*.metadata.json
+
+outputs:
+  json: reports/forward/historical_market_context_supplement_v1_2026-08-18.json
+  markdown: reports/forward/historical_market_context_supplement_v1_2026-08-18.md
+  manifest: config/historical_market_context_supplement_v1_manifest.json
+
+rules:
+  annualization_trading_days: 242
+  trend_return_windows: [20, 60, 120]
+  moving_average_windows: [20, 60]
+  volatility_windows: [20, 60]
+  drawdown_window: 60
+  valuation_percentile_window: 1210
+  participation_percentile_window: 242
+  analogue_count: 8
+  analogue_minimum_separation_trading_days: 20
+  analogue_current_embargo_trading_days: 120
+  analogue_outcome_horizons: [20, 60]
+  minimum_analogue_count: 5
+  industry_return_windows: [5, 20, 60]
+  industry_percentile_windows: [20, 60]
+  high_percentile: 0.80
+  extreme_percentile: 0.95
+  low_percentile: 0.20
+  allowed_market_staleness_trading_days: 0
+  allowed_industry_staleness_trading_days: 0
+
+feature_blocks:
+  trend:
+    - return_20d
+    - return_60d
+    - return_120d
+    - close_vs_ma20
+    - close_vs_ma60
+  risk:
+    - rv_20d
+    - rv_60d
+    - drawdown_60d
+  valuation:
+    - pe_ttm_percentile_1210d
+  participation:
+    - amount_percentile_242d
+
+prohibitions:
+  may_fill_funding_liquidity: false
+  may_fill_equity_flow: false
+  may_infer_national_team_identity: false
+  may_change_industry_expectation_gap: false
+  may_upgrade_original_no_view: false
+  may_call_analogue_outcomes_oos: false
+
+safety:
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

@@ -1,0 +1,33 @@
+{
+  "correction_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1_0_1_AVAILABILITY_DATE_ALIGNMENT",
+  "created_at": "2026-08-30T19:46:00+08:00",
+  "previous_manifest": {
+    "path": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_manifest.json",
+    "sha256": "dcd24b188b05d63a784d05208eeb3b4e8f07b1072fba4d8d59cba298b68cf278"
+  },
+  "previous_run": {
+    "status": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS",
+    "result_path": "reports/data_quality/510300_pit_earnings_information_diffusion_10d_risk_v1.json",
+    "result_sha256": "03bdb83d969466c5fb3b9073b01602ff8293c53f1a884f01fd99ec0e9f0f78d1",
+    "markdown_sha256": "a8988950de8998e05434a040cfbda1adc8575dd2257abf13698d8b710925503d",
+    "member_event_audit_sha256": "49098ea79092553c198ff3671639b1f0bfda34be274bdd67e5cb1085b6e83038"
+  },
+  "observed_issue": {
+    "active_member_count_on_notice_date_min": 299,
+    "active_member_count_on_notice_date_max": 301,
+    "cause": "实现错误地在自然日公告日期检查成员集合，而冻结协议规定信息最早在公告日期之后首个交易日使用；调样周末或非交易日因此被错误地落在成分区间边界之间。"
+  },
+  "allowed_correction": {
+    "rule": "先使用不含收益的交易日历把 NOTICE_DATE 映射到严格更晚的首个交易日，再按 availability_date 连接成员区间。",
+    "trading_calendar_path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+    "trading_calendar_sha256": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd",
+    "maximum_calendar_mapping_lag_days": 7,
+    "hard_thresholds_changed": false,
+    "financial_fact_rules_changed": false,
+    "market_price_read": false,
+    "future_return_read": false,
+    "target_label_read": false,
+    "return_evaluation": "NOT_ALLOWED"
+  },
+  "supersession_rule": "只有 V1.0.1 冻结清单通过哈希校验并生成新结果后，旧结果才标记为实现对齐前的已归档证据；旧结果不得删除。"
+}

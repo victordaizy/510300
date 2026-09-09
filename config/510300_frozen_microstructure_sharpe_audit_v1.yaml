@@ -1,0 +1,146 @@
+protocol:
+  project_id: 510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1
+  state: PROTOCOL_DRAFT_BEFORE_SHARPE_COMPUTATION
+  candidate_project_id: 510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_V1
+  candidate_name: MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW
+  purpose: 按本目标的2万元成本口径审计既有冻结仓位序列是否达到历史净夏普率1.2
+  evidence_class: RETROSPECTIVE_POST_SELECTION_AUDIT_ONLY
+  interpretation: 候选已使用全部历史评价期结果完成发现，本审计不是独立样本外验证，也不能消除更早反向验证失败
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  allowed_states:
+    - 0
+    - 1
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: T日收盘后
+  execution_time: T+1交易日开盘
+  earliest_allowed_source_date: '2021-01-01'
+  position_rule_source: 既有冻结state_final逐日序列，禁止重算阈值、改状态或填补缺失
+
+dates:
+  frozen_signal_series_start: '2021-08-12'
+  frozen_signal_series_end: '2026-08-27'
+  primary_evaluation_start: '2022-03-09'
+  primary_evaluation_end: '2026-08-27'
+  periods:
+    DEVELOPMENT_2022_2025:
+      start: '2022-03-09'
+      end: '2025-12-31'
+      gate_eligible: true
+    TEMPORAL_REPLICATION_2026_YTD:
+      start: '2026-01-02'
+      end: '2026-08-27'
+      gate_eligible: true
+    COMBINED_2022_03_09_TO_2026_08_27:
+      start: '2022-03-09'
+      end: '2026-08-27'
+      gate_eligible: true
+    POST_CUTOFF_HOLDOUT_2026_08_17_TO_2026_08_27:
+      start: '2026-08-17'
+      end: '2026-08-27'
+      gate_eligible: false
+  primary_period: COMBINED_2022_03_09_TO_2026_08_27
+  temporal_replication_period: TEMPORAL_REPLICATION_2026_YTD
+
+inputs:
+  frozen_signal_states:
+    path: data/forward/510300_etf_microstructure_dual_shadow_v1/runs/20260828T115133+0800/daily_features_and_states.parquet
+    date_column: date
+    state_column: state_final
+  historical_etf_market:
+    path: data/raw/r6/510300_daily.parquet
+  historical_benchmark:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+  post_cutoff_etf_market:
+    path: data/forward/510300_etf_microstructure_dual_shadow_v1/snapshots/20260828T115021+0800_sse/510300_daily.parquet
+  post_cutoff_benchmark:
+    path: data/forward/510300_etf_microstructure_dual_shadow_v1/snapshots/20260828T115021+0800_sse/H00300_total_return_daily.parquet
+  dividends:
+    path: data/reference/510300_dividends.csv
+  candidate_config:
+    path: config/510300_etf_microstructure_dual_shadow_v1.yaml
+  candidate_manifest:
+    path: config/510300_etf_microstructure_dual_shadow_v1_manifest.json
+  candidate_forward_status:
+    path: reports/forward/510300_etf_microstructure_dual_shadow_v1_status.json
+  reverse_validation_report:
+    path: reports/validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/20260828T125705_0800.json
+
+execution:
+  initial_capital_cny: 20000.0
+  lot_size_shares: 100
+  paid_dividends_reinvested_at_earliest_next_open: true
+  cash_annual_rate: 0.0
+  annualization_trading_days: 242
+  start_perturbations_trading_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+
+costs:
+  base:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+  double:
+    commission_rate_per_leg: 0.0006
+    minimum_commission_cny_per_leg: 10.0
+    slippage_bps_per_leg: 10.0
+
+metrics:
+  sharpe_definition: 日简单收益均值除以样本标准差再乘sqrt(242)，现金收益率为0
+  annualized_return_definition: 日对数收益均值乘242后指数还原
+  h00300_benchmark: H00300全收益指数，不计交易成本
+  buy_hold_benchmark: 同期2万元、100股整数倍、基础成本、含分红510300买入持有
+  maximum_drawdown_definition: 净值除以前高减1
+  yearly_excess_contribution: 相对510300买入持有的逐日对数超额按自然年求和
+  completed_round_trip: 仓位首次降至0后再次恢复至1
+
+historical_gates:
+  net_sharpe_minimum: 1.20
+  annualized_excess_vs_h00300_must_be_positive: true
+  annualized_excess_vs_buy_hold_must_be_positive: true
+  maximum_drawdown_ratio_vs_buy_hold: 0.75
+  maximum_complete_round_trips_in_any_calendar_year: 10
+  every_start_perturbation_must_pass: true
+
+robustness_gates:
+  double_cost_sharpe_minimum: 0.90
+  leave_one_calendar_year_out_sharpe_must_be_positive: true
+  maximum_single_year_share_of_total_log_excess: 0.50
+  temporal_replication_excess_vs_both_benchmarks_must_be_positive: true
+
+adjudication:
+  macro_candidate_replacement_allowed: false
+  historical_candidate_status_if_all_gates_pass: HISTORICAL_POST_SELECTION_AUDIT_PASS_FORWARD_PROOF_STILL_REQUIRED
+  failed_status: HISTORICAL_POST_SELECTION_AUDIT_REJECTED_NO_RESCUE
+  insufficient_status: HISTORICAL_POST_SELECTION_AUDIT_INSUFFICIENT
+  parameter_rescue_after_result: forbidden
+  date_rescue_after_result: forbidden
+  cost_rescue_after_result: forbidden
+  benchmark_rescue_after_result: forbidden
+  start_offset_averaging_rescue_after_result: forbidden
+
+governance:
+  research_only: true
+  paper_or_shadow_position_mapping: disabled
+  order_generation: disabled
+  broker_connection: disabled
+  live_trading_authorized: false
+
+paths:
+  manifest: config/510300_frozen_microstructure_sharpe_audit_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_frozen_microstructure_sharpe_audit_v1_freeze_receipt.json
+  result: reports/audit/510300_frozen_microstructure_sharpe_audit_v1.json
+  metrics: data/research/510300_frozen_microstructure_sharpe_audit_v1/period_start_metrics.parquet
+  primary_ledger: data/research/510300_frozen_microstructure_sharpe_audit_v1/primary_start0_base_ledger.parquet
+  primary_trades: data/research/510300_frozen_microstructure_sharpe_audit_v1/primary_start0_base_trades.parquet

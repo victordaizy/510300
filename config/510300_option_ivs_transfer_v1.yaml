@@ -1,0 +1,103 @@
+protocol:
+  project_id: 510300_OPTION_IVS_TRANSFER_V1
+  state: FROZEN_BEFORE_510300_DEVELOPMENT_OUTCOMES
+  evidence_stage: EXTERNAL_RULE_TRANSFER_DEVELOPMENT_ONLY
+  deployable_strategy: false
+  factor_count: 1
+  upstream_vehicle_manifest: config/510300_option_trade_envelope_v1_manifest.json
+  upstream_vehicle_manifest_sha256: 85f17e9598757189fc8fa59875341a8bd44c652eda7807caa60a046651bdcb54
+  data_loader_manifest: config/510300_option_technical_rule_discovery_v1_manifest.json
+  data_loader_manifest_sha256: 6e1f7bb62c6f29b727cf0e50dc4ba82422d82ac439c2c97ad5d7c5e8a9be9b93
+
+research_basis:
+  title: 'Implied Volatility Spreads and Stock Market Return Predictability in China: Informed Trading or Liquidity Demand?'
+  source_url: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5178093
+  original_underlying: SSE50 ETF
+  original_formula: 同执行价同到期认购IV减认沽IV，按合约对持仓量占比加权
+  original_prediction_sign: negative
+  transfer_target: 510300 ETF options and H00300 total-return direction
+  direct_generalization_claim: false
+
+dates:
+  monthly_training_start: '2019-12-23'
+  first_strategy_signal_month: '2021-01'
+  development_end: '2023-12-29'
+  validation_start: '2024-01-01'
+  validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  validation_or_holdout_access_authorized: false
+
+ivs:
+  adjusted_contracts_allowed: false
+  minimum_calendar_days_to_expiry: 5
+  minimum_open_interest_each_side: 1
+  minimum_iv: 0.01
+  maximum_iv: 3.0
+  call_put_pair_key: [trade_date, expiry_date, strike]
+  pair_weight: call_open_interest_plus_put_open_interest
+  aggregation: sum(pair_weight*(call_iv-put_iv))/sum(pair_weight)
+  maximum_signal_staleness_calendar_days: 7
+
+model:
+  frequency: calendar_month_end
+  target: H00300从月末后首个交易日至下一月末的简单总收益
+  estimator: expanding_ols_intercept_plus_ivs
+  coefficient_constraint: beta_ivs_less_than_or_equal_to_zero
+  minimum_mature_training_months: 12
+  action: forecast_nonnegative_call_else_put
+  parameter_search_allowed: false
+  threshold_search_allowed: false
+
+contract_selection:
+  adjusted_contracts_allowed: false
+  contract_unit_required: 10000
+  minimum_calendar_days_to_expiry: 45
+  maximum_calendar_days_to_expiry: 120
+  absolute_delta_minimum: 0.75
+  absolute_delta_maximum: 0.95
+  target_absolute_delta: 0.85
+  target_calendar_days_to_expiry: 75
+  minimum_signal_day_volume: 50
+  minimum_signal_day_open_interest: 200
+  minimum_signal_premium_per_contract_cny: 2000
+  maximum_signal_premium_per_contract_cny: 10000
+  target_total_signal_premium_cny: 7000
+  maximum_contracts: 3
+  tie_break:
+    - absolute_delta_distance
+    - expiry_distance
+    - volume_descending
+    - contract_code_ascending
+
+execution_envelope:
+  entry_price: 月末后首个交易日该合约日内最高成交价
+  exit_price: 下一月末该合约日内最低成交价
+  missing_entry_trade: 不成交并持有现金
+  missing_exit_trade: 退出价值按零计
+  option_fee_cny_per_contract_per_leg: 5.0
+  initial_cash_cny: 20000
+  minimum_opening_trade_notional_cny: 5000
+  insufficient_cash: 订单拒绝并持有现金
+  cash_interest_rate: 0.0
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  annualized_excess_minimum: 0.20
+  minimum_opening_trade_gate: true
+  development_pass_does_not_authorize_validation: true
+
+paths:
+  manifest: config/510300_option_ivs_transfer_v1_manifest.json
+  result_json: reports/discovery/510300_option_ivs_transfer_v1_dev.json
+  result_markdown: reports/discovery/510300_option_ivs_transfer_v1_dev.md
+  monthly_predictions: data/features/510300_option_ivs_transfer_v1_dev_predictions.parquet
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  failed_transfer_parameter_rescue: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

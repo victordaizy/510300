@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-08-19T05:16:06+08:00",
+  "model_id": "510300_DEFENSIVE_VALUATION_TIMING_R5",
+  "evidence_period": {
+    "start_date": "2021-08-12",
+    "end_date": "2026-08-12",
+    "observations": 1211
+  },
+  "overall_status": "BLOCKED_SOURCE_DRIFT",
+  "derived_signal_replay": {
+    "status": "PASS_PRESERVED_DERIVED_SIGNAL_SNAPSHOT",
+    "scope": "The frozen derived baseline and enhanced signal snapshots can be replayed as fixed inputs only.",
+    "does_not_prove": [
+      "raw_source_reproducibility",
+      "feature_reconstruction_reproducibility",
+      "full_model_reproducibility"
+    ],
+    "evidence": [
+      {
+        "path": "data/processed/round5_defensive_valuation_timing/enhanced_signals.parquet",
+        "sha256": "59d5016e42aec972dd6a0f7e2aa972bfa04ac87205f5026f5f4f1b7d2a1ea289"
+      },
+      {
+        "path": "data/processed/round5_defensive_valuation_timing/baseline_signals.parquet",
+        "sha256": "54363bd4b4a42da4b5763f1bad6c0f84c2d00498babf690632ed3dcff672c3a6"
+      }
+    ]
+  },
+  "raw_model_replay": {
+    "status": "BLOCKED_SOURCE_DRIFT_CURRENT_MARKET_CAP_MISSING",
+    "current_constituent_market_cap_non_null_ratio": 0.0,
+    "full_replay_claim_allowed": false,
+    "resolution_required": "Restore and version the original point-in-time constituent market-cap source and reproduce every upstream feature before claiming full replay."
+  },
+  "shapley_boundary": {
+    "input": "preserved_derived_signal_snapshot",
+    "descriptive_only": true,
+    "causal_claim_allowed": false,
+    "new_strategy_evidence_allowed": false,
+    "values_annualized_active_return": {
+      "valuation": 0.0063,
+      "trend": 0.0005,
+      "risk": -0.0009,
+      "third_order_interaction": -0.0035
+    }
+  },
+  "authorization": {
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false
+  },
+  "evidence_files": [
+    {
+      "path": "config/model_layer_rebuild_v1_manifest.json",
+      "sha256": "b5a46f6e0332d06af64dd862705e5201839c02cf206522ff8c16ee749865773d"
+    },
+    {
+      "path": "reports/data_quality/model_layer_rebuild_v1_data_gate.json",
+      "sha256": "7bfd128e814e0015765c7e05baa9f4324133f1b16187292a53f3f20f8bbaec3c"
+    },
+    {
+      "path": "reports/backtest/model_layer_rebuild_v1.json",
+      "sha256": "172a626d9c8a572cf0d8c0a544729a72c936a1fb8fe6d617a9d8f24eb1ed79e0"
+    }
+  ]
+}

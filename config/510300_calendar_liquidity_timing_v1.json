@@ -1,0 +1,141 @@
+{
+  "study_id": "510300_CALENDAR_LIQUIDITY_TIMING_V1",
+  "version": "1.0.0",
+  "evidence_class": "PREQUENTIAL_REPLAY_OF_ALREADY_OBSERVED_HISTORY",
+  "shadow_start": "2015-01-05",
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "gamma": 4.0,
+  "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "weight_band": 0.1,
+  "minimum_train_samples": 300,
+  "random_seed": 20260906,
+  "models": [
+    {
+      "id": "CALENDAR_RIDGE_H1",
+      "group": "CALENDAR",
+      "kind": "RIDGE",
+      "horizon": 1
+    },
+    {
+      "id": "CALENDAR_ET_H1",
+      "group": "CALENDAR",
+      "kind": "ET",
+      "horizon": 1
+    },
+    {
+      "id": "PRICE_RIDGE_H1",
+      "group": "PRICE",
+      "kind": "RIDGE",
+      "horizon": 1
+    },
+    {
+      "id": "PRICE_ET_H1",
+      "group": "PRICE",
+      "kind": "ET",
+      "horizon": 1
+    },
+    {
+      "id": "FULL_RIDGE_H1",
+      "group": "FULL",
+      "kind": "RIDGE",
+      "horizon": 1
+    },
+    {
+      "id": "FULL_ET_H1",
+      "group": "FULL",
+      "kind": "ET",
+      "horizon": 1
+    }
+  ],
+  "rule_names": {
+    "K1_PRIMARY_MONTH_START3": "主方案：每月前三个交易日",
+    "K2_MONTH_EDGE": "月末五个自然日与月初三日",
+    "K3_QUARTER_START3": "每季度首月前三个交易日",
+    "K4_POST_LONG_BREAK3": "长休市之后前三个交易日",
+    "K5_EQUAL_EVENT_VOTE": "四类日历条件等权"
+  },
+  "meta_names": {
+    "K6_CALENDAR_CONSENSUS": "CALENDAR",
+    "K7_PRICE_CONSENSUS": "PRICE",
+    "K8_FULL_CONSENSUS": "FULL"
+  },
+  "primary": "K1_PRIMARY_MONTH_START3",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "bootstrap_repetitions": 2000,
+  "bootstrap_day_block": 20,
+  "inputs": {
+    "prices": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "original_prices": "data/raw/r6/510300_daily.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "calendar": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+    "price_receipt": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "dividend_coverage": "reports/research/510300_adaptive_allocation_v1/frozen_inputs/dividend_coverage.json",
+    "corrections": "data/reference/510300_downside_risk_price_corrections_v1.csv"
+  },
+  "scope": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "live_trading_authorized": false,
+  "position_impact": 0,
+  "future_service_started": false,
+  "one_historical_run": true,
+  "authorization": "config/510300_research_authority_v6.json",
+  "model_start": "2019-12-31",
+  "calendar_first_month_sessions": 3,
+  "calendar_month_end_natural_days": 5,
+  "long_break_minimum_date_gap_days": 4,
+  "post_break_sessions": 3,
+  "calendar_columns": [
+    "weekday_mon",
+    "weekday_tue",
+    "weekday_wed",
+    "weekday_thu",
+    "weekday_fri",
+    "month_phase_sin",
+    "month_phase_cos",
+    "year_phase_sin",
+    "year_phase_cos",
+    "month_ordinal_scaled",
+    "remaining_calendar_days_scaled",
+    "month_first3",
+    "month_last5_calendar",
+    "quarter_first3",
+    "quarter_last5_calendar",
+    "reopen_gap_log",
+    "post_break_first3",
+    "month_edge"
+  ],
+  "decision_clock": "EXECUTION_DAY_09_00_ASIA_SHANGHAI",
+  "calendar_uses_no_sessions_after_execution_date": true,
+  "calendar_source_first_delivery_proven": false,
+  "diagnostic_only_zero_cost_models": [
+    "K1_PRIMARY_MONTH_START3",
+    "K8_FULL_CONSENSUS"
+  ]
+}

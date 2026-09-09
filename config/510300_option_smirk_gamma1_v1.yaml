@@ -1,0 +1,117 @@
+protocol:
+  project_id: 510300_OPTION_SMIRK_GAMMA1_V1
+  state: DISCOVERY_EXTERNAL_FORMULA_TRANSFER_PRE_OUTCOME_FREEZE
+  purpose: 将风险中性偏度对认购期权收益的负向预测迁移为2万元单合约策略
+  deployable_strategy: false
+  factor_count: 1
+
+external_sources:
+  predictive_paper:
+    title: The Dynamics of Option Volatility Smirk and Option Returns Predictability
+    doi: 10.1002/fut.22590
+    url: https://www.researchgate.net/publication/391086786_The_Dynamics_of_Option_Volatility_Smirk_and_Option_Returns_Predictability_Evidence_From_Chinese_SSE50_ETF_Options
+    disclosed_relation: 风险中性偏度对未来1日至4周认购期权Delta中性收益为负向预测
+  curve_method:
+    title: The implied volatility smirk
+    doi: 10.1080/14697680701410247
+    formula: IV(xi)=gamma0*(1+gamma1*xi+gamma2*xi^2)
+  transfer_warning: 原论文使用50ETF及Delta中性收益，本协议使用300ETF单合约只做多，属于迁移检验
+
+dates:
+  feature_history_start: '2020-01-02'
+  strategy_start: '2021-01-04'
+  development_end: '2023-12-29'
+  reserved_validation_start: '2024-01-01'
+  reserved_validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  validation_or_holdout_read_authorized: false
+
+inputs:
+  option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    sha256: 6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064
+  option_risk:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    sha256: e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035
+  benchmark:
+    path: data/raw/market/H00300_total_return_daily_raw.parquet
+    sha256: 90ded420f641f05a8ab8c9cfeb6f8df4172e9e1ea43995005df1cdecd5e9c5ab
+
+smirk_construction:
+  risk_free_annual_rate: 0.015
+  target_constant_maturity_calendar_days: 30
+  minimum_distinct_strikes_per_expiry: 5
+  implied_volatility_minimum: 0.03
+  implied_volatility_maximum: 2.00
+  use_otm_options_only: true
+  forward_price: 同到期月认购认沽收盘价差绝对值最小的行权价按认沽认购平价推导
+  atm_volatility: 行权价最接近远期价格的认购认沽隐含波动率均值
+  standardized_moneyness: log(strike/forward)/(atm_iv*sqrt(dte_years))
+  fit: 以成交量为权重拟合IV=alpha0+alpha1*xi+alpha2*xi^2
+  gamma1: alpha1/alpha0
+  constant_maturity: 用30日前后两个到期月的gamma1按日历期限线性插值
+
+signal:
+  factor_name: gamma1_30d
+  trailing_window_trading_days: 252
+  lower_quantile: 0.20
+  threshold_lag_trading_days: 1
+  action: 当日gamma1_30d不高于此前252日的20%分位数时买入认购，否则持有现金
+
+schedule:
+  signal_time: t日收盘后
+  entry_time: t+1交易日
+  exit_time: 入场后第20个交易日
+  holding_trading_days: 20
+  overlap_allowed: false
+  next_signal_may_use_exit_day_close: true
+
+contract_selection:
+  option_type: C
+  adjusted_contracts_allowed: false
+  contract_unit_required: 10000
+  minimum_calendar_days_to_expiry: 35
+  maximum_calendar_days_to_expiry: 90
+  absolute_delta_minimum: 0.70
+  absolute_delta_maximum: 0.95
+  target_absolute_delta: 0.85
+  target_calendar_days_to_expiry: 60
+  minimum_signal_day_volume: 100
+  minimum_signal_day_open_interest: 500
+  minimum_signal_premium_per_contract_cny: 2000
+  maximum_signal_premium_per_contract_cny: 10000
+  target_signal_notional_cny: 7000
+  maximum_contracts: 4
+
+execution_envelope:
+  entry_price: 次一交易日该合约日内最高成交价
+  exit_price: 退出交易日该合约日内最低成交价
+  missing_entry_trade: 不成交并持有现金
+  missing_exit_trade: 退出价值按零计
+  option_fee_cny_per_contract_per_leg: 5.0
+  initial_cash_cny: 20000
+  minimum_opening_trade_notional_cny: 5000
+  insufficient_cash: 订单拒绝并持有现金
+  small_opening_trade: 订单拒绝并持有现金
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  metric: 几何年化策略收益率减几何年化基准收益率
+  annualized_excess_threshold: 0.20
+  minimum_executed_trades: 10
+
+paths:
+  manifest: config/510300_option_smirk_gamma1_v1_manifest.json
+  result_json: reports/discovery/510300_option_smirk_gamma1_v1_dev.json
+  result_markdown: reports/discovery/510300_option_smirk_gamma1_v1_dev.md
+  feature_parquet: data/features/510300_option_smirk_gamma1_v1_dev.parquet
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  parameter_search: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

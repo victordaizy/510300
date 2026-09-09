@@ -1,0 +1,219 @@
+protocol:
+  study_id: 510300_MACRO_STRESS_AVOIDANCE_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  research_mode: DISCOVERY_ONLY
+  user_scope_override: 仅使用2021-01-01及以后数据，不读取2016-2020
+  data_start: '2021-01-01'
+  data_end: '2026-08-25'
+  latest_complete_month: '2026-07'
+  allowed_assets:
+    - 510300.SH
+    - CASH_CNY
+  forbidden_assets: ALL_OTHERS
+  main_model_id: 510300_MACRO_STRESS_AVOIDANCE_V1_5Y
+  robustness_model_id: 510300_MACRO_STRESS_AVOIDANCE_V1_3Y
+  main_trailing_years: 5
+  robustness_trailing_years: 3
+  percentile: 0.90
+  percentile_interpolation: linear
+  no_parameter_rescue: true
+  event_gate_before_portfolio: true
+  historical_event_run_limit: 1
+  conditional_portfolio_run_limit: 1
+
+data_contracts:
+  fdr007:
+    file: data/raw/macro/fdr007_daily.parquet
+    required_sha256: cf46d66001dc15570b0d90dd1a2ad1c03d0c8cdf8d35c97c8f78855f72cb66dc
+    value_field: first_release_value
+  usdcny_midpoint:
+    file: data/raw/macro/usdcny_midpoint_daily.parquet
+    required_sha256: a3779e83148ea1de13c4755cc8c63cde5e184d6a4983494c8fb7b7a7283e829a
+    value_field: first_release_value
+  pmi_new_orders:
+    file: data/raw/macro/pmi_new_orders_release_vintage.parquet
+    required_sha256: ec72ffc6d095eb2430c809d4458e77c227d463474b31ca21b1e3dee3ab929304
+    value_field: first_release_value
+  tsf_stock_yoy:
+    file: data/raw/macro/tsf_stock_yoy_release_vintage.parquet
+    required_sha256: 846550bfc7302b6d274d53bdbc3d116e21fed08c1e12b7535f50b092d9d6b83f
+    value_field: first_release_value
+  macro_input_audit:
+    file: reports/data_quality/510300_macro_stress_inputs_v1.json
+    required_sha256: 70f9fa5e4ba8a50e829cd5e77c69d480c1d5d7df6c4ec36a2c734d7610a8bd83
+    required_status: PASS
+  etf_market:
+    file: data/raw/market/510300_daily_raw.parquet
+    required_sha256: 640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4
+  benchmark_total_return:
+    file: data/raw/market/H00300_total_return_daily_raw.parquet
+    required_sha256: 49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733
+  etf_dividends:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+  backtest_engine:
+    file: backtest/engine.py
+    required_sha256: 3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc
+
+point_in_time:
+  timezone: Asia/Shanghai
+  signal_cutoff: '15:00:00'
+  execution: NEXT_TRADING_DAY_OPEN
+  current_observation_excluded_from_percentile: true
+  trailing_window_type: EXACT_CALENDAR_YEARS
+  expanding_window_forbidden: true
+  shortened_window_forbidden: true
+  latest_revision_for_trading_forbidden: true
+  fdr007_publication_time: '11:30:00'
+  usdcny_publication_time: '09:15:00'
+  monthly_join_key: available_at
+  monthly_value_field: first_release_value
+
+factor_rules:
+  liquidity:
+    formula: MEDIAN_5_FDR007_MINUS_MEDIAN_60_FDR007
+    median_short_observations: 5
+    median_long_observations: 60
+    stress_operator: STRICT_GREATER_THAN_TRAILING_Q90
+  growth:
+    formula: PMI_NEW_ORDERS_LT_50_AND_LT_T_MINUS_3_MONTHS
+    threshold: 50.0
+    lag_months: 3
+  credit:
+    formula: TSF_STOCK_YOY_LT_T_MINUS_3_MONTHS
+    lag_months: 3
+  fx:
+    formula: LOG_USDCNY_T_OVER_T_MINUS_20
+    lag_observations: 20
+    stress_operator: STRICT_GREATER_THAN_TRAILING_Q90
+  score:
+    formula: LIQUIDITY_STRESS_PLUS_GROWTH_STRESS_PLUS_CREDIT_STRESS_PLUS_FX_STRESS
+    raw_target_mapping:
+      '0': 1.0
+      '1': 1.0
+      '2': 0.5
+      '3': 0.0
+      '4': 0.0
+
+recovery_rule:
+  worsening: IMMEDIATE_TO_RAW_TARGET
+  improving_confirmation_trading_days: 5
+  improvement_must_remain_in_same_raw_band: true
+  upward_step: 0.5
+  confirmation_resets_after_each_upward_step: true
+  initial_target_position: 1.0
+
+event_study:
+  model: 5Y_ONLY
+  onset: YESTERDAY_SCORE_LT_2_AND_TODAY_SCORE_GE_2
+  both_days_must_be_model_eligible: true
+  minimum_spacing_trading_days: 20
+  spacing_ordinal_difference_operator: GREATER_THAN_OR_EQUAL
+  horizons_trading_days:
+    - 5
+    - 20
+    - 60
+    - 120
+  primary_horizon_trading_days: 20
+  primary_outcome: 510300_FORWARD_TOTAL_RETURN_WITH_DIVIDENDS
+  secondary_outcome: PRIMARY_MINUS_H00300_TOTAL_RETURN
+  control_definition: ALL_ELIGIBLE_SCORE_LT_2_DATES_WITH_COMPLETE_HORIZON
+  minimum_independent_events: 8
+  minimum_negative_fraction: 0.60
+  delete_worst_event_check: MEAN_AND_MEDIAN_REMAIN_BELOW_CONTROLS
+  minimum_distinct_event_years: 2
+
+execution:
+  initial_cash_cny: 20000.0
+  lot_size_shares: 100
+  same_close_execution_forbidden: true
+  intraday_override_forbidden: true
+  pnl_override_forbidden: true
+  stop_loss_take_profit_override_forbidden: true
+  complete_round_trip_definition: FIRST_DROP_BELOW_100_PERCENT_UNTIL_RETURN_TO_100_PERCENT
+  maximum_complete_round_trips_per_calendar_year: 10
+
+costs:
+  base:
+    commission_rate: 0.0003
+    minimum_commission_cny: 5.0
+    stamp_duty_rate: 0.0
+    slippage_bps_one_way: 5.0
+    cash_annual_rate: 0.0
+  double:
+    commission_rate: 0.0006
+    minimum_commission_cny: 10.0
+    stamp_duty_rate: 0.0
+    slippage_bps_one_way: 10.0
+    cash_annual_rate: 0.0
+  dividends: SEPARATELY_CREDITED_FROM_FROZEN_REFERENCE_FILE
+
+benchmarks:
+  primary:
+    symbol: H00300
+    type: TOTAL_RETURN_INDEX
+  secondary:
+    symbol: 510300.SH
+    type: BUY_AND_HOLD_WITH_DIVIDENDS_AND_BASE_EXECUTION_COSTS
+
+historical_gates:
+  five_year_net_sharpe_minimum: 1.20
+  five_year_annualized_excess_vs_h00300_strictly_positive: true
+  five_year_annualized_excess_vs_buy_hold_strictly_positive: true
+  max_drawdown_ratio_vs_buy_hold_maximum: 0.75
+  maximum_complete_round_trips_per_year: 10
+
+robustness_gates:
+  three_year_net_sharpe_minimum: 0.90
+  three_year_excess_vs_both_benchmarks_strictly_positive: true
+  double_cost_five_year_sharpe_minimum: 0.90
+  leave_one_calendar_year_out_sharpe_strictly_positive: true
+  maximum_single_year_share_of_total_log_excess: 0.50
+  maximum_single_risk_cycle_share_of_total_log_excess: 0.50
+  minimum_independent_events: 8
+
+stop_rules:
+  five_year_net_sharpe_below: 0.80
+  five_year_net_excess_nonpositive: true
+  only_three_year_passes: REJECT
+  leave_one_year_excess_clearly_negative: REJECT
+  more_than_half_return_from_one_crisis: REJECT
+  insufficient_events: REJECT_WITHOUT_PORTFOLIO_BACKTEST
+  percentile_changes_forbidden:
+    - 0.85
+    - 0.92
+    - 0.95
+  feature_rescue_forbidden:
+    - moving_average
+    - volatility_target
+    - valuation
+    - MACD
+    - stop_loss
+    - take_profit
+
+artifacts:
+  freeze_manifest: config/510300_macro_stress_avoidance_v1_manifest.json
+  point_in_time_panel: data/processed/macro/macro_point_in_time_panel.parquet
+  event_table: reports/research/510300_macro_stress_avoidance_v1_events.parquet
+  control_table: reports/research/510300_macro_stress_avoidance_v1_controls.parquet
+  five_year_ledger: reports/research/510300_macro_stress_avoidance_v1_5y_ledger.parquet
+  five_year_trades: reports/research/510300_macro_stress_avoidance_v1_5y_trades.parquet
+  three_year_ledger: reports/research/510300_macro_stress_avoidance_v1_3y_ledger.parquet
+  three_year_trades: reports/research/510300_macro_stress_avoidance_v1_3y_trades.parquet
+  double_cost_ledger: reports/research/510300_macro_stress_avoidance_v1_5y_double_cost_ledger.parquet
+  double_cost_trades: reports/research/510300_macro_stress_avoidance_v1_5y_double_cost_trades.parquet
+  buy_hold_ledger: reports/research/510300_macro_stress_avoidance_v1_buy_hold_ledger.parquet
+  buy_hold_trades: reports/research/510300_macro_stress_avoidance_v1_buy_hold_trades.parquet
+  report_json: reports/research/510300_macro_stress_avoidance_v1_result.json
+  report_markdown: reports/research/510300_macro_stress_avoidance_v1_result.md
+
+governance:
+  portfolio_backtest_status_before_event_gate: NOT_ALLOWED
+  historical_pass_label: HISTORICAL_CANDIDATE_PASS
+  forward_shadow_required: true
+  minimum_new_shadow_trading_days: 252
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false

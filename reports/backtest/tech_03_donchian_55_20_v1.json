@@ -1,0 +1,1796 @@
+{
+  "project_id": "TECH_03_DONCHIAN_55_20_V1",
+  "generated_at": "2026-08-18T21:01:28.833545+08:00",
+  "data_cutoff": "2026-08-14",
+  "evidence_label": "HISTORICALLY_CONTAMINATED",
+  "true_forward_start": null,
+  "research_only": true,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "manifest_sha256": "16063b3b15b4dff149cd0c3aaecaa957865f5589ffb282140c68fb58b2b6c7f1",
+  "data_gate": {
+    "project_id": "TECH_03_DONCHIAN_55_20_V1",
+    "data_cutoff": "2026-08-14",
+    "status": "PASS",
+    "return_calculation_allowed": true,
+    "branches": {
+      "etf_market": {
+        "file": "data/raw/r6/510300_daily.parquet",
+        "sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+        "sha256_matches": true,
+        "rows": 3456,
+        "rows_match": true,
+        "first_date": "2012-05-28",
+        "last_date": "2026-08-14",
+        "dates_match": true,
+        "missing_columns": [],
+        "duplicate_dates": 0,
+        "symbols": [
+          "510300.SH"
+        ],
+        "missing_or_nonpositive_prices": 0,
+        "invalid_ohlc_rows": 0,
+        "status": "PASS"
+      },
+      "price_index": {
+        "file": "data/raw/r6/000300_daily.parquet",
+        "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+        "sha256_matches": true,
+        "rows": 3456,
+        "rows_match": true,
+        "first_date": "2012-05-28",
+        "last_date": "2026-08-14",
+        "dates_match": true,
+        "missing_columns": [],
+        "duplicate_dates": 0,
+        "symbols": [
+          "000300.SH"
+        ],
+        "missing_or_nonpositive_prices": 0,
+        "invalid_ohlc_rows": 0,
+        "status": "PASS"
+      },
+      "total_return_index": {
+        "file": "data/raw/r6/H00300_total_return_daily.parquet",
+        "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+        "sha256_matches": true,
+        "rows": 3457,
+        "rows_match": true,
+        "first_date": "2012-05-28",
+        "last_date": "2026-08-14",
+        "dates_match": true,
+        "missing_columns": [],
+        "duplicate_dates": 0,
+        "symbols": [
+          "H00300"
+        ],
+        "missing_or_nonpositive_prices": 0,
+        "invalid_ohlc_rows": 0,
+        "status": "PASS"
+      },
+      "distributions": {
+        "file": "data/reference/510300_dividends.csv",
+        "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+        "coverage_sha256": "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f",
+        "event_count": 14,
+        "first_ex_date": "2012-12-18",
+        "last_ex_date": "2026-01-19",
+        "duplicate_ex_dates": 0,
+        "nonpositive_amounts": 0,
+        "coverage_complete": true,
+        "coverage_start": "2012-05-28",
+        "coverage_end": "2026-08-14",
+        "coverage_distribution_hash_matches": true,
+        "status": "PASS"
+      },
+      "synthetic_total_return_ohlc": {
+        "method": "H00300_CLOSE_RATIO_SCALED_000300_OHLC",
+        "official_h00300_ohlc_claimed": false,
+        "rows": 3456,
+        "positive_scale_factor": true,
+        "maximum_close_identity_error": 9.094947017729282e-13,
+        "close_identity_within_1e_10": true,
+        "invalid_ohlc_rows": 0,
+        "status": "PASS"
+      }
+    },
+    "calendar": {
+      "etf_equals_price_index_calendar": true,
+      "missing_total_return_execution_dates": [],
+      "extra_total_return_dates": [
+        "2018-06-18"
+      ],
+      "extra_total_return_dates_allowed": true
+    }
+  },
+  "trial_registry": {
+    "registered_trial_count": 3,
+    "return_tested_trial_count_after_run": 2,
+    "trials": [
+      {
+        "id": "T0_DONCHIAN_20_10",
+        "entry_days": 20,
+        "exit_days": 10,
+        "status": "SUPERSEDED_BEFORE_RETURN_RUN",
+        "return_calculated": false,
+        "source_protocol": "510300_DONCHIAN_DISCOVERY_V1"
+      },
+      {
+        "id": "TECH_03_DONCHIAN_55_20_V1",
+        "entry_days": 55,
+        "exit_days": 20,
+        "status": "PRIMARY_TO_RUN",
+        "return_calculated": true
+      },
+      {
+        "id": "TECH_03_DONCHIAN_100_50_ROBUSTNESS_V1",
+        "entry_days": 100,
+        "exit_days": 50,
+        "status": "FIXED_ROBUSTNESS_TO_RUN",
+        "return_calculated": true
+      }
+    ]
+  },
+  "variants": {
+    "TECH_03_DONCHIAN_55_20_V1": {
+      "role": "PRIMARY",
+      "entry_lookback_trading_days": 55,
+      "exit_lookback_trading_days": 20,
+      "first_signal_eligible_date": "2012-08-14",
+      "signal_count": 52,
+      "closed_cycle_count": 26,
+      "average_holding_trading_days": 47.88461538461539,
+      "theoretical_base": {
+        "layer": "theoretical",
+        "stress_cost": false,
+        "strategy": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.418669788283545,
+          "cagr": 0.06488234587185682,
+          "annualized_volatility": 0.12933591578786235,
+          "sharpe_excess_cash": 0.43496910435323616,
+          "sortino_excess_cash": 0.6306378994699515,
+          "maximum_drawdown": -0.24213129980152392,
+          "calmar": 0.26796348066128234,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.35782306262714736,
+          "trade_count": 52,
+          "turnover_over_average_equity": 51.57234298830292,
+          "commission_cny_or_wealth_units": 0.03242974615158863,
+          "slippage_cny_or_wealth_units": 0.054049833935176324,
+          "total_execution_cost_cny_or_wealth_units": 0.08647958008676496,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.418669788283545
+        },
+        "buy_hold": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.385014232916034,
+          "cagr": 0.06382079466348589,
+          "annualized_volatility": 0.20367635329220593,
+          "sharpe_excess_cash": 0.33237767530270884,
+          "sortino_excess_cash": 0.46917182929089196,
+          "maximum_drawdown": -0.4433316092374465,
+          "calmar": 0.14395723953286568,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.91409480283522,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5765109209365439,
+          "commission_cny_or_wealth_units": 0.0002999286164563854,
+          "slippage_cny_or_wealth_units": 0.0004996312118214034,
+          "total_execution_cost_cny_or_wealth_units": 0.0007995598282777887,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.385014232916034
+        },
+        "h00300": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.7251273224323853,
+          "cagr": 0.07396294126219094,
+          "annualized_volatility": 0.20991888531399563,
+          "sharpe_excess_cash": 0.3739204138431253,
+          "sortino_excess_cash": 0.5228044754610033,
+          "maximum_drawdown": -0.4605885528983087,
+          "calmar": 0.16058354207192138,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997059688326962,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.7251273224323853
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": 0.0010615512083691492,
+          "information_ratio": -0.06948627881140859,
+          "upside_capture": 0.4040755156349022,
+          "downside_capture": 0.36592804889828784,
+          "active_maximum_drawdown": -0.34980472660374695,
+          "daily_relative_win_rate": 0.5091176470588236,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.0001396133122752441,
+              "positive_ratio": 0.49936708860759493,
+              "minimum": -0.2326601177853581,
+              "maximum": 0.5429553698764409
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.030576368711270563,
+              "positive_ratio": 0.5510623714873201,
+              "minimum": -0.2670974923173959,
+              "maximum": 0.3592883074598794
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.009080595390334789,
+          "information_ratio": -0.13017976994426572,
+          "upside_capture": 0.367737030433253,
+          "downside_capture": 0.33327963153726325,
+          "active_maximum_drawdown": -0.40950481044473885,
+          "daily_relative_win_rate": 0.4888235294117647,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.008050768979309286,
+              "positive_ratio": 0.4825949367088608,
+              "minimum": -0.26094134308268424,
+              "maximum": 0.5700185536044471
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.027193666149192164,
+              "positive_ratio": 0.5246744345442084,
+              "minimum": -0.3231553989769059,
+              "maximum": 0.3596820441085782
+            }
+          }
+        }
+      },
+      "theoretical_stress": {
+        "layer": "theoretical",
+        "stress_cost": true,
+        "strategy": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.3202838604826779,
+          "cagr": 0.06173938254979583,
+          "annualized_volatility": 0.12935329910380008,
+          "sharpe_excess_cash": 0.41207318449199365,
+          "sortino_excess_cash": 0.5968131021170345,
+          "maximum_drawdown": -0.2529486884791434,
+          "calmar": 0.24407868220627865,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.35782306262714736,
+          "trade_count": 52,
+          "turnover_over_average_equity": 51.44357868497846,
+          "commission_cny_or_wealth_units": 0.06335384694148358,
+          "slippage_cny_or_wealth_units": 0.10559076758156964,
+          "total_execution_cost_cny_or_wealth_units": 0.1689446145230532,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.320283860482678
+        },
+        "buy_hold": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.3831081990710703,
+          "cagr": 0.06376025976812638,
+          "annualized_volatility": 0.20367873804274303,
+          "sharpe_excess_cash": 0.3320967065898962,
+          "sortino_excess_cash": 0.46877013556603253,
+          "maximum_drawdown": -0.4433316092374463,
+          "calmar": 0.14382069412509832,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9140948028352203,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5767989541217137,
+          "commission_cny_or_wealth_units": 0.0005996773836524532,
+          "slippage_cny_or_wealth_units": 0.0009984638422450012,
+          "total_execution_cost_cny_or_wealth_units": 0.0015981412258974544,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.3831081990710703
+        },
+        "h00300": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.7251273224323853,
+          "cagr": 0.07396294126219094,
+          "annualized_volatility": 0.20991888531399563,
+          "sharpe_excess_cash": 0.3739204138431253,
+          "sortino_excess_cash": 0.5228044754610033,
+          "maximum_drawdown": -0.4605885528983087,
+          "calmar": 0.16058354207192138,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997059688326962,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.7251273224323853
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": -0.0020208772183303303,
+          "information_ratio": -0.08704344083877938,
+          "upside_capture": 0.40227113952350385,
+          "downside_capture": 0.36693202720187745,
+          "active_maximum_drawdown": -0.3662103245061068,
+          "daily_relative_win_rate": 0.5097058823529412,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.0023320848965081575,
+              "positive_ratio": 0.4939873417721519,
+              "minimum": -0.2357237379084529,
+              "maximum": 0.5429553698764409
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.024019916273985142,
+              "positive_ratio": 0.54592186429061,
+              "minimum": -0.27408466677266763,
+              "maximum": 0.3506280258243655
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.012223558712395999,
+          "information_ratio": -0.14740696104971587,
+          "upside_capture": 0.3660720026067635,
+          "downside_capture": 0.33422947328679264,
+          "active_maximum_drawdown": -0.4244040676979005,
+          "daily_relative_win_rate": 0.48764705882352943,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.010348800821208537,
+              "positive_ratio": 0.4781645569620253,
+              "minimum": -0.26565002488252176,
+              "maximum": 0.5700185536044471
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.020560077664110943,
+              "positive_ratio": 0.518848526387937,
+              "minimum": -0.3296081416771728,
+              "maximum": 0.3542683269319049
+            }
+          }
+        }
+      },
+      "small_account_base": {
+        "layer": "small_account",
+        "stress_cost": false,
+        "strategy": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.4126099664232292,
+          "cagr": 0.06469222613718917,
+          "annualized_volatility": 0.1287389123504556,
+          "sharpe_excess_cash": 0.43499910303470074,
+          "sortino_excess_cash": 0.6306174654286477,
+          "maximum_drawdown": -0.24107071743785302,
+          "calmar": 0.26835372966385496,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.35653579275387726,
+          "trade_count": 52,
+          "turnover_over_average_equity": 51.35012798738347,
+          "commission_cny_or_wealth_units": 643.8739721699999,
+          "slippage_cny_or_wealth_units": 1073.1283999998884,
+          "total_execution_cost_cny_or_wealth_units": 1717.0023721698883,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 48252.19932846459
+        },
+        "buy_hold": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.373136036507566,
+          "cagr": 0.0634428127619775,
+          "annualized_volatility": 0.2022440432721777,
+          "sharpe_excess_cash": 0.3315296087053879,
+          "sortino_excess_cash": 0.46787143860429425,
+          "maximum_drawdown": -0.4411735048908213,
+          "calmar": 0.14380467561776608,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9076081204002423,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5726757596261958,
+          "commission_cny_or_wealth_units": 5.936636835,
+          "slippage_cny_or_wealth_units": 9.8894500000001,
+          "total_execution_cost_cny_or_wealth_units": 15.8260868350001,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 47462.72073015132
+        },
+        "h00300": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.7251273224323769,
+          "cagr": 0.07396294126219072,
+          "annualized_volatility": 0.20991888531399563,
+          "sharpe_excess_cash": 0.37392041384312424,
+          "sortino_excess_cash": 0.5228044754610018,
+          "maximum_drawdown": -0.4605885528983097,
+          "calmar": 0.16058354207192055,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997059688326962,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 54502.54644864754
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": 0.0012494133752121162,
+          "information_ratio": -0.06759358442461583,
+          "upside_capture": 0.4053132229355254,
+          "downside_capture": 0.3669709969557667,
+          "active_maximum_drawdown": -0.34764628716088763,
+          "daily_relative_win_rate": 0.5141176470588236,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": 0.0005009674394008679,
+              "positive_ratio": 0.5003164556962025,
+              "minimum": -0.23168881649045348,
+              "maximum": 0.5386296598291851
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.03192498929261478,
+              "positive_ratio": 0.5520904729266621,
+              "minimum": -0.2653333537381527,
+              "maximum": 0.35799744861407556
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.009270715125001328,
+          "information_ratio": -0.13168676315577393,
+          "upside_capture": 0.36623010707126913,
+          "downside_capture": 0.3318800987022715,
+          "active_maximum_drawdown": -0.40931606983212176,
+          "daily_relative_win_rate": 0.48970588235294116,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.008312224720028016,
+              "positive_ratio": 0.4825949367088608,
+              "minimum": -0.2631703204409924,
+              "maximum": 0.5700185536044504
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.027117350920702554,
+              "positive_ratio": 0.523989033584647,
+              "minimum": -0.32299678361769524,
+              "maximum": 0.3599733551802866
+            }
+          }
+        }
+      },
+      "small_account_stress": {
+        "layer": "small_account",
+        "stress_cost": true,
+        "strategy": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.3169679610256675,
+          "cagr": 0.061631313081397465,
+          "annualized_volatility": 0.12880058372756759,
+          "sharpe_excess_cash": 0.4124961126812091,
+          "sortino_excess_cash": 0.5973580405966727,
+          "maximum_drawdown": -0.2517006753694667,
+          "calmar": 0.24485954593061784,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.3562550790734891,
+          "trade_count": 52,
+          "turnover_over_average_equity": 51.19788016742553,
+          "commission_cny_or_wealth_units": 1257.9638470799998,
+          "slippage_cny_or_wealth_units": 2096.6267999998486,
+          "total_execution_cost_cny_or_wealth_units": 3354.590647079848,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 46339.359220513354
+        },
+        "buy_hold": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.3721587959934176,
+          "cagr": 0.06341163732943156,
+          "annualized_volatility": 0.202355435509271,
+          "sharpe_excess_cash": 0.3313140883912222,
+          "sortino_excess_cash": 0.46757009381343545,
+          "maximum_drawdown": -0.4413382247147726,
+          "calmar": 0.14368036525821695,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9081019593337691,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.573254232566472,
+          "commission_cny_or_wealth_units": 11.879207339999995,
+          "slippage_cny_or_wealth_units": 19.77889999999651,
+          "total_execution_cost_cny_or_wealth_units": 31.658107339996505,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 47443.17591986835
+        },
+        "h00300": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.7251273224323769,
+          "cagr": 0.07396294126219072,
+          "annualized_volatility": 0.20991888531399563,
+          "sharpe_excess_cash": 0.37392041384312424,
+          "sortino_excess_cash": 0.5228044754610018,
+          "maximum_drawdown": -0.4605885528983097,
+          "calmar": 0.16058354207192055,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997059688326962,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 54502.54644864754
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": -0.001780324248033427,
+          "information_ratio": -0.08503368315737807,
+          "upside_capture": 0.4032773468057697,
+          "downside_capture": 0.3677008364128665,
+          "active_maximum_drawdown": -0.3635452212119906,
+          "daily_relative_win_rate": 0.5129411764705882,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.0019224784803760775,
+              "positive_ratio": 0.494620253164557,
+              "minimum": -0.23474565418176063,
+              "maximum": 0.5389588422212508
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.024490601141068713,
+              "positive_ratio": 0.5455791638108294,
+              "minimum": -0.27237152185023583,
+              "maximum": 0.35062321100817906
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.012331628180792809,
+          "information_ratio": -0.14843827301661652,
+          "upside_capture": 0.3645691968560734,
+          "downside_capture": 0.332757301097693,
+          "active_maximum_drawdown": -0.423580517837558,
+          "daily_relative_win_rate": 0.4894117647058824,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3160,
+              "median": -0.010367214297246852,
+              "positive_ratio": 0.4772151898734177,
+              "minimum": -0.267056182407144,
+              "maximum": 0.5700185536044504
+            },
+            "484": {
+              "observations": 2918,
+              "median": 0.020996557075588673,
+              "positive_ratio": 0.5181631254283756,
+              "minimum": -0.3293716458484862,
+              "maximum": 0.35454392936014645
+            }
+          }
+        }
+      },
+      "fixed_exposure_and_matched_benchmarks": {
+        "fixed_25pct": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 0.5704296063258429,
+          "cagr": 0.03264703679851144,
+          "annualized_volatility": 0.05462261053146857,
+          "sharpe_excess_cash": 0.34088519293848957,
+          "sortino_excess_cash": 0.4825780804508247,
+          "maximum_drawdown": -0.12252017031611229,
+          "calmar": 0.266462548283106,
+          "longest_drawdown_recovery_trading_days": 1073,
+          "average_exposure": 0.25,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 1.570429606325843
+        },
+        "fixed_50pct": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 0.9154206179636803,
+          "cagr": 0.047346936029580844,
+          "annualized_volatility": 0.10924522106293715,
+          "sharpe_excess_cash": 0.34088519293848957,
+          "sortino_excess_cash": 0.48257808045082456,
+          "maximum_drawdown": -0.2420888752149345,
+          "calmar": 0.19557666988020275,
+          "longest_drawdown_recovery_trading_days": 1232,
+          "average_exposure": 0.5,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 1.9154206179636803
+        },
+        "fixed_75pct": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.2397495276236494,
+          "cagr": 0.05907315810954761,
+          "annualized_volatility": 0.1638678315944057,
+          "sharpe_excess_cash": 0.3408851929384899,
+          "sortino_excess_cash": 0.4825780804508252,
+          "maximum_drawdown": -0.35355904707470853,
+          "calmar": 0.16708144961445492,
+          "longest_drawdown_recovery_trading_days": 1293,
+          "average_exposure": 0.75,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.2397495276236494
+        },
+        "fixed_100pct": {
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.5104282147404038,
+          "cagr": 0.06770834734103004,
+          "annualized_volatility": 0.2184904421258743,
+          "sharpe_excess_cash": 0.34088519293848957,
+          "sortino_excess_cash": 0.4825780804508247,
+          "maximum_drawdown": -0.45441950425086086,
+          "calmar": 0.14899965056000733,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 1.0,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.510428214740404
+        },
+        "same_average_exposure": {
+          "target_exposure": 0.35782306262714736,
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 0.719716833353947,
+          "cagr": 0.03934323624689684,
+          "annualized_volatility": 0.07818091915623983,
+          "sharpe_excess_cash": 0.3408851929384896,
+          "sortino_excess_cash": 0.4825780804508248,
+          "maximum_drawdown": -0.1741724437397688,
+          "calmar": 0.22588668679231258,
+          "longest_drawdown_recovery_trading_days": 1097,
+          "average_exposure": 0.35782306262714736,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 1.719716833353947,
+          "relative": {
+            "annualized_active_return": 0.02553910962495931,
+            "information_ratio": 0.28499890485856305,
+            "upside_capture": 1.0280092495540203,
+            "downside_capture": 0.9532774605995702,
+            "active_maximum_drawdown": -0.25262054982985926,
+            "daily_relative_win_rate": 0.5155882352941177,
+            "rolling_active_returns": {
+              "242": {
+                "observations": 3160,
+                "median": 0.01341141206436669,
+                "positive_ratio": 0.5686708860759494,
+                "minimum": -0.20566184622561978,
+                "maximum": 0.4234540061636938
+              },
+              "484": {
+                "observations": 2918,
+                "median": 0.023827236410821406,
+                "positive_ratio": 0.6038382453735435,
+                "minimum": -0.1536506739267396,
+                "maximum": 0.5151336999436165
+              }
+            }
+          }
+        },
+        "same_volatility": {
+          "target_exposure": 0.5919522818913552,
+          "start_date": "2012-08-14",
+          "end_date": "2026-08-14",
+          "observations": 3401,
+          "total_return": 1.0388434610786423,
+          "cagr": 0.05201238541087627,
+          "annualized_volatility": 0.12933591578786235,
+          "sharpe_excess_cash": 0.34088519293848973,
+          "sortino_excess_cash": 0.48257808045082495,
+          "maximum_drawdown": -0.28429305761231793,
+          "calmar": 0.18295341380373778,
+          "longest_drawdown_recovery_trading_days": 1259,
+          "average_exposure": 0.5919522818913554,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.0388434610786423,
+          "relative": {
+            "annualized_active_return": 0.012869960460979879,
+            "information_ratio": 0.10463768693194808,
+            "upside_capture": 0.6259377216153096,
+            "downside_capture": 0.5719099048164173,
+            "active_maximum_drawdown": -0.29043933587954895,
+            "daily_relative_win_rate": 0.5152941176470588,
+            "rolling_active_returns": {
+              "242": {
+                "observations": 3160,
+                "median": 0.01373772507141724,
+                "positive_ratio": 0.5534810126582278,
+                "minimum": -0.21117700071821466,
+                "maximum": 0.3660694038828478
+              },
+              "484": {
+                "observations": 2918,
+                "median": 0.030705321291506715,
+                "positive_ratio": 0.5654557916381083,
+                "minimum": -0.20635051285422368,
+                "maximum": 0.43714047394000555
+              }
+            }
+          }
+        }
+      },
+      "period_diagnostics": {
+        "predefined_periods": [
+          {
+            "id": "P1",
+            "start": "2012-05-28",
+            "end": "2015-12-31",
+            "observations": 822,
+            "active_return": 0.12452178746450593
+          },
+          {
+            "id": "P2",
+            "start": "2016-01-04",
+            "end": "2019-12-31",
+            "observations": 975,
+            "active_return": 0.09905906149899169
+          },
+          {
+            "id": "P3",
+            "start": "2020-01-02",
+            "end": "2022-12-30",
+            "observations": 728,
+            "active_return": 0.11805714745752449
+          },
+          {
+            "id": "P4",
+            "start": "2023-01-03",
+            "end": "2026-08-14",
+            "observations": 876,
+            "active_return": -0.26428167145647363
+          }
+        ],
+        "positive_predefined_period_count": 3,
+        "best_active_year_removed": 2018,
+        "annualized_active_return_without_best_year": -0.021927597813310995,
+        "maximum_positive_active_year_contribution_share": 0.4277429574790841,
+        "annual": [
+          {
+            "year": 2012,
+            "strategy_return": 0.07041872428906659,
+            "benchmark_return": 0.07154461599802198,
+            "active_return": -0.001050718460198441
+          },
+          {
+            "year": 2013,
+            "strategy_return": -0.013114567875555094,
+            "benchmark_return": -0.05698510243256194,
+            "active_return": 0.04652157104853116
+          },
+          {
+            "year": 2014,
+            "strategy_return": 0.4905096483773659,
+            "benchmark_return": 0.5123752634847585,
+            "active_return": -0.014457797370350134
+          },
+          {
+            "year": 2015,
+            "strategy_return": 0.16291789900118836,
+            "benchmark_return": 0.06548669361759574,
+            "active_return": 0.09144291145747596
+          },
+          {
+            "year": 2016,
+            "strategy_return": -0.017154781945609376,
+            "benchmark_return": -0.09329491534597345,
+            "active_return": 0.08397453007492173
+          },
+          {
+            "year": 2017,
+            "strategy_return": 0.10987827209804935,
+            "benchmark_return": 0.2183556403972311,
+            "active_return": -0.08903588139815555
+          },
+          {
+            "year": 2018,
+            "strategy_return": 0.05491495189734796,
+            "benchmark_return": -0.22296900045937773,
+            "active_return": 0.35762273644296005
+          },
+          {
+            "year": 2019,
+            "strategy_return": 0.10306773300861605,
+            "benchmark_return": 0.34549039260493264,
+            "active_return": -0.18017420334527612
+          },
+          {
+            "year": 2020,
+            "strategy_return": 0.17480489054796244,
+            "benchmark_return": 0.26428222290555015,
+            "active_return": -0.07077322668664321
+          },
+          {
+            "year": 2021,
+            "strategy_return": -0.0185181179063465,
+            "benchmark_return": -0.0347800460040395,
+            "active_return": 0.01684789879277715
+          },
+          {
+            "year": 2022,
+            "strategy_return": -0.027716091296054568,
+            "benchmark_return": -0.17831226233183906,
+            "active_return": 0.18327664407303446
+          },
+          {
+            "year": 2023,
+            "strategy_return": -0.07067309404536903,
+            "benchmark_return": -0.08031264850887065,
+            "active_return": 0.010481338519957362
+          },
+          {
+            "year": 2024,
+            "strategy_return": 0.03456575840983378,
+            "benchmark_return": 0.14435496724221863,
+            "active_return": -0.09593981935252649
+          },
+          {
+            "year": 2025,
+            "strategy_return": 0.06310593631239603,
+            "benchmark_return": 0.17381870037044167,
+            "active_return": -0.09431845311640219
+          },
+          {
+            "year": 2026,
+            "strategy_return": -0.0941455069838143,
+            "benchmark_return": 0.01870403171180479,
+            "active_return": -0.11077755185280802
+          }
+        ]
+      }
+    },
+    "TECH_03_DONCHIAN_100_50_ROBUSTNESS_V1": {
+      "role": "FIXED_ROBUSTNESS",
+      "entry_lookback_trading_days": 100,
+      "exit_lookback_trading_days": 50,
+      "first_signal_eligible_date": "2012-10-23",
+      "signal_count": 22,
+      "closed_cycle_count": 11,
+      "average_holding_trading_days": 142.54545454545453,
+      "theoretical_base": {
+        "layer": "theoretical",
+        "stress_cost": false,
+        "strategy": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4772148843093,
+          "cagr": 0.06762086394895306,
+          "annualized_volatility": 0.13994442063580684,
+          "sharpe_excess_cash": 0.4308065029301826,
+          "sortino_excess_cash": 0.6048446005943894,
+          "maximum_drawdown": -0.2759815025889705,
+          "calmar": 0.24501955136342354,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.4623513545722945,
+          "trade_count": 22,
+          "turnover_over_average_equity": 21.773261897010304,
+          "commission_cny_or_wealth_units": 0.014052766066803836,
+          "slippage_cny_or_wealth_units": 0.023421542561460142,
+          "total_execution_cost_cny_or_wealth_units": 0.03747430862826398,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.4772148843093
+        },
+        "buy_hold": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4236626511893022,
+          "cagr": 0.06593916350493112,
+          "annualized_volatility": 0.20375781100222207,
+          "sharpe_excess_cash": 0.3421092863652698,
+          "sortino_excess_cash": 0.48215951689552794,
+          "maximum_drawdown": -0.4433316092374464,
+          "calmar": 0.14873553369756318,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9129429155073251,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5639791724255006,
+          "commission_cny_or_wealth_units": 0.00029992861645638543,
+          "slippage_cny_or_wealth_units": 0.0004996312118214071,
+          "total_execution_cost_cny_or_wealth_units": 0.0007995598282777925,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.4236626511893022
+        },
+        "h00300": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.7757746604664493,
+          "cagr": 0.07642013194965713,
+          "annualized_volatility": 0.21007511976766688,
+          "sharpe_excess_cash": 0.3846973775527249,
+          "sortino_excess_cash": 0.5371209024419017,
+          "maximum_drawdown": -0.4605885528983096,
+          "calmar": 0.16591843516034896,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997020262216925,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.7757746604664493
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": 0.0016817004440199401,
+          "information_ratio": -0.06042032677072256,
+          "upside_capture": 0.49836611245414886,
+          "downside_capture": 0.4649557896323775,
+          "active_maximum_drawdown": -0.35451760972635593,
+          "daily_relative_win_rate": 0.5198211624441132,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.01793783245543268,
+              "positive_ratio": 0.45040128410914926,
+              "minimum": -0.2377566513482645,
+              "maximum": 0.4452582882961027
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.05687580849102236,
+              "positive_ratio": 0.6112077967281587,
+              "minimum": -0.25456427944393045,
+              "maximum": 0.45133737594987267
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.00879926800070474,
+          "information_ratio": -0.12771270911827073,
+          "upside_capture": 0.45405767494410365,
+          "downside_capture": 0.42432859135055456,
+          "active_maximum_drawdown": -0.41287328930109146,
+          "daily_relative_win_rate": 0.49359165424739193,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.027746751837473327,
+              "positive_ratio": 0.420545746388443,
+              "minimum": -0.2734913743022678,
+              "maximum": 0.45932989677576774
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.04307530115266234,
+              "positive_ratio": 0.5833623390184476,
+              "minimum": -0.2979211068500347,
+              "maximum": 0.424259642243799
+            }
+          }
+        }
+      },
+      "theoretical_stress": {
+        "layer": "theoretical",
+        "stress_cost": true,
+        "strategy": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4341822608288934,
+          "cagr": 0.06627221374559045,
+          "annualized_volatility": 0.1398856981881961,
+          "sharpe_excess_cash": 0.421892729634362,
+          "sortino_excess_cash": 0.5919420624822574,
+          "maximum_drawdown": -0.28001645659628716,
+          "calmar": 0.23667256757390584,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.4623513545722945,
+          "trade_count": 22,
+          "turnover_over_average_equity": 21.742634613566228,
+          "commission_cny_or_wealth_units": 0.027834083799126247,
+          "slippage_cny_or_wealth_units": 0.04639120038535773,
+          "total_execution_cost_cny_or_wealth_units": 0.07422528418448399,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.4341822608288934
+        },
+        "buy_hold": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4217257306551638,
+          "cagr": 0.06587769453062409,
+          "annualized_volatility": 0.20375799068728193,
+          "sharpe_excess_cash": 0.3418260425407757,
+          "sortino_excess_cash": 0.4817602822707298,
+          "maximum_drawdown": -0.4433316092374464,
+          "calmar": 0.14859688133660753,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9129429155073251,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5642609452276504,
+          "commission_cny_or_wealth_units": 0.0005996773836524531,
+          "slippage_cny_or_wealth_units": 0.0009984638422450055,
+          "total_execution_cost_cny_or_wealth_units": 0.0015981412258974587,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.421725730655164
+        },
+        "h00300": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.7757746604664493,
+          "cagr": 0.07642013194965713,
+          "annualized_volatility": 0.21007511976766688,
+          "sharpe_excess_cash": 0.3846973775527249,
+          "sortino_excess_cash": 0.5371209024419017,
+          "maximum_drawdown": -0.4605885528983096,
+          "calmar": 0.16591843516034896,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997020262216925,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.7757746604664493
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": 0.00039451921496458375,
+          "information_ratio": -0.06818406868243863,
+          "upside_capture": 0.49750212014346556,
+          "downside_capture": 0.4652758173829889,
+          "active_maximum_drawdown": -0.3616767600980204,
+          "daily_relative_win_rate": 0.5198211624441132,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.019159582326794267,
+              "positive_ratio": 0.44719101123595506,
+              "minimum": -0.2401919326154568,
+              "maximum": 0.44411145643059946
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.05453449886054096,
+              "positive_ratio": 0.6084232509571876,
+              "minimum": -0.2563408291141006,
+              "maximum": 0.4490267740960927
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.010147918204067352,
+          "information_ratio": -0.135573242677837,
+          "upside_capture": 0.45326104756738844,
+          "downside_capture": 0.4246505512907264,
+          "active_maximum_drawdown": -0.4193852073215495,
+          "daily_relative_win_rate": 0.4932935916542474,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.0286293334585479,
+              "positive_ratio": 0.41958266452648474,
+              "minimum": -0.27581248717225215,
+              "maximum": 0.4581718988999133
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.0412364756806054,
+              "positive_ratio": 0.5750087017055343,
+              "minimum": -0.2995943269435527,
+              "maximum": 0.42199214949940056
+            }
+          }
+        }
+      },
+      "small_account_base": {
+        "layer": "small_account",
+        "stress_cost": false,
+        "strategy": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4701869900191058,
+          "cagr": 0.06740210102772237,
+          "annualized_volatility": 0.13953121591529055,
+          "sharpe_excess_cash": 0.4301954540560314,
+          "sortino_excess_cash": 0.6039343714988668,
+          "maximum_drawdown": -0.2755562411030291,
+          "calmar": 0.2446037903475431,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.4610168235281975,
+          "trade_count": 22,
+          "turnover_over_average_equity": 21.708582740319276,
+          "commission_cny_or_wealth_units": 279.33195829499994,
+          "slippage_cny_or_wealth_units": 465.5585499999413,
+          "total_execution_cost_cny_or_wealth_units": 744.8905082949412,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 49403.739800382114
+        },
+        "buy_hold": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4205151666992926,
+          "cagr": 0.06583925361390852,
+          "annualized_volatility": 0.2034015309453734,
+          "sharpe_excess_cash": 0.34188910578227294,
+          "sortino_excess_cash": 0.4818239288067061,
+          "maximum_drawdown": -0.44279248994292675,
+          "calmar": 0.148690989818718,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9113332586474218,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5630448525982169,
+          "commission_cny_or_wealth_units": 5.982739875,
+          "slippage_cny_or_wealth_units": 9.966250000000176,
+          "total_execution_cost_cny_or_wealth_units": 15.948989875000176,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 48410.30333398585
+        },
+        "h00300": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.7757746604664568,
+          "cagr": 0.07642013194965736,
+          "annualized_volatility": 0.21007511976766688,
+          "sharpe_excess_cash": 0.38469737755272515,
+          "sortino_excess_cash": 0.537120902441902,
+          "maximum_drawdown": -0.460588552898309,
+          "calmar": 0.16591843516034963,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997020262216925,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 55515.493209329135
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": 0.0015628474138142945,
+          "information_ratio": -0.061156233229183725,
+          "upside_capture": 0.49778414657458286,
+          "downside_capture": 0.4644435752779041,
+          "active_maximum_drawdown": -0.35365509047078936,
+          "daily_relative_win_rate": 0.5198211624441132,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.01842575975650529,
+              "positive_ratio": 0.449438202247191,
+              "minimum": -0.23727052341232224,
+              "maximum": 0.44352238896164375
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.056439627913139834,
+              "positive_ratio": 0.6112077967281587,
+              "minimum": -0.2541577579348303,
+              "maximum": 0.4477822349993623
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.009018030921933873,
+          "information_ratio": -0.12936295721895297,
+          "upside_capture": 0.45272636611079725,
+          "downside_capture": 0.42312422316079046,
+          "active_maximum_drawdown": -0.4125220342768555,
+          "daily_relative_win_rate": 0.4941877794336811,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.027875956228066934,
+              "positive_ratio": 0.41958266452648474,
+              "minimum": -0.2732520743136294,
+              "maximum": 0.4580194393464767
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.04132758273364412,
+              "positive_ratio": 0.5805777932474765,
+              "minimum": -0.2981029611166356,
+              "maximum": 0.4200334719205938
+            }
+          }
+        }
+      },
+      "small_account_stress": {
+        "layer": "small_account",
+        "stress_cost": true,
+        "strategy": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.429748989639159,
+          "cagr": 0.06613201976469507,
+          "annualized_volatility": 0.13938254887975718,
+          "sharpe_excess_cash": 0.4219637227490372,
+          "sortino_excess_cash": 0.5919946290230614,
+          "maximum_drawdown": -0.2788082909262688,
+          "calmar": 0.2371953127541095,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.4604097441361369,
+          "trade_count": 22,
+          "turnover_over_average_equity": 21.654942966652104,
+          "commission_cny_or_wealth_units": 553.3391784599999,
+          "slippage_cny_or_wealth_units": 922.2530999999411,
+          "total_execution_cost_cny_or_wealth_units": 1475.592278459941,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 48594.97979278318
+        },
+        "buy_hold": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.4195330801102677,
+          "cagr": 0.0658080547853761,
+          "annualized_volatility": 0.20350924774810583,
+          "sharpe_excess_cash": 0.3416725005977663,
+          "sortino_excess_cash": 0.48152625050406794,
+          "maximum_drawdown": -0.4429552931158798,
+          "calmar": 0.14856590678138779,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9118191133354617,
+          "trade_count": 1,
+          "turnover_over_average_equity": 0.5636083532551388,
+          "commission_cny_or_wealth_units": 11.971459499999998,
+          "slippage_cny_or_wealth_units": 19.93249999999658,
+          "total_execution_cost_cny_or_wealth_units": 31.903959499996578,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 48390.66160220536
+        },
+        "h00300": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.7757746604664568,
+          "cagr": 0.07642013194965736,
+          "annualized_volatility": 0.21007511976766688,
+          "sharpe_excess_cash": 0.38469737755272515,
+          "sortino_excess_cash": 0.537120902441902,
+          "maximum_drawdown": -0.460588552898309,
+          "calmar": 0.16591843516034963,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 0.9997020262216925,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 55515.493209329135
+        },
+        "relative_vs_510300": {
+          "annualized_active_return": 0.00032396497931830304,
+          "information_ratio": -0.06883433126337425,
+          "upside_capture": 0.4962515857518063,
+          "downside_capture": 0.4640207779419857,
+          "active_maximum_drawdown": -0.36117232047192427,
+          "daily_relative_win_rate": 0.5198211624441132,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.018965094172324726,
+              "positive_ratio": 0.44719101123595506,
+              "minimum": -0.2397087767439987,
+              "maximum": 0.4429740832251541
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.054556035651275314,
+              "positive_ratio": 0.6077271145144448,
+              "minimum": -0.2563669652808298,
+              "maximum": 0.44679030841748935
+            }
+          }
+        },
+        "relative_vs_h00300": {
+          "annualized_active_return": -0.010288112184962062,
+          "information_ratio": -0.1368410002710941,
+          "upside_capture": 0.4515623102411151,
+          "downside_capture": 0.42298886834620947,
+          "active_maximum_drawdown": -0.41922537674716764,
+          "daily_relative_win_rate": 0.49359165424739193,
+          "rolling_active_returns": {
+            "242": {
+              "observations": 3115,
+              "median": -0.028849009751416133,
+              "positive_ratio": 0.4189406099518459,
+              "minimum": -0.2755078976526283,
+              "maximum": 0.457332160966444
+            },
+            "484": {
+              "observations": 2873,
+              "median": 0.04043748011131432,
+              "positive_ratio": 0.5739644970414202,
+              "minimum": -0.3000281182422171,
+              "maximum": 0.419282840783479
+            }
+          }
+        }
+      },
+      "fixed_exposure_and_matched_benchmarks": {
+        "fixed_25pct": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 0.5724045767480412,
+          "cagr": 0.03318575200660456,
+          "annualized_volatility": 0.05469001788482256,
+          "sharpe_excess_cash": 0.3500710069541611,
+          "sortino_excess_cash": 0.49492210736592324,
+          "maximum_drawdown": -0.12252017031611195,
+          "calmar": 0.27085949946839477,
+          "longest_drawdown_recovery_trading_days": 1073,
+          "average_exposure": 0.25,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 1.5724045767480412
+        },
+        "fixed_50pct": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 0.9264687613411615,
+          "cagr": 0.04843185476435741,
+          "annualized_volatility": 0.10938003576964511,
+          "sharpe_excess_cash": 0.3500710069541611,
+          "sortino_excess_cash": 0.49492210736592324,
+          "maximum_drawdown": -0.24208887521493505,
+          "calmar": 0.20005815930764226,
+          "longest_drawdown_recovery_trading_days": 1232,
+          "average_exposure": 0.5,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 1.9264687613411615
+        },
+        "fixed_75pct": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.2638247381944305,
+          "cagr": 0.060706471301970266,
+          "annualized_volatility": 0.16407005365446767,
+          "sharpe_excess_cash": 0.3500710069541615,
+          "sortino_excess_cash": 0.4949221073659238,
+          "maximum_drawdown": -0.3535590470747093,
+          "calmar": 0.17170108304184506,
+          "longest_drawdown_recovery_trading_days": 1293,
+          "average_exposure": 0.75,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.2638247381944305
+        },
+        "fixed_100pct": {
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.5511089278150725,
+          "cagr": 0.069886800893181,
+          "annualized_volatility": 0.21876007153929025,
+          "sharpe_excess_cash": 0.3500710069541611,
+          "sortino_excess_cash": 0.49492210736592324,
+          "maximum_drawdown": -0.4544195042508611,
+          "calmar": 0.15379357672684793,
+          "longest_drawdown_recovery_trading_days": 1333,
+          "average_exposure": 1.0,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.5511089278150725
+        },
+        "same_average_exposure": {
+          "target_exposure": 0.4623513545722945,
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 0.8734275917258472,
+          "cagr": 0.04632261781306335,
+          "annualized_volatility": 0.10114401540252288,
+          "sharpe_excess_cash": 0.3500710069541614,
+          "sortino_excess_cash": 0.49492210736592357,
+          "maximum_drawdown": -0.22441452159245012,
+          "calmar": 0.20641542037635127,
+          "longest_drawdown_recovery_trading_days": 1124,
+          "average_exposure": 0.4623513545722944,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 1.8734275917258472,
+          "relative": {
+            "annualized_active_return": 0.021298246135889043,
+            "information_ratio": 0.23259042505276206,
+            "upside_capture": 0.9842174617468481,
+            "downside_capture": 0.932205808414752,
+            "active_maximum_drawdown": -0.25509691328382367,
+            "daily_relative_win_rate": 0.521311475409836,
+            "rolling_active_returns": {
+              "242": {
+                "observations": 3115,
+                "median": 0.016791990602828877,
+                "positive_ratio": 0.614446227929374,
+                "minimum": -0.17961437826575122,
+                "maximum": 0.552330994819787
+              },
+              "484": {
+                "observations": 2873,
+                "median": 0.03327174546406142,
+                "positive_ratio": 0.5969369996519318,
+                "minimum": -0.1949513511498141,
+                "maximum": 0.6063122318091998
+              }
+            }
+          }
+        },
+        "same_volatility": {
+          "target_exposure": 0.6397164695142835,
+          "start_date": "2012-10-23",
+          "end_date": "2026-08-14",
+          "observations": 3356,
+          "total_return": 1.1191688349164894,
+          "cagr": 0.05566639288836095,
+          "annualized_volatility": 0.13994442063580684,
+          "sharpe_excess_cash": 0.35007100695416105,
+          "sortino_excess_cash": 0.49492210736592307,
+          "maximum_drawdown": -0.30566743014838593,
+          "calmar": 0.1821142437757852,
+          "longest_drawdown_recovery_trading_days": 1261,
+          "average_exposure": 0.6397164695142835,
+          "trade_count": 0,
+          "turnover_over_average_equity": 0.0,
+          "commission_cny_or_wealth_units": 0.0,
+          "slippage_cny_or_wealth_units": 0.0,
+          "total_execution_cost_cny_or_wealth_units": 0.0,
+          "minimum_commission_trade_count": 0,
+          "minimum_commission_trade_ratio": 0.0,
+          "ending_equity": 2.1191688349164894,
+          "relative": {
+            "annualized_active_return": 0.011954471060591443,
+            "information_ratio": 0.096351532340191,
+            "upside_capture": 0.7141522584736495,
+            "downside_capture": 0.6710084180815661,
+            "active_maximum_drawdown": -0.29584438112616107,
+            "daily_relative_win_rate": 0.5204172876304024,
+            "rolling_active_returns": {
+              "242": {
+                "observations": 3115,
+                "median": 0.010760283346707089,
+                "positive_ratio": 0.5512038523274478,
+                "minimum": -0.21001882000131367,
+                "maximum": 0.4928240139458646
+              },
+              "484": {
+                "observations": 2873,
+                "median": 0.0356484308356686,
+                "positive_ratio": 0.6028541594152453,
+                "minimum": -0.2105987063917445,
+                "maximum": 0.5205830160920508
+              }
+            }
+          }
+        }
+      },
+      "period_diagnostics": {
+        "predefined_periods": [
+          {
+            "id": "P1",
+            "start": "2012-05-28",
+            "end": "2015-12-31",
+            "observations": 777,
+            "active_return": 0.14538516646080457
+          },
+          {
+            "id": "P2",
+            "start": "2016-01-04",
+            "end": "2019-12-31",
+            "observations": 975,
+            "active_return": 0.16037279455522668
+          },
+          {
+            "id": "P3",
+            "start": "2020-01-02",
+            "end": "2022-12-30",
+            "observations": 728,
+            "active_return": 0.0434273775292735
+          },
+          {
+            "id": "P4",
+            "start": "2023-01-03",
+            "end": "2026-08-14",
+            "observations": 876,
+            "active_return": -0.26411372700099633
+          }
+        ],
+        "positive_predefined_period_count": 3,
+        "best_active_year_removed": 2018,
+        "annualized_active_return_without_best_year": -0.015225896367587755,
+        "maximum_positive_active_year_contribution_share": 0.2946919656003034,
+        "annual": [
+          {
+            "year": 2012,
+            "strategy_return": 0.03567424863237045,
+            "benchmark_return": 0.08937674571592269,
+            "active_return": -0.049296533357024885
+          },
+          {
+            "year": 2013,
+            "strategy_return": -0.008570241336520956,
+            "benchmark_return": -0.057511937855092565,
+            "active_return": 0.051928187193363895
+          },
+          {
+            "year": 2014,
+            "strategy_return": 0.555695879100502,
+            "benchmark_return": 0.5163001191855845,
+            "active_return": 0.025981505518892334
+          },
+          {
+            "year": 2015,
+            "strategy_return": 0.18969915857313802,
+            "benchmark_return": 0.06575235812360614,
+            "active_return": 0.1162998134648805
+          },
+          {
+            "year": 2016,
+            "strategy_return": 0.018740766520973562,
+            "benchmark_return": -0.0938415378456694,
+            "active_return": 0.1242412989213677
+          },
+          {
+            "year": 2017,
+            "strategy_return": 0.17396926772726662,
+            "benchmark_return": 0.21950177307699836,
+            "active_return": -0.03733697347142506
+          },
+          {
+            "year": 2018,
+            "strategy_return": -0.03545515211941408,
+            "benchmark_return": -0.22408770237953268,
+            "active_return": 0.24311065933431952
+          },
+          {
+            "year": 2019,
+            "strategy_return": 0.16222227297602632,
+            "benchmark_return": 0.3475201666723442,
+            "active_return": -0.13751029355939426
+          },
+          {
+            "year": 2020,
+            "strategy_return": 0.11098569518978985,
+            "benchmark_return": 0.2654357306269297,
+            "active_return": -0.12205284843713182
+          },
+          {
+            "year": 2021,
+            "strategy_return": -0.07246664039295325,
+            "benchmark_return": -0.03496562120658053,
+            "active_return": -0.03885977537221019
+          },
+          {
+            "year": 2022,
+            "strategy_return": 0.01511259273360932,
+            "benchmark_return": -0.17906813170607205,
+            "active_return": 0.2365369550620935
+          },
+          {
+            "year": 2023,
+            "strategy_return": -0.07605406432150486,
+            "benchmark_return": -0.08077375882221605,
+            "active_return": 0.005134420982873644
+          },
+          {
+            "year": 2024,
+            "strategy_return": -0.03570731075730349,
+            "benchmark_return": 0.14504463242182863,
+            "active_return": -0.15785580584473147
+          },
+          {
+            "year": 2025,
+            "strategy_return": 0.14107034856733125,
+            "benchmark_return": 0.17456919328803133,
+            "active_return": -0.02852011180961167
+          },
+          {
+            "year": 2026,
+            "strategy_return": -0.08834453824295452,
+            "benchmark_return": 0.01874257203290819,
+            "active_return": -0.10511694830046181
+          }
+        ]
+      }
+    }
+  },
+  "multiple_testing": {
+    "registered_trial_count": 3,
+    "return_tested_candidate_count": 2,
+    "common_observations": 3355,
+    "candidate_ids": [
+      "TECH_03_DONCHIAN_55_20_V1",
+      "TECH_03_DONCHIAN_100_50_ROBUSTNESS_V1"
+    ],
+    "white_reality_check": {
+      "method": "CIRCULAR_BLOCK_BOOTSTRAP_CENTERED_ACTIVE_RETURNS",
+      "block_length": 20,
+      "repetitions": 5000,
+      "observed_statistic": -0.0022774193649546487,
+      "p_value": 0.6918616276744651
+    },
+    "hansen_spa": {
+      "method": "STUDENTIZED_CIRCULAR_BLOCK_BOOTSTRAP_APPROXIMATION",
+      "block_length": 20,
+      "repetitions": 5000,
+      "observed_statistic": -0.22770853411050457,
+      "p_value": 0.6924615076984603
+    },
+    "deflated_sharpe_ratio": {
+      "basis": "PRIMARY_ACTIVE_DAILY_RETURNS_VS_510300_BUY_HOLD",
+      "registered_trial_count": 3,
+      "annualized_active_sharpe": -0.07460938401330255,
+      "expected_maximum_null_daily_sharpe": 0.015012394973830575,
+      "skew": 0.5376431786013656,
+      "kurtosis": 20.63583982761981,
+      "probability": 0.12597175317232906
+    },
+    "pbo": {
+      "status": "NOT_ESTIMABLE",
+      "comparable_candidate_count": 2,
+      "minimum_required": 3,
+      "reason": "实际可比较收益候选少于3，CSCV排名退化",
+      "value": null
+    },
+    "parameter_neighborhood": {
+      "status": "NOT_RUN_PROHIBITED_BY_FROZEN_PARAMETER_BUDGET",
+      "fixed_robustness_variant": "TECH_03_DONCHIAN_100_50_ROBUSTNESS_V1"
+    }
+  },
+  "decision": {
+    "decision": "REJECT_HISTORICAL",
+    "alpha_pass": false,
+    "alpha_pass_blockers": [
+      "TRUE_OOS_NOT_STARTED",
+      "PBO_NOT_ESTIMABLE_WITH_TWO_RETURN_TESTED_CANDIDATES",
+      "NEIGHBOR_PARAMETER_GRID_PROHIBITED"
+    ],
+    "historical_screen_pass": false,
+    "historical_gate_checks": {
+      "annualized_net_excess_at_least_1_5pct": false,
+      "information_ratio_at_least_0_35": false,
+      "positive_predefined_periods_at_least_3": true,
+      "double_cost_excess_positive": false,
+      "fixed_100_50_robustness_excess_positive": true,
+      "remove_best_year_excess_positive": false,
+      "single_positive_year_contribution_not_over_50pct": true,
+      "white_reality_check_5pct": false,
+      "hansen_spa_5pct": false,
+      "deflated_sharpe_probability_95pct": false
+    },
+    "risk_overlay_historical_pass": false,
+    "risk_overlay_checks": {
+      "sharpe_improvement_at_least_0_15": false,
+      "drawdown_reduction_at_least_20pct": true,
+      "upside_capture_at_least_70pct": false
+    },
+    "sharpe_improvement": 0.10346949432931285,
+    "drawdown_reduction": 0.45356936723226027
+  }
+}

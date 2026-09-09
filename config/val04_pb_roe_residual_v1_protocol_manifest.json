@@ -1,0 +1,127 @@
+{
+  "project_id": "VAL04_PB_ROE_RESIDUAL_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_SIGNAL_PROTOCOL_NO_RETURN_EVALUATION",
+  "frozen_at": "2026-08-19T04:26:25.646289+08:00",
+  "frozen_files": {
+    "config/val04_pb_roe_residual_v1.yaml": {
+      "sha256": "f587fefff39016da6a213b24ce64d80d7da3bfd459a3ddbe0315eae023e97cc3",
+      "size_bytes": 5161
+    },
+    "docs/VAL04_PB_ROE_RESIDUAL_V1_MODEL_CARD.md": {
+      "sha256": "895cd76c922e0f9c62b328a22bf7a77eec12f3759d947f74779cc73607b7ed7c",
+      "size_bytes": 2686
+    },
+    "research/val04_pb_roe_residual_v1.py": {
+      "sha256": "b1fea1cd1810fdb0578a2f2e50bde9ec210bfcb6ebeb8b5dda038c3c25d60eaa",
+      "size_bytes": 17461
+    },
+    "scripts/freeze_val04_pb_roe_residual_v1_protocol.py": {
+      "sha256": "eafba2e1568fabd6aa78d30e38dc536f3b1f67d3ae1f16feae6e68b6a7948a0c",
+      "size_bytes": 3334
+    },
+    "scripts/build_val04_pb_roe_residual_v1_signals.py": {
+      "sha256": "1495c0dd4d6e8e4de40d1de1fc84cfad5285b7c8fd3c85f604d94c619ee7f714",
+      "size_bytes": 2356
+    },
+    "tests/test_val04_pb_roe_residual_v1.py": {
+      "sha256": "d14acd8bef0211085a0700a1fed42b2e7ffed15cf6efee8b5e4124d6ce7b2da8",
+      "size_bytes": 2463
+    }
+  },
+  "input_hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "feasibility_v2_result_manifest",
+        "file": "config/val04_pb_roe_residual_data_feasibility_v2_result_manifest.json",
+        "expected_sha256": "4f5f97f2780d1672435eee98bfe82854aa0004a7f95351be5c45efc7fc96b30c",
+        "actual_sha256": "4f5f97f2780d1672435eee98bfe82854aa0004a7f95351be5c45efc7fc96b30c",
+        "matches": true
+      },
+      {
+        "dataset": "constituent_feasibility_panel",
+        "file": "data/features/000300_val04_pb_roe_residual_feasibility_constituents_v2.parquet",
+        "expected_sha256": "6b878fa9e39f555bd36eb7beb5ba100cfe747b346a3f9a723add49fd01f1d170",
+        "actual_sha256": "6b878fa9e39f555bd36eb7beb5ba100cfe747b346a3f9a723add49fd01f1d170",
+        "matches": true
+      },
+      {
+        "dataset": "snapshot_feasibility_audit",
+        "file": "data/audit/000300_val04_pb_roe_residual_feasibility_snapshots_v2.parquet",
+        "expected_sha256": "c0b4de92e291db670d1be972e415874d37364af1eb57fd0737dbb3b0acd7de44",
+        "actual_sha256": "c0b4de92e291db670d1be972e415874d37364af1eb57fd0737dbb3b0acd7de44",
+        "matches": true
+      },
+      {
+        "dataset": "index_daily_calendar",
+        "file": "data/raw/market/000300_daily_feature_warmup.parquet",
+        "expected_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "actual_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "matches": true
+      }
+    ]
+  },
+  "cross_sectional_model": {
+    "frequency": "ONE_UNWEIGHTED_OLS_PER_SNAPSHOT",
+    "dependent_variable": "log_price_to_book",
+    "dependent_formula": "log(raw_close / book_value_per_share)",
+    "complete_case_required": true,
+    "sector_fixed_effect_encoding": "ONE_DUMMY_PER_ACTIVE_SW_L1_WITHOUT_GLOBAL_INTERCEPT",
+    "roe_input": "clip(ttm_roe,-0.5,0.8)",
+    "growth_input": "clip(ttm_revenue_growth_yoy,-1.0,1.0)",
+    "estimator": "NUMPY_LSTSQ_RCOND_NONE_FLOAT64",
+    "observation_weighting": "UNWEIGHTED_COMPANY_CROSS_SECTION",
+    "formula": "log(PB_i_t)=a_sector_t+b1_t*ROE_clipped_i_t+b2_t*RevenueGrowth_clipped_i_t+epsilon_i_t",
+    "company_cheapness": "-epsilon_i_t",
+    "cheap_direction": "HIGHER_IS_CHEAPER",
+    "coefficient_search_enabled": false,
+    "winsorization_search_enabled": false,
+    "alternative_growth_enabled": false,
+    "simple_z_bp_plus_z_roe_variant_enabled": false
+  },
+  "index_signal": {
+    "formula": "sum(snapshot_weight_i*company_cheapness_i)/sum(snapshot_weight_i for complete cases)",
+    "missing_company_rule": "只在V2数据闸门已通过的完整样本内重新归一化官方权重",
+    "minimum_complete_case_weight_coverage": 0.9,
+    "raw_signal_column": "weighted_pb_roe_residual_cheapness",
+    "percentile_column": "pb_roe_residual_percentile_60m"
+  },
+  "percentile_definition": {
+    "window_months": 60,
+    "include_current_observation": true,
+    "minimum_observations": 60,
+    "algorithm": "EXACT_EMPIRICAL_MIDRANK",
+    "formula": "(count(window_value < current_value) + 0.5 * count(window_value == current_value)) / 60",
+    "missing_window_rule": "NO_SIGNAL_UNTIL_ALL_60_MONTHS_PASS",
+    "expected_first_ready_observation_date": "2021-07-30",
+    "expected_first_earliest_execution_date": "2021-08-02",
+    "expected_ready_observation_count": 61
+  },
+  "trial_registration": {
+    "registered_trials_consumed": [
+      "VAL04_PB_ROE_RESIDUAL"
+    ],
+    "primary_models_in_family": 1,
+    "forbidden_unregistered_variants": [
+      "改用中信或静态行业标签",
+      "改用利润增长、分析师增长或删除增长项",
+      "改变ROE和营收增速固定截断边界",
+      "改用市值加权回归或行业内分别回归",
+      "改变60月分位窗口或研究分档",
+      "并行测试简单z(B/P)+z(ROE)后选择赢家"
+    ]
+  },
+  "governance": {
+    "future_return_reading_allowed": false,
+    "predictive_evaluation_allowed_before_protocol_freeze": false,
+    "strategy_return_calculation_allowed": false,
+    "position_mapping_enabled": false,
+    "target_share_generation_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false,
+    "parent_data_feasibility_files_mutated": false
+  },
+  "manifest_content_sha256": "4da5b3833162e2e2c56ba61113c8416f8e7b57669ce2daa95e60764e5958af38"
+}

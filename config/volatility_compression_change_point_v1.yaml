@@ -1,0 +1,91 @@
+protocol:
+  project_id: "510300_VOLATILITY_COMPRESSION_CHANGE_POINT_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "DISCOVERY_ONLY"
+  historical_evidence_label: "HISTORICALLY_CONTAMINATED_EVENT_STUDY"
+  data_cutoff: "2026-08-14"
+  true_forward_start: null
+  user_question: "波动变小是否是变盘点"
+  parameter_search_allowed: false
+  position_mapping_allowed: false
+
+data:
+  market_file: "data/raw/r6/510300_daily.parquet"
+  dividend_file: "data/reference/510300_dividends.csv"
+  market_sha256: "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979"
+  dividend_sha256: "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  first_date: "2012-05-28"
+  last_date: "2026-08-14"
+
+definitions:
+  daily_amplitude: "(adjusted_high-adjusted_low)/adjusted_close.shift(1)"
+  literal_monthly_compression:
+    id: "LITERAL_20D_AMPLITUDE_COMPRESSION"
+    current_window: 20
+    current_mean_amplitude_minimum: 0.005
+    current_mean_amplitude_maximum: 0.010
+    immediately_prior_window: 20
+    prior_mean_amplitude_minimum: 0.015
+    prior_mean_amplitude_maximum: 0.025
+    interpretation: "对话中0.5%-1%相对1.5%-2.5%的字面规则"
+  adaptive_rv_compression:
+    id: "ADAPTIVE_RV_TERM_STRUCTURE_COMPRESSION"
+    annualization_days: 242
+    rv_windows: [5, 20, 60]
+    term_structure_rule: "RV5<RV20<RV60"
+    trailing_quantile_window: 756
+    trailing_quantile_minimum_observations: 504
+    rv20_quantile: 0.20
+    quantile_uses_current_observation: false
+    interpretation: "尺度无关的低波动准备状态"
+  event_selection:
+    first_true_day_only: true
+    cooldown_trading_days: 20
+    overlapping_primary_20d_windows_allowed: false
+
+outcomes:
+  forward_horizons_trading_days: [5, 20, 60]
+  primary_horizon_trading_days: 20
+  volatility_expansion_ratio: "future_mean_daily_amplitude/current_mean_daily_amplitude_20d"
+  expansion_any_threshold: 1.0
+  expansion_large_threshold: 1.5
+  breakout_reference: "event_date_prior_20d_adjusted_high_low_excluding_current"
+  breakout_window_trading_days: 20
+  first_breakout_labels: ["UP", "DOWN", "NONE"]
+  signed_return: "adjusted_close[t+h]/adjusted_close[t]-1"
+  reversal: "past20_return与future20_return符号相反"
+
+matched_control:
+  repetitions: 5000
+  random_seed: 20260818
+  current_amplitude_relative_tolerance: 0.10
+  exclude_within_event_trading_days: 20
+  match_each_event_separately: true
+  replacement_across_events: true
+  minimum_candidates_per_event: 20
+  compared_metrics:
+    - "mean_future_amplitude_ratio_20d"
+    - "mean_absolute_return_20d"
+    - "mean_signed_return_20d"
+
+interpretation_gates:
+  volatility_preparation_supported_if:
+    median_future_amplitude_ratio_20d_strictly_above: 1.0
+    expansion_frequency_minimum: 0.60
+    matched_control_percentile_minimum: 0.95
+  directional_signal_supported_if:
+    matched_control_signed_return_two_sided_p_maximum: 0.05
+  no_event_result: "INSUFFICIENT_EVIDENCE"
+  fewer_than_10_mature_events_result: "INSUFFICIENT_EVIDENCE"
+  pass_action: "只能视为波动准备状态，方向仍需突破确认"
+
+governance:
+  modifies_graph_regime_v2: false
+  modifies_r5: false
+  reopens_r6: false
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+

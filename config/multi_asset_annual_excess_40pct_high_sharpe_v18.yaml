@@ -1,0 +1,86 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V18"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V17"
+  status: "FROZEN_BEFORE_CROSS_SECTIONAL_HOURLY_REVERSAL_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v17_manifest.json"
+  v7r_manifest: "config/digital_asset_delta_neutral_funding_carry_v7r_time_dtype_correction_manifest.json"
+  v7r_visible_report: "reports/research/digital_asset_delta_neutral_funding_carry_v7r_visible.json"
+
+registered_v7r_failure:
+  candidate_id: "DIGITAL_ASSET_DELTA_NEUTRAL_FUNDING_CARRY_V7R_TIME_DTYPE_CORRECTION"
+  required_status: "FAILED_DATA_OR_EXECUTION_CONTRACT"
+  required_error_type: "DataContractError"
+  required_error_fragment: "合并权益代理触发保证金失败"
+  performance_metrics_available: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "DIGITAL_ASSET_CROSS_SECTIONAL_HOURLY_REVERSAL"
+  maximum_candidates_before_family_specific_replication: 1
+  venue: "BINANCE_USDS_M_PERPETUAL_PUBLIC_DATA"
+  fixed_symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+    - "BCHUSDT"
+    - "XRPUSDT"
+    - "EOSUSDT"
+    - "LTCUSDT"
+    - "TRXUSDT"
+    - "ETCUSDT"
+    - "LINKUSDT"
+    - "XLMUSDT"
+    - "ADAUSDT"
+    - "BNBUSDT"
+    - "DASHUSDT"
+    - "ZECUSDT"
+    - "XTZUSDT"
+  fixed_universe_basis: "ALL_15_SYMBOLS_LISTED_BY_2020_02_10_WITHOUT_RETURN_SCREEN"
+  bar_interval: "1h"
+  signal: "PREVIOUS_COMPLETED_1H_CLOSE_DIV_OPEN_MINUS_1"
+  long_count: 3
+  short_count: 3
+  long_rule: "LOWEST_PRIOR_1H_RETURN"
+  short_rule: "HIGHEST_PRIOR_1H_RETURN"
+  execution: "NEXT_1H_OPEN"
+  holding_and_rebalance: "ONE_HOUR_REBALANCE_EVERY_HOUR"
+  weighting: "EQUAL_DOLLAR_WITHIN_LONG_AND_SHORT_SIDES"
+  target_long_gross: 1.0
+  target_short_gross: 1.0
+  maximum_total_gross_exposure: 2.0
+  maximum_absolute_net_exposure: 0.05
+  turnover_lookback_hours: 168
+  maximum_order_fraction: 0.001
+  terminal_winddown_calendar_days: 7
+  base_total_perpetual_cost_bps_per_leg: 4.0
+  stress_total_perpetual_cost_bps_per_leg: 16.0
+  actual_funding_payments_included: true
+  stress_funding_receipt_multiplier: 0.75
+  stress_funding_payment_multiplier: 1.25
+  parameter_grid_search_allowed: false
+
+governance:
+  v7_and_v7r_remain_frozen_failures: true
+  funding_carry_parameter_rescue_allowed: false
+  hourly_reversal_is_separate_cross_sectional_mechanism: true
+  raw_collection_may_check_only_source_and_coverage_before_candidate_freeze: true
+  candidate_must_freeze_before_rank_signal_or_performance_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

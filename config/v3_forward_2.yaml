@@ -1,0 +1,93 @@
+model:
+  model_version: "V3_FORWARD_2"
+  parent_version: "V3_FORWARD_1"
+  frozen_at: "2026-08-13T21:00:00+08:00"
+  true_oos_start: "2026-08-14"
+  signal_time: "交易日收盘后"
+  live_trading_authorized: false
+  historical_signal_reconstruction_forbidden: true
+  change_scope: "仅替换权重和财务数据供应链，并相应冻结免费源字段语义"
+
+frozen_parameters:
+  annual_mean_reversion_lambda: 0.3374309932944419
+  horizons_trading_days: [20, 60, 120, 242]
+  normalized_eps:
+    lookback_years: 3
+    minimum_ttm_observations: 4
+    financial_method: "当前股东权益合计×过去三年TTM ROE中位数"
+    cyclical_method: "当前TTM收入×过去三年TTM净利率中位数"
+    other_method: "三年正TTM利润中位数与当前收入×三年净利率中位数等权"
+    growth_clip: [-0.10, 0.15]
+    free_source_equity_semantics: "东方财富资产负债表的股东权益合计；不冒充归母权益"
+    free_source_total_shares: "东方财富业绩报表净利润/每股收益推算；不可得时沿用切换日前最近已知股本并保留来源"
+  fair_pe:
+    estimator: "StandardScaler+Ridge(alpha=10)"
+    minimum_training_months: 48
+    training_cutoff: "strictly_before_signal_date"
+    prediction_bounds: "历史训练期PE的10%至90%分位"
+    current_price_direct_feature: false
+  dividend: "截至信号日过去242交易日H00300相对000300价格指数的隐含股息收益"
+  cash: "信号日可得1年期中国国债收益率"
+  edge_formula: "FutureNormalizedEPS×PartiallyRevertedPE/CurrentIndex-1+Dividend-Cash"
+
+states:
+  hypotheses:
+    H1: "IC_earnings_up > IC_earnings_down"
+    H2: "IC_bear > IC_bull"
+    H3: "IC_low_vol > IC_high_vol"
+  earnings_state: "正常化指数EPS相对12个月前同口径值的正负"
+  market_state: "指数高于10个月均线且3个月动量为正=牛市；两者均负=熊市；其余=震荡"
+  volatility_state: "63日实现波动率相对信号日前月末历史扩展中位数"
+  additional_state_search_forbidden: true
+
+data_governance:
+  timezone: "Asia/Shanghai"
+  weights_primary: "中证指数官网，经AKShare index_stock_cons_weight_csindex"
+  constituents_primary: "中证指数官网，经AKShare index_stock_cons_csindex"
+  financials_primary: "切换日前继承V1冻结点时历史；切换日起东方财富经AKShare全市场按报告期利润表和资产负债表"
+  financial_available_rule: "公告日期不晚于信号日；后续内容变化以首次发现日形成新版本"
+  financial_refresh_rule: "每个目标日重新抓取最近5个报告期；断点只允许同一目标日复用"
+  weight_rule: "当天必须成功抓取；使用官网返回的不晚于信号日的最新官方权重日"
+  local_previous_snapshot_rule: "只用于一致性校验；禁止冒充当天抓取"
+  market_rule: "510300、000300和成分股收盘价必须共同覆盖signal_date"
+  macro_forward_fill_max_calendar_days: 7
+  valuation_forward_fill_max_calendar_days: 7
+  missing_core_input: "SKIP_SIGNAL_AND_REPORT_ERROR"
+  parquet_history_rewrite: false
+  duplicate_signal_date: "IDEMPOTENT_ONLY_IDENTICAL_RECORD"
+  first_signal_must_be_on_or_after: "2026-08-14"
+  token_or_api_key_required: false
+
+shadow_position:
+  mapping:
+    - {maximum_edge: -0.10, target_position: 0.00}
+    - {maximum_edge: -0.05, target_position: 0.25}
+    - {maximum_edge: 0.05, target_position: 0.50}
+    - {maximum_edge: 0.10, target_position: 0.75}
+    - {maximum_edge: null, target_position: 1.00}
+  execution: "信号日后下一交易日开盘生效"
+  instrument: "510300.SH"
+  real_order_submission: false
+
+monitoring:
+  review_every_new_trading_signals: 20
+  primary_horizon_days: 60
+  priorities: {20: "高", 60: "最高", 120: "中", 242: "低"}
+  minimum_realized_60d_signals_for_decision: 120
+  minimum_exact_non_overlapping_60d_observations: 4
+  gate:
+    spearman_ic_minimum: 0.15
+    hac_p_value_maximum: 0.10
+    bootstrap_lower_bound_minimum: -0.05
+    top_minus_bottom_mean_return_minimum: 0.0
+    rolling_positive_ratio_minimum: 0.60
+    both_chronological_half_ic_minimum: 0.0
+    leave_one_20d_block_out_positive_ratio_minimum: 0.80
+  statuses: ["MONITORING", "PASS", "FAIL", "INSUFFICIENT_DATA"]
+
+governance:
+  first_forward_round_only_h1_h2_h3: true
+  model_change_requires_new_version: true
+  v3_forward_1_history_must_never_be_overwritten: true
+  monitoring_results_must_not_change_model: true
+  scope_note: "V3仅作为独立Shadow研究信号；不授权真实仓位。"

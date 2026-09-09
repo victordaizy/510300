@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_ORACLE_INFORMATION_BUDGET_V1_0_1_ACCEPTANCE_OUTPUT_AUDIT",
+  "generated_at_asia_shanghai": "2026-08-31T16:42:19.7704369+08:00",
+  "status": "PASS_FOCUSED_CONSERVATIVE_INFORMATION_BUDGET_OUTPUT_AUDIT",
+  "passed": true,
+  "result": {
+    "path": "reports/research/510300_oracle_information_budget_v1_0_1_acceptance_result.json",
+    "sha256": "2842f28d0212d0940e5af986ff08446882443854eae81798086254e86d0e460e",
+    "status": "ORACLE_VALUE_NOT_REALISTICALLY_ACCESSIBLE_STOP_UP20_FORECAST_BRANCH"
+  },
+  "tests": {
+    "command": ".venv\\Scripts\\python.exe -m pytest tests\\test_510300_oracle_information_budget_v1_0_1_acceptance.py -q",
+    "return_code": 0,
+    "result": "6 passed in 34.20s"
+  },
+  "checks": {
+    "base_freeze_manifest_chain_valid": true,
+    "program_correction_1_chain_valid": true,
+    "program_correction_2_chain_valid": true,
+    "source_v1_and_atlas_hashes_match": true,
+    "ordinary_account_metrics_replay_within_5e_12": true,
+    "monthly_sharpe_replays_source_audit_within_5e_12": true,
+    "twenty_day_sharpe_replays_source_audit_within_5e_12": true,
+    "lo_hac_q20_sharpe_replays_source_audit_within_5e_12": true,
+    "declared_artifact_count": 6,
+    "declared_artifact_exists_bytes_hash_checks": 18,
+    "declared_artifact_exists_bytes_hash_checks_passed": 18,
+    "feasible_region_rows": 216,
+    "feasible_region_random_pass_count_reconciles": true,
+    "feasible_region_adversarial_pass_count_reconciles": true,
+    "feasible_region_intersection_count_reconciles": true,
+    "near_miss_ledger_rows": 3,
+    "near_miss_status_exact": "FORWARD_OBSERVATION_ONLY",
+    "near_miss_position_impact_all_zero": true,
+    "near_miss_model_eligible_any": false,
+    "external_up20_result_reconciled": true,
+    "reconciliation_json_parse": true
+  },
+  "program_failure_chain": [
+    {
+      "receipt": "reports/research/510300_oracle_information_budget_v1_0_1_acceptance_program_failure_receipt.json",
+      "sha256": "c7e50a10c22065d69b3e2c0e6938531eac26d437cf5b841224110ddd6944af13",
+      "formal_outputs_written": false,
+      "correction_scope": "RANDOM_SUMMARY_NAN_REPLAY_COMPARATOR_ONLY"
+    },
+    {
+      "receipt": "reports/research/510300_oracle_information_budget_v1_0_1_acceptance_program_failure_receipt_2.json",
+      "sha256": "d0e24d25078f26d70fb5a84d46bb87c7b96e33c0fc59b0ce75bf0abcf18f5fcb",
+      "formal_outputs_written": false,
+      "correction_scope": "DETERMINISTIC_TABLE_NAN_REPLAY_COMPARATOR_ONLY"
+    }
+  ],
+  "external_state_reconciliation": {
+    "path": "reports/research/510300_post_atlas_project_state_v1_0_1_reconciliation.json",
+    "sha256": "d5fb571123ee2c061f4595d9f4c57b88889a037a83e982a17d8511d66c6b6e46",
+    "status": "PASS_EXTERNAL_STATE_RECONCILIATION_BOTH_INFORMATION_BUDGET_AND_UP20_BRANCH_REJECTED_NO_TRADE"
+  },
+  "boundaries": {
+    "generic_security_scan_run": false,
+    "unrelated_whole_project_audit_run": false,
+    "source_frozen_results_modified": false,
+    "prediction_model_created_by_acceptance": false,
+    "paper_or_shadow_signal_created": false,
+    "position_output": "NONE",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

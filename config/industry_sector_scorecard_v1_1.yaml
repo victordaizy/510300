@@ -1,0 +1,90 @@
+version: INDUSTRY_SECTOR_SCORECARD_V1_1
+status: METHODOLOGY_CORRECTION_FROZEN_BEFORE_TRUE_FORWARD
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-19T02:15:00+08:00"
+supersedes_interpretation_of: INDUSTRY_SECTOR_SCORECARD_V1
+preserves_parent_files_unchanged: true
+
+parents:
+  v1_config: config/industry_sector_scorecard_v1.yaml
+  v1_manifest: config/industry_sector_scorecard_v1_manifest.json
+  v1_report: reports/forward/industry_sector_scorecard_v1_2026-08-18.json
+  current_sector_report: reports/forward/industry_expectation_gap_etf_model_v2_2026-08-18.json
+  taxonomy_config: config/industry_expectation_gap_etf_model_v2.yaml
+  taxonomy_manifest: config/industry_expectation_gap_etf_model_v2_manifest.json
+  frozen_sector_target_60d: data/features/000300_sector_forward_contribution_60d_v1.parquet
+
+parent_integrity:
+  industry_sector_scorecard_v1_manifest_sha256: f42cb86f0bb986c989b965589917b64bd1d0635d3b1e5a57d3800e37b2161a79
+  industry_expectation_gap_etf_model_v2_manifest_sha256: 969235daa02621d342f10c42064f34e914ce52137c8ce4f464ef094691c0016f
+
+outputs:
+  corrected_statistics: data/features/industry_sector_odds_and_dependent_win_rates_60d_v1_1.parquet
+  economic_nonoverlap_cohorts: data/features/industry_economic_bucket_nonoverlap_60d_v1_1.parquet
+  theme_nonoverlap_cohorts: data/features/industry_theme_nonoverlap_60d_v1_1.parquet
+  json: reports/forward/industry_sector_scorecard_v1_1_2026-08-18.json
+  markdown: reports/forward/industry_sector_scorecard_v1_1_2026-08-18.md
+  manifest: config/industry_sector_scorecard_v1_1_manifest.json
+
+target:
+  horizon_trading_days: 60
+  primary_return: relative_excess_vs_snapshot_index_return
+  relative_win: excess_forward_return_60d_gt_zero
+  loss: excess_forward_return_60d_lt_or_equal_zero
+  zero_excess_treatment: loss
+  observation_grid: monthly_official_weight_snapshot
+  current_theme_definition_applied_historically: true
+  historical_label: HISTORICALLY_CONTAMINATED_DESCRIPTIVE_NOT_OOS
+
+dependence_adjustment:
+  moving_block_bootstrap:
+    repetitions: 5000
+    block_length_months: 3
+    random_seed: 20260819
+    interval: [0.025, 0.975]
+    statistics:
+      - relative_win_rate
+      - mean_excess_return_60d
+  nonoverlap_cohorts:
+    starting_offsets: [0, 1, 2]
+    selection_rule: next_entry_date_strictly_after_previous_maturity_date
+    primary_summary: median_and_range_across_three_cohorts
+  effective_nonoverlapping_blocks_reference: 24
+
+odds:
+  average_payoff_ratio: mean_positive_excess_divided_by_absolute_mean_nonpositive_excess
+  median_payoff_ratio: median_positive_excess_divided_by_absolute_median_nonpositive_excess
+  profit_factor: sum_positive_excess_divided_by_absolute_sum_nonpositive_excess
+  breakeven_win_rate: one_divided_by_one_plus_average_payoff_ratio
+  expectancy: arithmetic_mean_excess_return_60d
+  expected_value_identity: win_rate_times_average_win_minus_loss_rate_times_average_loss
+  report_tail_metrics:
+    - excess_return_q10
+    - excess_return_q90
+    - worst_excess_return
+    - best_excess_return
+  implementation_scope: gross_theoretical_sector_portfolio_before_etf_cost_tracking_error_and_tax
+
+frequency:
+  overlapping_monthly_win_frequency: relative_win_count_divided_by_eligible_monthly_observations
+  independent_opportunities_per_year: median_nonoverlap_cohort_observations_divided_by_elapsed_years
+  independent_wins_per_year: median_nonoverlap_cohort_wins_divided_by_elapsed_years
+  current_score_trigger_frequency: UNAVAILABLE_NO_HISTORICAL_POINT_IN_TIME_EXPECTATION_GAP_LEDGER
+
+interpretation_gates:
+  confirmed_historical_positive_expectancy_requires:
+    - block_bootstrap_expectancy_lower_bound_gt_zero
+    - nonoverlap_win_rate_min_gt_breakeven_win_rate
+  multiple_comparison_adjusted: false
+  may_call_predictive_edge: false
+  may_call_model_win_rate: false
+
+governance:
+  score_is_probability: false
+  odds_are_position_sizing_input: false
+  kelly_position_sizing_allowed: false
+  score_conditioned_win_rate_available: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

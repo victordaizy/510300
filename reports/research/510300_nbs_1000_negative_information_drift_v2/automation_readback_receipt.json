@@ -1,0 +1,37 @@
+{
+  "automations": [
+    {
+      "configuration_sha256": "ab12ee82e2922f13b07efd45f9c6cfd9403e0eaeab48e4853d27e88d49fbb953",
+      "id": "dsv5-g1",
+      "kind": "heartbeat",
+      "name": "DSV5价格路径政策前向记录（G1停止）",
+      "prompt": "在本任务中保持 DSV5 政策归档状态。工作区为 C:\\Users\\戴周阳\\Documents\\New project 8。以 reports/research/510300_price_path_dsv5_risk_budget_policy_v1/ARCHIVE_DECISION_20260905.json 为最新裁决：ARCHIVED_NO_VIEW_INSUFFICIENT_POLICY_VARIATION；B1 仅保留为独立预测基准，B1_POSITION_MAPPING=DISABLED，HISTORICAL_POLICY_REDESIGN=NOT_ALLOWED。此原政策任务必须保持 PAUSED，不得在工作日19:30恢复，不得运行历史、shadow-tick或政策前向记录，不得生成目标仓位。若意外被触发，仅读归档回执并恢复本任务暂停。POSITION_IMPACT=0，LIVE_TRADING_AUTHORIZED=false。状态未变时保持安静；仅归档状态发生异常变化、程序失败或需要用户处理事项时通知。",
+      "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=30;BYSECOND=0",
+      "status": "PAUSED",
+      "target_thread_id": "01a06f2f-2162-7c41-8179-c26043a5423b"
+    },
+    {
+      "configuration_sha256": "fcb51d07772ba681d382f377ff2ceedccfb5b7ef94628cebe67a4d9a9c2fecda",
+      "id": "510300-b1-dsv5-forecast-observatory-v1",
+      "kind": "heartbeat",
+      "name": "510300_B1_DSV5_FORECAST_OBSERVATORY_V1",
+      "prompt": "在本任务维护只读的 510300_B1_DSV5_FORECAST_OBSERVATORY_V1。工作区为 C:\\Users\\戴周阳\\Documents\\New project 8。先读取 docs/510300_B1_DSV5_FORECAST_OBSERVATORY_V1.md、config/510300_b1_dsv5_forecast_observatory_v1.yaml 和 data/forward/510300_b1_dsv5_forecast_observatory_v1/registration.json，设置 PYTHONIOENCODING=utf-8，使用项目 .venv\\Scripts\\python.exe 运行 scripts\\run_510300_b1_dsv5_forecast_observatory_v1.py tick。北京时间工作日19:30触发，真实本机时钟固定；非五交易日原点为 NOT_ORIGIN_NOOP。首个新原点为2026-09-11。只记录冻结13个预测字段及标签成熟后的QLIKE评分，禁止任何仓位、份额、买卖、订单意图或组合收益。允许该观察器按冻结规则在新原点调用相同来源fund_daily和每13原点重估价格风险B0/B1；禁止调用父历史训练或评价入口、补填漏跑原点、修改模型参数或救援DSV5/NBS。只在52和104个新网格原点的标签成熟时审查，失败则记录归档并通过automation_update将本观察器暂停。官方分红覆盖不足、日线不新鲜、日历到期或模型版本缺失时保留NO_VIEW，不得延长证明日期或用代理补齐。非原点、重复触发以及无新增可处理变化时保持安静；仅首次需要处理的输入缺口、状态发生实质变化、52/104审查结果或程序失败时通知。原 dsv5-g1 保持 PAUSED，政策映射DISABLED。NBS V2已在G0永久归档，510300历史Alpha研究已切换STRICT_FORWARD_ONLY。POSITION_IMPACT=0，LIVE_TRADING_AUTHORIZED=false。",
+      "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=19;BYMINUTE=30;BYSECOND=0",
+      "status": "ACTIVE",
+      "target_thread_id": "01a06f75-6fc5-7733-9ace-5fd0bd86c7a3"
+    },
+    {
+      "configuration_sha256": "1816bb9d3793cd1e534e806adddadd7a2b3fa9d09644b11ae4c12350d8a64703",
+      "id": "510300-pcf-iopv",
+      "kind": "heartbeat",
+      "name": "510300 PCF IOPV严格前瞻采集",
+      "prompt": "本次未修改该任务。",
+      "rrule": "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9;BYMINUTE=20",
+      "status": "ACTIVE",
+      "target_thread_id": "01a0166e-14e0-77e0-ba63-d118a1a80b0d"
+    }
+  ],
+  "position_impact": 0,
+  "timezone": "Asia/Shanghai",
+  "verified_at": "2026-09-05T11:23:25.651541+08:00"
+}

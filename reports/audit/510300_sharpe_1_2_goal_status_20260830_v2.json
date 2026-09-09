@@ -1,0 +1,166 @@
+{
+  "schema_version": "2.0.0",
+  "report_id": "510300_SHARPE_1_2_GOAL_STATUS_20260830_V2",
+  "generated_at": "2026-08-30T17:41:11.5235845+08:00",
+  "status": "NO_VERIFIED_SHARPE_1_2_STRATEGY_FORWARD_EVIDENCE_PENDING",
+  "goal_achieved": false,
+  "current_user_contract": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "evaluation_start": "2015-01-01",
+    "evaluation_end": "CURRENT_AVAILABLE",
+    "pre_2015_warmup_policy": "FACTOR_WARMUP_ONLY_NO_RETURN_EVALUATION",
+    "target_net_sharpe_zero_cash_rate": 1.2,
+    "initial_capital_cny": 20000.0,
+    "lot_size_shares": 100,
+    "commission_rate_per_leg": 0.0003,
+    "minimum_commission_cny_per_leg": 5.0,
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 10.0,
+    "cash_annual_rate": 0.0,
+    "signal_clock": "CLOSE_SIGNAL_NEXT_OPEN_EXECUTION",
+    "long_only": true,
+    "leverage_allowed": false,
+    "short_allowed": false,
+    "derivative_execution_allowed": false,
+    "no_parameter_rescue": true
+  },
+  "new_evidence_since_v1": {
+    "frozen_one_shot_candidates": [
+      {
+        "project_id": "510300_DOWNSIDE_RISK_BUDGET_V1",
+        "status": "REJECTED_FROZEN_DOWNSIDE_RISK_PREDICTIVE_GATE_FAILED_NO_RESCUE",
+        "evaluation_window": "2015-01-05 through 2026-08-12",
+        "mechanism_gate_passed": false,
+        "return_evaluation": "NOT_ALLOWED",
+        "net_sharpe": "NOT_COMPUTED",
+        "reason": "复合下行风险分数没有比单独RV20提供稳定的增量预测，结构分段方向不稳定。",
+        "evidence_path": "reports/research/510300_downside_risk_budget_v1_result.json",
+        "evidence_sha256": "f3259cb711d93f6bad40ee5b910c8cae3dc7b950d26a10e1a9e06711dd83a272"
+      },
+      {
+        "project_id": "510300_OIL_TREND_MONTHLY_TIMING_V1",
+        "status": "REJECTED_FROZEN_OIL_TREND_PREDICTIVE_GATE_FAILED_NO_RESCUE",
+        "evaluation_window": "2015-01-05 through 2026-08-12",
+        "mechanism_gate_passed": false,
+        "return_evaluation": "NOT_ALLOWED",
+        "net_sharpe": "NOT_COMPUTED",
+        "reason": "风险关闭月份的510300后续收益反而更高，方向与论文迁移假设相反；不允许反转规则。",
+        "evidence_path": "reports/research/510300_oil_trend_monthly_timing_v1_result.json",
+        "evidence_sha256": "3e0d261748c4962c78a29f61598a8585e92646a0625a531e99ca30fc22b6c2e2"
+      }
+    ],
+    "pre_outcome_admission_stops": [
+      {
+        "project_id": "510300_COPPER_VOLATILITY_ADMISSION_V1",
+        "status": "NO_VIEW_DEFINITION_AND_PIT_DATA_CONTRACT_FAILED",
+        "outcome_data_access": "NOT_OPENED_FOR_THIS_CANDIDATE",
+        "return_evaluation": "NOT_ALLOWED",
+        "net_sharpe": "NOT_COMPUTED",
+        "trial_count_increment": 0,
+        "reason": "原论文只支持2004—2011样本期，公开材料缺少方向和波动定义，FRED月度期间均价也不匹配期货波动及点时合同。",
+        "evidence_path": "reports/research/510300_copper_volatility_admission_v1.json",
+        "evidence_sha256": "b131a7b8a2487e4d12c02308646d73367c216057751258ce0fbabd33438389c6"
+      },
+      {
+        "project_id": "510300_TECHNICAL_RULE_LITERATURE_ADMISSION_V1",
+        "status": "NO_VIEW_EXACT_RULE_IDENTITY_AND_TRANSFER_CONTRACT_FAILED",
+        "outcome_data_access": "NOT_OPENED_FOR_THIS_CANDIDATE",
+        "return_evaluation": "NOT_ALLOWED",
+        "net_sharpe": "NOT_COMPUTED",
+        "trial_count_increment": 0,
+        "reason": "论文报告28,909条规则中54条有夏普改善，但可访问材料没有给出可预冻结的唯一胜出规则；家族级结论不能被加工成510300策略。",
+        "evidence_path": "reports/research/510300_technical_rule_literature_admission_v1.json",
+        "evidence_sha256": "825b4e1461972dda6a752e51e95d28b48e9de68ea799d3d87a30ac0434903e85"
+      }
+    ]
+  },
+  "selection_bias_accounting": {
+    "latest_frozen_manifest": "config/510300_oil_trend_monthly_timing_v1_manifest.json",
+    "counting_rule": "COUNT_ALL_PREEXISTING_510300_MANIFESTS_AS_CONSERVATIVE_UPPER_BOUND",
+    "conservative_historical_trial_count": 47,
+    "new_admission_stops_increment_trial_count": false,
+    "interpretation": "47是保守上界，不代表47个相互独立的假设；它要求更强的外部与前向证据。"
+  },
+  "technical_factor_adjudication": {
+    "status": "NO_NEW_ADMISSIBLE_TECHNICAL_CANDIDATE",
+    "not_equivalent_to": [
+      "TECHNICAL_FACTORS_ARE_ALWAYS_USELESS",
+      "NO_STRATEGY_CAN_EXIST"
+    ],
+    "meaning": "现有证据不允许从已拒绝家族换参数、反向或组合，也没有找到同时具备唯一公式、先验方向、点时数据和2015后独立迁移边界的新候选。",
+    "future_candidate_must_pass_before_outcome": [
+      "PRIMARY_SOURCE_EXACT_RULE_IDENTITY",
+      "UNAMBIGUOUS_EXPECTED_DIRECTION",
+      "POINT_IN_TIME_INPUT_AND_AVAILABILITY_CLOCK",
+      "ORTHOGONALITY_TO_REJECTED_FAMILIES",
+      "NO_OVERLAP_BETWEEN_SELECTION_AND_INDEPENDENT_VALIDATION",
+      "EXECUTABLE_510300_CASH_MAPPING_WITH_NEXT_OPEN_AND_ACCOUNT_COSTS"
+    ]
+  },
+  "forward_evidence_path": {
+    "stream": "PRIMARY_MARKET_PCF_IOPV",
+    "status_source": "reports/audit/priority_forward_authoritative_status_v1_8_1.json",
+    "status_source_sha256": "5f412b604dacadfd49bce402f9944bd62c8763fb167c2e901459b3facf6a51f4",
+    "status_generated_at": "2026-08-29T04:22:08.714748+08:00",
+    "status": "COLLECTING_NOT_ELIGIBLE",
+    "stage": "STAGE_0_19_COLLECTION",
+    "latest_observed_trade_date": "2026-08-18",
+    "observed_trading_days": 4,
+    "full_quality_days": 2,
+    "quality_day_gate": 20,
+    "feature_freeze_gate": 40,
+    "first_unseen_gate": 80,
+    "replication_gate": 120,
+    "latest_collection_status": "EXTERNAL_FREE_SOURCE_FAILED",
+    "current_turn_live_scheduler_confirmation": "NOT_ATTEMPTED",
+    "next_legal_action": "只等待冻结计划任务在合法窗口自动运行并承认同日不可变收据；禁止手工越窗运行、补采、绕过TLS或把探针记作质量日。"
+  },
+  "certainty_framework": [
+    {
+      "layer": 1,
+      "name": "DATA_CERTAINTY",
+      "requirement": "点时数据、可用日、修订与交易日对齐全部可审计"
+    },
+    {
+      "layer": 2,
+      "name": "MECHANISM_CERTAINTY",
+      "requirement": "在组合回测前，方向、效应、结构分段和删一稳定性通过"
+    },
+    {
+      "layer": 3,
+      "name": "EXECUTION_CERTAINTY",
+      "requirement": "次日开盘、分红、100股整数手、最低佣金与双倍滑点均计入"
+    },
+    {
+      "layer": 4,
+      "name": "TEMPORAL_CERTAINTY",
+      "requirement": "选择期、未见期、复制期彼此分离，失败不得救援"
+    },
+    {
+      "layer": 5,
+      "name": "FORWARD_CERTAINTY",
+      "requirement": "真实前向数据达到20/40/80/120质量日门槛后才讨论Paper或Shadow"
+    }
+  ],
+  "execution_authorization": {
+    "research_only": true,
+    "discovery_only": true,
+    "paper_or_shadow_position_mapping_enabled": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "final_adjudication": {
+    "historical_target_observed_only_in_post_selected_candidate": true,
+    "robustness_target_passed": false,
+    "prospective_target_verified": false,
+    "tradable_strategy_implemented": false,
+    "goal_achieved": false,
+    "reason": "目前没有通过冻结机制门槛、真实账户费用、独立时间验证和前向复制的净夏普1.2策略。技术因子的确定性只能来自证据链，不能来自继续搜索参数。"
+  }
+}

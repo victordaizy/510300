@@ -1,0 +1,178 @@
+protocol:
+  project_id: 510300_DERIVATIVE_PRESSURE_RELEASE_V2_AGGREGATE_OI
+  version: 1.0.0
+  state: PRE_OUTCOME_INDEPENDENT_FREEZE
+  created_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  historical_evidence_label: RESEARCH_OBSERVED_DISCOVERY
+  relation_to_v1: INDEPENDENT_PREFROZEN_DATA_CONSTRUCTION_VERSION
+  v1_status: NO_VIEW_FROZEN_UNCHANGED
+  rescue_v1: false
+  max_research_runs: 1
+  post_result_parameter_change: FORBIDDEN
+  v3_or_later_if_not_pass: FORBIDDEN
+  parent_v1_manifest_content_sha256: 5576c79749c4c07b21338b37145194248324dbae145d30d0fb3893825b4a7079
+  parent_v1_adjudication_sha256: 981f4c39804ab4f9bc6979b6a175ce41df3e2ec991d6803d9e14498cdcdb453a
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  other_assets_position: 0
+  shorting_allowed: false
+  leverage_allowed: false
+  derivatives_position: 0
+  historical_activation_allowed: false
+  position_impact: 0
+  live_trading_authorized: false
+
+capital_and_costs:
+  initial_capital_cny: 200000.0
+  commission_rate_per_leg: 0.0002
+  minimum_commission_cny_per_leg: 5.0
+  stress_slippage_bps_per_leg: 5.0
+  double_stress_slippage_bps_per_leg: 10.0
+  etf_stamp_duty_rate: 0.0
+  lot_size_shares: 100
+  stress_round_trip_bps: 14.0
+  double_stress_round_trip_bps: 24.0
+
+shared_clocks:
+  timezone: Asia/Shanghai
+  minute_bar_timestamp_semantics: BAR_START
+  confirmation_input_start: '09:30:00'
+  confirmation_input_end_inclusive: '09:44:00'
+  confirmation_required_bars: 15
+  execution_bar_time: '09:45:00'
+  no_new_low_rule: LOW_0940_0944_STRICTLY_ABOVE_LOW_0930_0939
+  vwap_rule: SUM_AMOUNT_DIV_SUM_VOLUME_0930_0944
+  repair_ratio_minimum: 0.3333333333333333
+  price_impact_rule: MEDIAN_ABS_MINUTE_RETURN_DIV_AMOUNT_0940_0944_BELOW_0930_0934
+  same_bar_execution_allowed: false
+
+rolling_rules:
+  standard_z_window_days: 252
+  standard_z_minimum_history_days: 252
+  percentile_window_days: 252
+  percentile_minimum_history_days: 252
+  rolling_inputs_use_current_observation: false
+
+branches:
+  derivative_pressure_release:
+    model_id: 510300_DERIVATIVE_PRESSURE_RELEASE_V2_AGGREGATE_OI
+    mechanism: PUBLIC_DAILY_DERIVATIVE_HEDGE_PRESSURE_WITH_AGGREGATE_IF_OI
+    pressure_formula: '-z(IF_ANNUALIZED_BASIS)+z(DELTA_AGGREGATE_OI)+z(PUT_SKEW)+z(VRP)'
+    component_weights: [-1.0, 1.0, 1.0, 1.0]
+    component_weight_change_allowed: false
+    if_front_minimum_calendar_days_to_expiry: 5
+    if_basis_formula: '(IF_CLOSE/CSI300_CLOSE-1)*365/CALENDAR_DAYS_TO_EXPIRY'
+    aggregate_oi_formula: SUM_OPEN_INTEREST_ALL_IF_CONTRACTS_WITH_EXPIRY_DATE_STRICTLY_AFTER_TRADE_DATE_AND_OI_GT_ZERO
+    delta_oi_formula: LOG_AGGREGATE_OI_T_MINUS_LOG_AGGREGATE_OI_T_MINUS_1
+    aggregate_oi_missing_status: NO_VIEW
+    expiry_day_new_signal: false
+    put_skew_formula: OI_WEIGHTED_OTM_PUT_IV_MINUS_ATM_PAIR_IV
+    put_skew_dte_calendar_days: [20, 60]
+    put_skew_otm_moneyness: [0.90, 0.98]
+    atm_moneyness_absolute_maximum: 0.03
+    vrp_formula: ATM_PAIR_IV_SQUARED_MINUS_ANNUALIZED_RV20_SQUARED
+    candidate_rules:
+      - ETF_DAILY_RETURN_AT_OR_BELOW_PRIOR252_5TH_PERCENTILE
+      - PRESSURE_AT_OR_ABOVE_PRIOR252_95TH_PERCENTILE
+      - IF_ANNUALIZED_BASIS_WEAKENS_ON_SAME_FRONT_CONTRACT
+      - AGGREGATE_IF_OI_INCREASES
+      - NOT_ANY_IF_CONTRACT_EXPIRY_DAY
+    confirmation_rules:
+      - NO_CONTINUED_NEW_LOW
+      - ENTRY_PRICE_ABOVE_FIRST15_MINUTE_VWAP
+      - OPENING_DROP_REPAIRED_AT_LEAST_ONE_THIRD_OR_NO_NEGATIVE_OPENING_DROP
+      - PRICE_IMPACT_DECLINES
+    signal_data_conservative_available_at: NEXT_TRADING_DAY_09_30
+    entry_time: T_PLUS_1_09_45
+    exit_time: T_PLUS_2_09_45
+    holding_trading_days: 1
+    full_order_imbalance_replication_claim: FORBIDDEN
+
+lifecycle_governor:
+  active_gates:
+    mean_gross_edge_bps_minimum: 42.0
+    one_sided_net_mean_lcb_minimum: 0.0
+    conservative_sharpe_minimum: 1.20
+    recent_final_third_net_sum_minimum: 0.0
+    maximum_single_event_positive_contribution_fraction: 0.20
+    double_stress_net_sum_minimum: 0.0
+
+evaluation:
+  independent_mature_events_minimum: 40
+  one_sided_confidence_level: 0.95
+  annualization_trading_days: 242
+  no_threshold_search_after_result: true
+  return_evaluation_requires_pressure_percentile_constructed: true
+  result_if_feature_construction_fails: NO_VIEW_FEATURE_CONSTRUCTION_FAILED
+  result_if_fewer_than_40_events: RESEARCH_OBSERVED_DISCOVERY_INSUFFICIENT_EVENTS
+  result_if_enough_events_and_any_active_gate_fails: REJECTED_FROZEN
+  result_if_all_historical_gates_pass: HISTORICAL_DISCOVERY_SCREEN_PASS_FORWARD_SHADOW_REQUIRED
+  resource_status_if_not_historical_pass: CLOSED_PUBLIC_DAILY_DERIVATIVE_PRESSURE_PROXY_FAMILY_AFTER_ONE_SHOT_V2
+  resource_status_if_historical_pass: FORWARD_SHADOW_ELIGIBLE_NO_POSITION
+
+data_contracts:
+  if_contract_daily:
+    path: data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet
+    source: CFFEX_OFFICIAL_MONTHLY_ARCHIVES_AND_DAILY_DATA
+  if_contract_expiry:
+    path: data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet
+  csi300_price_index_daily:
+    path: data/raw/r6/000300_daily.parquet
+  etf_daily:
+    path: data/raw/market/510300_daily_raw.parquet
+  etf_option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    source_qualification: RETROSPECTIVE_PROXY_DISCOVERY_ONLY
+  etf_option_risk_indicators:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    source_qualification: SSE_OFFICIAL_RETROSPECTIVE_DISCOVERY_ONLY
+  etf_minute:
+    path: data/raw/market/510300_1m_tushare_raw.parquet
+    timestamp_semantics: BAR_START
+    source_qualification: RETROSPECTIVE_DISCOVERY_ONLY
+
+immutable_dependencies:
+  - path: config/510300_episodic_alpha_library_v1.yaml
+    role: FROZEN_V1_PROTOCOL_DEPENDENCY
+  - path: config/510300_episodic_alpha_library_v1_manifest.json
+    role: FROZEN_V1_MANIFEST_DEPENDENCY
+  - path: reports/research/510300_episodic_alpha_library_v1_post_run_adjudication.json
+    role: FROZEN_V1_ADJUDICATION_DEPENDENCY
+  - path: research/episodic_alpha_library_v1.py
+    role: FROZEN_V1_IMPLEMENTATION_DEPENDENCY
+
+artifacts:
+  freeze_manifest: config/510300_derivative_pressure_release_v2_aggregate_oi_manifest.json
+  one_shot_claim: reports/research/510300_derivative_pressure_release_v2_aggregate_oi_run_claim.json
+  one_shot_receipt: reports/research/510300_derivative_pressure_release_v2_aggregate_oi_run_receipt.json
+  data_admission_json: reports/data_quality/510300_derivative_pressure_release_v2_aggregate_oi_data_admission.json
+  result_json: reports/research/510300_derivative_pressure_release_v2_aggregate_oi.json
+  result_markdown: reports/research/510300_DERIVATIVE_PRESSURE_RELEASE_V2_AGGREGATE_OI.md
+  feature_table: data/research/510300_derivative_pressure_release_v2_aggregate_oi/features.parquet
+  event_table: data/research/510300_derivative_pressure_release_v2_aggregate_oi/events.parquet
+
+boundaries:
+  current_signal_created: false
+  position_mapping_enabled: false
+  paper_or_shadow_position_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+
+references:
+  cffex_daily_statistics: https://www.cffex.com.cn/cn/rtj.html
+
+freeze:
+  files:
+    - config/510300_derivative_pressure_release_v2_aggregate_oi.yaml
+    - docs/510300_DERIVATIVE_PRESSURE_RELEASE_V2_AGGREGATE_OI_SPEC.md
+    - research/frozen_protocol_support_v1.py
+    - research/derivative_pressure_release_v2_aggregate_oi.py
+    - scripts/freeze_510300_derivative_pressure_release_v2_aggregate_oi.py
+    - scripts/run_510300_derivative_pressure_release_v2_aggregate_oi.py
+    - tests/test_510300_derivative_pressure_release_v2_aggregate_oi.py
+  include_all_data_contract_files: true
+

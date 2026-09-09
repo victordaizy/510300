@@ -1,0 +1,148 @@
+program:
+  program_id: 510300_EXPECTATIONS_NEWS_PRICE_RESPONSE_ENGINE_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_MEASUREMENT_ARCHITECTURE_FREEZE
+  frozen_research_stage: MEASUREMENT_AND_MECHANISM_IDENTIFICATION_ONLY
+  research_scope: DISCOVERY_ONLY
+  executable_assets: [510300.SH, CASH_CNY]
+  return_prediction_allowed: false
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+
+adjudication:
+  rejected_program_id: 510300_STRUCTURAL_PREDICTION_V1
+  current_forecast_specification: REJECTED_FROZEN
+  structural_economic_idea_status: UNPROVEN_NOT_REJECTED_AS_MATHEMATICAL_IMPOSSIBILITY
+  waiting_for_existing_labels: PASSIVE_MONITORING_ONLY
+  next_research_action: REBUILD_MEASUREMENT_ARCHITECTURE
+  portfolio_action: ABSTAIN
+  position_state: POSITION_UNSET
+  v1_requalification_allowed: false
+  future_requalification_requires_new_program: 510300_STRUCTURAL_PREDICTION_V2
+  mathematical_impossibility_proven: false
+  accessible_free_information_feasibility_validated: false
+  current_investable_strategy: NONE
+  existing_forecast_status: REJECTED_MODEL_DIAGNOSTIC_FORECAST_ONLY
+  existing_forecast_actual_status: ACTUAL_CENSORED
+  existing_forecast_trading_status: NOT_TRADABLE
+  existing_forecast_origin: 2026-07-31
+
+parent_contracts:
+  conditional_map:
+    program_id: 510300_CONDITIONAL_MECHANISM_MAP_V1
+    manifest: config/510300_conditional_mechanism_map_v1_manifest.json
+    authoritative_status: reports/research/510300_conditional_mechanism_map_v1_status.json
+    condition_state_receipt: reports/data_quality/510300_conditional_mechanism_map_v1_condition_state.json
+    condition_state_panel: data/processed/510300_conditional_mechanism_map_v1/condition_state_panel.parquet
+    condition_map: reports/research/510300_conditional_mechanism_map_v1.parquet
+    expected_status: STAGE_2_COMPLETE_CONDITIONAL_MAP_DESCRIPTIVE_ONLY
+    expected_manifest_payload_sha256: 4b14f716ada01ca3067e0c18c7e007af6e58dc466a1f2d05ad48e98b3c1fd9e7
+    expected_status_payload_sha256: 3d2f547f93e666e5bcaa111cc261547729d610898ed0c5b7d83c20fa813eb951
+    expected_receipt_payload_sha256: 80faba94eba684fd152a77406cda54b63bf5922814acba69d0db4542cce0237f
+    expected_state_panel_sha256: 95e6e725df3fcbe40ed91a1d06e11049f0fd8fe269aca2aa77ce95bfb398d5a8
+    expected_condition_map_sha256: 8788860e074ff8cc93f23586f9bb078a9582baaa6e23a5dc0dfee9cf47b056ca
+  rejected_prediction:
+    program_id: 510300_STRUCTURAL_PREDICTION_V1
+    manifest: config/510300_structural_prediction_v1_manifest.json
+    authoritative_status: reports/research/510300_structural_prediction_v1_status.json
+    prediction_state_receipt: reports/data_quality/510300_structural_prediction_v1_state.json
+    prediction_rows: reports/research/510300_structural_prediction_v1_predictions.parquet
+    evaluation_metrics: reports/research/510300_structural_prediction_v1_metrics.parquet
+    module_increment_results: reports/research/510300_structural_prediction_v1_module_increments.parquet
+    expected_status: STAGE_3_COMPLETE_PREDICTIVE_VALIDATION_FAILED_OR_NO_VIEW
+    expected_manifest_payload_sha256: cf01085c4e0dec3c27c02a484f854911e28fe113527163b3e11219ed940454b1
+    expected_status_payload_sha256: ffcfe51dd086b327419bd6a3cd1a1cd3a81f239b9a05b63bf3b746aeadfb862f
+    expected_receipt_payload_sha256: 60a3b2990093714ebd57c463be8ed2e8b55fb20935106fdd667268df7aa2fa42
+    expected_prediction_rows_sha256: e468b7ee0fc7caf96ccd60d1d75c11e194a71597650c539f9d10890f98953c7e
+    expected_evaluation_metrics_sha256: fcfe639142cd44931026e9e28cc41d8fe68b9f6495b68b2652ab542dcf4fa3a1
+    expected_increment_results_sha256: 7e127e8ba66b529d75ef8a7f1c5781e1379f237e4732ad6c945d11d42f84205b
+
+conditional_state_atlas:
+  program_id: 510300_CONDITIONAL_STATE_ATLAS_V1
+  role: DESCRIPTIVE_STATE_ATLAS_ONLY
+  canonical_source_views: [QUADRANT, QUADRANT_X_RC]
+  excluded_source_views: [ARCHETYPE]
+  forbidden_output_fields: [expected_direction, directional_result]
+  neutral_quadrant_labels:
+    CF_IMPROVING_DR_EASING: CF_UP_DR_EASING
+    CF_IMPROVING_DR_TIGHTENING: CF_UP_DR_TIGHTENING
+    CF_DETERIORATING_DR_EASING: CF_DOWN_DR_EASING
+    CF_DETERIORATING_DR_TIGHTENING: CF_DOWN_DR_TIGHTENING
+  return_statistics_role: HISTORICAL_DESCRIPTION_ONLY_NOT_A_FORECAST
+  causal_claim_allowed: false
+  directional_hypothesis_embedded: false
+
+measurement_architecture:
+  ordered_workstreams:
+    - 510300_STRUCTURAL_SIGNAL_POWER_AND_IDENTIFIABILITY_AUDIT_V1
+    - 510300_TOTAL_RETURN_COMPONENT_LEDGER_V1
+    - CF_OWN_OBJECT_MEASUREMENT_VALIDITY
+    - DR_OWN_OBJECT_MEASUREMENT_VALIDITY
+    - RC_OWN_OBJECT_MEASUREMENT_VALIDITY
+    - EXPECTATION_NEWS_PRICE_RESPONSE_CHAIN
+  total_return_component_ledger:
+    program_id: 510300_TOTAL_RETURN_COMPONENT_LEDGER_V1
+    status: ACCOUNTING_AND_ATTRIBUTION_ONLY
+    horizons_market_days: [60, 120]
+    scopes:
+      - ACTUAL_INDEX_CHAINED_SCOPE
+      - ORIGIN_FIXED_COMPONENTS_AND_WEIGHTS_SCOPE
+    required_outputs:
+      - DIVIDEND_COMPONENT
+      - EARNINGS_GROWTH_COMPONENT
+      - MULTIPLE_REPRICING_COMPONENT
+      - MEMBERSHIP_AND_WEIGHT_COMPONENT
+      - TRACKING_RESIDUAL
+    exact_multiplicative_identity_required: true
+    pure_dividend_must_be_no_view_without_admitted_distribution_archive: true
+  module_target_contracts:
+    CF:
+      allowed_targets:
+        - EARNINGS_GROWTH
+        - OPERATING_CASHFLOW_GROWTH
+        - EARNINGS_BREADTH
+        - CASHFLOW_BREADTH
+    DR:
+      allowed_targets:
+        - VALUATION_MULTIPLE_CHANGE
+        - EQUITY_RISK_PREMIUM_GAP_CHANGE
+    RC:
+      allowed_targets:
+        - REALIZED_VOLATILITY
+        - DOWNSIDE_SEMIVARIANCE
+        - MEMBER_CORRELATION
+        - LIQUIDITY_SHOCK
+    PRICE_RESPONSE:
+      allowed_targets:
+        - NEWS_ABSORPTION_PATH
+  pit_chain:
+    chain: EXPECTATION_TO_NEWS_TO_PRICE_RESPONSE
+    member_level_facts_required: true
+    hard_gates:
+      - PIT_MEMBERSHIP_AND_WEIGHT_VINTAGE
+      - FIRST_PUBLIC_DISCLOSURE_TIME
+      - NO_REVISED_VALUE_AS_PIT
+      - EVENT_PRICE_CLOCK
+      - EVENT_CLUSTERING_CONTROL
+      - NO_VIEW_WHEN_ANY_REQUIRED_CLOCK_IS_UNRELIABLE
+    direct_total_return_target_allowed: false
+
+forward_monitoring:
+  start_date: 2026-09-01
+  mode: IMMUTABLE_DIAGNOSTIC_FORWARD_LEDGER
+  research_status: DISCOVERY_ONLY
+  label_updates_can_requalify_v1: false
+  order_generation_allowed: false
+  paper_shadow_authorized: false
+  live_authorized: false
+
+artifacts:
+  protocol_manifest: config/510300_expectations_news_price_response_engine_v1_manifest.json
+  permanent_rejection_receipt: reports/research/510300_structural_prediction_v1_permanent_rejection.json
+  neutral_state_panel: data/processed/510300_conditional_state_atlas_v1/neutral_state_panel.parquet
+  neutral_atlas: reports/research/510300_conditional_state_atlas_v1.parquet
+  neutral_atlas_json: reports/research/510300_conditional_state_atlas_v1.json
+  neutral_atlas_report: reports/research/510300_CONDITIONAL_STATE_ATLAS_V1.md
+  engine_charter: reports/research/510300_EXPECTATIONS_NEWS_PRICE_RESPONSE_ENGINE_V1_CHARTER.md
+  forward_ledger_schema: reports/data_quality/510300_expectations_news_price_response_forward_ledger_schema_v1.json
+  authoritative_status: reports/research/510300_expectations_news_price_response_engine_v1_status.json

@@ -1,0 +1,69 @@
+{
+  "study_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1",
+  "audit_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1_G0_CLEAN_REPLAY_V1",
+  "generated_at": "2026-09-02T15:57:04.0196039+08:00",
+  "status": "PASS_G0_PROJECT_ENGINEERING_REPLAY",
+  "validated_git_head": "1d9dbf9fb6d2f7a678bb0afc64354f3cdf2c5659",
+  "one_click_entrypoint": "scripts/run_510300_asymmetric_stress_hazard_v1_g0_replay.ps1",
+  "protocol_g0": {
+    "status": "PASS_G0_READY_FOR_ONE_SHOT_BAD10_CENSUS",
+    "committed_path_count": 10,
+    "registered_input_count": 2,
+    "protocol_manifest_payload_sha256": "6e040088e8789dc7eab951c99b4787d03302b463a98557d95a8a5c978d70d5e8",
+    "label_values_read": false,
+    "feature_values_constructed": false,
+    "model_trained": false,
+    "portfolio_metrics_read": false
+  },
+  "clean_tracked_test_suite": {
+    "status": "PASS",
+    "passed": 259,
+    "strict_xfailed": 2,
+    "failed": 0,
+    "errors": 0,
+    "duration_seconds": 118.04,
+    "exit_code": 0,
+    "strict_xfail_nodes": [
+      {
+        "node_id": "tests/test_510300_direction_switch_v1.py::test_frozen_protocol_and_manifest",
+        "evidence_validator": "research/direction_switch_terminal_evidence_v1.py",
+        "reason": "旧用例仅适用于运行前未消费状态；唯一历史运行已消费，预运行清单可重建且20个结果哈希与5个冻结实现哈希全部闭环。"
+      },
+      {
+        "node_id": "tests/test_510300_pit_earnings_information_diffusion_10d_risk_v1.py::test_manifest_hashes_match_if_manifest_exists",
+        "evidence_validator": "research/pit_earnings_legacy_replay_evidence_v1.py",
+        "reason": "旧V1.0.2可变输入漂移已由既有裁定冻结保留；V1.0.3替代契约、4个冻结文件、7个冻结输入及4个输出均验证通过。"
+      }
+    ]
+  },
+  "isolation": {
+    "temporary_git_worktree": true,
+    "external_inputs_copied_to_temporary_data_tree": true,
+    "copied_file_dependency_count": 14,
+    "copied_directory_dependency_count": 3,
+    "writable_registered_data_junction_created": false,
+    "temporary_worktree_removed": true,
+    "temporary_replay_directory_count_after_cleanup": 0,
+    "registered_worktree_count_after_cleanup": 1
+  },
+  "incident_recovery_recheck": {
+    "receipt": "reports/audit/510300_g0_clean_worktree_junction_incident_v1.json",
+    "remaining_tracked_data_deletion_count": 0,
+    "preexisting_modified_dividend_file_preserved": true
+  },
+  "authority": {
+    "research_state": "DISCOVERY_ONLY",
+    "model_position_target": "UNSET",
+    "actual_holdings": "UNKNOWN_OUT_OF_SCOPE",
+    "order_authorization": "NOT_AUTHORIZED",
+    "position_impact": 0,
+    "live_trading_authorized": false
+  },
+  "bad10_boundary": {
+    "label_values_read": false,
+    "one_shot_claim_created": false,
+    "census_executed": false,
+    "next_allowed_action": "ONE_SHOT_BAD10_INDEPENDENT_EVENT_CENSUS_ONLY",
+    "features_models_thresholds_returns_portfolios_allowed_before_g1": false
+  }
+}

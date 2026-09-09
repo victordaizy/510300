@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_THREE_STATE_TREND_ROUTER_V1",
+  "generated_at": "2026-08-31T13:23:38.3279372+08:00",
+  "status": "PASS_DAILY_INPUTS_RANGE_T_DATA_GATE_FAILED_RANGE_POLICY_NO_TRADE",
+  "candidate_2015_plus_outcomes_read_or_computed": false,
+  "candidate_portfolio_returns_read_or_computed": false,
+  "daily_inputs": {
+    "etf_daily": {
+      "path": "data/raw/r6/510300_daily.parquet",
+      "bytes": 137702,
+      "sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "evaluation_rows": 2823,
+      "status": "PASS"
+    },
+    "index_daily": {
+      "path": "data/raw/r6/000300_daily.parquet",
+      "bytes": 161662,
+      "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+      "rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "evaluation_rows": 2823,
+      "status": "PASS"
+    },
+    "benchmark_total_return": {
+      "path": "data/raw/r6/H00300_total_return_daily.parquet",
+      "bytes": 153211,
+      "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba3393992dfc69014fadba957",
+      "rows": 3457,
+      "allowed_extra_date": "2018-06-18",
+      "status": "PASS"
+    },
+    "dividends": {
+      "path": "data/reference/510300_dividends.csv",
+      "bytes": 2021,
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "rows": 14,
+      "first_ex_date": "2012-12-18",
+      "last_ex_date": "2026-01-19",
+      "status": "PASS"
+    },
+    "evaluation_calendar_equal_between_signal_and_execution_assets": true
+  },
+  "prefreeze_indicator_sanity": {
+    "scope": "2012-05-28_TO_2014-12-31_ONLY",
+    "rows": 633,
+    "first_valid_adx_date": "2012-07-04",
+    "state_counts": {
+      "RANGE_OR_UNCONFIRMED": 267,
+      "BULL_TREND": 193,
+      "BEAR_TREND": 173
+    },
+    "post_2014_state_counts_read_before_freeze": false,
+    "post_2014_returns_read_before_freeze": false,
+    "status": "PASS_NONDEGENERATE_PREFREEZE_FEATURE_SANITY"
+  },
+  "range_t_data_gate": {
+    "status": "FAIL_COMPLETE_2015_TO_2026_INTRADAY_COVERAGE",
+    "range_t_return_evaluation": "NOT_ALLOWED",
+    "fallback_range_policy": "NO_TRADE",
+    "observed_intraday": {
+      "path": "data/raw/market/510300_15m_from_1m_raw.parquet",
+      "bytes": 623885,
+      "sha256": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1",
+      "rows": 19376,
+      "trading_days": 1211,
+      "first_date": "2021-08-12",
+      "last_date": "2026-08-12"
+    },
+    "required_first_date": "2015-01-05",
+    "required_last_date": "2026-08-14",
+    "coverage_complete": false,
+    "source_quality_receipt": {
+      "path": "reports/data_quality/510300_15m_from_1m_quality.json",
+      "bytes": 4841,
+      "sha256": "e7fc50490e038273dbdf205d64688f85838ab1c16d0d6871c01ed4f9dcc95e26",
+      "status": "PASS_WITH_SOURCE_CAVEATS"
+    },
+    "existing_intraday_family_status": "REJECTED_FIXED_INTRADAY_FAMILY_NO_RESCUE"
+  },
+  "official_trading_rule": {
+    "stock_etf_t_plus_one": true,
+    "same_day_new_buy_then_sell_allowed": false,
+    "existing_inventory_sell_then_buy_back_requires_separate_inventory_model": true,
+    "sources": [
+      "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml",
+      "https://etf.sse.com.cn/fund/quertion/"
+    ]
+  },
+  "admission": {
+    "daily_three_state_strategy_allowed": true,
+    "historical_range_t_allowed": false,
+    "reason": "日线三态输入完整；震荡做T缺少2015年以来完整分钟合同且受股票ETF T+1与底仓约束，因此V1固定为震荡不交易。"
+  }
+}

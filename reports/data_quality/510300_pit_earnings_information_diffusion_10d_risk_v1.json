@@ -1,0 +1,287 @@
+{
+  "candidate_id": "510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1",
+  "version": "1.0.2",
+  "status": "BLOCKED_NO_PIT_CSI300_MEMBERSHIP_OR_WEIGHTS",
+  "created_at": "2026-08-30T19:56:24.968314+08:00",
+  "research_stage": "DATA_FEASIBILITY_ONLY",
+  "activation": {
+    "status": "PASS",
+    "predecessor_result": "reports/data_quality/510300_option_chain_feasibility_v1.json",
+    "observed_predecessor_status": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN",
+    "required_predecessor_status": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN"
+  },
+  "manifest": {
+    "path": "config/510300_pit_earnings_information_diffusion_10d_risk_v1_manifest.json",
+    "sha256": "e0c20345da2170415f98be7581c9b461f8bbfb8537d3d0f765877e077ea7a751",
+    "status": "FROZEN_OUTCOME_BLIND_PIT_EARNINGS_DATA_FEASIBILITY_BEFORE_ANY_POST_EVENT_OUTCOME"
+  },
+  "official_metadata": {
+    "recovery_status": "PASS_OFFICIAL_FIRST_PRELIMINARY_EARNINGS_METADATA_V1_COMPLETE",
+    "row_count": 104191,
+    "target_title_row_count": 88677,
+    "pdf_inventory_count": 88677,
+    "pdf_pass_count": 88667,
+    "pdf_coverage": 0.9998872311873428,
+    "market_price_read_true": 0,
+    "future_return_read_true": 0
+  },
+  "membership": {
+    "row_count": 1225,
+    "unique_symbol_count": 949,
+    "duplicate_symbol_opt_in_rows": 0,
+    "invalid_interval_order_rows": 0,
+    "overlapping_interval_rows": 0,
+    "first_opt_in": "2005-04-08 00:00:00",
+    "last_opt_in": "2026-06-12 00:00:00",
+    "open_interval_count": 300,
+    "sources": {
+      "https://github.com/unliftedq/index-constitution": 1225
+    },
+    "source_licenses": {
+      "MIT": 1225
+    },
+    "active_member_count_on_availability_dates_min": 299,
+    "active_member_count_on_availability_dates_max": 301,
+    "availability_date_count_checked": 1045,
+    "anomalous_availability_date_count": 258,
+    "anomalous_member_count_distribution": {
+      "299": 210,
+      "301": 48
+    },
+    "anomalous_availability_date_count_by_year": {
+      "2014": 48,
+      "2017": 69,
+      "2018": 91,
+      "2019": 50
+    },
+    "first_anomalous_availability_date": "2014-01-06 00:00:00",
+    "last_anomalous_availability_date": "2019-05-06 00:00:00",
+    "status_receipt": {
+      "status": "PASS_MEMBERSHIP_ONLY_NO_HISTORICAL_WEIGHTS",
+      "checked_at": "2026-08-13T02:21:04.163695+08:00",
+      "source_url": "https://raw.githubusercontent.com/unliftedq/index-constitution/main/history/csi300.csv",
+      "source_repository": "https://github.com/unliftedq/index-constitution",
+      "source_license": "MIT",
+      "source_method": "中证官方历次调样公告标准化区间；项目另与中证官网当前成分权重快照做集合交叉验证",
+      "source_sha256": "2bc8b4e4410c682b4bae5612b8d4e76412409433be3263b631125a3acbbcfd77",
+      "output_file": "data/raw/constituents/000300_historical_membership_intervals.parquet",
+      "interval_count": 1225,
+      "unique_symbol_count": 949,
+      "project_market_day_count": 1211,
+      "min_active_constituents": 300,
+      "max_active_constituents": 300,
+      "official_current_snapshot_date": "2026-07-31",
+      "official_current_set_difference_count": 0,
+      "allowed_use": "点时成分等权Breadth与成分集合研究",
+      "prohibited_use": "不得称为官方历史权重，不得替代自由流通调整权重"
+    },
+    "official_rebalance_cycle_source_gate": {
+      "status": "PASS",
+      "observed_cycle_count": 21,
+      "complete_cycle_count": 21,
+      "return_evaluation": "NOT_ALLOWED"
+    }
+  },
+  "weights": {
+    "row_count": 36000,
+    "snapshot_count": 120,
+    "first_snapshot": "2016-08-31 00:00:00",
+    "last_snapshot": "2026-07-31 00:00:00",
+    "duplicate_date_security_rows": 0,
+    "member_count_min": 300,
+    "member_count_median": 300.0,
+    "member_count_max": 300,
+    "weight_sum_min_percent": 99.988,
+    "weight_sum_median_percent": 100.0,
+    "weight_sum_max_percent": 100.011,
+    "sources": {
+      "tushare.index_weight": 36000
+    },
+    "retrieved_at_min": "2026-08-13 15:57:09.141806+08:00",
+    "retrieved_at_max": "2026-08-13 16:02:30.485351+08:00",
+    "status_receipt": {
+      "status": "PASS",
+      "checked_at": "2026-08-13T16:02:33.602086+08:00",
+      "file": "data/raw/constituents/000300_historical_weights.parquet",
+      "historical_monthly_weights_available": true,
+      "api_host": "fast.xiaodefa.cn",
+      "request_interval_seconds": 0.8,
+      "actual_first_date": "2016-08-31",
+      "actual_last_date": "2026-07-31",
+      "snapshot_count": 120,
+      "unique_constituent_count": 622,
+      "min_constituents_per_snapshot": 300,
+      "max_constituents_per_snapshot": 300,
+      "min_weight_sum_pct": 99.988,
+      "max_weight_sum_pct": 100.011
+    }
+  },
+  "event_coverage": {
+    "all_target_announcement_count": 88677,
+    "calendar_covered_target_announcement_count": 73478,
+    "calendar_uncovered_target_announcement_count": 15199,
+    "trading_calendar_first_open_date": "2014-01-02 00:00:00",
+    "trading_calendar_last_open_date": "2026-08-14 00:00:00",
+    "duplicate_target_announcement_ids": 0,
+    "member_target_announcement_count": 3970,
+    "member_unique_issuer_count": 511,
+    "member_distinct_notice_date_count": 1194,
+    "member_announcement_count_by_year": {
+      "2014": 274,
+      "2015": 331,
+      "2016": 338,
+      "2017": 322,
+      "2018": 348,
+      "2019": 372,
+      "2020": 334,
+      "2021": 346,
+      "2022": 316,
+      "2023": 289,
+      "2024": 260,
+      "2025": 233,
+      "2026": 207
+    },
+    "member_announcement_count_by_type": {
+      "EARNINGS_FORECAST": 2011,
+      "EARNINGS_EXPRESS": 1821,
+      "EARNINGS_FORECAST_REVISION": 117,
+      "EARNINGS_EXPRESS_REVISION": 21
+    },
+    "date_only_conservative_count": 3479,
+    "date_only_conservative_ratio": 0.8763224181360202,
+    "member_pdf_available_count": 3969,
+    "member_pdf_unavailable_count": 1,
+    "valid_strict_prior_weight_count": 3074,
+    "valid_strict_prior_weight_ratio_all_history": 0.7743073047858942,
+    "first_valid_strict_prior_weight_event_date": "2016-10-10 00:00:00",
+    "weight_coverage_after_first_eligible_date": 0.9996747967479674,
+    "weight_snapshot_age_days_min": 1,
+    "weight_snapshot_age_days_median": 15.0,
+    "weight_snapshot_age_days_max": 36
+  },
+  "facts": {
+    "progress_receipt_path": "data/audit/a_share_hs_first_preliminary_core_earnings_facts_execution_v1_0_1_multiprocess_receipt.json",
+    "progress_receipt_exists": true,
+    "progress_status": "RUNNING_MULTIPROCESS_FACT_CHECKPOINT_EXECUTION",
+    "progress_updated_at": "2026-08-30T19:56:01.188712+08:00",
+    "target_count": 88677,
+    "reusable_checkpoint_count_before_run": 9196,
+    "selected_task_count": 79471,
+    "completed_task_count": 65000,
+    "new_checkpoint_count": 65000,
+    "explicit_failure_count": 0,
+    "market_price_read": false,
+    "future_return_read": false,
+    "automation_report_path": "reports/data_quality/A_SHARE_HS_FIRST_PRELIMINARY_CORE_EARNINGS_FACTS_V1.json",
+    "automation_report_exists": false,
+    "automation_status": null,
+    "facts_path": "data/staging/a_share_hs_first_preliminary_core_earnings_surprise_drift_v1/preliminary_earnings_facts_v1.parquet",
+    "facts_exists": false,
+    "human_review_completed": false,
+    "member_first_public_weighted_fact_count": null,
+    "years_with_at_least_20_member_first_public_weighted_facts": null
+  },
+  "gates": {
+    "sequential_activation": {
+      "passed": true,
+      "actual": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN",
+      "required": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN",
+      "note": "期权分支必须先正式阻断"
+    },
+    "official_metadata_and_pdf": {
+      "passed": true,
+      "actual": {
+        "receipt_status": "PASS_OFFICIAL_FIRST_PRELIMINARY_EARNINGS_METADATA_V1_COMPLETE",
+        "pdf_coverage": 0.9998872311873428
+      },
+      "required": {
+        "receipt_status": "PASS_OFFICIAL_FIRST_PRELIMINARY_EARNINGS_METADATA_V1_COMPLETE",
+        "minimum_pdf_coverage": 0.995
+      },
+      "note": "公告 ID 唯一且价格/未来收益读取标记均为假"
+    },
+    "historical_membership_and_weights": {
+      "passed": false,
+      "actual": {
+        "active_member_count_min": 299,
+        "active_member_count_max": 301,
+        "anomalous_availability_date_count": 258,
+        "weight_snapshot_count": 120,
+        "weight_coverage_after_start": 0.9996747967479674
+      },
+      "required": {
+        "active_member_count": 300,
+        "minimum_weight_snapshot_count": 60,
+        "minimum_weight_coverage_after_start": 0.99
+      },
+      "note": "成分区间与严格前序月度权重仅用于数据准入"
+    },
+    "fact_checkpoint_execution": {
+      "passed": null,
+      "actual": "RUNNING_MULTIPROCESS_FACT_CHECKPOINT_EXECUTION",
+      "required": "PASS_MULTIPROCESS_FACT_TASKS_ATTEMPTED_WITH_EXPLICIT_RESULTS",
+      "note": "RUNNING 状态保留为运行中，不改写为失败"
+    },
+    "fact_automation": {
+      "passed": null,
+      "actual": null,
+      "required": "PASS_OFFICIAL_TARGET_PDF_AND_CORE_FACT_AUTOMATION_V1_HUMAN_REVIEW_PENDING",
+      "note": "正式冻结运行器尚未汇总时保持不可评价"
+    },
+    "first_public_weighted_fact_prevalence": {
+      "passed": null,
+      "actual": {
+        "count": null,
+        "years_with_at_least_20": null
+      },
+      "required": {
+        "minimum_count": 300,
+        "minimum_years_with_at_least_20": 8
+      },
+      "note": "仅在正式首次公开事实表生成后评价"
+    },
+    "formal_dual_human_review": {
+      "passed": null,
+      "actual": 0,
+      "required": "FROZEN_SAMPLE_DUAL_INDEPENDENT_HUMAN_REVIEW_COMPLETE",
+      "note": "自动事实门通过前不可评价；AI 不得代填评审人身份或独立性声明"
+    },
+    "outcome_blindness": {
+      "passed": true,
+      "actual": {
+        "market_price_reads": 0,
+        "future_data_reads": 0
+      },
+      "required": {
+        "market_price_reads": 0,
+        "future_data_reads": 0
+      },
+      "note": "未构造标签、模型、收益、仓位或订单"
+    }
+  },
+  "limitations": [
+    "HISTORICAL_MEMBERSHIP_IS_THIRD_PARTY_RECONSTRUCTION_NOT_OFFICIAL_ARCHIVE",
+    "WEIGHT_HISTORY_VENDOR_REVISION_VINTAGE_NOT_PROVEN",
+    "WEIGHT_HISTORY_STARTS_2016_08_NOT_2015",
+    "NOTICE_DATE_AVAILABILITY_IS_CONSERVATIVELY_LAGGED_TO_NEXT_TRADING_DAY",
+    "FACT_AUTOMATION_AND_DUAL_HUMAN_REVIEW_NOT_COMPLETE_UNLESS_EXPLICITLY_PASSED"
+  ],
+  "future_data_reads": 0,
+  "market_price_reads": 0,
+  "future_10d_label_created": false,
+  "prediction_model_created": false,
+  "portfolio_evaluation_performed": false,
+  "model_action": "ABSTAIN",
+  "model_position_target": "UNSET",
+  "existing_holdings_override_allowed": false,
+  "paper_signal_allowed": false,
+  "shadow_signal_allowed": false,
+  "live_trading_authorized": false,
+  "artifacts": {
+    "member_event_audit": {
+      "path": "reports/data_quality/510300_pit_earnings_information_diffusion_10d_risk_v1_member_events.parquet",
+      "sha256": "dd64b9a928ee93cad86e39bf4a794670e9c88876a3682a589c9e67954a829859",
+      "rows": 3970
+    }
+  }
+}

@@ -1,0 +1,270 @@
+program:
+  program_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1
+  stage_id: POINT_IN_TIME_M_F_T_SOURCE_ADMISSION_V1
+  version: 1.0.0
+  research_state: DISCOVERY_ONLY
+  position_impact: 0
+  observation_start: 2015-01-05
+  observation_cutoff: 2026-08-14
+  feature_construction_allowed_before_source_admission: false
+  model_training_allowed: false
+  portfolio_evaluation_allowed: false
+  paper_or_shadow_signal_allowed: false
+  broker_connection_allowed: false
+  order_generation_allowed: false
+  live_trading_allowed: false
+
+prerequisite:
+  parent_protocol_config: config/510300_asymmetric_stress_hazard_v1.yaml
+  parent_protocol_manifest: config/510300_asymmetric_stress_hazard_v1_manifest.json
+  census_status: reports/research/510300_asymmetric_stress_hazard_v1_status.json
+  census_receipt: reports/audit/510300_asymmetric_stress_hazard_v1_bad10_census_receipt.json
+  required_g1_status: PASS_G1_LABEL_IDENTIFIABILITY_ONLY_NO_FEATURE_CONSTRUCTION
+  required_next_action: FREEZE_AND_ADMIT_POINT_IN_TIME_M_F_T_SOURCE_CONTRACTS
+  label_artifacts_may_be_read: false
+  portfolio_artifacts_may_be_read: false
+
+authority_contract:
+  path: config/510300_research_authority_v2.json
+  authority_id: 510300_RESEARCH_AUTHORITY_V2
+
+data_roots:
+  PROJECT_RESEARCH_DATA_V1:
+    logical_path: data
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    expected_resolved_root: E:/ResearchData/New project 8/data
+    path_policy: REGISTERED_PHYSICAL_ROOT_NOT_PROJECT_WORKSPACE_CONTAINMENT
+
+source_contract:
+  etf_price:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/market/510300_daily_2015_v2.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+    bytes: 116186
+    data_contract_version: 510300_UNADJUSTED_DAILY_OHLCV_2015_V2
+    role: F2_ETF_20D_TOTAL_RETURN_AND_TRADING_CALENDAR_ONLY
+    required_columns: [date, open, close, symbol]
+    expected_symbol: 510300.SH
+  etf_dividends:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/reference/510300_dividends.csv
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    bytes: 2021
+    data_contract_version: 510300_OFFICIAL_CASH_DISTRIBUTION_ARCHIVE_V1
+    role: F2_ETF_TOTAL_RETURN_DIVIDEND_LEDGER_ONLY
+    required_columns:
+      [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+    expected_symbol: 510300.SH
+  csi300_official_pe:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/valuation/000300_pe_official_raw.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73
+    bytes: 45675
+    data_contract_version: CSI300_CSINDEX_OFFICIAL_PE_FROZEN_SNAPSHOT_20260813
+    role: M1_CSI300_OFFICIAL_EARNINGS_YIELD_DENOMINATOR
+    provider: China Securities Index Co Ltd
+    provider_field: peg
+    provider_semantics: OFFICIAL_PE_CROSS_CHECKED_TO_FACTSHEET_ROLLING_PE
+    source_url: https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe?indexCode=000300
+    availability_rule: NEXT_TRADING_DAY_OPEN_BECAUSE_EXACT_PUBLICATION_TIME_NOT_ARCHIVED
+    reconstructed_constituent_financials_allowed: false
+    required_columns:
+      [date, index_code, pe_official, provider_original_field, source, retrieved_at]
+    expected_index_code: "000300"
+    expected_source: csindex.indexCsiDsPe
+  csi300_official_raw_snapshot:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/constituents/000300_official_snapshot_raw.json
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 8aabfa5d699641bfe23e13971eb0d436938dcf5b91123759178e13520f49c6d4
+    bytes: 661945
+    data_contract_version: CSI300_CSINDEX_OFFICIAL_ENDPOINT_RAW_SNAPSHOT_20260813
+    role: M1_OFFICIAL_PE_RAW_PAYLOAD_CROSS_CHECK
+    expected_payload_path: payloads.pe.data
+    expected_date_field: tradeDate
+    expected_value_field: peg
+  china_10y_government_bond_yield:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/macro/china_government_bond_yields_daily.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 091f51fa55a1ddfdbf99dd715d1086c1f5d9bc086589de7b2938e66fd1b6952f
+    bytes: 58269
+    data_contract_version: CHINABOND_GOVERNMENT_CURVE_10Y_FROZEN_SNAPSHOT_20260825
+    role: M1_CHINA_10Y_GOVERNMENT_BOND_YIELD
+    provider: ChinaBond via akshare bond_china_yield adapter
+    source_url: https://yield.chinabond.com.cn/cbweb-pbc-web/pbc/more?locale=cn_ZH
+    availability_rule: NEXT_TRADING_DAY_OPEN_BECAUSE_EXACT_PUBLICATION_TIME_NOT_ARCHIVED
+    raw_payload_archive_present: false
+    required_columns: [date, cgb_10y, source, retrieved_at]
+    expected_source: chinabond.via_akshare.bond_china_yield
+  tsf_stock_yoy_first_release:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/macro/510300_macro_stress_2015_v2/tsf_stock_yoy_release_vintage_2015_2026.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 52677f562785473d0c94f6a33915a8ee3ef1a276f238631a983381cd3e3fc19b
+    bytes: 29251
+    data_contract_version: PBOC_TSF_STOCK_YOY_FIRST_RELEASE_VINTAGE_201601_202607
+    role: M3_THREE_MONTH_CHANGE_IN_TSF_STOCK_YOY
+    provider: Peoples Bank of China Survey and Statistics Department
+    source_url: https://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html
+    availability_rule: EXACT_ARCHIVED_PUBLICATION_TIMESTAMP
+    first_reference_period: 2016-01
+    last_reference_period: 2026-07
+    revised_history_backfill_allowed: false
+    required_columns:
+      - reference_period
+      - published_at
+      - available_at
+      - first_release_value
+      - latest_revised_value
+      - latest_revision_status
+      - revision_number
+      - source
+      - source_url
+      - source_hash
+      - raw_path
+  pit_csi300_membership:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+    bytes: 139181
+    data_contract_version: CSI300_OFFICIAL_PIT_MEMBERSHIP_DAILY_20150105_20260814
+    role: F_AND_T_POINT_IN_TIME_MEMBER_IDENTITY
+    historical_weight_values_used: false
+    required_columns:
+      [membership_date, index_code, symbol, state_transition_session, state_cycle_id, source_contract]
+    expected_index_code: "000300"
+    expected_constituent_count_each_session: 300
+  pit_csi300_membership_admission:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_admission_manifest.json
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 4bf2f455ae71b77b158042729ce8a5c8f4d9db0b2b1c87480f90fd952fdbf550
+    bytes: 3975
+    data_contract_version: CSI300_OFFICIAL_PIT_MEMBERSHIP_ADMISSION_V1_0_2
+    role: F_AND_T_MEMBERSHIP_PROVENANCE_RECEIPT
+    expected_membership_status: PASS_OFFICIAL_PIT_CSI300_MEMBERSHIP_2015_EXTENSION
+  constituent_total_return_panel:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/constituents/000300_constituent_daily.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7
+    bytes: 26849121
+    data_contract_version: CSI300_CONSTITUENT_TOTAL_RETURN_PANEL_TUSHARE_PROXY_20260819
+    role: F1_F2_F3_T1_T2_T3_OBSERVATIONAL_MEMBER_RETURNS
+    source_identity: TUSHARE_PROXY_DAILY_PLUS_ADJ_FACTOR
+    missing_member_day_rule: NO_VIEW_NO_INTERPOLATION
+    current_membership_backfill_allowed: false
+    required_columns:
+      [date, con_code, total_return_close, price_source, adjustment_source, is_suspended]
+  pit_industry_intervals:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/reference/a_share_sw_industry_static.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: dac8502137bc6dd651300eb86d11d5412cec9ef2de700286513207f7c11b52b6
+    bytes: 37217
+    data_contract_version: SW_LEVEL1_POINT_IN_TIME_INTERVAL_PROXY_SNAPSHOT_20260816
+    role: F3_T2_T3_POINT_IN_TIME_LEVEL1_INDUSTRY_IDENTITY
+    source_identity: tushare_proxy.index_member_all
+    required_classification_usage: POINT_IN_TIME_INTERVAL
+    independent_version_provenance_proven: false
+    current_industry_backfill_allowed: false
+    missing_member_day_rule: NO_VIEW_NO_INTERPOLATION
+    interval_end_semantics: OUT_DATE_EXCLUSIVE
+    required_columns:
+      [con_code, industry_l1_code, in_date, out_date, classification_usage, source]
+  pit_industry_intervals_raw:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/reference/a_share_sw_industry_intervals_raw.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: f1b4cc511cb140a2ffd6ba8e09d27e63a21d3a75d35cc60a370150db701bc756
+    bytes: 180839
+    data_contract_version: SW_LEVEL1_PROVIDER_INTERVAL_RAW_PROXY_SNAPSHOT_20260816
+    role: F3_T2_T3_PROVIDER_PAYLOAD_SNAPSHOT
+    required_columns: [l1_code, ts_code, in_date, out_date, source]
+
+missing_required_sources:
+  dr007_daily:
+    required: true
+    selected_series: DR007
+    frozen_input_present: false
+    required_role: M2_DEPOSITORY_INSTITUTION_7D_PLEDGED_REPO_WEIGHTED_RATE
+    failure_status: BLOCKED_NO_FROZEN_DR007_DAILY_SERIES
+    official_current_source_url: https://www.chinamoney.com.cn/chinese/mkdatapm/?tab=2
+    official_daily_bulletin_url: https://www.chinamoney.com.cn/chinese/mtdexdaily/?tab=2
+    forbidden_substitutes: [FDR007, R007, FR007, EXCHANGE_REPO_R_007]
+  reverse_repo_policy_rate_7d:
+    required: true
+    selected_series: PBOC_7D_REVERSE_REPO_OPERATION_RATE
+    frozen_input_present: false
+    required_role: M2_SEVEN_DAY_REVERSE_REPO_POLICY_RATE
+    failure_status: BLOCKED_NO_FROZEN_PBOC_7D_REVERSE_REPO_POLICY_RATE_SCHEDULE
+    official_source_url: https://www.pbc.gov.cn/zhengcehuobisi/125207/125213/125431/125475/index.html
+    interpolation_allowed: false
+    inferred_change_dates_allowed: false
+
+availability_clock:
+  timezone: Asia/Shanghai
+  signal_origin_clock: T_CLOSE_AND_INFORMATION_AVAILABLE_BY_T_CLOSE
+  execution_clock_reserved_for_post_g3: NEXT_TRADING_DAY_OPEN
+  exact_publication_timestamp_rule: AVAILABLE_AT_RECORDED_TIMESTAMP
+  date_only_official_daily_rule: AVAILABLE_FROM_NEXT_TRADING_DAY_OPEN
+  market_close_rule: SAME_DAY_CLOSE_PUBLIC_OBSERVATION
+  missing_value_rule: NO_VIEW_NO_INTERPOLATION
+  future_revision_backfill_allowed: false
+
+admission_gates:
+  all_required_sources_must_be_admitted: true
+  M1_requires: [csi300_official_pe, china_10y_government_bond_yield]
+  M2_requires: [dr007_daily, reverse_repo_policy_rate_7d]
+  M3_requires: [tsf_stock_yoy_first_release]
+  F1_requires: [pit_csi300_membership, constituent_total_return_panel]
+  F2_requires: [pit_csi300_membership, constituent_total_return_panel, etf_price, etf_dividends]
+  F3_requires: [pit_csi300_membership, constituent_total_return_panel, pit_industry_intervals]
+  T1_requires: [pit_csi300_membership, constituent_total_return_panel]
+  T2_requires: [pit_csi300_membership, constituent_total_return_panel, pit_industry_intervals]
+  T3_requires: [pit_csi300_membership, constituent_total_return_panel, pit_industry_intervals]
+  blocked_status: NO_VIEW_SOURCE_ADMISSION_FAILED
+  passed_status: PASS_SOURCE_ADMISSION_FEATURE_CONSTRUCTION_ALLOWED
+  partial_date_handling: NO_VIEW_ON_AFFECTED_DATE_NO_INTERPOLATION
+  feature_construction_on_blocked_status_allowed: false
+  model_training_on_source_admission_allowed: false
+  portfolio_evaluation_on_source_admission_allowed: false
+  rescue_with_proxy_or_alternative_series_allowed: false
+
+freeze_contract:
+  implementation_files:
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_source_admission_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1_source_contracts_v1.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_source_admission_v1.py
+  governance_files:
+    - config/510300_asymmetric_stress_hazard_v1_source_contracts_v1.yaml
+    - config/510300_asymmetric_stress_hazard_v1.yaml
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_CHARTER.md
+    - tests/test_510300_asymmetric_stress_hazard_v1_source_admission_v1.py
+  required_committed_before_admission:
+    - config/510300_asymmetric_stress_hazard_v1_source_contracts_v1.yaml
+    - config/510300_asymmetric_stress_hazard_v1_source_contracts_v1_manifest.json
+    - config/510300_asymmetric_stress_hazard_v1.yaml
+    - config/510300_asymmetric_stress_hazard_v1_manifest.json
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_CHARTER.md
+    - reports/research/510300_asymmetric_stress_hazard_v1_status.json
+    - reports/audit/510300_asymmetric_stress_hazard_v1_bad10_census_receipt.json
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_source_admission_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1_source_contracts_v1.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_source_admission_v1.py
+    - tests/test_510300_asymmetric_stress_hazard_v1_source_admission_v1.py
+
+artifacts:
+  manifest: config/510300_asymmetric_stress_hazard_v1_source_contracts_v1_manifest.json
+  status: reports/data_quality/510300_asymmetric_stress_hazard_v1_source_admission_v1.json
+  human_report: reports/research/510300_ASYMMETRIC_STRESS_HAZARD_V1_SOURCE_ADMISSION_V1.md
+  receipt: reports/audit/510300_asymmetric_stress_hazard_v1_source_admission_v1_receipt.json

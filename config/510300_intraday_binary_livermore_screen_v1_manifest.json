@@ -1,0 +1,206 @@
+{
+  "study_id": "510300_INTRADAY_BINARY_LIVERMORE_SCREEN_V1",
+  "version": "1.0.0",
+  "state": "FROZEN_BEFORE_FIRST_CANDIDATE_PERFORMANCE_EVALUATION",
+  "created_at": "2026-08-28T13:19:11.822899+08:00",
+  "historical_evidence_label": "RETROSPECTIVE_DISCOVERY_ALL_HISTORY_PREVIOUSLY_EXPOSED",
+  "tracked_files": {
+    "config/510300_intraday_binary_livermore_screen_v1.yaml": "1aaec3a4c9090e749556e44a0df245970a5ec81bb6a8bcfcdd47980427159c3e",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/freeze_510300_intraday_binary_livermore_screen_v1.py": "efe769f03155f79946f3c3be2f8994e889c97afaf1ac2af1a9d9278a686cf487",
+    "tests/test_intraday_binary_livermore_screen_v1.py": "6d655993da5c77d9a1718fcbbd155e47ceda1234147463a4ab34e90150f577c6"
+  },
+  "historical_inputs": {
+    "data/raw/market/510300_15m_from_1m_raw.parquet": {
+      "contract_name": "intraday_bars",
+      "sha256": "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1",
+      "size_bytes": 623885
+    },
+    "data/features/510300_15m_technical_factors.parquet": {
+      "contract_name": "factor_file",
+      "sha256": "3aa47ab615453dea994174c7aa67a8b0571193c617f615cbe334fce3651c0743",
+      "size_bytes": 8005842
+    },
+    "reports/data_quality/510300_15m_from_1m_quality.json": {
+      "contract_name": "data_quality_receipt",
+      "sha256": "e7fc50490e038273dbdf205d64688f85838ab1c16d0d6871c01ed4f9dcc95e26",
+      "size_bytes": 4841
+    },
+    "data/raw/r6/H00300_total_return_daily.parquet": {
+      "contract_name": "benchmark_total_return",
+      "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "size_bytes": 153211
+    },
+    "data/reference/510300_dividends.csv": {
+      "contract_name": "cash_distributions",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "size_bytes": 2021
+    }
+  },
+  "candidate_count": 13,
+  "candidate_snapshot": [
+    {
+      "id": "DONCHIAN_16_8",
+      "type": "DONCHIAN_HYSTERESIS",
+      "entry_lookback_bars": 16,
+      "exit_lookback_bars": 8
+    },
+    {
+      "id": "DONCHIAN_32_16",
+      "type": "DONCHIAN_HYSTERESIS",
+      "entry_lookback_bars": 32,
+      "exit_lookback_bars": 16
+    },
+    {
+      "id": "DONCHIAN_64_32",
+      "type": "DONCHIAN_HYSTERESIS",
+      "entry_lookback_bars": 64,
+      "exit_lookback_bars": 32
+    },
+    {
+      "id": "DONCHIAN_128_64",
+      "type": "DONCHIAN_HYSTERESIS",
+      "entry_lookback_bars": 128,
+      "exit_lookback_bars": 64
+    },
+    {
+      "id": "DONCHIAN_256_128",
+      "type": "DONCHIAN_HYSTERESIS",
+      "entry_lookback_bars": 256,
+      "exit_lookback_bars": 128
+    },
+    {
+      "id": "DONCHIAN_512_256",
+      "type": "DONCHIAN_HYSTERESIS",
+      "entry_lookback_bars": 512,
+      "exit_lookback_bars": 256
+    },
+    {
+      "id": "EMA_CROSS_8_32",
+      "type": "EMA_CROSS_STATE",
+      "fast_span_bars": 8,
+      "slow_span_bars": 32
+    },
+    {
+      "id": "EMA_CROSS_16_64",
+      "type": "EMA_CROSS_STATE",
+      "fast_span_bars": 16,
+      "slow_span_bars": 64
+    },
+    {
+      "id": "EMA_CROSS_32_128",
+      "type": "EMA_CROSS_STATE",
+      "fast_span_bars": 32,
+      "slow_span_bars": 128
+    },
+    {
+      "id": "EMA_CROSS_64_256",
+      "type": "EMA_CROSS_STATE",
+      "fast_span_bars": 64,
+      "slow_span_bars": 256
+    },
+    {
+      "id": "EMA_CROSS_128_512",
+      "type": "EMA_CROSS_STATE",
+      "fast_span_bars": 128,
+      "slow_span_bars": 512
+    },
+    {
+      "id": "PIVOT_80_32_ADX20",
+      "type": "DONCHIAN_ADX_PIVOT",
+      "entry_lookback_bars": 80,
+      "exit_lookback_bars": 32,
+      "entry_adx_minimum": 20.0,
+      "require_positive_directional_index": true
+    },
+    {
+      "id": "PIVOT_160_64_ADX20",
+      "type": "DONCHIAN_ADX_PIVOT",
+      "entry_lookback_bars": 160,
+      "exit_lookback_bars": 64,
+      "entry_adx_minimum": 20.0,
+      "require_positive_directional_index": true
+    }
+  ],
+  "objective_snapshot": {
+    "benchmark_id": "H00300",
+    "benchmark_return_type": "TOTAL_RETURN",
+    "primary_metric": "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR",
+    "annualization_trading_days": 242,
+    "minimum_annualized_excess": 0.2,
+    "rolling_window_trading_days": 242,
+    "minimum_rolling_excess_median": 0.2,
+    "diagnostic_positive_floor": 0.0
+  },
+  "cost_snapshot": {
+    "commission_rate_per_leg": 0.0001,
+    "minimum_commission_cny_per_leg": 0.0,
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 15.0,
+    "cash_annual_rate": 0.015,
+    "lot_size_shares": 100,
+    "etf_stamp_duty_rate": 0.0
+  },
+  "evaluation_snapshot": {
+    "common_warmup_bars": 512,
+    "base_start_date": "2021-09-29",
+    "end_date": "2026-08-12",
+    "start_date_perturbations_trading_days": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "periods": [
+      {
+        "id": "EARLY",
+        "start_date": "2021-09-29",
+        "end_date": "2023-12-29"
+      },
+      {
+        "id": "LATE",
+        "start_date": "2024-01-02",
+        "end_date": "2026-08-12"
+      },
+      {
+        "id": "COMBINED",
+        "start_date": "2021-09-29",
+        "end_date": "2026-08-12"
+      }
+    ],
+    "cost_scenarios": [
+      "BASE",
+      "STRESS"
+    ],
+    "primary_selection_cost_scenario": "STRESS",
+    "require_every_period_and_start_to_pass": true,
+    "candidate_state_history_begins_at_first_input_bar": true,
+    "initial_portfolio_state_at_each_perturbation": 0,
+    "dividend_entitlement_policy": "除息日开盘前持有的份额取得权益；支付日收盘转为现金；满仓目标最早下一交易日下一可成交柱再投资"
+  },
+  "selection_snapshot": {
+    "hard_pass_definition": "压力成本下，EARLY、LATE、COMBINED三个时期及五个起点的年化净超额和滚动242日超额中位数全部不低于20%",
+    "positive_shadow_definition": "压力成本下，三个时期及五个起点的年化净超额和滚动242日超额中位数全部大于0",
+    "rank_key": "所有压力成本时期与起点中，min(年化净超额,滚动242日超额中位数)的最小值",
+    "tie_breakers": [
+      "更少交易腿数",
+      "更低压力执行成本",
+      "候选ID字典序"
+    ],
+    "no_composition_unless_positive_shadow": true,
+    "no_parameter_rescue_after_evaluation": true
+  },
+  "pre_evaluation_artifact_absence": {
+    "reports/research/510300_intraday_binary_livermore_screen_v1.json": true,
+    "reports/research/510300_INTRADAY_BINARY_LIVERMORE_SCREEN_V1.md": true,
+    "data/research/510300_intraday_binary_livermore_screen_v1/candidate_summary.parquet": true,
+    "data/research/510300_intraday_binary_livermore_screen_v1/period_results.parquet": true,
+    "data/research/510300_intraday_binary_livermore_screen_v1/top_candidate_stress_daily_ledger.parquet": true,
+    "data/research/510300_intraday_binary_livermore_screen_v1/top_candidate_stress_trades.parquet": true
+  },
+  "candidate_features_or_returns_read_by_freeze_script": false,
+  "parameter_rescue_after_freeze_allowed": false,
+  "paper_or_shadow_authorized": false,
+  "live_trading_authorized": false
+}

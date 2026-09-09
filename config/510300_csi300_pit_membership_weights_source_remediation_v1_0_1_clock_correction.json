@@ -1,0 +1,90 @@
+{
+  "correction_id": "510300_CSI300_PIT_MEMBERSHIP_WEIGHTS_SOURCE_REMEDIATION_V1_0_1_CLOCK_CORRECTION",
+  "remediation_id": "510300_CSI300_PIT_MEMBERSHIP_WEIGHTS_SOURCE_REMEDIATION_V1",
+  "version": "1.0.1",
+  "status": "FROZEN_BEFORE_DAILY_MEMBERSHIP_OUTPUT",
+  "frozen_at": "2026-08-30T21:36:44+08:00",
+  "parent_protocol": {
+    "path": "config/510300_csi300_pit_membership_weights_source_remediation_v1_protocol_manifest.json",
+    "sha256": "9d42049265071aff30bf3a1217eb931eca3e664a3ab90b3e3cd1969cb12c838f"
+  },
+  "reason": "The official regular-rebalance detail text from 2021H1 onward explicitly states that the change becomes effective after the close on the stated date. Treating that stated date as start-of-day would introduce one-session look-ahead. This correction was frozen after source-clock inspection and before construction of the daily membership output.",
+  "superseded_rule": {
+    "path": "membership_replay_rule.effective_clock",
+    "value": "OFFICIAL_EFFECTIVE_DATE_AT_START_OF_DAY"
+  },
+  "corrected_rules": [
+    {
+      "scope": "REGULAR_CYCLES_WITH_OFFICIAL_TEXT_STATING_AFTER_CLOSE_OR_AFTER_MARKET_CLOSE",
+      "cycle_ids": [
+        "2021H1",
+        "2021H2",
+        "2022H1",
+        "2022H2",
+        "2023H1",
+        "2023H2",
+        "2024H1",
+        "2024H2",
+        "2025H1",
+        "2025H2",
+        "2026H1"
+      ],
+      "daily_state_transition_session": "FIRST_UNIQUE_OPEN_DATE_STRICTLY_AFTER_OFFICIAL_STATED_CLOSE_DATE",
+      "source_text_must_contain_one_of": [
+        "收盘后生效",
+        "收市后生效"
+      ]
+    },
+    {
+      "scope": "REGULAR_CYCLES_2016H1_THROUGH_2020H2",
+      "cycle_ids": [
+        "2016H1",
+        "2016H2",
+        "2017H1",
+        "2017H2",
+        "2018H1",
+        "2018H2",
+        "2019H1",
+        "2019H2",
+        "2020H1",
+        "2020H2"
+      ],
+      "daily_state_transition_session": "OFFICIAL_EFFECTIVE_DATE_AT_START_OF_DAY",
+      "reason": "The archived effective dates are implementation sessions rather than after-close dates. This extension rule is not required to admit the primary 2021-plus window."
+    },
+    {
+      "scope": "SPECIAL_DELISTING_REPLACEMENTS",
+      "cycle_ids": [
+        "2017_SPECIAL_WISCO_DELISTING",
+        "2025_SPECIAL_HAITONG_DELISTING",
+        "2025_SPECIAL_CSIC_DELISTING"
+      ],
+      "daily_state_transition_session": "OFFICIAL_EXACT_DELISTING_EFFECTIVE_DATE_AT_START_OF_DAY"
+    }
+  ],
+  "unchanged_rules": {
+    "state_transition": "previous_set_minus_official_deletions_plus_official_additions",
+    "silent_manual_patch_allowed": false,
+    "prices_or_outcomes_may_be_read": false,
+    "candidate_parameters_may_change": false
+  },
+  "frozen_inputs": [
+    {
+      "path": "data/curated/a_share_hs_csi300_official_addition_forced_demand_v1/official_announcement_manifest.json",
+      "sha256": "58cc57d9a0eb23ac95ca8e68db85108207684df59cabc78ba9fb3c017c836f4d"
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_special_rebalance_manifest.json",
+      "sha256": "e7ed5a91efafe7de5c3249389abf45a8dfae302a8b0552fa68cd1d7ebe7de687"
+    },
+    {
+      "path": "data/staging/a_share_hs_concentrated_low_risk_trend_v1_1/trading_calendar_observed_open_days.parquet",
+      "sha256": "f0fa3f8abd2569ef717c34278fbdadc6ad527aed03d22f4fb6c29ef5352239cd"
+    }
+  ],
+  "market_price_read": false,
+  "future_return_read": false,
+  "future_label_created": false,
+  "portfolio_evaluation": "NOT_ALLOWED",
+  "trading_authorization": false
+}

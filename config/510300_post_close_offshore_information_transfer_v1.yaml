@@ -1,0 +1,207 @@
+protocol:
+  project_id: 510300_POST_CLOSE_OFFSHORE_INFORMATION_TRANSFER_V1
+  version: 1.0.0
+  state: PRE_FORWARD_ONLY_FREEZE
+  created_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  research_mode: FORWARD_ONLY_DISCOVERY
+  historical_tradable_backtest: NOT_ALLOWED
+  historical_execution_simulation: NOT_ALLOWED
+  forward_start_rule: '2026-09-01_OR_FIRST_LATER_COMPLIANT_SSE_TRADING_DAY'
+  pre_start_admission_period: ['2026-07-06', '2026-08-31']
+  pre_start_use: DATA_FORMAT_AND_TIMESTAMP_ADMISSION_ONLY
+  pre_start_strategy_return_reading: FORBIDDEN
+  backfill_allowed: false
+  no_threshold_search: true
+  no_extra_filters: true
+
+scope:
+  trade_universe: [510300.SH, CASH_CNY]
+  execution_asset: 510300.SH
+  signal_instrument: SGX_FTSE_CHINA_A50_INDEX_FUTURES
+  signal_ticker: CN
+  other_assets_position: 0
+  shorting_allowed: false
+  leverage_allowed: false
+  derivatives_position: 0
+  position_impact: 0
+  current_holding_route: CASH_CNY
+  live_trading_authorized: false
+  broker_connection_authorized: false
+
+exchange_rules:
+  sse_rule_effective_date: '2026-07-06'
+  sse_after_hours_applicability: ALL_A_SHARES_AND_ETFS
+  sse_order_acceptance_sessions: ['09:30:00-11:30:00', '13:00:00-15:30:00']
+  sse_after_hours_matching_session: '15:05:00-15:30:00'
+  sse_matching_price: SAME_DAY_OFFICIAL_CLOSE
+  sse_matching_priority: TIME_PRIORITY_CONTINUOUS_MATCH
+  sse_unfilled_cancel_allowed_until: '15:30:00'
+  research_submit_time_is_signal_choice_not_exchange_earliest_time: true
+  etf_settlement: T_PLUS_1
+  minimum_trading_unit_shares: 100
+  sgx_timezone: Asia/Singapore
+  sgx_t_session: '09:00:00-16:30:00'
+  source_receipt: config/510300_post_close_offshore_information_transfer_v1_source_receipt.json
+
+signal_clock:
+  timezone: Asia/Shanghai
+  observation_start: '15:00:00'
+  observation_end: '15:04:30'
+  order_intent_time: '15:05:00'
+  future_live_cancel_time: '15:29:50'
+  theoretical_entry_price: SAME_DAY_510300_OFFICIAL_CLOSE_ONLY_IF_ACTUAL_FILL
+  exit_time: NEXT_SSE_TRADING_DAY_09_35
+  a50_price_at_target_rule: LAST_ELIGIBLE_TRADE_AT_OR_BEFORE_TARGET_MAX_STALENESS_5_SECONDS
+  etf_next_0935_price_rule: LAST_ELIGIBLE_TRADE_AT_OR_BEFORE_TARGET_MAX_STALENESS_5_SECONDS
+  maximum_exchange_timestamp_staleness_seconds: 5
+  maximum_arrival_latency_seconds: 5
+  signal_must_be_available_by: '15:04:40'
+  r_post_formula: A50_PRICE_150430_DIV_A50_PRICE_150000_MINUS_1
+
+data_contract:
+  required_window_fields:
+    - trade_date
+    - observed_at
+    - a50_contract
+    - a50_start_price
+    - a50_end_price
+    - a50_start_exchange_timestamp
+    - a50_end_exchange_timestamp
+    - a50_start_received_at
+    - a50_end_received_at
+    - a50_raw_source_document_id
+    - a50_raw_source_sha256
+    - a50_source_url
+    - sse_rule_status
+    - sgx_session_status
+    - trading_calendar_status
+    - instrument_status
+    - etf_close_price
+    - etf_close_source_document_id
+    - etf_close_source_sha256
+  required_maturity_fields:
+    - signal_trade_date
+    - exit_trade_date
+    - matured_at
+    - etf_next_0935_price
+    - etf_next_0935_exchange_timestamp
+    - etf_next_0935_received_at
+    - etf_next_0935_source_document_id
+    - etf_next_0935_source_sha256
+  required_status_values:
+    sse_rule_status: VERIFIED_CURRENT
+    sgx_session_status: VERIFIED_OPEN
+    trading_calendar_status: SSE_TRADING_DAY
+    instrument_status: NORMAL_TRADING
+  direct_no_view_states:
+    - SSE_RULE_CHANGED
+    - BROKER_AFTER_HOURS_510300_NOT_ACCEPTED
+    - A50_TIMESTAMP_DRIFT
+    - DATA_ARRIVES_AFTER_SIGNAL_DEADLINE
+    - 510300_SUSPENDED_OR_ABNORMAL
+    - TRADING_CALENDAR_CONFLICT
+    - SGX_SESSION_NOT_VERIFIED
+  no_proxy_substitution: true
+  no_current_contract_backfill: true
+
+beta_estimator:
+  target: 510300_CLOSE_TO_NEXT_TRADING_DAY_09_35_RETURN
+  regressor: A50_150000_TO_150430_RETURN
+  sample: ALL_PRIOR_MATURE_COMPLIANT_FORWARD_DAYS_NOT_ONLY_SIGNALS
+  minimum_mature_observations: 60
+  regression: OLS_WITH_INTERCEPT
+  covariance: NEWEY_WEST_BARTLETT
+  hac_lag_rule: FLOOR_4_TIMES_N_OVER_100_POWER_2_OVER_9
+  one_sided_confidence_level: 0.95
+  current_day_excluded: true
+  beta_lcb_must_be_strictly_positive: true
+  assumed_beta_forbidden: true
+  beta_equals_one_assumption: FORBIDDEN
+
+cost_and_entry_gate:
+  initial_capital_cny: 200000.0
+  commission_rate_per_leg: 0.0002
+  minimum_commission_cny_per_leg: 5.0
+  stress_slippage_bps_per_leg: 5.0
+  stress_round_trip_bps: 14.0
+  entry_multiple_of_stress_cost: 3.0
+  entry_gross_edge_lcb_bps: 42.0
+  entry_rule: BETA_LCB_TIMES_R_POST_AT_LEAST_42_BPS
+  long_only_requires_positive_r_post: true
+  decay_gross_edge_bps: 28.0
+
+forbidden_filters:
+  - MACD
+  - MOVING_AVERAGE
+  - BULL_BEAR_REGIME
+  - OPTION_SKEW
+  - INTRADAY_BREADTH
+  - SAME_DAY_RETURN
+  - OVERNIGHT_NEWS_CLASSIFICATION
+  - RESULT_SELECTED_EXIT_TIME
+
+ledgers:
+  transmission_observation_ledger: data/forward/510300_post_close_offshore_information_transfer_v1/transmission_observations.parquet
+  signal_ledger: data/forward/510300_post_close_offshore_information_transfer_v1/signal_ledger.parquet
+  order_intent_ledger: data/forward/510300_post_close_offshore_information_transfer_v1/order_intent_ledger.parquet
+  actual_fill_ledger: data/forward/510300_post_close_offshore_information_transfer_v1/actual_fill_ledger.parquet
+  status_json: reports/forward/510300_post_close_offshore_information_transfer_v1_status.json
+  status_markdown: reports/forward/510300_POST_CLOSE_OFFSHORE_INFORMATION_TRANSFER_V1_STATUS.md
+  assumed_fills_allowed: false
+  delete_unfilled_signals_allowed: false
+  actual_fill_recording_before_separate_live_authorization: false
+  order_intent_authorized_quantity_shares: 0
+
+reporting:
+  required_outputs:
+    - SIGNAL_RETURN
+    - ACTUAL_FILL_RETURN
+    - FILL_PROBABILITY
+    - CAPACITY_ADJUSTED_RETURN
+  signal_return_can_use_theoretical_close_entry: true
+  actual_fill_return_requires_broker_fill: true
+  fill_probability_requires_actual_order_submission: true
+  capacity_adjusted_return_requires_actual_fills: true
+  no_actual_fills_state: NO_VIEW_NO_LIVE_AUTHORIZATION
+
+stop_gates:
+  rules:
+    - PASS_THROUGH_BETA_LCB_AT_OR_BELOW_ZERO
+    - MATURE_ACTUAL_FILLS_20_NET_MEAN_LCB_AT_OR_BELOW_ZERO
+    - ACTUAL_FILL_RATE_DOWN_AT_LEAST_50_PERCENT_FROM_DISCOVERY_BASELINE
+    - LAST_10_VALID_SIGNALS_ALL_UNFILLED
+    - GROSS_EDGE_BELOW_28_BPS
+    - RULE_OR_DATA_CONTRACT_NO_VIEW
+  stop_action: NO_NEW_ENTRY
+  existing_position_rule: NOT_APPLICABLE_ZERO_POSITION_PHASE
+
+artifacts:
+  freeze_manifest: config/510300_post_close_offshore_information_transfer_v1_manifest.json
+  source_receipt: config/510300_post_close_offshore_information_transfer_v1_source_receipt.json
+
+immutable_dependencies:
+  - path: data/reference/sse_trade_calendar_2026.csv
+    role: OFFICIAL_SSE_2026_TRADING_CALENDAR
+  - path: data/reference/sse_trade_calendar_2026.metadata.json
+    role: OFFICIAL_SSE_2026_TRADING_CALENDAR_METADATA
+
+boundaries:
+  current_signal_created: false
+  position_mapping_enabled: false
+  paper_or_shadow_position_enabled: false
+  executable_order_generation_enabled: false
+  broker_connection_enabled: false
+  actual_fill_assumption_enabled: false
+  live_trading_enabled: false
+
+freeze:
+  files:
+    - config/510300_post_close_offshore_information_transfer_v1.yaml
+    - config/510300_post_close_offshore_information_transfer_v1_source_receipt.json
+    - docs/510300_POST_CLOSE_OFFSHORE_INFORMATION_TRANSFER_V1_SPEC.md
+    - research/frozen_protocol_support_v1.py
+    - research/post_close_offshore_information_transfer_v1.py
+    - scripts/run_510300_post_close_offshore_information_transfer_v1.py
+    - scripts/freeze_510300_post_close_offshore_information_transfer_v1.py
+    - tests/test_510300_post_close_offshore_information_transfer_v1.py

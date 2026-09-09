@@ -1,0 +1,87 @@
+{
+  "project_id": "NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_PREDICTIVE_SCREEN_PROTOCOL",
+  "frozen_at": "2026-08-19T03:30:21.611779+08:00",
+  "frozen_files": {
+    "config/normalized_valuation_5y_predictive_screen_v1.yaml": "b7edb9050784c5b448a9cbea947fdbd11ffa46082dadab8538eb912976afc866",
+    "docs/NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1_PROTOCOL.md": "dced31fd614b7deffa20b3e72a4d4ae263db79bc5a1024ca3085bb7e7eb6c97b",
+    "research/normalized_valuation_5y_predictive_screen_v1.py": "5a5cb9a72165c7d90a9d652213252ec22d93e15ef6a1073f548318d953dc93c2",
+    "scripts/run_normalized_valuation_5y_predictive_screen_v1.py": "086bf60dfcf8202ed4a3a7fc21b296495b783137c6b813b86ece208392f48e1e",
+    "scripts/freeze_normalized_valuation_5y_predictive_screen_v1_protocol.py": "d92f0f4a25f511604d4fe76b265918ab24c123fb98ed681a44e7da4e477a8ef2",
+    "tests/test_normalized_valuation_5y_predictive_screen_v1.py": "a4827ab8ecce957840850bf9654ac36ba3899dedff521702ad17dd55f194fd72"
+  },
+  "input_hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "val01_model_manifest",
+        "file": "config/val01_norm_ey_5y_v1_manifest.json",
+        "expected_sha256": "b565accfe2d578dc21b9c5df5102ba9899596dfde776fef767d786db67976031",
+        "actual_sha256": "b565accfe2d578dc21b9c5df5102ba9899596dfde776fef767d786db67976031",
+        "matches": true
+      },
+      {
+        "dataset": "val02_model_manifest",
+        "file": "config/val02_norm_ey_spread_5y_v1_manifest.json",
+        "expected_sha256": "945f4a867c613c7d9d86c623909d94717a54311a11e68e6c19ef2370a5643bb2",
+        "actual_sha256": "945f4a867c613c7d9d86c623909d94717a54311a11e68e6c19ef2370a5643bb2",
+        "matches": true
+      },
+      {
+        "dataset": "val01_signal_inputs",
+        "file": "data/features/000300_val01_norm_ey_5y_v1_signal_inputs.parquet",
+        "expected_sha256": "821f20d244b4b82e7eb5d6df49f07a5baceec17de9be547150cded6dc3255f4a",
+        "actual_sha256": "821f20d244b4b82e7eb5d6df49f07a5baceec17de9be547150cded6dc3255f4a",
+        "matches": true
+      },
+      {
+        "dataset": "val02_signal_inputs",
+        "file": "data/features/000300_val02_norm_ey_spread_5y_v1_signal_inputs.parquet",
+        "expected_sha256": "4ab8d0cc453af93b385e7da0eca3ee7225640b8e08027e04679230b31eabdb73",
+        "actual_sha256": "4ab8d0cc453af93b385e7da0eca3ee7225640b8e08027e04679230b31eabdb73",
+        "matches": true
+      },
+      {
+        "dataset": "frozen_forward_labels",
+        "file": "data/labels/000300_val01_raw_ey_5y_v1_forward_return_labels.parquet",
+        "expected_sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+        "actual_sha256": "180788c1cf011ca68c2dd6cc2e863e7df144b8ba3cfe541040aabdec2675811b",
+        "matches": true
+      },
+      {
+        "dataset": "forward_label_manifest",
+        "file": "config/val01_raw_ey_5y_v1_forward_evaluation_manifest.json",
+        "expected_sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f",
+        "actual_sha256": "b47e39d1d4cbfb2557affebef58139782c6050ba8105108dd2c710f60949079f",
+        "matches": true
+      }
+    ]
+  },
+  "familywise_gate": {
+    "method": "HOLM_BONFERRONI",
+    "alpha": 0.1,
+    "family_size": 2
+  },
+  "test_result": {
+    "command": [
+      "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_normalized_valuation_5y_predictive_screen_v1.py",
+      "-q"
+    ],
+    "return_code": 0,
+    "stdout": "....                                                                     [100%]\n4 passed in 1.80s"
+  },
+  "governance": {
+    "real_label_values_read": false,
+    "predictive_ic_calculated": false,
+    "strategy_returns_calculated": false,
+    "positions_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false
+  },
+  "meaning": "冻结预测屏幕实现和家族校正规则；尚未读取真实收益或计算IC。",
+  "manifest_content_sha256": "d9848c9389b7890778d17818d675af4d7f4ed0a4c79e14d061cd6b3feacf9631"
+}

@@ -1,0 +1,135 @@
+{
+  "strategy": {
+    "strategy_id": "510300_VALUATION_WAVE_FVG_V1",
+    "name": "510300估值仓位-短波段-FVG执行策略",
+    "version": "1.0.0",
+    "frozen_at": "2026-08-13",
+    "status": "SUPERSEDED_BY_CONTINUOUS_INVENTORY_V2_DO_NOT_USE",
+    "superseded_by": "reports/backtest/510300_continuous_inventory_strategy.json",
+    "evidence_scope": "全部历史均已参与研究；没有严格未见样本",
+    "instrument": "510300.SH",
+    "allowed_assets": [
+      "510300.SH"
+    ],
+    "prohibited_assets": [
+      "沪深300成分股",
+      "期权",
+      "期货",
+      "融资融券"
+    ],
+    "objective": "在只交易510300且不加杠杆的约束下控制回撤并争取超额；20%不是保证值"
+  },
+  "summaries": {
+    "base": {
+      "start_date": "2021-08-12",
+      "end_date": "2026-08-12",
+      "observations": 1211,
+      "ending_equity_cny": 24178.017815479587,
+      "total_return": 0.20890089077397933,
+      "cagr": 0.03867671457457256,
+      "annualized_volatility": 0.12620090337017123,
+      "sharpe_zero_rate": 0.3633165610608299,
+      "max_drawdown": -0.2619206394024929,
+      "average_exposure": 0.6753406968450584,
+      "core_trade_count": 141,
+      "t_roundtrip_count": 1,
+      "t_net_pnl_cny": 28.99999999999818,
+      "explicit_cost_cny": 715.0
+    },
+    "valuation_only": {
+      "start_date": "2021-08-12",
+      "end_date": "2026-08-12",
+      "observations": 1211,
+      "ending_equity_cny": 24173.450945838773,
+      "total_return": 0.20867254729193863,
+      "cagr": 0.03863746810616697,
+      "annualized_volatility": 0.12627734003001037,
+      "sharpe_zero_rate": 0.36287644168370886,
+      "max_drawdown": -0.2619206394024929,
+      "average_exposure": 0.6753068504175934,
+      "core_trade_count": 135,
+      "t_roundtrip_count": 0,
+      "t_net_pnl_cny": 0.0,
+      "explicit_cost_cny": 675.0
+    },
+    "stress": {
+      "start_date": "2021-08-12",
+      "end_date": "2026-08-12",
+      "observations": 1211,
+      "ending_equity_cny": 23295.5547853232,
+      "total_return": 0.16477773926616002,
+      "cagr": 0.030980441087347543,
+      "annualized_volatility": 0.12637332017318387,
+      "sharpe_zero_rate": 0.3042014697053471,
+      "max_drawdown": -0.27191295796385173,
+      "average_exposure": 0.676067546467165,
+      "core_trade_count": 142,
+      "t_roundtrip_count": 0,
+      "t_net_pnl_cny": 0.0,
+      "explicit_cost_cny": 710.0
+    },
+    "benchmark": {
+      "total_return": 0.06844853734185774,
+      "cagr": 0.01333142056260539,
+      "annualized_volatility": 0.17524354454688312,
+      "max_drawdown": -0.3440317779106141
+    }
+  },
+  "current_signal": {
+    "signal_date": "2026-08-12",
+    "effective_time": "下一交易日开盘",
+    "instrument": "510300.SH",
+    "target_position": 0.5,
+    "valuation_state": "半仓",
+    "index_close": 4690.92,
+    "etf_close": 4.748,
+    "wave_z": 0.20603367048420765,
+    "t_direction": "NONE",
+    "do_t_now": false,
+    "do_t_now_reason": "短波动未越过阈值；不寻找日内FVG",
+    "current_aggregate_market_cap_cny": 52477568279171.28,
+    "aggregate_member_count": 300,
+    "december_target_date": "2026-12-31",
+    "december_index_fair_value": {
+      "low": 4134.987923910666,
+      "mid": 4328.169243187877,
+      "high": 4598.931205254102
+    },
+    "december_market_cap_fair_value_cny": {
+      "low": 46258326961570.58,
+      "mid": 48419456520938.516,
+      "high": 51448484803606.45
+    },
+    "december_etf_price_proxy": {
+      "low": 4.185303237473212,
+      "mid": 4.380835223507551,
+      "high": 4.654891868236183
+    },
+    "twelve_month_index_fair_value": {
+      "low": 4344.066304649723,
+      "mid": 4546.9867923775755,
+      "high": 4831.0623721034735
+    },
+    "twelve_month_market_cap_fair_value_cny": {
+      "low": 48597297781992.25,
+      "mid": 50867379930053.0,
+      "high": 54045348352347.766
+    },
+    "twelve_month_etf_price_proxy": {
+      "low": 4.396925723413933,
+      "mid": 4.602315385938947,
+      "high": 4.889847650939963
+    },
+    "etf_proxy_warning": "按最新ETF/指数价格比例换算，仅用于仓位决策参考，不是ETF净值承诺"
+  },
+  "fvg_trade_sample_size": 1,
+  "data_hashes": {
+    "510300_daily_raw.parquet": "4a30412832578526aab91105fbf0a99d23a5557e37d4683a0282287494dfdd97",
+    "510300_1m_tushare_raw.parquet": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268",
+    "000300_valuation_daily_raw.parquet": "119f009a7045f8b50b1eae3a3f2d7d1f394c372d4723cfd54d2ba348ae66ad52",
+    "000300_constituent_daily.parquet": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9",
+    "H00300_total_return_daily_raw.parquet": "db10070eb5c05d1ffe3f1bab0612333afa3bc8884c3a72ebafecec32218cd85e",
+    "510300_dividends.csv": "af1340e8f8fbed9686a12955b16d71eab3ba9e808fa6b496a52973c252887423",
+    "510300_valuation_fvg_strategy.yaml": "018acd25b4cd11e02327eb3aae8f740fda5ed51dfde821c21f8e67f108551569"
+  }
+}

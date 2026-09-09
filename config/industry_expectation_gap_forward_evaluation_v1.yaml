@@ -1,0 +1,57 @@
+version: INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1
+status: FROZEN_BEFORE_FIRST_FORWARD_OBSERVATION
+asset: "510300"
+benchmark: "000300"
+prediction_date: "2026-08-18"
+information_cutoff: "2026-08-18T16:30:00+08:00"
+entry_date: "2026-08-19"
+pre_resolved_maturity_dates:
+  "60": "2026-11-18"
+  "120": null
+
+frozen_prediction:
+  manifest: config/industry_expectation_gap_etf_model_v1_manifest.json
+  manifest_sha256: DC0070434375B032F2C316DB0B12CF026E042ED7647D5924B6CAD368CCBE3E09
+  result: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json
+  ledger: paper/industry_expectation_gap_v1/2026-08-18_industry_forecast.json
+  weight_snapshot_date: "2026-07-31"
+
+mutable_outcome_inputs:
+  trading_calendar_glob: data/reference/sse_trade_calendar_*.csv
+  trading_calendar_metadata_glob: data/reference/sse_trade_calendar_*.metadata.json
+  constituent_total_return_daily: data/raw/constituents/000300_constituent_daily.parquet
+  historical_weights: data/raw/constituents/000300_historical_weights.parquet
+  industry_intervals: data/raw/reference/a_share_citic_industry_intervals_raw.parquet
+  sector_point_in_time_panel: data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet
+  etf_total_return_daily: data/processed/510300_daily_total_return.parquet
+
+outputs:
+  directory: reports/forward/industry_expectation_gap_v1_evaluation
+  manifest: config/industry_expectation_gap_forward_evaluation_v1_manifest.json
+
+rules:
+  horizons_trading_days: [60, 120]
+  minimum_index_endpoint_weight_coverage: 0.98
+  minimum_industry_endpoint_weight_coverage_ratio: 0.95
+  minimum_fundamental_core_coverage_ratio: 0.95
+  missing_component_reweighting_allowed: false
+  partial_horizon_return_output_allowed: false
+  endpoint_carry_forward_allowed: false
+  balanced_gap_scored: false
+  unobserved_gap_scored: false
+  mixed_fundamental_scored: false
+  minimum_mature_prediction_origins_for_calibration: 20
+  minimum_mature_prediction_origins_for_model_comparison: 40
+  append_only_outputs: true
+
+fundamental_confirmation_columns:
+  - weighted_ttm_profit_growth_yoy
+  - weighted_ttm_revenue_growth_yoy
+  - weighted_ttm_roe
+
+safety:
+  may_upgrade_original_no_view: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

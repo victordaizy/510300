@@ -1,0 +1,100 @@
+protocol:
+  project_id: 510300_OPTION_SURFACE_SIGNAL_V1
+  state: FORMULA_FROZEN_BEFORE_FIRST_VALID_FORWARD_CAPTURE
+  upstream_orderbook_protocol: config/510300_option_forward_orderbook_v1_protocol_manifest.json
+  upstream_hypothesis_registry: config/return_tail_hypothesis_registry.yaml
+  earliest_input_date: '2026-08-19'
+  candidate_ids: [O1, O2, O3, O4]
+  factor_count: 4
+
+clock:
+  day_count_basis: 365.0
+  expiry_clock_time: '15:00:00'
+  minimum_calendar_days_to_expiry: 7
+  maximum_calendar_days_to_expiry: 120
+
+quote_filter:
+  standard_contracts_only: true
+  positive_bid_ask_required: true
+  inverted_quotes_forbidden: true
+  minimum_paired_strikes: 7
+  minimum_otm_points_per_expiry: 7
+  minimum_put_strikes_below_forward: 3
+  minimum_call_strikes_above_forward: 3
+
+parity:
+  estimator: MEDIAN_PAIRWISE_SLOPE
+  minimum_strike_step_separation: 2
+  discount_factor_bounds: [0.90, 1.02]
+  maximum_normalized_rmse: 0.01
+
+svi:
+  form: 'w(k)=a+b*(rho*(k-m)+sqrt((k-m)^2+sigma^2))'
+  implied_volatility_bounds: [0.01, 3.0]
+  parameter_lower_bounds: [0.000001, 0.00001, -0.999, -1.0, 0.001]
+  parameter_upper_bounds: [2.0, 2.0, 0.999, 1.0, 2.0]
+  fixed_initial_points:
+    - [0.01, 0.10, -0.30, 0.00, 0.10]
+    - [0.02, 0.20, -0.60, -0.05, 0.20]
+    - [0.02, 0.20, 0.00, 0.00, 0.20]
+    - [0.05, 0.40, -0.30, 0.05, 0.40]
+  optimizer: SCIPY_LEAST_SQUARES_LINEAR_LOSS
+  maximum_function_evaluations: 5000
+  maximum_iv_rmse: 0.03
+  arbitrage_grid_log_moneyness: [-0.50, 0.50]
+  arbitrage_grid_points: 401
+  maximum_negative_call_convexity: 0.00000001
+
+fixed_maturity:
+  interpolation: LINEAR_TOTAL_VARIANCE
+  extrapolation_forbidden: true
+  primary_calendar_days: 25
+  secondary_calendar_days: 45
+  long_calendar_days: 60
+
+factors:
+  O1:
+    strike_forward_ratio: 0.90
+    cdf_derivative_step_ratio: 0.0001
+  O2:
+    absolute_forward_delta: 0.25
+    root_log_moneyness_bounds: [-1.0, 1.0]
+  O3:
+    absolute_forward_delta: 0.25
+    near_calendar_days: 25
+    far_calendar_days: 60
+  O4:
+    implied_variance_calendar_days: 25
+    har_lags_trading_days: [1, 5, 22]
+    realized_variance_horizon_trading_days: 20
+    annualization_trading_days: 242
+    minimum_mature_training_rows: 252
+    regression: EXPANDING_OLS_LOG_VARIANCE
+    variance_floor: 0.000000000001
+
+signal_standardization:
+  method: EXPANDING_EMPIRICAL_CDF
+  information_lag_trading_days: 1
+  minimum_history_trading_days: 252
+  higher_value_means_higher_risk: true
+
+gates:
+  required_orderbook_audit_status: DATA_GATE_PASS
+  raw_factor_calculation_before_orderbook_gate: false
+  minimum_scored_days_before_factor_evaluation: 242
+  return_test_in_this_protocol: false
+
+paths:
+  manifest: config/510300_option_surface_signal_v1_manifest.json
+  orderbook_audit: reports/forward/510300_option_orderbook_v1/audit.json
+  raw_output: data/processed/forward/510300_option_surface_signal_v1_raw.parquet
+  status: reports/forward/510300_option_surface_signal_v1/status.json
+
+governance:
+  parameter_search: FORBIDDEN
+  factor_addition: FORBIDDEN
+  historical_bid_ask_backfill: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

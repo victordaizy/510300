@@ -1,0 +1,168 @@
+{
+  "status": "REJECTED_FIXED_NORTHBOUND_LEGACY_FLOW_BINARY_FAMILY_NO_RESCUE",
+  "study_id": "510300_NORTHBOUND_LEGACY_FLOW_BINARY_SCREEN_V1",
+  "generated_at": "2026-08-28T19:08:45.158957+08:00",
+  "protocol_sha256": "b900074435e9dbc4ed00fb9199a1f72a00a4543a1dc6d811a0730db0f2c07720",
+  "freeze_manifest_sha256": "a13209e18f899a3c4c17cf0376b037a38e541d2b525ae3d7d960f0310d9fbe87",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_states": [
+      0,
+      1
+    ],
+    "benchmark": "H00300 total return",
+    "signal_time": "T_CLOSE",
+    "execution_time": "T_PLUS_1_OPEN",
+    "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY"
+  },
+  "input_audit": {
+    "hashes": {
+      "data/raw/flow/northbound_legacy_net_flow_v1.parquet": "48427deb95b26c7fa167076324283deddee79c41082e598d648cca0a92fe42f2",
+      "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+      "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "scripts/download_northbound_legacy_net_flow_v1.py": "bdc82b48f9e8c1a3a057d73699d644e1b9c064bafa94b3590854c0ff8d613da7",
+      "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa"
+    },
+    "flow_rows": 1788,
+    "flow_first_date": "2016-12-05",
+    "flow_last_date": "2024-08-16",
+    "market_rows": 1873,
+    "benchmark_rows": 1874,
+    "dividend_event_count": 14,
+    "post_disclosure_change_flow_rows_read": 0
+  },
+  "feature_audit": {
+    "flow_feature_rows": 1788,
+    "first_rank_1d_date": "2017-06-23",
+    "first_rank_5d_date": "2017-06-29",
+    "first_rank_20d_date": "2017-07-20",
+    "market_days_without_new_flow": 85,
+    "future_return_columns_read": 0
+  },
+  "candidate_count": 6,
+  "result_rows": 180,
+  "passing_candidates": [],
+  "positive_shadow_candidates": [],
+  "best_candidate": {
+    "candidate_id": "NB20D_BOTTOM10_CASH",
+    "rule": "最近20个北向交易观测净买额和的滚动252观测分位不高于0.10则次日空仓，否则满仓",
+    "hard_pass": false,
+    "positive_shadow": false,
+    "stress_min_annualized_excess": -0.012220133379299447,
+    "stress_min_rolling_242d_excess_median": -0.04248776975785033,
+    "stress_combined_annualized_excess_offset0": 0.012943273136256442,
+    "stress_combined_rolling_median_offset0": 0.014953224540278726,
+    "base_combined_annualized_excess_offset0": 0.019241593925255318,
+    "base_combined_rolling_median_offset0": 0.021206377335815207,
+    "cash_state_share_full_input_window": 0.11478910838227442,
+    "state_change_count_full_input_window": 46,
+    "maximum_t_plus_one_violations": 0
+  },
+  "candidate_summaries": [
+    {
+      "candidate_id": "NB20D_BOTTOM10_CASH",
+      "rule": "最近20个北向交易观测净买额和的滚动252观测分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.012220133379299447,
+      "stress_min_rolling_242d_excess_median": -0.04248776975785033,
+      "stress_combined_annualized_excess_offset0": 0.012943273136256442,
+      "stress_combined_rolling_median_offset0": 0.014953224540278726,
+      "base_combined_annualized_excess_offset0": 0.019241593925255318,
+      "base_combined_rolling_median_offset0": 0.021206377335815207,
+      "cash_state_share_full_input_window": 0.11478910838227442,
+      "state_change_count_full_input_window": 46,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "NB5D_BOTTOM10_CASH",
+      "rule": "最近5个北向交易观测净买额和的滚动252观测分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.029653504644786263,
+      "stress_min_rolling_242d_excess_median": -0.03242105797472527,
+      "stress_combined_annualized_excess_offset0": -0.01168518850124728,
+      "stress_combined_rolling_median_offset0": -0.022438183975728616,
+      "base_combined_annualized_excess_offset0": 0.006678466892059939,
+      "base_combined_rolling_median_offset0": -0.0006221592990573732,
+      "cash_state_share_full_input_window": 0.10517885744794447,
+      "state_change_count_full_input_window": 132,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "NB1D_AND_5D_BOTTOM20_CASH",
+      "rule": "1日与5日净买额分位同时不高于0.20则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.06658507931720102,
+      "stress_min_rolling_242d_excess_median": -0.061572252870690805,
+      "stress_combined_annualized_excess_offset0": -0.04341924316009667,
+      "stress_combined_rolling_median_offset0": -0.05198726439577375,
+      "base_combined_annualized_excess_offset0": -0.010388171078605022,
+      "base_combined_rolling_median_offset0": -0.013731225016878887,
+      "cash_state_share_full_input_window": 0.10678056593699947,
+      "state_change_count_full_input_window": 244,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "NB1D_BOTTOM10_CASH",
+      "rule": "当日净买额滚动252观测分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.07324380121849002,
+      "stress_min_rolling_242d_excess_median": -0.05818896136265411,
+      "stress_combined_annualized_excess_offset0": -0.05294519154304968,
+      "stress_combined_rolling_median_offset0": -0.038601599760457454,
+      "base_combined_annualized_excess_offset0": -0.011089670724505155,
+      "base_combined_rolling_median_offset0": -0.002239739890779028,
+      "cash_state_share_full_input_window": 0.11051788574479444,
+      "state_change_count_full_input_window": 316,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "NB_FLOW_SIGN",
+      "rule": "当日北向成交净买额小于0则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.07784221740978513,
+      "stress_min_rolling_242d_excess_median": -0.07219679918107196,
+      "stress_combined_annualized_excess_offset0": -0.06625787455250148,
+      "stress_combined_rolling_median_offset0": -0.05434348093597119,
+      "base_combined_annualized_excess_offset0": 0.023744900176926084,
+      "base_combined_rolling_median_offset0": 0.031781205235457244,
+      "cash_state_share_full_input_window": 0.36839295248264814,
+      "state_change_count_full_input_window": 683,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "NB1D_OR_5D_BOTTOM10_CASH",
+      "rule": "1日或5日净买额分位任一不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.0794045374334205,
+      "stress_min_rolling_242d_excess_median": -0.0665244528422482,
+      "stress_combined_annualized_excess_offset0": -0.053815658466041444,
+      "stress_combined_rolling_median_offset0": -0.05264726720245534,
+      "base_combined_annualized_excess_offset0": -0.012299172209171502,
+      "base_combined_rolling_median_offset0": -0.014245586989324245,
+      "cash_state_share_full_input_window": 0.16978109983982914,
+      "state_change_count_full_input_window": 314,
+      "maximum_t_plus_one_violations": 0
+    }
+  ],
+  "maximum_t_plus_one_violations": 0,
+  "artifacts": {
+    "data/research/510300_northbound_legacy_flow_binary_screen_v1/daily_states.parquet": "0dc316e93f3147bb836c0a849fc7157d5524f091208adaad022f097d72bd1ad5",
+    "data/research/510300_northbound_legacy_flow_binary_screen_v1/start_perturbation_metrics.parquet": "f639a401e363268c522a20953c31075081df6df5cfae430a3dad0366ba246c42"
+  },
+  "decision": "六个预先固定规则均未过双20门槛；禁止改分位、改累计窗口或反转符号营救。",
+  "boundaries": {
+    "current_signal_created": false,
+    "position_mapping": "DISABLED",
+    "paper_or_shadow": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

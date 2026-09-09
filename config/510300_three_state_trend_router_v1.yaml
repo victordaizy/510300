@@ -1,0 +1,221 @@
+protocol:
+  project_id: 510300_THREE_STATE_TREND_ROUTER_V1
+  version: 1.0.0
+  state: READY_TO_FREEZE_BEFORE_FIRST_CANDIDATE_EVALUATION
+  registration_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  evidence_class: RETROSPECTIVE_HISTORICALLY_CONTAMINATED_ONE_SHOT_STATE_STRATEGY
+  one_shot: true
+  candidate_outcomes_read_before_freeze: false
+  candidate_portfolio_returns_read_before_freeze: false
+  parameter_rescue_after_result: forbidden
+  threshold_rescue_after_result: forbidden
+  window_rescue_after_result: forbidden
+  state_label_rescue_after_result: forbidden
+  range_policy_rescue_after_result: forbidden
+  direction_reversal_after_result: forbidden
+  combination_with_rejected_candidates_after_result: forbidden
+
+objective:
+  description: 识别上涨趋势、下跌趋势与震荡状态，并分别执行满仓、空仓和不交易
+  target_net_sharpe: 1.20
+  target_interpretation: 历史基准与压力成本均通过后仍需独立前向验证
+
+scope:
+  execution_asset: 510300.SH
+  signal_asset: 000300.SH_PRICE_INDEX
+  allowed_holdings: [510300.SH, CASH_CNY]
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  live_trading_authorized: false
+
+clocks:
+  signal_information_time: T日收盘后
+  earliest_execution_time: T加1交易日开盘
+  signal_calendar: 510300交易日
+  future_information_in_state: forbidden
+
+dates:
+  feature_warmup_start: '2012-05-28'
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  early_period: ['2015-01-05', '2020-12-31']
+  late_period: ['2021-01-04', '2026-08-14']
+
+inputs:
+  etf_daily:
+    path: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+    required_rows: 3456
+    required_first_date: '2012-05-28'
+    required_last_date: '2026-08-14'
+    required_columns: [date, open, high, low, close, symbol]
+    required_symbol: 510300.SH
+  index_daily:
+    path: data/raw/r6/000300_daily.parquet
+    sha256: b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1
+    required_rows: 3456
+    required_first_date: '2012-05-28'
+    required_last_date: '2026-08-14'
+    required_columns: [date, open, high, low, close, symbol]
+    required_symbol: 000300.SH
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba3393992dfc69014fadba957
+    required_rows: 3457
+    required_first_date: '2012-05-28'
+    required_last_date: '2026-08-14'
+    required_columns: [date, close, symbol]
+    required_symbol: H00300
+    allowed_extra_dates: ['2018-06-18']
+  dividends:
+    path: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_rows: 14
+    required_first_ex_date: '2012-12-18'
+    required_last_ex_date: '2026-01-19'
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+  input_audit:
+    path: reports/data_quality/510300_three_state_trend_router_v1_inputs.json
+    required_status: PASS_DAILY_INPUTS_RANGE_T_DATA_GATE_FAILED_RANGE_POLICY_NO_TRADE
+  backtest_engine:
+    path: backtest/engine.py
+    sha256: 3d6cee6c0424d1f170883bbaff702a9a922927b0b749a982699868b7c44956fc
+
+data_contract:
+  expected_evaluation_rows: 2823
+  execution_and_signal_dates_must_match: true
+  duplicate_dates_allowed: false
+  missing_ohlc_allowed: false
+  nonpositive_prices_allowed: false
+  dividend_history_required: true
+
+directional_movement_system:
+  period_trading_days: 14
+  smoothing: WILDER_RECURSIVE_MOVING_AVERAGE
+  true_range_definition: MAX_HIGH_LOW_HIGH_PREVIOUS_CLOSE_LOW_PREVIOUS_CLOSE
+  positive_directional_movement: UP_MOVE_GT_DOWN_MOVE_AND_POSITIVE
+  negative_directional_movement: DOWN_MOVE_GT_UP_MOVE_AND_POSITIVE
+  trend_entry_adx: 25.0
+  trend_exit_adx: 20.0
+  initial_state: RANGE_OR_UNCONFIRMED
+  tie_direction_state: RANGE_OR_UNCONFIRMED
+  state_rules:
+    range_to_bull: ADX_AT_LEAST_25_AND_PLUS_DI_GT_MINUS_DI
+    range_to_bear: ADX_AT_LEAST_25_AND_MINUS_DI_GT_PLUS_DI
+    bull_to_range: ADX_BELOW_20
+    bear_to_range: ADX_BELOW_20
+    bull_to_bear: ADX_AT_LEAST_25_AND_MINUS_DI_GT_PLUS_DI
+    bear_to_bull: ADX_AT_LEAST_25_AND_PLUS_DI_GT_MINUS_DI
+    retain_trend_between_thresholds: true
+
+states:
+  BULL_TREND:
+    target_position: 1.0
+    interpretation: 上涨趋势成立，持有可买整手范围内最大510300仓位
+  BEAR_TREND:
+    target_position: 0.0
+    interpretation: 下跌趋势成立，持有人民币现金
+  RANGE_OR_UNCONFIRMED:
+    target_position: 0.0
+    interpretation: 震荡或趋势未确认，本版本不交易
+
+range_policy:
+  historical_policy: NO_TRADE
+  range_t_backtest_allowed: false
+  reason_codes:
+    - STOCK_ETF_T_PLUS_ONE_NO_NEW_BUY_THEN_SAME_DAY_SELL
+    - COMPLETE_2015_TO_2026_INTRADAY_DATA_NOT_AVAILABLE
+    - EXISTING_2021_PLUS_INTRADAY_FAMILY_ALREADY_REJECTED_NO_RESCUE
+  official_rule_sources:
+    - https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml
+    - https://etf.sse.com.cn/fund/quertion/
+  observed_intraday_data:
+    path: data/raw/market/510300_15m_from_1m_raw.parquet
+    sha256: 5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1
+    first_date: '2021-08-12'
+    last_date: '2026-08-12'
+    trading_days: 1211
+  required_intraday_start_for_historical_t: '2015-01-05'
+  required_intraday_end_for_historical_t: '2026-08-14'
+
+mechanism_evaluation:
+  forward_horizons_trading_days: [5, 20, 60]
+  primary_horizon_trading_days: 20
+  minimum_state_days:
+    BULL_TREND: 200
+    BEAR_TREND: 100
+    RANGE_OR_UNCONFIRMED: 200
+  minimum_state_episodes:
+    BULL_TREND: 8
+    BEAR_TREND: 5
+  full_sample_required_order: BULL_MEAN_GT_RANGE_MEAN_GT_BEAR_MEAN
+  early_and_late_both_require_order: true
+  positive_rate_required_order: BULL_GT_RANGE_GT_BEAR
+  pass_requires_all_gates: true
+
+portfolio:
+  initial_capital_cny: 20000.0
+  lot_size_shares: 100
+  cash_annual_rate: 0.0
+  base_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+    stamp_duty_rate: 0.0
+  stress_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+  benchmark: BUY_AND_HOLD_510300_SAME_ACCOUNT_AND_COSTS
+
+portfolio_gates:
+  base_net_sharpe_minimum: 1.20
+  stress_net_sharpe_minimum: 1.20
+  stress_total_return_positive: true
+  maximum_drawdown_ratio_vs_buy_hold_maximum: 0.80
+  early_period_sharpe_positive: true
+  late_period_sharpe_positive: true
+  historical_pass_requires_mechanism_gate: true
+
+selection_bias:
+  prior_manifest_count: 345
+  non_manifest_prefreeze_failed_attempt_count: 1
+  named_non_manifest_attempts: [510300_CSI300_ABSORPTION_RATIO_TIMING_V1]
+  expected_total_trial_count_including_current: 347
+  count_is_conservative_upper_bound_not_independence_claim: true
+
+literature_and_transfer_boundaries:
+  wilder_directional_movement_reference: J_WELLES_WILDER_NEW_CONCEPTS_IN_TECHNICAL_TRADING_SYSTEMS_1978
+  regime_specific_mechanism_reference: https://arxiv.org/abs/cond-mat/9910047
+  long_horizon_trend_reference: https://arxiv.org/abs/1404.3274
+  analytical_ema_trend_reference: https://arxiv.org/abs/1308.5658
+  no_source_claims_510300_sharpe_1_2: true
+  no_source_claims_adx_thresholds_predict_510300: true
+
+governance:
+  discovery_only: true
+  paper_signal_allowed: false
+  shadow_signal_allowed: false
+  position_mapping_enabled: false
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  spec: docs/510300_THREE_STATE_TREND_ROUTER_V1_SPEC.md
+  manifest: config/510300_three_state_trend_router_v1_manifest.json
+  input_audit: reports/data_quality/510300_three_state_trend_router_v1_inputs.json
+  state_panel: data/research/510300_three_state_trend_router_v1/state_panel.parquet
+  targets: data/research/510300_three_state_trend_router_v1/targets.parquet
+  base_ledger: reports/backtest/510300_three_state_trend_router_v1_base_ledger.parquet
+  base_trades: reports/backtest/510300_three_state_trend_router_v1_base_trades.parquet
+  stress_ledger: reports/backtest/510300_three_state_trend_router_v1_stress_ledger.parquet
+  stress_trades: reports/backtest/510300_three_state_trend_router_v1_stress_trades.parquet
+  result_json: reports/research/510300_three_state_trend_router_v1_result.json
+  result_markdown: reports/research/510300_THREE_STATE_TREND_ROUTER_V1_RESULT.md
+

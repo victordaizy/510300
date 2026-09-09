@@ -1,0 +1,126 @@
+{
+  "status": "REJECTED_GOVERNANCE_GATES_FAILED",
+  "checked_at": "2026-08-13T17:44:22.920582+08:00",
+  "challenger_id": "INTRADAY_CLOSE_PRESSURE_DIRECTION_2D_V1",
+  "pre_registration_file": "config/intraday_close_pressure_direction_challenger.yaml",
+  "feature_file": "data/features/510300_intraday_close_pressure_daily.parquet",
+  "forecast_file": "data/features/510300_intraday_close_pressure_2d_forecasts.parquet",
+  "forecast_sha256": "e8fca3f081022b8d8c31225592e282c7595c615887519489eeaa8f91523bdfd4",
+  "design": {
+    "signal": "t日14:31至15:00收益乘以该窗口成交额占比相对过去60日中位数",
+    "target": "t+1开盘买入、t+2收盘卖出，含持有期分红并扣佣金和双边5bp滑点后的净收益方向",
+    "t_plus_one_compliant": true,
+    "estimator": "单特征、固定C=0.1的标准化L2 Logistic",
+    "minimum_training_samples": 504,
+    "refit_interval_trading_days": 5
+  },
+  "evaluation": {
+    "realized_forecast_count": 644,
+    "positive_base_rate": 0.4984472049689441,
+    "observations": 644,
+    "auc": 0.5149011892017014,
+    "brier_score": 0.2540285523369012,
+    "baseline_brier_score": 0.25370561694442983,
+    "brier_skill_score": -0.001272874429666615,
+    "log_loss": 0.7013918146401041,
+    "accuracy_at_0_5": 0.5031055900621118,
+    "calibration_slope": 0.3560194393889279,
+    "top_minus_bottom_mean_net_return": -0.0023190830750755677,
+    "standardized_coefficient_median": 0.08711490967021608,
+    "standardized_coefficient_positive_share": 1.0,
+    "chronological_halves": [
+      {
+        "observations": 322,
+        "auc": 0.4874594679063954,
+        "brier_score": 0.24886437517176813,
+        "baseline_brier_score": 0.24812247098750206,
+        "brier_skill_score": -0.0029900725287530516
+      },
+      {
+        "observations": 322,
+        "auc": 0.43492509363295884,
+        "brier_score": 0.25919272950203426,
+        "baseline_brier_score": 0.25928876290135755,
+        "brier_skill_score": 0.00037037239195680804
+      }
+    ],
+    "non_overlapping_offset_cohorts": [
+      {
+        "observations": 322,
+        "auc": 0.5068133564948851,
+        "brier_score": 0.2525624690769935,
+        "baseline_brier_score": 0.25278254270719747,
+        "brier_skill_score": 0.0008706045435222798
+      },
+      {
+        "observations": 322,
+        "auc": 0.5202029947514666,
+        "brier_score": 0.2554946355968089,
+        "baseline_brier_score": 0.25462869118166215,
+        "brier_skill_score": -0.0034008124187738797
+      }
+    ],
+    "probability_quintiles": [
+      {
+        "probability_quintile": 0,
+        "observations": 129,
+        "mean_probability": 0.4031978470971914,
+        "realized_hit_rate": 0.4883720930232558,
+        "mean_net_return": 0.00195542301934893
+      },
+      {
+        "probability_quintile": 1,
+        "observations": 129,
+        "mean_probability": 0.42285544732577396,
+        "realized_hit_rate": 0.4418604651162791,
+        "mean_net_return": -0.0012681015031025893
+      },
+      {
+        "probability_quintile": 2,
+        "observations": 128,
+        "mean_probability": 0.43244345569013437,
+        "realized_hit_rate": 0.515625,
+        "mean_net_return": -0.0006901558863729252
+      },
+      {
+        "probability_quintile": 3,
+        "observations": 129,
+        "mean_probability": 0.44952826205074226,
+        "realized_hit_rate": 0.5736434108527132,
+        "mean_net_return": 0.0016215802655873215
+      },
+      {
+        "probability_quintile": 4,
+        "observations": 129,
+        "mean_probability": 0.47460932857391425,
+        "realized_hit_rate": 0.4728682170542636,
+        "mean_net_return": -0.0003636600557266377
+      }
+    ],
+    "checks": {
+      "minimum_realized_forecasts": true,
+      "overall_auc": false,
+      "overall_brier_skill_positive": false,
+      "calibration_slope": false,
+      "top_minus_bottom_return_positive": false,
+      "coefficient_expected_sign": true,
+      "both_halves_auc": false,
+      "both_halves_brier_skill_positive": false,
+      "non_overlapping_auc_median": false,
+      "non_overlapping_auc_above_half_share": true
+    },
+    "all_gates_passed": false
+  },
+  "latest_research_forecast": {
+    "signal_date": "2026-08-12",
+    "probability_positive_2d_net": 0.45821515238781124,
+    "is_realized": false
+  },
+  "trading_use_authorized": false,
+  "limitations": [
+    "全部五年历史已经用于研究，只能称为伪样本外，不能替代未来前向验证。",
+    "这是项目中的新增研究家族，整体多重检验风险继续上升。",
+    "即使方向门通过，也必须先完成0至100%仓位映射、连续组合回测与成本压力测试。",
+    "分钟数据来自第三方代理，且提供方未明确trade_time属于bar起点还是终点；本研究只在15:00全部记录完成后生成信号。"
+  ]
+}

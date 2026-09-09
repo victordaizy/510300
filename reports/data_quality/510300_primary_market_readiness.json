@@ -1,0 +1,133 @@
+{
+  "generated_at": "2026-08-19T17:36:47.607767+08:00",
+  "collector_id": "510300_PRIMARY_SECONDARY_FORWARD_V1",
+  "status": "COLLECTING_NOT_ELIGIBLE",
+  "stage": "STAGE_0_19_COLLECTION",
+  "statistical_cluster_unit": "trade_date",
+  "observed_trading_days": 4,
+  "full_coverage_days": 2,
+  "minimum_full_coverage_days": 20,
+  "recommended_full_coverage_days": 40,
+  "first_unseen_evaluation_full_coverage_days": 80,
+  "replication_full_coverage_days": 120,
+  "minimum_snapshots_per_day": 120,
+  "minimum_progress": 0.1,
+  "recommended_progress": 0.05,
+  "first_unseen_evaluation_progress": 0.025,
+  "replication_progress": 0.016666666666666666,
+  "first_observed_trade_date": "2026-08-13",
+  "last_observed_trade_date": "2026-08-18",
+  "daily_snapshot_counts": {
+    "2026-08-13": 1,
+    "2026-08-14": 1,
+    "2026-08-17": 154,
+    "2026-08-18": 234
+  },
+  "daily_quality": [
+    {
+      "trade_date": "2026-08-13",
+      "raw_snapshot_count": 1,
+      "deduplicated_snapshot_count": 1,
+      "duplicate_snapshot_count": 0,
+      "pcf_record_count": 1,
+      "maximum_iopv_staleness_seconds": 10653.894216,
+      "minimum_iopv_staleness_seconds": 10653.894216,
+      "checks": {
+        "minimum_deduplicated_snapshots": false,
+        "pcf_date_present_once": true,
+        "pcf_retrieval_timestamp_valid": true,
+        "exchange_timestamp_valid": true,
+        "retrieval_timezone_valid": true,
+        "iopv_staleness_within_limit": false,
+        "positive_iopv": true
+      },
+      "complete_quality_day": false,
+      "failure_reasons": [
+        "minimum_deduplicated_snapshots",
+        "iopv_staleness_within_limit"
+      ]
+    },
+    {
+      "trade_date": "2026-08-14",
+      "raw_snapshot_count": 1,
+      "deduplicated_snapshot_count": 1,
+      "duplicate_snapshot_count": 0,
+      "pcf_record_count": 1,
+      "maximum_iopv_staleness_seconds": 0.285838,
+      "minimum_iopv_staleness_seconds": 0.285838,
+      "checks": {
+        "minimum_deduplicated_snapshots": false,
+        "pcf_date_present_once": true,
+        "pcf_retrieval_timestamp_valid": true,
+        "exchange_timestamp_valid": true,
+        "retrieval_timezone_valid": true,
+        "iopv_staleness_within_limit": true,
+        "positive_iopv": true
+      },
+      "complete_quality_day": false,
+      "failure_reasons": [
+        "minimum_deduplicated_snapshots"
+      ]
+    },
+    {
+      "trade_date": "2026-08-17",
+      "raw_snapshot_count": 154,
+      "deduplicated_snapshot_count": 154,
+      "duplicate_snapshot_count": 0,
+      "pcf_record_count": 1,
+      "maximum_iopv_staleness_seconds": 2.245544,
+      "minimum_iopv_staleness_seconds": -0.044366,
+      "checks": {
+        "minimum_deduplicated_snapshots": true,
+        "pcf_date_present_once": true,
+        "pcf_retrieval_timestamp_valid": true,
+        "exchange_timestamp_valid": true,
+        "retrieval_timezone_valid": true,
+        "iopv_staleness_within_limit": true,
+        "positive_iopv": true
+      },
+      "complete_quality_day": true,
+      "failure_reasons": []
+    },
+    {
+      "trade_date": "2026-08-18",
+      "raw_snapshot_count": 234,
+      "deduplicated_snapshot_count": 234,
+      "duplicate_snapshot_count": 0,
+      "pcf_record_count": 1,
+      "maximum_iopv_staleness_seconds": 2.092428,
+      "minimum_iopv_staleness_seconds": -0.021654,
+      "checks": {
+        "minimum_deduplicated_snapshots": true,
+        "pcf_date_present_once": true,
+        "pcf_retrieval_timestamp_valid": true,
+        "exchange_timestamp_valid": true,
+        "retrieval_timezone_valid": true,
+        "iopv_staleness_within_limit": true,
+        "positive_iopv": true
+      },
+      "complete_quality_day": true,
+      "failure_reasons": []
+    }
+  ],
+  "quality_contract": {
+    "timezone": "Asia/Shanghai",
+    "maximum_iopv_staleness_seconds": 180.0,
+    "maximum_negative_clock_skew_seconds": 5.0,
+    "pcf_date_must_equal_trade_date": true,
+    "minimum_deduplicated_snapshots_per_day": 120
+  },
+  "eligible_for_quality_audit": false,
+  "eligible_for_feature_freeze": false,
+  "eligible_for_first_unseen_evaluation": false,
+  "eligible_for_research_evaluation": false,
+  "eligible_for_replication_evaluation": false,
+  "eligible_for_position_mapping": false,
+  "feature_freeze_block_reason": "完整质量日不足40，只允许继续采集和质量审计",
+  "evaluation_block_reason": "完整质量日不足80，不允许读取未见段收益评价",
+  "position_mapping_block_reason": "PCF/IOPV链只用于研究收集；任何阶段都不自动授权仓位映射",
+  "governance": {
+    "automatic_position_mapping_authorized": false,
+    "automatic_ordering_authorized": false
+  }
+}

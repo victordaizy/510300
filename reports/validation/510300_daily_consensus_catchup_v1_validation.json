@@ -1,0 +1,481 @@
+{
+  "status": "FROZEN_CANDIDATE_REJECTED_CONTINUE_SEARCH",
+  "protocol_id": "510300_DAILY_CONSENSUS_CATCHUP_V1",
+  "validation_period": [
+    "2021-01-01",
+    "2025-12-31"
+  ],
+  "frozen_contract": {
+    "config_sha256": "353456161ec255b7e947a864c098d91e9c7f4adc275ee1228887b82618bd327a",
+    "freeze_receipt_sha256": "e0f3402dc6a9bde87789a7c9f8e3792119d4bcf3bbebf90af24d65e373bdde05",
+    "input_build_audit_sha256": "8d346c370f6ec2cc816c7375fc3b823efd73b7e574a6c9ff3aaa817b388cc31f",
+    "frozen_at": "2026-08-28T03:26:37.8752839+08:00",
+    "validation_status_at_freeze": "NOT_READ_NOT_RUN",
+    "validation_input_coverage": {
+      "all_a": {
+        "label": "ALL_A",
+        "rows": 2280,
+        "validation_rows": 1212,
+        "validation_first_date": "2021-01-04",
+        "validation_last_date": "2025-12-31"
+      },
+      "global": {
+        "label": "GLOBAL",
+        "rows": 2674,
+        "validation_rows": 1212,
+        "validation_first_date": "2021-01-04",
+        "validation_last_date": "2025-12-31"
+      },
+      "leverage": {
+        "label": "LEVERAGE",
+        "rows": 2674,
+        "validation_rows": 1212,
+        "validation_first_date": "2021-01-04",
+        "validation_last_date": "2025-12-31"
+      }
+    },
+    "validation_input_alignment": {
+      "global": {
+        "vix": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "spx": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "nasdaq": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "dow": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "dax": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "ftse": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "cac": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "hsi": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "credit": {
+          "rule": "observation_date_strictly_before_signal_date",
+          "matched_rows": 2279,
+          "violations": 0
+        },
+        "nikkei": {
+          "rule": "observation_date_not_after_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "kospi": {
+          "rule": "observation_date_not_after_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "asx": {
+          "rule": "observation_date_not_after_signal_date",
+          "matched_rows": 2674,
+          "violations": 0
+        },
+        "cfets": {
+          "rule": "observation_date_not_after_signal_date",
+          "matched_rows": 2430,
+          "violations": 0
+        }
+      },
+      "leverage": {
+        "rule": "交易日T两融汇总于T+1上午发布；T日收盘信号仅连接严格早于T的汇总日期",
+        "matched_rows": 2673,
+        "violations": 0,
+        "maximum_observation_age_calendar_days_2019_2020": 11
+      }
+    }
+  },
+  "validation_implementation": {
+    "receipt_sha256": "29b610c8006f528d341f376d3d1ef775173d81561288c21ab130b6bca038a3cc",
+    "frozen_at": "2026-08-28T03:54:38.0981715+08:00",
+    "evaluator_sha256": "6c4a9a01edd96c270c7c158275eaf1c7ee1f63a6f11eb72ed93d9aa41115c77d",
+    "performance_run_status_at_receipt": "NOT_RUN"
+  },
+  "validation_results_read_after_freeze": true,
+  "candidate_unchanged_from_freeze": true,
+  "reproduction_audit": {
+    "direct_model_scores": {
+      "label": "DIRECT_ONE_DAY_MODEL_SCORES",
+      "status": "PASS",
+      "matched_dates": 1068,
+      "maximum_absolute_difference": 3.469446951953614e-18,
+      "tolerance": 1e-12,
+      "nan_pattern_mismatch_count": 0,
+      "maximum_by_column": {
+        "score_raw_rf_signed_all": 3.469446951953614e-18,
+        "score_raw_hgb_signed_all": 0.0,
+        "score_raw_gbr_q90_loss_all": 0.0,
+        "score_raw_elastic_signed_all": 0.0,
+        "risk_rolling252_rf_signed_all": 0.0,
+        "risk_rolling252_hgb_signed_all": 0.0,
+        "risk_rolling252_gbr_q90_loss_all": 0.0,
+        "risk_rolling252_elastic_signed_all": 0.0,
+        "risk_rolling252_global_selloff1_baseline": 0.0
+      }
+    },
+    "global_scores": {
+      "label": "GLOBAL_STATE_SCORES",
+      "status": "PASS",
+      "matched_dates": 1068,
+      "maximum_absolute_difference": 0.0,
+      "tolerance": 1e-12,
+      "nan_pattern_mismatch_count": 0,
+      "maximum_by_column": {
+        "risk_rolling252_vix_level": 0.0,
+        "risk_rolling252_contagion_joint": 0.0
+      }
+    },
+    "candidate_signal": {
+      "label": "FROZEN_CANDIDATE_SIGNAL",
+      "status": "PASS",
+      "matched_dates": 1068,
+      "mismatch_count": 0
+    }
+  },
+  "validation_gate": {
+    "annualized_net_excess_minimum_each_start": 0.2,
+    "rolling_242d_net_excess_median_minimum_each_start": 0.2,
+    "required_start_perturbations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "passed": false
+  },
+  "validation_aggregate": {
+    "stress_annualized_excess_minimum": -0.055853552646885365,
+    "stress_annualized_excess_median": -0.05564898105243704,
+    "stress_annualized_excess_maximum": -0.05499450873316548,
+    "stress_rolling_242d_excess_median_minimum": -0.047500573955151074,
+    "stress_rolling_242d_excess_median_across_perturbations": -0.047385372801411946,
+    "stress_rolling_242d_excess_median_maximum": -0.04724125226725347,
+    "all_five_start_perturbations_passed": false,
+    "start_perturbation_pass_ratio": 0.0,
+    "cash_day_share_median": 0.08264462809917356,
+    "stress_trade_leg_count_median": 133.0,
+    "stress_final_equity_cny": 377466.9045799263,
+    "benchmark_final_equity_cny": 502667.74073359556,
+    "stress_trade_leg_count": 132
+  },
+  "all_start_perturbation_metrics": [
+    {
+      "start_perturbation": 0,
+      "execution_day_count": 1212,
+      "cash_day_count": 100,
+      "cash_day_share": 0.08250825082508251,
+      "base_consensus_cash_signal_count": 71,
+      "residual_catchup_cash_signal_count": 37,
+      "base_start_date": "2020-12-31",
+      "base_end_date": "2025-12-31",
+      "base_observations": 1213,
+      "base_strategy_cagr": -0.03026520592877643,
+      "base_benchmark_cagr": 0.0010630680953607923,
+      "base_annualized_excess": -0.03132827402413722,
+      "base_rolling_242d_excess_median": -0.028075159448963466,
+      "base_rolling_242d_excess_minimum": -0.10920475013629712,
+      "base_rolling_242d_target_hit_ratio": 0.0,
+      "base_maximum_drawdown": -0.46673372195855123,
+      "base_average_policy_state": 0.9167353668590272,
+      "base_state_change_count": 127,
+      "base_trade_leg_count": 132,
+      "base_total_execution_cost_cny": 28494.256888222655,
+      "base_annualized_excess_gate": false,
+      "base_rolling_median_gate": false,
+      "base_both_20pct_gates": false,
+      "stress_start_date": "2020-12-31",
+      "stress_end_date": "2025-12-31",
+      "stress_observations": 1213,
+      "stress_strategy_cagr": -0.05458591295707625,
+      "stress_benchmark_cagr": 0.0010630680953607923,
+      "stress_annualized_excess": -0.05564898105243704,
+      "stress_rolling_242d_excess_median": -0.047500573955151074,
+      "stress_rolling_242d_excess_minimum": -0.14059830571646026,
+      "stress_rolling_242d_target_hit_ratio": 0.0,
+      "stress_maximum_drawdown": -0.5052474756832296,
+      "stress_average_policy_state": 0.9167353668590272,
+      "stress_state_change_count": 127,
+      "stress_trade_leg_count": 132,
+      "stress_total_execution_cost_cny": 71487.88122478,
+      "stress_annualized_excess_gate": false,
+      "stress_rolling_median_gate": false,
+      "stress_both_20pct_gates": false,
+      "frozen_validation_gate": false
+    },
+    {
+      "start_perturbation": 1,
+      "execution_day_count": 1211,
+      "cash_day_count": 100,
+      "cash_day_share": 0.08257638315441784,
+      "base_consensus_cash_signal_count": 71,
+      "residual_catchup_cash_signal_count": 37,
+      "base_start_date": "2021-01-04",
+      "base_end_date": "2025-12-31",
+      "base_observations": 1212,
+      "base_strategy_cagr": -0.03183485552958636,
+      "base_benchmark_cagr": -0.001088313746681703,
+      "base_annualized_excess": -0.03074654178290466,
+      "base_rolling_242d_excess_median": -0.02806891083461749,
+      "base_rolling_242d_excess_minimum": -0.10921774493202581,
+      "base_rolling_242d_target_hit_ratio": 0.0,
+      "base_maximum_drawdown": -0.46679592738262843,
+      "base_average_policy_state": 0.9166666666666666,
+      "base_state_change_count": 127,
+      "base_trade_leg_count": 132,
+      "base_total_execution_cost_cny": 28273.434269267647,
+      "base_annualized_excess_gate": false,
+      "base_rolling_median_gate": false,
+      "base_both_20pct_gates": false,
+      "stress_start_date": "2021-01-04",
+      "stress_end_date": "2025-12-31",
+      "stress_observations": 1212,
+      "stress_strategy_cagr": -0.05608282247984718,
+      "stress_benchmark_cagr": -0.001088313746681703,
+      "stress_annualized_excess": -0.05499450873316548,
+      "stress_rolling_242d_excess_median": -0.04744598929953192,
+      "stress_rolling_242d_excess_minimum": -0.14057158912604417,
+      "stress_rolling_242d_target_hit_ratio": 0.0,
+      "stress_maximum_drawdown": -0.5052977015396946,
+      "stress_average_policy_state": 0.9166666666666666,
+      "stress_state_change_count": 127,
+      "stress_trade_leg_count": 133,
+      "stress_total_execution_cost_cny": 70946.28543107002,
+      "stress_annualized_excess_gate": false,
+      "stress_rolling_median_gate": false,
+      "stress_both_20pct_gates": false,
+      "frozen_validation_gate": false
+    },
+    {
+      "start_perturbation": 2,
+      "execution_day_count": 1210,
+      "cash_day_count": 100,
+      "cash_day_share": 0.08264462809917356,
+      "base_consensus_cash_signal_count": 71,
+      "residual_catchup_cash_signal_count": 37,
+      "base_start_date": "2021-01-05",
+      "base_end_date": "2025-12-31",
+      "base_observations": 1211,
+      "base_strategy_cagr": -0.036344950695954684,
+      "base_benchmark_cagr": -0.004868444867851597,
+      "base_annualized_excess": -0.03147650582810309,
+      "base_rolling_242d_excess_median": -0.028029526107058438,
+      "base_rolling_242d_excess_minimum": -0.1093281550164886,
+      "base_rolling_242d_target_hit_ratio": 0.0,
+      "base_maximum_drawdown": -0.46666393037824316,
+      "base_average_policy_state": 0.916597853014038,
+      "base_state_change_count": 127,
+      "base_trade_leg_count": 131,
+      "base_total_execution_cost_cny": 27627.455493072775,
+      "base_annualized_excess_gate": false,
+      "base_rolling_median_gate": false,
+      "base_both_20pct_gates": false,
+      "stress_start_date": "2021-01-05",
+      "stress_end_date": "2025-12-31",
+      "stress_observations": 1211,
+      "stress_strategy_cagr": -0.0605234214206889,
+      "stress_benchmark_cagr": -0.004868444867851597,
+      "stress_annualized_excess": -0.055654976552837306,
+      "stress_rolling_242d_excess_median": -0.047385372801411946,
+      "stress_rolling_242d_excess_minimum": -0.14050393135967998,
+      "stress_rolling_242d_target_hit_ratio": 0.0,
+      "stress_maximum_drawdown": -0.5052674486449968,
+      "stress_average_policy_state": 0.916597853014038,
+      "stress_state_change_count": 127,
+      "stress_trade_leg_count": 133,
+      "stress_total_execution_cost_cny": 69321.24837982998,
+      "stress_annualized_excess_gate": false,
+      "stress_rolling_median_gate": false,
+      "stress_both_20pct_gates": false,
+      "frozen_validation_gate": false
+    },
+    {
+      "start_perturbation": 3,
+      "execution_day_count": 1209,
+      "cash_day_count": 100,
+      "cash_day_share": 0.0827129859387924,
+      "base_consensus_cash_signal_count": 71,
+      "residual_catchup_cash_signal_count": 37,
+      "base_start_date": "2021-01-06",
+      "base_end_date": "2025-12-31",
+      "base_observations": 1210,
+      "base_strategy_cagr": -0.03792574030300723,
+      "base_benchmark_cagr": -0.0066866166048435574,
+      "base_annualized_excess": -0.031239123698163673,
+      "base_rolling_242d_excess_median": -0.028020692340444936,
+      "base_rolling_242d_excess_minimum": -0.10923479508963549,
+      "base_rolling_242d_target_hit_ratio": 0.0,
+      "base_maximum_drawdown": -0.46680748157615115,
+      "base_average_policy_state": 0.9165289256198347,
+      "base_state_change_count": 127,
+      "base_trade_leg_count": 133,
+      "base_total_execution_cost_cny": 27410.15223019779,
+      "base_annualized_excess_gate": false,
+      "base_rolling_median_gate": false,
+      "base_both_20pct_gates": false,
+      "stress_start_date": "2021-01-06",
+      "stress_end_date": "2025-12-31",
+      "stress_observations": 1210,
+      "stress_strategy_cagr": -0.06200837881673358,
+      "stress_benchmark_cagr": -0.0066866166048435574,
+      "stress_annualized_excess": -0.05532176221189002,
+      "stress_rolling_242d_excess_median": -0.04724125226725347,
+      "stress_rolling_242d_excess_minimum": -0.14049163825654745,
+      "stress_rolling_242d_target_hit_ratio": 0.0,
+      "stress_maximum_drawdown": -0.5051868547923414,
+      "stress_average_policy_state": 0.9165289256198347,
+      "stress_state_change_count": 127,
+      "stress_trade_leg_count": 133,
+      "stress_total_execution_cost_cny": 68788.81056364496,
+      "stress_annualized_excess_gate": false,
+      "stress_rolling_median_gate": false,
+      "stress_both_20pct_gates": false,
+      "frozen_validation_gate": false
+    },
+    {
+      "start_perturbation": 4,
+      "execution_day_count": 1208,
+      "cash_day_count": 100,
+      "cash_day_share": 0.08278145695364239,
+      "base_consensus_cash_signal_count": 71,
+      "residual_catchup_cash_signal_count": 37,
+      "base_start_date": "2021-01-07",
+      "base_end_date": "2025-12-31",
+      "base_observations": 1209,
+      "base_strategy_cagr": -0.041983216463639395,
+      "base_benchmark_cagr": -0.010180646419698847,
+      "base_annualized_excess": -0.03180257004394055,
+      "base_rolling_242d_excess_median": -0.028003176951769685,
+      "base_rolling_242d_excess_minimum": -0.10929074995749198,
+      "base_rolling_242d_target_hit_ratio": 0.0,
+      "base_maximum_drawdown": -0.4666024946147981,
+      "base_average_policy_state": 0.9164598842018197,
+      "base_state_change_count": 127,
+      "base_trade_leg_count": 133,
+      "base_total_execution_cost_cny": 26845.062502677774,
+      "base_annualized_excess_gate": false,
+      "base_rolling_median_gate": false,
+      "base_both_20pct_gates": false,
+      "stress_start_date": "2021-01-07",
+      "stress_end_date": "2025-12-31",
+      "stress_observations": 1209,
+      "stress_strategy_cagr": -0.06603419906658421,
+      "stress_benchmark_cagr": -0.010180646419698847,
+      "stress_annualized_excess": -0.055853552646885365,
+      "stress_rolling_242d_excess_median": -0.04725945792129276,
+      "stress_rolling_242d_excess_minimum": -0.14057014574785937,
+      "stress_rolling_242d_target_hit_ratio": 0.0,
+      "stress_maximum_drawdown": -0.5051351439555908,
+      "stress_average_policy_state": 0.9164598842018197,
+      "stress_state_change_count": 127,
+      "stress_trade_leg_count": 132,
+      "stress_total_execution_cost_cny": 67368.19483685003,
+      "stress_annualized_excess_gate": false,
+      "stress_rolling_median_gate": false,
+      "stress_both_20pct_gates": false,
+      "frozen_validation_gate": false
+    }
+  ],
+  "calendar_year_metrics_primary_start_stress_cost": [
+    {
+      "year": 2021,
+      "observations": 243,
+      "strategy_net_return": -0.10269412839710612,
+      "benchmark_total_return": -0.03516734679451372,
+      "net_excess_return": -0.0675267816025924
+    },
+    {
+      "year": 2022,
+      "observations": 242,
+      "strategy_net_return": -0.25880501476529605,
+      "benchmark_total_return": -0.19836711393722717,
+      "net_excess_return": -0.06043790082806888
+    },
+    {
+      "year": 2023,
+      "observations": 242,
+      "strategy_net_return": -0.09485802778600572,
+      "benchmark_total_return": -0.09135429181811783,
+      "net_excess_return": -0.0035037359678878888
+    },
+    {
+      "year": 2024,
+      "observations": 242,
+      "strategy_net_return": 0.15984001069133158,
+      "benchmark_total_return": 0.18239462886982327,
+      "net_excess_return": -0.022554618178491692
+    },
+    {
+      "year": 2025,
+      "observations": 243,
+      "strategy_net_return": 0.08123750838366117,
+      "benchmark_total_return": 0.20983589125580226,
+      "net_excess_return": -0.1285983828721411
+    }
+  ],
+  "input_sha256": {
+    "config/510300_daily_consensus_catchup_v1.yaml": "353456161ec255b7e947a864c098d91e9c7f4adc275ee1228887b82618bd327a",
+    "reports/frozen/510300_daily_consensus_catchup_v1_freeze_receipt.json": "e0f3402dc6a9bde87789a7c9f8e3792119d4bcf3bbebf90af24d65e373bdde05",
+    "data/validation/510300_daily_consensus_catchup_v1/input_build_audit.json": "8d346c370f6ec2cc816c7375fc3b823efd73b7e574a6c9ff3aaa817b388cc31f",
+    "reports/frozen/510300_daily_consensus_catchup_v1_validation_implementation_receipt.json": "29b610c8006f528d341f376d3d1ef775173d81561288c21ab130b6bca038a3cc",
+    "data/features/510300_all_a_fragility_shape_5d_discovery_v0.parquet": "8b005fc02734a8d0e26397cd5f6129e00d7b53227fdf3d4dcf0aac8ddc942b55",
+    "data/features/510300_global_liquidity_regime_5d_discovery_v0.parquet": "4bd61e12ca72614d57f9a2dd86528ff7fe2b7acf19b7ad01ffc3554a507a317e",
+    "data/features/510300_market_leverage_cascade_5d_discovery_v0.parquet": "6dcd700f8c557262a9c7bbc89dbec8014a830b08b8d81b496fffa4e8b916b649",
+    "data/features/510300_direct_one_day_cash_advantage_rank_discovery_v0.parquet": "6c7520b2cf3430493cb8e58dba1ec61f9546839242da698e1f223921dc6968b1",
+    "data/features/510300_daily_global_contagion_state_machine_discovery_v0.parquet": "648f0dfafdf8e797ce25cf0881b56bc609458ca5ccab48cbdadf0a8842b552f1",
+    "data/features/510300_daily_consensus_residual_catchup_discovery_v0.parquet": "37cc84e3629a9957c3171a96841650692931b949a07aa286c71b56439afc7890",
+    "data/validation/510300_daily_consensus_catchup_v1/all_a_features_2016_2025.parquet": "a901625e7431e520a515cf713699b91a53328d32423cd675fdc3e4ac7f074a8b",
+    "data/validation/510300_daily_consensus_catchup_v1/global_features_2015_2025.parquet": "172fddab10bebe2dde8aa1b735410ad636c47a69e8ba664b6882e8b1890f4a17",
+    "data/validation/510300_daily_consensus_catchup_v1/leverage_features_2015_2025.parquet": "9147a2a29b8f59a4a6608d6b009eaf663b08f1fd6522c2929f6bd0d8c45b95d1"
+  },
+  "artifacts": {
+    "scores": {
+      "file": "data/validation/510300_daily_consensus_catchup_v1/frozen_scores_2016_2025.parquet",
+      "sha256": "105791f9e2b3c90cf59a6e5b8e024b9ef08cac842158084a5a57389663c19339"
+    },
+    "signals": {
+      "file": "data/validation/510300_daily_consensus_catchup_v1/frozen_signals_2016_2025.parquet",
+      "sha256": "d9f1dfcadda1c9b65ff4d0f788144ea78ca5899e1e8c6872651adef13b978ba6"
+    },
+    "metrics": {
+      "file": "data/validation/510300_daily_consensus_catchup_v1/validation_start_perturbation_metrics.parquet",
+      "sha256": "0ea67951438c4fbcea7f43190e752911aa5e3492635023b03d6f04ee41fe3673"
+    },
+    "states": {
+      "file": "data/validation/510300_daily_consensus_catchup_v1/validation_daily_states.parquet",
+      "sha256": "8d3ef011783d6ce78caa3d957a170769dae33484bcaee2f6a32cfd1e4bacfe78"
+    }
+  },
+  "next_action": "按冻结协议拒绝V1，不调参救援并继续搜索新机制",
+  "authorization": {
+    "is_trading_signal": false,
+    "paper_or_shadow_eligible": false,
+    "broker_connection_authorized": false,
+    "live_trading_authorized": false
+  }
+}

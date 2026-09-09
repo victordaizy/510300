@@ -1,0 +1,39 @@
+version: INDUSTRY_EXPECTATION_GAP_OUTCOME_REFRESH_V1_2
+status: ZERO_PAID_FAIL_CLOSED_NO_COMMERCIAL_PROVIDER_CALL
+timezone: Asia/Shanghai
+
+inputs:
+  trading_calendar: data/reference/sse_trade_calendar_2026.csv
+  constituent_total_return_daily: data/raw/constituents/000300_constituent_daily.parquet
+  etf_total_return_daily: data/processed/510300_daily_total_return.parquet
+  free_source_registry: data/governance/FREE_SOURCE_REGISTRY_V1_1.csv
+  qualified_acquisition_receipt: reports/data_quality/industry_expectation_gap_zero_paid_acquisition_current_v1_2.json
+
+outputs:
+  current_status: reports/data_quality/industry_expectation_gap_outcome_refresh_status_v1_2.json
+  immutable_status_directory: reports/data_quality/industry_expectation_gap_outcome_refresh_v1_2
+
+provider_contract:
+  data_purchase_budget_cny: 0
+  paid_provider_call_enabled: false
+  tushare_proxy_call_enabled: false
+  qualified_zero_cost_adjusted_constituent_source: false
+  required_constituent_count: 300
+  required_fields:
+    - date
+    - con_code
+    - total_return
+  missing_source_status: BLOCKED_ZERO_COST_SOURCE_UNAVAILABLE
+
+quality:
+  market_close_confirmation_time: "15:30:00"
+  require_exact_trading_date: true
+  require_content_addressed_snapshot_before_evaluation: true
+
+governance:
+  prediction_ledger_write_enabled: false
+  partial_horizon_return_output_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

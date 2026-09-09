@@ -1,0 +1,65 @@
+research:
+  screen_id: "510300_VALUATION_TECHNICAL_TIMING_SCREEN_V1"
+  name: "510300估值仓位与既有技术指标统一重筛"
+  version: "1.0.0"
+  status: "RETROSPECTIVE_MULTI_CANDIDATE_SCREEN"
+  scope: "估值模型独占目标仓位；每个技术候选只优化普通加仓和减仓时点；危机减仓立即执行"
+
+data:
+  valuation_signals_file: "data/processed/round5_defensive_valuation_timing/enhanced_signals.parquet"
+  intraday_indicator_file: "data/features/510300_intraday_entry_indicator.parquet"
+  intraday_factors_file: "data/features/510300_15m_technical_factors.parquet"
+  minute_file: "data/raw/market/510300_1m_tushare_raw.parquet"
+  daily_file: "data/raw/market/510300_daily_raw.parquet"
+  dividend_file: "data/reference/510300_dividends.csv"
+  close_pressure_forecasts_file: "data/features/510300_intraday_close_pressure_2d_forecasts.parquet"
+  vwap_v1_trades_file: "data/backtests/intraday_t_v1_trades.parquet"
+  previous_close_anchor_trades_file: "data/processed/round5_three_strategy_comparison/t_only_trades.csv"
+  lc_fvg_pv_config_file: "backtest/prototype_lc_fvg_pv/config.yaml"
+
+evaluation:
+  start_date: "2021-08-12"
+  end_date: "2026-08-12"
+  initial_cash_cny: 20000.0
+  position_grid_step: 0.25
+  maximum_timing_wait_trading_days: 5
+  first_day_policy: "全部方案按首日开盘建立相同估值仓位"
+  sell_policy: "普通减仓等待对应卖出事件；risk_off_override危机减仓立即执行"
+
+account:
+  lot_size: 100
+  minimum_normal_trade_shares: 1000
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  market_impact_bps: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+gates:
+  minimum_valuation_buy_opportunities: 20
+  minimum_valuation_sell_opportunities: 20
+  minimum_technical_confirmed_buys: 20
+  minimum_technical_confirmed_sells: 20
+  minimum_evaluation_years: 4.5
+  performance_checks:
+    - "base_total_return_improved"
+    - "base_max_drawdown_no_worse"
+    - "stress_total_return_improved"
+    - "both_chronological_halves_positive_relative_return"
+  retrospective_pass_requires_all_performance_checks: true
+  near_miss_minimum_performance_checks: 3
+
+governance:
+  candidate_count_is_multiple_testing_family: true
+  no_parameter_grid_search: true
+  same_history_winner_not_authorized: true
+  automatic_ordering_authorized: false
+  note: "本轮一次性登记标准参数和既有失败规则；结果只用于淘汰与挑选纸面前向候选，不直接修改两万元仓位生成器。"
+
+output:
+  directory: "data/processed/valuation_technical_candidate_screen"
+  report_json: "reports/backtest/valuation_technical_candidate_screen.json"
+  report_markdown: "reports/backtest/valuation_technical_candidate_screen.md"

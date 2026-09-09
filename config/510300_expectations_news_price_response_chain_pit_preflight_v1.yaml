@@ -1,0 +1,66 @@
+program:
+  program_id: 510300_EXPECTATIONS_NEWS_PRICE_RESPONSE_CHAIN_PIT_PREFLIGHT_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_MEMBER_LEVEL_PIT_CHAIN_PREFLIGHT_FREEZE
+  research_stage: INPUT_ADMISSION_ONLY
+  evidence_cutoff: 2026-08-14
+  market_price_value_read_allowed: false
+  return_prediction_allowed: false
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+
+parent_contract:
+  measurement_manifest: config/510300_cf_dr_rc_own_object_measurement_validity_v1_manifest.json
+  measurement_status: reports/research/510300_cf_dr_rc_own_object_measurement_validity_v1_status.json
+  expected_manifest_payload_sha256: 5530350f358858cfa4a2c4bbf4b7f782a72341b953f90a5f8d53782da350b0a1
+  expected_status_payload_sha256: 3cac6928b05fffdf0d4723e5515dd56706518de53af571f968e97e1110d233d8
+  expected_status: OWN_OBJECT_MEASUREMENT_VALIDITY_COMPLETE_NO_FORECAST
+
+source_contract:
+  periodic_report_events:
+    path: data/raw/cninfo/a_share_hs_periodic_report_events_v2_1.parquet
+    expected_sha256: 028c9a68335b719916e1b735888f6f444bca7f4dfba2bc051a0088a10e98512b
+  periodic_report_receipt:
+    path: data/raw/cninfo/a_share_hs_periodic_report_event_archive_v2_1_receipt.json
+    expected_sha256: 90f92dbc21ce4315e8b94626597760850958b04f2cc3d6f6e9abac401496bcb6
+    expected_status: PASS_OFFICIAL_PERIODIC_REPORT_EVENT_ARCHIVE_V2_1_CHRONOLOGY_VALID
+  preliminary_official_metadata:
+    path: data/raw/cninfo/a_share_hs_first_preliminary_earnings_official_metadata_all_v1.parquet
+    expected_sha256: 1254a1add70243fda763acfe20c04501cc4143a993f8a585c61e6fc1858e451c
+  preliminary_core_facts_report:
+    path: reports/data_quality/A_SHARE_HS_FIRST_PRELIMINARY_CORE_EARNINGS_FACTS_V1.json
+    expected_sha256: dc96b76e2175bd1afac2047e737f025530bb1c17ee93bb4a6b366808e88610aa
+    expected_status: BLOCKED_DATA_CONTRACT_FAILED
+  preliminary_core_facts:
+    path: data/staging/a_share_hs_first_preliminary_core_earnings_surprise_drift_v1/preliminary_earnings_facts_v1.parquet
+    expected_sha256: 3e89c758a0ce95b8f638bf7bf9139aa02baf44d6d0ad30b0418c25a26307972a
+  component_state:
+    path: data/curated/510300_structural_equity_risk_premium_engine_v1/csi300_component_monthly_state.parquet
+    expected_sha256: 4c8851f8b8880a00a004528e4e7bd563379003f6b28f44f3c7a9c36b22099b74
+
+hard_gates:
+  minimum_official_pit_weight_row_share: 0.95
+  minimum_exact_publication_timestamp_share: 0.95
+  minimum_official_fact_extraction_success_rate: 0.90
+  minimum_first_public_fact_coverage: 0.90
+  membership_and_weight_vintage_required: true
+  revised_value_as_pit_allowed: false
+  exact_event_price_clock_required: true
+  complete_event_clustering_universe_required: true
+  no_view_when_any_gate_fails: true
+
+chain_contract:
+  chain: EXPECTATION_TO_NEWS_TO_PRICE_RESPONSE
+  required_level: MEMBER_LEVEL
+  expectation_object: PRE_EVENT_POINT_IN_TIME_EXPECTATION
+  news_object: FIRST_PUBLIC_VALUE_MINUS_PRE_EVENT_EXPECTATION
+  price_response_object: CLOCK_ALIGNED_NEWS_ABSORPTION_PATH
+  direct_total_return_target_allowed: false
+  market_price_may_be_read_after_all_input_gates_pass: true
+
+artifacts:
+  protocol_manifest: config/510300_expectations_news_price_response_chain_pit_preflight_v1_manifest.json
+  gate_table: reports/data_quality/510300_expectations_news_price_response_chain_pit_preflight_v1_gates.parquet
+  preflight_json: reports/data_quality/510300_expectations_news_price_response_chain_pit_preflight_v1.json
+  final_report: reports/research/510300_EXPECTATIONS_NEWS_PRICE_RESPONSE_CHAIN_PIT_PREFLIGHT_V1.md
+  authoritative_status: reports/research/510300_expectations_news_price_response_chain_pit_preflight_v1_status.json

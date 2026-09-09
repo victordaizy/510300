@@ -1,0 +1,223 @@
+{
+  "status": "COMPONENT_L2_FLOW_DIRECTION_REJECTED",
+  "checked_at": "2026-08-13T17:31:14.565781+08:00",
+  "registry_status_before_test": "PRE_REGISTERED_BEFORE_OUTCOME_TEST",
+  "research_family_sequence": 3,
+  "features": [
+    {
+      "column": "official_weighted_net_mf_intensity_5d",
+      "expected_sign": "positive",
+      "mechanism": "成分股净主力主动流入持续时，指数未来方向更强。"
+    },
+    {
+      "column": "official_weighted_large_extra_large_intensity_5d",
+      "expected_sign": "positive",
+      "mechanism": "大单和特大单主动净流入代表机构型需求。"
+    },
+    {
+      "column": "official_weighted_positive_net_mf_share_5d",
+      "expected_sign": "positive",
+      "mechanism": "净主力流入扩散到更多指数权重时，比少数权重股孤立流入更可靠。"
+    }
+  ],
+  "model": {
+    "estimator": "固定C=0.1的标准化L2 Logistic",
+    "horizon_trading_days": 20,
+    "minimum_training_samples": 504,
+    "refit_interval_trading_days": 5,
+    "no_hyperparameter_search": true
+  },
+  "acceptance_gate": {
+    "minimum_realized_forecasts": 500,
+    "minimum_overall_auc": 0.55,
+    "minimum_overall_brier_skill": 0.0,
+    "minimum_each_half_auc": 0.53,
+    "minimum_each_half_brier_skill": 0.0,
+    "calibration_slope_low": 0.5,
+    "calibration_slope_high": 1.5,
+    "minimum_expected_sign_share_each_feature": 0.6,
+    "minimum_non_overlapping_auc_above_half_share": 0.6,
+    "require_top_minus_bottom_mean_net_return_positive": true,
+    "trading_use_authorized": false
+  },
+  "gate_checks": {
+    "minimum_realized_forecasts": true,
+    "overall_auc": false,
+    "overall_brier_skill": false,
+    "each_half_auc": false,
+    "each_half_brier_skill": false,
+    "calibration_slope": false,
+    "expected_coefficient_signs": false,
+    "non_overlapping_auc": false,
+    "top_minus_bottom_return": false
+  },
+  "evaluation": {
+    "realized_forecast_count": 664,
+    "positive_base_rate": 0.5316265060240963,
+    "brier_score": 0.27315007656392726,
+    "expanding_base_rate_brier_score": 0.26751010354510435,
+    "brier_skill_score": -0.021083214966764574,
+    "log_loss": 0.7420377801672023,
+    "auc": 0.5002504941566545,
+    "accuracy_at_0_5": 0.43373493975903615,
+    "calibration_slope": -0.3730744354908887,
+    "probability_quintiles": [
+      {
+        "observations": 133,
+        "mean_probability": 0.3238381838672164,
+        "realized_hit_rate": 0.518796992481203,
+        "mean_net_return": 0.014141892563220423
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.3660505672885975,
+        "realized_hit_rate": 0.49624060150375937,
+        "mean_net_return": 0.009388372817483196
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.4021120337331415,
+        "realized_hit_rate": 0.5075757575757576,
+        "mean_net_return": 0.00967323315068647
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.4457018518522352,
+        "realized_hit_rate": 0.6842105263157895,
+        "mean_net_return": 0.018708118393276064
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.52509013001636,
+        "realized_hit_rate": 0.45112781954887216,
+        "mean_net_return": -0.002425821805442734
+      }
+    ],
+    "top_minus_bottom_mean_net_return": -0.016567714368663156,
+    "non_overlapping_cohort_auc_median": 0.5037037037037038,
+    "non_overlapping_cohort_auc_above_half_share": 0.5,
+    "direction_gate_passed": false
+  },
+  "chronological_halves": {
+    "first_half": {
+      "realized_forecast_count": 332,
+      "positive_base_rate": 0.4367469879518072,
+      "brier_score": 0.2652376359133102,
+      "expanding_base_rate_brier_score": 0.254686125941055,
+      "brier_skill_score": -0.04142946512405321,
+      "log_loss": 0.7274957965991186,
+      "auc": 0.3723031532362161,
+      "accuracy_at_0_5": 0.5512048192771084,
+      "calibration_slope": -2.696501104107166,
+      "probability_quintiles": [
+        {
+          "observations": 67,
+          "mean_probability": 0.3032208074933929,
+          "realized_hit_rate": 0.582089552238806,
+          "mean_net_return": 0.021612547313696398
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.34611689896501174,
+          "realized_hit_rate": 0.48484848484848486,
+          "mean_net_return": 0.00834426125150163
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.3650069355363565,
+          "realized_hit_rate": 0.4696969696969697,
+          "mean_net_return": 0.016393694647490277
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.3907774237659286,
+          "realized_hit_rate": 0.36363636363636365,
+          "mean_net_return": -0.0012022076119081898
+        },
+        {
+          "observations": 67,
+          "mean_probability": 0.43362788407114544,
+          "realized_hit_rate": 0.2835820895522388,
+          "mean_net_return": -0.0046601549674834845
+        }
+      ],
+      "top_minus_bottom_mean_net_return": -0.026272702281179883,
+      "non_overlapping_cohort_auc_median": 0.3819444444444444,
+      "non_overlapping_cohort_auc_above_half_share": 0.0,
+      "direction_gate_passed": false
+    },
+    "second_half": {
+      "realized_forecast_count": 332,
+      "positive_base_rate": 0.6265060240963856,
+      "brier_score": 0.28106251721454434,
+      "expanding_base_rate_brier_score": 0.28033408114915376,
+      "brier_skill_score": -0.002598457035279278,
+      "log_loss": 0.7565797637352862,
+      "auc": 0.38655397022332505,
+      "accuracy_at_0_5": 0.31626506024096385,
+      "calibration_slope": -1.3995340816828359,
+      "probability_quintiles": [
+        {
+          "observations": 67,
+          "mean_probability": 0.3678179230031698,
+          "realized_hit_rate": 0.5522388059701493,
+          "mean_net_return": 0.0012862581699433664
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.42009824499822257,
+          "realized_hit_rate": 0.8787878787878788,
+          "mean_net_return": 0.033267461776113755
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.4543546467360289,
+          "realized_hit_rate": 0.7121212121212122,
+          "mean_net_return": 0.022328198035394816
+        },
+        {
+          "observations": 66,
+          "mean_probability": 0.4874732158151244,
+          "realized_hit_rate": 0.6212121212121212,
+          "mean_net_return": 0.010496472140119804
+        },
+        {
+          "observations": 67,
+          "mean_probability": 0.5570754720161829,
+          "realized_hit_rate": 0.373134328358209,
+          "mean_net_return": -0.008440181531812543
+        }
+      ],
+      "top_minus_bottom_mean_net_return": -0.00972643970175591,
+      "non_overlapping_cohort_auc_median": 0.4142857142857143,
+      "non_overlapping_cohort_auc_above_half_share": 0.1,
+      "direction_gate_passed": false
+    }
+  },
+  "coefficient_signs": {
+    "official_weighted_net_mf_intensity_5d": {
+      "expected_sign": "positive",
+      "positive_share": 0.043859649122807015,
+      "latest_standardized_coefficient": -0.29798994207725304
+    },
+    "official_weighted_large_extra_large_intensity_5d": {
+      "expected_sign": "positive",
+      "positive_share": 0.5467836257309941,
+      "latest_standardized_coefficient": 0.21490944601900774
+    },
+    "official_weighted_positive_net_mf_share_5d": {
+      "expected_sign": "positive",
+      "positive_share": 0.8757309941520468,
+      "latest_standardized_coefficient": 0.3223953328180496
+    }
+  },
+  "latest_forecast": {
+    "signal_date": "2026-08-12",
+    "direction_probability_positive_20d_net": 0.4399983913218298
+  },
+  "trading_use_authorized": false,
+  "multiple_research_families_warning": "这是本轮新增数据中的第3个方向研究族，必须结合研究族数量解释结果。",
+  "output_file": "data/features/510300_component_l2_flow_direction_forecasts.parquet",
+  "output_sha256": "e9035a3b187f37ae06518940747f06c7336d5ad5928de0b4535793d004e342d0",
+  "registry_sha256": "4370dfc93ae6d1b13276f0356614da2cd78838b48641e065bfba1a39e79a3a59"
+}

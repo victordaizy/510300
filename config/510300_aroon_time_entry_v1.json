@@ -1,0 +1,150 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "study_id": "510300_AROON_TIME_ENTRY_V1",
+  "round": 100,
+  "registered_at": "2026-09-08T17:34:21.583094+08:00",
+  "primary": "AROON_TIME_ENTRY",
+  "candidate_configurations": 1,
+  "extrema_period": 25,
+  "entry_up_threshold": 70.0,
+  "entry_down_threshold": 30.0,
+  "numerical_tie_tolerance": 1e-12,
+  "price_basis": "WINDOW_LOCAL_CASH_DIVIDEND_REINVESTED_WEALTH_FOR_SIGNAL_ONLY",
+  "entry_clock": "COMPLETE_CLOSE_NEXT_OPEN",
+  "missing_rule": "NO_NEW_BUY_PRICE_AND_TIME_EXIT_REMAIN_KNOWN",
+  "rules": "docs/510300_AROON_TIME_ENTRY_V1.md",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "config\\510300_entry_payoff_gate_v1.json",
+      "sha256": "f5a75b7f7dd3a679af61941fc1ce34fdf9b3cf401cd14e83f92137b39abe0bc0"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_AROON_TIME_ENTRY_V1.md",
+      "sha256": "bc668c49dd3eb3b04cdb68f8d6aa7d2c1e2bbe802baa83ef0734869c1d79fa7a"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_aroon_time_entry_v1\\tests_receipt.json",
+      "sha256": "f67f3dd37d404407f1c11f322a9f3ef955dd8658551f56453b106c3be1b89372"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "84627b8d8b953d14c5aa196a04a153da9db8d66bd0e9bcc0d1cb7628b21564fd"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "5b7e0cc9a843c888ea3262615d102a8b16ba511f235d278b2f882a00ce013c81"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "864a38a3e707c277b4079cb9ce20648e4bd2409e801682da84187aa2c39d123e"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "e7371121c04f2af078ee69e36a4bebc6b9d8690767c3da1bda3fd83d9dca9f2f"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_NONE_ledger.parquet",
+      "sha256": "d5493d3795e62e4aa5345d2fa5cd0b66a121a843b36c94e49ad293224d9cba12"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_NONE_ledger.parquet",
+      "sha256": "12441867b25d1255c79bfaa2dbe98bebaf3c2af789a9ccb6994f420e49de5761"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_NONE_ledger.parquet",
+      "sha256": "78ad2f97bd8fda4c9cb7a7669e762b49d0cdf0c7698c8f74b7e395426104f916"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_NONE_ledger.parquet",
+      "sha256": "62ff44487f5eb5f2cdce598a832c5aff73b7910797b21bf73e843419e1c6d6ea"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\aroon_time_entry_inputs_v1.py",
+      "sha256": "4b95418b7c83174cdd40a067257ddac8bd0aff0ba9676d720d2ebf254f767f08"
+    },
+    {
+      "path": "research\\aroon_time_entry_v1.py",
+      "sha256": "318b1d8596abc563f1ba9c2876c7cd3b3f51a60a70180592a9e2160413d1e4cd"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "tests\\test_aroon_time_entry_v1.py",
+      "sha256": "dab5277798eefd5ad3cfdb194e22616603bc529eb82ea86d24eebdfafb1e4b7a"
+    }
+  ]
+}

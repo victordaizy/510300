@@ -1,0 +1,136 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1"
+  status: "FROZEN_BEFORE_CANDIDATE_SCREEN"
+  frozen_date: "2026-08-26"
+  effective_from: "2026-08-27"
+  research_only: true
+  purpose: "以50万元账户研究广泛资产组合，要求成本后年化净超额至少40个百分点且保持高夏普"
+  supersedes_for_new_research_scope:
+    - "510300_ANNUAL_EXCESS_20PCT_FORWARD_V1"
+  does_not_modify_historical_protocols: true
+
+scope:
+  initial_capital_cny: 500000.0
+  benchmark_currency: "CNY"
+  permitted_research_instrument_types:
+    - "A_SHARE_EQUITY"
+    - "EXCHANGE_TRADED_FUND"
+    - "LISTED_BOND_OR_CASH_EQUIVALENT"
+    - "COMMODITY_ETF"
+    - "QDII_ETF"
+    - "INDEX_FUTURE_FOR_HEDGE"
+    - "LISTED_OPTION_WITH_DEFINED_MAXIMUM_LOSS"
+    - "CASH_CNY"
+  instrument_eligibility:
+    point_in_time_security_master_required: true
+    point_in_time_price_and_corporate_action_required: true
+    total_return_series_required: true
+    listing_and_delisting_path_required: true
+    real_liquidity_and_500k_capacity_required: true
+    borrow_or_margin_availability_required_when_applicable: true
+    cny_mark_to_market_required: true
+  risk_envelope:
+    maximum_gross_exposure: 2.0
+    maximum_absolute_net_exposure: 1.0
+    naked_short_option_allowed: false
+    unlimited_loss_position_allowed: false
+    derivative_margin_and_forced_liquidation_path_required: true
+    leverage_or_short_research_is_not_execution_authorization: true
+  active_research_lanes:
+    - "BROAD_LIQUID_ETF_CROSS_ASSET"
+    - "A_SHARE_CROSS_SECTIONAL_HEDGED"
+  maximum_active_research_lanes: 2
+
+benchmark:
+  primary_id: "H00300"
+  primary_name: "沪深300全收益指数"
+  primary_return_type: "TOTAL_RETURN"
+  strategy_return_type: "NET_TOTAL_RETURN_IN_CNY"
+
+objective:
+  primary_metric: "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR"
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  sharpe_cash_annual_rate: 0.015
+  base_cost_required: true
+  stress_cost_required: true
+  rolling_window_trading_days: 242
+  minimum_rolling_242d_excess_median: 0.40
+  minimum_rolling_242d_sharpe_median: 1.50
+  maximum_drawdown_must_be_reported: true
+  bootstrap:
+    method: "PAIRED_MOVING_BLOCK"
+    repetitions: 5000
+    block_length_trading_days: 20
+    random_seed: 20260826
+    lower_quantile: 0.025
+    upper_quantile: 0.975
+    minimum_excess_lower_bound: 0.0
+    minimum_sharpe_lower_bound: 1.0
+  non_overlapping_years:
+    block_length_trading_days: 242
+    minimum_blocks_for_verified_claim: 3
+    minimum_target_qualified_blocks: 2
+
+costs:
+  user_transaction_fee_rate_per_leg: 0.0001
+  minimum_transaction_fee_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  mandatory_instrument_specific_taxes_required: true
+  bid_ask_spread_required: true
+  market_impact_for_500k_required: true
+  borrow_funding_roll_and_margin_cost_required_when_applicable: true
+  omitted_required_cost_is_failure: true
+
+maturity:
+  first_unseen_estimate_days: 120
+  first_full_year_days: 242
+  verified_claim_days: 726
+  retrospective_history_can_verify_target: false
+  forward_observation_required: true
+
+candidate_governance:
+  prior_failed_formula_reuse_allowed: false
+  prior_failed_family_parameter_rescue_allowed: false
+  maximum_candidates_per_lane_before_new_holdout: 1
+  candidate_formula_and_costs_frozen_before_outcome: true
+  historical_backfill_allowed: false
+  target_may_be_lowered_after_results: false
+  sharpe_threshold_may_be_lowered_after_results: false
+  benchmark_may_be_changed_after_results: false
+  failed_periods_may_be_deleted: false
+
+evaluation_input:
+  default_forward_ledger: "data/forward/multi_asset_40pct_high_sharpe_v1/daily_returns.parquet"
+  required_columns:
+    - "trade_date"
+    - "strategy_base_net_return"
+    - "strategy_stress_net_return"
+    - "benchmark_total_return"
+    - "gross_exposure"
+    - "net_exposure"
+    - "quality_complete"
+    - "capacity_pass"
+    - "forward_observed"
+  pre_effective_rows_allowed: false
+  incomplete_or_capacity_failed_rows_used_for_performance: false
+
+available_local_data:
+  broad_etf_master: "data/raw/all_etf_momentum_v1/fund_master.parquet"
+  broad_etf_total_return_panel: "data/raw/all_etf_momentum_v1r/etf_total_return_panel_tushare_adj.parquet"
+  a_share_point_in_time_panel: "data/staging/a_share_hs_extreme_compression_volume_position_event_study_v1/unified_daily_market.parquet"
+  index_future_daily: "data/raw/futures/IF0_daily_raw.parquet"
+  benchmark_total_return: "data/raw/market/H00300_total_return_daily_raw.parquet"
+
+outputs:
+  current_status_json: "reports/research/multi_asset_annual_excess_40pct_high_sharpe_v1.json"
+  current_status_markdown: "reports/research/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V1.md"
+  manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v1_manifest.json"
+
+safety:
+  paper_position_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

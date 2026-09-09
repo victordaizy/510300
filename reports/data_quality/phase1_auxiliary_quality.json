@@ -1,0 +1,189 @@
+{
+  "status": "PASS_WITH_REVIEW_ITEMS",
+  "generated_at": "2026-08-12T19:29:10.821822+08:00",
+  "akshare_version": "1.18.84",
+  "index": {
+    "row_count": 2427,
+    "first_date": "2016-08-12",
+    "last_date": "2026-08-12",
+    "checks": [
+      {
+        "check": "required_columns",
+        "status": "PASS",
+        "detail": []
+      },
+      {
+        "check": "invalid_dates",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "duplicate_dates",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "strictly_increasing_dates",
+        "status": "PASS"
+      },
+      {
+        "check": "positive_open",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "positive_high",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "positive_low",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "positive_close",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "ohlc_logic",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "nonnegative_volume",
+        "status": "PASS",
+        "count": 0
+      }
+    ],
+    "sha256": "f8d80ae3cce64fb427e625ec7ec209ee7cc3bdbbc6a8b4047aa83dd114728a16"
+  },
+  "valuation": {
+    "row_count": 2427,
+    "first_date": "2016-08-12",
+    "last_date": "2026-08-12",
+    "checks": [
+      {
+        "check": "required_columns",
+        "status": "PASS",
+        "detail": []
+      },
+      {
+        "check": "invalid_dates",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "duplicate_dates",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "strictly_increasing_dates",
+        "status": "PASS"
+      },
+      {
+        "check": "positive_pe_static",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "positive_pe_ttm",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "positive_pb",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "index_date_coverage",
+        "status": "PASS",
+        "ratio": 1.0
+      },
+      {
+        "check": "valuation_jump_review",
+        "status": "WARN",
+        "detail": {
+          "pe_static": {
+            "max_absolute_daily_change": 0.08283233132932533,
+            "over_30pct_count": 0
+          },
+          "pe_ttm": {
+            "max_absolute_daily_change": 0.0769230769230771,
+            "over_30pct_count": 0
+          },
+          "pb": {
+            "max_absolute_daily_change": 0.07692307692307687,
+            "over_30pct_count": 0
+          }
+        }
+      }
+    ],
+    "point_in_time_usage": "当日收盘估值只允许用于下一交易日开盘及以后",
+    "sha256": "119f009a7045f8b50b1eae3a3f2d7d1f394c372d4723cfd54d2ba348ae66ad52"
+  },
+  "total_return_index": {
+    "row_count": 2428,
+    "first_date": "2016-08-12",
+    "last_date": "2026-08-12",
+    "checks": [
+      {
+        "check": "required_columns",
+        "status": "PASS",
+        "detail": []
+      },
+      {
+        "check": "invalid_dates",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "duplicate_dates",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "strictly_increasing_dates",
+        "status": "PASS"
+      },
+      {
+        "check": "positive_close",
+        "status": "PASS",
+        "count": 0
+      },
+      {
+        "check": "pct_change_consistency",
+        "status": "PASS",
+        "max_percentage_point_error": 0.015306922968563175
+      },
+      {
+        "check": "price_total_return_correlation",
+        "status": "PASS",
+        "correlation": 0.9997976813222063
+      },
+      {
+        "check": "not_identical_to_price_index",
+        "status": "PASS",
+        "differing_days": 965
+      }
+    ],
+    "known_limitation": "官方接口仅提供收盘点位，不能模拟指数开盘成交",
+    "sha256": "f2c51ea982e9e8b58415feefff41e3148403d8d2404e673ace46cc5ddb736686"
+  },
+  "classification": {
+    "data_quality": [
+      "510300分钟数据尚未纳入本次日线回测，因此分钟交易时段、频率和聚合一致性仍为NOT_APPLICABLE。",
+      "510300历史NAV接口本次请求超时，日频折溢价字段暂缺；不影响现有日线价格回测，但不能研究ETF自身溢价。",
+      "历史成分股权重未获得，Breadth与行业贡献必须保持禁用。"
+    ],
+    "overfitting_governance": [
+      "2025-08-01至2026-08-11已被探索性检查触及，不能再称严格留出集。",
+      "五年样本按20交易日区块仅约60个独立块，验证段仅约10个块。",
+      "估值、趋势和波动率特征高度相关且跨多个周期重复检验，最高IC不能直接用于选模。",
+      "真正未见验证从2026-08-13开始，冻结规则不得再按历史结果调阈值。"
+    ]
+  }
+}

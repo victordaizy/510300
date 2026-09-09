@@ -1,0 +1,876 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_KNOWN_STATE_POLICY_ORACLE_V1",
+  "status": "PASS_CONDITIONAL_POLICY_VALUE_GIVEN_PERFECT_STATE_KNOWLEDGE_NOT_TRADABLE",
+  "evidence_class": "EX_POST_PERFECT_STATE_INFORMATION_CONDITIONAL_POLICY_DIAGNOSTIC",
+  "research_question": {
+    "primary": "假设未来市场状态已经被正确且及时告知，分阶段策略映射能否在完整执行成本后实现净夏普率1.2",
+    "excluded": "如何使用现实技术因子提前识别市场状态",
+    "target_net_sharpe": 1.2
+  },
+  "oracle_information_boundary": {
+    "future_information_used": true,
+    "state_predictability_evaluated": false,
+    "state_available_at_anchor_close_by_assumption": true,
+    "execution_at_next_open": true,
+    "not_a_tradable_signal": true
+  },
+  "evaluation_window": {
+    "start": "2015-01-05",
+    "end": "2026-08-14",
+    "trading_days": 2823
+  },
+  "freeze": {
+    "manifest_path": "config/510300_known_state_policy_oracle_v1_0_1_correction_manifest.json",
+    "manifest_sha256": "881e8272637172127062b30ad2c6a3f00ef24fe091be4f8859b1393dad37bf38",
+    "frozen_at_asia_shanghai": "2026-08-31T14:13:51.707687+08:00",
+    "oracle_outcomes_read_before_freeze": false
+  },
+  "threshold_results": {
+    "0.03": {
+      "threshold": 0.03,
+      "complete_blocks": 141,
+      "censored_blocks": 1,
+      "state_counts": {
+        "BULL_TREND": 44,
+        "BEAR_TREND": 35,
+        "RANGE": 62
+      },
+      "state_future_return_statistics": {
+        "BULL_TREND": {
+          "mean": 0.06723385878653106,
+          "minimum": 0.030423989592964107,
+          "maximum": 0.2547699836217081
+        },
+        "BEAR_TREND": {
+          "mean": -0.06506506814839363,
+          "minimum": -0.21114144774578414,
+          "maximum": -0.030081237159048202
+        },
+        "RANGE": {
+          "mean": 0.0015209236238629704,
+          "minimum": -0.028813135052425998,
+          "maximum": 0.02765893714816925
+        }
+      },
+      "policies": {
+        "STATE_ROUTER_RANGE_NO_T": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 15.47560300614752,
+            "cagr": 0.2730578704288187,
+            "annualized_volatility": 0.11500698332047486,
+            "sharpe_zero_cash_rate": 2.146470204943174,
+            "max_drawdown": -0.12432217591960115,
+            "calmar": 2.1963729994993373,
+            "average_exposure": 0.3106080215059889,
+            "trade_count": 67,
+            "total_explicit_cost_cny": 2228.81927705,
+            "turnover_over_average_equity": 57.57092590626742,
+            "ending_equity": 329512.0601229504,
+            "total_slippage_cost_cny": 3707.1205999996023,
+            "total_execution_cost_cny": 5935.939877049602
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 14.850285546688019,
+            "cagr": 0.2688206071198971,
+            "annualized_volatility": 0.11477250133338796,
+            "sharpe_zero_cash_rate": 2.121694264828949,
+            "max_drawdown": -0.12438367973739606,
+            "calmar": 2.161220890774756,
+            "average_exposure": 0.31027818677749147,
+            "trade_count": 69,
+            "total_explicit_cost_cny": 2176.2027662399996,
+            "turnover_over_average_equity": 57.6724238529815,
+            "ending_equity": 317005.7109337604,
+            "total_slippage_cost_cny": 7206.086299999589,
+            "total_execution_cost_cny": 9382.289066239588
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 1.6127246179841594,
+              "annualized_mean_return": 0.17616394665476146,
+              "annualized_volatility": 0.10381353288690198,
+              "net_sharpe": 1.6969266121275393,
+              "maximum_drawdown": -0.12432217591960126
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 1.583328355487784,
+              "annualized_mean_return": 0.17415799059148634,
+              "annualized_volatility": 0.10388444830416851,
+              "net_sharpe": 1.6764587330873664,
+              "maximum_drawdown": -0.12438367973739584
+            }
+          }
+        },
+        "AVOID_BEAR_ONLY": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 14.094251912001512,
+            "cagr": 0.2634886522395248,
+            "annualized_volatility": 0.1624957949408895,
+            "sharpe_zero_cash_rate": 1.513521110725613,
+            "max_drawdown": -0.13730885737985932,
+            "calmar": 1.9189486917846401,
+            "average_exposure": 0.7480355264779528,
+            "trade_count": 62,
+            "total_explicit_cost_cny": 1776.4744099699997,
+            "turnover_over_average_equity": 48.11044830652571,
+            "ending_equity": 301885.03824003023,
+            "total_slippage_cost_cny": 2887.687349999672,
+            "total_execution_cost_cny": 4664.161759969672
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 13.657490967814523,
+            "cagr": 0.2602960745887253,
+            "annualized_volatility": 0.1623925832908006,
+            "sharpe_zero_cash_rate": 1.4988645249640171,
+            "max_drawdown": -0.1381714607449991,
+            "calmar": 1.8838627976084874,
+            "average_exposure": 0.7477859404333155,
+            "trade_count": 68,
+            "total_explicit_cost_cny": 1771.2290437099998,
+            "turnover_over_average_equity": 48.16976522725164,
+            "ending_equity": 293149.81935629045,
+            "total_slippage_cost_cny": 5659.15159999971,
+            "total_execution_cost_cny": 7430.38064370971
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 1.4165976584848856,
+              "annualized_mean_return": 0.16842773516373222,
+              "annualized_volatility": 0.15188144110898108,
+              "net_sharpe": 1.1089421718278174,
+              "maximum_drawdown": -0.1373088573798592
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 1.3858467287297889,
+              "annualized_mean_return": 0.1661379139066851,
+              "annualized_volatility": 0.15180691432923923,
+              "net_sharpe": 1.0944028118927756,
+              "maximum_drawdown": -0.13817146074499898
+            }
+          }
+        },
+        "ALL_LONG": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 0.5761332801825003,
+            "cagr": 0.03998107303244458,
+            "annualized_volatility": 0.2195486627784992,
+            "sharpe_zero_cash_rate": 0.28798540001861633,
+            "max_drawdown": -0.45337026011387516,
+            "calmar": 0.08818636013399367,
+            "average_exposure": 0.9926190891716248,
+            "trade_count": 13,
+            "total_explicit_cost_cny": 70.38014635,
+            "turnover_over_average_equity": 2.3292180633799022,
+            "ending_equity": 31522.665603650006,
+            "total_slippage_cost_cny": 28.054249999995218,
+            "total_execution_cost_cny": 98.43439634999521
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 0.5758114253650002,
+            "cagr": 0.03996277266358028,
+            "annualized_volatility": 0.21936465060931393,
+            "sharpe_zero_cash_rate": 0.28796201014117434,
+            "max_drawdown": -0.4530045447449673,
+            "calmar": 0.08821715615696205,
+            "average_exposure": 0.9909192215156909,
+            "trade_count": 15,
+            "total_explicit_cost_cny": 80.37839269999999,
+            "turnover_over_average_equity": 2.3552850259102533,
+            "ending_equity": 31516.228507300002,
+            "total_slippage_cost_cny": 56.69309999999652,
+            "total_execution_cost_cny": 137.07149269999653
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.006368624517062216,
+              "annualized_mean_return": 0.01704768674772931,
+              "annualized_volatility": 0.17851608035978775,
+              "net_sharpe": 0.09549664497097844,
+              "maximum_drawdown": -0.41953670948936417
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.007972966284881977,
+              "annualized_mean_return": 0.017237682642305754,
+              "annualized_volatility": 0.1779951940225188,
+              "net_sharpe": 0.09684352848383623,
+              "maximum_drawdown": -0.4183054771618575
+            }
+          }
+        },
+        "INVERTED_BEAR_LONG": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": -0.8994342300259991,
+            "cagr": -0.17955980650394499,
+            "annualized_volatility": 0.14333128368730463,
+            "sharpe_zero_cash_rate": -1.3003579396932625,
+            "max_drawdown": -0.9033859175259991,
+            "calmar": -0.1987631232903045,
+            "average_exposure": 0.2366270429914902,
+            "trade_count": 52,
+            "total_explicit_cost_cny": 261.94495052,
+            "turnover_over_average_equity": 52.017310411010335,
+            "ending_equity": 2011.3153994800189,
+            "total_slippage_cost_cny": 155.7396499999853,
+            "total_execution_cost_cny": 417.68460051998534
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": -0.903118427051999,
+            "cagr": -0.18219399934283675,
+            "annualized_volatility": 0.14338111972916864,
+            "sharpe_zero_cash_rate": -1.322184105150369,
+            "max_drawdown": -0.906191127051999,
+            "calmar": -0.2010547156156188,
+            "average_exposure": 0.23794993298385914,
+            "trade_count": 52,
+            "total_explicit_cost_cny": 261.94794104,
+            "turnover_over_average_equity": 52.079901760507354,
+            "ending_equity": 1937.6314589600206,
+            "total_slippage_cost_cny": 308.2205999999815,
+            "total_execution_cost_cny": 570.1685410399815
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": -0.5902408475910863,
+              "annualized_mean_return": -0.15458136339056192,
+              "annualized_volatility": 0.08913056951993394,
+              "net_sharpe": -1.7343248699425173,
+              "maximum_drawdown": -0.6103320148397411
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": -0.5985597705009292,
+              "annualized_mean_return": -0.1582232805157925,
+              "annualized_volatility": 0.08922446279816464,
+              "net_sharpe": -1.773317266966467,
+              "maximum_drawdown": -0.6151129227447613
+            }
+          }
+        }
+      }
+    },
+    "0.05": {
+      "threshold": 0.05,
+      "complete_blocks": 141,
+      "censored_blocks": 1,
+      "state_counts": {
+        "BULL_TREND": 23,
+        "BEAR_TREND": 21,
+        "RANGE": 97
+      },
+      "state_future_return_statistics": {
+        "BULL_TREND": {
+          "mean": 0.09280962982151726,
+          "minimum": 0.05151390087419805,
+          "maximum": 0.2547699836217081
+        },
+        "BEAR_TREND": {
+          "mean": -0.08394003341394107,
+          "minimum": -0.21114144774578414,
+          "maximum": -0.05042466933208234
+        },
+        "RANGE": {
+          "mean": 0.004159060638051138,
+          "minimum": -0.04979983610478311,
+          "maximum": 0.04938955133346101
+        }
+      },
+      "policies": {
+        "STATE_ROUTER_RANGE_NO_T": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 6.415982058107256,
+            "cagr": 0.18844032204999572,
+            "annualized_volatility": 0.10077873266801546,
+            "sharpe_zero_cash_rate": 1.754798605312065,
+            "max_drawdown": -0.12436744057826354,
+            "calmar": 1.5151901588857701,
+            "average_exposure": 0.16226031009724898,
+            "trade_count": 35,
+            "total_explicit_cost_cny": 725.1830878549999,
+            "turnover_over_average_equity": 32.74856387478694,
+            "ending_equity": 148319.64116214513,
+            "total_slippage_cost_cny": 1200.6757499998607,
+            "total_execution_cost_cny": 1925.8588378548607
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 6.230701461180504,
+            "cagr": 0.18585226001150135,
+            "annualized_volatility": 0.10035660831326564,
+            "sharpe_zero_cash_rate": 1.740134238934748,
+            "max_drawdown": -0.12440004958028628,
+            "calmar": 1.4939886329511032,
+            "average_exposure": 0.16173026955672357,
+            "trade_count": 36,
+            "total_explicit_cost_cny": 715.9269763899999,
+            "turnover_over_average_equity": 32.71351113693831,
+            "ending_equity": 144614.0292236101,
+            "total_slippage_cost_cny": 2354.2437999998783,
+            "total_execution_cost_cny": 3070.170776389878
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.958990665261304,
+              "annualized_mean_return": 0.12364025429576311,
+              "annualized_volatility": 0.09043023731282031,
+              "net_sharpe": 1.3672446072220428,
+              "maximum_drawdown": -0.12436744057826332
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.9448503328776714,
+              "annualized_mean_return": 0.12234422525024703,
+              "annualized_volatility": 0.09034918351417158,
+              "net_sharpe": 1.3541265177128792,
+              "maximum_drawdown": -0.12440004958028605
+            }
+          }
+        },
+        "AVOID_BEAR_ONLY": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 8.202608820556755,
+            "cagr": 0.21075036020485616,
+            "annualized_volatility": 0.17242272708749729,
+            "sharpe_zero_cash_rate": 1.1898539979893579,
+            "max_drawdown": -0.17719379069686714,
+            "calmar": 1.1893777957795126,
+            "average_exposure": 0.8466799181429021,
+            "trade_count": 47,
+            "total_explicit_cost_cny": 853.7559388650001,
+            "turnover_over_average_equity": 30.363259226220624,
+            "ending_equity": 184052.1764111351,
+            "total_slippage_cost_cny": 1306.6676499998655,
+            "total_execution_cost_cny": 2160.4235888648655
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 8.029120423924006,
+            "cagr": 0.2087665001036194,
+            "annualized_volatility": 0.17230935321081398,
+            "sharpe_zero_cash_rate": 1.1810479141895638,
+            "max_drawdown": -0.17791226415156647,
+            "calmar": 1.1734238845151659,
+            "average_exposure": 0.8467617279230857,
+            "trade_count": 43,
+            "total_explicit_cost_cny": 823.66592152,
+            "turnover_over_average_equity": 30.378342884470253,
+            "ending_equity": 180582.40847848012,
+            "total_slippage_cost_cny": 2579.625599999884,
+            "total_execution_cost_cny": 3403.2915215198836
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.8588417734375156,
+              "annualized_mean_return": 0.12314978720813644,
+              "annualized_volatility": 0.16085540715516283,
+              "net_sharpe": 0.7655930837894982,
+              "maximum_drawdown": -0.15659161015896128
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.8444281416091646,
+              "annualized_mean_return": 0.1217627844422409,
+              "annualized_volatility": 0.16084103189255997,
+              "net_sharpe": 0.7570380705066422,
+              "maximum_drawdown": -0.15839536061064396
+            }
+          }
+        },
+        "ALL_LONG": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 0.5761332801825003,
+            "cagr": 0.03998107303244458,
+            "annualized_volatility": 0.2195486627784992,
+            "sharpe_zero_cash_rate": 0.28798540001861633,
+            "max_drawdown": -0.45337026011387516,
+            "calmar": 0.08818636013399367,
+            "average_exposure": 0.9926190891716248,
+            "trade_count": 13,
+            "total_explicit_cost_cny": 70.38014635,
+            "turnover_over_average_equity": 2.3292180633799022,
+            "ending_equity": 31522.665603650006,
+            "total_slippage_cost_cny": 28.054249999995218,
+            "total_execution_cost_cny": 98.43439634999521
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 0.5758114253650002,
+            "cagr": 0.03996277266358028,
+            "annualized_volatility": 0.21936465060931393,
+            "sharpe_zero_cash_rate": 0.28796201014117434,
+            "max_drawdown": -0.4530045447449673,
+            "calmar": 0.08821715615696205,
+            "average_exposure": 0.9909192215156909,
+            "trade_count": 15,
+            "total_explicit_cost_cny": 80.37839269999999,
+            "turnover_over_average_equity": 2.3552850259102533,
+            "ending_equity": 31516.228507300002,
+            "total_slippage_cost_cny": 56.69309999999652,
+            "total_execution_cost_cny": 137.07149269999653
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.006368624517062216,
+              "annualized_mean_return": 0.01704768674772931,
+              "annualized_volatility": 0.17851608035978775,
+              "net_sharpe": 0.09549664497097844,
+              "maximum_drawdown": -0.41953670948936417
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.007972966284881977,
+              "annualized_mean_return": 0.017237682642305754,
+              "annualized_volatility": 0.1779951940225188,
+              "net_sharpe": 0.09684352848383623,
+              "maximum_drawdown": -0.4183054771618575
+            }
+          }
+        },
+        "INVERTED_BEAR_LONG": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": -0.8307637500259993,
+            "cagr": -0.14192794505171902,
+            "annualized_volatility": 0.13219270232389665,
+            "sharpe_zero_cash_rate": -1.0843428617794666,
+            "max_drawdown": -0.8372364500259993,
+            "calmar": -0.1695195485663717,
+            "average_exposure": 0.14317465415315722,
+            "trade_count": 33,
+            "total_explicit_cost_cny": 166.94495052,
+            "turnover_over_average_equity": 34.028326061592956,
+            "ending_equity": 3384.724999480014,
+            "total_slippage_cost_cny": 119.53004999998873,
+            "total_execution_cost_cny": 286.4750005199887
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": -0.8328584320519989,
+            "cagr": -0.14284827578755266,
+            "annualized_volatility": 0.13227901442477638,
+            "sharpe_zero_cash_rate": -1.0916079003237058,
+            "max_drawdown": -0.8392538320519989,
+            "calmar": -0.17020866671324533,
+            "average_exposure": 0.1427632281507338,
+            "trade_count": 33,
+            "total_explicit_cost_cny": 166.94794104,
+            "turnover_over_average_equity": 34.06383060571792,
+            "ending_equity": 3342.8313589600216,
+            "total_slippage_cost_cny": 237.6206999999854,
+            "total_execution_cost_cny": 404.5686410399854
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": -0.45916731399912036,
+              "annualized_mean_return": -0.10663354253581163,
+              "annualized_volatility": 0.07217121379193754,
+              "net_sharpe": -1.4775079555018371,
+              "maximum_drawdown": -0.479852289748794
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": -0.46100092049166896,
+              "annualized_mean_return": -0.10723123073587207,
+              "annualized_volatility": 0.07223935361106659,
+              "net_sharpe": -1.4843880153357982,
+              "maximum_drawdown": -0.48162484280739115
+            }
+          }
+        }
+      }
+    },
+    "0.07": {
+      "threshold": 0.07,
+      "complete_blocks": 141,
+      "censored_blocks": 1,
+      "state_counts": {
+        "BULL_TREND": 13,
+        "BEAR_TREND": 8,
+        "RANGE": 120
+      },
+      "state_future_return_statistics": {
+        "BULL_TREND": {
+          "mean": 0.11880169174427047,
+          "minimum": 0.07212189169579841,
+          "maximum": 0.2547699836217081
+        },
+        "BEAR_TREND": {
+          "mean": -0.12593083320350268,
+          "minimum": -0.21114144774578414,
+          "maximum": -0.07585435124249063
+        },
+        "RANGE": {
+          "mean": 0.0019861194920466627,
+          "minimum": -0.06872658121994768,
+          "maximum": 0.06985170770985705
+        }
+      },
+      "policies": {
+        "STATE_ROUTER_RANGE_NO_T": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 3.311924344421003,
+            "cagr": 0.13419028718222203,
+            "annualized_volatility": 0.08826615126851135,
+            "sharpe_zero_cash_rate": 1.4632616634214366,
+            "max_drawdown": -0.12401758864088164,
+            "calmar": 1.0820262565400907,
+            "average_exposure": 0.09164643279664784,
+            "trade_count": 23,
+            "total_explicit_cost_cny": 312.40911157999994,
+            "turnover_over_average_equity": 21.44134782194173,
+            "ending_equity": 86238.48688842007,
+            "total_slippage_cost_cny": 512.7039999999447,
+            "total_execution_cost_cny": 825.1131115799446
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 3.2556497800605024,
+            "cagr": 0.13290719613903335,
+            "annualized_volatility": 0.08812995240810692,
+            "sharpe_zero_cash_rate": 1.4526065103408188,
+            "max_drawdown": -0.12412203122094978,
+            "calmar": 1.0707784494957635,
+            "average_exposure": 0.09148086589150037,
+            "trade_count": 23,
+            "total_explicit_cost_cny": 309.4307987899999,
+            "turnover_over_average_equity": 21.403947480463543,
+            "ending_equity": 85112.99560121004,
+            "total_slippage_cost_cny": 1015.1735999999423,
+            "total_execution_cost_cny": 1324.6043987899423
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.7851927995641927,
+              "annualized_mean_return": 0.10667602093418042,
+              "annualized_volatility": 0.08543744436648791,
+              "net_sharpe": 1.2485862811695145,
+              "maximum_drawdown": -0.12401758864088175
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.7748464340955403,
+              "annualized_mean_return": 0.10563940029180913,
+              "annualized_volatility": 0.08540642501920873,
+              "net_sharpe": 1.2369022619556995,
+              "maximum_drawdown": -0.12412203122095
+            }
+          }
+        },
+        "AVOID_BEAR_ONLY": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 3.333367497844252,
+            "cagr": 0.1346751796427812,
+            "annualized_volatility": 0.19500746197125243,
+            "sharpe_zero_cash_rate": 0.7422697258579218,
+            "max_drawdown": -0.36135672207004244,
+            "calmar": 0.3726931627874266,
+            "average_exposure": 0.9378953122278808,
+            "trade_count": 25,
+            "total_explicit_cost_cny": 262.935893115,
+            "turnover_over_average_equity": 12.749692459836814,
+            "ending_equity": 86667.34995688504,
+            "total_slippage_cost_cny": 368.51414999995245,
+            "total_execution_cost_cny": 631.4500431149525
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 3.2849097071280022,
+            "cagr": 0.13357626060535632,
+            "annualized_volatility": 0.1947506450212894,
+            "sharpe_zero_cash_rate": 0.7380381681061308,
+            "max_drawdown": -0.362262149011484,
+            "calmar": 0.36872817369921207,
+            "average_exposure": 0.9373654981881024,
+            "trade_count": 29,
+            "total_explicit_cost_cny": 280.93865744,
+            "turnover_over_average_equity": 12.779583444330983,
+            "ending_equity": 85698.19414256005,
+            "total_slippage_cost_cny": 731.7671999999686,
+            "total_execution_cost_cny": 1012.7058574399686
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.10955542044423972,
+              "annualized_mean_return": 0.033640177600536635,
+              "annualized_volatility": 0.17420325320218097,
+              "net_sharpe": 0.19310877944106886,
+              "maximum_drawdown": -0.36135672207004144
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.1071401085137429,
+              "annualized_mean_return": 0.033249540748396304,
+              "annualized_volatility": 0.17418414736816284,
+              "net_sharpe": 0.19088729514585903,
+              "maximum_drawdown": -0.362262149011484
+            }
+          }
+        },
+        "ALL_LONG": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 0.5761332801825003,
+            "cagr": 0.03998107303244458,
+            "annualized_volatility": 0.2195486627784992,
+            "sharpe_zero_cash_rate": 0.28798540001861633,
+            "max_drawdown": -0.45337026011387516,
+            "calmar": 0.08818636013399367,
+            "average_exposure": 0.9926190891716248,
+            "trade_count": 13,
+            "total_explicit_cost_cny": 70.38014635,
+            "turnover_over_average_equity": 2.3292180633799022,
+            "ending_equity": 31522.665603650006,
+            "total_slippage_cost_cny": 28.054249999995218,
+            "total_execution_cost_cny": 98.43439634999521
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": 0.5758114253650002,
+            "cagr": 0.03996277266358028,
+            "annualized_volatility": 0.21936465060931393,
+            "sharpe_zero_cash_rate": 0.28796201014117434,
+            "max_drawdown": -0.4530045447449673,
+            "calmar": 0.08821715615696205,
+            "average_exposure": 0.9909192215156909,
+            "trade_count": 15,
+            "total_explicit_cost_cny": 80.37839269999999,
+            "turnover_over_average_equity": 2.3552850259102533,
+            "ending_equity": 31516.228507300002,
+            "total_slippage_cost_cny": 56.69309999999652,
+            "total_execution_cost_cny": 137.07149269999653
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": 0.006368624517062216,
+              "annualized_mean_return": 0.01704768674772931,
+              "annualized_volatility": 0.17851608035978775,
+              "net_sharpe": 0.09549664497097844,
+              "maximum_drawdown": -0.41953670948936417
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": 0.007972966284881977,
+              "annualized_mean_return": 0.017237682642305754,
+              "annualized_volatility": 0.1779951940225188,
+              "net_sharpe": 0.09684352848383623,
+              "maximum_drawdown": -0.4183054771618575
+            }
+          }
+        },
+        "INVERTED_BEAR_LONG": {
+          "base": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": -0.6374239225259997,
+            "cagr": -0.08370359117384274,
+            "annualized_volatility": 0.09801018378895408,
+            "sharpe_zero_cash_rate": -0.8369660195924649,
+            "max_drawdown": -0.6523823775259997,
+            "calmar": -0.12830449450714487,
+            "average_exposure": 0.055241671761648896,
+            "trade_count": 16,
+            "total_explicit_cost_cny": 81.94495051999999,
+            "turnover_over_average_equity": 21.11134909350897,
+            "ending_equity": 7251.521549480007,
+            "total_slippage_cost_cny": 94.03349999998917,
+            "total_execution_cost_cny": 175.97845051998917
+          },
+          "stress": {
+            "start_date": "2015-01-05",
+            "end_date": "2026-08-14",
+            "observations": 2823,
+            "total_return": -0.6407465970519994,
+            "cagr": -0.08443016006711224,
+            "annualized_volatility": 0.0982105990489736,
+            "sharpe_zero_cash_rate": -0.843081045681602,
+            "max_drawdown": -0.6555285070519996,
+            "calmar": -0.12879708381685198,
+            "average_exposure": 0.05519421560958529,
+            "trade_count": 16,
+            "total_explicit_cost_cny": 81.94794103999999,
+            "turnover_over_average_equity": 21.164736886929784,
+            "ending_equity": 7185.068058960011,
+            "total_slippage_cost_cny": 187.28399999998817,
+            "total_execution_cost_cny": 269.23194103998816
+          },
+          "recent_period": {
+            "start": "2021-01-04",
+            "end": "2026-08-14",
+            "base": {
+              "observations": 1361,
+              "total_return": -0.09451657399968416,
+              "annualized_mean_return": -0.01696388035107159,
+              "annualized_volatility": 0.036992774597246224,
+              "net_sharpe": -0.45857280335858874,
+              "maximum_drawdown": -0.1318732390489462
+            },
+            "stress": {
+              "observations": 1361,
+              "total_return": -0.09615318187119126,
+              "annualized_mean_return": -0.017273578315000256,
+              "annualized_volatility": 0.03731061987675367,
+              "net_sharpe": -0.46296680066048795,
+              "maximum_drawdown": -0.13334303786067037
+            }
+          }
+        }
+      }
+    }
+  },
+  "adjudication": {
+    "conditional_policy_hypothesis_supported": true,
+    "conditional_target_net_sharpe": 1.2,
+    "primary_base_net_sharpe": 1.754798605312065,
+    "primary_stress_net_sharpe": 1.740134238934748,
+    "primary_drawdown_ratio_vs_all_long": 0.2743175976011871,
+    "gates": {
+      "primary_base_net_sharpe": true,
+      "primary_stress_net_sharpe": true,
+      "every_robustness_stress_net_sharpe": true,
+      "primary_stress_total_return_positive": true,
+      "primary_drawdown_ratio_vs_all_long": true,
+      "minimum_complete_blocks_per_state": true
+    },
+    "state_prediction_hypothesis": "NOT_EVALUATED",
+    "historical_tradable_strategy_target_achieved": false,
+    "verified_forward_target_achieved": false,
+    "goal_achieved": false,
+    "interpretation": "状态完美已知时，牛满仓、熊空仓、震荡不交易的条件策略映射通过高夏普门；现实状态识别仍未解决"
+  },
+  "governance": {
+    "diagnostic_only": true,
+    "paper_signal_allowed": false,
+    "shadow_signal_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation": false,
+    "broker_connection": false,
+    "position_change": false,
+    "live_trading_authorized": false
+  },
+  "artifacts": {
+    "block_table": {
+      "path": "data/research/510300_known_state_policy_oracle_v1_0_1/oracle_blocks.parquet",
+      "bytes": 13602,
+      "sha256": "6f7c33c53887f0eaefa161a7b49bdfe9f2bbb1ff5d249f6095593ce254d16f51"
+    },
+    "primary_targets": {
+      "path": "data/research/510300_known_state_policy_oracle_v1_0_1/primary_targets.parquet",
+      "bytes": 5903,
+      "sha256": "2df30e5d7384e980a76791e42bafd99accc827cc67fcb2cbf7e44694fc902768"
+    },
+    "primary_base_ledger": {
+      "path": "reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_base_ledger.parquet",
+      "bytes": 99326,
+      "sha256": "1818d96895ad663b94af2e1e918f041a6d890b97ebb589d1de4daa501a8696b5"
+    },
+    "primary_base_trades": {
+      "path": "reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_base_trades.parquet",
+      "bytes": 10484,
+      "sha256": "3c09f44f0095b800bd20e3417d2a3748d491632c910c42d43ad2e4ef951292f6"
+    },
+    "primary_stress_ledger": {
+      "path": "reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_ledger.parquet",
+      "bytes": 99326,
+      "sha256": "9012a93d4d0dad4eacbd7001f8ce6ec83fb91d6a9756b5c24523b813fb4ad705"
+    },
+    "primary_stress_trades": {
+      "path": "reports/backtest/510300_known_state_policy_oracle_v1_0_1_primary_stress_trades.parquet",
+      "bytes": 10531,
+      "sha256": "14195c749eec830ca3c4ecf9becd66c57bad22abee82815f2e3d1ab65c03b424"
+    }
+  }
+}

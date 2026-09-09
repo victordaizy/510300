@@ -1,0 +1,212 @@
+{
+  "schema_version": "1.0.0",
+  "candidate_id": "510300_SYSTEMIC_SELL_PRESSURE_CASCADE_V1",
+  "generated_at": "2026-08-28T01:22:06.375788+08:00",
+  "status": "VISIBLE_REJECTED_FROZEN_REPLICATION_UNREAD",
+  "goal_achieved": false,
+  "reason_goal_not_achieved": "候选未通过冻结历史门槛",
+  "historical_evidence_label": "HISTORICALLY_CONTAMINATED_VISIBLE_VALIDATION_WITH_CONDITIONAL_LATER_COHORT_REPLICATION",
+  "manifest": {
+    "path": "config/510300_systemic_sell_pressure_cascade_v1_manifest.json",
+    "sha256": "a911e61e425f41ddbdb02c37d6a11812c627165b8ec15497fe338304ecf8933d",
+    "frozen_at": "2026-08-28T01:20:33.530019+08:00"
+  },
+  "upstream_v1_manifest_frozen_at": "2026-08-27T23:52:02.241175+08:00",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "allowed_target_states": [
+      0,
+      1
+    ],
+    "initial_capital_cny": 500000.0,
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘",
+    "cash_exit_holding_days": 1,
+    "default_state": 1,
+    "long_only": true,
+    "leverage_allowed": false,
+    "short_selling_allowed": false,
+    "derivatives_allowed": false,
+    "full_state_reinvests_paid_cash_dividends": true
+  },
+  "objective": {
+    "benchmark_id": "H00300",
+    "benchmark_return_type": "TOTAL_RETURN",
+    "primary_metric": "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR",
+    "annualization_trading_days": 242,
+    "minimum_annualized_excess": 0.2,
+    "rolling_window_trading_days": 242,
+    "minimum_rolling_excess_median": 0.2
+  },
+  "costs": {
+    "commission_rate_per_leg": 0.0001,
+    "minimum_commission_cny_per_leg": 0.0,
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 15.0,
+    "cash_annual_rate": 0.015,
+    "lot_size_shares": 100
+  },
+  "market_data_audit": {
+    "status": "PASS",
+    "historical_cutoff": "2026-08-14",
+    "merged_rows": 3456,
+    "merged_invalid_rows": 0,
+    "etf_market": {
+      "rows": 3456,
+      "required_rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "duplicate_dates": 0,
+      "symbols": [
+        "510300.SH"
+      ],
+      "missing_columns": [],
+      "invalid_prices": 0,
+      "status": "PASS"
+    },
+    "benchmark_total_return": {
+      "rows": 3457,
+      "required_rows": 3457,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "duplicate_dates": 0,
+      "symbols": [
+        "H00300"
+      ],
+      "missing_columns": [],
+      "invalid_prices": 0,
+      "status": "PASS"
+    },
+    "cash_distributions": {
+      "event_count": 14,
+      "first_ex_date": "2012-12-18",
+      "last_ex_date": "2026-01-19",
+      "duplicate_ex_dates": 0,
+      "nonpositive_cash_dividends": 0,
+      "missing_columns": [],
+      "status": "PASS"
+    },
+    "calendar": {
+      "missing_benchmark_execution_dates": [],
+      "extra_benchmark_dates": [
+        "2018-06-18"
+      ],
+      "extra_dates_exactly_allowed": true,
+      "status": "PASS"
+    },
+    "input_hashes": {
+      "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  },
+  "visible": {
+    "feature_audit": {
+      "required_split_group": "TRAIN",
+      "raw_rows_in_feature_interval": 5950745,
+      "raw_unique_stocks": 4036,
+      "eligible_rows": 5715743,
+      "eligible_unique_stocks": 3892,
+      "daily_rows": 2192,
+      "first_date": "2014-01-02",
+      "last_date": "2022-12-30",
+      "first_risk_score_date": "2014-12-29",
+      "duplicate_code_dates": 0,
+      "listing_interval_violations": 0,
+      "invalid_price_rows": 0,
+      "invalid_amount_rows": 0,
+      "suspended_rows": 0,
+      "minimum_eligible_stock_count": 968,
+      "median_eligible_stock_count": 2625.5,
+      "status": "PASS",
+      "panel_path": "data/raw/a_share_hash_holdout_v2/training_panel.parquet",
+      "panel_sha256": "50378d0d0b55d9d26b28794b383c257eb9393fa0cb60045c5eddd2769c499221"
+    },
+    "calibration": {
+      "calibration_start": "2015-01-05",
+      "calibration_end": "2018-12-27",
+      "calibration_observations": 974,
+      "score_cutoff_quantile": 0.95,
+      "score_cutoff": 0.9357954545454544,
+      "signal_start": "2018-12-28",
+      "signal_end": "2022-12-29",
+      "signal_partition_observations": 972,
+      "risk_score_available_signal_days": 972,
+      "cash_signal_days": 24,
+      "cash_signal_share": 0.024691358024691357
+    },
+    "base_summary": {
+      "start_date": "2018-12-28",
+      "end_date": "2022-12-30",
+      "observations": 973,
+      "strategy_cagr": 0.02998859477056041,
+      "benchmark_cagr": 0.08705611498144654,
+      "annualized_excess": -0.057067520210886125,
+      "rolling_242d_excess_median": -0.0651117924830319,
+      "rolling_242d_excess_minimum": -0.15830479136810952,
+      "rolling_242d_target_hit_ratio": 0.0,
+      "maximum_drawdown": -0.43625039074968075,
+      "average_policy_state": 0.9743062692702981,
+      "state_change_count": 41,
+      "trade_leg_count": 48,
+      "total_execution_cost_cny": 15861.946955653557,
+      "annualized_excess_gate": false,
+      "rolling_median_gate": false,
+      "both_20pct_gates": false
+    },
+    "stress_summary": {
+      "start_date": "2018-12-28",
+      "end_date": "2022-12-30",
+      "observations": 973,
+      "strategy_cagr": 0.019554889378994866,
+      "benchmark_cagr": 0.08705611498144654,
+      "annualized_excess": -0.06750122560245167,
+      "rolling_242d_excess_median": -0.0713927851422943,
+      "rolling_242d_excess_minimum": -0.1753318429582698,
+      "rolling_242d_target_hit_ratio": 0.0,
+      "maximum_drawdown": -0.4434964270981099,
+      "average_policy_state": 0.9743062692702981,
+      "state_change_count": 41,
+      "trade_leg_count": 48,
+      "total_execution_cost_cny": 41438.38910540007,
+      "annualized_excess_gate": false,
+      "rolling_median_gate": false,
+      "both_20pct_gates": false
+    },
+    "tail_capture": {
+      "execution_days": 972,
+      "cash_days": 24,
+      "cash_day_share": 0.024691358024691357,
+      "bad_day_count": 475,
+      "good_day_count": 497,
+      "bad_day_recall": 0.016842105263157894,
+      "false_exit_rate_on_good_days": 0.03219315895372234,
+      "bad_opportunity_loss_capture": 0.02673346198718293,
+      "cash_day_precision_bad": 0.3333333333333333
+    },
+    "gates": {
+      "base_annualized_excess_at_least_20pct": false,
+      "stress_annualized_excess_at_least_20pct": false,
+      "base_rolling_excess_median_at_least_20pct": false,
+      "stress_rolling_excess_median_at_least_20pct": false,
+      "minimum_signal_days": true,
+      "all_visible_gates_pass": false
+    }
+  },
+  "replication_panel_read": false,
+  "replication": null,
+  "decision": {
+    "visible_pass": false,
+    "replication_opened": false,
+    "parameter_rescue_allowed": false,
+    "current_state_signal_created": false,
+    "paper_or_shadow_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false
+  }
+}

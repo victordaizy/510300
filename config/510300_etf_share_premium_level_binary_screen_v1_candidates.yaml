@@ -1,0 +1,92 @@
+protocol:
+  study_id: 510300_ETF_SHARE_PREMIUM_LEVEL_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: CANDIDATE_FAMILY_FIXED_BEFORE_FULL_HISTORY_MERGE
+  candidate_family_size: 8
+  no_parameter_rescue: true
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  leverage_allowed: false
+  shorting_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+
+information_clock:
+  signal_cutoff: T_CLOSE_AFTER_NAV_AND_SHARE_RECORD_AVAILABLE
+  execution_time: T_PLUS_1_OPEN
+  same_day_close_execution_forbidden: true
+  missing_feature_state: 1
+
+features:
+  fund_share: 510300基金份额
+  share_change_1d: log_fund_share减前1个有效交易日log_fund_share
+  share_change_5d: log_fund_share减前5个有效交易日log_fund_share
+  share_change_20d: log_fund_share减前20个有效交易日log_fund_share
+  premium_level: 510300收盘价除以当日单位净值减1
+  absolute_premium_level: premium_level绝对值
+  rolling_percentile_window_trading_rows: 252
+  rolling_percentile_minimum_rows: 126
+  percentile_definition: 当前值在包含当前值的最近252个有限有效交易观测中的小于等于比例
+  parameter_search: FORBIDDEN
+
+candidates:
+  - candidate_id: ETF_SHARE1D_BOTTOM10_CASH
+    rule: 1日基金份额变化分位不高于0.10则次日空仓，否则满仓
+    mechanism: 极端单日赎回压力延续
+  - candidate_id: ETF_SHARE5D_BOTTOM10_CASH
+    rule: 5日基金份额变化分位不高于0.10则次日空仓，否则满仓
+    mechanism: 一周持续赎回压力延续
+  - candidate_id: ETF_SHARE20D_BOTTOM10_CASH
+    rule: 20日基金份额变化分位不高于0.10则次日空仓，否则满仓
+    mechanism: 月度份额收缩风险
+  - candidate_id: ETF_PREMIUM_BOTTOM10_CASH
+    rule: 收盘折溢价水平分位不高于0.10则次日空仓，否则满仓
+    mechanism: 极端折价反映知情卖出或流动性压力
+  - candidate_id: ETF_PREMIUM_TOP10_CASH
+    rule: 收盘折溢价水平分位不低于0.90则次日空仓，否则满仓
+    mechanism: 极端溢价后的套利回压
+  - candidate_id: ETF_ABS_PREMIUM_TOP10_CASH
+    rule: 收盘折溢价绝对值分位不低于0.90则次日空仓，否则满仓
+    mechanism: 一级二级市场定价显著失配
+  - candidate_id: ETF_SHARE5_BOTTOM20_AND_PREMIUM_BOTTOM20_CASH
+    rule: 5日份额变化与折溢价水平均不高于各自0.20分位则次日空仓，否则满仓
+    mechanism: 赎回与折价同步确认
+  - candidate_id: ETF_SHARE5_TOP20_AND_PREMIUM_TOP20_CASH
+    rule: 5日份额变化与折溢价水平均不低于各自0.80分位则次日空仓，否则满仓
+    mechanism: 申购拥挤与溢价同步后的反转风险
+
+objective:
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  minimum_rolling_excess_median: 0.20
+  rolling_window_trading_days: 242
+  hard_gate: 每个压力成本时期和每个起点扰动均同时通过双20门槛
+
+evaluation:
+  cost_scenarios: [BASE, STRESS]
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_2017_2020
+      start_date: '2017-01-03'
+      end_date: '2020-12-31'
+    - id: MID_2021_2023
+      start_date: '2021-01-04'
+      end_date: '2023-12-29'
+    - id: LATE_2024_2026
+      start_date: '2024-01-02'
+      end_date: '2026-08-12'
+    - id: COMBINED_2017_2026
+      start_date: '2017-01-03'
+      end_date: '2026-08-12'
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

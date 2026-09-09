@@ -1,0 +1,114 @@
+protocol:
+  study_id: 510300_CFFEX_MEMBER_POSITION_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: CANDIDATE_FAMILY_FIXED_BEFORE_CFFEX_MEMBER_RANK_HISTORY_ACQUISITION
+  candidate_family_size: 8
+  no_parameter_rescue: true
+  evidence_label: HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY
+
+scope:
+  execution_asset: 510300.SH
+  information_asset: CFFEX_IF_TOP20_MEMBER_POSITION_RANKING
+  allowed_holdings: [510300.SH, CASH_CNY]
+  allowed_target_states: [0, 1]
+  leverage_allowed: false
+  shorting_allowed: false
+  derivatives_execution_allowed: false
+  partial_position_allowed: false
+  benchmark: H00300_TOTAL_RETURN
+
+information_clock:
+  signal_cutoff: T_CFFEX_MEMBER_RANKING_PUBLISHED_AFTER_CLOSE_AROUND_16_30
+  execution_time: T_PLUS_1_510300_OPEN
+  same_day_execution_forbidden: true
+  missing_feature_state: 1
+
+official_source_contract:
+  provider: 中国金融期货交易所
+  daily_url_template: http://www.cffex.com.cn/sj/ccpm/{YYYYMM}/{DD}/IF_1.csv
+  acquisition_start_date: '2010-04-16'
+  acquisition_end_date: '2026-08-12'
+  included_contract_pattern: '^IF[0-9]{4}$'
+  excluded_rows: [品种合计, 合约合计, 非IF合约]
+  no_third_party_position_substitution: true
+
+contract_and_rank_selection:
+  expiry_source: 复用已固定的CFFEX逐合约到期表V1.0.1
+  minimum_calendar_days_to_expiry_inclusive: 5
+  minimum_unique_rank_rows_per_contract: 5
+  maximum_rank_inclusive: 20
+  minimum_eligible_contracts_per_day: 3
+  near_contract: 合资格合约中到期日最早者
+  numeric_blank_or_dash: 仅当官方单元格为空或横线时按0解释，同时保留原始文件与缺失计数
+  negative_position_level_forbidden: true
+
+features:
+  all_top20_net_ratio: (所有合资格合约Top20多头持仓和-空头持仓和)/(多头持仓和+空头持仓和)
+  all_top20_net_change_ratio: (所有合资格合约Top20多头持仓变化和-空头持仓变化和)/(当日Top20多头持仓和+空头持仓和)
+  near_top20_net_ratio: (近月合约Top20多头持仓和-空头持仓和)/(近月多头持仓和+空头持仓和)
+  all_top5_concentration_spread: 所有合资格合约前5名多头持仓和/Top20多头持仓和-前5名空头持仓和/Top20空头持仓和
+  rolling_percentile_window_trading_rows: 252
+  rolling_percentile_minimum_rows: 126
+  percentile_definition: 当前值在包含当前值的最近252个有限有效排名发布日观测中的小于等于比例
+  parameter_search: FORBIDDEN
+
+candidates:
+  - candidate_id: CFFEX_ALL_NET_BOTTOM10_CASH
+    rule: 全期限Top20净多空比率分位不高于0.10则次日空仓，否则满仓
+    mechanism: 会员空头显著占优代表对冲或知情悲观延续
+  - candidate_id: CFFEX_ALL_NET_TOP10_CASH
+    rule: 全期限Top20净多空比率分位不低于0.90则次日空仓，否则满仓
+    mechanism: 会员多头显著占优代表拥挤乐观后的反转风险
+  - candidate_id: CFFEX_ALL_NET_CHANGE_BOTTOM10_CASH
+    rule: 全期限Top20净持仓变化比率分位不高于0.10则次日空仓，否则满仓
+    mechanism: 会员净多头恶化代表新增下行信息
+  - candidate_id: CFFEX_ALL_NET_CHANGE_TOP10_CASH
+    rule: 全期限Top20净持仓变化比率分位不低于0.90则次日空仓，否则满仓
+    mechanism: 会员净多头激增代表短期乐观拥挤
+  - candidate_id: CFFEX_NEAR_NET_BOTTOM10_CASH
+    rule: 近月Top20净多空比率分位不高于0.10则次日空仓，否则满仓
+    mechanism: 流动性最强近月空头占优代表近端风险
+  - candidate_id: CFFEX_NEAR_NET_TOP10_CASH
+    rule: 近月Top20净多空比率分位不低于0.90则次日空仓，否则满仓
+    mechanism: 流动性最强近月多头拥挤代表反转风险
+  - candidate_id: CFFEX_TOP5_CONCENTRATION_BOTTOM10_CASH
+    rule: Top5多空集中度差分位不高于0.10则次日空仓，否则满仓
+    mechanism: 空头头部集中度显著高于多头代表强风险共识
+  - candidate_id: CFFEX_TOP5_CONCENTRATION_TOP10_CASH
+    rule: Top5多空集中度差分位不低于0.90则次日空仓，否则满仓
+    mechanism: 多头头部集中度显著高于空头代表拥挤乐观
+
+objective:
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  minimum_rolling_excess_median: 0.20
+  rolling_window_trading_days: 242
+  hard_gate: 每个压力成本时期和每个起点扰动均同时通过双20门槛
+
+evaluation:
+  cost_scenarios: [BASE, STRESS]
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: EARLY_2013_2015
+      start_date: '2013-01-04'
+      end_date: '2015-12-31'
+    - id: RESTRICTED_2016_2019
+      start_date: '2016-01-04'
+      end_date: '2019-12-31'
+    - id: MID_2020_2022
+      start_date: '2020-01-02'
+      end_date: '2022-12-30'
+    - id: LATE_2023_2026
+      start_date: '2023-01-03'
+      end_date: '2026-08-12'
+    - id: COMBINED_2013_2026
+      start_date: '2013-01-04'
+      end_date: '2026-08-12'
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

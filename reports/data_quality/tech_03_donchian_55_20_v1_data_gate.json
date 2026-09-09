@@ -1,0 +1,99 @@
+{
+  "project_id": "TECH_03_DONCHIAN_55_20_V1",
+  "data_cutoff": "2026-08-14",
+  "status": "PASS",
+  "return_calculation_allowed": true,
+  "branches": {
+    "etf_market": {
+      "file": "data/raw/r6/510300_daily.parquet",
+      "sha256": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "sha256_matches": true,
+      "rows": 3456,
+      "rows_match": true,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "dates_match": true,
+      "missing_columns": [],
+      "duplicate_dates": 0,
+      "symbols": [
+        "510300.SH"
+      ],
+      "missing_or_nonpositive_prices": 0,
+      "invalid_ohlc_rows": 0,
+      "status": "PASS"
+    },
+    "price_index": {
+      "file": "data/raw/r6/000300_daily.parquet",
+      "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1",
+      "sha256_matches": true,
+      "rows": 3456,
+      "rows_match": true,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "dates_match": true,
+      "missing_columns": [],
+      "duplicate_dates": 0,
+      "symbols": [
+        "000300.SH"
+      ],
+      "missing_or_nonpositive_prices": 0,
+      "invalid_ohlc_rows": 0,
+      "status": "PASS"
+    },
+    "total_return_index": {
+      "file": "data/raw/r6/H00300_total_return_daily.parquet",
+      "sha256": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "sha256_matches": true,
+      "rows": 3457,
+      "rows_match": true,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "dates_match": true,
+      "missing_columns": [],
+      "duplicate_dates": 0,
+      "symbols": [
+        "H00300"
+      ],
+      "missing_or_nonpositive_prices": 0,
+      "invalid_ohlc_rows": 0,
+      "status": "PASS"
+    },
+    "distributions": {
+      "file": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d",
+      "coverage_sha256": "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f",
+      "event_count": 14,
+      "first_ex_date": "2012-12-18",
+      "last_ex_date": "2026-01-19",
+      "duplicate_ex_dates": 0,
+      "nonpositive_amounts": 0,
+      "coverage_complete": true,
+      "coverage_start": "2012-05-28",
+      "coverage_end": "2026-08-14",
+      "coverage_distribution_hash_matches": true,
+      "status": "PASS"
+    },
+    "synthetic_total_return_ohlc": {
+      "method": "H00300_CLOSE_RATIO_SCALED_000300_OHLC",
+      "official_h00300_ohlc_claimed": false,
+      "rows": 3456,
+      "positive_scale_factor": true,
+      "maximum_close_identity_error": 9.094947017729282e-13,
+      "close_identity_within_1e_10": true,
+      "invalid_ohlc_rows": 0,
+      "status": "PASS"
+    }
+  },
+  "calendar": {
+    "etf_equals_price_index_calendar": true,
+    "missing_total_return_execution_dates": [],
+    "extra_total_return_dates": [
+      "2018-06-18"
+    ],
+    "extra_total_return_dates_allowed": true
+  },
+  "generated_at": "2026-08-18T21:00:25.903777+08:00",
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false
+}

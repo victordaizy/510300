@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_CAUSAL_GAUSSIAN_HMM_REGIME_ROUTER_V1",
+  "status": "PASS_PREFIT_TRAINING_ONLY_MODEL_IDENTIFIABILITY",
+  "created_at_asia_shanghai": "2026-08-31T13:45:52.378414+08:00",
+  "config_path": "config/510300_causal_gaussian_hmm_regime_router_v1.yaml",
+  "config_sha256_at_prefit": "aef38856bc8a6399a51e28943b5f4b300b75c4b37729107f780cc8e95a57bcfe",
+  "training": {
+    "start": "2012-06-26",
+    "end": "2014-12-31",
+    "rows": 613,
+    "candidate_2015_plus_states_computed": false,
+    "candidate_2015_plus_outcomes_read_or_computed": false,
+    "candidate_portfolio_returns_read_or_computed": false
+  },
+  "feature_names": [
+    "LOG_RETURN_5D_PER_SQRT_DAY",
+    "LOG_RETURN_20D_PER_SQRT_DAY",
+    "LOG_ANNUALIZED_REALIZED_VOLATILITY_20D"
+  ],
+  "standardization": {
+    "mean": [
+      0.0011234225243886915,
+      0.0018197478455820187,
+      -1.7087190397729095
+    ],
+    "population_std": [
+      0.013705509861816175,
+      0.01531402510045862,
+      0.28831770817834534
+    ],
+    "fit_period": "2012-06-26_TO_2014-12-31_ONLY"
+  },
+  "parameters": {
+    "initial_probabilities": [
+      0.9999999999979999,
+      9.99999999998e-13,
+      9.99999999998e-13
+    ],
+    "transition_matrix": [
+      [
+        0.9491924849371494,
+        0.04064471616738319,
+        0.01016279889546755
+      ],
+      [
+        0.028150980248140015,
+        0.9619437284164333,
+        0.009905291335426692
+      ],
+      [
+        0.007616611901057959,
+        0.02036610303785019,
+        0.972017285061092
+      ]
+    ],
+    "means": [
+      [
+        -0.5813669046731615,
+        -0.757220911559824,
+        -0.28630748741026774
+      ],
+      [
+        0.2036092527988384,
+        0.2623624855629033,
+        -0.46584862292854934
+      ],
+      [
+        0.41592161842844916,
+        0.5475982243606844,
+        1.376328910461171
+      ]
+    ],
+    "variances": [
+      [
+        0.45954091553047,
+        0.10717655826989099,
+        0.24525789655211203
+      ],
+      [
+        0.553555316865531,
+        0.16231098657939974,
+        0.5782834503168203
+      ],
+      [
+        1.9566596369920901,
+        2.7512054810028306,
+        0.49821116327523146
+      ]
+    ]
+  },
+  "raw_emission_feature_means": [
+    [
+      -0.006844507320942869,
+      -0.009776352200637281,
+      -1.7912665583773384
+    ],
+    [
+      0.0039139911465801945,
+      0.0058375735349110325,
+      -1.843031447093707
+    ],
+    [
+      0.006823840367502346,
+      0.010205680798408112,
+      -1.3118990426091457
+    ]
+  ],
+  "state_mapping": {
+    "rule": "SORT_FROZEN_RAW_EMISSION_MEAN_OF_LOG_RETURN_20D_LOW_BEAR_MIDDLE_RANGE_HIGH_BULL",
+    "latent_to_semantic": {
+      "0": "BEAR_TREND",
+      "1": "RANGE_OR_UNCONFIRMED",
+      "2": "BULL_TREND"
+    },
+    "semantic_to_latent": {
+      "BEAR_TREND": 0,
+      "RANGE_OR_UNCONFIRMED": 1,
+      "BULL_TREND": 2
+    }
+  },
+  "training_diagnostics": {
+    "converged": true,
+    "iterations": 21,
+    "maximum_iterations": 200,
+    "initial_log_likelihood": -2110.829652967242,
+    "final_log_likelihood": -1918.0402414613438,
+    "last_em_improvement": 7.985136107890867e-08,
+    "minimum_em_improvement": 7.985136107890867e-08,
+    "variance_floor_bindings": 0,
+    "effective_state_mass": [
+      0.319358905862886,
+      0.45888694700403165,
+      0.22175414713308245
+    ],
+    "minimum_effective_state_mass": 0.22175414713308245,
+    "required_minimum_effective_state_mass": 0.05,
+    "training_gate_passed": true
+  },
+  "filtered_posterior_at_training_end": [
+    1.1160913298580128e-33,
+    1.510272338020098e-12,
+    0.9999999999984897
+  ],
+  "boundaries": {
+    "model_selection_or_hyperparameter_search": "FORBIDDEN",
+    "fit_data_end_must_not_exceed": "2014-12-31",
+    "post_2014_candidate_information_used": false
+  }
+}

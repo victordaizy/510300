@@ -1,0 +1,53 @@
+version: INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1_1
+status: RECOVERY_ADDENDUM_AFTER_FIRST_FORWARD_OBSERVATION
+created_at: "2026-08-19T19:11:37+08:00"
+purpose: EXACT_FROZEN_INPUT_RECOVERY_ONLY
+
+parent_evaluation:
+  config: config/industry_expectation_gap_forward_evaluation_v1.yaml
+  config_sha256: 2f9b88dd48cf0f63a82b9602e14760b9365efa76f65b780ef6efe8f58000ab29
+  manifest: config/industry_expectation_gap_forward_evaluation_v1_manifest.json
+  manifest_sha256: c90690cd2bc5a220b3b27b22d9741da4b047621baadbce74f659a6d80ac28ac6
+
+frozen_prediction:
+  manifest: config/industry_expectation_gap_etf_model_v1_manifest.json
+  manifest_sha256: dc0070434375b032f2c316db0b12cf026e042ed7647d5924b6cad368ccbe3e09
+  result: reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json
+  result_sha256: 1483a3c7f025d1983131d2f89ba6bb993b5df89e26b5b3f8c77cf783cb14b85f
+  ledger: paper/industry_expectation_gap_v1/2026-08-18_industry_forecast.json
+  ledger_sha256: 64557f9e98bbbbe45ee299aa124534d4602ae521c5652148ca7afd525813e964
+
+recoveries:
+  - target_path: reports/data_quality/510300_primary_market_readiness.json
+    expected_sha256: 1d4432ce581cf63f449315ef4932230fccc7e15a09affcac9e2662121fa5d2d8
+    expected_bytes: 967
+    recovered_path: paper/industry_expectation_gap_v1/frozen_inputs/2026-08-18_primary_market_readiness.json
+    source_log_path: output/primary_market_forward_logs/20260818.stdout.log
+    source_log_sha256: b8630a14b5b5749787e63228515d0ad674c458556441fda428e333a38412edc4
+    source_marker: "2026-08-18T15:01:00.111590+08:00"
+    newline: CRLF
+    frozen_semantic_snapshot_path: paper/industry_expectation_gap_v1/2026-08-18_etf_snapshot.json
+    frozen_semantic_snapshot_sha256: af17b235ef3fea4d523124424ee3881fa2e8cdfb400b9c4336a3bbbeae8c349d
+
+outputs:
+  directory: reports/forward/industry_expectation_gap_v1_evaluation
+  stem_prefix: industry_expectation_gap_forward_evaluation_v1_1
+  manifest: config/industry_expectation_gap_forward_evaluation_v1_1_recovery_manifest.json
+
+constraints:
+  parent_rules_must_remain_exact: true
+  original_prediction_must_remain_exact: true
+  recovered_file_may_only_satisfy_original_manifest_verification: true
+  recovered_file_may_not_replace_current_operational_readiness: true
+  partial_forward_return_read: false
+  prediction_change: false
+  rule_change: false
+  threshold_change: false
+
+safety:
+  research_only: true
+  may_upgrade_original_no_view: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

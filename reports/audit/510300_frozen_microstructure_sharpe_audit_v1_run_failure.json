@@ -1,0 +1,28 @@
+{
+  "project_id": "510300_FROZEN_MICROSTRUCTURE_SHARPE_AUDIT_V1",
+  "status": "PROGRAM_FAILED_BEFORE_METRICS_NO_OUTPUT",
+  "attempted_at_asia_shanghai": "2026-08-30T01:46:00.0973025+08:00",
+  "exit_code": 1,
+  "failure_type": "READ_ONLY_NUMPY_ARRAY_ANCHOR_ASSIGNMENT",
+  "failure_message": "ValueError: assignment destination is read-only",
+  "failure_location": "research/frozen_microstructure_sharpe_audit_v1.py:478",
+  "diagnosis": {
+    "operation": "desired[0] = 0",
+    "root_cause": "Pandas在当前运行时返回只读NumPy视图，首行现金锚点赋值失败",
+    "performance_metrics_computed": false,
+    "performance_metrics_read": false,
+    "result_file_created": false,
+    "metrics_file_created": false,
+    "ledger_file_created": false,
+    "trades_file_created": false
+  },
+  "frozen_v1": {
+    "config_sha256": "6b1a17c334cc9fe59ab5f82bfa875d0a13f3eb6622fde7d4d43eb637d8e22687",
+    "manifest_sha256": "e16788651beda66bc4d2ba86af76708939e10f0a250dc58d38596726cc27cbf2",
+    "implementation_sha256": "23aabf01935fc6f30d20ada9bd346c76ff91f67bfd137b02a61c6ac8a89996e3"
+  },
+  "correction_policy": "登记V1.0.1机械数组复制修正；仅把to_numpy改为to_numpy(copy=True)，不改信号、状态、日期、成本、基准、门槛或起点",
+  "position_mapping": "DISABLED",
+  "order_generation": "DISABLED",
+  "live_trading_authorized": false
+}

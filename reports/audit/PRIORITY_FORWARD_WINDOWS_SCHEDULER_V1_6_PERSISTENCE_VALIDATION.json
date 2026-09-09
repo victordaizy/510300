@@ -1,0 +1,89 @@
+{
+  "schema_version": "1.6.0",
+  "validation_status": "BLOCKED_PERMISSION_S4U_REGISTRATION_ACCESS_DENIED",
+  "deployment_status": "PARTIAL_SUCCESS_LOGGED_IN_TASK_UPGRADED_V1_6",
+  "audited_at": "2026-08-26T03:03:43.3002073+08:00",
+  "task_name": "Codex-510300-Primary-Market-Collector",
+  "registered_task": {
+    "state": "Ready",
+    "next_run_time": "2026-08-26T09:25:00+08:00",
+    "last_run_time": "2026-08-25T09:25:00+08:00",
+    "last_task_result": 1,
+    "action_execute": "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+    "action_arguments": "\"C:\\Users\\戴周阳\\Documents\\New project 8\\scripts\\run_priority_forward_codex_automation_v1_5.py\" --phase morning --config \"C:\\Users\\戴周阳\\Documents\\New project 8\\config\\priority_forward_supervisor_v1_2.yaml\"",
+    "working_directory": "C:\\Users\\戴周阳\\Documents\\New project 8",
+    "multiple_instances": "IgnoreNew",
+    "restart_count": 0,
+    "start_when_available": false,
+    "principal_user_id": "戴周阳",
+    "principal_logon_type": "Interactive",
+    "principal_run_level": "Limited",
+    "persistence_capability": "LOGGED_IN_SESSION_ONLY",
+    "atomic_claim_entrypoint": true,
+    "exact_match": true
+  },
+  "s4u_probe": {
+    "temporary_task_name": "Codex-V1.6-S4U-Network-Probe-20260826",
+    "registration_attempted": true,
+    "registration_exit_code": 1,
+    "registration_error": "Register-ScheduledTask: 拒绝访问。",
+    "temporary_task_created": false,
+    "temporary_task_remaining": false,
+    "probe_output_created": false,
+    "network_probe_executed": false,
+    "conclusion": "当前未提升权限的账户不能注册 S4U 任务；不得声称注销或重启后可运行。"
+  },
+  "automation_channels": {
+    "codex_morning_heartbeat": {
+      "id": "510300-pcf-iopv",
+      "status": "ACTIVE",
+      "uses_v1_2_supervisor_config": true,
+      "path": "C:/Users/戴周阳/.codex/automations/510300-pcf-iopv/automation.toml",
+      "sha256": "071accda83a12d3a232072e3d249a73b16d050cae3a50c1604520043a50e23ab",
+      "bytes": 1410
+    },
+    "codex_close_heartbeat": {
+      "id": "510300",
+      "status": "ACTIVE",
+      "uses_v1_2_supervisor_config": true,
+      "path": "C:/Users/戴周阳/.codex/automations/510300/automation.toml",
+      "sha256": "da77c034248d22d980deb62c95609d8df1ea1ae14845f4b7629ebfb0422376a7",
+      "bytes": 1305
+    }
+  },
+  "files": [
+    {
+      "path": "scripts/install_priority_forward_morning_task_v1_6.ps1",
+      "sha256": "13325fdfde1ea7ac423aa243bbe4fa3d5568ed27ce3c00096070a98cad1baa30",
+      "bytes": 4707
+    },
+    {
+      "path": "scripts/probe_priority_forward_s4u_task_v1_6.ps1",
+      "sha256": "273ed1c9832761073ef6d3e73c7d68b88898faba2f030a64988e0a51b5a12be7",
+      "bytes": 2720
+    },
+    {
+      "path": "scripts/run_priority_forward_codex_automation_v1_5.py",
+      "sha256": "eafdd19fa9770cff28229b03271ef0aa2c1c1cc5da1a8f015f34bf4a41524a7a",
+      "bytes": 11929
+    },
+    {
+      "path": "config/priority_forward_supervisor_v1_2.yaml",
+      "sha256": "19981976647c740c0fe923be8560870a90f8edec89f4f57f2aac3a2361d59975",
+      "bytes": 2076
+    },
+    {
+      "path": "tests/test_priority_forward_windows_task_v1_6.py",
+      "sha256": "401b871bddc30a4867cb37046db70f57ae8208e299773433634535856bdf845b",
+      "bytes": 2587
+    }
+  ],
+  "verification": {
+    "powershell_5_1_parse": "PASS",
+    "registered_task_exact_match": true,
+    "pytest": "14_PASSED_COMBINED_V1_2_V1_6",
+    "next_real_run_observed": false,
+    "logout_run_observed": false,
+    "reboot_run_observed": false
+  }
+}

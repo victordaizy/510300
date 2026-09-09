@@ -1,0 +1,204 @@
+protocol:
+  project_id: 510300_LIQUIDITY_STRESS_LONG_CYCLE_REPLICATION_V1
+  state: FROZEN_BEFORE_LONG_CYCLE_RESULT_COMPUTATION
+  evidence_class: TIME_REVERSED_FIXED_RULE_LONG_CYCLE_REPLICATION
+  purpose: 将已冻结的510300微观结构风险开关原样连续重放到2015年以来历史，不搜索参数，不引入新因子
+  research_only: true
+  paper_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  allowed_states:
+    - 0
+    - 1
+  signal_clock: T日收盘后
+  execution_clock: T+1交易日开盘
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_allowed: false
+  primary_benchmark: 510300.SH含现金分红买入持有
+  reference_benchmark: H00300_TOTAL_RETURN
+
+dates:
+  feature_warmup_start: '2012-07-02'
+  evaluation_start: '2015-01-05'
+  signal_cutoff: '2026-08-12'
+  last_execution_mark_date: '2026-08-13'
+  margin_seam_overlap_date: '2021-08-12'
+
+pressure_cycles:
+  DELEVERAGING_2015:
+    start: '2015-06-01'
+    end: '2016-02-29'
+    label: 2015去杠杆及后续压力
+  RISK_CONTRACTION_2018:
+    start: '2018-01-02'
+    end: '2018-12-28'
+    label: 2018持续风险收缩
+  PANDEMIC_SHOCK_2020:
+    start: '2020-01-02'
+    end: '2020-06-30'
+    label: 2020突发冲击与初期修复
+  DOWNTREND_2022:
+    start: '2022-01-04'
+    end: '2022-12-30'
+    label: 2022下跌周期
+  POLICY_STRUCTURE_2024_2026:
+    start: '2024-01-02'
+    end: '2026-08-13'
+    label: 2024年以来政策驱动和结构性行情
+
+frozen_candidate:
+  project_id: 510300_ETF_MICROSTRUCTURE_DUAL_SHADOW_V1
+  candidate_name: MICRO_CONSENSUS3_OR_SHORT_EXTREMES_DUAL_SHADOW
+  config:
+    path: config/510300_etf_microstructure_dual_shadow_v1.yaml
+    sha256: 5e418c583e19f060ea43eb4dd67b33f96451ddfe7e2962e925900fc0cf721fe8
+  implementation:
+    path: research/validate_etf_microstructure_dual_shadow_v1_frozen.py
+    sha256: 4dd37f6627304697988460b95741b6df1c341a74faecebbe9a9b3436767ba4c9
+  unchanged_rule_summary:
+    rolling_percentile_rows: 252
+    rolling_percentile_minimum_valid_rows: 126
+    micro_consensus_votes_for_cash: 3
+    raw_cash_rule: 三票微观共识，或融券库存枯竭，或融券库存拥挤状态成立
+    internal_shadow_cash_annual_rate: 0.015
+    internal_shadow_stress_cost_per_raw_transition: 0.0016
+    internal_shadow_maturity_lag_signal_rows: 2
+    internal_shadow_long_window_rows: 242
+    internal_shadow_short_window_rows: 60
+    final_cash_rule: 原始空仓条件成立且长期、短期双影子门同时开启
+  modification_allowed: false
+
+inputs:
+  share_and_close_premium:
+    path: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    sha256: 656374a6e960f76fb6f6c64d181d81fa0dc75615eb7f4a2110e54fa18fb1dda9
+    source_contract: 历史上交所日度份额加双来源净值；2021-08-12拼接值完全相等；不填充
+  historical_margin:
+    path: data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/snapshots/20260828T125705_0800/510300_margin_detail_daily.parquet
+    sha256: b2e2fb3182d703bc375e2e3118318d00ffbac289bbcb19375fd91acebcd070fb
+    source_contract: 上交所queryMargin.do；rqye严格按同日rqyl乘510300收盘价定义重建；rzrqye等于rzye加rqye
+  current_margin:
+    path: data/raw/flow/510300_margin_detail_daily_tushare.parquet
+    sha256: 194074bef906402588fb9206c41562627e14593c05f9eaabe071f2eee22db4af
+    source_contract: tushare.margin_detail；仅使用2021-08-12及以后原字段
+  etf_market:
+    path: data/raw/r6/510300_daily.parquet
+    sha256: 842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    sha256: 2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961
+  cash_dividends:
+    path: data/reference/510300_dividends.csv
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+  account_contract_source:
+    path: config/510300_direction_switch_v1.yaml
+    sha256: d548109ce388a7751f844193e3cc29a77316e3573065d6f848b4564ab37646d9
+
+data_admission:
+  signal_calendar: 510300交易日
+  required_signal_columns:
+    - close_premium_to_nav
+    - fund_shares
+    - rzye
+    - rqye
+    - rqyl
+    - rzrqye
+  duplicate_policy: REJECT
+  missing_policy: REJECT_NO_FILL
+  proxy_substitution_allowed: false
+  static_backfill_allowed: false
+  seam_requirements:
+    direct_fields_absolute_tolerance: 0.0
+    derived_fields_absolute_tolerance: 0.0001
+  future_return_columns_allowed_in_signal_inputs: false
+
+execution:
+  initial_capital_cny: 200000.0
+  lot_size_shares: 100
+  stamp_duty_rate: 0.0
+  cash_annual_rate: 0.0
+  dividend_policy: 除息日按当日开盘前持仓确认应收，派息日到账，满仓状态下最早下一交易日开盘按整手再投资
+  base_cost:
+    commission_rate_per_leg: 0.0002
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+  stress_cost:
+    commission_rate_per_leg: 0.0004
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 10.0
+  benchmark_cost_fairness: 每个成本情景下，策略和510300买入持有使用相同首次建仓成本；买入持有不承担策略额外换手成本
+
+metrics:
+  annualization_trading_days: 242
+  sharpe_risk_free_rate: 0.0
+  sharpe_definition: 日收益算术均值除以样本标准差乘sqrt(242)
+  cagr_definition: 日复合对数收益按242日年化
+  cumulative_net_excess_definition: 策略累计净收益率减同成本情景510300含分红买入持有累计净收益率
+  event_forward_windows_trading_days:
+    - 5
+    - 10
+    - 20
+    - 60
+
+decision_gates:
+  phase_1_microstructure:
+    gate_1_net_sharpe:
+      minimum: 1.2
+      required_scenarios:
+        - BASE
+        - STRESS
+    gate_2_cumulative_net_excess:
+      minimum_exclusive: 0.0
+      required_scenarios:
+        - BASE
+        - STRESS
+    gate_3_drawdown_reduction:
+      maximum_drawdown_magnitude_ratio_vs_buy_hold: 0.80
+      required_scenarios:
+        - BASE
+        - STRESS
+    gate_4_multiple_independent_cycles:
+      minimum_positive_pressure_cycles_under_stress: 2
+      maximum_largest_positive_cycle_share: 0.80
+  phase_1_pass_rule: 四项门槛全部通过
+  phase_2_combination:
+    run_only_if_phase_1_passes: true
+    paths:
+      - 510300含分红买入持有
+      - 原始估值仓位基线
+      - 原始微观结构风险开关
+      - 估值基线加微观结构否决
+    gate_5_combination_must_add_value: 组合必须在净夏普、最大回撤、跨周期稳定性或单一事件依赖至少一项明确优于两个单一系统，否则保留表现更好的单一系统
+
+stop_rules:
+  if_data_gate_fails: NO_VIEW_SAME_DEFINITION_HISTORY_UNAVAILABLE
+  if_phase_1_fails: REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE
+  parameter_rescue: FORBIDDEN
+  window_rescue: FORBIDDEN
+  date_rescue: FORBIDDEN
+  source_substitution_rescue: FORBIDDEN
+  valuation_or_technical_filter_rescue: FORBIDDEN
+
+outputs:
+  root: data/research/510300_liquidity_stress_long_cycle_replication_v1
+  features: data/research/510300_liquidity_stress_long_cycle_replication_v1/daily_features.parquet
+  strategy_base_ledger: data/research/510300_liquidity_stress_long_cycle_replication_v1/strategy_base_ledger.parquet
+  strategy_stress_ledger: data/research/510300_liquidity_stress_long_cycle_replication_v1/strategy_stress_ledger.parquet
+  buy_hold_base_ledger: data/research/510300_liquidity_stress_long_cycle_replication_v1/buy_hold_base_ledger.parquet
+  buy_hold_stress_ledger: data/research/510300_liquidity_stress_long_cycle_replication_v1/buy_hold_stress_ledger.parquet
+  trades_base: data/research/510300_liquidity_stress_long_cycle_replication_v1/trades_base.csv
+  trades_stress: data/research/510300_liquidity_stress_long_cycle_replication_v1/trades_stress.csv
+  annual_results: data/research/510300_liquidity_stress_long_cycle_replication_v1/annual_results.csv
+  pressure_cycle_results: data/research/510300_liquidity_stress_long_cycle_replication_v1/pressure_cycle_results.csv
+  cash_episode_results: data/research/510300_liquidity_stress_long_cycle_replication_v1/cash_episode_results.csv
+  forward_window_results: data/research/510300_liquidity_stress_long_cycle_replication_v1/event_forward_window_results.csv
+  report_json: reports/research/510300_liquidity_stress_long_cycle_replication_v1.json
+  report_markdown: reports/research/510300_liquidity_stress_long_cycle_replication_v1.md

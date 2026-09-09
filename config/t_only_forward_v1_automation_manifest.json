@@ -1,0 +1,40 @@
+{
+  "project_id": "510300_T_ONLY_FORWARD_V1_DAILY_AUTOMATION",
+  "frozen_at": "2026-08-18T22:09:37.9516284+08:00",
+  "freeze_stage": "AUTOMATION_IMPLEMENTATION_FROZEN_BEFORE_SCHEDULED_OPERATION",
+  "schedule": {
+    "timezone": "Asia/Shanghai",
+    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "time": "16:30",
+    "start_when_available": true,
+    "restart_count": 3,
+    "restart_interval_minutes": 15,
+    "execution_limit_minutes": 30,
+    "multiple_instances": "IgnoreNew"
+  },
+  "automation_files": {
+    "scripts/run_t_only_forward_v1_daily.py": "595937752d2d319024093da4d123c3155042812d3f33bd534f72afccca866162",
+    "scripts/install_t_only_forward_v1_task.ps1": "ab269b443addb68483a0b0cfcc71f8b30dd5408c48987c3d78645971a12ee4fc",
+    "scripts/audit_t_only_forward_v1_task.ps1": "2f1569cff846b6421b6a33decbb1495a7ae104f0bb594c1c8f331a9b9a3c67d1",
+    "scripts/uninstall_t_only_forward_v1_task.ps1": "758ff08a1c69b8f8f350dcc8416f18bc596950c3acd9cd4ec586795d752db8d0",
+    "tests/test_t_only_forward_v1_daily.py": "b12cd419c7c02fa8afc8b3f3b8b732c037dfb248e631b10b6f4503696756bf5c",
+    "docs/510300_T_ONLY_FORWARD_V1_OPERATIONS.md": "6fec7f11e75ad1f007c8d2b63b5bae085c03d4f3ec55dd5812a159c79e9a5476"
+  },
+  "research_freeze_files": {
+    "config/t_only_forward_v1_freeze_manifest.json": "66c5e5debfa0cf08fe9d6a2895eafdd07d0098dd0e3a7d0270a029601865ebbb",
+    "config/t_only_forward_v1_1_freeze_manifest.json": "8f5070089ecd4390b44fc8a4ab26df02ec2d6d5fa895a0cfb19cfa07878f7c3e"
+  },
+  "success_contract": {
+    "scheduler_result_zero_is_not_sufficient": true,
+    "require_current_run_data_gate": true,
+    "require_market_date_consistency": true,
+    "require_unique_shadow_ledger_dates": true,
+    "failure_status": "NO_VIEW_OPERATIONAL_FAILURE"
+  },
+  "governance": {
+    "shadow_ledger_only": true,
+    "live_position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false
+  }
+}

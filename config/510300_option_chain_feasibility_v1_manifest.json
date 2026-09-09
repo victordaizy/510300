@@ -1,0 +1,85 @@
+{
+  "study_id": "510300_OPTION_CHAIN_FEASIBILITY_V1",
+  "version": "1.0.0",
+  "freeze_id": "510300_OPTION_CHAIN_FEASIBILITY_V1_20260830T184730+0800",
+  "freeze_state": "PREREGISTERED_BEFORE_SURFACE_METRICS",
+  "frozen_at": "2026-08-30T18:47:30.4471954+08:00",
+  "protocol_file": "config/510300_option_chain_feasibility_v1.yaml",
+  "protocol_sha256": "e60c7875a6004f0c5f14fa9e4bd9bffc2c3bd06136dd867d545f9416a0c5af1f",
+  "data_feasibility_run_limit": 1,
+  "data_feasibility_runs_consumed": 1,
+  "future_outcomes_read_before_freeze": false,
+  "new_surface_metrics_read_before_freeze": false,
+  "legacy_data_facts_known_before_freeze": {
+    "option_eod_rows": 194040,
+    "official_risk_rows": 191270,
+    "contract_master_rows": 2874,
+    "trading_days": 1611,
+    "old_bid_ask_surface_study_status": "BLOCKED_MISSING_HISTORICAL_CLOSE_BID_ASK",
+    "note": "这些是旧数据取得报告和本轮架构检查已知的覆盖事实，不包含本协议新定义的有效曲面日、平价或静态套利结果。"
+  },
+  "official_source_preflight_before_freeze": {
+    "listing_page_http_200": true,
+    "market_page_http_200": true,
+    "historical_product_page_http_200": true,
+    "historical_risk_endpoint_20191223_queryable": true,
+    "historical_risk_endpoint_20191223_target_rows": 72,
+    "same_day_publication_time_proven": false
+  },
+  "prior_evidence_boundary": {
+    "commit": "3081d58d722d8ba2832c6a3a15faee844afae902",
+    "tag": "510300-direction-switch-v1-rejected-20260830",
+    "position_semantics": "ABSTAIN_POSITION_UNSET"
+  },
+  "implementation_validation": {
+    "synthetic_tests": "7_PASSED",
+    "syntax_check": "PASSED",
+    "actual_surface_metrics_read": false,
+    "future_data_reads": 0
+  },
+  "implementation_sha256": {
+    "research/option_chain_feasibility_v1.py": "48f2cd3934ba42bd4eeb999ad4d5273ae9b71bbd70bfa88d3d471509b35f3d36",
+    "scripts/run_510300_option_chain_feasibility_v1.py": "85754fb379598fb467b3386fa480a548f7e5f1e18ef5db5ccdd0f84a79353d72",
+    "tests/test_510300_option_chain_feasibility_v1.py": "7cb2f6935a7d98afd9ba455cdee8b0d2783d854b5e1f492b4957eda1583d7cb1"
+  },
+  "input_sha256": {
+    "data/raw/return_tail/options/510300_contract_master.parquet": "d5bef387d7102b134bc2f1e7f27f7358d3e1fc4978499f7cf65c229087bc4d10",
+    "data/raw/return_tail/options/510300_tushare_eod.parquet": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064",
+    "data/raw/return_tail/options/510300_sse_risk_indicators.parquet": "e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035",
+    "data/raw/return_tail/options/sse_trading_calendar.parquet": "5609a3d7dd8c8e0af276f89291fa12c2bf3f6d79c410e8e9e01e03bb4a6a8eea",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "missing_evidence_expected_to_be_evaluated": [
+    "data/reference/510300_option_contract_adjustment_ledger_v1.parquet",
+    "data/reference/510300_option_contract_adjustment_evidence_v1.json",
+    "data/reference/510300_option_history_entitlement_evidence.json"
+  ],
+  "governance": {
+    "future_10d_return_read": false,
+    "prediction_model_creation": false,
+    "portfolio_evaluation": false,
+    "option_trading": false,
+    "position_mapping": false,
+    "existing_holdings_override": false,
+    "order_generation": false,
+    "live_trading": false,
+    "parameter_changes_after_surface_metrics": false
+  },
+  "planned_outputs": [
+    "reports/data_quality/510300_option_chain_feasibility_v1.json",
+    "reports/data_quality/510300_OPTION_CHAIN_FEASIBILITY_V1.md",
+    "reports/data_quality/510300_option_chain_feasibility_v1_daily.parquet",
+    "reports/data_quality/510300_option_chain_feasibility_v1_maturities.parquet",
+    "reports/data_quality/510300_option_chain_feasibility_v1_official_source_receipt.json"
+  ],
+  "completed_at": "2026-08-30T18:55:06.636397+08:00",
+  "terminal_status": "BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN",
+  "future_data_reads": 0,
+  "result_sha256": {
+    "reports/data_quality/510300_option_chain_feasibility_v1.json": "6d11dcd109cbe46421300b165f2cf50e4097d42b24cc2939bfddee9213658df7",
+    "reports/data_quality/510300_OPTION_CHAIN_FEASIBILITY_V1.md": "d967056e3b57fb10738e1cf9f3d83842e69e31cfa7a45b74e6633ce1d2a873f5",
+    "reports/data_quality/510300_option_chain_feasibility_v1_daily.parquet": "5c65aa81d250afbaa1554a31fbdc1841677f71a77d139e052b90982801d531ce",
+    "reports/data_quality/510300_option_chain_feasibility_v1_maturities.parquet": "e699ca2cabfc0add093e2ee3f86604e41f78b5b3beaca35aadee0abe2b2f5c8d",
+    "reports/data_quality/510300_option_chain_feasibility_v1_official_source_receipt.json": "c454e963bf67f6acf44db61d406274a3f83ff55d07c9145ab6c1b15e6c6e2e7a"
+  }
+}

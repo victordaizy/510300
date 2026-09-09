@@ -1,0 +1,88 @@
+protocol:
+  study_id: 510300_CROSS_ETF_FORCED_FLOW_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  candidate_contract: config/510300_cross_etf_forced_flow_binary_screen_v1_candidates.yaml
+  candidate_contract_sha256: 879800a413eac26c137a56d2cb4ea94c9a544a7a1538c7af09ed36550ff6a742
+  candidate_prefreeze_receipt: reports/frozen/510300_cross_etf_forced_flow_binary_screen_v1_candidate_prefreeze_receipt.json
+  candidate_prefreeze_receipt_sha256: 632694d9415d3cb9e7e75e27e9bca23e3369f7d77c18d2515acb6c5fe5808e66
+  no_parameter_rescue: true
+
+initial_capital_cny: 500000.0
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  stamp_duty_rate: 0.0
+
+data_contracts:
+  official_weekly_shares:
+    file: data/raw/flow/510300_cross_etf_forced_flow_sse_weekly_v1.parquet
+    required_sha256: 949d9c3bfd3f842397a774cfc11d1dd413cff8038128cc232837aeb8b7c22769
+    required_rows: 2870
+    required_snapshot_count: 287
+    required_first_date: '2021-01-08'
+    required_last_date: '2026-08-14'
+    required_columns: [date, ts_code, fund_shares, source, historical_publication_timestamp_verified, execution_earliest]
+  official_share_report:
+    file: reports/data_quality/510300_cross_etf_forced_flow_sse_weekly_v1.json
+    required_sha256: 4371ca2a60fb69e29e2aeafe0a31ec24757244b938262beb37943e5cc0389f35
+  etf_price_panel:
+    file: data/raw/all_etf_momentum_v1r/etf_total_return_panel_tushare_adj.parquet
+    required_sha256: d6834df6f7a56efc752bd28bc67d7ba4a09d75e6789ae4d99a700ed24faaa550
+    required_columns: [date, con_code, raw_close]
+  execution_daily:
+    file: data/raw/market/510300_daily_raw.parquet
+    required_sha256: 640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4
+    required_symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  benchmark_total_return:
+    file: data/raw/market/H00300_total_return_daily_raw.parquet
+    required_sha256: 49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733
+    required_symbol: H00300
+    required_columns: [date, close, symbol]
+  cash_distributions:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_event_count: 14
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+  candidate_prefreeze_receipt:
+    file: reports/frozen/510300_cross_etf_forced_flow_binary_screen_v1_candidate_prefreeze_receipt.json
+    required_sha256: 632694d9415d3cb9e7e75e27e9bca23e3369f7d77c18d2515acb6c5fe5808e66
+
+source_contracts:
+  collection_implementation:
+    file: scripts/collect_510300_cross_etf_forced_flow_sse_weekly_v1.py
+    required_sha256: 9016f67ecd980499baddce48ae8cff3cc50e5c1528d716f8d99443d5a256c32d
+  screen_implementation:
+    file: research/cross_etf_forced_flow_binary_screen_v1.py
+    required_sha256: e2c3784e0209ca8b11da437387240456b009f1bdca11047009cc898abb889671
+  screen_tests:
+    file: tests/test_cross_etf_forced_flow_binary_screen_v1.py
+    required_sha256: 229117258104a0265b566bf1dd55f4a1e64ebcbe96212f24aedea115d5cfb2b2
+  execution_ledger_dependency:
+    file: research/intraday_binary_livermore_screen_v1.py
+    required_sha256: 17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa
+
+optional_audits:
+  510300_tushare_share_overlap: data/raw/flow/510300_fund_share_daily_tushare.parquet
+
+artifacts:
+  freeze_manifest: config/510300_cross_etf_forced_flow_binary_screen_v1_manifest.json
+  weekly_features: data/research/510300_cross_etf_forced_flow_binary_screen_v1/weekly_features.parquet
+  daily_states: data/research/510300_cross_etf_forced_flow_binary_screen_v1/daily_states.parquet
+  metrics: data/research/510300_cross_etf_forced_flow_binary_screen_v1/start_perturbation_metrics.parquet
+  report_json: reports/research/510300_cross_etf_forced_flow_binary_screen_v1.json
+  report_markdown: reports/research/510300_CROSS_ETF_FORCED_FLOW_BINARY_SCREEN_V1.md
+
+boundaries:
+  current_signal_created: false
+  position_mapping: DISABLED
+  paper_or_shadow: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading_authorized: false

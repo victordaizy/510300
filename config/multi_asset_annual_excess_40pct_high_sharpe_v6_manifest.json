@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V6_MANIFEST",
+  "status": "FROZEN_BEFORE_US_LEVERAGED_MULTI_ASSET_FX_CORRECTION_OUTCOME",
+  "frozen_at": "2026-08-27T04:30:34.477602+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V6",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V5",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v6.yaml": "7a8b15bd6f0501d10e25dc4e3433ed0fc38dc7b2e0534f197b196fe27b861638",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V6_SPEC.md": "868a0ec2ace8eb246574aa268910c5364056707bb0f3507860280f6ceff81ee7",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v6.py": "2fe7f16daf182bc8ef8f907174206509d233921746d94d2f3d5d243c1b74711b"
+  },
+  "tracked_content_sha256": "37a551add545d7fe994f2d604186908283e102c942c82cd31fa408b0399cd04d",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V5_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v5_manifest.json",
+    "manifest_sha256": "200d5c7051b50290082c2fd763d40f59bfc88e2e5ff7654d328e7ef5137e5459",
+    "tracked_content_sha256": "2a759dd684df6992a4bc006da4fcc3bf83e324ed314f066f7d17335e460a52af",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V4_MANIFEST_VERIFIED",
+    "cb_manifest_status": "PASS_CB_DOUBLE_LOW_ROTATION_V1_MANIFEST_VERIFIED"
+  },
+  "v1_manifest_verification": {
+    "status": "PASS_US_LEVERAGED_MULTI_ASSET_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/us_leveraged_multi_asset_absolute_momentum_v1_manifest.json",
+    "manifest_sha256": "2a051c3ec07e37cef094b4c4b979b49c96e276ee6b9c8cd5c1fd56f580f686ec",
+    "tracked_content_sha256": "72cbab053308c8b51b2b291ada40a7dc205853ee3a9d467c15b8c19b7d94c7b0",
+    "tracked_file_count": 8,
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V5_MANIFEST_VERIFIED",
+    "conservative_evaluator_manifest_status": "PASS_QDII_CROSS_MARKET_DISCOUNT_REVERSION_ZERO_VARIANCE_V2_MANIFEST_VERIFIED"
+  },
+  "v1_failure": {
+    "checks": {
+      "status": true,
+      "error": true,
+      "performance_unavailable": true,
+      "replication_closed": true,
+      "target_not_verified": true
+    },
+    "report_path": "reports/research/us_leveraged_multi_asset_absolute_momentum_v1_visible.json",
+    "report_sha256": "e5673495ef1ac1aefa08733a3e4b1d9a2c08ff104310d84c40315e093bde7164",
+    "error": "评价日严格滞后美元汇率超过冻结陈旧上限"
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "correction_lane": {
+    "corrected_candidate_id": "US_LEVERAGED_MULTI_ASSET_ABSOLUTE_MOMENTUM_V1R_FX_SOURCE_CORRECTION",
+    "maximum_corrected_versions": 1,
+    "permitted_changes": [
+      "FX_SOURCE_TO_CHINA_FOREIGN_EXCHANGE_TRADE_SYSTEM_OFFICIAL_USD_CNY_CENTRAL_PARITY",
+      "MAXIMUM_FX_STALENESS_CALENDAR_DAYS_FROM_7_TO_14_FOR_CHINA_STATUTORY_HOLIDAYS",
+      "VERSION_IDENTIFIERS_PATHS_STATUS_AND_PROVENANCE"
+    ],
+    "prohibited_changes": [
+      "PRODUCT_UNIVERSE",
+      "VISIBLE_OR_REPLICATION_DATES",
+      "MOMENTUM_OR_TREND_FORMULA",
+      "REBALANCE_FREQUENCY",
+      "TARGET_ASSET_COUNT_OR_WEIGHTS",
+      "SECURITY_OR_FX_COST_RATES",
+      "LIQUIDITY_OR_CAPACITY_RULES",
+      "CORPORATE_ACTION_OR_EXIT_RULES",
+      "BENCHMARK",
+      "40PCT_EXCESS_OR_1P50_SHARPE_GATES"
+    ],
+    "acquisition_may_compute_strategy_return_or_rank": false,
+    "corrected_formula_must_freeze_before_visible_outcome": true,
+    "v1_result_may_not_be_reinterpreted": true
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

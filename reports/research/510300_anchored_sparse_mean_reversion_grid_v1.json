@@ -1,0 +1,552 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_ANCHORED_SPARSE_MEAN_REVERSION_GRID_V1_PHASE_A",
+  "generated_at": "2026-08-31T23:01:15.481187+08:00",
+  "status": "REJECTED_PHASE_A_NO_GRID_BACKTEST_NO_RESCUE",
+  "goal_achieved": false,
+  "research_stage": "DISCOVERY",
+  "return_evaluation": "EVENT_INFORMATION_BUDGET_COMPLETED",
+  "portfolio_return_evaluation": "NOT_RUN_PHASE_A",
+  "manifest_verification": {
+    "status": "PASS_FROZEN_IMPLEMENTATION_AND_INPUTS",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/510300_anchored_sparse_mean_reversion_grid_v1_manifest.json",
+    "manifest_sha256": "e4f07934c10d65fc01bc44827ef37a1900b981d3f85d9d165f8453d2a52c1bd1",
+    "tracked_file_count": 6,
+    "input_file_count": 7,
+    "tracked_files_sha256": "6d48a71d2d9cd48d4f1fb1ed2ef34e4bb6ac1e9c11a75ddcbc3a695c0e9c13ea",
+    "input_snapshot_sha256": "5e6f317b8d9a26bbf0e1e6fdcf8ba0b48ec1aa186e1c48d110254139694d8f38",
+    "result_preexisted_at_freeze": false,
+    "live_trading_authorized": false
+  },
+  "input_audit": {
+    "audit_id": "510300_ANCHORED_SPARSE_MEAN_REVERSION_GRID_V1_INPUT_AUDIT",
+    "generated_at": "2026-08-31T22:54:11.866145+08:00",
+    "status": "PASS_DISCOVERY_INDEX_PROXY_INPUTS",
+    "passed": true,
+    "return_evaluation": "ALLOWED_AFTER_MANIFEST_VERIFICATION",
+    "failures": [],
+    "sections": {
+      "etf_minute": {
+        "passed": true,
+        "failures": [],
+        "checks": {
+          "row_count": true,
+          "trading_day_count": true,
+          "bars_per_day": true,
+          "first_record_label": true,
+          "last_record_label": true,
+          "duplicate_timestamps": true,
+          "strict_timestamp_order": true,
+          "model_prices_positive_finite": true,
+          "amount_nonnegative_finite": true,
+          "symbol_exact": true,
+          "date_range": true,
+          "full_ohlc_valid": true
+        },
+        "row_count": 291851,
+        "trading_day_count": 1211,
+        "start": "2021-08-12T09:30:00",
+        "end": "2026-08-12T15:00:00",
+        "bar_count_distribution": {
+          "241": 1211
+        },
+        "duplicate_timestamp_count": 0,
+        "non_monotonic_timestamp_count": 0,
+        "invalid_model_price_count": 0,
+        "invalid_amount_count": 0,
+        "unused_or_full_ohlc_anomaly_count": 0,
+        "zero_amount_row_count": 49
+      },
+      "index_minute": {
+        "passed": true,
+        "failures": [],
+        "checks": {
+          "row_count": true,
+          "trading_day_count": true,
+          "bars_per_day": true,
+          "first_record_label": true,
+          "last_record_label": true,
+          "duplicate_timestamps": true,
+          "strict_timestamp_order": true,
+          "model_prices_positive_finite": true,
+          "amount_nonnegative_finite": true,
+          "symbol_exact": true,
+          "date_range": true,
+          "unused_high_low_anomalies_within_limit": true
+        },
+        "row_count": 291851,
+        "trading_day_count": 1211,
+        "start": "2021-08-12T09:30:00",
+        "end": "2026-08-12T15:00:00",
+        "bar_count_distribution": {
+          "241": 1211
+        },
+        "duplicate_timestamp_count": 0,
+        "non_monotonic_timestamp_count": 0,
+        "invalid_model_price_count": 0,
+        "invalid_amount_count": 0,
+        "unused_or_full_ohlc_anomaly_count": 1,
+        "zero_amount_row_count": 1242
+      },
+      "timestamp_alignment": {
+        "passed": true,
+        "exact_timestamp_match_count": 291851,
+        "etf_row_count": 291851,
+        "index_row_count": 291851,
+        "etf_only_timestamp_count": 0,
+        "index_only_timestamp_count": 0
+      },
+      "etf_daily_crosscheck": {
+        "passed": true,
+        "failures": [],
+        "checks": {
+          "daily_dates_unique": true,
+          "daily_coverage_complete": true,
+          "open_within_tolerance": true,
+          "high_within_tolerance": true,
+          "low_within_tolerance": true,
+          "close_within_tolerance": true
+        },
+        "metrics": {
+          "open": {
+            "maximum_absolute_difference": 0.0,
+            "p99_absolute_difference": 0.0,
+            "exact_match_count": 1211
+          },
+          "high": {
+            "maximum_absolute_difference": 0.0,
+            "p99_absolute_difference": 0.0,
+            "exact_match_count": 1211
+          },
+          "low": {
+            "maximum_absolute_difference": 0.0,
+            "p99_absolute_difference": 0.0,
+            "exact_match_count": 1211
+          },
+          "close": {
+            "maximum_absolute_difference": 0.0,
+            "p99_absolute_difference": 0.0,
+            "exact_match_count": 1211
+          }
+        },
+        "overlap_day_count": 1211,
+        "duplicate_daily_date_count": 0
+      },
+      "index_daily_crosscheck": {
+        "passed": true,
+        "failures": [],
+        "checks": {
+          "daily_dates_unique": true,
+          "daily_coverage_complete": true,
+          "open_within_tolerance": true,
+          "close_within_tolerance": true
+        },
+        "metrics": {
+          "open": {
+            "maximum_absolute_difference": 0.0007000000005064066,
+            "p99_absolute_difference": 0.000600000000304135,
+            "exact_match_count": 662
+          },
+          "close": {
+            "maximum_absolute_difference": 0.0007000000005064066,
+            "p99_absolute_difference": 0.000600000000304135,
+            "exact_match_count": 701
+          }
+        },
+        "overlap_day_count": 1211,
+        "duplicate_daily_date_count": 0
+      },
+      "dividends": {
+        "passed": true,
+        "failures": [],
+        "missing_columns": [],
+        "checks": {
+          "required_columns": true,
+          "symbol_exact": true,
+          "ex_dates_valid": true,
+          "ex_dates_unique": true,
+          "cash_dividend_positive": true,
+          "in_sample_sources_official_sse": true,
+          "in_sample_dividend_count_positive": true
+        },
+        "in_sample_records": [
+          {
+            "ex_date": "2022-01-19T00:00:00",
+            "cash_dividend_per_share": 0.075,
+            "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2022-01-12/510300_20220112_1_pWPNE0aG.pdf"
+          },
+          {
+            "ex_date": "2023-01-16T00:00:00",
+            "cash_dividend_per_share": 0.064,
+            "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2023-01-09/510300_20230109_0ED5.pdf"
+          },
+          {
+            "ex_date": "2024-01-18T00:00:00",
+            "cash_dividend_per_share": 0.069,
+            "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2024-01-11/510300_20240111_QQFV.pdf"
+          },
+          {
+            "ex_date": "2025-06-18T00:00:00",
+            "cash_dividend_per_share": 0.088,
+            "source": "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20250611_10781544.shtml"
+          },
+          {
+            "ex_date": "2026-01-19T00:00:00",
+            "cash_dividend_per_share": 0.123,
+            "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-01-12/510300_20260112_VTCZ.pdf"
+          }
+        ]
+      },
+      "metadata": {
+        "passed": true,
+        "failures": [],
+        "checks": {
+          "etf_metadata_status_pass": true,
+          "index_metadata_status_pass": true,
+          "etf_adjustment_raw": true,
+          "index_official_idx_mins_not_claimed": true
+        },
+        "index_source_limit": "TUSHARE_COMPATIBLE_GENERIC_ENDPOINT_NOT_OFFICIAL_IDX_MINS_ENTITLEMENT",
+        "iopv_available": false,
+        "iopv_claim_allowed": false
+      }
+    },
+    "evidence_limits": {
+      "historical_iopv_complete": false,
+      "anchor_is_index_implied_proxy_not_fair_value": true,
+      "minute_record_start_or_end_semantics_proven": false,
+      "unused_index_high_low_raw_rows_modified": false
+    }
+  },
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "observational_anchor": "000300.SH",
+    "observational_anchor_is_tradable": false,
+    "iopv_used": false,
+    "constituent_execution_allowed": false,
+    "derivative_execution_allowed": false,
+    "leverage_allowed": false,
+    "short_selling_allowed": false,
+    "martingale_position_sizing_allowed": false
+  },
+  "mechanism": {
+    "anchor_type": "DIVIDEND_ADJUSTED_PREVIOUS_CLOSE_INDEX_IMPLIED_PROXY",
+    "anchor_is_fair_value": false,
+    "historical_iopv_used": false,
+    "grid_role": "EXECUTION_AND_INVENTORY_CONTROL_ONLY"
+  },
+  "cost_model": {
+    "grid_notional_cny": 20000.0,
+    "effective_commission_rate_per_leg": 0.00025,
+    "base_round_trip_rate": 0.0015,
+    "stress_round_trip_rate": 0.0022500000000000003
+  },
+  "coverage": {
+    "minute_feature_rows": 291851,
+    "minute_feature_days": 1211,
+    "first_feature_time": "2021-08-12T09:30:00",
+    "last_feature_time": "2026-08-12T15:00:00",
+    "diagnostic_event_rows": 2886,
+    "event_outcome_rows": 2886
+  },
+  "phase_a_evaluation": {
+    "status": "REJECTED_PHASE_A_NO_GRID_BACKTEST_NO_RESCUE",
+    "phase_a_passed": false,
+    "phase_b_portfolio_backtest": "NOT_ALLOWED",
+    "portfolio_sharpe_uplift_vs_same_average_exposure": "NOT_EVALUATED_PHASE_A",
+    "primary_horizon_minutes": 45,
+    "metrics": {
+      "diagnostic_event_count": 2886,
+      "liquidity_shock_candidate_time_event_count": 39,
+      "primary_cost_grid_qualified_completed_event_count": 0,
+      "base_mean_net_event_return": null,
+      "stress_mean_net_event_return": null,
+      "mean_etf_reversal": null,
+      "mean_anchor_catchup": null,
+      "mean_total_convergence": null,
+      "positive_calendar_year_count": 0,
+      "maximum_single_positive_year_contribution_share": null,
+      "special_open_tail_positive_profit_share": null,
+      "full_day_path_efficiency_p90": 0.13741077732663037,
+      "top_10pct_trend_day_event_sum": null,
+      "ordinary_day_positive_event_sum": null,
+      "latest_two_calendar_years": [
+        2025,
+        2026
+      ]
+    },
+    "bootstrap": {
+      "status": "NO_EVENTS",
+      "lower_bound": null,
+      "repetitions": 5000
+    },
+    "gates": {
+      "completed_event_count_at_least_300": false,
+      "base_mean_net_return_positive": false,
+      "day_block_bootstrap_95pct_lower_bound_positive": false,
+      "at_least_four_positive_calendar_years": false,
+      "single_positive_year_contribution_not_above_50pct": false,
+      "stress_1_5x_cost_mean_positive": false,
+      "both_directions_count_and_net_mean_positive": false,
+      "etf_reversal_positive_and_dominates_anchor_catchup": false,
+      "severity_monotonic_with_minimum_bin_count": false,
+      "lower_path_efficiency_stronger_with_minimum_bin_count": false,
+      "nearby_threshold_platform_positive_with_minimum_counts": false,
+      "latest_two_calendar_years_positive": false,
+      "profit_not_mainly_open_or_tail": false,
+      "strongest_10pct_trend_days_do_not_consume_ordinary_positive_sum": false,
+      "phase_a_uses_no_limit_fill_or_same_record_round_trip": true
+    },
+    "failed_gates": [
+      "completed_event_count_at_least_300",
+      "base_mean_net_return_positive",
+      "day_block_bootstrap_95pct_lower_bound_positive",
+      "at_least_four_positive_calendar_years",
+      "single_positive_year_contribution_not_above_50pct",
+      "stress_1_5x_cost_mean_positive",
+      "both_directions_count_and_net_mean_positive",
+      "etf_reversal_positive_and_dominates_anchor_catchup",
+      "severity_monotonic_with_minimum_bin_count",
+      "lower_path_efficiency_stronger_with_minimum_bin_count",
+      "nearby_threshold_platform_positive_with_minimum_counts",
+      "latest_two_calendar_years_positive",
+      "profit_not_mainly_open_or_tail",
+      "strongest_10pct_trend_days_do_not_consume_ordinary_positive_sum"
+    ],
+    "stop_codes": {
+      "STOP_1_COST_ERASES_REVERSAL": true,
+      "STOP_2_CONVERGENCE_NOT_ETF_LED": true,
+      "STOP_3_PROFIT_MAINLY_OPEN_OR_TAIL": true,
+      "STOP_4_TREND_TAIL_LOSS_TOO_LARGE": true,
+      "STOP_5_WIDER_GRID_EVENT_BUDGET_INSUFFICIENT": true,
+      "STOP_6_FICTITIOUS_SAME_RECORD_FILL": false,
+      "STOP_7_RECENT_TWO_YEARS_DISAPPEAR": true,
+      "STOP_8_SAME_EXPOSURE_BENCHMARK_NO_EXCESS": "NOT_EVALUATED_PHASE_A"
+    },
+    "tables": {
+      "horizons": [
+        {
+          "horizon_minutes": 5,
+          "event_count": 0,
+          "mean_etf_reversal": null,
+          "mean_anchor_catchup": null,
+          "mean_convergence": null,
+          "mean_net_base": null,
+          "mean_net_stress": null,
+          "center_before_stop_rate": null,
+          "stop_before_center_rate": null
+        },
+        {
+          "horizon_minutes": 15,
+          "event_count": 0,
+          "mean_etf_reversal": null,
+          "mean_anchor_catchup": null,
+          "mean_convergence": null,
+          "mean_net_base": null,
+          "mean_net_stress": null,
+          "center_before_stop_rate": null,
+          "stop_before_center_rate": null
+        },
+        {
+          "horizon_minutes": 30,
+          "event_count": 0,
+          "mean_etf_reversal": null,
+          "mean_anchor_catchup": null,
+          "mean_convergence": null,
+          "mean_net_base": null,
+          "mean_net_stress": null,
+          "center_before_stop_rate": null,
+          "stop_before_center_rate": null
+        },
+        {
+          "horizon_minutes": 45,
+          "event_count": 0,
+          "mean_etf_reversal": null,
+          "mean_anchor_catchup": null,
+          "mean_convergence": null,
+          "mean_net_base": null,
+          "mean_net_stress": null,
+          "center_before_stop_rate": null,
+          "stop_before_center_rate": null
+        },
+        {
+          "horizon_minutes": 60,
+          "event_count": 0,
+          "mean_etf_reversal": null,
+          "mean_anchor_catchup": null,
+          "mean_convergence": null,
+          "mean_net_base": null,
+          "mean_net_stress": null,
+          "center_before_stop_rate": null,
+          "stop_before_center_rate": null
+        }
+      ],
+      "directions": [],
+      "calendar_years": [],
+      "severity": [
+        {
+          "severity_bin": "1.0_1.5",
+          "event_count": 35,
+          "mean": 6.272451488044133e-05,
+          "median": 0.0005021340803472812,
+          "sum": 0.0021953580208154467,
+          "positive_rate": 0.5428571428571428
+        },
+        {
+          "severity_bin": "1.5_2.0",
+          "event_count": 4,
+          "mean": -8.308222838433646e-05,
+          "median": 0.00028482810396826205,
+          "sum": -0.0003323289135373458,
+          "positive_rate": 0.5
+        }
+      ],
+      "path_efficiency": [],
+      "volume_ratio": [
+        {
+          "volume_ratio_bin": "ELEVATED",
+          "event_count": 15,
+          "mean": -0.00031397055244509304,
+          "median": -0.0002256274559251472,
+          "sum": -0.004709558286676395,
+          "positive_rate": 0.4
+        },
+        {
+          "volume_ratio_bin": "EXTREME",
+          "event_count": 24,
+          "mean": -0.0021636421919185625,
+          "median": -0.0020480685506649382,
+          "sum": -0.051927412606045505,
+          "positive_rate": 0.25
+        }
+      ],
+      "time_segment": [
+        {
+          "time_segment": "AFTERNOON_MIDDLE_1300_1415",
+          "event_count": 21,
+          "mean": -0.0015631534310703433,
+          "median": -0.0009978659196527187,
+          "sum": -0.03282622205247721,
+          "positive_rate": 0.2857142857142857
+        },
+        {
+          "time_segment": "MORNING_MIDDLE_1000_1130",
+          "event_count": 18,
+          "mean": -0.0013228193800135938,
+          "median": -0.0014424567515234257,
+          "sum": -0.023810748840244686,
+          "positive_rate": 0.3333333333333333
+        },
+        {
+          "time_segment": "OPEN_0930_0959",
+          "event_count": 32,
+          "mean": -7.764444921517651e-05,
+          "median": -0.0005416314422177628,
+          "sum": -0.0024846223748856483,
+          "positive_rate": 0.4375
+        }
+      ],
+      "market_state": [],
+      "nearby_threshold_platform": [
+        {
+          "scale_multiple": 1.75,
+          "event_count": 0,
+          "mean_net_base": null
+        },
+        {
+          "scale_multiple": 2.0,
+          "event_count": 0,
+          "mean_net_base": null
+        },
+        {
+          "scale_multiple": 2.25,
+          "event_count": 0,
+          "mean_net_base": null
+        }
+      ]
+    }
+  },
+  "decision": {
+    "phase_b_grid_backtest_allowed": false,
+    "phase_b_grid_backtest_run": false,
+    "parameter_rescue_allowed": false,
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false,
+    "next_step": "停止本分支；不运行网格组合回测，不改参数、窗口、成本、代理或子区间救援"
+  },
+  "inputs": {
+    "etf_minute.path": {
+      "path": "data/raw/market/510300_1m_tushare_raw.parquet",
+      "bytes": 6642382,
+      "sha256": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268"
+    },
+    "etf_minute.metadata_path": {
+      "path": "data/raw/market/510300_1m_tushare_raw.metadata.json",
+      "bytes": 1772,
+      "sha256": "1918b3ff5bbc42899a10001632c858dec062df34c30d314d8e0eeb1b7a23421c"
+    },
+    "index_minute.path": {
+      "path": "data/raw/market/000300_1m_tushare_raw.parquet",
+      "bytes": 13387986,
+      "sha256": "e2c3c533b838aaf5bb003d059f9bcb74fbc37c8d13af3fe7776ea9a683d5763e"
+    },
+    "index_minute.metadata_path": {
+      "path": "data/raw/market/000300_1m_tushare_raw.metadata.json",
+      "bytes": 370,
+      "sha256": "6f39cfa5096717da694e204e7800eb61d52a98342da18c0eac202e25328af7af"
+    },
+    "etf_daily_crosscheck.path": {
+      "path": "data/raw/market/510300_daily_raw.parquet",
+      "bytes": 102386,
+      "sha256": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4"
+    },
+    "index_daily_crosscheck.path": {
+      "path": "data/raw/market/000300_daily_raw.parquet",
+      "bytes": 61115,
+      "sha256": "cb2fee88cf69a756e3078956f4bb9bec8e7cce6ceb62f910343436ba68dd8a8d"
+    },
+    "dividends.path": {
+      "path": "data/reference/510300_dividends.csv",
+      "bytes": 2021,
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  },
+  "outputs": {
+    "feature_table": "data/research/510300_anchored_sparse_mean_reversion_grid_v1/minute_features.parquet",
+    "event_table": "data/research/510300_anchored_sparse_mean_reversion_grid_v1/events.parquet",
+    "event_outcome_table": "data/research/510300_anchored_sparse_mean_reversion_grid_v1/event_outcomes.parquet",
+    "gate_receipt": "data/research/510300_anchored_sparse_mean_reversion_grid_v1/phase_a_gate_receipt.json"
+  },
+  "official_rules": {
+    "checked_at": "2026-08-31",
+    "sse_etf_faq": "https://www.sse.com.cn/assortment/fund/etf/question/",
+    "sse_trading_rules_2026": "https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/exchange/c/c_20260424_10816482.shtml",
+    "stock_etf_t_plus_one": true,
+    "minimum_buy_lot_shares": 100,
+    "minimum_price_tick_cny": 0.001
+  },
+  "governance": {
+    "one_shot_historical_evaluation": true,
+    "parameter_rescue_after_result": "FORBIDDEN",
+    "window_rescue_after_result": "FORBIDDEN",
+    "label_rescue_after_result": "FORBIDDEN",
+    "cost_rescue_after_result": "FORBIDDEN",
+    "proxy_rescue_after_result": "FORBIDDEN",
+    "direction_flip_after_result": "FORBIDDEN",
+    "subperiod_rescue_after_result": "FORBIDDEN",
+    "failed_phase_a_runs_phase_b": false,
+    "research_only": true,
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

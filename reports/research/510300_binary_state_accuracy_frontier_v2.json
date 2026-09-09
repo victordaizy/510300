@@ -1,0 +1,1776 @@
+{
+  "schema_version": "2.0.0",
+  "study_id": "510300_BINARY_STATE_ACCURACY_FRONTIER_V2",
+  "version": "2.0.0",
+  "generated_at": "2026-08-28T01:01:51.346616+08:00",
+  "status": "BINARY_SHORT_HORIZON_ACCURACY_REQUIREMENT_QUANTIFIED",
+  "goal_achieved": false,
+  "reason_goal_not_achieved": "全部标签与严重度排序均使用未来结果，只能约束候选所需能力，不能构成可实现策略证据",
+  "historical_evidence_label": "HISTORICALLY_CONTAMINATED_PERFECT_FORESIGHT_DIAGNOSTIC_ONLY",
+  "manifest": {
+    "path": "config/510300_binary_state_accuracy_frontier_v2_manifest.json",
+    "sha256": "f2570c979f1576c77278ea42a5588b95e877964f01b618331f31730adecb5205",
+    "frozen_at": "2026-08-28T00:43:22.875574+08:00"
+  },
+  "upstream_v1_manifest": {
+    "path": "config/510300_binary_state_feasibility_v1_manifest.json",
+    "frozen_at": "2026-08-27T23:52:02.241175+08:00"
+  },
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "allowed_target_states": [
+      0,
+      1
+    ],
+    "initial_capital_cny": 500000.0,
+    "long_only": true,
+    "leverage_allowed": false,
+    "short_selling_allowed": false,
+    "derivatives_allowed": false,
+    "signal_time": "T日收盘后",
+    "execution_time": "T+1交易日开盘",
+    "full_state_reinvests_paid_cash_dividends": true
+  },
+  "objective": {
+    "benchmark_id": "H00300",
+    "benchmark_return_type": "TOTAL_RETURN",
+    "primary_metric": "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR",
+    "annualization_trading_days": 242,
+    "minimum_annualized_excess": 0.2,
+    "rolling_window_trading_days": 242,
+    "minimum_rolling_excess_median": 0.2
+  },
+  "costs": {
+    "commission_rate_per_leg": 0.0001,
+    "minimum_commission_cny_per_leg": 0.0,
+    "base_slippage_bps_per_leg": 5.0,
+    "stress_slippage_bps_per_leg": 15.0,
+    "cash_annual_rate": 0.015,
+    "lot_size_shares": 100
+  },
+  "data_audit": {
+    "status": "PASS",
+    "historical_cutoff": "2026-08-14",
+    "merged_rows": 3456,
+    "merged_invalid_rows": 0,
+    "etf_market": {
+      "rows": 3456,
+      "required_rows": 3456,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "duplicate_dates": 0,
+      "symbols": [
+        "510300.SH"
+      ],
+      "missing_columns": [],
+      "invalid_prices": 0,
+      "status": "PASS"
+    },
+    "benchmark_total_return": {
+      "rows": 3457,
+      "required_rows": 3457,
+      "first_date": "2012-05-28",
+      "last_date": "2026-08-14",
+      "duplicate_dates": 0,
+      "symbols": [
+        "H00300"
+      ],
+      "missing_columns": [],
+      "invalid_prices": 0,
+      "status": "PASS"
+    },
+    "cash_distributions": {
+      "event_count": 14,
+      "first_ex_date": "2012-12-18",
+      "last_ex_date": "2026-01-19",
+      "duplicate_ex_dates": 0,
+      "nonpositive_cash_dividends": 0,
+      "missing_columns": [],
+      "status": "PASS"
+    },
+    "calendar": {
+      "missing_benchmark_execution_dates": [],
+      "extra_benchmark_dates": [
+        "2018-06-18"
+      ],
+      "extra_dates_exactly_allowed": true,
+      "status": "PASS"
+    },
+    "input_hashes": {
+      "data/raw/r6/510300_daily.parquet": "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979",
+      "data/raw/r6/H00300_total_return_daily.parquet": "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961",
+      "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  },
+  "row_counts": {
+    "random_trials": 39600,
+    "random_aggregates": 396,
+    "severity_ranked_oracle": 90,
+    "block_labels": 6906
+  },
+  "frontier_summary": {
+    "random_exact_count_requirements": [
+      {
+        "horizon_trading_days": 1,
+        "false_exit_rate": 0.0,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.44956672103945733,
+            "worst_offset_rolling_excess_median": 0.39624575497529146
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5900088798150904,
+            "worst_offset_rolling_excess_median": 0.5190463497845441
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7274607161961867,
+            "worst_offset_rolling_excess_median": 0.6515533585840472
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8147332945166923,
+            "worst_offset_rolling_excess_median": 0.7330349861595746
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.9077349446006064,
+            "worst_offset_rolling_excess_median": 0.809357657480945
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.0039921360681898,
+            "worst_offset_rolling_excess_median": 0.9055368225124201
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.099711080919499,
+            "worst_offset_rolling_excess_median": 0.9870104666413715
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.1530074067236924,
+            "worst_offset_rolling_excess_median": 1.04834723876229
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.2075090894949685,
+            "worst_offset_rolling_excess_median": 1.094265915926501
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.264632945139232,
+            "worst_offset_rolling_excess_median": 1.1441577973916317
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.3233630767182032,
+            "worst_offset_rolling_excess_median": 1.2043021155527793
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 1,
+        "false_exit_rate": 0.01,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.43459566583456605,
+            "worst_offset_rolling_excess_median": 0.38214511840473686
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5684825947091751,
+            "worst_offset_rolling_excess_median": 0.4920797636744955
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7114492811996638,
+            "worst_offset_rolling_excess_median": 0.6302227718802341
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.791582045862437,
+            "worst_offset_rolling_excess_median": 0.7063163318672391
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8888519372133024,
+            "worst_offset_rolling_excess_median": 0.800539664768495
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.9851929477718069,
+            "worst_offset_rolling_excess_median": 0.8824819477939423
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.0796250337397226,
+            "worst_offset_rolling_excess_median": 0.9777061468129873
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.130590591986042,
+            "worst_offset_rolling_excess_median": 1.0176777652007618
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.1869909231457012,
+            "worst_offset_rolling_excess_median": 1.074518346621835
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.2420468806193057,
+            "worst_offset_rolling_excess_median": 1.127793444505822
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.2983464768039858,
+            "worst_offset_rolling_excess_median": 1.182730796491295
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 1,
+        "false_exit_rate": 0.02,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.415785588936608,
+            "worst_offset_rolling_excess_median": 0.3654615947017723
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5500612804793331,
+            "worst_offset_rolling_excess_median": 0.48454880226078567
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.6985438428529861,
+            "worst_offset_rolling_excess_median": 0.6226714506126172
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7692440283126344,
+            "worst_offset_rolling_excess_median": 0.6917087305347531
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8632365779218195,
+            "worst_offset_rolling_excess_median": 0.7761707556253531
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.9519979124288238,
+            "worst_offset_rolling_excess_median": 0.8541745234255915
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.0560197861674596,
+            "worst_offset_rolling_excess_median": 0.9515232872594215
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.1081038178663078,
+            "worst_offset_rolling_excess_median": 0.9954629418203189
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.1607338312303068,
+            "worst_offset_rolling_excess_median": 1.0457223770997266
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.216620851933137,
+            "worst_offset_rolling_excess_median": 1.102883962091085
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.2744767912361037,
+            "worst_offset_rolling_excess_median": 1.1606440278745525
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 1,
+        "false_exit_rate": 0.05,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.36526862116090814,
+            "worst_offset_rolling_excess_median": 0.3158674054543457
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.48826764879695844,
+            "worst_offset_rolling_excess_median": 0.43173362090628487
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.6331438939200256,
+            "worst_offset_rolling_excess_median": 0.5549213366020387
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7114869517531407,
+            "worst_offset_rolling_excess_median": 0.6439935024574805
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8035832127642671,
+            "worst_offset_rolling_excess_median": 0.7179575986595732
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.899256479262906,
+            "worst_offset_rolling_excess_median": 0.8066630422132972
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.9801312244115741,
+            "worst_offset_rolling_excess_median": 0.8831926812333084
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.0458164368058367,
+            "worst_offset_rolling_excess_median": 0.9371050830076666
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.0891028914083518,
+            "worst_offset_rolling_excess_median": 0.988686478015639
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.1525304614638046,
+            "worst_offset_rolling_excess_median": 1.0393189612607303
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.2023092744205657,
+            "worst_offset_rolling_excess_median": 1.0913992304325184
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 1,
+        "false_exit_rate": 0.1,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2797673364956441,
+            "worst_offset_rolling_excess_median": 0.23851999659018291
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4075330027408617,
+            "worst_offset_rolling_excess_median": 0.3563051269731873
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5400862621255078,
+            "worst_offset_rolling_excess_median": 0.4770506965501834
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.6129051739447036,
+            "worst_offset_rolling_excess_median": 0.549040036518718
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7008559793960001,
+            "worst_offset_rolling_excess_median": 0.6170809764114037
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7863885968262865,
+            "worst_offset_rolling_excess_median": 0.7103489986095545
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8772588398454131,
+            "worst_offset_rolling_excess_median": 0.7859295559718863
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.9338110694294837,
+            "worst_offset_rolling_excess_median": 0.8264943348851388
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.9810613095379506,
+            "worst_offset_rolling_excess_median": 0.8839907138128837
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.031801643077758,
+            "worst_offset_rolling_excess_median": 0.9301149844872005
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 1.0886020570837582,
+            "worst_offset_rolling_excess_median": 0.982780036609761
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 1,
+        "false_exit_rate": 0.2,
+        "required_bad_block_recall_every_offset": 0.6,
+        "required_bad_block_recall_median_offset": 0.6,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 0,
+            "offset_count": 1,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess_median": 0.1275238864823816,
+            "worst_offset_rolling_excess_median": 0.1029145721293768
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2412427651521571,
+            "worst_offset_rolling_excess_median": 0.2085740252138837
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.3744709810388481,
+            "worst_offset_rolling_excess_median": 0.32852717654477653
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4421629426937605,
+            "worst_offset_rolling_excess_median": 0.3946049281218329
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5268915967597112,
+            "worst_offset_rolling_excess_median": 0.46702720545792065
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.606643041513638,
+            "worst_offset_rolling_excess_median": 0.5365979396945944
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.6877541595612888,
+            "worst_offset_rolling_excess_median": 0.6188754740217643
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7396964519777794,
+            "worst_offset_rolling_excess_median": 0.6613651763001316
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.7932681695279463,
+            "worst_offset_rolling_excess_median": 0.7125869243788123
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8348713591773586,
+            "worst_offset_rolling_excess_median": 0.7525923414273815
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.8960023281590127,
+            "worst_offset_rolling_excess_median": 0.8043262894376023
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "false_exit_rate": 0.0,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2523750670451702,
+            "worst_offset_rolling_excess_median": 0.22548769088765008
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.31364982426692056,
+            "worst_offset_rolling_excess_median": 0.2794164344337967
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.3793667599725745,
+            "worst_offset_rolling_excess_median": 0.33885099161570226
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4121927819163209,
+            "worst_offset_rolling_excess_median": 0.3680771694135071
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.44598058245514466,
+            "worst_offset_rolling_excess_median": 0.3996007970087144
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4859031824590781,
+            "worst_offset_rolling_excess_median": 0.43145514047684674
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5153507838778133,
+            "worst_offset_rolling_excess_median": 0.4645649799072876
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5357973841546138,
+            "worst_offset_rolling_excess_median": 0.4767697330785808
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5581137131619036,
+            "worst_offset_rolling_excess_median": 0.491886855134722
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5779861814686219,
+            "worst_offset_rolling_excess_median": 0.5133638592052628
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5973515528382214,
+            "worst_offset_rolling_excess_median": 0.5258225719181698
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "false_exit_rate": 0.01,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.24566165368424112,
+            "worst_offset_rolling_excess_median": 0.21096565348707363
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.3035493240086839,
+            "worst_offset_rolling_excess_median": 0.270127070509772
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.37093041535229687,
+            "worst_offset_rolling_excess_median": 0.32708504405240824
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4042363631821257,
+            "worst_offset_rolling_excess_median": 0.360792320150916
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.43709040221406253,
+            "worst_offset_rolling_excess_median": 0.38633335582035483
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.47494230349599387,
+            "worst_offset_rolling_excess_median": 0.4254649404966385
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5123430213112489,
+            "worst_offset_rolling_excess_median": 0.45901744042368386
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5297887558358834,
+            "worst_offset_rolling_excess_median": 0.4694181517930788
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5508048869639104,
+            "worst_offset_rolling_excess_median": 0.48351125074277274
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5675118160000344,
+            "worst_offset_rolling_excess_median": 0.502057593248193
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5884239694547292,
+            "worst_offset_rolling_excess_median": 0.5205813981237368
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "false_exit_rate": 0.02,
+        "required_bad_block_recall_every_offset": 0.5,
+        "required_bad_block_recall_median_offset": 0.5,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2330636873318216,
+            "worst_offset_rolling_excess_median": 0.2076825841106235
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2953836565026683,
+            "worst_offset_rolling_excess_median": 0.264046367590163
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.3571295785249451,
+            "worst_offset_rolling_excess_median": 0.32321449187683365
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.39787390503711106,
+            "worst_offset_rolling_excess_median": 0.3521131730743417
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.43044135599062483,
+            "worst_offset_rolling_excess_median": 0.3893611492940944
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4656889717545118,
+            "worst_offset_rolling_excess_median": 0.417587409316185
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5028594615018078,
+            "worst_offset_rolling_excess_median": 0.4508458707063103
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5227935075389339,
+            "worst_offset_rolling_excess_median": 0.4638432732646325
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5410792946543542,
+            "worst_offset_rolling_excess_median": 0.47604964628615504
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5605222965873005,
+            "worst_offset_rolling_excess_median": 0.49227910577542555
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5785338987668169,
+            "worst_offset_rolling_excess_median": 0.5129761421819834
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "false_exit_rate": 0.05,
+        "required_bad_block_recall_every_offset": 0.6,
+        "required_bad_block_recall_median_offset": 0.6,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 1,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess_median": 0.2144508542785784,
+            "worst_offset_rolling_excess_median": 0.19098480519124206
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2768987198955857,
+            "worst_offset_rolling_excess_median": 0.2442460388187957
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.33615487728297144,
+            "worst_offset_rolling_excess_median": 0.3036487938331991
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.37419731014906854,
+            "worst_offset_rolling_excess_median": 0.33628119390254174
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4056947478376949,
+            "worst_offset_rolling_excess_median": 0.3598225177750758
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4439947421764973,
+            "worst_offset_rolling_excess_median": 0.39602090747665986
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.47857858792126223,
+            "worst_offset_rolling_excess_median": 0.4301331264013044
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4950108695993625,
+            "worst_offset_rolling_excess_median": 0.44155035467595294
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5148554906074939,
+            "worst_offset_rolling_excess_median": 0.46070701973785977
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5330372042970847,
+            "worst_offset_rolling_excess_median": 0.4731147101387565
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5532384394638006,
+            "worst_offset_rolling_excess_median": 0.49290830957157394
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "false_exit_rate": 0.1,
+        "required_bad_block_recall_every_offset": 0.6,
+        "required_bad_block_recall_median_offset": 0.6,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess_median": 0.1785253281245697,
+            "worst_offset_rolling_excess_median": 0.1547440075566431
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2396359936454364,
+            "worst_offset_rolling_excess_median": 0.2118891378564798
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2984641401017242,
+            "worst_offset_rolling_excess_median": 0.26480128237286427
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.33268741784390443,
+            "worst_offset_rolling_excess_median": 0.2972178349099821
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.368455542853854,
+            "worst_offset_rolling_excess_median": 0.32784147118610873
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4011084118826042,
+            "worst_offset_rolling_excess_median": 0.36252270601761555
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4335664350199716,
+            "worst_offset_rolling_excess_median": 0.3938439624787376
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.45656465306223076,
+            "worst_offset_rolling_excess_median": 0.407117226512447
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.4714520611608399,
+            "worst_offset_rolling_excess_median": 0.42441087833698077
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.49291874578622147,
+            "worst_offset_rolling_excess_median": 0.43808585510690096
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.5116160765138321,
+            "worst_offset_rolling_excess_median": 0.4542227072447941
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "false_exit_rate": 0.2,
+        "required_bad_block_recall_every_offset": 0.7,
+        "required_bad_block_recall_median_offset": 0.7,
+        "grid_diagnostics": [
+          {
+            "bad_block_recall": 0.5,
+            "offsets_passing_both_median_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess_median": 0.10786137621732392,
+            "worst_offset_rolling_excess_median": 0.09545263204881943
+          },
+          {
+            "bad_block_recall": 0.6,
+            "offsets_passing_both_median_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess_median": 0.16277102375221067,
+            "worst_offset_rolling_excess_median": 0.1419468276387647
+          },
+          {
+            "bad_block_recall": 0.7,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2263791718170902,
+            "worst_offset_rolling_excess_median": 0.2028160022391352
+          },
+          {
+            "bad_block_recall": 0.75,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.2578903469204685,
+            "worst_offset_rolling_excess_median": 0.23408963684974482
+          },
+          {
+            "bad_block_recall": 0.8,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.29385402170768515,
+            "worst_offset_rolling_excess_median": 0.2662460188187887
+          },
+          {
+            "bad_block_recall": 0.85,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.32517542862254556,
+            "worst_offset_rolling_excess_median": 0.2997176722926891
+          },
+          {
+            "bad_block_recall": 0.9,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.35510346591002256,
+            "worst_offset_rolling_excess_median": 0.3251802260500223
+          },
+          {
+            "bad_block_recall": 0.925,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.3737012206473772,
+            "worst_offset_rolling_excess_median": 0.3419067872745767
+          },
+          {
+            "bad_block_recall": 0.95,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.3940977194175087,
+            "worst_offset_rolling_excess_median": 0.35948574415851153
+          },
+          {
+            "bad_block_recall": 0.975,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.41178537299023166,
+            "worst_offset_rolling_excess_median": 0.37720989491359996
+          },
+          {
+            "bad_block_recall": 1.0,
+            "offsets_passing_both_median_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess_median": 0.43041555576472085,
+            "worst_offset_rolling_excess_median": 0.39508465186290687
+          }
+        ]
+      }
+    ],
+    "severity_ranked_oracle_requirements": [
+      {
+        "horizon_trading_days": 1,
+        "required_target_bad_block_coverage_every_offset": 0.1,
+        "required_target_bad_block_coverage_median_offset": 0.1,
+        "grid_diagnostics": [
+          {
+            "target_bad_block_coverage": 0.0,
+            "realized_bad_block_coverage_median": 0.0,
+            "bad_opportunity_loss_capture_median": 0.0,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 1,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": -0.006176237109563797,
+            "worst_offset_rolling_excess_median": -0.0058353208221654795
+          },
+          {
+            "target_bad_block_coverage": 0.01,
+            "realized_bad_block_coverage_median": 0.009906759906759906,
+            "bad_opportunity_loss_capture_median": 0.0758148210405187,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 1,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.07642884495680806,
+            "worst_offset_rolling_excess_median": -0.0032117323791964053
+          },
+          {
+            "target_bad_block_coverage": 0.02,
+            "realized_bad_block_coverage_median": 0.019813519813519812,
+            "bad_opportunity_loss_capture_median": 0.12707336241617026,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 1,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.12193788465780604,
+            "worst_offset_rolling_excess_median": 0.0333870790312204
+          },
+          {
+            "target_bad_block_coverage": 0.05,
+            "realized_bad_block_coverage_median": 0.05011655011655012,
+            "bad_opportunity_loss_capture_median": 0.23356267909632686,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 1,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.24293815385343703,
+            "worst_offset_rolling_excess_median": 0.13520540211643972
+          },
+          {
+            "target_bad_block_coverage": 0.1,
+            "realized_bad_block_coverage_median": 0.10023310023310024,
+            "bad_opportunity_loss_capture_median": 0.35966043086041316,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.414377512202481,
+            "worst_offset_rolling_excess_median": 0.3050922024265633
+          },
+          {
+            "target_bad_block_coverage": 0.15,
+            "realized_bad_block_coverage_median": 0.14976689976689977,
+            "bad_opportunity_loss_capture_median": 0.4579021934000151,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.5388178303492352,
+            "worst_offset_rolling_excess_median": 0.42165984941429957
+          },
+          {
+            "target_bad_block_coverage": 0.2,
+            "realized_bad_block_coverage_median": 0.1998834498834499,
+            "bad_opportunity_loss_capture_median": 0.5399316283171897,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.6459719588717363,
+            "worst_offset_rolling_excess_median": 0.5220914247584842
+          },
+          {
+            "target_bad_block_coverage": 0.3,
+            "realized_bad_block_coverage_median": 0.30011655011655014,
+            "bad_opportunity_loss_capture_median": 0.6720773417158802,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.8409861248908916,
+            "worst_offset_rolling_excess_median": 0.7157254848735781
+          },
+          {
+            "target_bad_block_coverage": 0.4,
+            "realized_bad_block_coverage_median": 0.3997668997668998,
+            "bad_opportunity_loss_capture_median": 0.770044442380379,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.9829426172251654,
+            "worst_offset_rolling_excess_median": 0.8525935131793686
+          },
+          {
+            "target_bad_block_coverage": 0.5,
+            "realized_bad_block_coverage_median": 0.5,
+            "bad_opportunity_loss_capture_median": 0.846370833072701,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 1.0956594888710163,
+            "worst_offset_rolling_excess_median": 0.9791891084406152
+          },
+          {
+            "target_bad_block_coverage": 0.6,
+            "realized_bad_block_coverage_median": 0.6002331002331003,
+            "bad_opportunity_loss_capture_median": 0.9057857630748619,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 1.175090735449561,
+            "worst_offset_rolling_excess_median": 1.073424418015858
+          },
+          {
+            "target_bad_block_coverage": 0.7,
+            "realized_bad_block_coverage_median": 0.6998834498834499,
+            "bad_opportunity_loss_capture_median": 0.9493610792642914,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 1.2605476809191327,
+            "worst_offset_rolling_excess_median": 1.1507278579949383
+          },
+          {
+            "target_bad_block_coverage": 0.8,
+            "realized_bad_block_coverage_median": 0.8001165501165501,
+            "bad_opportunity_loss_capture_median": 0.9788478494344452,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 1.3080259502844174,
+            "worst_offset_rolling_excess_median": 1.2049187597265405
+          },
+          {
+            "target_bad_block_coverage": 0.9,
+            "realized_bad_block_coverage_median": 0.8997668997668997,
+            "bad_opportunity_loss_capture_median": 0.9949159233676066,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 1.3297448185873681,
+            "worst_offset_rolling_excess_median": 1.2210769941066153
+          },
+          {
+            "target_bad_block_coverage": 1.0,
+            "realized_bad_block_coverage_median": 1.0,
+            "bad_opportunity_loss_capture_median": 1.0,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 1,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 1.3233630767182032,
+            "worst_offset_rolling_excess_median": 1.2043021155527793
+          }
+        ]
+      },
+      {
+        "horizon_trading_days": 5,
+        "required_target_bad_block_coverage_every_offset": 0.2,
+        "required_target_bad_block_coverage_median_offset": 0.2,
+        "grid_diagnostics": [
+          {
+            "target_bad_block_coverage": 0.0,
+            "realized_bad_block_coverage_median": 0.0,
+            "bad_opportunity_loss_capture_median": 0.0,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": -0.006451580409774851,
+            "worst_offset_rolling_excess_median": -0.005885420340008871
+          },
+          {
+            "target_bad_block_coverage": 0.01,
+            "realized_bad_block_coverage_median": 0.009230769230769232,
+            "bad_opportunity_loss_capture_median": 0.06530287557164867,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.014198197799296652,
+            "worst_offset_rolling_excess_median": -0.005588896555434916
+          },
+          {
+            "target_bad_block_coverage": 0.02,
+            "realized_bad_block_coverage_median": 0.021148036253776436,
+            "bad_opportunity_loss_capture_median": 0.10610192257066155,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.03587255212194293,
+            "worst_offset_rolling_excess_median": -0.0047402647682027385
+          },
+          {
+            "target_bad_block_coverage": 0.05,
+            "realized_bad_block_coverage_median": 0.04953560371517028,
+            "bad_opportunity_loss_capture_median": 0.20728635274284962,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.09599108188306102,
+            "worst_offset_rolling_excess_median": 0.04930924663980529
+          },
+          {
+            "target_bad_block_coverage": 0.1,
+            "realized_bad_block_coverage_median": 0.10030395136778116,
+            "bad_opportunity_loss_capture_median": 0.32870717001038285,
+            "offsets_passing_both_gates": 0,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.16345761686441582,
+            "worst_offset_rolling_excess_median": 0.1024661254085347
+          },
+          {
+            "target_bad_block_coverage": 0.15,
+            "realized_bad_block_coverage_median": 0.14893617021276595,
+            "bad_opportunity_loss_capture_median": 0.422603515160824,
+            "offsets_passing_both_gates": 1,
+            "offset_count": 5,
+            "all_offsets_pass": false,
+            "median_offset_pass": false,
+            "worst_offset_annualized_excess": 0.2131513287024276,
+            "worst_offset_rolling_excess_median": 0.16875846307482295
+          },
+          {
+            "target_bad_block_coverage": 0.2,
+            "realized_bad_block_coverage_median": 0.2,
+            "bad_opportunity_loss_capture_median": 0.5006409186310435,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.2626950817880645,
+            "worst_offset_rolling_excess_median": 0.2096670245196174
+          },
+          {
+            "target_bad_block_coverage": 0.3,
+            "realized_bad_block_coverage_median": 0.30063291139240506,
+            "bad_opportunity_loss_capture_median": 0.6354411571840237,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.3442882896058405,
+            "worst_offset_rolling_excess_median": 0.2800436063116733
+          },
+          {
+            "target_bad_block_coverage": 0.4,
+            "realized_bad_block_coverage_median": 0.3993808049535604,
+            "bad_opportunity_loss_capture_median": 0.7357521901528631,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.4133731855931557,
+            "worst_offset_rolling_excess_median": 0.32634293290216054
+          },
+          {
+            "target_bad_block_coverage": 0.5,
+            "realized_bad_block_coverage_median": 0.5015197568389058,
+            "bad_opportunity_loss_capture_median": 0.8227172194398339,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.46412634529100644,
+            "worst_offset_rolling_excess_median": 0.40827321956797064
+          },
+          {
+            "target_bad_block_coverage": 0.6,
+            "realized_bad_block_coverage_median": 0.6006191950464397,
+            "bad_opportunity_loss_capture_median": 0.8896837286471253,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.5091795998962405,
+            "worst_offset_rolling_excess_median": 0.4404999932062098
+          },
+          {
+            "target_bad_block_coverage": 0.7,
+            "realized_bad_block_coverage_median": 0.6993670886075949,
+            "bad_opportunity_loss_capture_median": 0.9364025825097809,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.5474198754334652,
+            "worst_offset_rolling_excess_median": 0.4616397326187801
+          },
+          {
+            "target_bad_block_coverage": 0.8,
+            "realized_bad_block_coverage_median": 0.8,
+            "bad_opportunity_loss_capture_median": 0.9721260643457603,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.5720236663437381,
+            "worst_offset_rolling_excess_median": 0.4951068319344081
+          },
+          {
+            "target_bad_block_coverage": 0.9,
+            "realized_bad_block_coverage_median": 0.9003021148036254,
+            "bad_opportunity_loss_capture_median": 0.9932087552766027,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.587972378467436,
+            "worst_offset_rolling_excess_median": 0.5161678726983704
+          },
+          {
+            "target_bad_block_coverage": 1.0,
+            "realized_bad_block_coverage_median": 1.0,
+            "bad_opportunity_loss_capture_median": 0.9999999999999999,
+            "offsets_passing_both_gates": 5,
+            "offset_count": 5,
+            "all_offsets_pass": true,
+            "median_offset_pass": true,
+            "worst_offset_annualized_excess": 0.5973515528382214,
+            "worst_offset_rolling_excess_median": 0.5258225719181698
+          }
+        ]
+      }
+    ],
+    "perfect_accuracy_check": [
+      {
+        "horizon_trading_days": 1,
+        "offset_count": 1,
+        "annualized_excess_median_across_offsets": 1.3233630767182032,
+        "annualized_excess_worst_offset": 1.3233630767182032,
+        "rolling_excess_median_across_offsets": 1.2043021155527793,
+        "rolling_excess_worst_offset": 1.2043021155527793
+      },
+      {
+        "horizon_trading_days": 5,
+        "offset_count": 5,
+        "annualized_excess_median_across_offsets": 0.6057193464855051,
+        "annualized_excess_worst_offset": 0.5973515528382214,
+        "rolling_excess_median_across_offsets": 0.5734209480640928,
+        "rolling_excess_worst_offset": 0.5258225719181698
+      }
+    ]
+  },
+  "governance": {
+    "strategy_candidate_created": false,
+    "current_state_signal_created": false,
+    "position_mapping_enabled": false,
+    "paper_or_shadow_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false
+  }
+}

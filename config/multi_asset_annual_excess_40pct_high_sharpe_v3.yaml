@@ -1,0 +1,72 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V3"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V2"
+  status: "FROZEN_BEFORE_A_SHARE_LIMIT_UP_CANDIDATE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+  purpose: "在ETF反转、A股SUE和QDII折价回归失败后，仅扩展一条A股价格涨停后可成交延续路线"
+  all_prior_results_preserved: true
+  prior_parameters_or_failures_modified: false
+
+inputs:
+  parent_config: "config/multi_asset_annual_excess_40pct_high_sharpe_v2.yaml"
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v2_manifest.json"
+  qdii_v1_manifest: "config/qdii_cross_market_discount_reversion_v1_manifest.json"
+  qdii_v1_failure_report: "reports/research/qdii_cross_market_discount_reversion_v1_visible.json"
+  qdii_v2_manifest: "config/qdii_cross_market_discount_reversion_zero_variance_v2_manifest.json"
+  qdii_v2_rejection_report: "reports/research/qdii_cross_market_discount_reversion_zero_variance_v2_visible.json"
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+  rolling_and_bootstrap_gates_unchanged: true
+  forward_726_day_requirement_unchanged: true
+
+closed_lanes:
+  - lane: "BROAD_LIQUID_ETF_CROSS_ASSET"
+    state: "CLOSED_AFTER_FROZEN_REJECTION"
+  - lane: "A_SHARE_CROSS_SECTIONAL_HEDGED"
+    state: "CLOSED_AFTER_PRESERVED_FAILURES_AND_FROZEN_REJECTION"
+  - lane: "CROSS_BORDER_QDII_RELATIVE_VALUE"
+    state: "CLOSED_AFTER_VERSIONED_EVALUATION_REJECTION"
+
+new_lane:
+  lane: "A_SHARE_PRICE_LIMIT_CONTINUATION"
+  maximum_candidates_before_family_specific_replication: 1
+  permitted_mechanism: "普通A股收盘封住法定涨停后，在下一交易日开盘确实可成交时买入并固定持有五个开盘周期"
+  prohibited_reuse:
+    - "ETF_MOMENTUM_OR_ROTATION"
+    - "ETF_LIQUIDITY_SHOCK_REVERSAL"
+    - "CROSS_BORDER_QDII_DISCOUNT_REVERSION"
+    - "A_SHARE_LOW_VOLATILITY_OR_SIZE_VALUE"
+    - "A_SHARE_RESIDUAL_TREND_OR_SHORT_TERM_REVERSAL"
+    - "A_SHARE_SUE_OR_OFFICIAL_REPORT_ORJ"
+  short_sale_allowed: false
+  leverage_allowed: false
+  same_close_signal_and_execution_allowed: false
+  next_open_must_be_observed_and_below_upper_limit: true
+
+governance:
+  formula_and_costs_frozen_before_outcome: true
+  retrospective_history_can_verify_target: false
+  visible_result_label: "DISCOVERY_ONLY_FORMULA_FAMILY_VISIBLE"
+  replication_is_not_external_blind_holdout: true
+  replication_may_open_only_after_visible_pass: true
+  failed_candidate_reparameterization_allowed: false
+  target_or_sharpe_relaxation_allowed: false
+  historical_backfill_allowed: false
+  paper_or_live_authorized_by_historical_result: false
+
+outputs:
+  manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v3_manifest.json"
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

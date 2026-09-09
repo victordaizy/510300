@@ -1,0 +1,235 @@
+program:
+  program_id: 510300_STRUCTURAL_PREDICTION_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_WALK_FORWARD_PREDICTION_FREEZE
+  parent_program_id: 510300_CONDITIONAL_MECHANISM_MAP_V1
+  research_stage: PREDICTIVE_VALIDATION
+  research_scope: DISCOVERY_ONLY_NO_PORTFOLIO
+  trade_asset: 510300.SH_OR_CASH
+  state_history_start: '2015-01-01'
+  state_origin_cutoff: '2026-08-14'
+  outcome_observation_cutoff: '2026-08-25'
+  prediction_frequency: MONTHLY_PARENT_ORIGINS
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+  sharpe_target_1_2_evaluation_allowed: false
+
+governance:
+  protocol_and_implementation_frozen_before_outcome_value_read: true
+  structural_state_panel_frozen_before_h00300_value_read: true
+  all_models_and_features_reported: true
+  feature_selection_allowed: false
+  hyperparameter_search_allowed: false
+  threshold_search_allowed: false
+  target_redefinition_allowed: false
+  result_conditioned_model_selection_allowed: false
+  portfolio_mapping_allowed: false
+  nav_calculation_allowed: false
+  sharpe_calculation_allowed: false
+  rejected_r5_rescue_allowed: false
+  old_r5_usage: FIXED_BASELINE_ONLY
+  paper_shadow_authorized: false
+  live_authorized: false
+
+parent_contract:
+  manifest: config/510300_conditional_mechanism_map_v1_manifest.json
+  authoritative_status: reports/research/510300_conditional_mechanism_map_v1_status.json
+  condition_state_receipt: reports/data_quality/510300_conditional_mechanism_map_v1_condition_state.json
+  condition_state_panel: data/processed/510300_conditional_mechanism_map_v1/condition_state_panel.parquet
+  expected_parent_status: STAGE_2_COMPLETE_CONDITIONAL_MAP_DESCRIPTIVE_ONLY
+  expected_parent_manifest_payload_sha256: 4b14f716ada01ca3067e0c18c7e007af6e58dc466a1f2d05ad48e98b3c1fd9e7
+  expected_parent_status_payload_sha256: 3d2f547f93e666e5bcaa111cc261547729d610898ed0c5b7d83c20fa813eb951
+  expected_parent_condition_receipt_payload_sha256: 80faba94eba684fd152a77406cda54b63bf5922814acba69d0db4542cce0237f
+  expected_parent_condition_panel_sha256: 95e6e725df3fcbe40ed91a1d06e11049f0fd8fe269aca2aa77ce95bfb398d5a8
+  allowed_usage: FROZEN_STATE_FEATURES_ONLY
+
+source_contract:
+  parent_present_value_panel:
+    path: data/processed/510300_structural_equity_risk_premium_engine_v1/csi300_cross_sectional_present_value_panel_v1.parquet
+    role: FROZEN_CROSS_SECTIONAL_PRESENT_VALUE_STATE
+  old_r5_valuation:
+    raw_path: data/raw/valuation/000300_valuation_daily_raw.parquet
+    config_path: config/round5_defensive_valuation_timing.yaml
+    implementation_path: backtest/valuation_fvg_engine.py
+    builder: build_valuation_signals
+    role: FIXED_REJECTED_INDEX_AGGREGATE_VALUATION_BASELINE_ONLY
+    asof_tolerance_calendar_days: 10
+  total_return_locked_until_prediction_state_freeze:
+    path: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    series: CSI300_TOTAL_RETURN_INDEX_H00300
+    role_before_state_freeze: LOCKED_OUTCOME_NOT_VALUE_READ
+
+targets:
+  EXPECTED_60D_TOTAL_RETURN:
+    target_type: CONTINUOUS_RETURN
+    horizon_market_days: 60
+    definition: H00300_CLOSE_T_PLUS_60_DIVIDED_BY_CLOSE_T_MINUS_ONE
+    loss: MEAN_SQUARED_ERROR
+  EXPECTED_120D_TOTAL_RETURN:
+    target_type: CONTINUOUS_RETURN
+    horizon_market_days: 120
+    definition: H00300_CLOSE_T_PLUS_120_DIVIDED_BY_CLOSE_T_MINUS_ONE
+    loss: MEAN_SQUARED_ERROR
+  20D_DRAWDOWN_PROBABILITY:
+    target_type: BINARY_PROBABILITY
+    horizon_market_days: 20
+    threshold: -0.10
+    threshold_source: INHERITED_STAGE_1_DRAWDOWN_ACTIVATION_NOT_SEARCHED
+    definition: MINIMUM_H00300_CLOSE_FROM_T_PLUS_1_THROUGH_T_PLUS_20_DIVIDED_BY_CLOSE_T_MINUS_ONE_LE_NEGATIVE_10_PERCENT
+    loss: BRIER_SCORE
+
+features:
+  quality_policy:
+    primary_admitted_condition_status: PASS_FROZEN_PARENT_STATES
+    partial_parent_states_in_primary_model_allowed: false
+    no_view_parent_states_allowed: false
+  price_feature_definition:
+    trailing_total_return_20d: H00300_CLOSE_T_DIVIDED_BY_CLOSE_T_MINUS_20_MINUS_ONE
+    trailing_total_return_60d: H00300_CLOSE_T_DIVIDED_BY_CLOSE_T_MINUS_60_MINUS_ONE
+    realized_volatility_20d: SAMPLE_STANDARD_DEVIATION_OF_LAST_20_DAILY_SIMPLE_RETURNS_TIMES_SQRT_242
+    realized_volatility_60d: SAMPLE_STANDARD_DEVIATION_OF_LAST_60_DAILY_SIMPLE_RETURNS_TIMES_SQRT_242
+    trailing_drawdown_60d: MINIMUM_OF_CLOSE_DIVIDED_BY_RUNNING_MAX_CLOSE_MINUS_ONE_WITHIN_T_MINUS_60_THROUGH_T
+  old_r5_valuation:
+    - old_r5_valuation_gap_mid_12m
+    - old_r5_earnings_yield
+    - old_r5_book_to_price
+  price_realized_risk:
+    - trailing_total_return_20d
+    - trailing_total_return_60d
+    - realized_volatility_20d
+    - realized_volatility_60d
+    - trailing_drawdown_60d
+  cf:
+    - cf_level
+    - cf_news
+    - cf_breadth
+    - cf_concentration
+    - cash_flow_expectation_factor
+  dr:
+    - cross_sectional_expected_return_factor
+    - equity_risk_premium_expanding_z
+    - discount_rate_easing_news
+    - valuation_concentration
+    - duration_compression
+  rc:
+    - risk_bearing_capacity_factor
+    - risk_capacity_news
+    - member_positive_breadth_60d
+    - large_weight_minus_median_member_return_60d
+    - industry_negative_breadth_20d
+  interactions:
+    cf_news_x_dr_easing_news: cf_news * discount_rate_easing_news
+    dr_easing_news_x_rc_news: discount_rate_easing_news * risk_capacity_news
+    cf_level_x_erp_z: cf_level * equity_risk_premium_expanding_z
+    erp_z_x_rc_factor: equity_risk_premium_expanding_z * risk_bearing_capacity_factor
+
+models:
+  HISTORICAL_MEAN:
+    family: EXPANDING_HISTORICAL_MEAN_OR_JEFFREYS_EVENT_RATE
+    feature_groups: []
+  OLD_R5_AGGREGATE_VALUATION:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [old_r5_valuation]
+  PRICE_REALIZED_RISK:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [price_realized_risk]
+  PRICE_PLUS_CF:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [price_realized_risk, cf]
+  PRICE_PLUS_DR:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [price_realized_risk, dr]
+  PRICE_PLUS_RC:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [price_realized_risk, rc]
+  STRUCTURE_ADDITIVE_CF_DR_RC:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [price_realized_risk, cf, dr, rc]
+  STRUCTURE_WITH_INTERACTIONS:
+    family: FIXED_REGULARIZED_LINEAR_OR_LOGISTIC
+    feature_groups: [price_realized_risk, cf, dr, rc, interactions]
+
+walk_forward:
+  scheme: EXPANDING_WINDOW_MONTHLY
+  minimum_matured_training_observations: 36
+  label_maturity_rule: TARGET_MATURITY_DATE_STRICTLY_BEFORE_PREDICTION_ORIGIN
+  current_origin_features_must_be_point_in_time: true
+  training_and_prediction_quality: PASS_FROZEN_PARENT_STATES_ONLY
+  continuous_model:
+    estimator: RIDGE
+    alpha: 10.0
+    fit_intercept: true
+  binary_model:
+    estimator: LOGISTIC_REGRESSION_L2
+    c: 0.10
+    class_weight: NONE
+    maximum_iterations: 2000
+    minimum_matured_positive_events: 3
+    minimum_matured_negative_events: 20
+    historical_rate_smoothing: JEFFREYS_HALF_EVENT
+  preprocessing:
+    standardization: TRAINING_MEAN_AND_SAMPLE_STANDARD_DEVIATION_ONLY
+    zero_standard_deviation_scale: 1.0
+    imputation_allowed: false
+
+evaluation:
+  sample_scopes:
+    ALL_WALK_FORWARD:
+      start: '2015-01-01'
+      end: '2026-08-14'
+    USER_PRIMARY_2021_TO_CUTOFF:
+      start: '2021-01-01'
+      end: '2026-08-14'
+  primary_scope: USER_PRIMARY_2021_TO_CUTOFF
+  common_origin_comparison_required: true
+  continuous_metrics: [MSE, RMSE, MAE, PEARSON, SPEARMAN, SIGN_ACCURACY, OOS_R2_VS_HISTORICAL_MEAN]
+  binary_metrics: [BRIER, LOG_LOSS, ROC_AUC, AVERAGE_PRECISION, BRIER_SKILL_VS_HISTORICAL_MEAN]
+  reliability_gate:
+    minimum_observed_predictions: 24
+    minimum_distinct_calendar_years: 3
+    binary_minimum_positive_events: 5
+    binary_minimum_negative_events: 20
+  incremental_loss_improvement_minimum: 0.02
+  continuous_auxiliary_gate:
+    minimum_spearman: 0.00
+    minimum_sign_accuracy: 0.50
+  binary_auxiliary_gate:
+    minimum_roc_auc: 0.50
+  module_comparisons:
+    CF_INCREMENT:
+      candidate: PRICE_PLUS_CF
+      reference: PRICE_REALIZED_RISK
+    DR_INCREMENT:
+      candidate: PRICE_PLUS_DR
+      reference: PRICE_REALIZED_RISK
+    RC_INCREMENT:
+      candidate: PRICE_PLUS_RC
+      reference: PRICE_REALIZED_RISK
+    INTERACTION_INCREMENT:
+      candidate: STRUCTURE_WITH_INTERACTIONS
+      reference: STRUCTURE_ADDITIVE_CF_DR_RC
+  final_model: STRUCTURE_WITH_INTERACTIONS
+  final_baselines: [HISTORICAL_MEAN, OLD_R5_AGGREGATE_VALUATION, PRICE_REALIZED_RISK]
+  full_validation_rule: EACH_CF_DR_RC_MODULE_AND_INTERACTIONS_PASS_ALL_THREE_TARGETS_AND_FINAL_MODEL_BEATS_ALL_THREE_BASELINES_ON_ALL_THREE_TARGETS
+  overlapping_horizon_warning_required: true
+
+limitations:
+  overlapping_labels: MONTHLY_60D_AND_120D_TARGETS_OVERLAP_BUT_TRAINING_USES_ONLY_MATURED_LABELS
+  small_sample: MONTHLY_STATE_HISTORY_LIMITS_INDEPENDENT_OOS_OBSERVATIONS
+  financial_revision: CURRENT_SECONDARY_AGGREGATOR_VALUES_MAY_REFLECT_LATER_REVISIONS_NOTICE_DATE_IS_PRIMARY_CLOCK
+  old_r5_baseline: HISTORICALLY_REJECTED_AND_USED_ONLY_AS_FIXED_COMPARATOR
+  old_r5_valuation_clock: DAILY_INDEX_PE_PB_SNAPSHOT_NOT_AN_OFFICIAL_IMMUTABLE_FIRST_PUBLICATION_ARCHIVE
+  historical_index_weights: MARKET_CAP_PROXY_PRIMARY_OFFICIAL_HISTORICAL_WEIGHT_NOT_VERSION_PROVEN
+  risk_capacity_clocks: CREDIT_SPREAD_AND_ETF_SHARE_HISTORY_NOT_FULLY_VERSION_PROVEN
+  no_portfolio_claim: PREDICTION_METRICS_DO_NOT_ESTABLISH_TRADABLE_NET_SHARPE
+
+artifacts:
+  protocol_manifest: config/510300_structural_prediction_v1_manifest.json
+  prediction_state_panel: data/processed/510300_structural_prediction_v1/prediction_state_panel.parquet
+  prediction_state_receipt: reports/data_quality/510300_structural_prediction_v1_state.json
+  prediction_rows: reports/research/510300_structural_prediction_v1_predictions.parquet
+  evaluation_metrics: reports/research/510300_structural_prediction_v1_metrics.parquet
+  module_increment_results: reports/research/510300_structural_prediction_v1_module_increments.parquet
+  evaluation_json: reports/research/510300_structural_prediction_v1.json
+  final_report: reports/research/510300_STRUCTURAL_PREDICTION_V1.md
+  authoritative_status: reports/research/510300_structural_prediction_v1_status.json

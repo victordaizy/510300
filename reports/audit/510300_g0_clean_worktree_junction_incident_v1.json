@@ -1,0 +1,73 @@
+{
+  "audit_id": "510300_G0_CLEAN_WORKTREE_JUNCTION_INCIDENT_V1",
+  "generated_at": "2026-09-02T15:31:47.9789553+08:00",
+  "status": "RECOVERED_NO_REMAINING_TRACKED_DATA_DELETIONS",
+  "incident": {
+    "cause": "在临时sparse worktree挂接真实E盘data Junction后切换提交，Git清理了被稀疏排除的tracked数据文件。",
+    "temporary_worktree_only": true,
+    "registered_data_root": "E:/ResearchData/New project 8/data",
+    "detected_tracked_data_deletion_count": 30
+  },
+  "recovery": {
+    "source": "CURRENT_HEAD_GIT_OBJECTS",
+    "head": "0a209e4",
+    "command_scope": "仅恢复git diff --diff-filter=D -- data返回的30个明确路径",
+    "restored_tracked_data_file_count": 30,
+    "remaining_tracked_data_deletion_count": 0,
+    "temporary_junction_removed": true,
+    "temporary_worktree_removed": true,
+    "registered_data_root_still_exists": true,
+    "untracked_paths_targeted_by_restore": false,
+    "preexisting_modified_paths_preserved": [
+      "data/reference/510300_dividends.csv"
+    ],
+    "critical_restored_file": {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "bytes": 139181,
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    }
+  },
+  "restored_paths": [
+    "data/backtests/intraday_t_v1_daily_ledger.parquet",
+    "data/backtests/intraday_t_v1_trades.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20160612.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20160613_20260814.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/monthly_snapshot_membership_comparison.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_admission_manifest.json",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_manifest.json",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_replay_audit.json",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_snapshot_comparison.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_transition_ledger.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_membership_replay_audit.json",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_membership_transition_ledger.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_special_rebalance_manifest.json",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_weight_snapshot_crosscheck.parquet",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/pit_weight_source_evidence_manifest.json",
+    "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/source_remediation_admission_manifest.json",
+    "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/daily_outcome_blind_features.parquet",
+    "data/curated/510300_pit_earnings_information_diffusion_10d_risk_v1_0_3/member_first_public_facts.parquet",
+    "data/forward/v3_forward_1/valuation_forward_outcome_log.parquet",
+    "data/forward/v3_forward_1/valuation_forward_signal_log.parquet",
+    "data/forward/v3_forward_1/valuation_shadow_position_log.parquet",
+    "data/processed/510300_structural_signal_power_and_identifiability_audit_v1/paired_loss_panel.parquet",
+    "data/reference/000300_factsheet.pdf",
+    "data/reference/510300_dividend_sources/2022-01-19_1.pdf",
+    "data/reference/510300_dividend_sources/2023-01-16_2.pdf",
+    "data/reference/510300_dividend_sources/2024-01-18_3.pdf",
+    "data/reference/510300_dividend_sources/2025-06-18_4.shtml",
+    "data/reference/510300_dividend_sources/2026-01-19_5.pdf",
+    "data/research/510300_if_forced_flow_state_v1/features.parquet"
+  ],
+  "future_guardrail": {
+    "writable_active_data_root_may_be_junctioned_into_git_worktree_during_checkout": false,
+    "safe_clean_replay_method": "先完成不可变源码检出；把所需输入复制到独立临时数据副本；禁止在真实数据Junction挂载期间执行checkout、sparse-checkout或worktree更新。"
+  },
+  "research_effect": {
+    "bad10_label_values_read": false,
+    "bad10_one_shot_claim_created": false,
+    "census_executed": false,
+    "position_impact": 0,
+    "trading_authorized": false
+  }
+}

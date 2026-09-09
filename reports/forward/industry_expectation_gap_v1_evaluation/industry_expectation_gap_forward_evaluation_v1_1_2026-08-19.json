@@ -1,0 +1,375 @@
+{
+  "evaluation_version": "INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1",
+  "evaluation_status": "FROZEN_BEFORE_FIRST_FORWARD_OBSERVATION",
+  "prediction_model_version": "INDUSTRY_EXPECTATION_GAP_ETF_MODEL_V1",
+  "prediction_date": "2026-08-18",
+  "information_cutoff": "2026-08-18T16:30:00+08:00",
+  "entry_date": "2026-08-19",
+  "observation_date": "2026-08-19",
+  "primary_state": "ACCUMULATING_NO_PEEK",
+  "original_prediction_state": "NO_VIEW",
+  "original_index_aggregation_state": "BALANCED_NO_EDGE",
+  "original_index_direction_evaluation": "ABSTAINED_AT_FORECAST",
+  "market_gate_evaluation": "NOT_SCORABLE_MISSING_AT_FORECAST",
+  "national_team_evaluation": "NOT_SCORABLE_UNOBSERVED_AT_FORECAST",
+  "may_upgrade_original_no_view": false,
+  "mature_prediction_origin_count": 0,
+  "calibration_minimum": 20,
+  "model_comparison_minimum": 40,
+  "horizons": [
+    {
+      "horizon_trading_days": 60,
+      "entry_date": "2026-08-19",
+      "maturity_date": "2026-11-18",
+      "calendar_state": "RESOLVED",
+      "missing_calendar_days": 0,
+      "state": "ACCUMULATING_NO_PEEK",
+      "observed_common_forward_trading_days": 1,
+      "price_evaluation": {
+        "status": "ACCUMULATING_NO_PEEK",
+        "partial_return_output": false
+      },
+      "fundamental_evaluation": {
+        "status": "ACCUMULATING_NO_PEEK",
+        "partial_result_output": false
+      },
+      "etf_observation": {
+        "status": "ACCUMULATING_NO_PEEK",
+        "partial_return_output": false
+      }
+    },
+    {
+      "horizon_trading_days": 120,
+      "entry_date": "2026-08-19",
+      "maturity_date": null,
+      "calendar_state": "UNRESOLVED_CALENDAR",
+      "missing_calendar_days": 29,
+      "state": "UNRESOLVED_CALENDAR",
+      "observed_common_forward_trading_days": 1,
+      "price_evaluation": {
+        "status": "UNRESOLVED_CALENDAR",
+        "partial_return_output": false
+      },
+      "fundamental_evaluation": {
+        "status": "UNRESOLVED_CALENDAR",
+        "partial_result_output": false
+      },
+      "etf_observation": {
+        "status": "UNRESOLVED_CALENDAR",
+        "partial_return_output": false
+      }
+    }
+  ],
+  "data_cutoffs": {
+    "constituent_latest_date": "2026-08-19",
+    "etf_latest_date": "2026-08-19",
+    "common_forward_latest_date": "2026-08-19"
+  },
+  "runtime_sources": {
+    "trading_calendars": [
+      {
+        "path": "data/reference/sse_trade_calendar_2026.csv",
+        "sha256": "1683446371fd20e3899222382d28da2fb8f2195654587649cc42648613960b62",
+        "bytes": 30510
+      }
+    ],
+    "trading_calendar_metadata": [
+      {
+        "path": "data/reference/sse_trade_calendar_2026.metadata.json",
+        "sha256": "652bbf345e570f9199dad2b0a12c3d5c993f902bb496246bda1fccca445d4dbb",
+        "bytes": 1354
+      }
+    ],
+    "constituent_total_return_daily": {
+      "path": "data/raw/constituents/000300_constituent_daily.parquet",
+      "sha256": "e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7",
+      "bytes": 26849121,
+      "rows": 484200,
+      "columns": [
+        "date",
+        "con_code",
+        "raw_open",
+        "raw_high",
+        "raw_low",
+        "raw_close",
+        "total_return_open",
+        "total_return_high",
+        "total_return_low",
+        "total_return_close",
+        "volume",
+        "amount",
+        "adj_factor",
+        "price_source",
+        "adjustment_source",
+        "retrieved_at",
+        "is_index_member",
+        "is_suspended",
+        "outstanding_share",
+        "total_market_cap_cny",
+        "market_cap_asof_date"
+      ],
+      "date_min": "2019-12-23",
+      "date_max": "2026-08-19"
+    },
+    "historical_weights": {
+      "path": "data/raw/constituents/000300_historical_weights.parquet",
+      "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+      "bytes": 80108,
+      "rows": 36000,
+      "columns": [
+        "index_code",
+        "con_code",
+        "trade_date",
+        "weight",
+        "source",
+        "retrieved_at"
+      ]
+    },
+    "industry_intervals": {
+      "path": "data/raw/reference/a_share_citic_industry_intervals_raw.parquet",
+      "sha256": "3216150918c2dab02f9848c94bf4189b71019d8eda3869439e49d1bccbc63bfe",
+      "bytes": 169703,
+      "rows": 9088,
+      "columns": [
+        "l1_code",
+        "l1_name",
+        "l2_code",
+        "l2_name",
+        "l3_code",
+        "l3_name",
+        "ts_code",
+        "name",
+        "in_date",
+        "out_date",
+        "is_new",
+        "source",
+        "retrieved_at"
+      ]
+    },
+    "sector_point_in_time_panel": {
+      "path": "data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet",
+      "sha256": "22eb09d296ba815b5663a5c48e69f2d7304badd979b410c6fbe2f24d624bec75",
+      "bytes": 166250,
+      "rows": 2198,
+      "columns": [
+        "date",
+        "industry_l1",
+        "sector_weight",
+        "component_count",
+        "price_coverage_ratio",
+        "earnings_coverage_ratio",
+        "book_coverage_ratio",
+        "roe_coverage_ratio",
+        "profit_growth_coverage_ratio",
+        "revenue_growth_coverage_ratio",
+        "core_feature_coverage_ratio",
+        "weighted_earnings_yield",
+        "weighted_book_yield",
+        "weighted_ttm_roe",
+        "weighted_ttm_profit_growth_yoy",
+        "weighted_ttm_revenue_growth_yoy",
+        "profitable_market_cap_pe_ttm",
+        "eligible_for_target_freeze",
+        "data_output",
+        "failure_category"
+      ],
+      "date_min": "2019-12-31",
+      "date_max": "2026-07-31"
+    },
+    "etf_total_return_daily": {
+      "path": "data/processed/510300_daily_total_return.parquet",
+      "sha256": "943404aa1ae20178498bbafe0456c59519da99636e30a377f87b1571900e2fb2",
+      "bytes": 152710,
+      "rows": 1216,
+      "columns": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "amount",
+        "symbol",
+        "source",
+        "volume_unit",
+        "amount_unit",
+        "retrieved_at",
+        "cash_dividend_per_share",
+        "prev_close",
+        "price_return",
+        "dividend_yield",
+        "total_return",
+        "overnight_price_return",
+        "overnight_total_contribution",
+        "intraday_return",
+        "intraday_contribution",
+        "decomposition_error",
+        "range_return",
+        "year"
+      ],
+      "date_min": "2021-08-12",
+      "date_max": "2026-08-19"
+    },
+    "frozen_prediction_manifest": {
+      "path": "config/industry_expectation_gap_etf_model_v1_manifest.json",
+      "sha256": "dc0070434375b032f2c316db0b12cf026e042ed7647d5924b6cad368ccbe3e09"
+    }
+  },
+  "safety": {
+    "may_upgrade_original_no_view": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_enabled": false
+  },
+  "interpretation": "未成熟期不输出部分收益；成熟后只评价冻结行业分支，不得把原NO_VIEW改写为交易观点。",
+  "evaluation_execution_version": "INDUSTRY_EXPECTATION_GAP_FORWARD_EVALUATION_V1_1",
+  "recovery_addendum": {
+    "status": "RECOVERY_ADDENDUM_AFTER_FIRST_FORWARD_OBSERVATION",
+    "purpose": "EXACT_FROZEN_INPUT_RECOVERY_ONLY",
+    "manifest": {
+      "path": "config/industry_expectation_gap_forward_evaluation_v1_1_recovery_manifest.json",
+      "sha256": "92d2f0a7291ddb96d310448c556770b93158d051d0cf95b65d5757973727c71e"
+    },
+    "parent_evaluation_manifest": {
+      "path": "config/industry_expectation_gap_forward_evaluation_v1_manifest.json",
+      "sha256": "c90690cd2bc5a220b3b27b22d9741da4b047621baadbce74f659a6d80ac28ac6"
+    },
+    "prediction_verification": {
+      "manifest_path": "config/industry_expectation_gap_etf_model_v1_manifest.json",
+      "manifest_sha256": "dc0070434375b032f2c316db0b12cf026e042ed7647d5924b6cad368ccbe3e09",
+      "frozen_file_count": 17,
+      "recovered_target_count": 1,
+      "records": [
+        {
+          "path": "config/industry_expectation_gap_etf_model_v1.yaml",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "b7fb125244678167ebfd5a97ce621863b971cc243efa74ee5d04a28c66cc3ef1",
+          "bytes": 2041
+        },
+        {
+          "path": "data/features/000300_official_weighted_moneyflow_daily.parquet",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "2c0938674cd0f9fd562ae4b4e58d15fb572b9db8d08501d45aeafcd4f0740cba",
+          "bytes": 142469
+        },
+        {
+          "path": "data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "22eb09d296ba815b5663a5c48e69f2d7304badd979b410c6fbe2f24d624bec75",
+          "bytes": 166250
+        },
+        {
+          "path": "data/raw/flow/510300_fund_share_daily_tushare.parquet",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "e34ef2ee9ead0616aef2705a93b1b32c2e10be7841134c59126071b126ba71f4",
+          "bytes": 32955
+        },
+        {
+          "path": "data/raw/flow/510300_margin_detail_daily_tushare.parquet",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "194074bef906402588fb9206c41562627e14593c05f9eaabe071f2eee22db4af",
+          "bytes": 102167
+        },
+        {
+          "path": "data/reference/industry_expectation_gap_v1_sources.yaml",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "bacd00bd725c64fde8fb7439b545c2d9172c740e7cf76ab929c796ce03a481a5",
+          "bytes": 7077
+        },
+        {
+          "path": "docs/INDUSTRY_EXPECTATION_GAP_ETF_MODEL_V1_SPEC.md",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "728205e0b682c0f5ed8b8ab4705726d4fb2dfa77aea2f9cb7f5fa40c764905e2",
+          "bytes": 9334
+        },
+        {
+          "path": "paper/industry_expectation_gap_v1/2026-08-18_etf_snapshot.json",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "af17b235ef3fea4d523124424ee3881fa2e8cdfb400b9c4336a3bbbeae8c349d",
+          "bytes": 1077
+        },
+        {
+          "path": "paper/industry_expectation_gap_v1/2026-08-18_industry_forecast.json",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "64557f9e98bbbbe45ee299aa124534d4602ae521c5652148ca7afd525813e964",
+          "bytes": 16672
+        },
+        {
+          "path": "paper/industry_expectation_gap_v1/2026-08-18_market_state.json",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "806e867907b06a85b5b4fe684caebd71ff61d8c38b20310dcbafad4483ab0a07",
+          "bytes": 1584
+        },
+        {
+          "path": "reports/data_quality/000300_sector_forward_return_data_v1_status.json",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "aa6114f722ea942e6debc90d3eb584a2d339c71751f61152d8dd3a5b71556f64",
+          "bytes": 2134
+        },
+        {
+          "path": "reports/data_quality/510300_primary_market_forward_status.json",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "9234c2c64797aca019c2e81230926c07458825f5b6ecad1fe38a5e38c4227cd8",
+          "bytes": 4168
+        },
+        {
+          "path": "reports/data_quality/510300_primary_market_readiness.json",
+          "verification": "RECOVERED_FILE_EXACT",
+          "current_sha256": "63a2860ad25180640a8e40b04264d018738feeb621de566bdd1f8360e8fa605d",
+          "recovered_path": "paper/industry_expectation_gap_v1/frozen_inputs/2026-08-18_primary_market_readiness.json",
+          "sha256": "1d4432ce581cf63f449315ef4932230fccc7e15a09affcac9e2662121fa5d2d8",
+          "bytes": 967,
+          "source_log_sha256": "b8630a14b5b5749787e63228515d0ad674c458556441fda428e333a38412edc4",
+          "semantic_projection": {
+            "status": "COLLECTING",
+            "observed_trading_days": 4,
+            "full_coverage_days": 2,
+            "minimum_full_coverage_days": 20,
+            "recommended_full_coverage_days": 40,
+            "eligible_for_research_evaluation": false,
+            "eligible_for_position_mapping": false
+          }
+        },
+        {
+          "path": "research/industry_expectation_gap_etf_model.py",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "c0dd84fa2e4a76c1c8cc7e463aab55e4b360b9f33336f9cdbffe7ee461df0757",
+          "bytes": 30015
+        },
+        {
+          "path": "scripts/freeze_industry_expectation_gap_etf_model_v1.py",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "6d4179f5f6e103eab7eb86911c4b6bd1dc3f7961b958e140bf6dd58c308e626e",
+          "bytes": 7482
+        },
+        {
+          "path": "scripts/run_industry_expectation_gap_etf_model_v1.py",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "387538a426c2a32900e3b948eec77e8b06cd3cde1dbba0ba5b7ef193b00142ce",
+          "bytes": 5330
+        },
+        {
+          "path": "tests/test_industry_expectation_gap_etf_model.py",
+          "verification": "CURRENT_FILE_EXACT",
+          "sha256": "32a7589bb410cc47129c87184faee6c480d621c93a9dcc965a96909469c056da",
+          "bytes": 9438
+        }
+      ]
+    },
+    "frozen_result": {
+      "path": "reports/forward/industry_expectation_gap_etf_model_v1_2026-08-18.json",
+      "sha256": "1483a3c7f025d1983131d2f89ba6bb993b5df89e26b5b3f8c77cf783cb14b85f",
+      "bytes": 38981
+    },
+    "frozen_ledger": {
+      "path": "paper/industry_expectation_gap_v1/2026-08-18_industry_forecast.json",
+      "sha256": "64557f9e98bbbbe45ee299aa124534d4602ae521c5652148ca7afd525813e964",
+      "bytes": 16672
+    },
+    "prediction_change": false,
+    "rule_change": false,
+    "threshold_change": false,
+    "current_operational_readiness_replaced": false
+  }
+}

@@ -1,0 +1,120 @@
+protocol:
+  protocol_id: "510300_ANNUAL_EXCESS_20PCT_FORWARD_V1"
+  status: "FROZEN_BEFORE_2026_08_27_FORWARD_WINDOW"
+  frozen_at: "2026-08-26T23:12:45+08:00"
+  effective_from: "2026-08-27"
+  research_only: true
+  purpose: "把用户要求的50万元账户、扣成本年化超额至少20个百分点固化为统一终局门槛"
+  supersedes_thresholds_only:
+    - path: "docs/ROUND5_STRATEGY_COMPARISON_SPEC.md"
+      superseded_values: [0.10, 0.15]
+  does_not_modify:
+    - "config/priority_forward_research_operations_v1_8_manifest.json"
+    - "config/priority_forward_supervisor_v1_4.yaml"
+    - "config/primary_market_forward_v1_2.yaml"
+    - "config/industry_expectation_gap_forward_evaluation_v1.yaml"
+
+scope:
+  asset: "510300.SH"
+  holdings: ["510300.SH", "CASH_CNY"]
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_allowed: false
+  initial_capital_cny: 500000.0
+  active_research_streams:
+    - "PRIMARY_MARKET_PCF_IOPV"
+    - "INDUSTRY_EXPECTATION_GAP"
+  maximum_active_research_streams: 2
+
+benchmark:
+  primary_id: "H00300"
+  primary_name: "沪深300全收益指数"
+  primary_return_type: "TOTAL_RETURN"
+  tradable_reference_id: "510300.SH"
+  tradable_reference_return_type: "TOTAL_RETURN_WITH_CASH_DIVIDENDS"
+
+objective:
+  primary_metric: "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR"
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  comparator: "GREATER_THAN_OR_EQUAL"
+  base_cost_required: true
+  stress_cost_required: true
+  rolling_window_trading_days: 242
+  minimum_rolling_242d_excess_median: 0.20
+  bootstrap:
+    method: "PAIRED_MOVING_BLOCK"
+    repetitions: 5000
+    block_length_trading_days: 20
+    random_seed: 20260826
+    lower_quantile: 0.025
+    upper_quantile: 0.975
+    minimum_lower_bound: 0.0
+    lower_bound_comparator: "STRICTLY_GREATER_THAN"
+  non_overlapping_years:
+    block_length_trading_days: 242
+    minimum_blocks_for_verified_claim: 3
+    minimum_positive_excess_blocks: 2
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  etf_stamp_duty_sell_rate: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  maximum_single_round_trip_notional_cny: 250000.0
+  maximum_single_round_trip_capital_fraction: 0.50
+  fee_interpretation: "每一条买入或卖出腿按成交额万分之一；滑点另计"
+
+maturity:
+  pcf_quality_audit_days: 20
+  pcf_feature_freeze_days: 40
+  pcf_first_unseen_evaluation_days: 80
+  pcf_replication_days: 120
+  first_full_year_estimate_days: 242
+  verified_claim_days: 726
+  industry_calibration_origin_clusters: 20
+  industry_calibration_non_overlapping_60d_blocks: 4
+  industry_model_comparison_origin_clusters: 40
+  industry_model_comparison_non_overlapping_60d_blocks: 8
+
+candidate_roles:
+  primary_market_pcf_iopv:
+    role: "EXECUTION_FILTER_AND_FAIR_VALUE_FEASIBILITY"
+    direction_signal_allowed: false
+    note: "折溢价只有在覆盖往返成本并通过真实前瞻成交检验后，才可升级为收益候选。"
+  industry_expectation_gap:
+    role: "DIRECTIONAL_RISK_STATE_CANDIDATE"
+    position_mapping_allowed_before_maturity: false
+    note: "独立预测原点成熟前不得把行业判断映射为收益。"
+
+evaluation_input:
+  default_forward_ledger: "data/forward/510300_annual_excess_20pct_v1/daily_returns.parquet"
+  required_columns:
+    - "trade_date"
+    - "strategy_base_net_return"
+    - "strategy_stress_net_return"
+    - "benchmark_total_return"
+    - "quality_complete"
+    - "forward_observed"
+  pre_effective_rows_allowed: false
+  incomplete_quality_rows_used_for_performance: false
+
+outputs:
+  current_status_json: "reports/research/510300_annual_excess_20pct_forward_v1.json"
+  current_status_markdown: "reports/research/510300_ANNUAL_EXCESS_20PCT_FORWARD_V1.md"
+  manifest: "config/510300_annual_excess_20pct_forward_v1_manifest.json"
+
+governance:
+  target_may_be_lowered_after_results: false
+  cost_scenarios_may_be_removed_after_results: false
+  failed_candidate_parameter_rescue_allowed: false
+  historical_backfill_allowed: false
+  partial_window_performance_output_before_first_unseen_gate: false
+  paper_position_generation: false
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false

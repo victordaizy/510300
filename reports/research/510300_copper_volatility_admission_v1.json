@@ -1,0 +1,94 @@
+{
+  "project_id": "510300_COPPER_VOLATILITY_ADMISSION_V1",
+  "as_of": "2026-08-30",
+  "status": "NO_VIEW_DEFINITION_AND_PIT_DATA_CONTRACT_FAILED",
+  "admitted_for_backtest": false,
+  "evidence_class": "PRE_OUTCOME_CANDIDATE_ADMISSION_AUDIT",
+  "scope": {
+    "execution_asset": "510300.SH",
+    "allowed_holdings": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "research_window_requested": {
+      "start": "2015-01-01",
+      "end": "CURRENT_AVAILABLE"
+    },
+    "target_net_sharpe": 1.2
+  },
+  "candidate_claim": {
+    "description": "用有色金属期货中的铜价波动预测中国股票市场总收益，并据此在510300与现金之间择时",
+    "primary_paper": {
+      "title": "Applications of nonferrous metal price volatility to prediction of China's stock market",
+      "authors": [
+        "Die-feng Peng",
+        "Jian-xin Wang",
+        "Yu-lei Rao"
+      ],
+      "journal": "Transactions of Nonferrous Metals Society of China",
+      "publication_date": "2014-02-25",
+      "doi": "10.1016/S1003-6326(14)63100-9",
+      "publisher_url": "https://www.sciencedirect.com/science/article/pii/S1003632614631009",
+      "journal_url": "https://tnmsc.csu.edu.cn/EN/Y2014/V24/I2/597",
+      "original_sample": "2004-01 through 2011-12",
+      "publisher_abstract_boundary": "The publisher abstract states that predictability exists only during the original sample period and conjectures that it is partly driven by commodity financialization."
+    }
+  },
+  "admission_gates": {
+    "exact_factor_definition_recoverable": {
+      "passed": false,
+      "reason": "可访问的出版社原始摘要没有给出铜波动估计式、回看窗口、预测期或系数方向；论文全文不属于公开可访问内容，因此无法在读取510300结果前冻结唯一可复现规则。"
+    },
+    "direction_recoverable_before_outcome": {
+      "passed": false,
+      "reason": "摘要只报告预测能力与显著性，没有报告高铜波动对应未来股票收益上升还是下降；事后从510300收益反推方向被禁止。"
+    },
+    "post_2015_transfer_claim_supported": {
+      "passed": false,
+      "reason": "论文作者明确把可预测性限定在2004—2011样本期；这与本项目2015年至今的目标区间直接冲突。"
+    },
+    "public_point_in_time_input_matches_paper": {
+      "passed": false,
+      "candidate_public_series": {
+        "series_id": "PCOPPUSDM",
+        "title": "Global price of Copper",
+        "source": "International Monetary Fund via FRED",
+        "url": "https://fred.stlouisfed.org/series/PCOPPUSDM",
+        "frequency": "MONTHLY",
+        "units": "U.S. Dollars per Metric Ton, Not Seasonally Adjusted",
+        "definition": "全球市场代表性基准价的月度期间平均值"
+      },
+      "reason": "PCOPPUSDM是月度期间平均基准价格，不是论文所述有色金属期货波动序列；从该价格自行选择波动窗口会引入未预注册的代理、窗口和定义自由度。FRED同时提示数据可能修订，现有公开页面不足以建立逐月可用日和历史版本的完整点时合同。"
+    },
+    "orthogonal_and_not_a_rescue": {
+      "passed": true,
+      "reason": "该经济变量与已拒绝的MACD、广度、油价趋势和价格下行风险候选在输入层面不同；但正交性不能弥补定义、方向、外推和点时数据失败。"
+    }
+  },
+  "decision": {
+    "passed": false,
+    "failed_gate_count": 4,
+    "outcome_data_access": "NOT_OPENED_FOR_THIS_CANDIDATE",
+    "return_evaluation": "NOT_ALLOWED",
+    "net_sharpe": "NOT_COMPUTED",
+    "target_achieved": false,
+    "trial_count_increment": 0,
+    "reason": "候选在读取510300收益前即未通过定义、方向、2015年后外推和点时输入四项准入门槛。"
+  },
+  "no_rescue_rules": [
+    "不得用510300历史收益选择铜波动方向",
+    "不得把月度铜价期间平均值静默替换成论文的期货波动",
+    "不得搜索波动窗口、阈值、持有期或滞后以救援本候选",
+    "不得将本次NO_VIEW记作零收益或亏损",
+    "若未来取得论文全文和可审计点时期货数据，必须以新项目ID重新做独立准入，不能覆盖本记录"
+  ],
+  "boundaries": {
+    "research_only": true,
+    "portfolio_ledger_generated": false,
+    "paper_or_shadow_position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED",
+    "position_change": "DISABLED",
+    "live_trading_authorized": false
+  }
+}

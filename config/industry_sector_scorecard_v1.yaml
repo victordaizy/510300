@@ -1,0 +1,87 @@
+version: INDUSTRY_SECTOR_SCORECARD_V1
+status: FROZEN_BEFORE_TRUE_FORWARD_OUTCOMES
+as_of_date: "2026-08-18"
+information_cutoff: "2026-08-19T01:30:00+08:00"
+research_mode: RESEARCH_ONLY
+signal_mode: SHADOW_ONLY
+
+parents:
+  sector_taxonomy_config: config/industry_expectation_gap_etf_model_v2.yaml
+  sector_taxonomy_manifest: config/industry_expectation_gap_etf_model_v2_manifest.json
+  current_sector_report: reports/forward/industry_expectation_gap_etf_model_v2_2026-08-18.json
+  failed_sector_prediction_result: reports/discovery/sector_forward_return_prediction_v1_result.json
+
+inputs:
+  frozen_sector_target_60d: data/features/000300_sector_forward_contribution_60d_v1.parquet
+  industry_daily: data/features/000300_industry_driver_attribution_daily_v2_20260818.parquet
+  sector_data_status: reports/data_quality/000300_sector_forward_return_data_v1_status.json
+
+outputs:
+  historical_base_rates: data/features/industry_sector_historical_base_rates_60d_v1.parquet
+  economic_bucket_history: data/features/industry_economic_bucket_forward_60d_history_v1.parquet
+  theme_history: data/features/industry_theme_forward_60d_history_v1.parquet
+  json: reports/forward/industry_sector_scorecard_v1_2026-08-18.json
+  markdown: reports/forward/industry_sector_scorecard_v1_2026-08-18.md
+  manifest: config/industry_sector_scorecard_v1_manifest.json
+
+current_score:
+  range: [0.0, 100.0]
+  components:
+    fundamental:
+      maximum_points: 30.0
+      input: weighted_fundamental_60d_normalized_score
+      transform: clip_to_minus2_plus2_then_linear_to_0_30
+    expectation_gap:
+      maximum_points: 25.0
+      input: weighted_gap_score_times_expectation_coverage
+      transform: 12.5_plus_12.5_times_gap_score_times_coverage
+    price_phase:
+      maximum_points: 20.0
+      phase_points:
+        EARLY_RECOVERY_FROM_WEAK_BASE: 20.0
+        MIDDLE_TREND: 16.0
+        MIXED_OR_SOFT: 10.0
+        WEAK_BASE_NOT_TURNED: 8.0
+        LATE_OR_EXTENDED: 5.0
+        PRICE_PHASE_UNOBSERVED: 0.0
+    flow:
+      maximum_points: 15.0
+      input: current_5d_order_classification_flow_intensity
+      transform: cross_section_percentile_within_entity_type
+    valuation:
+      maximum_points: 10.0
+      input: current_weighted_earnings_yield
+      transform: cross_section_percentile_within_entity_type
+  grades:
+    A: [75.0, 100.0]
+    B: [65.0, 75.0]
+    C: [55.0, 65.0]
+    D: [45.0, 55.0]
+    E: [0.0, 45.0]
+
+historical_reference:
+  target_horizon_trading_days: 60
+  execution_start: t_plus_1_open
+  maturity: t_plus_60_close
+  observation_frequency: MONTHLY_OFFICIAL_WEIGHT_SNAPSHOT
+  relative_win_definition: entity_forward_return_60d_gt_snapshot_index_return_60d
+  absolute_win_definition: entity_forward_return_60d_gt_zero
+  frequency_definition: relative_win_count_divided_by_eligible_monthly_observation_count
+  economic_top_frequency_definition: monthly_excess_return_rank_in_top_3
+  wilson_interval_confidence: 0.95
+  minimum_entity_weight: 0.000001
+  minimum_observations: 30
+  effective_nonoverlapping_60d_blocks: 24
+  historical_label: HISTORICALLY_CONTAMINATED_UNCONDITIONAL_BASE_RATE
+  score_conditioned_win_rate_available: false
+
+governance:
+  score_is_probability: false
+  historical_base_rate_is_model_win_rate: false
+  score_conditioned_backtest_allowed: false
+  failed_s1_reuse_allowed: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+

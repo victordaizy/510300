@@ -1,0 +1,220 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "target_volatility": 0.1,
+  "study_id": "510300_EPISODE_TREND_ADMISSION_V1",
+  "round": 147,
+  "primary": "EPISODE_TREND_ADMISSION",
+  "candidate_configurations": 1,
+  "decision_clock": "15:05:00",
+  "combination": "FIRST_POSITIVE_PARENT_EPISODE_LONG_TREND_ADMISSION",
+  "entry_trend_window": 200,
+  "entry_trend_threshold": 0,
+  "registered_at": "2026-09-09T14:27:10.360313+08:00",
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "reference_cost_matching": "SAME_PERIOD_AND_SAME_COST",
+  "parent_models": [
+    "TREND_NOISE_REFERENCE_BLEND"
+  ],
+  "outer_exit_retry": "RECOMPUTE_FROM_LATEST_TARGET_EACH_CLOSE",
+  "reentry": "ANY_NEW_POSITIVE_TARGET_NO_ADDITIONAL_WAIT",
+  "rules": "docs/510300_EPISODE_TREND_ADMISSION_V1.md",
+  "source_budget_cny": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "position_impact": 0,
+  "previous_goal_turn_classification": "PROGRESS_ROUND146_COMPLETED_CLOSED_FULL_GOAL_NOT_MET",
+  "existing_input_checks": [
+    {
+      "period": "evaluation",
+      "cost": "BASE",
+      "origins": 1604,
+      "unknown_targets": 0,
+      "unknown_long_trend_origins": 0
+    },
+    {
+      "period": "evaluation",
+      "cost": "STRESS",
+      "origins": 1604,
+      "unknown_targets": 0,
+      "unknown_long_trend_origins": 0
+    },
+    {
+      "period": "earlier_diagnostic",
+      "cost": "BASE",
+      "origins": 1219,
+      "unknown_targets": 0,
+      "unknown_long_trend_origins": 0
+    },
+    {
+      "period": "earlier_diagnostic",
+      "cost": "STRESS",
+      "origins": 1219,
+      "unknown_targets": 0,
+      "unknown_long_trend_origins": 0
+    }
+  ],
+  "frozen_files": [
+    {
+      "path": "config\\510300_range_overnight_risk_v1.json",
+      "sha256": "14580c3264d6ed13b604d2d643625e693000de360a0c8b1701abe44928256d8c"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "config\\510300_trend_noise_reference_blend_v1.json",
+      "sha256": "629efa51af9a00aae785d48e1c761a1111be7a50626eadb89c3b9b6d742374cd"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_EPISODE_TREND_ADMISSION_NEXT_20260909.md",
+      "sha256": "30230da6affa6a6794c162c1a36b9dccd20d6a1f89e04d10a16b76a0f0fc8cda"
+    },
+    {
+      "path": "docs\\510300_EPISODE_TREND_ADMISSION_V1.md",
+      "sha256": "c197fec38f57148808a06f4e66a3231b553eabe3c72c3ab1d75f5731469fabdb"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_episode_trend_admission_v1\\tests_receipt.json",
+      "sha256": "c46ee71cf33a54858e23843ac2ca8d2386d8df02ce29474c9cf2b7e8fa9f0499"
+    },
+    {
+      "path": "reports\\research\\510300_range_overnight_risk_v1\\earlier_diagnostic\\BASE\\RANGE_OVERNIGHT_RISK_ledger.parquet",
+      "sha256": "91150dc75516da1531b460fff413288688ef973b613f7a957f6f51dde3195eac"
+    },
+    {
+      "path": "reports\\research\\510300_range_overnight_risk_v1\\earlier_diagnostic\\STRESS\\RANGE_OVERNIGHT_RISK_ledger.parquet",
+      "sha256": "1057ee48a387d91e8cb3d5156d50f01854cf1995edd5a0ca835459f406b1766f"
+    },
+    {
+      "path": "reports\\research\\510300_range_overnight_risk_v1\\evaluation\\BASE\\RANGE_OVERNIGHT_RISK_ledger.parquet",
+      "sha256": "e1414e91172de879f7eb0980dbf0c1848cd71aa5995ebd399ded4f868e896200"
+    },
+    {
+      "path": "reports\\research\\510300_range_overnight_risk_v1\\evaluation\\STRESS\\RANGE_OVERNIGHT_RISK_ledger.parquet",
+      "sha256": "84181a29c4bf1a8eb755fcaee0f164c79bca354fb974afbaf4a799f329a68932"
+    },
+    {
+      "path": "reports\\research\\510300_range_overnight_risk_v1\\saved_verification_receipt.json",
+      "sha256": "0d79b1587ec15829bac8ea56f37d378482f1a8b8802bcf6071bdcbf889be7a17"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\earlier_diagnostic\\BASE\\TREND_NOISE_REFERENCE_BLEND_decisions.parquet",
+      "sha256": "f07763710ffb19c9db4991c08f0d57e8193aaf908f9ed7e407665b55105c1975"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\earlier_diagnostic\\BASE\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "e979ce1e8746d22a8013115176fa4759ae61e1df9d1eb46dc37cfddae1c8aed0"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\earlier_diagnostic\\STRESS\\TREND_NOISE_REFERENCE_BLEND_decisions.parquet",
+      "sha256": "723279a7c0088b52c47a460daf772c48ee7c728c12e0a41ddebc02bab7397f0a"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\earlier_diagnostic\\STRESS\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "cdea80fd718f0e3dffc532f4cf9908e813d4e25c654894c0633a63d3cf05c33c"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\evaluation\\BASE\\TREND_NOISE_REFERENCE_BLEND_decisions.parquet",
+      "sha256": "1fed7d9c1a7e1c32654dc1284ff5d341d5d3a396f290aee7b181ddf801f39e9b"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\evaluation\\BASE\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "ecccf0ce43a7f11690b15fff7386d8983abcc69fc6389dd72589f006a2da5154"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\evaluation\\STRESS\\TREND_NOISE_REFERENCE_BLEND_decisions.parquet",
+      "sha256": "24432622737ff97cc2402667be1c82ab83bd2f137fd2794b6f6d17fc9e95ea72"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\evaluation\\STRESS\\TREND_NOISE_REFERENCE_BLEND_ledger.parquet",
+      "sha256": "a58949244c3b50e7ea03611f8d3b0242fb970044fd6522cfc86dce34f5661a56"
+    },
+    {
+      "path": "reports\\research\\510300_trend_noise_reference_blend_v1\\saved_verification_receipt.json",
+      "sha256": "9e57312233985037e9487526dde512cb60663bb6a2fe2747fd2262d77fa82aa9"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\episode_trend_admission_inputs_v1.py",
+      "sha256": "2a5f989a2af78c9e777e4fb28d6b0b0feaeb5880b9ff4ac709b568e0499bbb73"
+    },
+    {
+      "path": "research\\episode_trend_admission_v1.py",
+      "sha256": "468acd194b442cb7d0e9d4857a265f2c83fe4f815eca789b6d6edb325b11a405"
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\saved_parent_target_alignment_v1.py",
+      "sha256": "b55ff702bacfd040bc0f2b97a276a4c02c609991faabf8bdf6ecab11595ec856"
+    },
+    {
+      "path": "tests\\test_episode_trend_admission_v1.py",
+      "sha256": "6750dc35f26a84fbf1901cb5f892f9e66c017150fb9044f788780e89598ddb41"
+    },
+    {
+      "path": "tests\\test_trend_reference_router_v1.py",
+      "sha256": "f52af2d6662b1c66ccb1852d241416818156570fb924b9dc7dbb910df2747e2d"
+    }
+  ]
+}

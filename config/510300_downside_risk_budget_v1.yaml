@@ -1,0 +1,235 @@
+protocol:
+  project_id: 510300_DOWNSIDE_RISK_BUDGET_V1
+  candidate_model_id: 510300_DOWNSIDE_RISK_BUDGET_V1
+  state: PROTOCOL_DRAFT_BEFORE_FIRST_RESULT
+  evidence_class: RETROSPECTIVE_POST_REJECTION_ORTHOGONAL_RISK_TARGET_ONE_SHOT
+  purpose: 先验证技术因子能否稳定识别510300未来20日下行风险；仅风险门通过后才允许读取组合收益与夏普率
+  registration_date: '2026-08-30'
+  timezone: Asia/Shanghai
+  historical_data_already_contaminated: true
+  one_shot: true
+  target_sharpe_is_acceptance_gate_not_optimization_objective: true
+  parameter_rescue_after_result: forbidden
+  alternate_factor_rescue_after_result: forbidden
+  alternate_window_rescue_after_result: forbidden
+  reverse_direction_after_result: forbidden
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  auxiliary_information:
+    - H00300_TOTAL_RETURN_BENCHMARK
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: T日收盘后
+  earliest_execution_time: T+1交易日开盘
+  live_trading_authorized: false
+
+dates:
+  raw_warmup_start: '2012-05-28'
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-12'
+  structural_periods:
+    EARLY:
+      start: '2015-01-05'
+      end: '2018-12-31'
+    MIDDLE:
+      start: '2019-01-01'
+      end: '2022-12-31'
+    LATE:
+      start: '2023-01-01'
+      end: '2026-08-12'
+
+inputs:
+  etf_daily:
+    path: data/raw/market/510300_daily_downside_risk_v1.parquet
+    symbol: 510300.SH
+    required_columns: [date, open, high, low, close, volume, amount]
+  dividends:
+    path: data/reference/510300_dividends.csv
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    symbol: H00300
+    required_columns: [date, close]
+  input_audit:
+    path: reports/data_quality/510300_downside_risk_inputs_v1.json
+    required_status: PASS
+    candidate_outcomes_computed: false
+    portfolio_returns_computed: false
+  backtest_engine:
+    path: backtest/engine.py
+  correction_decisions:
+    path: data/reference/510300_downside_risk_price_corrections_v1.csv
+
+data_contract:
+  expected_raw_rows: 3456
+  expected_evaluation_rows: 2821
+  expected_first_date: '2012-05-28'
+  expected_last_date: '2026-08-14'
+  duplicate_policy: reject
+  missing_ohlc_policy: reject
+  signal_price: 因果现金分红总收益收盘价格
+  execution_price: 未复权下一交易日开盘价并计入滑点
+  total_return_formula: (raw_close_t + ex_date_cash_dividend_t) / raw_close_t_minus_1 - 1
+  dividend_entitlement: 持有者在record_date收盘锁定权利；回测在ex_date确认应收并在payment_date转为现金
+  minimum_valid_target_rows: 2700
+
+features:
+  annualization_trading_days: 242
+  slow_trend:
+    id: SLOW_TREND_120_TSTAT
+    lookback_trading_days: 120
+    input: log_causal_total_return_index
+    transform_to_risk: negative_t_stat
+  downside_variance:
+    id: DOWNVAR_RATIO_5_20
+    estimator: EWM_ROOT_MEAN_SQUARE_OF_NEGATIVE_TOTAL_RETURN
+    short_span: 5
+    long_span: 20
+    adjust: false
+  gap_risk:
+    id: GAP_ATR_20
+    numerator: absolute_ex_dividend_adjusted_open_divided_by_previous_raw_close_minus_one
+    atr_lookback_trading_days: 20
+    atr_lag_trading_days: 1
+  realized_volatility:
+    id: RV20
+    lookback_trading_days: 20
+    input: causal_total_return
+  volatility_of_volatility:
+    id: VOL_OF_VOL_20
+    lookback_trading_days: 20
+    input: RV20
+  causal_percentile:
+    prior_observation_lookback: 504
+    current_observation_excluded_from_reference_distribution: true
+  composite_risk_score:
+    method: EQUAL_WEIGHT_MEAN_OF_FOUR_CAUSAL_PERCENTILES
+    components:
+      slow_trend_risk_percentile: 0.25
+      downside_variance_ratio_percentile: 0.25
+      gap_atr_percentile: 0.25
+      vol_of_vol_percentile: 0.25
+  baseline_risk_score:
+    id: RV20_CAUSAL_PERCENTILE_ONLY
+
+targets:
+  primary_horizon_trading_days: 20
+  entry: next_trading_day_raw_open
+  path_valuation: raw_close_plus_record_date_entitled_cumulative_cash_dividend_receivable
+  primary_target: future_20d_maximum_adverse_excursion_magnitude
+  secondary_target: future_20d_downside_semivariance
+  tail_threshold:
+    method: ex_ante_volatility_scaled
+    multiple: 1.5
+    formula: negative_1p5_times_rv20_daily_times_sqrt_20
+
+risk_groups:
+  low_risk_maximum_score: 0.30
+  high_risk_minimum_score: 0.70
+  minimum_observations_each: 200
+
+bootstrap:
+  method: CIRCULAR_MOVING_BLOCK_OVER_DAILY_ROWS
+  repetitions: 5000
+  block_length_trading_days: 20
+  confidence_level: 0.90
+  random_seed: 20260830
+
+risk_gates:
+  minimum_valid_target_rows: 2700
+  minimum_group_observations_each: 200
+  high_minus_low_mean_mae_magnitude_must_be_positive: true
+  high_minus_low_median_mae_magnitude_must_be_positive: true
+  high_minus_low_bootstrap_90pct_lower_must_be_positive: true
+  high_minus_low_tail_rate_minimum_difference: 0.05
+  composite_rank_ic_must_be_positive: true
+  composite_rank_ic_bootstrap_90pct_lower_must_be_positive: true
+  all_structural_period_mean_differences_must_be_positive: true
+  all_leave_one_calendar_year_out_mean_differences_must_be_positive: true
+  incremental_rank_ic_vs_rv20_must_be_positive: true
+  incremental_rank_ic_bootstrap_90pct_lower_must_be_positive: true
+  pass_requires_all_gates: true
+
+portfolio:
+  enabled_only_if_risk_gate_passes: true
+  initial_capital_cny: 20000.0
+  initial_position: 0.0
+  desired_position_mapping:
+    risk_score_below_0p60: 1.0
+    risk_score_0p60_to_below_0p80: 0.5
+    risk_score_at_least_0p80: 0.0
+  maximum_position_change_per_trading_day: 0.5
+  missing_score_action: hold_previous_target
+  execution: next_trading_day_open
+  lot_size_shares: 100
+  cash_annual_rate: 0.0
+  base_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+    stamp_duty_rate: 0.0
+  double_costs:
+    commission_rate_per_leg: 0.0006
+    minimum_commission_cny_per_leg: 10.0
+    slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+  start_offset_trading_days: [0, 5, 10, 15, 20]
+
+portfolio_gates:
+  base_net_sharpe_minimum: 1.20
+  double_cost_net_sharpe_minimum: 0.90
+  annualized_excess_vs_510300_buy_hold_must_be_positive: true
+  annualized_excess_vs_h00300_total_return_must_be_positive: true
+  maximum_drawdown_ratio_vs_buy_hold_maximum: 0.75
+  maximum_sell_legs_in_any_calendar_year: 10
+  every_start_offset_net_sharpe_minimum: 1.00
+  every_start_offset_excess_vs_both_benchmarks_must_be_positive: true
+  delete_any_calendar_year_excess_vs_buy_hold_must_be_positive: true
+  maximum_single_positive_year_share_of_positive_excess: 0.50
+  deflated_sharpe_probability_minimum: 0.95
+  probabilistic_sharpe_above_1p0_minimum: 0.80
+  pass_requires_all_gates: true
+
+selection_bias:
+  trial_count_rule: COUNT_ALL_PREEXISTING_510300_MANIFESTS_AS_CONSERVATIVE_UPPER_BOUND
+  pbo_status: NOT_APPLICABLE_ONE_FROZEN_SPECIFICATION
+  deflated_sharpe_method: BAILEY_LOPEZ_DE_PRADO_NORMAL_NULL_TRIAL_STD_PROXY
+
+adjudication:
+  risk_pass_status: PASS_DOWNSIDE_RISK_PREDICTIVE_GATE_PORTFOLIO_EVALUATION_ALLOWED
+  risk_fail_status: REJECTED_FROZEN_DOWNSIDE_RISK_PREDICTIVE_GATE_FAILED_NO_RESCUE
+  portfolio_pass_status: HISTORICAL_RETROSPECTIVE_SHARPE_1P2_PASS_FORWARD_CONFIRMATION_REQUIRED
+  portfolio_fail_status: REJECTED_FROZEN_DOWNSIDE_RISK_PORTFOLIO_GATE_FAILED_NO_RESCUE
+  data_fail_status: NO_VIEW_DATA_OR_PROTOCOL_CONTRACT_FAILED
+  program_fail_status: PROGRAM_FAILED
+  target_net_sharpe: 1.20
+  historical_pass_never_authorizes_trading: true
+
+governance:
+  research_only: true
+  discovery_only: true
+  paper_or_shadow_position_mapping: disabled
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  manifest: config/510300_downside_risk_budget_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_downside_risk_budget_v1_freeze_receipt.json
+  result_json: reports/research/510300_downside_risk_budget_v1_result.json
+  result_markdown: reports/research/510300_DOWNSIDE_RISK_BUDGET_V1.md
+  feature_table: data/research/510300_downside_risk_budget_v1/daily_features_and_risk_targets.parquet
+  portfolio_targets: data/research/510300_downside_risk_budget_v1/portfolio_targets.parquet
+  base_ledger: data/research/510300_downside_risk_budget_v1/base_ledger.parquet
+  base_trades: data/research/510300_downside_risk_budget_v1/base_trades.parquet
+  double_cost_ledger: data/research/510300_downside_risk_budget_v1/double_cost_ledger.parquet
+  double_cost_trades: data/research/510300_downside_risk_budget_v1/double_cost_trades.parquet
+  buy_hold_ledger: data/research/510300_downside_risk_budget_v1/buy_hold_ledger.parquet
+  buy_hold_trades: data/research/510300_downside_risk_budget_v1/buy_hold_trades.parquet

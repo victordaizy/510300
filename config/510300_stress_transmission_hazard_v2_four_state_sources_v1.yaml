@@ -1,0 +1,191 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  addendum_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_SOURCES_V1
+  version: 1.0.0
+  stage: SOURCE_CONTRACT_FREEZE_AND_BOUNDED_PROBE_ONLY
+  research_state: DISCOVERY_ONLY
+  return_evaluation: NOT_ALLOWED
+  portfolio_evaluation: NOT_ALLOWED
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+  timezone: Asia/Shanghai
+  observation_start: "2015-01-05"
+  observation_cutoff: "2026-08-14"
+  acquisition_warmup_start: "2014-09-01"
+  model_training_allowed: false
+  probability_threshold_selection_allowed: false
+  paper_or_shadow_allowed: false
+  broker_connection_allowed: false
+  position_or_order_generation_allowed: false
+
+parent_freeze:
+  manifest_path: config/510300_stress_transmission_hazard_v2_manifest.json
+  manifest_bytes: 17838
+  manifest_sha256: 4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be
+  config_path: config/510300_stress_transmission_hazard_v2.yaml
+  config_bytes: 18495
+  config_sha256: 06064c26ef4a0dc3a8c7a8c6b5d49bd44d05d351bee0083c1839e79b52e609d8
+  mutation_allowed: false
+
+point_in_time_membership:
+  path: data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet
+  bytes: 139181
+  sha256: cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b
+  index_code: "000300"
+  required_columns: [membership_date, index_code, symbol, state_transition_session, state_cycle_id, source_contract]
+  current_member_backfill_allowed: false
+  expected_members_per_session: 300
+
+legacy_daily_observation_seed:
+  path: data/curated/510300_asymmetric_stress_hazard_v1_original_route_g2/constituent_history_20141101_20200228.parquet
+  bytes: 35681160
+  sha256: 260ef92fd7239d7101c7c1916f2fa5ed1b0e843afe1b43d92ca1d99d0b98e5fd
+  status: QUARANTINED_DERIVED_RETURNS_BUT_RAW_DAILY_COLUMNS_MAY_BE_REVALIDATED
+  admitted_columns_only: [con_code, date, pre_close, raw_open, raw_high, raw_low, raw_close, pct_chg, vol, amount, price_source]
+  prohibited_columns: [linked_adjustment_factor, total_return_open, total_return_high, total_return_low, total_return_close, is_suspended, adjustment_source]
+  direct_predictive_use_allowed: false
+  forward_filled_values_allowed: false
+
+provider_contract:
+  provider: TUSHARE_PRO
+  credential_source: EPHEMERAL_ENV_ONLY
+  credential_persistence_allowed: false
+  allowed_endpoint_hosts: [api.tushare.pro, fast.xiaodefa.cn, tt.xiaodefa.cn]
+  request_strategy_after_probe:
+    bulk_collection_allowed_only_after_probe_pass: true
+    bounded_workers_maximum: 2
+    checkpoint_required: true
+    overwrite_existing_checkpoint_allowed: false
+    one_symbol_one_history_request_preferred: true
+  daily:
+    api_name: daily
+    documentation_url: https://tushare.pro/document/1?doc_id=27
+    provider_semantics: UNADJUSTED_DAILY_NO_ROWS_DURING_SUSPENSION
+    required_fields: [ts_code, trade_date, open, high, low, close, pre_close, change, pct_chg, vol, amount]
+    pre_close_semantics: EX_RIGHTS_REFERENCE_PREVIOUS_CLOSE
+    value_availability: SAME_SESSION_AFTER_DAILY_INGEST_FOR_NEXT_OPEN_DECISION
+    return_series_direct_use_allowed: false
+    unadjusted_ohlc_use_allowed_after_validation: true
+    missing_row_implies_official_suspension: false
+  suspend_d:
+    api_name: suspend_d
+    documentation_url: https://tushare.pro/document/2?doc_id=214
+    required_fields: [ts_code, trade_date, suspend_timing, suspend_type]
+    provider_semantics: PROVIDER_MAINTAINED_DAILY_SUSPEND_RESUME_CANDIDATE
+    official_exchange_evidence_eligible: false
+    zero_return_authorization: false
+    role: CANDIDATE_DIAGNOSTIC_ONLY
+  dividend:
+    api_name: dividend
+    documentation_url: https://tushare.pro/document/2?doc_id=103
+    required_fields: [ts_code, end_date, ann_date, div_proc, stk_div, stk_bo_rate, stk_co_rate, cash_div, cash_div_tax, record_date, ex_date, pay_date, div_listdate, imp_ann_date, base_date, base_share]
+    admitted_div_proc: 实施
+    availability_field: imp_ann_date
+    availability_rule: IMPLEMENTATION_ANNOUNCEMENT_DATE_STRICTLY_BEFORE_EX_DATE
+    cash_field: cash_div_tax
+    cash_semantics: GROSS_CASH_DISTRIBUTION_PER_PRE_EVENT_SHARE
+    share_ratio_formula: ONE_PLUS_STK_DIV
+    subscription_cash_outflow_supported: false
+    conflicting_duplicate_rule: FAIL_CLOSED_UNRESOLVED
+    missing_rights_issue_terms_rule: FAIL_CLOSED_UNRESOLVED
+  adj_factor:
+    api_name: adj_factor
+    documentation_url: https://tushare.pro/document/2?doc_id=28
+    required_fields: [ts_code, trade_date, adj_factor]
+    role: ACTION_CANDIDATE_AND_CROSSCHECK_ONLY
+    adjusted_price_construction_allowed: false
+    direct_return_construction_allowed: false
+    future_revision_safe_assumed: false
+
+corporate_action_reconciliation:
+  comparison:
+    previous_unadjusted_close_source: PRIOR_OBSERVED_DAILY_CLOSE
+    provider_ex_reference_source: DAILY_PRE_CLOSE
+    expected_ex_reference_formula: ROUND_TO_CENT((PREVIOUS_CLOSE_MINUS_GROSS_CASH_PLUS_SUBSCRIPTION_OUTFLOW)/POST_TO_PRE_SHARE_RATIO)
+    absolute_tolerance_cny: 0.011
+    pct_chg_identity_absolute_tolerance_percentage_points: 0.011
+  none_confirmed:
+    required: true
+    rule: DAILY_PRE_CLOSE_EQUALS_PRIOR_OBSERVED_UNADJUSTED_CLOSE_WITHIN_TOLERANCE_AND_NO_CONFLICTING_ACTION_ROW
+  resolved:
+    required: true
+    rule: IMPLEMENTED_TERMS_AVAILABLE_BEFORE_EX_DATE_AND_EXPECTED_EX_REFERENCE_MATCHES_DAILY_PRE_CLOSE
+  unresolved_triggers:
+    - DAILY_PRE_CLOSE_DIFFERS_FROM_PRIOR_OBSERVED_CLOSE_WITHOUT_MATCHED_IMPLEMENTED_TERMS
+    - IMPLEMENTATION_ANNOUNCEMENT_NOT_STRICTLY_BEFORE_EX_DATE
+    - CONFLICTING_DUPLICATE_ACTION_TERMS
+    - RIGHTS_ISSUE_OR_SUBSCRIPTION_TERMS_NOT_AVAILABLE
+    - ADJ_FACTOR_CHANGE_WITHOUT_RESOLVED_TERMS
+    - INVALID_OR_NONFINITE_ECONOMIC_TERMS
+
+four_state_mapping:
+  TRADED_VALID:
+    requirements: [DAILY_ROW_PRESENT, DAILY_INTERNAL_IDENTITY_PASS, CORPORATE_ACTION_NONE_CONFIRMED_OR_RESOLVED]
+    return_formula: (UNADJUSTED_CLOSE*POST_TO_PRE_SHARE_RATIO+GROSS_CASH_DISTRIBUTION-SUBSCRIPTION_CASH_OUTFLOW)/PREVIOUS_UNADJUSTED_CLOSE-1
+  OFFICIAL_SUSPENSION:
+    requirements: [EXCHANGE_OFFICIAL_SUSPENSION_EVIDENCE, CORPORATE_ACTION_RECONCILED]
+    current_source_path_available: false
+    provider_suspend_d_sufficient: false
+    return_value: 0.0
+  CORPORATE_ACTION_UNRESOLVED:
+    return_value: null
+    feature_use_allowed: false
+  SUPPLIER_MISSING_OR_CONFLICT:
+    return_value: null
+    feature_use_allowed: false
+  blanket_zero_fill_allowed: false
+  supplier_suspension_candidate_default_state_without_exchange_evidence: SUPPLIER_MISSING_OR_CONFLICT
+
+coverage_and_new_member_contract:
+  breadth_equal_weight_minimum_usable_member_ratio: 0.98
+  reliable_point_in_time_weight_minimum_usable_ratio: 0.99
+  comovement_minimum_scoreable_member_ratio: 0.90
+  comovement_minimum_valid_observations_in_20: 15
+  below_gate_state: NO_VIEW
+  ordinary_missing_member_may_be_excluded_above_gate: true
+  ordinary_missing_member_may_be_zero_filled: false
+  pre_membership_public_price_history:
+    individual_return_window_use_allowed: true
+    membership_identity_backfill_allowed: false
+    comovement_peer_membership_rule: ACTUAL_POINT_IN_TIME_MEMBERS_ON_EACH_LOOKBACK_SESSION
+    conservative_comovement_eligibility: REQUIRE_AT_LEAST_15_VALID_MEMBER_SESSION_OBSERVATIONS_AFTER_ENTRY
+  listing_or_first_observation_without_previous_close_state: SUPPLIER_MISSING_OR_CONFLICT
+
+probe_contract:
+  must_verify_frozen_addendum_before_network_call: true
+  daily_symbol: 000001.SZ
+  daily_start: "2020-03-11"
+  daily_end: "2020-03-13"
+  suspension_trade_date: "2020-03-12"
+  suspension_type: S
+  dividend_symbol: 000001.SZ
+  adj_factor_symbol: 000001.SZ
+  adj_factor_start: "2020-03-11"
+  adj_factor_end: "2020-03-13"
+  full_history_or_bulk_member_download_allowed: false
+  snapshot_directory: data/raw/510300_stress_transmission_hazard_v2_four_state_sources_v1/probe
+  receipt_path: reports/audit/510300_stress_transmission_hazard_v2_four_state_source_probe_v1.json
+  status_path: reports/research/510300_stress_transmission_hazard_v2_four_state_source_status_v1.json
+
+freeze_contract:
+  implementation_files:
+    - scripts/freeze_510300_stress_transmission_hazard_v2_four_state_sources_v1.py
+    - scripts/probe_510300_stress_transmission_hazard_v2_four_state_sources_v1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_four_state_sources_v1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_SOURCE_ADMISSION_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_four_state_sources_v1_manifest.json
+  receipt_output: reports/audit/510300_stress_transmission_hazard_v2_four_state_sources_v1_freeze_receipt.json
+
+forbidden_actions:
+  - MUTATE_PARENT_V2_FREEZE
+  - USE_LEGACY_TOTAL_RETURN_OR_FORWARD_FILLED_SUSPENSION_COLUMNS
+  - TREAT_PROVIDER_SUSPEND_D_AS_EXCHANGE_OFFICIAL_EVIDENCE
+  - USE_ADJ_FACTOR_TO_BUILD_DIRECT_RETURN_SERIES
+  - USE_POST_ADJUSTED_PRICE_WITH_FUTURE_ACTION_INFORMATION
+  - FILL_MISSING_CONSTITUENT_RETURN_WITH_ZERO
+  - RUN_BULK_COLLECTION_BEFORE_PROBE_PASS
+  - READ_NEW_AUC_RETURN_SHARPE_DRAWDOWN_NAV_POSITION_OR_ORDER_OUTPUT
+  - TRAIN_MODEL_OR_SELECT_THRESHOLD
+  - GENERATE_PORTFOLIO_POSITION_ORDER_BROKER_OR_LIVE_ACTION

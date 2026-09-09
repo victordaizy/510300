@@ -1,0 +1,835 @@
+{
+  "status": "PASS_OBJECTIVE_AUDIT_COMPLETED",
+  "generated_at": "2026-08-14T02:15:22.686348+08:00",
+  "objective": {
+    "objective_id": "510300_NET_EXCESS_VS_H00300_V1",
+    "name": "510300相对沪深300全收益指数净超额目标",
+    "primary_metric": "net_annualized_excess_vs_h00300",
+    "benchmark": "H00300沪深300全收益指数",
+    "tradable_reference": "510300含分红买入持有",
+    "status": "RETROSPECTIVE_OBJECTIVE_AUDIT"
+  },
+  "ranking": [
+    {
+      "strategy_id": "VALUATION_FVG_V1_SUPERSEDED",
+      "description": "已废止的离散估值与FVG旧路径，仅作审计对照",
+      "base_ledger": "data/processed/510300_valuation_fvg/daily_ledger.parquet",
+      "stress_ledger": null,
+      "eligible_for_selection": false,
+      "base": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 24178.017815479587,
+        "strategy_total_return": 0.20890089077397933,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": 0.14045235343212137,
+        "strategy_cagr": 0.03867671457457256,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": 0.025345294011967168,
+        "tracking_error": 0.08068673165646169,
+        "information_ratio": 0.2142814255210904,
+        "maximum_relative_drawdown": -0.15203669210376558,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.034349564665284826,
+          "positive_ratio": 0.734020618556701,
+          "minimum": -0.1558645089120374,
+          "maximum": 0.129081711896617
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.20595228154713563,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.09339560307088135
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.522453704834541,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.002480729652051483
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.020620911268652398,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.02402827878822511
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.1638126628954526,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.03455445104177579
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.03594459920322446,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.05540969261489337
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.26068823155644516,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": 0.078293602686619
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.1254373222485119,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.08439856900729259
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.03559905351335457,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": 0.006690164487746397
+          }
+        ]
+      },
+      "stress": null,
+      "decision": {
+        "status": "AUDIT_ONLY_NOT_ELIGIBLE",
+        "checks": {
+          "minimum_evaluation_years": true,
+          "base_annualized_excess_positive": true,
+          "stress_annualized_excess_positive": false,
+          "both_chronological_halves_positive": false,
+          "rolling_excess_median_positive": true,
+          "rolling_positive_ratio": true,
+          "information_ratio_positive": true,
+          "relative_drawdown_within_limit": true
+        },
+        "passed_count": 6,
+        "total_count": 8
+      }
+    },
+    {
+      "strategy_id": "ROUND5_DEFENSIVE_VALUATION",
+      "description": "第五轮防守趋势与估值增强旧路径",
+      "base_ledger": "data/processed/round5_defensive_valuation_timing/enhanced_ledger.parquet",
+      "stress_ledger": "data/processed/round5_defensive_valuation_timing/enhanced_stress_ledger.parquet",
+      "eligible_for_selection": true,
+      "base": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 22916.632709392612,
+        "strategy_total_return": 0.14583163546963052,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": 0.07738309812777255,
+        "strategy_cagr": 0.027603986913054435,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": 0.014272566350449045,
+        "tracking_error": 0.10453157416806831,
+        "information_ratio": 0.020472764212766618,
+        "maximum_relative_drawdown": -0.18134113596034573,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.006087023686390025,
+          "positive_ratio": 0.520618556701031,
+          "minimum": -0.18160213279123782,
+          "maximum": 0.11637610674847831
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.14713993643550927,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.1522079481825077
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.3435165795906494,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.1814178548959431
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.017746850604188236,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.02115421812376095
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.1110037792651134,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.08736333467211499
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.0423955505971938,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.04895874122092403
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.09662316476217869,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": -0.08577146410764747
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.17518000345335483,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.03465588780244966
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.0262027233665989,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": -0.002706165659009274
+          }
+        ]
+      },
+      "stress": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 22873.39991649897,
+        "strategy_total_return": 0.14366999582494855,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": 0.07522145848309059,
+        "strategy_cagr": 0.02721592083687674,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": 0.01388450027427135,
+        "tracking_error": 0.10449999230064247,
+        "information_ratio": 0.016908235215725285,
+        "maximum_relative_drawdown": -0.18226247441223764,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.006075823533767899,
+          "positive_ratio": 0.5195876288659794,
+          "minimum": -0.1825822182559631,
+          "maximum": 0.11627972690141875
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.14774734768748188,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.1516005369305351
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.3419377372680368,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.18299669721855572
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.01715833968155045,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.020565707201123162
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.11107674810344603,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.08729036583378236
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.04243354724286108,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.04892074457525675
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.09620848284375305,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": -0.08618614602607311
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.17473221322132204,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.035103678034482444
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.025762782949861007,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": -0.003146106075747168
+          }
+        ]
+      },
+      "decision": {
+        "status": "REJECTED_OR_INCOMPLETE",
+        "checks": {
+          "minimum_evaluation_years": true,
+          "base_annualized_excess_positive": true,
+          "stress_annualized_excess_positive": true,
+          "both_chronological_halves_positive": false,
+          "rolling_excess_median_positive": true,
+          "rolling_positive_ratio": false,
+          "information_ratio_positive": true,
+          "relative_drawdown_within_limit": true
+        },
+        "passed_count": 6,
+        "total_count": 8
+      }
+    },
+    {
+      "strategy_id": "LATEST_MACD_OVERLAY",
+      "description": "当前两万元估值仓位加MACD择时诊断",
+      "base_ledger": "data/processed/valuation_technical_candidate_screen/macd_12_26_9_cross_ledger.parquet",
+      "stress_ledger": null,
+      "eligible_for_selection": false,
+      "base": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 20941.65062199805,
+        "strategy_total_return": 0.04708253109990257,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": -0.021366006241955393,
+        "strategy_cagr": 0.009245286868678093,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": -0.004086133693927296,
+        "tracking_error": 0.07842295065542883,
+        "information_ratio": -0.15061698688715033,
+        "maximum_relative_drawdown": -0.1464886517511158,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": -0.0059598376390724295,
+          "positive_ratio": 0.4298969072164949,
+          "minimum": -0.14856266734317947,
+          "maximum": 0.056476854345738126
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.2619553935411083,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.037392491076908674
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.42004856237733,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.10488587210926248
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.013774082827635592,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.017181450347208305
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.1691179979391605,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.0292491159980679
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.09401241683999773,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": -0.002658125021879898
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.16608143945804055,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": -0.01631318941178561
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.13860348600182704,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.07123240525397745
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.034383618184340436,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": 0.005474729158732261
+          }
+        ]
+      },
+      "stress": null,
+      "decision": {
+        "status": "AUDIT_ONLY_NOT_ELIGIBLE",
+        "checks": {
+          "minimum_evaluation_years": true,
+          "base_annualized_excess_positive": false,
+          "stress_annualized_excess_positive": false,
+          "both_chronological_halves_positive": false,
+          "rolling_excess_median_positive": false,
+          "rolling_positive_ratio": false,
+          "information_ratio_positive": false,
+          "relative_drawdown_within_limit": true
+        },
+        "passed_count": 2,
+        "total_count": 8
+      }
+    },
+    {
+      "strategy_id": "CONTINUOUS_VALUATION_ONLY_V2",
+      "description": "连续估值基础库存，不含短波战术偏移",
+      "base_ledger": "data/processed/510300_continuous_inventory/strategic_only_ledger.parquet",
+      "stress_ledger": "data/processed/510300_continuous_inventory/strategic_only_stress_ledger.parquet",
+      "eligible_for_selection": true,
+      "base": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 20683.591976746175,
+        "strategy_total_return": 0.03417959883730881,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": -0.03426893850454915,
+        "strategy_cagr": 0.006745258601023707,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": -0.006586161961581682,
+        "tracking_error": 0.09254045167830308,
+        "information_ratio": -0.15127725662444771,
+        "maximum_relative_drawdown": -0.19602367241416474,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.00927667454184139,
+          "positive_ratio": 0.6412371134020619,
+          "minimum": -0.22097922666002878,
+          "maximum": 0.10145060314366239
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.26406013180451837,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.03528775281349861
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.40525013459741865,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.11968429988917384
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.006123473954295688,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.009530841473868401
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.18071526242771874,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.017651851509509653
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.0761866759605817,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.01516761585753612
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.19148250107101172,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": 0.009087872201185565
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.12988832064925604,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.07994757060654845
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.008793814087264762,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": -0.020115074938343414
+          }
+        ]
+      },
+      "stress": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 20958.54805636982,
+        "strategy_total_return": 0.04792740281849084,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": -0.020521134523367124,
+        "strategy_cagr": 0.009408124928874217,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": -0.003923295633731172,
+        "tracking_error": 0.09113883730442018,
+        "information_ratio": -0.12418861178420519,
+        "maximum_relative_drawdown": -0.18904258132585372,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.011779824559039365,
+          "positive_ratio": 0.6587628865979381,
+          "minimum": -0.20741063698675655,
+          "maximum": 0.09773754375319466
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.2599497901718938,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.03939809444612319
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.41602203323731546,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.10891240124927704
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.007076615401179209,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.010483982920751922
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.1814260629954716,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.016941050941756797
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.07128155717605211,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.020072734642065715
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.19637167370059205,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": 0.013977044830765895
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.12660883317988847,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.08322705807591602
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.015517539892562437,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": -0.013391349133045738
+          }
+        ]
+      },
+      "decision": {
+        "status": "REJECTED_OR_INCOMPLETE",
+        "checks": {
+          "minimum_evaluation_years": true,
+          "base_annualized_excess_positive": false,
+          "stress_annualized_excess_positive": false,
+          "both_chronological_halves_positive": false,
+          "rolling_excess_median_positive": true,
+          "rolling_positive_ratio": true,
+          "information_ratio_positive": false,
+          "relative_drawdown_within_limit": true
+        },
+        "passed_count": 4,
+        "total_count": 8
+      }
+    },
+    {
+      "strategy_id": "CONTINUOUS_VALUATION_TECHNICAL_V2",
+      "description": "连续估值库存加短波与FVG执行",
+      "base_ledger": "data/processed/510300_continuous_inventory/daily_inventory_ledger.parquet",
+      "stress_ledger": "data/processed/510300_continuous_inventory/stress_inventory_ledger.parquet",
+      "eligible_for_selection": true,
+      "base": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 20623.586283254914,
+        "strategy_total_return": 0.031179314162745664,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": -0.0372692231791123,
+        "strategy_cagr": 0.0061603606669689,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": -0.007171059895636489,
+        "tracking_error": 0.09440915793896407,
+        "information_ratio": -0.15728926779531394,
+        "maximum_relative_drawdown": -0.19925999996579669,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.009676037823957206,
+          "positive_ratio": 0.6391752577319587,
+          "minimum": -0.22545628615148705,
+          "maximum": 0.10151599527305089
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.26702464865975295,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.03232323595826403
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.4068403695666214,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.1180940649199711
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.0037730557728405945,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.007180423292413307
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.17994751399050024,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.01841959994672815
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.07848605212320503,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.012868239694912798
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.19174654999909935,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": 0.009351921129273189
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.13263960383241202,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.07719628742339246
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.007115893230164261,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": -0.021792995795443915
+          }
+        ]
+      },
+      "stress": {
+        "start_date": "2021-08-12",
+        "end_date": "2026-08-12",
+        "observations": 1211,
+        "elapsed_years": 4.999315537303217,
+        "ending_equity_cny": 21008.031076271407,
+        "strategy_total_return": 0.050401553813570255,
+        "benchmark_total_return": 0.06844853734185796,
+        "total_excess_return": -0.018046983528287708,
+        "strategy_cagr": 0.009884382074946796,
+        "benchmark_cagr": 0.01333142056260539,
+        "annualized_excess": -0.0034470384876585936,
+        "tracking_error": 0.09362751933228279,
+        "information_ratio": -0.11950761674821786,
+        "maximum_relative_drawdown": -0.18943025811382486,
+        "rolling_excess": {
+          "window_trading_days": 242,
+          "observations": 970,
+          "median": 0.013244450539349861,
+          "positive_ratio": 0.668041237113402,
+          "minimum": -0.2083886642367221,
+          "maximum": 0.09733014618187608
+        },
+        "chronological_halves": [
+          {
+            "period": "前半段",
+            "start_date": "2021-08-12",
+            "end_date": "2024-02-06",
+            "strategy_return": -0.25722041556336694,
+            "benchmark_return": -0.299347884618017,
+            "excess_return": 0.042127469054650035
+          },
+          {
+            "period": "后半段",
+            "start_date": "2024-02-07",
+            "end_date": "2026-08-12",
+            "strategy_return": 0.4141497367758933,
+            "benchmark_return": 0.5249344344865925,
+            "excess_return": -0.11078469771069921
+          }
+        ],
+        "annual_returns": [
+          {
+            "year": 2021,
+            "observations": 95,
+            "strategy_return": 0.00674413719664102,
+            "benchmark_return": -0.0034073675195727127,
+            "excess_return": 0.010151504716213733
+          },
+          {
+            "year": 2022,
+            "observations": 242,
+            "strategy_return": -0.17750849222463272,
+            "benchmark_return": -0.1983671139372284,
+            "excess_return": 0.02085862171259567
+          },
+          {
+            "year": 2023,
+            "observations": 242,
+            "strategy_return": -0.07210895795331496,
+            "benchmark_return": -0.09135429181811783,
+            "excess_return": 0.01924533386480287
+          },
+          {
+            "year": 2024,
+            "observations": 242,
+            "strategy_return": 0.1977158035513551,
+            "benchmark_return": 0.18239462886982616,
+            "excess_return": 0.015321174681528937
+          },
+          {
+            "year": 2025,
+            "observations": 243,
+            "strategy_return": 0.12644747953300794,
+            "benchmark_return": 0.20983589125580449,
+            "excess_return": -0.08338841172279654
+          },
+          {
+            "year": 2026,
+            "observations": 147,
+            "strategy_return": 0.013311832993702977,
+            "benchmark_return": 0.028908889025608175,
+            "excess_return": -0.015597056031905199
+          }
+        ]
+      },
+      "decision": {
+        "status": "REJECTED_OR_INCOMPLETE",
+        "checks": {
+          "minimum_evaluation_years": true,
+          "base_annualized_excess_positive": false,
+          "stress_annualized_excess_positive": false,
+          "both_chronological_halves_positive": false,
+          "rolling_excess_median_positive": true,
+          "rolling_positive_ratio": true,
+          "information_ratio_positive": false,
+          "relative_drawdown_within_limit": true
+        },
+        "passed_count": 4,
+        "total_count": 8
+      }
+    }
+  ],
+  "selection": {
+    "pass_count": 0,
+    "forward_observation_candidate": null,
+    "live_trading_authorized": false
+  },
+  "gates": {
+    "minimum_base_annualized_excess": 0.0,
+    "minimum_stress_annualized_excess": 0.0,
+    "require_both_chronological_halves_positive": true,
+    "minimum_rolling_excess_median": 0.0,
+    "minimum_rolling_positive_ratio": 0.55,
+    "minimum_information_ratio": 0.0,
+    "maximum_relative_drawdown": -0.2,
+    "minimum_evaluation_years": 4.5
+  },
+  "governance": {
+    "all_history_already_inspected": true,
+    "strict_holdout_available": false,
+    "live_trading_authorized": false,
+    "selection_rule": "只有基础与压力成本全部通过门槛的可选策略，才可冻结进入纸面前向观察"
+  }
+}

@@ -1,0 +1,142 @@
+protocol:
+  project_id: "510300_CROSS_MARKET_CHART_ML_V1"
+  version: "1.0.1"
+  status: "SAMPLE_COUNT_FEASIBILITY_CORRECTED_BEFORE_FIRST_MODEL_FIT"
+  evidence_label: "CROSS_MARKET_TRANSFER_DISCOVERY_ONLY"
+  target_history_label: "PROJECT_HISTORY_CONTAMINATED_BUT_TARGET_LABEL_EXCLUDED_FROM_MODEL"
+  parameter_rescue_after_results: false
+  target_reveal_count_limit: 1
+  true_forward_start: "2026-08-19"
+
+governance:
+  discovery_only: true
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  target_labels_used_for_training: false
+  target_features_used_for_training: false
+
+data_contracts:
+  yahoo_chart_base_url: "https://query1.finance.yahoo.com/v8/finance/chart"
+  start_date: "2000-01-01"
+  cutoff_date: "2026-08-18"
+  interval: "1d"
+  raw_directory: "data/raw/cross_market_chart_ml_v1"
+  audit_file: "reports/data_quality/510300_cross_market_chart_ml_v1_data_gate.json"
+  training_symbols:
+    - {symbol: "^GSPC", name: "S&P 500"}
+    - {symbol: "^DJI", name: "Dow Jones Industrial Average"}
+    - {symbol: "^IXIC", name: "NASDAQ Composite"}
+    - {symbol: "^FTSE", name: "FTSE 100"}
+    - {symbol: "^GDAXI", name: "DAX"}
+    - {symbol: "^FCHI", name: "CAC 40"}
+    - {symbol: "^N225", name: "Nikkei 225"}
+    - {symbol: "^AXJO", name: "S&P/ASX 200"}
+    - {symbol: "^GSPTSE", name: "S&P/TSX Composite"}
+  external_gate_symbols:
+    - {symbol: "^BSESN", name: "BSE SENSEX"}
+    - {symbol: "^KS11", name: "KOSPI Composite"}
+    - {symbol: "^HSI", name: "Hang Seng Index"}
+  independent_cross_checks:
+    - {symbol: "^GDAXI", sina_name: "德国DAX 30种股价指数"}
+    - {symbol: "^FTSE", sina_name: "英国富时100指数"}
+    - {symbol: "^FCHI", sina_name: "法CAC40指数"}
+    - {symbol: "^N225", sina_name: "日经225指数"}
+    - {symbol: "^GSPTSE", sina_name: "加拿大S&P/TSX综合指数"}
+  minimum_successful_cross_checks: 3
+  cross_check_minimum_common_dates: 500
+  cross_check_median_relative_error_maximum: 0.0001
+  cross_check_p99_relative_error_maximum: 0.001
+  target_market_files:
+    - "data/raw/r6/510300_daily.parquet"
+    - "data/raw/market/510300_daily_raw.parquet"
+  target_benchmark_files:
+    - "data/raw/r6/H00300_total_return_daily.parquet"
+    - "data/raw/market/H00300_total_return_daily_raw.parquet"
+  target_distributions_file: "data/reference/510300_dividends.csv"
+  target_distribution_coverage_file: "data/reference/510300_dividends_coverage.json"
+
+sample_design:
+  training_start: "2003-01-01"
+  training_label_exit_end: "2018-12-31"
+  external_gate_start: "2019-01-01"
+  external_gate_end: "2023-12-29"
+  feature_sampling_step_bars: 5
+  prediction_horizon_bars: 20
+  target_rebalance_step_bars: 20
+  label_round_trip_cost_bps: 16.0
+  minimum_rows_per_market: 5000
+  minimum_training_samples: 7000
+  minimum_external_predictions_per_market: 50
+
+factors:
+  epsilon: 1.0e-12
+  definitions:
+    - {id: "MOM5_VOL", formula: "sum(log_return,5)/(std(log_return,60)*sqrt(5)+eps)"}
+    - {id: "MOM20_VOL", formula: "sum(log_return,20)/(std(log_return,60)*sqrt(20)+eps)"}
+    - {id: "MOM60_VOL", formula: "sum(log_return,60)/(std(log_return,60)*sqrt(60)+eps)"}
+    - {id: "MOM252_VOL", formula: "sum(log_return,252)/(std(log_return,252)*sqrt(252)+eps)"}
+    - {id: "EMA20_120_GAP", formula: "log(EMA20/EMA120)/(std(log_return,60)*sqrt(100)+eps)"}
+    - {id: "RANGE_POSITION_252", formula: "2*(close-low252)/(high252-low252+eps)-1"}
+    - {id: "VOL_RATIO_5_60", formula: "log((std(log_return,5)+eps)/(std(log_return,60)+eps))"}
+    - {id: "DOWNSIDE_SHARE_20", formula: "2*sum(min(log_return,0)^2,20)/(sum(log_return^2,20)+eps)-1"}
+    - {id: "DRAWDOWN60_VOL", formula: "(close/max(close,60)-1)/(std(log_return,60)*sqrt(60)+eps)"}
+    - {id: "EFFICIENCY_RATIO_20", formula: "abs(close-close.shift(20))/(sum(abs(close.diff()),20)+eps)"}
+
+model:
+  class: "sklearn.ensemble.HistGradientBoostingClassifier"
+  loss: "log_loss"
+  learning_rate: 0.03
+  max_iter: 300
+  max_leaf_nodes: 15
+  max_depth: 4
+  min_samples_leaf: 100
+  l2_regularization: 10.0
+  early_stopping: false
+  random_state: 20260819
+  probability_edge_thresholds: [-0.025, 0.0, 0.025]
+  target_exposures: [0.0, 0.325, 0.650, 0.975]
+
+external_gate:
+  one_way_cost_bps_per_full_exposure: 8.0
+  cash_annual_rate: 0.015
+  require_median_annualized_excess_positive: true
+  minimum_positive_markets: 2
+  minimum_balanced_accuracy: 0.51
+
+target_execution:
+  initial_capital_cny: 20000.0
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  lot_size_shares: 100
+  minimum_normal_trade_notional_cny: 5000.0
+  commission_rate_per_leg: 0.0003
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  risk_liquidation_exempt_from_minimum_notional: true
+  signal_at_close_execute_next_open: true
+  t_plus_one: true
+  leverage_enabled: false
+  shorting_enabled: false
+
+target_acceptance:
+  minimum_annualized_excess_vs_h00300: 0.20
+  minimum_annualized_excess_vs_510300_buy_hold: 0.20
+  minimum_stress_annualized_excess_vs_h00300: 0.20
+  minimum_executed_trades: 30
+  require_all_normal_trades_at_least_cny: 5000.0
+  require_positive_20_block_bootstrap_lower_bound: true
+  bootstrap_repetitions: 2000
+  bootstrap_block_days: 20
+  bootstrap_seed: 20260819
+
+outputs:
+  model_file: "data/processed/510300_cross_market_chart_ml_v1/model.joblib"
+  training_samples_file: "data/features/510300_cross_market_chart_ml_v1_training_samples.parquet"
+  external_predictions_file: "data/features/510300_cross_market_chart_ml_v1_external_predictions.parquet"
+  target_predictions_file: "data/features/510300_cross_market_chart_ml_v1_target_predictions.parquet"
+  target_ledger_directory: "data/processed/510300_cross_market_chart_ml_v1"
+  external_gate_report: "reports/discovery/510300_cross_market_chart_ml_v1_external_gate.json"
+  target_report_json: "reports/backtest/510300_cross_market_chart_ml_v1.json"
+  target_report_markdown: "reports/backtest/510300_cross_market_chart_ml_v1.md"

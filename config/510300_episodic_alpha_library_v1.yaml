@@ -1,0 +1,309 @@
+protocol:
+  project_id: 510300_EPISODIC_ALPHA_LIBRARY_V1
+  version: 1.0.0
+  state: PRE_OUTCOME_SIMULTANEOUS_FREEZE
+  authorized_state: AUTHORIZED_FOR_DISCOVERY
+  created_date: '2026-08-31'
+  timezone: Asia/Shanghai
+  historical_evidence_label: RESEARCH_OBSERVED_DISCOVERY
+  forward_start_rule: '2026-09-01_OR_NEXT_SSE_TRADING_DAY'
+  no_parameter_rescue: true
+  simultaneous_branch_freeze_required: true
+  results_must_not_exist_before_freeze: true
+
+formal_status:
+  510300_20D_REGIME_TIMING_FAMILY: CLOSED_REJECTED_FROZEN
+  510300_EPISODIC_ALPHA_LIBRARY_V1: AUTHORIZED_FOR_DISCOVERY
+  510300_INFORMED_CREATION_PREMIUM_V1: PRIORITY_1_DISCOVERY
+  510300_DERIVATIVE_PRESSURE_RELEASE_V1: PRIORITY_2_DISCOVERY
+  510300_OPENING_DISCOUNT_RECOVERY_V1: PRIORITY_3_DISCOVERY
+  510300_ALPHA_LIFECYCLE_GOVERNOR_V1: AUTHORIZED_FOR_DESIGN
+  510300_OPTION_ORDER_IMBALANCE_FULL_V1: BLOCKED_NO_FREE_TRADE_SIGN_DATA
+  TRADE_UNIVERSE: 510300_AND_CASH_ONLY
+  CURRENT_VALIDATED_HIGH_SHARPE_STRATEGY: NONE
+  LIVE_TRADING_AUTHORIZED: false
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  other_assets_position: 0
+  shorting_allowed: false
+  leverage_allowed: false
+  derivatives_position: 0
+  primary_position_states: [0.0, 1.0]
+  primary_holding_period_trading_days: [1, 3]
+  target_conservative_net_sharpe: 1.20
+  signal_universe:
+    - 510300.SH
+    - H00300
+    - ETF_ACTUAL_SHARES
+    - PCF_IOPV_PREMIUM
+    - IF_FUTURES
+    - IO_AND_510300_ETF_OPTIONS
+    - PUBLIC_EVENTS
+
+capital_and_costs:
+  initial_capital_cny: 200000.0
+  commission_rate_per_leg: 0.0002
+  minimum_commission_cny_per_leg: 5.0
+  stress_slippage_bps_per_leg: 5.0
+  double_stress_slippage_bps_per_leg: 10.0
+  etf_stamp_duty_rate: 0.0
+  lot_size_shares: 100
+  stress_round_trip_bps: 14.0
+  double_stress_round_trip_bps: 24.0
+  mathematical_gross_edge_region_bps: [31.0, 36.0]
+  promotion_mean_gross_edge_bps: 42.0
+  decay_two_times_cost_gross_edge_bps: 28.0
+
+shared_clocks:
+  timezone: Asia/Shanghai
+  minute_bar_timestamp_semantics: BAR_START
+  confirmation_input_start: '09:30:00'
+  confirmation_input_end_inclusive: '09:44:00'
+  confirmation_required_bars: 15
+  execution_bar_time: '09:45:00'
+  no_new_low_rule: LOW_0940_0944_STRICTLY_ABOVE_LOW_0930_0939
+  vwap_rule: SUM_AMOUNT_DIV_SUM_VOLUME_0930_0944
+  repair_ratio_minimum: 0.3333333333333333
+  price_impact_rule: MEDIAN_ABS_MINUTE_RETURN_DIV_AMOUNT_0940_0944_BELOW_0930_0934
+  same_bar_execution_allowed: false
+
+rolling_rules:
+  robust_flow_window_days: 252
+  robust_flow_minimum_history_days: 252
+  robust_mad_scale: 1.4826
+  standard_z_window_days: 252
+  standard_z_minimum_history_days: 252
+  percentile_window_days: 252
+  percentile_minimum_history_days: 252
+  tail_probability: 0.05
+  overnight_sigma_window_days: 60
+  overnight_sigma_minimum_history_days: 60
+  rolling_inputs_use_current_observation: false
+
+branches:
+  informed_creation_premium:
+    model_id: 510300_INFORMED_CREATION_PREMIUM_V1
+    priority: 1
+    initial_lifecycle_state: CANDIDATE
+    mechanism: ETF_ACTUAL_NET_CREATION_TIMES_TRUE_INTRADAY_PREMIUM
+    actual_flow_formula: '(Shares_t-Shares_t_minus_1)/Shares_t_minus_1'
+    flow_surprise_z_threshold: 2.0
+    minimum_valid_iopv_snapshots: 120
+    positive_premium_snapshot_fraction_minimum: 0.60
+    iopv_error_buffer_bps: 2.0
+    premium_gate: MEDIAN_PREMIUM_BPS_GT_MEDIAN_BID_ASK_SPREAD_BPS_PLUS_IOPV_ERROR_BUFFER_BPS
+    exclusion_days: [EX_DIVIDEND, SHARE_SPLIT, DATA_REVISION]
+    signal_time: T_AFTER_CLOSE_WHEN_ALL_REQUIRED_DATA_OFFICIALLY_AVAILABLE
+    availability_rule: USE_RECORDED_SOURCE_AVAILABLE_AT_NEVER_FEATURE_DATE_OR_RETRIEVAL_REWRITE
+    entry_time: NEXT_ELIGIBLE_TRADING_DAY_09_35_AFTER_ALL_INPUTS_AVAILABLE
+    exit_time: ENTRY_PLUS_ONE_TRADING_DAY_09_35
+    holding_trading_days: 1
+    delay_if_not_available_before_t_plus_1_open: true
+    backfill_allowed: false
+    required_columns:
+      actual_shares: [trade_date, actual_fund_shares, available_at, source, source_document_id, revision_flag, split_flag]
+      iopv: [exchange_timestamp, trade_date, last_price, iopv, bid_price_1, ask_price_1, retrieved_at, source]
+    stop_rules:
+      - CONDITIONAL_SLOPE_ONE_SIDED_CONFIDENCE_SEQUENCE_AT_OR_BELOW_ZERO
+      - ACTUAL_SHARE_AVAILABLE_AT_DRIFT
+      - IOPV_COMPLETE_DAY_QUALIFICATION_DEGRADES
+      - RECENT20_MEAN_GROSS_EDGE_BELOW_28_BPS
+      - RECENT20_CONDITIONAL_DIRECTION_INVERTS
+
+  derivative_pressure_release:
+    model_id: 510300_DERIVATIVE_PRESSURE_RELEASE_V1
+    priority: 2
+    initial_lifecycle_state: CANDIDATE
+    mechanism: PUBLIC_DAILY_DERIVATIVE_HEDGE_PRESSURE_THEN_NEXT_OPEN_RELEASE_CONFIRMATION
+    pressure_formula: '-z(IF_ANNUALIZED_BASIS)+z(DELTA_FRONT_OI)+z(PUT_SKEW)+z(VRP)'
+    component_weights: [-1.0, 1.0, 1.0, 1.0]
+    if_front_minimum_calendar_days_to_expiry: 5
+    if_roll_exclusion_days: 1
+    if_basis_formula: '(IF_CLOSE/CSI300_CLOSE-1)*365/CALENDAR_DAYS_TO_EXPIRY'
+    delta_oi_formula: LOG_FRONT_OI_MINUS_LOG_PRIOR_SAME_CONTRACT_OI
+    put_skew_formula: OI_WEIGHTED_OTM_PUT_IV_MINUS_ATM_PAIR_IV
+    put_skew_dte_calendar_days: [20, 60]
+    put_skew_otm_moneyness: [0.90, 0.98]
+    atm_moneyness_absolute_maximum: 0.03
+    vrp_formula: 'ATM_PAIR_IV_SQUARED_MINUS_ANNUALIZED_RV20_SQUARED'
+    candidate_rules:
+      - ETF_DAILY_RETURN_AT_OR_BELOW_PRIOR252_5TH_PERCENTILE
+      - PRESSURE_AT_OR_ABOVE_PRIOR252_95TH_PERCENTILE
+      - IF_ANNUALIZED_BASIS_WEAKENS
+      - FRONT_OI_INCREASES_ON_SAME_CONTRACT_NON_ROLL_DAY
+    confirmation_rules:
+      - NO_CONTINUED_NEW_LOW
+      - ENTRY_PRICE_ABOVE_FIRST15_MINUTE_VWAP
+      - OPENING_DROP_REPAIRED_AT_LEAST_ONE_THIRD_OR_NO_NEGATIVE_OPENING_DROP
+      - PRICE_IMPACT_DECLINES
+    signal_data_conservative_available_at: NEXT_TRADING_DAY_09_30
+    entry_time: T_PLUS_1_09_45
+    exit_time: T_PLUS_2_09_45
+    holding_trading_days: 1
+    full_order_imbalance_replication_claim: FORBIDDEN
+    stop_rules:
+      - POST_PRESSURE_NO_REVERSAL_OR_CONTINUED_DECLINE
+      - BASIS_RECOVERY_RETURN_RELATION_AT_OR_BELOW_ZERO
+      - NEGATIVE_TAIL_BELOW_DISCOVERY_1ST_PERCENTILE_STRESS_BOUND
+      - RECENT20_MEAN_GROSS_EDGE_BELOW_28_BPS
+
+  opening_discount_recovery:
+    model_id: 510300_OPENING_DISCOUNT_RECOVERY_V1
+    priority: 3
+    initial_lifecycle_state: CANDIDATE
+    mechanism: EXTREME_NEGATIVE_OVERNIGHT_GAP_UNDER_T_PLUS_1_THEN_OPENING_RECOVERY_CONFIRMATION
+    forbidden_relabel: GENERIC_VWAP_MEAN_REVERSION
+    gap_formula: 'OPEN_T/CLOSE_T_MINUS_1-1'
+    gap_z_formula: 'GAP_T/PRIOR60_OVERNIGHT_GAP_SAMPLE_STD'
+    gap_z_maximum: -2.0
+    exclude_ex_dividend_day: true
+    long_holiday_policy: EXCLUDE_FIRST_TRADING_DAY_WHEN_PREVIOUS_TRADING_DAY_GAP_EXCEEDS_3_CALENDAR_DAYS
+    confirmation_rules:
+      - NO_CONTINUED_NEW_LOW
+      - ENTRY_PRICE_ABOVE_FIRST15_MINUTE_VWAP
+      - OVERNIGHT_GAP_REPAIRED_AT_LEAST_ONE_THIRD
+    entry_time: T_09_45
+    exit_time: T_PLUS_1_09_45
+    holding_trading_days: 1
+    recovery_ratio_formula: '(P_09_45-OPEN_T)/(CLOSE_T_MINUS_1-OPEN_T)'
+    stop_rules:
+      - MEDIAN_RECOVERY_RATIO_BELOW_ZERO
+      - RECENT20_OVERNIGHT_LOSS_OFFSETS_SAME_DAY_INTRADAY_RECOVERY
+      - RECENT20_NET_SUM_BELOW_ZERO
+      - LOSS_CLUSTER_IN_PUBLIC_NEWS_SHOCKS
+    news_shock_rule_status: NOT_EVALUABLE_UNTIL_SEPARATE_PUBLIC_EVENT_TAXONOMY_IS_FROZEN
+
+lifecycle_governor:
+  model_id: 510300_ALPHA_LIFECYCLE_GOVERNOR_V1
+  state: AUTHORIZED_FOR_DESIGN
+  states: [CANDIDATE, SHADOW, PROBATION, ACTIVE, DECAYING, OFF, REJECTED_FROZEN]
+  tactical_license:
+    trading_days: 60
+    mature_events: 20
+    expiry_rule: WHICHEVER_COMES_FIRST
+    state_after_expiry: SHADOW
+    requalification_rule: ORIGINAL_FROZEN_RULES_ONLY
+  active_gates:
+    independent_forward_mature_events_minimum: 40
+    mean_gross_edge_bps_minimum: 42.0
+    one_sided_net_mean_lcb_minimum: 0.0
+    conservative_sharpe_minimum: 1.20
+    recent_final_third_net_sum_minimum: 0.0
+    maximum_single_event_positive_contribution_fraction: 0.20
+    double_stress_net_sum_minimum: 0.0
+    data_point_in_time_qualification_required: true
+  decay_gates:
+    recent_mature_events: 20
+    recent_mean_gross_edge_bps_minimum: 28.0
+    confidence_sequence_must_exclude_zero: true
+    mechanism_relation_drop_fraction: 0.50
+    consecutive_negative_windows: 2
+    negative_window_events: 10
+    actual_slippage_must_not_exceed_discovery_stress: true
+    online_change_point:
+      method: NEGATIVE_PAGE_HINKLEY_STANDARDIZED_V1
+      baseline_events_locked_at_activation: 40
+      drift_allowance_sigma: 0.50
+      alarm_threshold_sigma: 5.0
+  decay_action:
+    no_new_entry: true
+    existing_position_exit_on_original_clock: true
+    parameter_change_allowed: false
+  routing:
+    parallel_shadow_required: true
+    eligible_state: ACTIVE
+    require_current_signal: true
+    require_positive_conservative_net_edge: true
+    require_no_hard_veto: true
+    choose_by: CONSERVATIVE_NET_EDGE_LCB_NOT_RECENT_SHARPE
+    tie_break_priority:
+      - 510300_INFORMED_CREATION_PREMIUM_V1
+      - 510300_DERIVATIVE_PRESSURE_RELEASE_V1
+      - 510300_OPENING_DISCOUNT_RECOVERY_V1
+    maximum_total_position: 1.0
+    no_eligible_strategy_state: CASH
+
+evaluation:
+  historical_activation_allowed: false
+  historical_use: SCREEN_OUT_OBVIOUSLY_INVALID_BRANCHES_ONLY
+  independent_mature_events_minimum: 40
+  one_sided_confidence_level: 0.95
+  conservative_sharpe_components: [MONTHLY, EVENT_INTERVAL, LO_HAC_EVENT]
+  hac_lag_rule: FLOOR_4_TIMES_N_OVER_100_POWER_2_OVER_9
+  annualization_trading_days: 242
+  no_threshold_search_after_result: true
+  result_if_enough_events_and_any_active_gate_fails: REJECTED_FROZEN
+  result_if_fewer_than_40_events: RESEARCH_OBSERVED_DISCOVERY_INSUFFICIENT_EVENTS
+  result_if_all_historical_gates_pass: HISTORICAL_DISCOVERY_SCREEN_PASS_FORWARD_SHADOW_REQUIRED
+
+data_contracts:
+  actual_share_history_candidate:
+    path: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    role: DATA_ADMISSION_ONLY_UNLESS_STRICT_AVAILABLE_AT_COLUMNS_PASS
+  legacy_iopv_snapshots:
+    path: data/raw/primary_market/510300_iopv_snapshots.parquet
+  primary_market_readiness:
+    path: reports/data_quality/510300_primary_market_readiness_v1_2.json
+    optional: true
+  if_contract_daily:
+    path: data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet
+  if_contract_expiry:
+    path: data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet
+  csi300_price_index_daily:
+    path: data/raw/r6/000300_daily.parquet
+  etf_daily:
+    path: data/raw/market/510300_daily_raw.parquet
+  etf_option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    source_qualification: RETROSPECTIVE_PROXY_DISCOVERY_ONLY
+  etf_option_risk_indicators:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    source_qualification: SSE_OFFICIAL_RETROSPECTIVE_DISCOVERY_ONLY
+  etf_minute:
+    path: data/raw/market/510300_1m_tushare_raw.parquet
+    timestamp_semantics: BAR_START
+    source_qualification: RETROSPECTIVE_DISCOVERY_ONLY
+  cash_distributions:
+    path: data/reference/510300_dividends.csv
+  minute_quality_receipt:
+    path: reports/data_quality/510300_15m_from_1m_quality.json
+
+artifacts:
+  freeze_manifest: config/510300_episodic_alpha_library_v1_manifest.json
+  data_admission_json: reports/data_quality/510300_episodic_alpha_library_v1_data_admission.json
+  result_json: reports/research/510300_episodic_alpha_library_v1.json
+  result_markdown: reports/research/510300_EPISODIC_ALPHA_LIBRARY_V1.md
+  output_directory: data/research/510300_episodic_alpha_library_v1
+  opening_event_table: data/research/510300_episodic_alpha_library_v1/opening_discount_recovery_events.parquet
+  derivative_feature_table: data/research/510300_episodic_alpha_library_v1/derivative_pressure_features.parquet
+  derivative_event_table: data/research/510300_episodic_alpha_library_v1/derivative_pressure_release_events.parquet
+
+boundaries:
+  current_signal_created: false
+  position_mapping_enabled: false
+  paper_or_shadow_position_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+  all_historical_outputs_position_impact: 0
+
+references:
+  sse_etf_portal: https://www.sse.com.cn/assortment/fund/etf/home/
+  etf_flow_mechanism: https://onlinelibrary.wiley.com/doi/10.1111/acfi.12667
+  option_order_imbalance_mechanism: https://onlinelibrary.wiley.com/doi/10.1002/fut.70038
+  t_plus_one_opening_discount_mechanism: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3418356
+  cffex_daily_statistics: https://www.cffex.com.cn/cn/rtj.html
+  sse_510300_option_contract: https://www.sse.com.cn/assortment/options/contract/c/c_20230303_5717360.shtml
+
+freeze:
+  files:
+    - config/510300_episodic_alpha_library_v1.yaml
+    - docs/510300_EPISODIC_ALPHA_LIBRARY_V1_SPEC.md
+    - research/episodic_alpha_library_v1.py
+    - scripts/freeze_510300_episodic_alpha_library_v1.py
+    - scripts/run_510300_episodic_alpha_library_v1.py
+    - tests/test_510300_episodic_alpha_library_v1.py
+  include_all_data_contract_files: true
+  manifest_content_digest_algorithm: SHA256_CANONICAL_JSON_EXCLUDING_MANIFEST_SHA256

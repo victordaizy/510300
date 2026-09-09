@@ -1,0 +1,114 @@
+{
+  "status": "PASS_DISCOVERY_ONLY",
+  "purpose": "宏观大因子发现；不是现行510300策略输入",
+  "retrieved_at": "2026-08-19T02:49:55.467663+08:00",
+  "source": "AKShare转接新浪宏观货币供应量",
+  "primary_source_spot_checks": [
+    {
+      "description": "人民银行2018年统计报告：2018年调整M2货币市场基金口径，并回溯2017年月度增速",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/370befa3ce2042dfbc414b74f3b397b7/index.html"
+    },
+    {
+      "description": "人民银行2020年货币供应量表",
+      "url": "https://www.pbc.gov.cn/diaochatongjisi/fileDir/resource/cms/2021/01/2021011909524819782.pdf"
+    },
+    {
+      "description": "人民银行2024年上半年金融统计数据报告",
+      "url": "https://xining.pbc.gov.cn/goutongjiaoliu/113456/113469/2025092212554139432/index.html"
+    },
+    {
+      "description": "人民银行2024年第四季度货币政策执行报告",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/5587716/2025022618190099812.pdf"
+    }
+  ],
+  "rows": 115,
+  "first_month": "2017-01-31",
+  "last_month": "2026-07-31",
+  "missing_months": [],
+  "official_checkpoint_results": [
+    {
+      "month": "2017-01",
+      "column": "m2_yoy_pct",
+      "expected": 10.7,
+      "tolerance": 0.06,
+      "actual": 10.7032,
+      "difference": 0.003200000000001424,
+      "passed": true
+    },
+    {
+      "month": "2017-12",
+      "column": "m2_yoy_pct",
+      "expected": 8.1,
+      "tolerance": 0.06,
+      "actual": 8.0654,
+      "difference": -0.0345999999999993,
+      "passed": true
+    },
+    {
+      "month": "2020-12",
+      "column": "m2_stock_100m_cny",
+      "expected": 2186795.89,
+      "tolerance": 0.1,
+      "actual": 2186795.89,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "month": "2020-12",
+      "column": "m2_yoy_pct",
+      "expected": 10.1,
+      "tolerance": 0.06,
+      "actual": 10.1,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "month": "2024-06",
+      "column": "m2_stock_100m_cny",
+      "expected": 3050161.54,
+      "tolerance": 0.1,
+      "actual": 3050161.54,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "month": "2024-06",
+      "column": "m2_yoy_pct",
+      "expected": 6.2,
+      "tolerance": 0.06,
+      "actual": 6.2,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "month": "2024-12",
+      "column": "m2_stock_100m_cny",
+      "expected": 3135322.3,
+      "tolerance": 0.1,
+      "actual": 3135322.3,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "month": "2024-12",
+      "column": "m2_yoy_pct",
+      "expected": 7.3,
+      "tolerance": 0.06,
+      "actual": 7.3,
+      "difference": 0.0,
+      "passed": true
+    }
+  ],
+  "known_methodology": {
+    "2018_revision": "2018年1月人民银行调整货币市场基金统计方法，并回溯更新2017年M2增速。",
+    "evaluation_rule": "正式发现检验从2018年8月后开始，使6个月变化的两端均处于2018新口径。",
+    "vintage_limitation": "本文件是当前历史版本，不是逐月公告原始快照；只能支持DISCOVERY_ONLY，不能直接授权Paper或实盘。"
+  },
+  "availability_rule_for_research": "每个统计月统一延迟到次月20日，之后首个交易日收盘形成信号，下一交易日开盘执行。",
+  "output_file": "data/raw/macro/china_money_supply_monthly.parquet",
+  "output_sha256": "dcf98b35b9cc5c1bf66b2046a1efca445d7e1cb86634722fe1577a84552c9aa7",
+  "formal_point_in_time_evidence": false,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "live_trading_authorized": false
+}

@@ -1,0 +1,80 @@
+protocol:
+  project_id: CSI300_DUAL_SLEEVE_20K_PROJECTION_V1
+  description: 原双袖带信号向2万元三仓投影
+  research_only: true
+  parameter_search_allowed: false
+
+inputs:
+  parent_config: config/final_alpha_strategy.yaml
+  recent_member_panel: data/raw/constituents/000300_constituent_daily.parquet
+  recent_component_history_cache: data/raw/constituents/.tushare_stock_history_cache
+  recent_index: data/raw/market/000300_daily_feature_warmup.parquet
+  recent_benchmark: data/raw/market/H00300_total_return_daily_raw.parquet
+  recent_breadth: data/features/000300_equal_weight_breadth_daily.parquet
+  external_status: reports/data_quality/csi300_external_validation_2014_2021_status.json
+  external_member_panel: data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet
+  external_index: data/raw/external_validation/csi300_2014_2021/000300_price_index_2014_2021.parquet
+  external_benchmark: data/raw/external_validation/csi300_2014_2021/H00300_total_return_2014_2021.parquet
+
+periods:
+  recent: {start: '2021-08-12', end: '2026-08-14'}
+  external: {start: '2015-01-05', end: '2021-08-11'}
+  rebalance_every_trading_days: 10
+
+factor_budget:
+  maximum: 10
+  used: 8
+  formula: exact_parent_dual_sleeve
+
+projection:
+  holdings: 3
+  ordering:
+    - merged_parent_target_weight_descending
+    - parent_score_descending
+    - con_code_ascending
+  equal_cash_slots_after_selection: true
+
+universe:
+  minimum_20d_average_amount_cny: 50000000.0
+  maximum_open_total_return_gap_for_trade: 0.095
+
+account:
+  initial_cash_cny: 20000.0
+  maximum_positions: 3
+  minimum_trade_notional_cny: 5000.0
+  lot_size: 100
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0005
+  stamp_duty_sell_rate_before_reduction: 0.001
+  stamp_duty_reduction_effective_date: '2023-08-28'
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+evaluation:
+  annualized_excess_minimum: 0.20
+  stress_annualized_excess_minimum: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  bootstrap_lower_bound_strictly_above: 0.0
+  random_seed: 20260819
+
+outputs:
+  recent_base_ledger: reports/backtest/csi300_dual_sleeve_projection_v1_recent_base_ledger.parquet
+  recent_base_trades: reports/backtest/csi300_dual_sleeve_projection_v1_recent_base_trades.parquet
+  external_base_ledger: reports/backtest/csi300_dual_sleeve_projection_v1_external_base_ledger.parquet
+  external_base_trades: reports/backtest/csi300_dual_sleeve_projection_v1_external_base_trades.parquet
+  result_json: reports/backtest/csi300_dual_sleeve_projection_v1.json
+  result_markdown: reports/backtest/CSI300_DUAL_SLEEVE_PROJECTION_V1.md
+
+governance:
+  historical_contamination_acknowledged: true
+  no_post_result_rescue: true
+  paper_signal: DISABLED
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

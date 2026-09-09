@@ -1,0 +1,235 @@
+{
+  "project_id": "510300_RETURN_TAIL_GATING_DISCOVERY_V1",
+  "checked_at": "2026-08-18T20:11:07.338617+08:00",
+  "status": "PARTIAL_BRANCH_READY",
+  "evidence_label": "DISCOVERY_ONLY_NO_RETURN_LABELS_READ",
+  "registry": {
+    "candidate_ids": [
+      "O1",
+      "O2",
+      "O3",
+      "O4",
+      "X1",
+      "E1",
+      "C1_EQUAL_PROBABILITY",
+      "C2_SIGN_CONSTRAINED_LOGISTIC",
+      "P1_100_50_HYSTERESIS"
+    ],
+    "candidate_count": 9,
+    "file": "config/return_tail_hypothesis_registry.yaml",
+    "sha256": "72cc42a6f4e6a90634dd5b8ff49c07d59634beb8dfa5fcdfdec7b636cc529246"
+  },
+  "manifest": {
+    "file": "config/return_tail_gating_manifest.json",
+    "exists": true,
+    "bytes": 1273,
+    "sha256": "f787ddcca638ada9f668088d4caab6f25f2cec21973e4bc7d65391b22c9a4728"
+  },
+  "branch_status": {
+    "OPTIONS": "BLOCKED_MISSING_LOCAL_OPTION_HISTORY",
+    "CONSTITUENTS": "PASS",
+    "EARNINGS_CONSENSUS": "TERMINATED_NO_POINT_IN_TIME_CONSENSUS_HISTORY"
+  },
+  "hypotheses_allowed_for_return_test": [
+    "X1"
+  ],
+  "hypotheses_terminated": [
+    "E1"
+  ],
+  "study_wide_return_backtest_allowed": true,
+  "combination_model_build_allowed": false,
+  "position_policy_build_allowed": false,
+  "true_forward_start": null,
+  "branches": {
+    "OPTIONS": {
+      "branch": "OPTIONS",
+      "status": "BLOCKED_MISSING_LOCAL_OPTION_HISTORY",
+      "return_test_allowed": false,
+      "files": {
+        "quote": {
+          "file": "data/raw/return_tail/options/510300_eod_chain.parquet",
+          "exists": false,
+          "bytes": 0,
+          "sha256": null
+        },
+        "contract_master": {
+          "file": "data/raw/return_tail/options/510300_contract_master.parquet",
+          "exists": true,
+          "bytes": 50057,
+          "sha256": "d5bef387d7102b134bc2f1e7f27f7358d3e1fc4978499f7cf65c229087bc4d10"
+        },
+        "cffex_cross_validation": {
+          "file": "data/raw/return_tail/options/IO_eod_chain.parquet",
+          "exists": true,
+          "bytes": 11287335,
+          "sha256": "f63591fa603b1dab068d61177d56d62c66c279372b19849451ec99e0e5031f80"
+        },
+        "underlying": {
+          "file": "data/raw/market/510300_daily_raw.parquet",
+          "exists": true,
+          "bytes": 102194,
+          "sha256": "ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61"
+        },
+        "dividend": {
+          "file": "data/reference/510300_dividends.csv",
+          "exists": true,
+          "bytes": 2021,
+          "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+        },
+        "risk_free": {
+          "file": "data/raw/macro/china_government_bond_yields_daily.parquet",
+          "exists": true,
+          "bytes": 58130,
+          "sha256": "16bb23b8d6b3c64c7e2440cb34399a98ce20c754885502a0875ca4e00d3eed0d"
+        }
+      },
+      "missing_primary_inputs": [
+        "quote"
+      ],
+      "official_references": [
+        "https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250611_10781547.shtml",
+        "https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250610_10781448.shtml",
+        "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20260116_10805396.shtml",
+        "https://www.cffex.com.cn/lssjfw/"
+      ],
+      "public_data_boundary": "交易所规则证明实时行情含买卖报价、成交量和持仓量；这不等于本地已经拥有可回放的历史收盘快照。510300期权历史盘口需要上交所授权行情产品或具备相应许可的数据商交付；中金所快照只用于IO交叉验证。",
+      "checks": {},
+      "blockers": [
+        "本地已有合约主表、逐合约日线、风险指标和最后五日分钟成交，但没有2019-12-23至2026-08-14逐日收盘bid1、ask1及市场时间戳，无法验证历史曲面。",
+        "不得用网页当前行情、仅成交价日线、最后一笔残留盘口或估计价差替代逐日历史盘口。"
+      ]
+    },
+    "CONSTITUENTS": {
+      "branch": "CONSTITUENTS",
+      "status": "PASS",
+      "return_test_allowed": true,
+      "files": {
+        "membership": {
+          "file": "data/raw/constituents/000300_historical_membership_intervals.parquet",
+          "exists": true,
+          "bytes": 19065,
+          "sha256": "f0199e5bf78de66c6e53902dc470b170d26b33fd0597f37d7e1cc38025e69650"
+        },
+        "weights": {
+          "file": "data/raw/constituents/000300_historical_weights.parquet",
+          "exists": true,
+          "bytes": 80108,
+          "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559"
+        },
+        "daily": {
+          "file": "data/raw/constituents/000300_constituent_daily.parquet",
+          "exists": true,
+          "bytes": 26800503,
+          "sha256": "a2eff2a694031562d191ba7cb0832db8b9934609386e0717947cf4c0ff3905f0"
+        },
+        "industry": {
+          "file": "data/raw/reference/a_share_sw_industry_static.parquet",
+          "exists": true,
+          "bytes": 37217,
+          "sha256": "dac8502137bc6dd651300eb86d11d5412cec9ef2de700286513207f7c11b52b6"
+        },
+        "market": {
+          "file": "data/raw/market/510300_daily_raw.parquet",
+          "exists": true,
+          "bytes": 102194,
+          "sha256": "ee2021092cf18b4933a76129c54356454c341c41c2a6b3a19af4130462627e61"
+        }
+      },
+      "missing_primary_inputs": [],
+      "checks": {
+        "missing_columns": {},
+        "row_count": 483300,
+        "trading_days": 1611,
+        "first_date": "2019-12-23",
+        "last_date": "2026-08-14",
+        "unique_constituents": 493,
+        "minimum_members_per_day": 300,
+        "maximum_members_per_day": 300,
+        "days_member_count_not_300": 0,
+        "minimum_valid_close_ratio": 1.0,
+        "median_valid_close_ratio": 1.0,
+        "weight_snapshot_count": 120,
+        "first_weight_date": "2016-08-31",
+        "last_weight_date": "2026-07-31",
+        "maximum_weight_age_calendar_days": 35,
+        "days_without_prior_weight_snapshot": 0,
+        "industry_classification_usage": [
+          "POINT_IN_TIME_INTERVAL"
+        ],
+        "industry_is_point_in_time": true,
+        "sources": {
+          "membership": [
+            "https://github.com/unliftedq/index-constitution"
+          ],
+          "weights": [
+            "tushare.index_weight"
+          ],
+          "daily_price": [
+            "tushare_proxy.daily",
+            "tushare_proxy.daily_forward_fill_suspension"
+          ],
+          "industry": [
+            "tushare_proxy.index_member_all"
+          ]
+        }
+      },
+      "gates": {
+        "member_count": true,
+        "valid_close_coverage": true,
+        "minimum_history": true,
+        "required_start": true,
+        "required_end": true,
+        "weight_age": true,
+        "point_in_time_industry": true
+      },
+      "warnings": [
+        "历史成员区间来自第三方开源整理并与当前官方快照交叉验证；尚未逐期保存官方调样公告哈希。"
+      ],
+      "blockers": []
+    },
+    "EARNINGS_CONSENSUS": {
+      "branch": "EARNINGS_CONSENSUS",
+      "status": "TERMINATED_NO_POINT_IN_TIME_CONSENSUS_HISTORY",
+      "return_test_allowed": false,
+      "files": {
+        "consensus_vintages": {
+          "file": "data/raw/return_tail/earnings/csi300_consensus_vintages.parquet",
+          "exists": false,
+          "bytes": 0,
+          "sha256": null
+        },
+        "membership": {
+          "file": "data/raw/constituents/000300_historical_membership_intervals.parquet",
+          "exists": true,
+          "bytes": 19065,
+          "sha256": "f0199e5bf78de66c6e53902dc470b170d26b33fd0597f37d7e1cc38025e69650"
+        },
+        "weights": {
+          "file": "data/raw/constituents/000300_historical_weights.parquet",
+          "exists": true,
+          "bytes": 80108,
+          "sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559"
+        },
+        "actual_company_financials_non_substitute": {
+          "file": "data/raw/fundamentals/csi300_financials_point_in_time.parquet",
+          "exists": true,
+          "bytes": 2477697,
+          "sha256": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92"
+        }
+      },
+      "checks": {},
+      "blockers": [
+        "没有分析师一致预期历史快照文件。",
+        "现有点时财务表记录公司已公告财报，不含FTM EPS一致预期、分析师数、分歧或vendor vintage。",
+        "协议禁止用当前数据库回填过去一致预期，因此E1在首轮直接终止。"
+      ],
+      "termination_is_protocol_required": true
+    }
+  },
+  "governance": {
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false
+  }
+}

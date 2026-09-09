@@ -1,0 +1,67 @@
+{
+  "data_model_id": "510300_STK_MINS_SOURCE_ADMISSION_V1",
+  "phase": "SOURCE_ADMISSION",
+  "state": "BLOCKED_STK_MINS_SOURCE_ADMISSION",
+  "generated_at": "2026-09-04T22:47:42.075905+08:00",
+  "checks": {
+    "duplicate_primary_keys": true,
+    "unexpected_symbol_rows": true,
+    "invalid_ohlc_rows": true,
+    "negative_volume_or_amount_rows": true,
+    "unexpected_timestamp_rows": true,
+    "unexpected_date_rows": true,
+    "open_day_any_data_coverage": true,
+    "standard_241_bar_day_coverage": true,
+    "daily_ohlc_reconciliation_rate": false,
+    "pre_regime_volume_error": true,
+    "pre_regime_amount_error": true,
+    "timestamp_semantics_evidence": true
+  },
+  "general_source_pass": false,
+  "event_window_gate_evaluated": true,
+  "event_window_gate_pass": true,
+  "coverage": {
+    "expected_open_trading_days": 2350,
+    "days_with_any_minute_data": 2350,
+    "open_day_any_data_coverage": 1.0,
+    "standard_241_bar_days": 2350,
+    "standard_241_bar_day_coverage": 1.0,
+    "daily_ohlc_pass_days": 2201,
+    "daily_ohlc_reconciliation_rate": 0.936595744680851,
+    "eligible_event_dates": 88,
+    "eligible_event_four_window_complete_dates": 88,
+    "eligible_event_four_window_coverage": 1.0
+  },
+  "defects": {
+    "duplicate_primary_key_rows": 0,
+    "unexpected_symbol_rows": 0,
+    "invalid_ohlc_rows": 0,
+    "negative_volume_or_amount_rows": 0,
+    "unexpected_timestamp_rows": 0,
+    "unexpected_non_open_date_rows": 0
+  },
+  "reconciliation": {
+    "price_absolute_tolerance": 0.001,
+    "pre_2026_07_06_comparable_days": 2305,
+    "maximum_volume_relative_error": 5.0601742837669755e-09,
+    "maximum_amount_relative_error": 9.436035396493443e-09,
+    "post_close_regime_total_comparison_excluded": true
+  },
+  "timestamp_semantics_evidence": {
+    "state": "PASS_BAR_END_DOCUMENT_AND_SESSION_EVIDENCE",
+    "path": "reports/data_quality/510300_stk_mins_source_admission_v1/timestamp_semantics_evidence.json",
+    "sha256": "11fdaa6f5d277c26b76acf5630185f58528ca079b10eb3639aff4868264794e4"
+  },
+  "acquisition_summary_fingerprint": "63567adefc6e708aa63e0099d4e142f6ff0384d421fed13409a587a7f560cad1",
+  "outputs": {
+    "curated_minute": "data/curated/510300_stk_mins_source_admission_v1/510300_1min.parquet",
+    "curated_minute_sha256": "f39a9f66e0c4bc533cb8323b55b223af8ac218d744b9fcfa92ee1a76aebbfefa",
+    "daily_quality_ledger": "data/curated/510300_stk_mins_source_admission_v1/daily_quality_ledger.parquet",
+    "daily_quality_ledger_sha256": "f84c6fed7e76f6221f3f837221e58b3a6797403db52d0a41bd93169c64c7d855"
+  },
+  "strategy_return_reads": 0,
+  "strategy_model_trained": false,
+  "portfolio_evaluation_run": false,
+  "position_impact": 0,
+  "decision_fingerprint": "6e1a63095b4a60feb4014f6fc0fa01af1b571b7b0de3c44cc83d22b0e0cac0a4"
+}

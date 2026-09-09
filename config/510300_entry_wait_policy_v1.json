@@ -1,0 +1,225 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "minimum_rows": 100,
+  "feature_clip": 5.0,
+  "ridge_alpha": 1.0,
+  "recent_episodes": 20,
+  "minimum_episodes": 10,
+  "specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "study_id": "510300_ENTRY_WAIT_POLICY_V1",
+  "round": 96,
+  "registered_at": "2026-09-08T16:22:49.102599+08:00",
+  "primary": "ENTRY_WAIT_POLICY",
+  "candidate_configurations": 2,
+  "settings": {
+    "ENTRY_WAIT_POLICY": [
+      "waiting_policy_margin",
+      "买入与等待价值比较"
+    ],
+    "IMMEDIATE_VALUE_CONTROL": [
+      "immediate_value_margin",
+      "同模型只看买入价值为正"
+    ]
+  },
+  "feature_columns": [
+    "mom5",
+    "mom20",
+    "sma120",
+    "vol20",
+    "vol_ratio",
+    "z20",
+    "rsi2",
+    "close_location",
+    "d60_factor",
+    "signal_age_log"
+  ],
+  "feature_names": [
+    "五日含分红涨跌",
+    "二十日含分红涨跌",
+    "一百二十日均线偏离",
+    "二十日波动",
+    "二十日相对六十日波动",
+    "二十日均值偏离分数",
+    "两日相对强弱",
+    "当日收盘位置",
+    "六十日日内相对隔夜强弱",
+    "连续已观测进入信号天数的对数"
+  ],
+  "maximum_policy_iterations": 50,
+  "training_method": "EVALUATE_FIXED_POLICY_REALIZED_PAYOFF_THEN_IMPROVE_PREDICTED_ACTIONS",
+  "training_weights": "ONE_PER_COMPLETE_GROUP_EQUAL_STATES",
+  "cash_step_reward": 0.0,
+  "discount_factor": 1.0,
+  "objective": "LOCAL_OPPORTUNITY_TERMINAL_NET_RETURN_ON_ORIGINAL_200000",
+  "no_model_rule": "BOTH_SETTINGS_NO_VIEW_NO_NEW_BUY_EXISTING_NATURAL_EXIT",
+  "reference_cost": "BASE",
+  "rules": "docs/510300_ENTRY_WAIT_POLICY_V1.md",
+  "new_reference_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "config\\510300_entry_payoff_gate_v1.json",
+      "sha256": "f5a75b7f7dd3a679af61941fc1ce34fdf9b3cf401cd14e83f92137b39abe0bc0"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_ENTRY_WAIT_POLICY_V1.md",
+      "sha256": "af3664b4e9fabc1eb4f6101c16f53523ad3dd585a7f64317e978f9a4878d5899"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "84627b8d8b953d14c5aa196a04a153da9db8d66bd0e9bcc0d1cb7628b21564fd"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "5b7e0cc9a843c888ea3262615d102a8b16ba511f235d278b2f882a00ce013c81"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "864a38a3e707c277b4079cb9ce20648e4bd2409e801682da84187aa2c39d123e"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "e7371121c04f2af078ee69e36a4bebc6b9d8690767c3da1bda3fd83d9dca9f2f"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\entry_factors.parquet",
+      "sha256": "bc2985d0026562c99ba302371f0762430dc0a3c3ae16ee76962decc918d2ff01"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\reference_episodes.csv",
+      "sha256": "b8063d1ff8bb40602aa6d5ae7f85b84c8eb334029fa4894c4f939deab8b36818"
+    },
+    {
+      "path": "reports\\research\\510300_entry_path_coverage_v1\\reference_paths.csv",
+      "sha256": "519579a1033e4b06fc77bd2bfc6b3968759a971b43849d7a089c0e48e520251a"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\earlier_diagnostic\\BASE\\ENTRY_PAYOFF_RIDGE_NATURAL_EXIT_ledger.parquet",
+      "sha256": "64ee366e084ee968b6dc14d3bbec07c800f6dffb8d1c04be7ea988c6c7da35b4"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\earlier_diagnostic\\STRESS\\ENTRY_PAYOFF_RIDGE_NATURAL_EXIT_ledger.parquet",
+      "sha256": "68bbcd976fb35ca5526631640056d5f02ab89e4b27ed48db483c953f1dbafaa2"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\entry_payoff_samples.parquet",
+      "sha256": "44755521ecf65c9a64eb521ac1caddcdbb2c38ce559bb8adfa564da85bcf6b89"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\evaluation\\BASE\\ENTRY_PAYOFF_RIDGE_NATURAL_EXIT_ledger.parquet",
+      "sha256": "70c0aac20d0388d49390a5c6be2617f3a3e79e174553a7a54ca4cdf63f4f7663"
+    },
+    {
+      "path": "reports\\research\\510300_entry_payoff_gate_v1\\evaluation\\STRESS\\ENTRY_PAYOFF_RIDGE_NATURAL_EXIT_ledger.parquet",
+      "sha256": "ecf8bd6a9fcfc59e26944889087622463a0c66d7080741662082dc82e0441860"
+    },
+    {
+      "path": "reports\\research\\510300_entry_wait_policy_v1\\tests_receipt.json",
+      "sha256": "db798f7aaf4af6a0fbed64be82eaca2a8b569342215d13ab70231d1e7ea152ed"
+    },
+    {
+      "path": "reports\\research\\510300_entry_wait_transition_20260908\\entry_action_links.parquet",
+      "sha256": "9b993d443b8e80dd51a6676474041f7158ffad07f4d4f9c33b06285c6734d3e8"
+    },
+    {
+      "path": "reports\\research\\510300_entry_wait_transition_20260908\\result.json",
+      "sha256": "deba450a2ff155377d0a41e70d3e4fcd48fab112774a10a9308e9e54f3514d31"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\entry_payoff_gate_inputs_v1.py",
+      "sha256": "92390ce426001c8b0eba5aeb6f92a2fcbab09e30a3f491eae0f71f3f6b92c426"
+    },
+    {
+      "path": "research\\entry_payoff_gate_v1.py",
+      "sha256": "f131161a3a91e6770b437fec3a10b27c7807b54679973fd4f52f76b757a6c983"
+    },
+    {
+      "path": "research\\entry_wait_policy_account_v1.py",
+      "sha256": "13067932ca79a78674ea3cbfb4e49c791e651adb6688cf6cce1513a13749aa31"
+    },
+    {
+      "path": "research\\entry_wait_policy_inputs_v1.py",
+      "sha256": "c5f4aec51a4a7370597c0255f60f46999420e65726b1d6cc6285645b79ea3be1"
+    },
+    {
+      "path": "research\\entry_wait_policy_v1.py",
+      "sha256": "d74f10d4b14eee785bfe3be3f2a4f7db7a67b11ece6b9de232c5f5cff631a312"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "scripts\\diagnose_round96_entry_wait_links_20260908.py",
+      "sha256": "465a83fc2203c7ba7f70e2acd592d3620e8ba2c86f6334b786c4eca5d6d3a87a"
+    },
+    {
+      "path": "tests\\test_entry_wait_policy_v1.py",
+      "sha256": "27cebdc344b2c71c6ec5d4321edd5217adabacb26317b4320f452fc780fee3d0"
+    }
+  ]
+}

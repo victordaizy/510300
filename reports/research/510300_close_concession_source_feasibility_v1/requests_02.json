@@ -1,0 +1,8 @@
+[
+  {"id":"sse_etf_detail_base_html","url":"https://etf.sse.com.cn/fundlist/funddetail/index.shtml","purpose":"初次带参数页面超时后，读取官网基础模板以定位公开JS"},
+  {"id":"sse_pcf_page_retry_html","url":"https://www.sse.com.cn/disclosure/fund/etflist/","purpose":"超时页面的唯一重试，用于查找PCF成分与下载接口"},
+  {"id":"sse_snapshot_second_lunch","url":"https://yunhq.sse.com.cn:32042/v1/sh1/snap/510300?select=name,last,chg_rate,change,open,prev_close,high,low,volume,amount,tradephase,cpxxextendname,iopv,fp_volume,fp_amount,fp_phase,cpxxsubtype","referer":"https://etf.sse.com.cn/","purpose":"第二个午休样例，判断快照外层时间与价格内容时间能否区分，不计算收益"},
+  {"id":"tencent_510300_quote","url":"https://qt.gtimg.cn/q=sh510300","referer":"https://gu.qq.com/","purpose":"保存第二提供方的510300报价及其原始源时间，用于时钟语义交叉核对"},
+  {"id":"tencent_510300_intraday","url":"https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh510300","referer":"https://gu.qq.com/","purpose":"检查当天累计分时记录时间范围、单位及盘后可分离性；不计算涨跌或策略收益"},
+  {"id":"manager_home_html","url":"https://www.huatai-pb.com/","purpose":"寻找510300管理人官方PCF、IOPV方法与招募说明书入口"}
+]

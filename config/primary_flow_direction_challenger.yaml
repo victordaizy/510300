@@ -1,0 +1,33 @@
+registry_version: 1
+registered_on: "2026-08-13T16:52:00+08:00"
+status: "PRE_REGISTERED_CHALLENGER_BEFORE_OUTCOME_TEST"
+scope: "仅预测510300未来20日净收益方向；不生成仓位"
+
+features:
+  - column: "if_basis_median_5d"
+    definition: "IF主连收盘/沪深300收盘-1的过去5日中位数"
+    expected_sign: "positive"
+    mechanism: "期指相对现货溢价反映杠杆资金风险偏好；5日中位数降低换月跳变影响。"
+  - column: "etf_premium_bps_median_5d"
+    definition: "510300收盘相对当日单位净值溢折价基点的过去5日中位数"
+    expected_sign: "positive"
+    mechanism: "持续溢价代表二级市场需求强于基金净值，不使用盘中未来信息。"
+  - column: "latest_monthly_share_change_pct"
+    definition: "截至信号日最近一次上交所披露的510300份额环比变化率"
+    expected_sign: "positive"
+    mechanism: "持续净申购代表一级市场资金流入；只从真实披露日向后沿用。"
+
+model:
+  estimator: "固定C=0.1的标准化L2 Logistic"
+  minimum_training_samples: 504
+  refit_interval_trading_days: 5
+  horizon_trading_days: 20
+  no_hyperparameter_search: true
+
+acceptance_gate:
+  minimum_realized_forecasts: 500
+  minimum_auc: 0.53
+  minimum_brier_skill_vs_expanding_base_rate: 0.0
+  require_top_minus_bottom_mean_net_return_positive: true
+  minimum_non_overlapping_auc_above_half_share: 0.60
+  trading_use_authorized: false

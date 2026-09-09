@@ -1,0 +1,494 @@
+{
+  "study_id": "510300_MACRO_STRESS_AVOIDANCE_2015_START_V2",
+  "version": "2.0.0",
+  "decision": "REJECTED_2015_START_SENSITIVITY_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE",
+  "data_scope": {
+    "start": "2015-01-01",
+    "end": "2026-08-25",
+    "pre_2021_data_used": true,
+    "first_model_eligible_dates": {
+      "3y": "2020-08-24",
+      "5y": "2022-08-22"
+    },
+    "strict_full_calendar_windows": true,
+    "expanding_or_shortened_windows_used": false,
+    "window_change_proposed_after_2021_rejection": true
+  },
+  "event_study": {
+    "decision": "PASS_EVENT_GATE_PORTFOLIO_RUN_ALLOWED_ONCE",
+    "passed": true,
+    "first_model_eligible_date": "2022-08-22",
+    "last_model_eligible_date": "2026-08-25",
+    "eligible_trading_days": 972,
+    "raw_onsets": 16,
+    "independent_onsets": 10,
+    "independent_complete_primary_events": 9,
+    "distinct_complete_event_years": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "primary_horizon_trading_days": 20,
+    "primary_event_summary": {
+      "count": 9,
+      "mean": -0.013093411993230651,
+      "median": -0.010857461024498805,
+      "negative_fraction": 0.6666666666666666
+    },
+    "primary_control_summary": {
+      "count": 644,
+      "mean": -0.0005581247071363958,
+      "median": -0.0036863905985189405,
+      "negative_fraction": 0.532608695652174
+    },
+    "secondary_event_summary": {
+      "count": 9,
+      "mean": -0.0001544141671288394,
+      "median": -0.0003047453312998716,
+      "negative_fraction": 0.5555555555555556
+    },
+    "secondary_control_summary": {
+      "count": 644,
+      "mean": -0.0004251533167203995,
+      "median": -0.00035310162757973274,
+      "negative_fraction": 0.6149068322981367
+    },
+    "worst_event_removal": {
+      "removed_event_id": "EVENT_001",
+      "removed_event_date": "2022-09-22",
+      "removed_return": -0.061546286876906886,
+      "remaining": {
+        "count": 8,
+        "mean": -0.007036802632771122,
+        "median": -0.008445971891559545,
+        "negative_fraction": 0.625
+      },
+      "pass": true
+    },
+    "horizon_summaries": {
+      "5": {
+        "event_etf_total_return": {
+          "count": 10,
+          "mean": -0.0013203777565779062,
+          "median": -0.0015656689236402954,
+          "negative_fraction": 0.6
+        },
+        "control_etf_total_return": {
+          "count": 646,
+          "mean": -0.00022975243770826265,
+          "median": 0.0005499144094583963,
+          "negative_fraction": 0.4953560371517028
+        },
+        "event_relative_to_h00300": {
+          "count": 10,
+          "mean": 0.000181074943368964,
+          "median": 0.00011544210407243849,
+          "negative_fraction": 0.4
+        }
+      },
+      "20": {
+        "event_etf_total_return": {
+          "count": 9,
+          "mean": -0.013093411993230651,
+          "median": -0.010857461024498805,
+          "negative_fraction": 0.6666666666666666
+        },
+        "control_etf_total_return": {
+          "count": 644,
+          "mean": -0.0005581247071363958,
+          "median": -0.0036863905985189405,
+          "negative_fraction": 0.532608695652174
+        },
+        "event_relative_to_h00300": {
+          "count": 9,
+          "mean": -0.0001544141671288394,
+          "median": -0.0003047453312998716,
+          "negative_fraction": 0.5555555555555556
+        }
+      },
+      "60": {
+        "event_etf_total_return": {
+          "count": 9,
+          "mean": -0.010450033316135908,
+          "median": -0.007884028484231531,
+          "negative_fraction": 0.7777777777777778
+        },
+        "control_etf_total_return": {
+          "count": 604,
+          "mean": 0.009574079544543401,
+          "median": -0.0034475045542290417,
+          "negative_fraction": 0.5314569536423841
+        },
+        "event_relative_to_h00300": {
+          "count": 9,
+          "mean": -0.000823405602708586,
+          "median": -0.0009431917638820231,
+          "negative_fraction": 0.8888888888888888
+        }
+      },
+      "120": {
+        "event_etf_total_return": {
+          "count": 8,
+          "mean": 0.003942445612206913,
+          "median": -0.015957508779805063,
+          "negative_fraction": 0.5
+        },
+        "control_etf_total_return": {
+          "count": 563,
+          "mean": 0.046485362106498486,
+          "median": 0.022246828405401153,
+          "negative_fraction": 0.3836589698046181
+        },
+        "event_relative_to_h00300": {
+          "count": 8,
+          "mean": -0.002443362909908958,
+          "median": -0.00251619237074846,
+          "negative_fraction": 0.875
+        }
+      }
+    },
+    "gates": {
+      "minimum_eight_independent_complete_events": true,
+      "event_mean_below_nonpressure": true,
+      "event_median_below_nonpressure": true,
+      "minimum_sixty_percent_negative": true,
+      "delete_worst_direction_unchanged": true,
+      "events_span_at_least_two_years": true
+    },
+    "failed_gates": []
+  },
+  "portfolio_backtest": {
+    "decision": "REJECTED_FROZEN_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE",
+    "passed": false,
+    "five_year": {
+      "years": 5,
+      "cost_scenario": "base",
+      "strategy": {
+        "start_date": "2022-08-22",
+        "end_date": "2026-08-25",
+        "observations": 972,
+        "total_return": 0.04663666928675125,
+        "cagr": 0.011437019646229674,
+        "annualized_volatility": 0.13331693986394327,
+        "sharpe_zero_cash_rate": 0.15184426839354173,
+        "max_drawdown": -0.2641934832132491,
+        "calmar": 0.04329031703252897,
+        "average_exposure": 0.7481170266869618,
+        "trade_count": 58,
+        "total_explicit_cost_cny": 290.971514265,
+        "turnover_over_average_equity": 17.960625753375364,
+        "ending_equity": 20932.733385735024
+      },
+      "buy_hold": {
+        "start_date": "2022-08-22",
+        "end_date": "2026-08-25",
+        "observations": 972,
+        "total_return": 0.18602515178675016,
+        "cagr": 0.04348333332551957,
+        "annualized_volatility": 0.17362576133990368,
+        "sharpe_zero_cash_rate": 0.3312083937933881,
+        "max_drawdown": -0.22429814849574703,
+        "calmar": 0.193863986917146,
+        "average_exposure": 0.9920252765850074,
+        "trade_count": 11,
+        "total_explicit_cost_cny": 55.971514264999996,
+        "turnover_over_average_equity": 1.1872156292756426,
+        "ending_equity": 23720.503035735004
+      },
+      "h00300": {
+        "start_date": "2022-08-22",
+        "end_date": "2026-08-25",
+        "observations": 972,
+        "total_return": 0.2074256172823119,
+        "cagr": 0.048149326906828493,
+        "sharpe_zero_cash_rate": 0.3575611641568053,
+        "max_drawdown": -0.22409270744694876
+      },
+      "annualized_excess_vs_buy_hold": -0.032046313679289895,
+      "annualized_excess_vs_h00300": -0.03671230726059882,
+      "max_drawdown_ratio_vs_buy_hold": 1.1778674277298304,
+      "complete_round_trips_by_year": {
+        "2023": 4,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      },
+      "maximum_complete_round_trips_in_any_year": 4
+    },
+    "three_year": {
+      "years": 3,
+      "cost_scenario": "base",
+      "strategy": {
+        "start_date": "2020-08-24",
+        "end_date": "2026-08-25",
+        "observations": 1456,
+        "total_return": -0.1006862723994989,
+        "cagr": -0.0175277573648428,
+        "annualized_volatility": 0.1430959899504111,
+        "sharpe_zero_cash_rate": -0.051628170870334646,
+        "max_drawdown": -0.4690422369355153,
+        "calmar": -0.037369251603779435,
+        "average_exposure": 0.7684947421613599,
+        "trade_count": 73,
+        "total_explicit_cost_cny": 365.93894799,
+        "turnover_over_average_equity": 22.721712871032633,
+        "ending_equity": 17986.27455201002
+      },
+      "buy_hold": {
+        "start_date": "2020-08-24",
+        "end_date": "2026-08-25",
+        "observations": 1456,
+        "total_return": 0.07093787510050009,
+        "cagr": 0.011485313911021588,
+        "annualized_volatility": 0.1763160216830256,
+        "sharpe_zero_cash_rate": 0.15267439292030108,
+        "max_drawdown": -0.41770217558815625,
+        "calmar": 0.027496418697962006,
+        "average_exposure": 0.9868809493065662,
+        "trade_count": 10,
+        "total_explicit_cost_cny": 50.93894799,
+        "turnover_over_average_equity": 1.2680991255401386,
+        "ending_equity": 21418.75750201
+      },
+      "h00300": {
+        "start_date": "2020-08-24",
+        "end_date": "2026-08-25",
+        "observations": 1456,
+        "total_return": 0.10251251246398163,
+        "cagr": 0.016394508369990568,
+        "sharpe_zero_cash_rate": 0.18005099258987342,
+        "max_drawdown": -0.41561007195195365
+      },
+      "annualized_excess_vs_buy_hold": -0.02901307127586439,
+      "annualized_excess_vs_h00300": -0.03392226573483337,
+      "max_drawdown_ratio_vs_buy_hold": 1.1229106869627106,
+      "complete_round_trips_by_year": {
+        "2021": 1,
+        "2022": 3,
+        "2023": 3,
+        "2024": 2,
+        "2025": 1,
+        "2026": 3
+      },
+      "maximum_complete_round_trips_in_any_year": 3
+    },
+    "five_year_double_cost": {
+      "years": 5,
+      "cost_scenario": "double",
+      "strategy": {
+        "start_date": "2022-08-22",
+        "end_date": "2026-08-25",
+        "observations": 972,
+        "total_return": 0.02223150514700145,
+        "cagr": 0.0055008067947412975,
+        "annualized_volatility": 0.13296858829817804,
+        "sharpe_zero_cash_rate": 0.10771095249825076,
+        "max_drawdown": -0.2719714898529991,
+        "calmar": 0.020225674381217272,
+        "average_exposure": 0.7441603001641416,
+        "trade_count": 58,
+        "total_explicit_cost_cny": 581.94899706,
+        "turnover_over_average_equity": 17.90460746896707,
+        "ending_equity": 20444.630102940027
+      },
+      "buy_hold": {
+        "start_date": "2022-08-22",
+        "end_date": "2026-08-25",
+        "observations": 972,
+        "total_return": 0.18602515178675016,
+        "cagr": 0.04348333332551957,
+        "annualized_volatility": 0.17362576133990368,
+        "sharpe_zero_cash_rate": 0.3312083937933881,
+        "max_drawdown": -0.22429814849574703,
+        "calmar": 0.193863986917146,
+        "average_exposure": 0.9920252765850074,
+        "trade_count": 11,
+        "total_explicit_cost_cny": 55.971514264999996,
+        "turnover_over_average_equity": 1.1872156292756426,
+        "ending_equity": 23720.503035735004
+      },
+      "h00300": {
+        "start_date": "2022-08-22",
+        "end_date": "2026-08-25",
+        "observations": 972,
+        "total_return": 0.2074256172823119,
+        "cagr": 0.048149326906828493,
+        "sharpe_zero_cash_rate": 0.3575611641568053,
+        "max_drawdown": -0.22409270744694876
+      },
+      "annualized_excess_vs_buy_hold": -0.03798252653077827,
+      "annualized_excess_vs_h00300": -0.042648520112087196,
+      "max_drawdown_ratio_vs_buy_hold": 1.2125445157571422,
+      "complete_round_trips_by_year": {
+        "2023": 4,
+        "2024": 2,
+        "2025": 1,
+        "2026": 2
+      },
+      "maximum_complete_round_trips_in_any_year": 4
+    },
+    "leave_one_year_out_sharpes": {
+      "2022": 0.3192992768545949,
+      "2023": 0.5342698333438994,
+      "2024": -0.0880007641006006,
+      "2025": -0.2662247424905749,
+      "2026": 0.17457707968305836
+    },
+    "yearly_log_excess_contributions_vs_buy_hold": {
+      "2022": -0.007554861765613192,
+      "2023": -0.053125994504799864,
+      "2024": -0.057319637543102216,
+      "2025": -0.008912248656041384,
+      "2026": 0.0018870858030343469
+    },
+    "maximum_single_year_share_of_total_log_excess": null,
+    "risk_cycle_log_excess_contributions_vs_buy_hold": [
+      {
+        "start_date": "2022-08-22",
+        "end_date": "2022-08-22",
+        "log_excess": 0.0,
+        "complete": true
+      },
+      {
+        "start_date": "2022-09-23",
+        "end_date": "2023-03-24",
+        "log_excess": -0.0325000647663838,
+        "complete": true
+      },
+      {
+        "start_date": "2023-05-25",
+        "end_date": "2023-08-04",
+        "log_excess": -0.03016263355372167,
+        "complete": true
+      },
+      {
+        "start_date": "2023-08-31",
+        "end_date": "2023-09-11",
+        "log_excess": 0.0021397508791337772,
+        "complete": true
+      },
+      {
+        "start_date": "2023-09-21",
+        "end_date": "2023-09-28",
+        "log_excess": 6.68854117552623e-05,
+        "complete": true
+      },
+      {
+        "start_date": "2024-03-19",
+        "end_date": "2024-04-09",
+        "log_excess": 0.008364705841728473,
+        "complete": true
+      },
+      {
+        "start_date": "2024-06-28",
+        "end_date": "2024-10-11",
+        "log_excess": -0.06310169309937903,
+        "complete": true
+      },
+      {
+        "start_date": "2025-02-20",
+        "end_date": "2025-03-07",
+        "log_excess": -0.0018062950984157175,
+        "complete": true
+      },
+      {
+        "start_date": "2025-10-17",
+        "end_date": "2026-01-08",
+        "log_excess": -0.017384786719278327,
+        "complete": true
+      },
+      {
+        "start_date": "2026-03-05",
+        "end_date": "2026-04-07",
+        "log_excess": 0.021809692953025105,
+        "complete": true
+      },
+      {
+        "start_date": "2026-08-03",
+        "end_date": "2026-08-25",
+        "log_excess": 0.000384224456022711,
+        "complete": false
+      }
+    ],
+    "maximum_single_risk_cycle_share_of_total_log_excess": null,
+    "main_gates": {
+      "five_year_net_sharpe_at_least_1_20": false,
+      "five_year_excess_vs_h00300_positive": false,
+      "five_year_excess_vs_buy_hold_positive": false,
+      "max_drawdown_at_most_75_percent_of_buy_hold": false,
+      "complete_round_trips_per_year_at_most_10": true
+    },
+    "robustness_gates": {
+      "three_year_net_sharpe_at_least_0_90": false,
+      "three_year_excess_vs_both_benchmarks_positive": false,
+      "double_cost_five_year_sharpe_at_least_0_90": false,
+      "leave_one_calendar_year_out_sharpe_positive": false,
+      "single_year_log_excess_share_at_most_50_percent": false,
+      "single_risk_cycle_log_excess_share_at_most_50_percent": false,
+      "minimum_eight_independent_events": true
+    },
+    "failed_gates": [
+      "five_year_net_sharpe_at_least_1_20",
+      "five_year_excess_vs_h00300_positive",
+      "five_year_excess_vs_buy_hold_positive",
+      "max_drawdown_at_most_75_percent_of_buy_hold",
+      "three_year_net_sharpe_at_least_0_90",
+      "three_year_excess_vs_both_benchmarks_positive",
+      "double_cost_five_year_sharpe_at_least_0_90",
+      "leave_one_calendar_year_out_sharpe_positive",
+      "single_year_log_excess_share_at_most_50_percent",
+      "single_risk_cycle_log_excess_share_at_most_50_percent"
+    ]
+  },
+  "return_evaluation": "COMPLETED_ONCE",
+  "portfolio_backtest_status": "COMPLETED_ONCE_AFTER_EVENT_GATE_PASS",
+  "no_parameter_rescue": true,
+  "forward_shadow_required": true,
+  "minimum_new_shadow_trading_days": 252,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_authorized": false,
+  "mechanism_decision_before_evidence_class": "REJECTED_FROZEN_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE",
+  "evidence_class": "POST_REJECTION_WINDOW_SENSITIVITY_ONLY",
+  "predecessor": {
+    "study_id": "510300_MACRO_STRESS_AVOIDANCE_V1",
+    "decision": "REJECTED_FROZEN_INSUFFICIENT_EVENT_SUPPORT_NO_RESCUE",
+    "result_file": "reports/research/510300_macro_stress_avoidance_v1_result.json",
+    "result_sha256": "85226ac0bb115f6eda8ff22f87514f460186601b289236d5f01d9e6b1448a45f",
+    "overridden": false
+  },
+  "sensitivity_governance": {
+    "original_2021_rejection_overridden": false,
+    "original_2021_rejection_rescue_forbidden": true,
+    "eligible_to_claim_preregistered_confirmation": false,
+    "eligible_to_authorize_paper_or_live_trading": false,
+    "reason": "2015起点是在观察到2021起点事件不足后由用户提出，只能作为事后窗口敏感性证据",
+    "exact_2015_factor_history_available": false,
+    "fdr007_official_launch_month": "2017-05",
+    "fdr007_first_official_valid_date": "2017-05-31",
+    "pre_launch_fdr007_handling": "LEFT_CENSORED_NOT_ZERO_NOT_INTERPOLATED_NO_PROXY",
+    "tsf_stock_yoy_2015_official_frequency": "QUARTERLY",
+    "tsf_stock_yoy_first_monthly_reference_period": "2016-01",
+    "pre_monthly_tsf_handling": "LEFT_CENSORED_NO_QUARTERLY_TO_MONTHLY_EXPANSION_NO_INTERPOLATION_NO_PROXY",
+    "earliest_model_date_must_follow_full_history_from_first_valid_derived_observation": true,
+    "unchanged_rule_families": [
+      "factor_rules",
+      "recovery_rule",
+      "event_study",
+      "execution",
+      "costs",
+      "benchmarks",
+      "historical_gates",
+      "robustness_gates",
+      "stop_rules",
+      "point_in_time"
+    ]
+  },
+  "historical_sharpe_threshold_met": false,
+  "goal_achieved": false,
+  "goal_achieved_reason": "事后改变样本起点的敏感性结果不能覆盖冻结拒绝或构成独立确认",
+  "generated_at": "2026-08-30T16:13:33.471028+08:00"
+}

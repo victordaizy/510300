@@ -1,0 +1,297 @@
+program:
+  program_id: 510300_ASYMMETRIC_STRESS_HAZARD_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_PRE_LABEL_CENSUS_FREEZE
+  unique_active_alpha_line: true
+  research_stage: BAD10_LABEL_IDENTIFIABILITY_CENSUS_ONLY
+  evidence_class: RETROSPECTIVE_HISTORICAL_DISCOVERY
+  research_state: DISCOVERY_ONLY
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+  observation_start: 2015-01-05
+  observation_cutoff: 2026-08-14
+  timezone: Asia/Shanghai
+  feature_construction_allowed_before_g1: false
+  model_training_allowed_before_g1: false
+  portfolio_evaluation_allowed_before_g3: false
+
+authority_contract:
+  path: config/510300_research_authority_v2.json
+  authority_id: 510300_RESEARCH_AUTHORITY_V2
+  required_fields:
+    research_state: DISCOVERY_ONLY
+    model_position_target: UNSET
+    order_authorization: NOT_AUTHORIZED
+    actual_holdings_state: UNKNOWN_OUT_OF_SCOPE
+    position_impact: 0
+  prohibited_field_keys: [CURRENT_HOLDING_ROUTE]
+
+data_roots:
+  PROJECT_RESEARCH_DATA_V1:
+    logical_path: data
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    expected_resolved_root: "E:/ResearchData/New project 8/data"
+    path_policy: REGISTERED_PHYSICAL_ROOT_NOT_PROJECT_WORKSPACE_CONTAINMENT
+    junction_allowed: true
+
+source_contract:
+  etf_price:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/raw/market/510300_daily_2015_v2.parquet
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+    bytes: 116186
+    data_contract_version: 510300_UNADJUSTED_DAILY_OHLCV_2015_V2
+    required_columns: [date, open, close, symbol]
+    expected_symbol: 510300.SH
+    role: ACTUAL_EXECUTION_AND_MARK_TO_CLOSE_PATH
+    substitute_index_allowed: false
+  etf_dividends:
+    root_contract: PROJECT_RESEARCH_DATA_V1
+    logical_path: data/reference/510300_dividends.csv
+    physical_root_id: NEW_PROJECT8_RESEARCH_DATA_E_DRIVE_V1
+    content_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    bytes: 2021
+    data_contract_version: 510300_OFFICIAL_CASH_DISTRIBUTION_ARCHIVE_V1
+    required_columns:
+      [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+    expected_symbol: 510300.SH
+    role: CASH_DIVIDEND_ENTITLEMENT_AND_RECEIVABLE
+
+bad10_label:
+  label_id: BAD10
+  origin_information_clock: T_CLOSE_AND_INFORMATION_AVAILABLE_BY_T_CLOSE
+  execution_clock: NEXT_TRADING_DAY_OPEN
+  entry_asset: 510300.SH
+  entry_price: ACTUAL_510300_UNADJUSTED_OPEN
+  evaluation_price: ACTUAL_510300_UNADJUSTED_CLOSE
+  horizon_market_days: 10
+  loss_threshold: -0.04
+  threshold_comparator: LESS_THAN_OR_EQUAL
+  wealth_definition: ONE_SHARE_CLOSE_PLUS_ENTITLED_CASH_DIVIDEND_RECEIVABLE
+  dividend_entitlement_rule: ENTRY_OPEN_ON_OR_BEFORE_RECORD_DATE
+  dividend_wealth_recognition_rule: RECOGNIZE_RECEIVABLE_FROM_EX_DATE
+  transaction_cost_in_label: 0.0
+  transaction_cost_role: EXCLUDED_FROM_LABEL_RESERVED_FOR_POST_G3_PORTFOLIO
+  same_day_close_execution_allowed: false
+  future_low_execution_allowed: false
+  index_proxy_allowed: false
+  incomplete_horizon_status: CENSORED_NOT_AN_ORIGIN
+  alternative_thresholds_forbidden: [-0.03, -0.05]
+  alternative_horizons_forbidden: [15, 20]
+
+independent_event_contract:
+  merge_interval: CLOSED_INTERVAL_FROM_ENTRY_DATE_TO_HORIZON_END_DATE
+  merge_rule: TRANSITIVE_MERGE_WHEN_HOLDING_INTERVALS_OVERLAP
+  event_identity_rule: CHRONOLOGICAL_SEQUENCE_AFTER_COMPLETE_TRANSITIVE_MERGE
+  event_count_unit: NON_OVERLAPPING_MERGED_STRESS_EVENT
+  non_event_block_rule: >-
+    Chronological greedy selection of BAD10=0 ten-session holding intervals;
+    each accepted block must start strictly after the prior accepted block ends
+    and must not overlap any merged BAD10 event interval.
+  non_event_anchor_search: EARLIEST_ELIGIBLE_ORIGIN_THEN_GREEDY_FORWARD
+  post_census_reanchoring_allowed: false
+
+gates:
+  G0_ENGINEERING_REPLAY:
+    all_required: true
+    requirements:
+      - VERSIONED_CODE_CONFIG_TESTS_AND_MANIFEST_COMMITTED_BEFORE_LABEL_READ
+      - REGISTERED_EXTERNAL_DATA_ROOT_RESOLVES_AND_HASHES_MATCH
+      - UNIQUE_AUTHORITY_STATE_VALIDATES
+      - SINGLE_ONE_SHOT_CLAIM_AND_IMMUTABLE_RECEIPT
+      - STRICT_JSON_AND_ATOMIC_NEW_OUTPUTS
+  G1_LABEL_IDENTIFIABILITY:
+    all_required: true
+    minimum_independent_bad10_events: 30
+    minimum_independent_non_event_10d_blocks: 120
+    failure_status: REJECTED_FROZEN_G1_LABEL_IDENTIFIABILITY_FAILED_NO_RESCUE
+    label_change_after_failure_allowed: false
+  G2_MECHANISM_CHAIN:
+    all_required: true
+    macro_to_internal_direction_consistent_subperiods_required: 3
+    macro_to_internal_total_subperiods: 4
+    internal_model_must_beat_price_baseline: true
+  G3_PROBABILITY_PREDICTION:
+    all_required: true
+    brier_skill_vs_price_baseline_minimum: 0.05
+    incremental_brier_skill_vs_internal_model_minimum_exclusive: 0.0
+    event_block_bootstrap_one_sided_confidence: 0.90
+    event_block_bootstrap_lower_bound_minimum_exclusive: 0.0
+  G4_EXECUTABLE_CAPABILITY:
+    all_required: true
+    bad10_recall_minimum: 0.80
+    non_bad10_false_positive_rate_maximum: 0.20
+    median_reentry_lag_market_days_maximum: 5
+    annual_round_trips_maximum: 10
+  G5_PORTFOLIO_VALUE:
+    all_required: true
+    stress_cost_net_sharpe_minimum: 1.20
+    excess_vs_equal_average_exposure_minimum_exclusive: 0.0
+    maximum_drawdown_reduction_minimum: 0.30
+    single_event_avoided_loss_contribution_maximum: 0.35
+    historical_pass_name: HISTORICAL_DISCOVERY_PASS
+  G6_STRICT_FORWARD:
+    first_review_minimum_market_days: 252
+    first_review_minimum_independent_events: 8
+    formal_qualification_minimum_market_days: 504
+    formal_qualification_minimum_independent_events: 15
+    insufficient_status: NO_VIEW
+
+feature_charter:
+  construction_status_before_g1: FORBIDDEN
+  source_admission_status: NO_VIEW_PENDING_SEPARATE_POINT_IN_TIME_SOURCE_CONTRACTS
+  causal_percentile_rule: EMPIRICAL_MIDRANK_AGAINST_STRICTLY_PRIOR_OBSERVATIONS_ONLY
+  missing_value_rule: NO_VIEW_NO_INTERPOLATION
+  sign_reversal_allowed: false
+  window_search_allowed: false
+  weight_search_allowed: false
+  macro_vulnerability_M:
+    aggregation: MEDIAN_OF_THREE_RISK_PERCENTILES
+    channels:
+      M1_ERP_BUFFER:
+        formula: CSI300_OFFICIAL_EARNINGS_YIELD_MINUS_CHINA_10Y_GOVERNMENT_BOND_YIELD
+        risk_direction: LOWER_IS_HIGHER_RISK
+        valuation_source_role: OFFICIAL_OR_PRE_FROZEN_CSI300_DAILY_VALUATION
+        reconstructed_constituent_financials_allowed: false
+      M2_FUNDING_STRESS:
+        formula: DR007_MINUS_7D_REVERSE_REPO_POLICY_RATE
+        risk_direction: HIGHER_IS_HIGHER_RISK
+        selected_rate: DR007
+        alternative_rates_forbidden: [FDR007, R007]
+      M3_CREDIT_IMPULSE:
+        formula: THREE_MONTH_CHANGE_IN_SOCIAL_FINANCING_STOCK_YOY_GROWTH
+        risk_direction: LOWER_IS_HIGHER_RISK
+        revised_history_backfill_allowed: false
+        publication_without_precise_time_available_from: NEXT_TRADING_DAY_OPEN
+    usd_cny_role: EXPLANATORY_MONITOR_ONLY_NOT_V1_FEATURE
+  internal_vulnerability_F:
+    aggregation: MEDIAN_OF_THREE_RISK_PERCENTILES
+    point_in_time_membership_required: true
+    current_constituent_backfill_allowed: false
+    channels:
+      F1_BREADTH20:
+        formula: SHARE_OF_POINT_IN_TIME_CSI300_MEMBERS_WITH_POSITIVE_20D_TOTAL_RETURN
+        risk_direction: LOWER_IS_HIGHER_RISK
+      F2_LEADERSHIP_GAP20:
+        formula: 510300_20D_TOTAL_RETURN_MINUS_POINT_IN_TIME_MEMBER_EQUAL_WEIGHT_20D_TOTAL_RETURN
+        risk_direction: HIGHER_IS_HIGHER_RISK
+        historical_official_weight_required: false
+      F3_SECTOR_CORR20:
+        formula: MEDIAN_PAIRWISE_CORRELATION_OF_POINT_IN_TIME_SECTOR_DAILY_RETURNS_OVER_20D
+        risk_direction: HIGHER_IS_HIGHER_RISK
+        industry_identity_rule: POINT_IN_TIME_LEVEL1_INDUSTRY_INTERVAL
+  transmission_T:
+    aggregation: MEDIAN_OF_THREE_RISK_PERCENTILES
+    channels:
+      T1_NEGATIVE_DELTA_BREADTH5:
+        formula: NEGATIVE_OF_BREADTH20_T_MINUS_BREADTH20_T_MINUS_5
+        risk_direction: HIGHER_IS_HIGHER_RISK
+      T2_DELTA_CORR5:
+        formula: SECTOR_CORR20_T_MINUS_SECTOR_CORR20_T_MINUS_5
+        risk_direction: HIGHER_IS_HIGHER_RISK
+      T3_NEGATIVE_SECTOR_DIFFUSION5:
+        formula: SHARE_OF_POINT_IN_TIME_SECTORS_WITH_NEGATIVE_5D_RETURN
+        risk_direction: HIGHER_IS_HIGHER_RISK
+
+model_charter:
+  mechanism_score_formula: GEOMETRIC_MEAN_M_F_T
+  mechanism_score_expression: (M*F*T)^(1/3)
+  probability_model: MONOTONE_LOGISTIC_ALPHA_PLUS_NONNEGATIVE_BETA_TIMES_SCORE
+  firth_logistic_allowed: true
+  automatic_variable_selection_allowed: false
+  tree_boosting_neural_network_allowed: false
+  threshold_selection_by_sharpe_allowed: false
+  subperiod_selection_allowed: false
+  baselines:
+    BASELINE_1: PRICE_AND_REALIZED_RISK_ONLY
+    BASELINE_2: INTERNAL_F_AND_T_ONLY
+    FULL_MODEL: M_PLUS_F_PLUS_T_MECHANISM_SCORE
+
+future_position_mapping:
+  accessible_only_after_g3: true
+  current_position_or_advice: false
+  NORMAL: {510300.SH: 1.0, CASH_CNY: 0.0}
+  DEFENSIVE: {510300.SH: 0.0, CASH_CNY: 1.0}
+  intermediate_exposure_allowed: false
+  exit_threshold_rule: >-
+    In the development interval, among thresholds satisfying BAD10 recall at
+    least 80%, non-BAD10 false-positive rate at most 20%, and at most 10 full
+    round trips per year, select the highest threshold exactly once; if none
+    exists, the model fails.
+  reentry_rule: >-
+    Predicted probability must remain below the causal historical base event
+    rate for three consecutive trading days and T must be below its causal
+    median; re-enter at the next trading open.
+  separate_recovery_model_allowed_only_after_exit_model_passes: true
+
+cost_contract_reserved_for_post_g3:
+  initial_capital_cny: 200000
+  commission_rate_one_way: 0.0002
+  minimum_commission_cny: 5
+  board_lot_shares: 100
+  settlement: T_PLUS_1
+  cash_yield: 0.0
+  cash_dividends_separately_credited: true
+  baseline_slippage_one_way: 0.0005
+  stress_slippage_one_way: 0.0010
+
+health_stop_contract:
+  evaluation_frequency: MONTHLY
+  hard_stops:
+    - TWO_NON_OVERLAPPING_WINDOWS_FULL_MODEL_BRIER_SKILL_VS_PRICE_LE_ZERO
+    - TWO_NON_OVERLAPPING_WINDOWS_MACRO_INCREMENTAL_BRIER_SKILL_LE_ZERO
+    - CALIBRATION_SLOPE_LE_ZERO
+    - FALSE_POSITIVE_RATE_GT_20_PERCENT
+    - ANNUAL_ROUND_TRIPS_GT_10
+    - FALSE_CASH_OPPORTUNITY_COST_GT_AVOIDED_LOSS
+    - CORE_DATA_STALE_HASH_MISMATCH_OR_PIT_CLOCK_UNPROVEN
+  terminal_status: REJECTED_FROZEN
+  post_stop_feature_addition_allowed: false
+
+forbidden_before_g1:
+  - CONSTRUCT_M_F_OR_T_FEATURE_VALUES
+  - READ_OR_COMPARE_ALTERNATIVE_BAD10_THRESHOLDS
+  - READ_OR_COMPARE_ALTERNATIVE_HORIZONS
+  - TRAIN_ANY_MODEL
+  - SELECT_ANY_PROBABILITY_THRESHOLD
+  - READ_PORTFOLIO_SHARPE_RETURN_OR_DRAWDOWN
+  - GENERATE_POSITION_PAPER_SHADOW_ORDER_OR_BROKER_ACTION
+  - USE_H00300_AS_510300_EXECUTION_PATH
+  - RESCUE_FAILED_G1_WITH_PARAMETERS_PROXIES_LABELS_OR_NEW_VERSION
+
+freeze_contract:
+  implementation_files:
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_bad10_census.py
+  governance_files:
+    - config/510300_asymmetric_stress_hazard_v1.yaml
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_CHARTER.md
+    - tests/test_project_evidence_contract_v1.py
+    - tests/test_510300_asymmetric_stress_hazard_v1.py
+  required_committed_before_census:
+    - config/510300_asymmetric_stress_hazard_v1.yaml
+    - config/510300_asymmetric_stress_hazard_v1_manifest.json
+    - config/510300_research_authority_v2.json
+    - docs/510300_ASYMMETRIC_STRESS_HAZARD_V1_CHARTER.md
+    - research/project_evidence_contract_v1.py
+    - research/asymmetric_stress_hazard_v1.py
+    - scripts/freeze_510300_asymmetric_stress_hazard_v1.py
+    - scripts/run_510300_asymmetric_stress_hazard_v1_bad10_census.py
+    - tests/test_project_evidence_contract_v1.py
+    - tests/test_510300_asymmetric_stress_hazard_v1.py
+
+artifacts:
+  protocol_manifest: config/510300_asymmetric_stress_hazard_v1_manifest.json
+  one_shot_claim: reports/audit/510300_asymmetric_stress_hazard_v1_bad10_census_claim.json
+  origin_panel: reports/research/510300_asymmetric_stress_hazard_v1_bad10_origin_panel.parquet
+  independent_events: reports/research/510300_asymmetric_stress_hazard_v1_bad10_events.csv
+  independent_non_event_blocks: reports/research/510300_asymmetric_stress_hazard_v1_non_event_blocks.csv
+  census_result: reports/research/510300_asymmetric_stress_hazard_v1_bad10_census.json
+  authoritative_status: reports/research/510300_asymmetric_stress_hazard_v1_status.json
+  human_report: reports/research/510300_ASYMMETRIC_STRESS_HAZARD_V1_BAD10_CENSUS.md
+  immutable_receipt: reports/audit/510300_asymmetric_stress_hazard_v1_bad10_census_receipt.json
+  failure_receipt: reports/audit/510300_asymmetric_stress_hazard_v1_bad10_census_failure_receipt.json

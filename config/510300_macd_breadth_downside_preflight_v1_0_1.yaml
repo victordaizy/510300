@@ -1,0 +1,44 @@
+correction:
+  project_id: 510300_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1_0_1
+  prior_project_id: 510300_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1
+  type: DATA_WARMUP_REMEDIATION_BEFORE_ANY_CANDIDATE_OUTCOME_READ
+  reason: 原官方权重广度文件从评价首日开始，导致B20五日变化在最初5个评价交易日为空
+  prior_run_status: NO_VIEW_DATA_OR_PROTOCOL_CONTRACT_FAILED
+  prior_candidate_outcomes_read: false
+  evaluation_window_changed: false
+  feature_definition_changed: false
+  event_definition_changed: false
+  direction_changed: false
+  gate_changed: false
+  bootstrap_changed: false
+  only_change: 用评价期前5个交易日计算广度五日变化后，仍只向模型提供原1,211个评价交易日
+
+base:
+  config_path: config/510300_macd_breadth_downside_preflight_v1.yaml
+  config_sha256: 0dfb4d43e05da47d0d3302a52617769c03ec0f50c0df562476dea8bb238bd177
+  manifest_path: config/510300_macd_breadth_downside_preflight_v1_manifest.json
+  manifest_sha256: 3479026e268a1c6a4c44f6213dd962728a3f459a0cb0e6f1e9c917e5d6a2bcc8
+
+input_replacement:
+  key: official_weighted_breadth
+  prior_path: data/features/000300_official_weighted_breadth_daily.parquet
+  replacement_path: data/features/000300_official_weighted_breadth_daily_v1_0_1_warmup.parquet
+  remediation_report: reports/data_quality/000300_official_weighted_breadth_warmup_v1_0_1.json
+  replacement_sha256: 4da7cf274516575a66694a7d2b51b19e12c9830872e1b4dae4046851cb833b60
+  evaluation_rows: 1211
+  evaluation_b20_change_missing_rows: 0
+  existing_nonmissing_change_maximum_difference: 0.0
+
+status_overrides:
+  protocol_state: DATA_REMEDIATION_CORRECTION_DRAFT_BEFORE_FIRST_RESULT
+  evidence_class: RETROSPECTIVE_ONE_SHOT_MECHANISM_PREFLIGHT_DATA_REMEDIATED
+  pass_status: PASS_MECHANISM_PREFLIGHT_CORE_MODEL_IMPLEMENTATION_ALLOWED_V1_0_1
+  fail_status: REJECTED_FROZEN_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1_0_1_NO_RESCUE
+
+paths:
+  manifest: config/510300_macd_breadth_downside_preflight_v1_0_1_manifest.json
+  freeze_receipt: reports/frozen/510300_macd_breadth_downside_preflight_v1_0_1_freeze_receipt.json
+  result_json: reports/research/510300_macd_breadth_downside_preflight_v1_0_1.json
+  result_markdown: reports/research/510300_MACD_BREADTH_DOWNSIDE_PREFLIGHT_V1_0_1.md
+  feature_table: data/research/510300_macd_breadth_downside_preflight_v1_0_1/daily_features.parquet
+  event_table: data/research/510300_macd_breadth_downside_preflight_v1_0_1/events.parquet

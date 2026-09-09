@@ -1,0 +1,111 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "weight_band": 0.1,
+  "study_id": "510300_SIMPLE_SIGNAL_BLEND_V1",
+  "round": 28,
+  "registered_at": "2026-09-07T13:22:59.916759+08:00",
+  "primary": "B1_EQUAL_THREE",
+  "candidate_count": 8,
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "rules": "docs/510300_SIMPLE_SIGNAL_BLEND_V1.md",
+  "position_impact": 0,
+  "evidence_class": "RESEARCH_SCREEN_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "independent_validation": "NOT_ESTABLISHED",
+  "candidate_names": {
+    "B1_EQUAL_THREE": "三种状态固定等权",
+    "B2_TREND_SESSION": "趋势与日内强弱各半",
+    "B3_TREND_VOLUME": "趋势与放量反弹各半",
+    "B4_SESSION_VOLUME": "日内强弱与放量反弹各半",
+    "B5_MAJORITY": "至少两种状态同意才进入",
+    "B6_PARTIAL_CONSENSUS": "一种同意半仓、两种同意满仓",
+    "B7_TREND_ANCHOR": "趋势占一半、其余各四分之一",
+    "B8_VOL_SCALED_EQUAL": "三种等权并按波动缩减仓位"
+  },
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "experts": [
+    [
+      "S1_TREND_REBOUND",
+      "510300_simple_price_entry_exit_v1"
+    ],
+    [
+      "D60_INTRA",
+      "510300_simple_session_divergence_v1"
+    ],
+    [
+      "V1_CLIMAX_RECOVERY",
+      "510300_simple_volume_reversal_v1"
+    ]
+  ],
+  "expert_state_cost": "BASE",
+  "primary_rebalance": "DAILY_CLOSE_TO_NEXT_OPEN",
+  "execution_renewal": "未成交指令次日收盘按新目标重新判断",
+  "all_candidates_earlier_diagnostic": true,
+  "frozen_files": [
+    {
+      "path": "research\\simple_signal_blend_v1.py",
+      "sha256": "4abc19cb70f715c1d4637ae22fd989d4a9954d15caee9013df40861e209dfb27"
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research\\simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "docs\\510300_SIMPLE_SIGNAL_BLEND_V1.md",
+      "sha256": "9d880be0f68e1c9ac0b6235b71969ea4bdcb9b67c94428c4964ceaf873dad914"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports\\research\\510300_simple_price_entry_exit_v1\\evaluation\\BASE\\S1_TREND_REBOUND_decisions.parquet",
+      "sha256": "12c1726dc4672fca53859f6af16754eb7d64710d6957e6c684aa08515443a09e"
+    },
+    {
+      "path": "reports\\research\\510300_simple_session_divergence_v1\\evaluation\\BASE\\D60_INTRA_decisions.parquet",
+      "sha256": "e38d4fd15f5a9294f7530bc9e7d2e73a23535944a7f1213244eb18db6c957da9"
+    },
+    {
+      "path": "reports\\research\\510300_simple_volume_reversal_v1\\evaluation\\BASE\\V1_CLIMAX_RECOVERY_decisions.parquet",
+      "sha256": "89ef0dfe37de147b00bc3ce5deb89c32154d786f1515be565834f6900a54be92"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+protocol:
+  study_id: 510300_US_CHINA_OVERNIGHT_BINARY_SCREEN_V1
+  version: 1.0.0
+  state: PREFREEZE_IMPLEMENTATION_COMPLETE
+  candidate_contract: config/510300_us_china_overnight_binary_screen_v1_candidates.yaml
+  candidate_contract_sha256: 836f662330d489007bbd35c700629643d5f3e5f5777dc9777a138ac587dff160
+  no_parameter_rescue: true
+
+initial_capital_cny: 500000.0
+annualization_trading_days: 242
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  stamp_duty_rate: 0.0
+
+evaluation_window:
+  feature_start_date: '2016-08-12'
+  end_date: '2026-08-25'
+
+us_symbol_contract_keys:
+  us_ashr: ASHR
+  us_fxi: FXI
+  us_mchi: MCHI
+  us_kweb: KWEB
+  us_spy: SPY
+  us_vix: ^VIX
+
+data_contracts:
+  us_ashr:
+    file: data/raw/us_china_overnight_v1/ASHR_daily.parquet
+    required_sha256: c6ba24c5cfe6e958590079b7dfc8f85dd7be87c4cccb6cbce721e404548199d4
+    required_rows: 3218
+    required_first_date: '2013-11-06'
+    required_last_date: '2026-08-25'
+    required_columns: [date, open, high, low, close, adj_close, volume, symbol, source]
+  us_fxi:
+    file: data/raw/us_china_overnight_v1/FXI_daily.parquet
+    required_sha256: 18fbf404e5a6b2c90fcd2dcf2c11d8dd13a3351c0e5be16b2a10eff14a0f88ff
+    required_rows: 3432
+    required_first_date: '2013-01-02'
+    required_last_date: '2026-08-25'
+    required_columns: [date, open, high, low, close, adj_close, volume, symbol, source]
+  us_mchi:
+    file: data/raw/us_china_overnight_v1/MCHI_daily.parquet
+    required_sha256: a47f08f1275650319ca645dc5718d4c05b8319c0a5f80bde09082d602c0fc8c8
+    required_rows: 3432
+    required_first_date: '2013-01-02'
+    required_last_date: '2026-08-25'
+    required_columns: [date, open, high, low, close, adj_close, volume, symbol, source]
+  us_kweb:
+    file: data/raw/us_china_overnight_v1/KWEB_daily.parquet
+    required_sha256: 9dfc2e74841c8162634a3d70caf0637623a77db30b99169b45bd80376359f2c6
+    required_rows: 3286
+    required_first_date: '2013-08-01'
+    required_last_date: '2026-08-25'
+    required_columns: [date, open, high, low, close, adj_close, volume, symbol, source]
+  us_spy:
+    file: data/raw/us_china_overnight_v1/SPY_daily.parquet
+    required_sha256: d3093ba065ea978850de85a796d054334a2c0ffa074d7079c84f033580d73f3b
+    required_rows: 3432
+    required_first_date: '2013-01-02'
+    required_last_date: '2026-08-25'
+    required_columns: [date, open, high, low, close, adj_close, volume, symbol, source]
+  us_vix:
+    file: data/raw/us_china_overnight_v1/VIX_daily.parquet
+    required_sha256: 9ad6d7f985d0770b2e56b36223a1aef1a687eeebcd16c400339fe6f89be6acb1
+    required_rows: 3433
+    required_first_date: '2013-01-02'
+    required_last_date: '2026-08-25'
+    required_columns: [date, open, high, low, close, adj_close, volume, symbol, source]
+  acquisition_audit:
+    file: reports/data_quality/us_china_overnight_inputs_v1.json
+    required_sha256: 1ab58c9c3566e0f53f8c1625e79b16d3bd2a9d896c14e2921523a2056f83327a
+  execution_daily:
+    file: data/raw/market/510300_daily_raw.parquet
+    required_sha256: 640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4
+    required_symbol: 510300.SH
+    required_columns: [date, open, close, symbol]
+  benchmark_total_return:
+    file: data/raw/market/H00300_total_return_daily_raw.parquet
+    required_sha256: 49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733
+    required_symbol: H00300
+    required_columns: [date, close, symbol]
+  cash_distributions:
+    file: data/reference/510300_dividends.csv
+    required_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    required_event_count: 14
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+
+source_contracts:
+  acquisition_implementation:
+    file: scripts/download_us_china_overnight_inputs_v1.py
+    required_sha256: 54bb928ac771748d51bc04c15a8d24453c81e5038c50be3c329b0563942cb5db
+  execution_ledger_dependency:
+    file: research/intraday_binary_livermore_screen_v1.py
+    required_sha256: 17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa
+
+artifacts:
+  freeze_manifest: config/510300_us_china_overnight_binary_screen_v1_manifest.json
+  features: data/research/510300_us_china_overnight_binary_screen_v1/preopen_features.parquet
+  daily_states: data/research/510300_us_china_overnight_binary_screen_v1/daily_states.parquet
+  metrics: data/research/510300_us_china_overnight_binary_screen_v1/start_perturbation_metrics.parquet
+  report_json: reports/research/510300_us_china_overnight_binary_screen_v1.json
+  report_markdown: reports/research/510300_US_CHINA_OVERNIGHT_BINARY_SCREEN_V1.md

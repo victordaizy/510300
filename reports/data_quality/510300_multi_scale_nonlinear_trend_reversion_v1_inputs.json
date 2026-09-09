@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "510300_MULTI_SCALE_NONLINEAR_TREND_REVERSION_V1",
+  "status": "PASS_PRE_FREEZE_DATA_AND_NORMALIZATION_CONTRACT",
+  "checked_at_asia_shanghai": "2026-08-31T12:49:25.6232507+08:00",
+  "inspection_scope": "仅读取输入文件结构、日期列及2015年前000300收盘价以估计论文所需的固定训练期均值和标准差；未读取或计算2015年后候选结果",
+  "index_price": {
+    "path": "data/raw/market/000300_price_index_return_dispersion_v1.parquet",
+    "rows": 5189,
+    "first_date": "2005-04-08",
+    "last_date": "2026-08-14",
+    "evaluation_rows": 2823,
+    "rows_before_evaluation": 2366,
+    "required_columns_present": true
+  },
+  "pre_2015_training_normalization": {
+    "first_price_date": "2005-04-08",
+    "last_price_date": "2014-12-31",
+    "log_return_count": 2365,
+    "log_return_mean": 0.0005323077446158067,
+    "log_return_sample_std": 0.018153464702916094,
+    "evaluation_values_used": false
+  },
+  "fixed_weight_contract": {
+    "maximum_horizon_trading_days": 1024,
+    "lag_multiplier": 2.25,
+    "maximum_lag_count": 2304,
+    "available_pre_evaluation_return_count": 2365,
+    "maximum_horizon_squared_weight_energy_capture": 0.993777561859,
+    "minimum_required_squared_weight_energy_capture": 0.99,
+    "passed": true
+  },
+  "etf_price": {
+    "path": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "rows": 3456,
+    "first_date": "2012-05-28",
+    "last_date": "2026-08-14",
+    "required_columns_present": true
+  },
+  "candidate_2015_plus_outcomes_read_or_computed": false,
+  "candidate_fixed_score_computed": false,
+  "candidate_portfolio_returns_read_or_computed": false,
+  "candidate_sharpe_computed": false,
+  "live_trading_authorized": false
+}

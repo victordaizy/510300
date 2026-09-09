@@ -1,0 +1,191 @@
+protocol:
+  candidate_id: "BTC_SPOT_LONG_HORIZON_TREND_V2"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V11"
+  lane: "BTC_SPOT_LONG_HORIZON_TIME_SERIES_TREND"
+  status: "FROZEN_BEFORE_VISIBLE_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+  mechanism: "BTC现货200日均线与126日动量双过滤、60日波动缩放的周频只做多策略"
+  outcome_used_to_choose_parameters: false
+
+account:
+  initial_capital_cny: 500000.0
+  user_transaction_fee_rate_per_leg: 0.0001
+  cash_annual_rate: 0.015
+  trading_cash_currency: "USD"
+  reporting_currency: "CNY"
+
+historical_partition:
+  acquisition_start: "2016-05-23"
+  signal_warmup_start: "2016-05-23"
+  visible_start: "2017-01-02"
+  visible_end: "2022-12-31"
+  formula_family_replication_start: "2023-01-01"
+  formula_family_replication_end: "2026-08-14"
+  replication_may_open_only_after_visible_pass: true
+  replication_is_external_blind_holdout: false
+  retrospective_history_can_verify_target: false
+
+universe:
+  fixed_products: ["BTC-USD"]
+  venue: "COINBASE_EXCHANGE"
+  market_type: "SPOT_ONLY"
+  quote_currency: "USD"
+  additions_or_substitutions_allowed: false
+  minimum_observed_daily_bars_for_signal: 201
+  turnover_lookback_calendar_days: 20
+  minimum_prior_median_dollar_turnover_usd: 25000000.0
+  maximum_order_fraction_of_prior_median_dollar_turnover: 0.003
+  require_complete_utc_daily_calendar: true
+  require_positive_signal_volume: true
+  require_positive_execution_open_and_volume: true
+
+information_timing:
+  candle_timezone: "UTC"
+  signal_information_time: "COMPLETED_UTC_SUNDAY_CANDLE_CLOSE"
+  first_executable_time: "NEXT_UTC_DAILY_BUCKET_MONDAY_OPEN"
+  same_candle_execution_used: false
+  next_open_used_in_signal: false
+  future_return_used_in_signal: false
+
+signal:
+  family: "LONG_OR_CASH_LONG_HORIZON_TIME_SERIES_TREND_WITH_VOLATILITY_SCALING"
+  rebalance_frequency: "WEEKLY_COMPLETED_UTC_SUNDAY"
+  trend_sma_calendar_days: 200
+  momentum_lookback_calendar_days: 126
+  realized_volatility_lookback_calendar_days: 60
+  volatility_annualization_days: 365
+  trend_rule: "CLOSE_ABOVE_200_DAY_SMA_AND_126_DAY_RETURN_POSITIVE"
+  portfolio_target_annualized_volatility: 0.40
+  volatility_scale_formula: "MIN_1_TARGET_VOL_DIV_REALIZED_VOL"
+  maximum_product_weight: 1.0
+  maximum_portfolio_gross_weight: 1.0
+  negative_or_missing_signal_weight: 0.0
+  optimization_or_training_allowed: false
+  parameter_grid_search_allowed: false
+
+prefreeze_coverage_gate:
+  required_products: 1
+  minimum_visible_panel_rows: 2400
+  minimum_visible_complete_calendar_days: 2400
+  minimum_visible_signal_dates: 300
+  signal_direction_or_target_count_may_be_used: false
+  future_open_or_strategy_return_may_be_read: false
+  sealed_replication_may_be_read: false
+
+portfolio:
+  maximum_positions: 1
+  unfilled_weight_policy: "HOLD_USD_CASH"
+  target_notional_basis: "MINIMUM_BASE_STRESS_PRIOR_CLOSE_CNY_NAV_CONVERTED_AT_LAGGED_FX"
+  target_gross_notional_includes_stress_cost_reserve: true
+  quantity_increment: 0.00000001
+  minimum_trade_notional_usd: 100.0
+  rebalance_to_target_each_execution: true
+  sells_before_buys: true
+  blocked_entry_policy: "SKIP_AND_HOLD_USD_CASH_UNTIL_NEXT_FROZEN_REBALANCE"
+  blocked_exit_policy: "CARRY_UNTIL_FIRST_ELIGIBLE_DAILY_OPEN"
+  blocked_exit_reselection_policy: "PENDING_EXIT_REMAINS_MANDATORY"
+  terminal_liquidation_time: "VISIBLE_END_UTC_DAILY_OPEN"
+  stop_new_entries_on_visible_end: true
+  terminal_open_positions_policy: "FAIL_IF_NO_POSITIVE_OPEN_AND_VOLUME_OR_CAPACITY"
+  missing_position_mark_policy: "LAST_OBSERVED_CLOSE_WITH_STALE_FLAG"
+  same_day_round_trip_allowed: false
+
+currency:
+  fx_series: "CHINAMONEY_CFETS_OFFICIAL_USD_CNY_CENTRAL_PARITY"
+  daily_fx_mapping: "LATEST_NONMISSING_OFFICIAL_CENTRAL_PARITY_STRICTLY_BEFORE_UTC_DATE"
+  maximum_fx_staleness_calendar_days: 14
+  initial_conversion_time: "VISIBLE_START_BEFORE_OPEN_USING_LAGGED_FX"
+  terminal_conversion_time: "VISIBLE_END_AFTER_OPEN_LIQUIDATION_USING_LAGGED_FX"
+
+costs:
+  user_transaction_fee_rate_per_leg: 0.0001
+  coinbase_taker_fee_rate_per_leg: 0.0060
+  base_slippage_bps_per_leg: 10.0
+  stress_slippage_bps_per_leg: 30.0
+  base_market_impact_bps_per_leg: 5.0
+  stress_market_impact_bps_per_leg: 15.0
+  base_total_spot_cost_bps_per_leg: 76.0
+  stress_total_spot_cost_bps_per_leg: 106.0
+  base_fx_conversion_spread_bps_per_conversion: 10.0
+  stress_fx_conversion_spread_bps_per_conversion: 30.0
+  network_withdrawal_fee_usd: 0.0
+  capital_gains_tax_modeled: false
+  omitted_cost_is_failure: true
+
+risk:
+  maximum_gross_exposure: 1.0
+  maximum_absolute_net_exposure: 1.0
+  account_borrowing_allowed: false
+  account_margin_allowed: false
+  short_sale_allowed: false
+  derivative_position_allowed: false
+  staking_or_lending_allowed: false
+
+inputs:
+  source_status: "data/raw/digital_asset_spot_vol_scaled_trend_v1/collection_status.json"
+  product_master: "data/raw/digital_asset_spot_vol_scaled_trend_v1/product_master.parquet"
+  visible_panel: "data/raw/digital_asset_spot_vol_scaled_trend_v1/visible_panel_through_2022.parquet"
+  sealed_replication_panel: "data/raw/digital_asset_spot_vol_scaled_trend_v1/sealed_replication_panel_2023_2026.parquet"
+  visible_fx: "data/raw/digital_asset_spot_vol_scaled_trend_v1/visible_fx_through_2022.parquet"
+  sealed_replication_fx: "data/raw/digital_asset_spot_vol_scaled_trend_v1/sealed_fx_2023_2026.parquet"
+  visible_benchmark: "data/raw/digital_asset_spot_vol_scaled_trend_v1/visible_H00300_through_2022.parquet"
+  sealed_replication_benchmark: "data/raw/digital_asset_spot_vol_scaled_trend_v1/sealed_H00300_2023_2026.parquet"
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v11_manifest.json"
+  conservative_sharpe_evaluator: "research/qdii_cross_market_discount_reversion_zero_variance_v2.py"
+
+visible_gates:
+  benchmark: "H00300_TOTAL_RETURN"
+  annualization_trading_days: 365
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  rolling_window_trading_days: 365
+  minimum_rolling_excess_median: 0.40
+  minimum_rolling_sharpe_median: 1.50
+  minimum_non_overlapping_365d_blocks: 3
+  minimum_non_overlapping_242d_blocks: 3
+  minimum_target_qualified_blocks: 2
+  bootstrap:
+    method: "PAIRED_MOVING_BLOCK"
+    repetitions: 5000
+    block_length_trading_days: 28
+    random_seed: 20260901
+    lower_quantile: 0.025
+    minimum_excess_lower_bound: 0.0
+    minimum_sharpe_lower_bound: 1.0
+  base_and_stress_must_both_pass: true
+  data_quality_complete_required: true
+  capacity_pass_required: true
+
+historical_evidence_limits:
+  immutable_vendor_vintage_chain_available: false
+  historical_order_book_available: false
+  daily_open_fill_is_modeled_from_candle_not_order_book: true
+  performance_screen_label: "DISCOVERY_ONLY_BTC_SPOT_LONG_HORIZON_TREND_VISIBLE"
+  historical_result_may_authorize_paper_or_live: false
+  sealed_replication_is_formula_family_replication_not_external_blind_validation: true
+
+outputs:
+  input_audit_json: "reports/data_quality/btc_spot_long_horizon_trend_v2_inputs.json"
+  manifest: "config/btc_spot_long_horizon_trend_v2_manifest.json"
+  visible_daily_returns: "data/research/btc_spot_long_horizon_trend_v2/visible_daily_returns.parquet"
+  visible_targets: "data/research/btc_spot_long_horizon_trend_v2/visible_targets.parquet"
+  visible_trades: "data/research/btc_spot_long_horizon_trend_v2/visible_trades.parquet"
+  visible_report_json: "reports/research/btc_spot_long_horizon_trend_v2_visible.json"
+  visible_report_markdown: "reports/research/BTC_SPOT_LONG_HORIZON_TREND_V2_VISIBLE.md"
+  replication_report_json: "reports/research/btc_spot_long_horizon_trend_v2_replication.json"
+
+governance:
+  no_post_result_parameter_rescue: true
+  visible_result_failure_closes_candidate: true
+  sealed_replication_may_open_only_after_visible_pass: true
+  target_or_sharpe_relaxation_allowed: false
+  historical_backfill_allowed: false
+  paper_or_live_authorized_by_historical_result: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

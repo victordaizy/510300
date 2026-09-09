@@ -1,0 +1,58 @@
+...FF.                                                                   [100%]
+================================== FAILURES ===================================
+_____ test_missing_intent_stays_no_view_and_missing_calendar_is_rejected ______
+
+    def test_missing_intent_stays_no_view_and_missing_calendar_is_rejected():
+        data,references,cfg=fixture();references["PANIC_ONLY"][1].loc[12,"reference_weight"]=np.nan
+        f=reference_factors(data,references,1,cfg);assert pd.isna(f.target.iloc[12])
+        ledger,decisions=references["PANIC_ONLY"];references["PANIC_ONLY"]=(ledger.drop(index=5),decisions)
+>       with pytest.raises(RuntimeError,match="完整日历"):reference_factors(data,references,1,cfg)
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_continuous_reference_min_variance_v1.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+research\continuous_reference_min_variance_v1.py:37: in reference_factors
+    require(pd.DatetimeIndex(saved.date).equals(pd.DatetimeIndex(data.date.iloc[first:])),"连续参考账户完整日历缺失")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+condition = False, message = '连续参考账户完整日历缺失'
+
+    def require(condition: bool, message: str) -> None:
+        if not condition:
+>           raise ValueError(message)
+E           ValueError: 连续参考账户完整日历缺失
+
+research\intraday_overnight_increment_v1.py:67: ValueError
+_ test_saved_learning_model_is_unavailable_before_fit_and_requires_mature_cycles _
+
+    def test_saved_learning_model_is_unavailable_before_fit_and_requires_mature_cycles():
+        data,references,cfg=fixture()
+        model={"kind":"RIDGE","mean":[0.]*8,"scale":[1.]*8,"coefficients":[0.]*8,"intercept":-.01,"feature_clip":5.}
+        stored=[{"fit_index":8,"latest_exit_index":8,"status":"FIT_COMPLETE","model":model}]
+        cycle={"cycle_id":1,"entry_index":2,"entry_cost_cny":100.,"mode":1}
+        controller=ExitController(data,stored,2)
+        assert controller(5,cycle,100.,100.)["learning_status"]=="NO_VIEW_NO_MATURE_MODEL"
+        assert controller(8,cycle,100.,100.)["negative_confirmation_count"]==1
+        assert controller(9,cycle,100.,100.)["learned_exit_requested"]
+        invalid=copy.deepcopy(stored);invalid[0]["latest_exit_index"]=9
+>       with pytest.raises(RuntimeError,match="未来周期"):ExitController(data,invalid,2)(8,cycle,100.,100.)
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_continuous_reference_min_variance_v1.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+research\learned_cycle_exit_v1.py:121: in __call__
+    require(stored["fit_index"] <= t and stored["latest_exit_index"] <= stored["fit_index"], "退出模型使用了未来周期")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+condition = False, message = '退出模型使用了未来周期'
+
+    def require(condition: bool, message: str) -> None:
+        if not condition:
+>           raise ValueError(message)
+E           ValueError: 退出模型使用了未来周期
+
+research\intraday_overnight_increment_v1.py:67: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_continuous_reference_min_variance_v1.py::test_missing_intent_stays_no_view_and_missing_calendar_is_rejected
+FAILED tests/test_continuous_reference_min_variance_v1.py::test_saved_learning_model_is_unavailable_before_fit_and_requires_mature_cycles
+2 failed, 4 passed in 3.82s

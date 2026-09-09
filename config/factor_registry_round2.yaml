@@ -1,0 +1,81 @@
+registry_version: 1
+registered_on: "2026-08-13"
+research_status: "POSTHOC_MECHANISM_DECOMPOSITION_NO_STRICT_HOLDOUT"
+derivation_note: "第二轮假设由第一轮ETF_PRICE_VOLUME_CONFIRM_20D候选及IF环境变量派生，只能产生探索性候选，不能视为独立确认。"
+
+targets:
+  primary: "exec_total_return_20d_net"
+  sensitivity: "exec_total_return_5d_net"
+
+strategy_rule:
+  long_only: true
+  entry_percentile: 0.70
+  exit_percentile: 0.30
+  retain_between_thresholds: true
+  minimum_history: 252
+  percentile_window: 756
+  initial_position: 0.0
+
+factor_definitions:
+  - factor_id: "ETF_TR_20D_COMPONENT"
+    column: "round2_etf_total_return_20d"
+    name_cn: "510300二十日价格主效应"
+    transform: "沿用第一轮点时二十日含分红累计收益"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "mechanism_component"
+    economic_hypothesis: "若第一轮价量候选来自趋势本身，价格主效应应独立呈正向。"
+
+  - factor_id: "ETF_VOLUME_SHOCK_20D"
+    column: "round2_etf_log_volume_shock_20d"
+    name_cn: "510300相对前二十日成交量冲击"
+    transform: "当日log1p成交量减严格前移20日均值，再除以前移20日标准差，固定截断至[-4,4]"
+    lookback: 21
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "mechanism_component"
+    economic_hypothesis: "异常成交参与度本身若代表信息到达，应提高未来可执行收益。"
+
+  - factor_id: "ETF_HIGH_VOLUME_TREND_20D"
+    column: "round2_etf_high_volume_trend_20d"
+    name_cn: "510300高成交量趋势交互"
+    transform: "二十日含分红收益乘max(成交量冲击,0)，只编码放量时的趋势方向"
+    lookback: 21
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "mechanism_interaction"
+    economic_hypothesis: "只有高于历史常态的成交参与才增强趋势延续；缩量下跌不再被误记为正确认。"
+
+  - factor_id: "IF_RELATIVE_LEAD_5D"
+    column: "round2_if_minus_index_return_5d"
+    name_cn: "IF主连相对沪深300五日领先"
+    transform: "IF主连五日收益减沪深300五日收益"
+    lookback: 5
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "futures_context"
+    economic_hypothesis: "期指相对现货走强可能领先ETF未来收益；主连换月影响使其只能作为环境探索。"
+
+hypotheses:
+  - {hypothesis_id: "R2H001", factor_id: "ETF_TR_20D_COMPONENT", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R2H002", factor_id: "ETF_VOLUME_SHOCK_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R2H003", factor_id: "ETF_HIGH_VOLUME_TREND_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R2H004", factor_id: "IF_RELATIVE_LEAD_5D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R2H005", factor_id: "ETF_TR_20D_COMPONENT", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R2H006", factor_id: "ETF_VOLUME_SHOCK_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R2H007", factor_id: "ETF_HIGH_VOLUME_TREND_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R2H008", factor_id: "IF_RELATIVE_LEAD_5D", target: "exec_total_return_5d_net"}
+
+incremental_models:
+  - model_id: "PRICE_ONLY"
+    columns: ["round2_etf_total_return_20d"]
+  - model_id: "PRICE_AND_VOLUME"
+    columns: ["round2_etf_total_return_20d", "round2_etf_log_volume_shock_20d"]
+  - model_id: "PRICE_VOLUME_INTERACTION"
+    columns: ["round2_etf_total_return_20d", "round2_etf_log_volume_shock_20d", "round2_etf_high_volume_trend_20d"]
+
+blocked_tracks:
+  historical_weights: "本机未检测到TUSHARE_TOKEN或TS_TOKEN；Tushare index_weight还要求账户至少2000积分，暂不能下载五年点时权重。"
+  pv_lc_order_flow: "没有Level-2逐笔订单、成交、撤单与盘口快照；禁止用OHLCV伪造。"
+  if_open_interest: "IF0主连持仓量跨换月存在极端跳变，本轮不将原始持仓量变化注册为因子。"

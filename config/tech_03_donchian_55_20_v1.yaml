@@ -1,0 +1,173 @@
+protocol:
+  project_id: "TECH_03_DONCHIAN_55_20_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-18"
+  state: "HISTORICAL_DIAGNOSTIC_ONLY"
+  freeze_stage: "MODEL_AND_IMPLEMENTATION_TO_BE_FROZEN_BEFORE_HISTORY_RUN"
+  historical_contamination_cutoff: "2026-08-14"
+  true_forward_start: null
+  live_trading_authorized: false
+
+governance:
+  modifies_r5: false
+  reopens_r6: false
+  modifies_v3: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  missing_or_stale_output: "NO_VIEW"
+  parameter_search_allowed: false
+  neighbor_grid_allowed: false
+  additional_indicator_overlay_allowed: false
+
+trial_registry:
+  registered_trial_count: 3
+  return_tested_trial_count_after_run: 2
+  trials:
+    - id: "T0_DONCHIAN_20_10"
+      entry_days: 20
+      exit_days: 10
+      status: "SUPERSEDED_BEFORE_RETURN_RUN"
+      return_calculated: false
+      source_protocol: "510300_DONCHIAN_DISCOVERY_V1"
+    - id: "TECH_03_DONCHIAN_55_20_V1"
+      entry_days: 55
+      exit_days: 20
+      status: "PRIMARY_TO_RUN"
+      return_calculated: true
+    - id: "TECH_03_DONCHIAN_100_50_ROBUSTNESS_V1"
+      entry_days: 100
+      exit_days: 50
+      status: "FIXED_ROBUSTNESS_TO_RUN"
+      return_calculated: true
+
+signal_contract:
+  signal_asset: "H00300"
+  execution_asset: "510300.SH"
+  total_return_ohlc_method: "H00300_CLOSE_RATIO_SCALED_000300_OHLC"
+  formula: "synthetic_tr_ohlc_t = 000300_ohlc_t * (H00300_close_t / 000300_close_t)"
+  official_h00300_ohlc_claimed: false
+  channel_excludes_current_bar: true
+  entry_operator: ">"
+  exit_operator: "<"
+  equality_triggers: false
+  signal_time: "T日收盘后"
+  execution_time: "T+1交易日开盘"
+  initial_state: "CASH"
+  state_targets: [0.0, 1.0]
+  rebalance_only_on_state_change: true
+  long_only: true
+  leverage_allowed: false
+  shorting_allowed: false
+  pyramiding_allowed: false
+  stop_loss_overlay_allowed: false
+  take_profit_overlay_allowed: false
+
+variants:
+  - id: "TECH_03_DONCHIAN_55_20_V1"
+    role: "PRIMARY"
+    entry_lookback_trading_days: 55
+    exit_lookback_trading_days: 20
+  - id: "TECH_03_DONCHIAN_100_50_ROBUSTNESS_V1"
+    role: "FIXED_ROBUSTNESS"
+    entry_lookback_trading_days: 100
+    exit_lookback_trading_days: 50
+
+execution:
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  commission_rate_per_leg: 0.0003
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  stamp_duty_rate: 0.0
+  stress_cost_multiplier: 2.0
+  theoretical:
+    initial_wealth: 1.0
+    fractional_shares: true
+    minimum_commission_enabled: false
+    rebalance_only_on_state_change: true
+    dividend_cash_auto_reinvested: false
+  small_account:
+    initial_cash_cny: 20000.0
+    lot_size_shares: 100
+    minimum_ordinary_trade_shares: 1000
+    t_plus_one: true
+    cash_constraint: true
+    rebalance_only_on_state_change: true
+    dividend_cash_auto_reinvested: false
+
+evaluation:
+  data_start: "2012-05-28"
+  data_end: "2026-08-14"
+  annualization_days: 242
+  rolling_windows_trading_days: [242, 484]
+  event_forward_horizons_trading_days: [5, 20, 60]
+  predefined_periods:
+    - {id: "P1", start: "2012-05-28", end: "2015-12-31"}
+    - {id: "P2", start: "2016-01-04", end: "2019-12-31"}
+    - {id: "P3", start: "2020-01-02", end: "2022-12-30"}
+    - {id: "P4", start: "2023-01-03", end: "2026-08-14"}
+  fixed_exposure_benchmarks: [0.25, 0.50, 0.75, 1.00]
+  historical_gates:
+    annualized_net_excess_vs_510300_minimum: 0.015
+    information_ratio_minimum: 0.35
+    positive_predefined_periods_minimum: 3
+    stress_excess_must_be_positive: true
+    robustness_excess_must_be_positive: true
+    remove_best_year_excess_must_be_positive: true
+    maximum_positive_active_year_contribution_share: 0.50
+  risk_overlay_gates:
+    sharpe_improvement_minimum: 0.15
+    drawdown_reduction_minimum: 0.20
+    upside_capture_minimum: 0.70
+  forward_gates:
+    true_oos_required: true
+    annualized_net_excess_minimum: 0.015
+  multiple_testing:
+    random_seed: 20260818
+    repetitions: 5000
+    circular_block_length_trading_days: 20
+    significance_level: 0.05
+    deflated_sharpe_probability_minimum: 0.95
+    pbo_maximum: 0.25
+    pbo_minimum_comparable_candidates: 3
+
+data_contracts:
+  etf_market:
+    file: "data/raw/r6/510300_daily.parquet"
+    sha256: "842528e66948899c28bca26b1c07e4ee03406ede7b25690a5204da8e61980979"
+    required_rows: 3456
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    required_columns: ["date", "open", "high", "low", "close", "volume", "amount", "symbol", "source", "retrieved_at"]
+  price_index:
+    file: "data/raw/r6/000300_daily.parquet"
+    sha256: "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1"
+    required_rows: 3456
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    required_columns: ["date", "open", "high", "low", "close", "volume", "symbol", "source", "retrieved_at"]
+  total_return_index:
+    file: "data/raw/r6/H00300_total_return_daily.parquet"
+    sha256: "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961"
+    required_rows: 3457
+    required_first_date: "2012-05-28"
+    required_last_date: "2026-08-14"
+    required_columns: ["date", "close", "symbol", "retrieved_at"]
+    allowed_non_execution_dates: ["2018-06-18"]
+  distributions:
+    file: "data/reference/510300_dividends.csv"
+    sha256: "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    required_event_count: 14
+    required_first_ex_date: "2012-12-18"
+    required_last_ex_date: "2026-01-19"
+    coverage_file: "data/reference/510300_dividends_coverage.json"
+    coverage_sha256: "44a020e2dc647a3c4bcaab7601695f59933bdae568050414f968eab309cc289f"
+    coverage_start: "2012-05-28"
+    coverage_end: "2026-08-14"
+
+artifacts:
+  processed_directory: "data/processed/tech_03_donchian_55_20_v1"
+  report_json: "reports/backtest/tech_03_donchian_55_20_v1.json"
+  report_markdown: "reports/backtest/tech_03_donchian_55_20_v1.md"
+  report_figure: "reports/figures/tech_03_donchian_55_20_v1.png"

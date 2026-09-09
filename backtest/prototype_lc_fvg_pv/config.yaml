@@ -1,0 +1,51 @@
+prototype:
+  name: "510300 LC-FVG-PV 分钟策略原型"
+  question: "LC 扫流动性后形成的分钟 FVG，在回踩并获得 PV 与 VWAP 确认后，是否具有覆盖交易成本的方向性优势？"
+  symbol: "510300.SH"
+  data_file: "data/raw/market/510300_1m_tushare_raw.parquet"
+
+feature:
+  price_tick: 0.001
+  liquidity_lookback_bars: 20
+  liquidity_minimum_bars: 12
+  atr_window_bars: 14
+  sweep_to_fvg_maximum_bars: 6
+  sweep_to_fvg_maximum_minutes: 10
+  minimum_fvg_atr_fraction: 0.10
+  minimum_displacement_atr_fraction: 0.35
+  volume_baseline_trading_days: 20
+  volume_baseline_minimum_days: 10
+
+confirmation:
+  relative_volume_minimum: 1.05
+  vwap_tolerance_fraction: 0.0005
+  retest_expiry_bars: 20
+  signal_start_time: "09:55:00"
+  signal_end_time: "14:30:00"
+
+risk:
+  reward_to_risk: 2.0
+  minimum_stop_fraction: 0.0010
+  maximum_stop_fraction: 0.0080
+  maximum_holding_bars: 30
+  force_exit_time: "14:55:00"
+  maximum_trades_per_day: 1
+
+cost:
+  commission_rate_per_leg: 0.0003
+  slippage_bps_per_leg: 5.0
+
+partitions:
+  development:
+    label: "开发段"
+    start: "2021-08-12"
+    end: "2024-06-28"
+  pseudo_oos:
+    label: "伪样本外"
+    start: "2024-08-01"
+    end: "2025-06-30"
+  recent:
+    label: "近期污染段"
+    start: "2025-08-01"
+    end: "2026-08-12"
+

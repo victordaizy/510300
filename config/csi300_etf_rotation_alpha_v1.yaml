@@ -1,0 +1,107 @@
+protocol:
+  project_id: CSI300_ETF_ROTATION_ALPHA_V1
+  description: 20k境内ETF八因子跨资产绝对趋势轮动
+  research_only: true
+  formula_frozen_before_market_data_download: true
+
+periods:
+  warmup_start: '2013-12-02'
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  rebalance_every_trading_days: 20
+
+universe:
+  risk_assets:
+    510300.SH: 沪深300ETF
+    510500.SH: 中证500ETF
+    159915.SZ: 创业板ETF
+    518880.SH: 黄金ETF
+    513100.SH: 纳指ETF
+    513500.SH: 标普500ETF
+    159920.SZ: 恒生ETF
+  defensive_asset:
+    511010.SH: 国债ETF
+  minimum_history_days: 252
+
+factor_budget:
+  maximum: 10
+  used: 8
+  factors:
+    - momentum_252_skip_21
+    - momentum_126_skip_21
+    - momentum_63_skip_21
+    - momentum_20
+    - low_volatility_20
+    - low_volatility_60
+    - drawdown_252
+    - distance_to_ma200
+
+formula:
+  weights:
+    momentum_252_skip_21: 0.28
+    momentum_126_skip_21: 0.24
+    momentum_63_skip_21: 0.14
+    momentum_20: 0.10
+    low_volatility_20: 0.08
+    low_volatility_60: 0.06
+    drawdown_252: 0.06
+    distance_to_ma200: 0.04
+  absolute_trend:
+    close_above_ma200: true
+    momentum_126_skip_21_strictly_positive: true
+  retention_rank: 2
+  holdings: 1
+  hyperparameter_search_allowed: false
+
+account:
+  initial_cash_cny: 20000.0
+  lot_size: 100
+  minimum_trade_notional_cny: 5000.0
+  maximum_positions: 1
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0
+  stamp_duty_sell_rate_before_reduction: 0.0
+  stamp_duty_reduction_effective_date: '1900-01-01'
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+inputs:
+  data_directory: data/raw/etf_rotation_v1
+  etf_panel: data/raw/etf_rotation_v1/etf_total_return_panel.parquet
+  benchmark: data/raw/etf_rotation_v1/H00300_total_return.parquet
+  data_status: reports/data_quality/csi300_etf_rotation_v1_status.json
+
+outputs:
+  features: reports/backtest/csi300_etf_rotation_v1_features.parquet
+  targets: reports/backtest/csi300_etf_rotation_v1_targets.parquet
+  base_ledger: reports/backtest/csi300_etf_rotation_v1_base_ledger.parquet
+  base_trades: reports/backtest/csi300_etf_rotation_v1_base_trades.parquet
+  stress_ledger: reports/backtest/csi300_etf_rotation_v1_stress_ledger.parquet
+  stress_trades: reports/backtest/csi300_etf_rotation_v1_stress_trades.parquet
+  result_json: reports/backtest/csi300_etf_rotation_alpha_v1.json
+  result_markdown: reports/backtest/CSI300_ETF_ROTATION_ALPHA_V1.md
+
+evaluation:
+  annualized_excess_minimum: 0.20
+  stress_annualized_excess_minimum: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  bootstrap_lower_bound_strictly_above: 0.0
+  random_seed: 20260818
+  positive_predefined_periods_minimum: 2
+  predefined_periods:
+    - {id: P1_2015_2018, start: '2015-01-05', end: '2018-12-28'}
+    - {id: P2_2019_2022, start: '2019-01-02', end: '2022-12-30'}
+    - {id: P3_2023_2026, start: '2023-01-03', end: '2026-08-14'}
+
+governance:
+  no_post_result_parameter_rescue: true
+  paper_signal: DISABLED
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V8_MANIFEST",
+  "status": "FROZEN_BEFORE_US_LIQUID_TREASURY_RECONSTITUTION_OUTCOME",
+  "frozen_at": "2026-08-27T05:04:32.873031+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V8",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V7",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v8.yaml": "2d9035d28a70bc3c45981dd2b55d6041427af1bf8a4060c668ef93fa760c8506",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V8_SPEC.md": "139526cad64b0fb98aaeb3b6f070e64581d4af64064245efcf12e72ecc52beec",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v8.py": "f305c1d4bbd6fa3860d7a48e7d302cda5f6d1156a468d67ffebc995e061f91ef"
+  },
+  "tracked_content_sha256": "104b267db2047ac0006235ff02927ec332174d804120c207a8387a8a14ffd414",
+  "parent_manifest_verification": {
+    "status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V7_MANIFEST_VERIFIED",
+    "failure_count": 0,
+    "failures": [],
+    "manifest_path": "config/multi_asset_annual_excess_40pct_high_sharpe_v7_manifest.json",
+    "manifest_sha256": "71d403676f046044cf6fb499e09e752a142552541045a69a4286d051211bd526",
+    "tracked_content_sha256": "78bc4f26fe23d1fd38fd0769d160af3c846a3c10be6d986909d477ea62517d75",
+    "parent_manifest_status": "PASS_MULTI_ASSET_40PCT_HIGH_SHARPE_V6_MANIFEST_VERIFIED",
+    "v1r_manifest_status": "PASS_US_LEVERAGED_MULTI_ASSET_V1R_FX_MANIFEST_VERIFIED"
+  },
+  "digital_asset_prefreeze_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "required_count": true,
+      "observed_count": true,
+      "performance_unavailable": true,
+      "sealed_not_read": true,
+      "not_frozen": true,
+      "closed": true,
+      "not_reparameterized": true
+    },
+    "report_path": "reports/research/digital_asset_spot_volatility_scaled_trend_v1_prefreeze_failure.json",
+    "report_sha256": "38fcd6e31bf9b59eff20ca50001f990292e8b5ffd7490a8af227f64a376e32d3",
+    "required_positive_target_dates": 180,
+    "observed_positive_target_dates": 176
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "US_LIQUID_TREASURY_RECONSTITUTED_ABSOLUTE_MOMENTUM",
+    "maximum_candidates_before_family_specific_replication": 1,
+    "fixed_tickers": [
+      "UPRO",
+      "TQQQ",
+      "TLT",
+      "UGL"
+    ],
+    "replaced_infeasible_product": "TMF",
+    "replacement_product": "TLT",
+    "preserved_risk_source": "ICE_US_TREASURY_20_PLUS_YEAR",
+    "replacement_reason": "V1R在形成绩效前已证明TMF历史订单容量不足；TLT承接同一长期美债风险源且不使用嵌入杠杆",
+    "all_signal_dates_windows_ranking_weights_costs_and_gates_unchanged_from_v1": true,
+    "official_fx_source": "CHINAMONEY_CFETS_OFFICIAL_USD_CNY_CENTRAL_PARITY",
+    "account_borrowing_allowed": false,
+    "account_margin_allowed": false,
+    "short_sale_allowed": false,
+    "derivative_position_allowed": false,
+    "maximum_account_gross_exposure": 1.0
+  },
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

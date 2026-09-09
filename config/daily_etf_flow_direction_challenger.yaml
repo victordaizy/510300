@@ -1,0 +1,42 @@
+registry_version: 1
+registered_on: "2026-08-13T17:02:00+08:00"
+status: "PRE_REGISTERED_BEFORE_OUTCOME_TEST"
+research_family_sequence: 2
+scope: "510300日频申赎与融资行为对未来20日净收益方向的独立预测"
+
+features:
+  - column: "fund_share_change_5d_pct"
+    expected_sign: "positive"
+    definition: "截至t日已披露510300基金份额相对5个交易日前变化率"
+    mechanism: "ETF净申购代表资金持续进入沪深300风险敞口。"
+  - column: "financing_net_buy_5d_to_turnover"
+    expected_sign: "positive"
+    definition: "510300过去5日融资买入额减偿还额之和/ETF成交额之和"
+    mechanism: "融资净买入强度代表杠杆资金风险偏好。"
+  - column: "financing_balance_change_5d_pct"
+    expected_sign: "positive"
+    definition: "510300融资余额相对5个交易日前变化率"
+    mechanism: "融资余额持续增长代表方向性多头敞口累积。"
+
+model:
+  estimator: "固定C=0.1的标准化L2 Logistic"
+  horizon_trading_days: 20
+  minimum_training_samples: 504
+  refit_interval_trading_days: 5
+  no_hyperparameter_search: true
+
+acceptance_gate:
+  minimum_realized_forecasts: 500
+  minimum_overall_auc: 0.55
+  minimum_overall_brier_skill: 0.0
+  minimum_each_half_auc: 0.53
+  minimum_each_half_brier_skill: 0.0
+  calibration_slope_low: 0.5
+  calibration_slope_high: 1.5
+  minimum_expected_sign_share_each_feature: 0.60
+  minimum_non_overlapping_auc_above_half_share: 0.60
+  require_top_minus_bottom_mean_net_return_positive: true
+  trading_use_authorized: false
+
+excluded_data:
+  northbound_money: "2024-08-19后披露语义改变，无法作为全样本连续净流量。"

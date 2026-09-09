@@ -1,0 +1,162 @@
+{
+  "status": "COMPONENT_FEATURES_SCREENING_PASSED_ROBUSTNESS_INCONCLUSIVE",
+  "checked_at": "2026-08-13T16:44:22.391482+08:00",
+  "comparison_design": {
+    "horizon_months": 4,
+    "minimum_training_samples": 24,
+    "estimator": "固定alpha=10的标准化Ridge；不搜索超参数",
+    "paired_rule": "基线与增强模型使用完全相同的信号日、训练标签和兑现目标",
+    "label_availability": "信号月仅使用四个月目标已兑现的训练样本",
+    "baseline_features": [
+      "log_eps",
+      "log_pe",
+      "implied_roe",
+      "eps_growth_12m",
+      "cgb_10y",
+      "cgb_term_spread",
+      "momentum_3m",
+      "momentum_6m",
+      "realized_volatility_3m"
+    ],
+    "added_component_features": [
+      "component_log_eps",
+      "weighted_ttm_roe",
+      "weighted_ttm_profit_growth_yoy",
+      "weighted_ttm_revenue_growth_yoy"
+    ]
+  },
+  "evaluation": {
+    "paired_realized_forecast_count": 29,
+    "first_signal_date": "2023-11-30",
+    "last_signal_date": "2026-03-31",
+    "baseline": {
+      "median_absolute_percentage_error": 0.12262483285531744,
+      "mean_absolute_percentage_error": 0.10782679666996221,
+      "mean_absolute_log_error": 0.11644079510136272,
+      "direction_accuracy": 0.5172413793103449,
+      "predicted_actual_return_correlation": 0.3067175318763647
+    },
+    "enhanced": {
+      "median_absolute_percentage_error": 0.10013743808725672,
+      "mean_absolute_percentage_error": 0.09473387544146251,
+      "mean_absolute_log_error": 0.10176469408104825,
+      "direction_accuracy": 0.5862068965517241,
+      "predicted_actual_return_correlation": 0.5387526611334861
+    },
+    "enhanced_minus_baseline_direction_accuracy": 0.06896551724137923,
+    "incremental_value_gate_passed": true
+  },
+  "post_screening_stability_diagnostics": {
+    "note": "这是首轮筛选后的补充稳健性审计，不追溯改写预注册筛选门槛。",
+    "non_overlapping_cohorts": [
+      {
+        "cohort": 0,
+        "forecast_count": 8,
+        "baseline_direction_accuracy": 0.625,
+        "enhanced_direction_accuracy": 0.75,
+        "baseline_mean_absolute_log_error": 0.08767416881365375,
+        "enhanced_mean_absolute_log_error": 0.08777872358134388
+      },
+      {
+        "cohort": 1,
+        "forecast_count": 7,
+        "baseline_direction_accuracy": 0.5714285714285714,
+        "enhanced_direction_accuracy": 0.5714285714285714,
+        "baseline_mean_absolute_log_error": 0.12121795080745609,
+        "enhanced_mean_absolute_log_error": 0.08886878556765088
+      },
+      {
+        "cohort": 2,
+        "forecast_count": 7,
+        "baseline_direction_accuracy": 0.42857142857142855,
+        "enhanced_direction_accuracy": 0.42857142857142855,
+        "baseline_mean_absolute_log_error": 0.14020660215883388,
+        "enhanced_mean_absolute_log_error": 0.1262152343512539
+      },
+      {
+        "cohort": 3,
+        "forecast_count": 7,
+        "baseline_direction_accuracy": 0.42857142857142855,
+        "enhanced_direction_accuracy": 0.5714285714285714,
+        "baseline_mean_absolute_log_error": 0.12077397666660851,
+        "enhanced_mean_absolute_log_error": 0.10619402860961637
+      }
+    ],
+    "chronological_halves": [
+      {
+        "period": "first_half",
+        "forecast_count": 14,
+        "baseline": {
+          "median_absolute_percentage_error": 0.13085794264285744,
+          "mean_absolute_percentage_error": 0.11895839094956508,
+          "mean_absolute_log_error": 0.1300413968278294,
+          "direction_accuracy": 0.6428571428571429,
+          "predicted_actual_return_correlation": 0.22629195545508513
+        },
+        "enhanced": {
+          "median_absolute_percentage_error": 0.13275703167032255,
+          "mean_absolute_percentage_error": 0.12503479301463047,
+          "mean_absolute_log_error": 0.13630835012528056,
+          "direction_accuracy": 0.5714285714285714,
+          "predicted_actual_return_correlation": 0.49957623729335376
+        }
+      },
+      {
+        "period": "second_half",
+        "forecast_count": 15,
+        "baseline": {
+          "median_absolute_percentage_error": 0.09686354725667379,
+          "mean_absolute_percentage_error": 0.09743730867566622,
+          "mean_absolute_log_error": 0.10374690015666048,
+          "direction_accuracy": 0.4,
+          "predicted_actual_return_correlation": 0.3581922661266277
+        },
+        "enhanced": {
+          "median_absolute_percentage_error": 0.07428145519519991,
+          "mean_absolute_percentage_error": 0.06645301903983913,
+          "mean_absolute_log_error": 0.06952394843976477,
+          "direction_accuracy": 0.6,
+          "predicted_actual_return_correlation": 0.6610679271327559
+        }
+      }
+    ],
+    "moving_block_bootstrap": {
+      "repetitions": 5000,
+      "block_length": 4,
+      "probability_enhanced_has_lower_mean_absolute_log_error": 0.8832,
+      "probability_enhanced_has_higher_direction_accuracy": 0.8116,
+      "error_improvement_95pct_interval": [
+        -0.011318419538982667,
+        0.037068301909537034
+      ],
+      "direction_improvement_95pct_interval": [
+        -0.06896551724137934,
+        0.27586206896551724
+      ]
+    },
+    "robustness_conclusive": false
+  },
+  "acceptance_gate": {
+    "minimum_paired_realized_forecasts": 24,
+    "minimum_enhanced_direction_accuracy": 0.55,
+    "minimum_direction_improvement": 0.05,
+    "median_absolute_percentage_error_not_worse": true,
+    "mean_absolute_log_error_not_worse": true,
+    "trading_use_authorized": false
+  },
+  "latest_forecast": {
+    "signal_date": "2026-07-31",
+    "target_date": "2026-11-30",
+    "current_etf": 4.653,
+    "baseline_predicted_etf": 4.609730402834262,
+    "enhanced_predicted_etf": 4.574888212060959,
+    "training_sample_count": 56
+  },
+  "limitations": [
+    "成分股PIT历史只有60个月，所有检验均只能称为pseudo-OOS。",
+    "本轮只检验成分股特征是否提供增量信息，不授权现货仓位。",
+    "预测ETF价格仍使用信号日ETF/指数比率静态映射，未单独预测基金分红。"
+  ],
+  "output_file": "data/features/000300_component_enhanced_fair_value_comparison.parquet",
+  "output_sha256": "c07f19ad74f0aaf521d00aaaba10285b316e5d66498dc09233e062c212332bf1"
+}

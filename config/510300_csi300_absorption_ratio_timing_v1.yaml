@@ -1,0 +1,351 @@
+protocol:
+  project_id: 510300_CSI300_ABSORPTION_RATIO_TIMING_V1
+  candidate_model_id: 510300_CSI300_ABSORPTION_RATIO_TIMING_V1
+  state: PRE_RESULT_INPUT_BUILD
+  evidence_class: RETROSPECTIVE_PRE_2015_PUBLISHED_MECHANISM_ONE_SHOT_ON_PREVIOUSLY_OBSERVED_510300_HISTORY
+  purpose: 验证沪深300点时成分股PCA吸收率的标准化变化能否区分后续可交易持有期收益状态；机制门全部通过后才允许计算510300与现金组合的净费后收益和夏普率
+  registration_date: '2026-08-30'
+  timezone: Asia/Shanghai
+  primary_paper_sample_ends_before_evaluation: true
+  historical_510300_data_already_contaminated: true
+  candidate_factor_values_read_before_freeze: true
+  candidate_market_return_outcomes_read_before_freeze: false
+  candidate_portfolio_returns_read_before_freeze: false
+  pristine_blind_holdout_claim_allowed: false
+  one_shot: true
+  pre_factor_data_contract_correction: true
+  pre_factor_failure_receipt: reports/frozen/510300_csi300_absorption_ratio_timing_v1_pre_factor_membership_failure.json
+  target_sharpe_is_acceptance_gate_not_optimization_objective: true
+  parameter_rescue_after_result: forbidden
+  alternate_factor_rescue_after_result: forbidden
+  alternate_window_rescue_after_result: forbidden
+  reverse_direction_after_result: forbidden
+  alternate_eigenvector_fraction_after_result: forbidden
+  alternate_threshold_after_result: forbidden
+  alternate_initial_state_after_result: forbidden
+  continuous_weight_mapping_after_result: forbidden
+  combination_with_rejected_candidates_after_result: forbidden
+
+literature:
+  primary_mechanism_paper:
+    title: Principal Components as a Measure of Systemic Risk
+    authors: Mark Kritzman, Yuanzhen Li, Sebastien Page, Roberto Rigobon
+    publication_year: 2011
+    journal: The Journal of Portfolio Management
+    url: https://globalmarkets.statestreet.com/research/service/public/v1/article/insights/pdf/v2/275a6997-b913-47da-b487-948d83f7765e/jpm_principal_components_as_a_measure_of_systemic_risk.pdf
+    sample_start: '1998-01-01'
+    sample_end: '2010-01-31'
+    original_market: MSCI_USA_51_INDUSTRIES
+    expected_direction: standardized_absorption_ratio_increase_precedes_weaker_stock_returns
+  exact_published_construction:
+    covariance_window_trading_days: 500
+    eigenvector_count: approximately_one_fifth_of_assets
+    exponential_half_life_trading_days: 250
+    short_average_trading_days: 15
+    long_average_trading_days: 250
+    standardization: difference_between_15_day_and_250_day_AR_means_divided_by_trailing_250_day_AR_sample_standard_deviation
+    risk_on_trigger: standardized_shift_less_than_or_equal_to_minus_one
+    risk_off_trigger: standardized_shift_greater_than_or_equal_to_plus_one
+    between_trigger_action: carry_previous_state
+    execution_lag: one_trading_day
+  transfer_limitations:
+    - 原论文使用51个美国行业指数，本候选转移到中国沪深300点时成分股
+    - 原论文风险关闭资产是美国国债，本候选受范围约束只能持有零收益现金，因此不得借用论文组合表现
+    - 动态点时成分数量可能为300或301，固定取floor(N/5)个最大特征值以保持约五分之一比例
+    - 历史成员来自第三方将官方调样公告标准化后的区间以及既有点时面板，不得称为中证官方历史权重
+    - 第三方区间将已于2009-12-29终止上市的600357.SH错误延长到2014-07-10；冻结前依据上交所退市与指数剔除公告将其opt_out纠正为2009-12-29
+    - 历史成分行情与复权因子是当前回溯重建，不构成当时可得性时间戳证明
+    - 历史研究不是盲测；510300及000300历史在其他候选中已经被观察
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings:
+    - 510300.SH
+    - CASH_CNY
+  auxiliary_information:
+    - CSI300_POINT_IN_TIME_MEMBERSHIP
+    - CSI300_CONSTITUENT_TOTAL_RETURN_PRICES
+    - CSI300_PRICE_INDEX_FOR_MECHANISM_ONLY
+    - H00300_TOTAL_RETURN_BENCHMARK_AFTER_MECHANISM_PASS_ONLY
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  signal_time: 每个中国交易日收盘后
+  earliest_execution_time: 下一中国交易日开盘
+  live_trading_authorized: false
+
+dates:
+  constituent_price_history_start: '2011-10-10'
+  factor_calculation_end: '2026-08-14'
+  latest_allowed_first_complete_standardized_shift: '2014-12-31'
+  evaluation_start: '2015-01-05'
+  evaluation_end: '2026-08-14'
+  pre_2015_returns_allowed_for_evaluation: false
+  pre_2015_factor_warmup_allowed: true
+  structural_periods:
+    EARLY:
+      start: '2015-01-05'
+      end: '2019-12-31'
+    LATE:
+      start: '2020-01-01'
+      end: '2026-08-14'
+
+inputs:
+  historical_membership:
+    path: data/raw/constituents/000300_historical_membership_intervals.parquet
+    required_columns: [symbol, opt_in, opt_out, source, source_license]
+  historical_membership_audit:
+    path: reports/data_quality/000300_historical_membership_status.json
+    required_status: PASS_MEMBERSHIP_ONLY_NO_HISTORICAL_WEIGHTS
+  external_membership_panel:
+    path: data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet
+    required_columns: [date, con_code, is_index_member]
+  external_membership_panel_audit:
+    path: reports/data_quality/csi300_external_validation_2014_2021_status.json
+    required_status: PASS
+  current_membership_panel:
+    path: data/raw/constituents/000300_constituent_daily.parquet
+    required_columns: [date, con_code, is_index_member]
+  official_2013_membership_snapshot:
+    path: data/raw/510300_csi300_pit_membership_weights_source_remediation_v1/weight_provenance/wayback_official_files/capture_20130514093904_7ba863c1485f38e94b0adb33c4a77e37b2e3a3ffe5ac29386446a06ac3beaeee.xls
+    snapshot_date: '2013-05-02'
+    expected_constituents: 300
+  reused_source_archive:
+    path: data/raw/market/csi300_return_dispersion_v1_early_component_source_archive.zip
+  incremental_source_archive:
+    path: data/raw/market/csi300_absorption_ratio_v1_incremental_source_archive.zip
+  source_inventory:
+    path: reports/data_quality/csi300_absorption_ratio_v1_source_inventory.json
+    required_status: PASS
+  constituent_total_return_close:
+    path: data/raw/market/csi300_absorption_ratio_v1_total_return_close.parquet
+    required_columns: [date, con_code, total_return_close, source_checkpoint_group]
+  daily_absorption_ratio_factor:
+    path: data/raw/market/csi300_absorption_ratio_v1_daily_factor.parquet
+    required_columns:
+      - date
+      - active_member_count
+      - valid_member_count
+      - valid_member_coverage
+      - eigenvector_count
+      - absorption_ratio
+      - absorption_ratio_mean_15
+      - absorption_ratio_mean_250
+      - absorption_ratio_std_250
+      - standardized_absorption_ratio_shift
+      - membership_source_segment
+  input_audit:
+    path: reports/data_quality/510300_csi300_absorption_ratio_timing_v1_inputs.json
+    required_status: PASS
+  csi300_price_index:
+    path: data/raw/market/000300_price_index_return_dispersion_v1.parquet
+    required_columns: [date, symbol, open, high, low, close, volume, source]
+  etf_daily:
+    path: data/raw/market/510300_daily_downside_risk_v1.parquet
+    symbol: 510300.SH
+    required_columns: [date, open, high, low, close, volume, amount]
+  etf_input_audit:
+    path: reports/data_quality/510300_downside_risk_inputs_v1.json
+    required_status: PASS
+  dividends:
+    path: data/reference/510300_dividends.csv
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share]
+  benchmark_total_return:
+    path: data/raw/r6/H00300_total_return_daily.parquet
+    symbol: H00300
+    required_columns: [date, close]
+  backtest_engine:
+    path: backtest/engine.py
+
+data_contract:
+  calendar_source: csi300_price_index_date_column_only_before_freeze
+  factor_builder_forbidden_columns_before_freeze: [open, high, low, close, volume]
+  duplicate_policy: reject
+  nonpositive_price_policy: reject
+  missing_price_policy: forward_fill_only_after_first_observation_for_exchange_suspensions
+  prelisting_price_policy: never_fill
+  post_last_observation_policy: may_forward_fill_only_while_security_is_point_in_time_member
+  historical_membership_null_opt_in_policy: EXCLUDE_UNRESOLVED_SOURCE_ROWS_NO_IMPUTATION
+  expected_unresolved_null_opt_in_intervals:
+    - {symbol: '600312.SH', opt_out: '2012-01-01'}
+    - {symbol: '600501.SH', opt_out: '2008-06-14'}
+    - {symbol: '600549.SH', opt_out: '2019-06-17'}
+    - {symbol: '600786.SH', opt_out: '2008-06-14'}
+  pre_factor_membership_interval_corrections:
+    - symbol: 600357.SH
+      original_opt_in: '2005-04-08'
+      original_opt_out: '2014-07-10'
+      corrected_opt_out: '2009-12-29'
+      correction_reason: 上交所资料确认承德钒钛于2009-12-29终止上市，且指数补充公告规定若在2010-01-04前退市则自退市日起剔除
+      evidence_urls:
+        - https://www.sse.com.cn/aboutus/publication/factbook/documents/c/10170572/files/36d0635dee474838943e931bcc04c3df.pdf
+        - https://www.sse.com.cn/market/sseindex/diclosure/c/c_20150911_3984987.shtml
+      outcome_independent: true
+  expected_relevant_symbol_count_after_corrections: 714
+  membership_is_required_only_from_first_possible_factor_date: true
+  membership_segments:
+    HISTORICAL_INTERVALS:
+      first_date: '2013-11-05'
+      last_date: '2014-12-31'
+      minimum_active_members: 300
+      maximum_active_members: 300
+    EXTERNAL_POINT_IN_TIME_PANEL:
+      first_date: '2015-01-01'
+      last_date: '2021-08-11'
+      exact_active_members: 300
+    CURRENT_POINT_IN_TIME_PANEL:
+      first_date: '2021-08-12'
+      last_date: '2026-08-14'
+      exact_active_members: 300
+  minimum_valid_member_count: 285
+  minimum_valid_member_coverage: 0.95
+  required_complete_signal_on_every_trading_day_from: '2015-01-02'
+  raw_source:
+    provider: Sina_via_AkShare_endpoint_constants
+    transport: HTTPS_WITH_CERTIFICATE_VERIFICATION
+    start: '2011-10-10'
+    end: '2026-08-14'
+    request_workers: 4
+    request_retry_limit: 4
+    reused_checkpoint_root: data/checkpoints/510300_csi300_return_dispersion_volatility_v1
+    incremental_checkpoint_root: data/checkpoints/510300_csi300_absorption_ratio_timing_v1
+    checkpoint_resume: true
+    raw_response_archive_required: true
+    zip_crc_required: true
+
+factor:
+  id: CSI300_POINT_IN_TIME_PCA_ABSORPTION_RATIO_STANDARDIZED_SHIFT
+  active_factor_count: 1
+  return_definition: daily_log_return_of_forward_filled_total_return_close_on_csi300_trading_calendar
+  covariance_window_trading_days: 500
+  covariance_weighting: exponential
+  exponential_half_life_trading_days: 250
+  covariance_centering: weighted_mean
+  covariance_denominator: normalized_weights_sum_to_one
+  eigenvector_count_formula: floor(valid_member_count/5)
+  absorption_ratio_formula: sum_largest_floor_N_div_5_covariance_eigenvalues_divided_by_covariance_trace
+  short_average_trading_days: 15
+  long_average_trading_days: 250
+  long_standard_deviation_trading_days: 250
+  long_standard_deviation_ddof: 1
+  standardized_shift_formula: (AR_mean_15-AR_mean_250)/AR_sample_std_250
+  upper_risk_off_threshold: 1.0
+  lower_risk_on_threshold: -1.0
+  initial_target_position: 0.5
+  threshold_mapping: HYSTERESIS_CARRY_PREVIOUS_STATE
+  high_shift_action: TARGET_ZERO
+  low_shift_action: TARGET_ONE
+  equality_included: true
+  threshold_selection: none
+  ranking: none
+  winsorization: none
+  sign_reversal_after_result: forbidden
+
+mechanism_model:
+  target: next_execution_open_to_following_open_000300_price_index_log_return
+  exposure_regressor: frozen_hysteresis_target_position_known_at_prior_close
+  regression: target_log_return = alpha + beta_exposure * target_position + error
+  expected_beta_exposure_direction: positive
+  signal_lag_trading_days: 1
+  newey_west_max_lag_trading_days: 20
+  bootstrap_method: CIRCULAR_MOVING_BLOCK_BOOTSTRAP_EXPOSURE_COEFFICIENT
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 60
+  bootstrap_confidence_level: 0.90
+  random_seed: 20260830
+
+mechanism_gates:
+  minimum_complete_oos_trading_returns: 2800
+  minimum_full_risk_on_days: 60
+  minimum_full_risk_off_days: 60
+  full_sample_beta_exposure_must_be_positive: true
+  full_sample_beta_exposure_one_sided_t_minimum: 1.645
+  bootstrap_90pct_lower_beta_exposure_must_be_positive: true
+  every_structural_period_beta_exposure_must_be_positive: true
+  minimum_each_extreme_state_days_per_structural_period: 20
+  pass_requires_all_gates: true
+
+allocation:
+  enabled_only_if_mechanism_gate_passes: true
+  initial_target_position: 0.5
+  risk_on_target_position: 1.0
+  risk_off_target_position: 0.0
+  between_threshold_action: carry_previous_target
+  missing_or_invalid_factor_action: NO_VIEW_CARRY_PREVIOUS_TARGET
+  alternate_continuous_mapping: forbidden
+  local_parameter_tuning: forbidden
+
+portfolio:
+  initial_capital_cny: 20000.0
+  initial_position: 0.0
+  lot_size_shares: 100
+  cash_annual_rate: 0.0
+  base_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 5.0
+    stamp_duty_rate: 0.0
+  stress_costs:
+    commission_rate_per_leg: 0.0003
+    minimum_commission_cny_per_leg: 5.0
+    slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+  delayed_start_months: [0, 1, 2, 3]
+
+portfolio_gates:
+  base_net_sharpe_minimum: 1.20
+  stress_net_sharpe_minimum: 0.90
+  annualized_excess_vs_510300_buy_hold_must_be_positive: true
+  annualized_excess_vs_h00300_total_return_must_be_positive: true
+  maximum_drawdown_ratio_vs_buy_hold_maximum: 0.75
+  every_structural_period_net_sharpe_minimum: 0.50
+  every_structural_period_excess_vs_buy_hold_must_be_positive: true
+  every_delayed_start_net_sharpe_minimum: 1.00
+  every_delayed_start_excess_vs_buy_hold_must_be_positive: true
+  delete_any_calendar_year_excess_vs_buy_hold_must_be_positive: true
+  maximum_single_positive_year_share_of_positive_excess: 0.50
+  deflated_sharpe_probability_minimum: 0.95
+  probabilistic_sharpe_above_1p0_minimum: 0.80
+  pass_requires_all_gates: true
+
+selection_bias:
+  trial_count_rule: COUNT_ALL_PREEXISTING_CONFIG_STAR_MANIFEST_JSON_FILES_AS_CONSERVATIVE_UPPER_BOUND
+  expected_prior_manifest_count: 333
+  expected_total_trial_count_including_current: 334
+  count_includes_non_510300_and_non_candidate_manifests: true
+  pbo_status: NOT_APPLICABLE_ONE_FROZEN_SPECIFICATION
+  deflated_sharpe_method: BAILEY_LOPEZ_DE_PRADO_NORMAL_NULL_TRIAL_STD_PROXY
+
+adjudication:
+  mechanism_pass_status: PASS_CSI300_ABSORPTION_RATIO_MECHANISM_PORTFOLIO_EVALUATION_ALLOWED
+  mechanism_fail_status: REJECTED_FROZEN_CSI300_ABSORPTION_RATIO_MECHANISM_GATE_FAILED_NO_RESCUE
+  portfolio_pass_status: HISTORICAL_RETROSPECTIVE_SHARPE_1P2_PASS_FORWARD_CONFIRMATION_REQUIRED
+  portfolio_fail_status: REJECTED_FROZEN_CSI300_ABSORPTION_RATIO_PORTFOLIO_GATE_FAILED_NO_RESCUE
+  data_fail_status: NO_VIEW_DATA_OR_PROTOCOL_CONTRACT_FAILED
+  program_fail_status: PROGRAM_FAILED
+  target_net_sharpe: 1.20
+  historical_pass_never_authorizes_trading: true
+
+governance:
+  research_only: true
+  discovery_only: true
+  paper_or_shadow_position_mapping: disabled
+  order_generation: false
+  broker_connection: false
+  position_change: false
+  live_trading_authorized: false
+
+paths:
+  manifest: config/510300_csi300_absorption_ratio_timing_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_csi300_absorption_ratio_timing_v1_freeze_receipt.json
+  result_json: reports/research/510300_csi300_absorption_ratio_timing_v1_result.json
+  result_markdown: reports/research/510300_csi300_absorption_ratio_timing_v1_result.md
+  mechanism_table: reports/research/510300_csi300_absorption_ratio_timing_v1_mechanism.parquet
+  portfolio_targets: reports/research/510300_csi300_absorption_ratio_timing_v1_targets.parquet
+  base_ledger: reports/backtests/510300_csi300_absorption_ratio_timing_v1_base_ledger.parquet
+  base_trades: reports/backtests/510300_csi300_absorption_ratio_timing_v1_base_trades.csv
+  stress_ledger: reports/backtests/510300_csi300_absorption_ratio_timing_v1_stress_ledger.parquet
+  stress_trades: reports/backtests/510300_csi300_absorption_ratio_timing_v1_stress_trades.csv
+  buy_hold_ledger: reports/backtests/510300_csi300_absorption_ratio_timing_v1_buy_hold_ledger.parquet
+  buy_hold_trades: reports/backtests/510300_csi300_absorption_ratio_timing_v1_buy_hold_trades.csv

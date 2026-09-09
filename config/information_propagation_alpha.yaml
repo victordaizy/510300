@@ -1,0 +1,102 @@
+experiment:
+  id: "INFORMATION_PROPAGATION_ALPHA_V2"
+  status: "PREREGISTERED_BEFORE_FORMAL_IF_MINUTE_ACQUISITION"
+  purpose: "检验 IF 与沪深300前50大权重股内部扩散是否领先 510300 的分钟级条件收益"
+  trading_authorization: "RESEARCH_ONLY_NO_AUTOMATIC_ORDER"
+
+data:
+  etf_1m: "data/raw/market/510300_1m_tushare_raw.parquet"
+  index_1m: "data/raw/market/000300_1m_tushare_raw.parquet"
+  if_contract_1m: "data/raw/futures/IF_contracts_1m.parquet"
+  if_validation_1m: "data/raw/futures/IF_1m_sina_validation.parquet"
+  component_1m: "data/raw/constituents/minute_1m"
+  historical_weights: "data/raw/constituents/000300_historical_weights.parquet"
+  output_features: "data/features/510300_information_propagation_1m.parquet"
+  output_deciles: "reports/research/information_propagation_deciles.csv"
+  output_yearly_extremes: "reports/research/information_propagation_yearly_extremes.csv"
+  readiness_report: "reports/data_quality/information_propagation_1m_readiness.json"
+  timestamp_audit_report: "reports/data_quality/information_propagation_timestamp_alignment.json"
+  output_primary_test: "reports/research/information_propagation_primary_test.json"
+
+schema:
+  etf:
+    required_columns: ["trade_time", "open", "close", "vol", "amount"]
+  index:
+    required_columns: ["trade_time", "close"]
+  futures:
+    required_columns: ["trade_time", "contract", "close", "volume"]
+    contract_policy: "前一交易日总成交量最大的实际 IF 合约；当日不换约"
+  components:
+    required_columns: ["trade_time", "con_code", "close", "volume", "amount"]
+  weights:
+    required_columns: ["trade_date", "con_code", "weight"]
+    availability_policy: "只使用严格早于信号交易日的最近权重快照"
+
+parameters:
+  lookback_minutes: 3
+  breadth_impulse_minutes: 5
+  horizons_minutes: [1, 3, 5, 10, 15]
+  leader_count: 50
+  minimum_component_weight_coverage: 0.80
+  beta: 1.0
+  normalization_sessions: 20
+  normalization_minimum_sessions: 10
+  decile_count: 10
+  minimum_overlapping_sessions: 500
+  residual_estimation_sessions: 20
+  residual_minimum_sessions: 10
+  execution_delay_minutes: 1
+
+timestamp_audit:
+  required: true
+  deterministic_seed: 20260814
+  sample_trading_days: 10
+  required_anchor_times: ["09:30:00", "11:30:00", "13:01:00", "15:00:00"]
+  expected_etf_component_bars_per_day: 241
+  manual_semantics_status: "PENDING_FORMAL_IF_DATA"
+
+primary_test:
+  signal: "primary_alpha_score"
+  definition: "z(IF过去3分钟相对510300领先) + z(Top50等权上涨Breadth的5分钟Impulse)"
+  statistical_outcome: "etf_markout_close_5m"
+  executable_outcome: "etf_execution_next_open_5m"
+  horizon_minutes: 5
+  metrics: ["P1_P10_MONOTONICITY", "SPEARMAN_IC", "P10_MINUS_P1_BPS", "YEAR_DIRECTION_CONSISTENCY"]
+
+secondary_tests:
+  horizons_minutes: [1, 3, 10, 15]
+  status: "SECONDARY_EXPLORATORY_NO_PARAMETER_SELECTION"
+
+signals:
+  - "primary_alpha_score"
+  - "if_lead_etf_3m"
+  - "if_lead_index_3m"
+  - "if_unique_residual"
+  - "top50_leader_lead_etf_3m"
+
+execution_costs:
+  account_cny: 20000
+  commission_rate_per_side: 0.0003
+  minimum_commission_cny_per_side: 5.0
+  base_slippage_bps_per_side: 5.0
+  base_round_trip_spread_bps: 2.5
+  stress_total_round_trip_cost_bps: 25.0
+  interpretation: "成本后收益只是下一分钟执行markout，不等同于满足T+1库存约束的完整策略收益"
+
+research_split:
+  development: ["2021-08-12", "2024-06-28"]
+  validation: ["2024-08-01", "2025-06-30"]
+  contaminated_retrospective: ["2025-08-01", "2026-08-11"]
+  governance_note: "全部既有510300结果已被探索性研究触及；时间切分只用于稳定性检查，不宣称严格样本外"
+
+frozen_interpretation:
+  top50_naming: "所有成分扩散变量统一称Top50Breadth或LargeWeightBreadth，不称沪深300全市场Breadth"
+  if_lead: "IF过去3分钟收益减去1.0倍510300同期收益"
+  index_benchmark: "同时计算IF相对000300领先及仅用此前交易日估计的IF独有残差信息"
+  top50_breadth: "点时前50大权重股中，过去3分钟收益为正的等权比例"
+  top50_weighted_breadth: "点时前50大权重股中，过去3分钟收益为正的权重占比"
+  top50_breadth_impulse: "Top50等权Breadth相对精确5分钟前的变化"
+  alpha_score: "按同一分钟位置、仅用此前20个交易日标准化后的IF领先与Top50BreadthImpulse之和"
+  statistical_outcome: "信号时刻收盘到精确未来收益，只回答价格发现"
+  executable_outcome: "信号分钟结束后，下一分钟open或VWAP进场，精确h分钟后退出；另报成本前后"
+  execution_note: "执行markout不冒充满足T+1底仓状态机的策略收益"

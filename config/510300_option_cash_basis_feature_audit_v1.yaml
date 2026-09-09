@@ -1,0 +1,91 @@
+protocol:
+  project_id: 510300_OPTION_CASH_BASIS_FEATURE_AUDIT_V1
+  state: FEATURE_CONSTRUCTION_ONLY_NO_FUTURE_RETURN_ACCESS
+  purpose: 在不读取任何未来收益的前提下复现期权平价隐含现货基差并核验方向
+  deployable_strategy: false
+
+external_source:
+  title: Implied Volatility Spreads and Stock Market Return Predictability in China
+  authors: Zhuofan Hao, Zhongfei Li, Ti Zhou
+  url: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5178093
+  transferred_definition: 同执行价同到期日认购认沽平价隐含现货价减观察现货价，再除以现货价和剩余期限平方根，按认购认沽合计持仓量加权
+  transfer_warning: 原文标的是上证50ETF期权；本审计迁移到沪深300ETF期权，只验证特征构造，不声称收益可迁移
+
+dates:
+  start: '2019-12-23'
+  end: '2026-08-14'
+
+inputs:
+  option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    sha256: 6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064
+  option_risk_indicators:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    sha256: e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035
+  government_bond_short_curve:
+    path: data/raw/macro/china_government_bond_short_curve_v1.parquet
+    sha256: 8ce76001fa741de9c8aea6f86d4a808019b259c0bb26e2d4c93059c336e52603
+
+pair_construction:
+  option_types: [C, P]
+  minimum_calendar_days_to_expiry: 5
+  adjusted_contracts_allowed: true
+  pair_keys: [trade_date, expiry_date, strike, contract_unit, is_adjusted]
+  duplicate_contract_rule: 同键同类型先取持仓量最大，再取成交量最大，最后取合约代码字典序最小
+  require_positive_close: true
+  require_positive_underlying_close: true
+  require_positive_combined_open_interest: true
+  no_arbitrage_bounds:
+    enabled: true
+    absolute_price_tolerance_cny: 0.00011
+    call_lower: max(S-PV(K),0)
+    call_upper: S
+    put_lower: max(PV(K)-S,0)
+    put_upper: PV(K)
+
+risk_free_curve:
+  quote_unit: percent_per_year
+  discounting: continuous_exp_minus_r_tau
+  interpolation: linear_by_calendar_days_clamped_at_curve_edges
+  tenors:
+    - calendar_days: 91.3125
+      column: cgb_3m
+    - calendar_days: 182.625
+      column: cgb_6m
+    - calendar_days: 365.25
+      column: cgb_1y
+  rate_date_alignment: 同交易日；缺失时仅向过去匹配最近曲线日
+  maximum_backward_staleness_calendar_days: 7
+
+basis:
+  option_implied_spot: call_close + strike*exp(-risk_free_rate*dte_years) - put_close
+  pair_basis: (option_implied_spot-underlying_close)/(underlying_close*sqrt(dte_years))
+  daily_aggregation_weight: call_open_interest + put_open_interest
+
+independent_direction_check:
+  feature: 交易所公布的同合约认购隐含波动率减认沽隐含波动率
+  aggregation_weight: 与基差相同的合计持仓量
+  implied_volatility_minimum: 0.005
+  implied_volatility_maximum: 5.0
+  hard_minimum_daily_pearson_correlation: 0.80
+  minimum_common_days: 1000
+
+quality_gates:
+  minimum_feature_days: 1500
+  minimum_median_valid_pairs_per_day: 20
+  maximum_missing_option_trading_days: 5
+
+outputs:
+  feature_parquet: data/features/510300_option_cash_basis_feature_audit_v1.parquet
+  pair_parquet: data/audit/510300_option_cash_basis_pairs_v1.parquet
+  report_json: reports/research/510300_option_cash_basis_feature_audit_v1.json
+  report_markdown: reports/research/510300_OPTION_CASH_BASIS_FEATURE_AUDIT_V1.md
+
+governance:
+  future_return_input: FORBIDDEN
+  strategy_rule: NOT_DEFINED
+  parameter_search: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

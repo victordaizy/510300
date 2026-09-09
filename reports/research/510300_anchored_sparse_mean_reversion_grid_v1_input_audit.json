@@ -1,0 +1,200 @@
+{
+  "audit_id": "510300_ANCHORED_SPARSE_MEAN_REVERSION_GRID_V1_INPUT_AUDIT",
+  "generated_at": "2026-08-31T22:54:11.866145+08:00",
+  "status": "PASS_DISCOVERY_INDEX_PROXY_INPUTS",
+  "passed": true,
+  "return_evaluation": "ALLOWED_AFTER_MANIFEST_VERIFICATION",
+  "failures": [],
+  "sections": {
+    "etf_minute": {
+      "passed": true,
+      "failures": [],
+      "checks": {
+        "row_count": true,
+        "trading_day_count": true,
+        "bars_per_day": true,
+        "first_record_label": true,
+        "last_record_label": true,
+        "duplicate_timestamps": true,
+        "strict_timestamp_order": true,
+        "model_prices_positive_finite": true,
+        "amount_nonnegative_finite": true,
+        "symbol_exact": true,
+        "date_range": true,
+        "full_ohlc_valid": true
+      },
+      "row_count": 291851,
+      "trading_day_count": 1211,
+      "start": "2021-08-12T09:30:00",
+      "end": "2026-08-12T15:00:00",
+      "bar_count_distribution": {
+        "241": 1211
+      },
+      "duplicate_timestamp_count": 0,
+      "non_monotonic_timestamp_count": 0,
+      "invalid_model_price_count": 0,
+      "invalid_amount_count": 0,
+      "unused_or_full_ohlc_anomaly_count": 0,
+      "zero_amount_row_count": 49
+    },
+    "index_minute": {
+      "passed": true,
+      "failures": [],
+      "checks": {
+        "row_count": true,
+        "trading_day_count": true,
+        "bars_per_day": true,
+        "first_record_label": true,
+        "last_record_label": true,
+        "duplicate_timestamps": true,
+        "strict_timestamp_order": true,
+        "model_prices_positive_finite": true,
+        "amount_nonnegative_finite": true,
+        "symbol_exact": true,
+        "date_range": true,
+        "unused_high_low_anomalies_within_limit": true
+      },
+      "row_count": 291851,
+      "trading_day_count": 1211,
+      "start": "2021-08-12T09:30:00",
+      "end": "2026-08-12T15:00:00",
+      "bar_count_distribution": {
+        "241": 1211
+      },
+      "duplicate_timestamp_count": 0,
+      "non_monotonic_timestamp_count": 0,
+      "invalid_model_price_count": 0,
+      "invalid_amount_count": 0,
+      "unused_or_full_ohlc_anomaly_count": 1,
+      "zero_amount_row_count": 1242
+    },
+    "timestamp_alignment": {
+      "passed": true,
+      "exact_timestamp_match_count": 291851,
+      "etf_row_count": 291851,
+      "index_row_count": 291851,
+      "etf_only_timestamp_count": 0,
+      "index_only_timestamp_count": 0
+    },
+    "etf_daily_crosscheck": {
+      "passed": true,
+      "failures": [],
+      "checks": {
+        "daily_dates_unique": true,
+        "daily_coverage_complete": true,
+        "open_within_tolerance": true,
+        "high_within_tolerance": true,
+        "low_within_tolerance": true,
+        "close_within_tolerance": true
+      },
+      "metrics": {
+        "open": {
+          "maximum_absolute_difference": 0.0,
+          "p99_absolute_difference": 0.0,
+          "exact_match_count": 1211
+        },
+        "high": {
+          "maximum_absolute_difference": 0.0,
+          "p99_absolute_difference": 0.0,
+          "exact_match_count": 1211
+        },
+        "low": {
+          "maximum_absolute_difference": 0.0,
+          "p99_absolute_difference": 0.0,
+          "exact_match_count": 1211
+        },
+        "close": {
+          "maximum_absolute_difference": 0.0,
+          "p99_absolute_difference": 0.0,
+          "exact_match_count": 1211
+        }
+      },
+      "overlap_day_count": 1211,
+      "duplicate_daily_date_count": 0
+    },
+    "index_daily_crosscheck": {
+      "passed": true,
+      "failures": [],
+      "checks": {
+        "daily_dates_unique": true,
+        "daily_coverage_complete": true,
+        "open_within_tolerance": true,
+        "close_within_tolerance": true
+      },
+      "metrics": {
+        "open": {
+          "maximum_absolute_difference": 0.0007000000005064066,
+          "p99_absolute_difference": 0.000600000000304135,
+          "exact_match_count": 662
+        },
+        "close": {
+          "maximum_absolute_difference": 0.0007000000005064066,
+          "p99_absolute_difference": 0.000600000000304135,
+          "exact_match_count": 701
+        }
+      },
+      "overlap_day_count": 1211,
+      "duplicate_daily_date_count": 0
+    },
+    "dividends": {
+      "passed": true,
+      "failures": [],
+      "missing_columns": [],
+      "checks": {
+        "required_columns": true,
+        "symbol_exact": true,
+        "ex_dates_valid": true,
+        "ex_dates_unique": true,
+        "cash_dividend_positive": true,
+        "in_sample_sources_official_sse": true,
+        "in_sample_dividend_count_positive": true
+      },
+      "in_sample_records": [
+        {
+          "ex_date": "2022-01-19T00:00:00",
+          "cash_dividend_per_share": 0.075,
+          "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2022-01-12/510300_20220112_1_pWPNE0aG.pdf"
+        },
+        {
+          "ex_date": "2023-01-16T00:00:00",
+          "cash_dividend_per_share": 0.064,
+          "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2023-01-09/510300_20230109_0ED5.pdf"
+        },
+        {
+          "ex_date": "2024-01-18T00:00:00",
+          "cash_dividend_per_share": 0.069,
+          "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2024-01-11/510300_20240111_QQFV.pdf"
+        },
+        {
+          "ex_date": "2025-06-18T00:00:00",
+          "cash_dividend_per_share": 0.088,
+          "source": "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20250611_10781544.shtml"
+        },
+        {
+          "ex_date": "2026-01-19T00:00:00",
+          "cash_dividend_per_share": 0.123,
+          "source": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-01-12/510300_20260112_VTCZ.pdf"
+        }
+      ]
+    },
+    "metadata": {
+      "passed": true,
+      "failures": [],
+      "checks": {
+        "etf_metadata_status_pass": true,
+        "index_metadata_status_pass": true,
+        "etf_adjustment_raw": true,
+        "index_official_idx_mins_not_claimed": true
+      },
+      "index_source_limit": "TUSHARE_COMPATIBLE_GENERIC_ENDPOINT_NOT_OFFICIAL_IDX_MINS_ENTITLEMENT",
+      "iopv_available": false,
+      "iopv_claim_allowed": false
+    }
+  },
+  "evidence_limits": {
+    "historical_iopv_complete": false,
+    "anchor_is_index_implied_proxy_not_fair_value": true,
+    "minute_record_start_or_end_semantics_proven": false,
+    "unused_index_high_low_raw_rows_modified": false
+  }
+}

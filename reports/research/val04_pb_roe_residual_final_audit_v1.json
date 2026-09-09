@@ -1,0 +1,381 @@
+{
+  "project_id": "VAL04_PB_ROE_RESIDUAL_FINAL_AUDIT_V1",
+  "version": "1.0.0",
+  "generated_at": "2026-08-19T04:43:01.300481+08:00",
+  "status": "HISTORICAL_REJECTED_FROZEN_NO_STRATEGY_BACKTEST",
+  "branch_status": {
+    "DATA_V1_CITIC": "NO_VIEW_DATA_GATE_FAILED_MODEL_FIT_FORBIDDEN",
+    "DATA_V2_SW": "PASS_MODEL_CARD_MAY_BE_FROZEN",
+    "SIGNAL_BUILD": "PASS_PREDICTIVE_PROTOCOL_MAY_BE_FROZEN",
+    "PREDICTIVE_SCREEN": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+  },
+  "data_evidence": {
+    "citic_v1_window": {
+      "first_snapshot": "2016-08-31",
+      "last_snapshot": "2026-07-31",
+      "snapshot_count": 120,
+      "passing_snapshot_count": 80,
+      "failed_snapshot_count": 40
+    },
+    "sw_v2_window": {
+      "first_snapshot": "2016-08-31",
+      "last_snapshot": "2026-07-31",
+      "snapshot_count": 120,
+      "passing_snapshot_count": 120,
+      "failed_snapshot_count": 0
+    },
+    "sw_v2_coverage_summary": {
+      "price_weight_coverage": {
+        "minimum": 0.9950700000000001,
+        "median": 1.0,
+        "maximum": 1.00011
+      },
+      "industry_weight_coverage": {
+        "minimum": 0.99271,
+        "median": 0.9980150000000001,
+        "maximum": 1.0001
+      },
+      "book_to_price_weight_coverage": {
+        "minimum": 0.9950700000000001,
+        "median": 1.0,
+        "maximum": 1.00011
+      },
+      "roe_weight_coverage": {
+        "minimum": 0.99961,
+        "median": 1.0,
+        "maximum": 1.00011
+      },
+      "revenue_growth_weight_coverage": {
+        "minimum": 0.9889100000000001,
+        "median": 0.999145,
+        "maximum": 1.00008
+      },
+      "complete_case_weight_coverage": {
+        "minimum": 0.98197,
+        "median": 0.9960900000000001,
+        "maximum": 1.00008
+      },
+      "complete_company_count": {
+        "minimum": 282.0,
+        "median": 297.0,
+        "maximum": 300.0
+      },
+      "active_industry_count": {
+        "minimum": 26.0,
+        "median": 29.0,
+        "maximum": 30.0
+      },
+      "design_residual_degrees_of_freedom": {
+        "minimum": 251.0,
+        "median": 267.0,
+        "maximum": 270.0
+      }
+    }
+  },
+  "signal_evidence": {
+    "snapshot_count": 120,
+    "company_residual_row_count": 35536,
+    "first_snapshot": "2016-08-31",
+    "last_snapshot": "2026-07-31",
+    "minimum_complete_case_weight_coverage": 0.98197,
+    "minimum_complete_company_count": 282,
+    "minimum_design_residual_degrees_of_freedom": 251,
+    "maximum_absolute_residual_mean": 2.436509654716084e-15,
+    "raw_signal_minimum": -0.1874242470268184,
+    "raw_signal_median": -0.03699246786208574,
+    "raw_signal_maximum": 0.06656688287080278,
+    "ready_observation_count": 61,
+    "first_ready_observation_date": "2021-07-30",
+    "first_earliest_execution_date": "2021-08-02"
+  },
+  "predictive_result": {
+    "status": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST",
+    "primary_predictive_gate": {
+      "horizon_trading_days": 242,
+      "target": "etf_total_return",
+      "raw_hac_one_sided_p_value": 0.02854855627032867,
+      "holm_adjusted_p_value": 0.02854855627032867,
+      "checks": {
+        "minimum_matured_observations": true,
+        "minimum_observations_per_bucket": true,
+        "etf_spearman_ic_strictly_positive": true,
+        "holm_adjusted_hac_p_at_most_family_alpha": true,
+        "both_chronological_half_ics_strictly_positive": false,
+        "etf_bucket_mean_returns_nondecreasing": false,
+        "etf_cheapest_minus_expensive_mean_positive": true,
+        "etf_cheapest_minus_expensive_median_positive": true,
+        "h00300_spearman_confirmation_positive": true,
+        "h00300_cheapest_minus_expensive_mean_positive": true
+      },
+      "passed": false,
+      "failed_checks": [
+        "both_chronological_half_ics_strictly_positive",
+        "etf_bucket_mean_returns_nondecreasing"
+      ],
+      "stop_reason": "PRIMARY_PREDICTIVE_GATE_FAILED"
+    },
+    "diagnostics": {
+      "242": {
+        "etf_total_return": {
+          "outcome": "etf_total_return",
+          "horizon_trading_days": 242,
+          "matured_observations": 49,
+          "first_observation_date": "2021-07-30",
+          "last_observation_date": "2025-07-31",
+          "spearman_ic": 0.40145151523691297,
+          "hac_rank_regression": {
+            "slope": 0.40203653482065166,
+            "standard_error": 0.21131271904992777,
+            "t_statistic": 1.9025666634182146,
+            "one_sided_p_value": 0.02854855627032867,
+            "max_lags": 12
+          },
+          "chronological_halves": {
+            "first": {
+              "observations": 24,
+              "spearman_ic": 0.4233455901885288
+            },
+            "second": {
+              "observations": 25,
+              "spearman_ic": -0.1683410231037886
+            }
+          },
+          "buckets": [
+            {
+              "bucket": "B1_EXPENSIVE",
+              "observations": 5,
+              "mean_return": -0.18209308837458815,
+              "median_return": -0.1917495435488108,
+              "positive_return_ratio": 0.0
+            },
+            {
+              "bucket": "B2",
+              "observations": 8,
+              "mean_return": -0.0753091258955709,
+              "median_return": -0.06978688375285358,
+              "positive_return_ratio": 0.125
+            },
+            {
+              "bucket": "B3",
+              "observations": 17,
+              "mean_return": 0.10740739237128026,
+              "median_return": 0.18575868376692117,
+              "positive_return_ratio": 0.6470588235294118
+            },
+            {
+              "bucket": "B4_CHEAP",
+              "observations": 19,
+              "mean_return": 0.08086619312461378,
+              "median_return": 0.10530726256982881,
+              "positive_return_ratio": 0.6842105263157895
+            }
+          ],
+          "bucket_mean_returns_nondecreasing": false,
+          "cheapest_minus_expensive_mean_return": 0.26295928149920195,
+          "cheapest_minus_expensive_median_return": 0.2970568061186396
+        },
+        "h00300_total_return": {
+          "outcome": "h00300_total_return",
+          "horizon_trading_days": 242,
+          "matured_observations": 49,
+          "first_observation_date": "2021-07-30",
+          "last_observation_date": "2025-07-31",
+          "spearman_ic": 0.4036996845980463,
+          "hac_rank_regression": {
+            "slope": 0.40428798035102054,
+            "standard_error": 0.21078564612930104,
+            "t_statistic": 1.9180052711132924,
+            "one_sided_p_value": 0.027555171390329817,
+            "max_lags": 12
+          },
+          "chronological_halves": {
+            "first": {
+              "observations": 24,
+              "spearman_ic": 0.42508775311111535
+            },
+            "second": {
+              "observations": 25,
+              "spearman_ic": -0.15212468601580897
+            }
+          },
+          "buckets": [
+            {
+              "bucket": "B1_EXPENSIVE",
+              "observations": 5,
+              "mean_return": -0.17819237452283973,
+              "median_return": -0.18651553143849808,
+              "positive_return_ratio": 0.0
+            },
+            {
+              "bucket": "B2",
+              "observations": 8,
+              "mean_return": -0.07100711456418077,
+              "median_return": -0.06403018917411185,
+              "positive_return_ratio": 0.125
+            },
+            {
+              "bucket": "B3",
+              "observations": 17,
+              "mean_return": 0.11240556510703026,
+              "median_return": 0.18967710752633726,
+              "positive_return_ratio": 0.6470588235294118
+            },
+            {
+              "bucket": "B4_CHEAP",
+              "observations": 19,
+              "mean_return": 0.08692674839729846,
+              "median_return": 0.11223704650279354,
+              "positive_return_ratio": 0.6842105263157895
+            }
+          ],
+          "bucket_mean_returns_nondecreasing": false,
+          "cheapest_minus_expensive_mean_return": 0.2651191229201382,
+          "cheapest_minus_expensive_median_return": 0.2987525779412916
+        }
+      }
+    }
+  },
+  "independent_recompute": {
+    "matured_observations": 49,
+    "etf_spearman_ic": 0.40145151523691297,
+    "h00300_spearman_ic": 0.4036996845980463,
+    "first_half_etf_spearman_ic": 0.4233455901885288,
+    "second_half_etf_spearman_ic": -0.1683410231037886,
+    "buckets": [
+      {
+        "bucket": "B1_EXPENSIVE",
+        "observations": 5,
+        "mean_return": -0.18209308837458815,
+        "median_return": -0.1917495435488108
+      },
+      {
+        "bucket": "B2",
+        "observations": 8,
+        "mean_return": -0.0753091258955709,
+        "median_return": -0.06978688375285358
+      },
+      {
+        "bucket": "B3",
+        "observations": 17,
+        "mean_return": 0.10740739237128026,
+        "median_return": 0.18575868376692117
+      },
+      {
+        "bucket": "B4_CHEAP",
+        "observations": 19,
+        "mean_return": 0.08086619312461378,
+        "median_return": 0.10530726256982881
+      }
+    ]
+  },
+  "manifest_audit": {
+    "self_hashes": [
+      {
+        "file": "config/val04_pb_roe_residual_data_feasibility_v1_protocol_manifest.json",
+        "expected": "ea0a7d623ea78f9d5b606c9b6c043961d1b4afcac1d807d3046faec8ad5a656f",
+        "actual": "ea0a7d623ea78f9d5b606c9b6c043961d1b4afcac1d807d3046faec8ad5a656f",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_data_feasibility_v1_result_manifest.json",
+        "expected": "c49600f43c9ce4791537248284db84318948093d3912aeeef8f830f5ac555e2e",
+        "actual": "c49600f43c9ce4791537248284db84318948093d3912aeeef8f830f5ac555e2e",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_data_feasibility_v2_protocol_manifest.json",
+        "expected": "e47c3d9de7dbd500a6c3769a7fcc8f7580b36a8fe6d7adb23b2063e68f014f02",
+        "actual": "e47c3d9de7dbd500a6c3769a7fcc8f7580b36a8fe6d7adb23b2063e68f014f02",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_data_feasibility_v2_result_manifest.json",
+        "expected": "5f8c21eadc14c27fb05e5ccf174de5d103831c1597db499ae31454abcfb8a3f7",
+        "actual": "5f8c21eadc14c27fb05e5ccf174de5d103831c1597db499ae31454abcfb8a3f7",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_v1_protocol_manifest.json",
+        "expected": "4da5b3833162e2e2c56ba61113c8416f8e7b57669ce2daa95e60764e5958af38",
+        "actual": "4da5b3833162e2e2c56ba61113c8416f8e7b57669ce2daa95e60764e5958af38",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_v1_manifest.json",
+        "expected": "9c05873b4d6773cf21cf0a15f0e4c3ad9da813b832871467a776d279c860c9e0",
+        "actual": "9c05873b4d6773cf21cf0a15f0e4c3ad9da813b832871467a776d279c860c9e0",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_predictive_screen_v1_protocol_manifest.json",
+        "expected": "380db2ff913bbda1faed28c6f8ebf5a188b3ef63defbb577972185ab0268a5e3",
+        "actual": "380db2ff913bbda1faed28c6f8ebf5a188b3ef63defbb577972185ab0268a5e3",
+        "matches": true
+      },
+      {
+        "file": "config/val04_pb_roe_residual_predictive_screen_v1_result_manifest.json",
+        "expected": "ce4145b623cd8e858f98544efde2191f03cd3d79183f11e7196656a6795b0a13",
+        "actual": "ce4145b623cd8e858f98544efde2191f03cd3d79183f11e7196656a6795b0a13",
+        "matches": true
+      }
+    ],
+    "protocol_frozen_files": [
+      {
+        "file": "config/val04_pb_roe_residual_data_feasibility_v1_protocol_manifest.json",
+        "status": "PASS",
+        "checked_file_count": 6
+      },
+      {
+        "file": "config/val04_pb_roe_residual_data_feasibility_v2_protocol_manifest.json",
+        "status": "PASS",
+        "checked_file_count": 6
+      },
+      {
+        "file": "config/val04_pb_roe_residual_v1_protocol_manifest.json",
+        "status": "PASS",
+        "checked_file_count": 6
+      },
+      {
+        "file": "config/val04_pb_roe_residual_predictive_screen_v1_protocol_manifest.json",
+        "status": "PASS",
+        "checked_file_count": 6
+      }
+    ]
+  },
+  "test_results": {
+    "targeted": {
+      "command": [
+        "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_val04_pb_roe_residual_data_feasibility_v1.py",
+        "tests/test_val04_pb_roe_residual_v1.py",
+        "tests/test_val04_pb_roe_residual_predictive_screen_v1.py",
+        "-q"
+      ],
+      "return_code": 0,
+      "stdout": "............                                                             [100%]\n12 passed in 1.88s"
+    },
+    "full_suite": {
+      "command": [
+        "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "return_code": 0,
+      "stdout": "........................................................................ [ 13%]\n........................................................................ [ 27%]\n........................................................................ [ 41%]\n........................................................................ [ 55%]\n........................................................................ [ 69%]\n........................................................................ [ 83%]\n........................................................................ [ 97%]\n............                                                             [100%]\n516 passed in 47.71s"
+    }
+  },
+  "governance": {
+    "strategy_returns_calculated": false,
+    "positions_generated": false,
+    "current_signal_mapped": false,
+    "target_shares_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false,
+    "rejected_model_parameter_rescue_performed": false,
+    "parent_frozen_files_mutated": false
+  },
+  "meaning": "冻结历史预测拒绝结果并停止；不是当前买卖指令。"
+}

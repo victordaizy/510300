@@ -1,0 +1,61 @@
+protocol:
+  project_id: "510300_T_ONLY_ROBUSTNESS_FORWARD_V1"
+  version: "1.0.0"
+  parent_project_id: "510300_WEEKLY_DAILY_TECHNICAL_V1"
+  parent_manifest: "config/weekly_daily_technical_v1_freeze_manifest.json"
+  historical_data_cutoff: "2026-08-14"
+  forward_signal_start: "2026-08-19"
+  earliest_forward_execution: "2026-08-20"
+  evidence_label: "SHADOW_FORWARD_ONLY"
+  parameter_changes_after_freeze: false
+
+governance:
+  discovery_only: true
+  shadow_ledger_only: true
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+stress_test:
+  scenarios:
+    - {id: "BASELINE_REPLICATION", execution_delay_bars: 0, commission_multiplier: 1.0, slippage_bps: 5.0, missed_entry_fraction: 0.0}
+    - {id: "DELAY_1_EXTRA_BAR", execution_delay_bars: 1, commission_multiplier: 1.0, slippage_bps: 5.0, missed_entry_fraction: 0.0}
+    - {id: "SLIPPAGE_10BP", execution_delay_bars: 0, commission_multiplier: 1.0, slippage_bps: 10.0, missed_entry_fraction: 0.0}
+    - {id: "SLIPPAGE_20BP", execution_delay_bars: 0, commission_multiplier: 1.0, slippage_bps: 20.0, missed_entry_fraction: 0.0}
+    - {id: "COMMISSION_2X", execution_delay_bars: 0, commission_multiplier: 2.0, slippage_bps: 5.0, missed_entry_fraction: 0.0}
+    - {id: "COMMISSION_3X", execution_delay_bars: 0, commission_multiplier: 3.0, slippage_bps: 5.0, missed_entry_fraction: 0.0}
+    - {id: "MISS_10PCT_ENTRIES", execution_delay_bars: 0, commission_multiplier: 1.0, slippage_bps: 5.0, missed_entry_fraction: 0.10}
+  missed_entry_seed: 20260818
+  circular_shift:
+    repetitions: 2000
+    minimum_shift_days: 60
+    random_seed: 20260818
+  block_bootstrap:
+    repetitions: 2000
+    block_length_days: 20
+    random_seed: 20260819
+
+forward_data:
+  frozen_market_file: "data/raw/r6/510300_daily.parquet"
+  refreshed_market_file: "data/raw/t_only_forward_v1/510300_daily.parquet"
+  metadata_file: "data/raw/t_only_forward_v1/510300_daily.metadata.json"
+  dividend_file: "data/reference/510300_dividends.csv"
+  dividend_coverage_file: "data/reference/510300_dividends_coverage.json"
+  source: "akshare.fund_etf_hist_sina"
+  overlap_columns: ["open", "high", "low", "close", "volume", "amount"]
+  overlap_numeric_tolerance: 0.0
+  require_dividend_coverage_through_market_date: true
+  maximum_calendar_age_days: 4
+
+forward_maturity:
+  minimum_new_trading_days: 252
+  minimum_closed_cycles: 3
+
+acceptance_gates:
+  net_return_above_cash: true
+  net_return_above_matched_exposure: true
+  double_cost_total_return_positive: true
+  maximum_drawdown_floor: -0.15
+  maximum_single_profitable_cycle_share: 0.50
+  execution_compliance_required: 1.0
+

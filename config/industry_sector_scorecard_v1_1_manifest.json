@@ -1,0 +1,52 @@
+{
+  "version": "INDUSTRY_SECTOR_SCORECARD_V1_1",
+  "status": "FROZEN_RESEARCH_ONLY_DEPENDENCE_CORRECTED",
+  "as_of_date": "2026-08-18",
+  "frozen_at": "2026-08-19T02:01:23.448038+08:00",
+  "protocol_files": {
+    "config/industry_sector_scorecard_v1_1.yaml": "772f9394a050eddaf9e2fd56ac92bedc33aee6a24eec3dd843a36911f3d76639",
+    "docs/INDUSTRY_SECTOR_SCORECARD_V1_1_CORRECTION.md": "28fc99a3cd66a01a2fe3a187cccebf27a1425cd157d5feae156cd0e8831875b4",
+    "research/industry_sector_scorecard_v1_1.py": "ebf68990b659b897da1a3df7696540e2041a04d0b570c20e94eba77326e40495",
+    "scripts/build_industry_sector_scorecard_v1_1.py": "98842a59fd2bc7f45c29c041b0092281b14ecbf40b0719bea297750e17ef0d86",
+    "scripts/freeze_industry_sector_scorecard_v1_1.py": "d6157ed107f610f3d896d0e6ee438b394e3b674eaa42b32f6f8cd77c8800ae95",
+    "tests/test_industry_sector_scorecard_v1_1.py": "cdc82ff03c6618dc5e5b1aa5d2a14ef11253bc425e6a818a7f488d15d70897fc"
+  },
+  "input_files": {
+    "config/industry_sector_scorecard_v1.yaml": "3c5f355b441949ce9f07d79420ceabd020a82fcd90edbcd7b551c54401eb874c",
+    "config/industry_sector_scorecard_v1_manifest.json": "f42cb86f0bb986c989b965589917b64bd1d0635d3b1e5a57d3800e37b2161a79",
+    "reports/forward/industry_sector_scorecard_v1_2026-08-18.json": "de9b263545218f6cce2d3fe50583ecb986b052d5c6e5988fa34815b53040c553",
+    "reports/forward/industry_expectation_gap_etf_model_v2_2026-08-18.json": "36172794f211a27010c368648f71dcf3f690faf91c6c4cf21349ba4f41feb3f7",
+    "config/industry_expectation_gap_etf_model_v2.yaml": "84278440fd3feddf43a3a0e6987eef2ff5f158bc95578dd1396ac6b2f17c8552",
+    "config/industry_expectation_gap_etf_model_v2_manifest.json": "969235daa02621d342f10c42064f34e914ce52137c8ce4f464ef094691c0016f",
+    "data/features/000300_sector_forward_contribution_60d_v1.parquet": "2c2253114b5b84eb0abab30f4238517f5b59f834169e4bf7a21d423ce46e29b4"
+  },
+  "output_files": {
+    "data/features/industry_sector_odds_and_dependent_win_rates_60d_v1_1.parquet": "fe26b6385385fe734859b1c8f1c2942a8e5bdfdf07ae2f8d0624a6c69d09beef",
+    "data/features/industry_economic_bucket_nonoverlap_60d_v1_1.parquet": "92a01922d9dbee88fbd38571c3a402d88628a3dbc0b4843570f10d7dd801d902",
+    "data/features/industry_theme_nonoverlap_60d_v1_1.parquet": "e5a5dee2a774b09f774617ee88e526510ccebfdc97d11146cdf7696525339cd4",
+    "reports/forward/industry_sector_scorecard_v1_1_2026-08-18.json": "c39719d4a88c8007765de2cd71c8a0ebc204c9057a6502897b9390bd5b9b9013",
+    "reports/forward/industry_sector_scorecard_v1_1_2026-08-18.md": "c4658c08aed13ce7738c6b74a818fa2f0ce7e7220b3f43caff3fefae9c1270d0"
+  },
+  "parent_manifest_integrity": {
+    "config/industry_sector_scorecard_v1_manifest.json": {
+      "expected": "f42cb86f0bb986c989b965589917b64bd1d0635d3b1e5a57d3800e37b2161a79",
+      "actual": "f42cb86f0bb986c989b965589917b64bd1d0635d3b1e5a57d3800e37b2161a79"
+    },
+    "config/industry_expectation_gap_etf_model_v2_manifest.json": {
+      "expected": "969235daa02621d342f10c42064f34e914ce52137c8ce4f464ef094691c0016f",
+      "actual": "969235daa02621d342f10c42064f34e914ce52137c8ce4f464ef094691c0016f"
+    }
+  },
+  "invariants": {
+    "overlapping_months_are_independent_trials": false,
+    "primary_interval": "THREE_MONTH_MOVING_BLOCK_BOOTSTRAP",
+    "odds_are_gross_theoretical_sector_excess": true,
+    "score_is_probability": false,
+    "score_conditioned_win_rate": "UNAVAILABLE_AWAITING_TRUE_FORWARD",
+    "may_call_predictive_edge": false,
+    "kelly_position_sizing_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false
+  }
+}

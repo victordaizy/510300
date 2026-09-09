@@ -1,0 +1,105 @@
+protocol:
+  project_id: "510300_WEEKLY_DAILY_TECHNICAL_V1"
+  version: "1.0.0"
+  freeze_stage: "PROTOCOL_FROZEN_BEFORE_RETURN_CALCULATION"
+  evidence_label: "HISTORICAL_DISCOVERY_ONLY"
+  data_cutoff: "2026-08-14"
+  true_forward_start: "2026-08-19"
+  parameter_rescue_after_results: false
+
+governance:
+  discovery_only: true
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+data_contracts:
+  market:
+    file: "data/raw/r6/510300_daily.parquet"
+    required_symbol: "510300.SH"
+    required_columns: ["date", "open", "high", "low", "close", "volume", "amount", "symbol", "source", "retrieved_at"]
+  benchmark:
+    file: "data/raw/r6/H00300_total_return_daily.parquet"
+    required_symbol: "H00300"
+  distributions:
+    file: "data/reference/510300_dividends.csv"
+    coverage_file: "data/reference/510300_dividends_coverage.json"
+
+price_and_execution:
+  initial_capital_cny: 20000.0
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  lot_size_shares: 100
+  minimum_normal_trade_notional_cny: 5000.0
+  commission_rate_per_leg: 0.0003
+  minimum_commission_cny_per_leg: 5.0
+  slippage_bps_per_leg: 5.0
+  target_exposures: [0.325, 0.650, 0.975]
+  risk_liquidation_exempt_from_minimum_notional: true
+  signal_at_close_execute_next_open: true
+  t_plus_one: true
+
+weekly_regime:
+  period: "W-FRI"
+  ema_window: 20
+  ema_slope_lookback_weeks: 4
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  bull_rule: "close>EMA20且EMA20>四周前EMA20且DIF>DEA"
+  bear_rule: "close<EMA20且EMA20<四周前EMA20且DIF<DEA"
+
+daily_indicators:
+  donchian_entry_days: 20
+  donchian_exit_days: 10
+  atr_wilder_days: 14
+  mean_days: 20
+  bias_days: 28
+  rsi_wilder_days: 5
+
+trend_module:
+  entry_rule: "W_BULL且close>前20日最高价"
+  add_atr_interval: 1.0
+  stop_from_last_fill_atr: 2.0
+  maximum_tier: 3
+  add_only_in_weekly_bull: true
+  full_exit_only: true
+
+mean_reversion_module:
+  entry_bias_maximum: -5.0
+  entry_rsi_maximum: 25.0
+  tier2_bias_maximum: -10.0
+  tier3_bias_maximum: -15.0
+  add_atr_interval: 1.0
+  mean_exit_rsi_minimum: 60.0
+  disaster_stop_from_first_entry_atr: 4.0
+  maximum_holding_trading_days: 25
+  maximum_tier: 3
+  one_tier_per_day: true
+  full_exit_only: true
+
+variants:
+  - id: "T_ONLY"
+    trend_enabled: true
+    mean_reversion_enabled: false
+    switch_enabled: false
+  - id: "M_ONLY"
+    trend_enabled: false
+    mean_reversion_enabled: true
+    switch_enabled: false
+  - id: "SWITCH"
+    trend_enabled: true
+    mean_reversion_enabled: true
+    switch_enabled: true
+
+evaluation:
+  predefined_periods:
+    - {id: "P1", start: "2012-05-28", end: "2015-12-31"}
+    - {id: "P2", start: "2016-01-04", end: "2019-12-31"}
+    - {id: "P3", start: "2020-01-02", end: "2022-12-30"}
+    - {id: "P4", start: "2023-01-03", end: "2026-08-14"}
+  cost_multipliers: [0.0, 1.0, 2.0]
+  benchmark_primary: "510300含分红买入持有"
+  benchmark_secondary: "H00300全收益指数"
+  matched_benchmark: "STATIC_MEAN_EXPOSURE"
+

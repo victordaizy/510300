@@ -1,0 +1,220 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  execution_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1
+  version: 1.0.0
+  stage_id: G1_EVENT_PREDICTION_ADMISSION
+  research_state: DISCOVERY_ONLY
+  current_stage: FREEZE_G1_COMMON_SAMPLE_AND_IDENTIFIABILITY_BEFORE_LABEL_READ
+  return_evaluation: NOT_ALLOWED
+  actual_label_read_allowed_only_after_manifest_freeze: true
+  actual_future_path_value_read_allowed: false
+  model_training_allowed: false
+  probability_generation_allowed: false
+  alert_threshold_selection_allowed: false
+  portfolio_evaluation_allowed: false
+  paper_or_shadow_allowed: false
+  broker_connection_allowed: false
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+  observation_start: "2015-01-05"
+  observation_cutoff: "2026-08-14"
+  timezone: Asia/Shanghai
+
+parent_chain:
+  v2_protocol_manifest:
+    path: config/510300_stress_transmission_hazard_v2_manifest.json
+    bytes: 17838
+    sha256: 4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be
+  mft_correction_manifest:
+    path: config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1_manifest.json
+    bytes: 5842
+    sha256: b6878c07522a5a0243ccf46ea488939730044bc74c6a91b5b64a3f7de8577ae4
+  mft_build_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_mft_feature_build_v1.json
+    bytes: 7633
+    sha256: 1ba2d56c10c069b4764f18b80e5131b55a6e295535eef4b68946136d93a8f8c7
+    required_status: PASS_POINT_IN_TIME_M_F_T_WITH_EXPLICIT_NO_VIEW_PENDING_CLEAN_REPLAY
+  mft_clean_replay_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1_0_1.json
+    bytes: 4669
+    sha256: 2e8692e8aaa72fe362dfcafe6d774779cfbfefecf75c039d47be60a44c8d9dab
+    required_status: PASS_FRESH_PROCESS_REPLAY_AFTER_EXACT_PERSISTED_SCHEMA_CANONICALIZATION
+  g0_status:
+    path: reports/research/510300_stress_transmission_hazard_v2_g0_status_v1_0_1.json
+    bytes: 1210
+    sha256: bc97330090ad56bc1322395c7409d85f628b32524aea5203ca4f45a3aee85bf7
+    required_g0_status: PASS
+    required_next_step: FREEZE_EVENT_LEVEL_PREDICTION_EXECUTION_BEFORE_READING_ACTUAL_LABELS
+  bad10_ledger_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_bad10_ledger_receipt.json
+    bytes: 2015
+    sha256: d2840e0bdc2c73759041a99af5a6b9062fadfa475930a2b98a8220f9a4f3f2f2
+    required_status: PASS_BAD10_EVENT_AND_SAMPLE_WEIGHT_LEDGER_NO_PERFORMANCE_READ
+    expected_independent_events: 58
+    expected_positive_origins: 463
+    expected_non_event_risk_days: 2350
+
+inputs:
+  mft_feature_panel:
+    path: data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/mft_feature_panel_20150105_20260814.parquet
+    bytes: 787941
+    sha256: 5f8128031ee8c7f8e5699e74aa9c52a9047ed29a4f9b187486fc4ba53ac7deae
+    date_column: date
+    b2_state_column: B2_feature_state
+    b3_state_column: B3_feature_state
+    allowed_feature_columns: [F, M, T]
+  bad10_events:
+    path: reports/research/510300_stress_transmission_hazard_v2_bad10_events.csv
+    bytes: 9001
+    sha256: 500211e77463b4e1017df32eecd0b482b6a0d5986910161cb4ce2231fa477d40
+    read_columns: [event_id]
+    forbidden_read_columns: [first_breach_date]
+  bad10_samples:
+    path: reports/research/510300_stress_transmission_hazard_v2_bad10_sample_ledger.csv
+    bytes: 386019
+    sha256: 7a73e2d52b7edecf039ba9d277b581d65994aa05a80f1cd9ce4518aa104281a5
+    read_columns:
+      - origin_date
+      - entry_date
+      - horizon_end_date
+      - bad10
+      - event_id
+      - sample_group_id
+      - bootstrap_event_block_id
+      - calendar_year_block_id
+      - training_weight
+      - split_assignment
+    forbidden_read_columns: [minimum_path_return, cash_dividend_per_share_in_horizon, first_breach_date]
+  etf_unadjusted_daily:
+    path: data/raw/market/510300_daily_2015_v2.parquet
+    bytes: 116186
+    sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+    symbol: 510300.SH
+    date_column: date
+    close_column: close
+    price_basis: UNADJUSTED
+  etf_cash_dividends:
+    path: data/reference/510300_dividends.csv
+    bytes: 2021
+    sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    symbol: 510300.SH
+    entitlement_date_column: ex_date
+    value_column: cash_dividend_per_share
+
+label_read_contract:
+  label_id: BAD10
+  allowed_only_after_frozen_manifest_verifies: true
+  allowed_source: bad10_samples
+  allowed_value_column: bad10
+  threshold: -0.04
+  horizon_market_days: 10
+  threshold_or_horizon_search_allowed: false
+  actual_future_path_value_columns_may_be_read: false
+  label_may_enter_features: false
+  label_may_select_feature_availability: false
+  label_may_select_probability_threshold: false
+
+b1_feature_contract:
+  decision_clock: T_CLOSE_15_00_ASIA_SHANGHAI
+  daily_total_shareholder_return_formula: UNADJUSTED_CLOSE_T_PLUS_CASH_DIVIDEND_ON_EX_DATE_T_DIVIDED_BY_UNADJUSTED_CLOSE_T_MINUS_1_MINUS_1
+  absent_dividend_event_amount: 0.0
+  missing_price_return_zero_fill_allowed: false
+  first_missing_previous_close_state: NO_VIEW
+  required_complete_trailing_returns: true
+  realized_volatility_market_days: 20
+  drawdown_market_days: 20
+  downside_return_market_days: 5
+  causal_percentile: EMPIRICAL_MIDRANK_AGAINST_STRICTLY_PRIOR_VALID_OBSERVATIONS_ONLY
+  feature_columns:
+    - b1_realized_vol20_risk_percentile
+    - b1_drawdown20_risk_percentile
+    - b1_downside_return5_risk_percentile
+  future_close_use_allowed: false
+  h00300_execution_or_b1_proxy_allowed: false
+
+common_sample_contract:
+  join_key: origin_date_equals_feature_date
+  feature_information_cutoff: T_CLOSE
+  B1:
+    eligible_when: B1_STATE_VIEW_ALLOWED_AND_ALL_THREE_B1_FEATURES_FINITE
+  B2_VS_B1:
+    eligible_when: B1_ELIGIBLE_AND_B2_FEATURE_STATE_VIEW_ALLOWED_AND_T_AND_T_X_F_FINITE
+    common_sample_required: true
+  B3_VS_B2:
+    eligible_when: B2_VS_B1_ELIGIBLE_AND_B3_FEATURE_STATE_VIEW_ALLOWED_AND_M_AND_T_X_M_FINITE
+    common_sample_required: true
+  no_view_rule: RETAIN_ROW_WITH_NULL_MODEL_WEIGHT_AND_EXPLICIT_REASON
+  positive_event_inclusion_rule: AT_LEAST_ONE_ELIGIBLE_POSITIVE_ORIGIN
+  positive_weight_rule: RENORMALIZE_ELIGIBLE_POSITIVE_ORIGINS_TO_SUM_ONE_WITHIN_EACH_EVENT_AND_MODEL_SAMPLE
+  negative_weight_rule: EACH_ELIGIBLE_NON_EVENT_RISK_DAY_EQUALS_ONE
+  split_assignment: UNASSIGNED_PRE_MODEL_FREEZE
+  prediction_or_fit_allowed: false
+
+g1_gate_contract:
+  mechanism_discovery:
+    sample: B2_VS_B1_COMMON_SAMPLE
+    minimum_independent_events: 30
+    minimum_non_event_risk_days: 750
+  full_three_coefficient_model:
+    sample: B3_VS_B2_COMMON_SAMPLE
+    minimum_independent_events: 40
+    minimum_non_event_risk_days: 750
+  insufficient_state: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  if_mechanism_fails_next_step: STOP_V2_NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  if_mechanism_passes_next_step: FREEZE_B2_VS_B1_EVENT_LEVEL_PREDICTION_EXECUTION
+  if_full_model_passes_additional_step: FREEZE_B3_VS_B2_EVENT_LEVEL_PREDICTION_EXECUTION
+
+sequential_stop_contract:
+  run_order: [G1_COMMON_SAMPLE_COUNTS, STOP_OR_FREEZE_NEXT_PREDICTION_PROTOCOL]
+  fit_B0_B1_B2_B3_in_this_execution: false
+  generate_probability_in_this_execution: false
+  generate_auc_pr_auc_brier_log_loss_in_this_execution: false
+  generate_alert_or_threshold_in_this_execution: false
+  generate_portfolio_nav_return_sharpe_drawdown_in_this_execution: false
+
+outputs:
+  curated_root: data/curated/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1
+  b1_feature_panel: data/curated/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1/etf_b1_feature_panel_20150105_20260814.parquet
+  sample_eligibility_ledger: reports/data_quality/510300_stress_transmission_hazard_v2_g1_sample_eligibility_v1.parquet
+  event_eligibility_ledger: reports/data_quality/510300_stress_transmission_hazard_v2_g1_event_eligibility_v1.parquet
+  report: reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1.md
+  build_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_build_v1.json
+  clean_replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1.json
+  clean_replay_failure_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_failure.json
+  status: reports/research/510300_stress_transmission_hazard_v2_g1_status_v1.json
+
+clean_replay_contract:
+  rebuild_in_fresh_process: true
+  exact_values_and_row_order_required: true
+  persisted_dtype_may_be_compared_after_schema_normalization: true
+  targeted_test_files:
+    - tests/test_510300_stress_transmission_hazard_v2.py
+    - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py
+    - tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py
+    - tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+
+freeze_contract:
+  implementation_files:
+    - research/stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+    - scripts/freeze_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+    - scripts/build_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+    - scripts/replay_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1_20260903.md
+    - tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_manifest.json
+  freeze_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_OR_OVERWRITE_ANY_PARENT_FREEZE_OR_OUTPUT
+  - READ_ACTUAL_LABEL_BEFORE_THIS_MANIFEST_IS_FROZEN_AND_VERIFIED
+  - READ_MINIMUM_PATH_RETURN_OR_OTHER_ACTUAL_FUTURE_PATH_VALUE
+  - CHANGE_BAD10_THRESHOLD_OR_HORIZON
+  - USE_LABEL_TO_SELECT_FEATURE_AVAILABILITY_OR_COMMON_SAMPLE_RULE
+  - INCLUDE_INDUSTRY_SECTOR_OR_SHENWAN_FIELDS
+  - TRAIN_OR_PREDICT_B0_B1_B2_OR_B3_IN_G1_ADMISSION
+  - SELECT_PROBABILITY_THRESHOLD_OR_GENERATE_ALERTS
+  - READ_OR_GENERATE_AUC_PR_AUC_BRIER_LOG_LOSS_OR_CALIBRATION
+  - READ_OR_GENERATE_PORTFOLIO_NAV_RETURN_SHARPE_DRAWDOWN
+  - CREATE_POSITION_ORDER_BROKER_PAPER_SHADOW_OR_LIVE_ACTION

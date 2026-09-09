@@ -1,0 +1,62 @@
+strategy:
+  strategy_id: "510300_VALUATION_INTRADAY_ENTRY_OVERLAY_V1"
+  name: "510300估值仓位与十五分钟加减仓时点叠加审计"
+  version: "1.0.0"
+  research_status: "RETROSPECTIVE_AUDIT_NOT_FORWARD_VALIDATED"
+  instrument: "510300.SH"
+  scope: "估值模型决定目标仓位；十五分钟指标只优化加减仓时点，不改变目标仓位；危机强制减仓不等待技术信号"
+
+data:
+  valuation_signals_file: "data/processed/round5_defensive_valuation_timing/enhanced_signals.parquet"
+  intraday_indicator_file: "data/features/510300_intraday_entry_indicator.parquet"
+  daily_etf_file: "data/raw/market/510300_daily_raw.parquet"
+  dividend_file: "data/reference/510300_dividends.csv"
+
+evaluation:
+  start_date: "2024-07-31"
+  end_date: "2026-08-12"
+  initial_cash_cny: 20000.0
+  position_grid_step: 0.25
+  maximum_timing_wait_trading_days: 5
+  fallback_execution: "加仓或普通减仓等待5个完整交易日仍无对应技术信号，则下一交易日开盘执行"
+  entry_event_column: "is_entry_event"
+  exit_event_column: "is_exit_event"
+  accepted_entry_signals: ["TREND_BREAKOUT_ETF_ONLY", "MEAN_REVERSION_BUY"]
+  accepted_exit_signals: ["TREND_BREAKDOWN_CORE", "MEAN_REVERSION_SELL"]
+  sell_policy: "普通估值减仓等待技术退出信号；risk_off_override危机减仓下一交易日开盘直接执行"
+  first_day_policy: "两组均按首日开盘建立相同初始估值仓位，技术指标只比较后续加仓"
+
+account:
+  lot_size: 100
+  minimum_normal_trade_shares: 1000
+  long_only: true
+  leverage_allowed: false
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  market_impact_bps: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+gates:
+  minimum_valuation_buy_opportunities: 30
+  minimum_confirmed_technical_entries: 20
+  minimum_valuation_sell_opportunities: 30
+  minimum_confirmed_technical_exits: 20
+  minimum_evaluation_years: 3.0
+  require_overlay_total_return_above_baseline: true
+  require_overlay_max_drawdown_no_worse: true
+  require_stress_total_return_above_stress_baseline: true
+  require_both_chronological_halves_positive_relative_return: true
+
+governance:
+  automatic_ordering_authorized: false
+  historical_threshold_search_forbidden: true
+  note: "现有技术阈值在本次收益计算前冻结；本审计使用已看过的历史，只能判断合理性，不能形成严格样本外证明。"
+
+output:
+  directory: "data/processed/valuation_intraday_entry_overlay"
+  report_json: "reports/backtest/valuation_intraday_entry_overlay.json"
+  report_markdown: "reports/backtest/valuation_intraday_entry_overlay.md"

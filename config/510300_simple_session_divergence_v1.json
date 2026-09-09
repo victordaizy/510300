@@ -1,0 +1,182 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "weight_band": 0.1,
+  "study_id": "510300_SIMPLE_SESSION_DIVERGENCE_V1",
+  "round": 25,
+  "registered_at": "2026-09-07T12:54:35.288799+08:00",
+  "primary": "D20_INTRA",
+  "candidate_count": 16,
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "rules": "docs/510300_SIMPLE_SESSION_DIVERGENCE_V1.md",
+  "position_impact": 0,
+  "evidence_class": "RESEARCH_SCREEN_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "independent_validation": "NOT_ESTABLISHED",
+  "candidates": [
+    {
+      "id": "P5_PP",
+      "window": 5,
+      "kind": "PHASE",
+      "phase": "PP",
+      "name": "5日隔夜日内同时上涨"
+    },
+    {
+      "id": "P5_PN",
+      "window": 5,
+      "kind": "PHASE",
+      "phase": "PN",
+      "name": "5日隔夜上涨日内下跌"
+    },
+    {
+      "id": "P5_NP",
+      "window": 5,
+      "kind": "PHASE",
+      "phase": "NP",
+      "name": "5日隔夜下跌日内上涨"
+    },
+    {
+      "id": "P5_NN",
+      "window": 5,
+      "kind": "PHASE",
+      "phase": "NN",
+      "name": "5日隔夜日内同时下跌"
+    },
+    {
+      "id": "P20_PP",
+      "window": 20,
+      "kind": "PHASE",
+      "phase": "PP",
+      "name": "20日隔夜日内同时上涨"
+    },
+    {
+      "id": "P20_PN",
+      "window": 20,
+      "kind": "PHASE",
+      "phase": "PN",
+      "name": "20日隔夜上涨日内下跌"
+    },
+    {
+      "id": "P20_NP",
+      "window": 20,
+      "kind": "PHASE",
+      "phase": "NP",
+      "name": "20日隔夜下跌日内上涨"
+    },
+    {
+      "id": "P20_NN",
+      "window": 20,
+      "kind": "PHASE",
+      "phase": "NN",
+      "name": "20日隔夜日内同时下跌"
+    },
+    {
+      "id": "P60_PP",
+      "window": 60,
+      "kind": "PHASE",
+      "phase": "PP",
+      "name": "60日隔夜日内同时上涨"
+    },
+    {
+      "id": "P60_PN",
+      "window": 60,
+      "kind": "PHASE",
+      "phase": "PN",
+      "name": "60日隔夜上涨日内下跌"
+    },
+    {
+      "id": "P60_NP",
+      "window": 60,
+      "kind": "PHASE",
+      "phase": "NP",
+      "name": "60日隔夜下跌日内上涨"
+    },
+    {
+      "id": "P60_NN",
+      "window": 60,
+      "kind": "PHASE",
+      "phase": "NN",
+      "name": "60日隔夜日内同时下跌"
+    },
+    {
+      "id": "D20_INTRA",
+      "window": 20,
+      "kind": "DIFFERENCE",
+      "direction": 1,
+      "name": "20日日内强于隔夜的标准化差异"
+    },
+    {
+      "id": "D20_NIGHT",
+      "window": 20,
+      "kind": "DIFFERENCE",
+      "direction": -1,
+      "name": "20日隔夜强于日内的标准化差异"
+    },
+    {
+      "id": "D60_INTRA",
+      "window": 60,
+      "kind": "DIFFERENCE",
+      "direction": 1,
+      "name": "60日日内强于隔夜的标准化差异"
+    },
+    {
+      "id": "D60_NIGHT",
+      "window": 60,
+      "kind": "DIFFERENCE",
+      "direction": -1,
+      "name": "60日隔夜强于日内的标准化差异"
+    }
+  ],
+  "common_specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "frozen_files": [
+    {
+      "path": "research\\simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "docs\\510300_SIMPLE_SESSION_DIVERGENCE_V1.md",
+      "sha256": "282c48025ebef01b5e085af23b3e65b75b390e1961f79e40fdb1157820c9f0fe"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  ]
+}

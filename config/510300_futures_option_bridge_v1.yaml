@@ -1,0 +1,134 @@
+protocol:
+  project_id: 510300_FUTURES_OPTION_BRIDGE_V1
+  state: DISCOVERY_ORTHOGONAL_FUTURES_BRIDGE_PRE_OUTCOME_FREEZE
+  purpose: 用期货期权现货桥梁预测510300未来20日方向并映射为2万元期权策略
+  deployable_strategy: false
+  factor_count: 7
+
+dates:
+  feature_start: '2021-08-12'
+  development_end: '2023-12-29'
+  reserved_validation_start: '2024-01-01'
+  reserved_validation_end: '2024-12-31'
+  final_holdout_start: '2025-01-01'
+  final_holdout_end: '2026-08-14'
+  validation_or_holdout_read_authorized: false
+
+inputs:
+  futures:
+    path: data/raw/futures/IF0_daily_raw.parquet
+    sha256: 6a361e083fb7e20595aee55f0455680dd5a2577ac872dc7436a083a45f2c8f92
+    tradable: false
+  spot_index:
+    path: data/raw/market/000300_daily_raw.parquet
+    sha256: cb2fee88cf69a756e3078956f4bb9bec8e7cce6ceb62f910343436ba68dd8a8d
+  option_statistics:
+    path: data/raw/return_tail/options/510300_sse_daily_statistics.parquet
+    sha256: a504a4b9aaa84603949d8312c65126b9e47be8ea4d1c4f8bb3bd48d0157cd75e
+  option_eod:
+    path: data/raw/return_tail/options/510300_tushare_eod.parquet
+    sha256: 6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064
+  option_risk:
+    path: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    sha256: e575dbea5624c2efd9f3cfeddd9a5e0d83dbcc2d4425526dee2dc9838aa81035
+  benchmark:
+    path: data/raw/market/H00300_total_return_daily_raw.parquet
+    sha256: 90ded420f641f05a8ab8c9cfeb6f8df4172e9e1ea43995005df1cdecd5e9c5ab
+
+factors:
+  - basis_z60
+  - basis_change5
+  - futures_open_interest_log_change5
+  - futures_volume_z20
+  - futures_minus_spot_momentum5
+  - option_log_put_call_volume
+  - option_log_put_call_open_interest
+
+feature_formula:
+  basis: log(IF0_close/CSI300_close)
+  basis_z60: (basis-mean60(basis))/std60(basis)
+  basis_change5: basis-basis_lag5
+  futures_open_interest_log_change5: log(IF_open_interest/IF_open_interest_lag5)
+  futures_volume_z20: (log1p(IF_volume)-mean20(log1p(IF_volume)))/std20(log1p(IF_volume))
+  futures_minus_spot_momentum5: log(IF_close/IF_close_lag5)-log(CSI_close/CSI_close_lag5)
+  option_log_put_call_volume: log((put_volume+1)/(call_volume+1))
+  option_log_put_call_open_interest: log((put_open_interest+1)/(call_open_interest+1))
+
+target:
+  label: H00300从t+1收盘至t+21收盘的20交易日全收益方向
+  entry_lag_trading_days: 1
+  holding_trading_days: 20
+  positive_when_return_at_least: 0.0
+  training_label_must_exit_before_signal: true
+
+model:
+  type: RandomForestClassifier
+  n_estimators: 500
+  max_depth: 3
+  min_samples_leaf: 20
+  max_features: sqrt
+  class_weight: balanced
+  random_state: 20260819
+  minimum_mature_training_rows: 126
+  missing_feature_policy: 训练样本中位数填充且只用当时训练数据拟合
+  refit: 每个非重叠信号日扩展窗重训
+  call_probability_threshold: 0.55
+  put_probability_threshold: 0.45
+  between_thresholds: CASH
+
+schedule:
+  signal_time: t日收盘后
+  entry_time: t+1交易日
+  exit_time: 入场后第20个交易日
+  holding_trading_days: 20
+  overlap_allowed: false
+
+contract_selection:
+  adjusted_contracts_allowed: false
+  contract_unit_required: 10000
+  minimum_calendar_days_to_expiry: 35
+  maximum_calendar_days_to_expiry: 90
+  absolute_delta_minimum: 0.70
+  absolute_delta_maximum: 0.95
+  target_absolute_delta: 0.85
+  target_calendar_days_to_expiry: 60
+  minimum_signal_day_volume: 100
+  minimum_signal_day_open_interest: 500
+  minimum_signal_premium_per_contract_cny: 2000
+  maximum_signal_premium_per_contract_cny: 10000
+  target_total_signal_premium_cny: 7000
+  maximum_contracts: 4
+
+execution_envelope:
+  entry_price: 次一交易日该合约日内最高成交价
+  exit_price: 退出交易日该合约日内最低成交价
+  missing_entry_trade: 不成交并持有现金
+  missing_exit_trade: 退出价值按零计
+  option_fee_cny_per_contract_per_leg: 5.0
+  initial_cash_cny: 20000
+  minimum_opening_trade_notional_cny: 5000
+  insufficient_cash: 订单拒绝并持有现金
+  small_opening_trade: 订单拒绝并持有现金
+
+evaluation:
+  benchmark: H00300沪深300全收益指数
+  metric: 几何年化策略收益率减几何年化基准收益率
+  annualized_excess_threshold: 0.20
+  minimum_executed_trades: 10
+
+paths:
+  manifest: config/510300_futures_option_bridge_v1_manifest.json
+  feature_parquet: data/features/510300_futures_option_bridge_v1_dev.parquet
+  prediction_parquet: data/features/510300_futures_option_bridge_v1_dev_predictions.parquet
+  result_json: reports/discovery/510300_futures_option_bridge_v1_dev.json
+  result_markdown: reports/discovery/510300_futures_option_bridge_v1_dev.md
+
+governance:
+  validation_or_holdout_access: FORBIDDEN
+  parameter_search: FORBIDDEN
+  continuous_futures_execution_claim: FORBIDDEN
+  historical_bid_ask_claim: FORBIDDEN
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

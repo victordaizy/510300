@@ -1,0 +1,51 @@
+version: T_ONLY_FORWARD_INTEGRITY_V1
+parent_project_id: 510300_T_ONLY_FORWARD_V1_1
+operational_status_authority: reports/forward/t_only_forward_integrity_status.json
+forward_signal_start: "2026-08-19"
+timezone: Asia/Shanghai
+signal_cutoff_time: "15:00:00"
+signal_record_time: "16:30:00"
+next_open_time: "09:30:00"
+
+frozen_start_audit:
+  path: config/t_only_forward_start_audit_20260819_manifest.json
+  sha256: 1ad0cde0f223938f60dee0a44133473df4af1248b3e1bfbd55c3ca619019a347
+
+operational_maturity:
+  minimum_new_trading_days: 252
+  minimum_closed_cycles: 3
+  interpretation: RUNNING_MATURITY_ONLY_NOT_PERFORMANCE_PASS
+
+formal_power_plan:
+  maximum_forward_trading_days: 1500
+  minimum_closed_cycles: 20
+  minimum_detectable_annualized_active_return: 0.05
+  bootstrap_block_length_trading_days: 20
+  evaluate_once_only: true
+  insufficient_event_status: STOPPED_INSUFFICIENT_EVENT_RATE
+  failure_status: FORWARD_REJECTED_FROZEN
+
+outputs:
+  event_ledger: paper/t_only_forward_integrity_v1/daily_event_ledger.jsonl
+  status_json: reports/forward/t_only_forward_integrity_status.json
+  status_markdown: reports/forward/t_only_forward_integrity_status.md
+
+visibility:
+  operational_team_may_view:
+    - chain_integrity
+    - ledger_continuity
+    - signal_and_effective_time
+    - execution_and_cost_completeness
+    - closed_cycle_count
+    - maturity_counts
+  formal_performance_hidden_until_fixed_evaluation: true
+  daily_return_metrics_exposed: false
+
+governance:
+  append_only_event_ledger: true
+  historical_backfill_allowed: false
+  live_position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
+

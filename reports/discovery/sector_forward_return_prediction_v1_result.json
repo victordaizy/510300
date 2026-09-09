@@ -1,0 +1,90 @@
+{
+  "project_id": "510300_SECTOR_FORWARD_RETURN_PREDICTION_V1",
+  "version": "1.0.0",
+  "status": "HISTORICAL_REJECTED_FROZEN",
+  "generated_at": "2026-08-18T02:57:09.405993+08:00",
+  "data_cutoff": "2026-08-14",
+  "manifest_sha256": "3c2eb96ead39f7283e85ff77eb76e881b3c6083680f2ca0e33fede881cd47b16",
+  "frozen_at": "2026-08-18T02:56:32.565138+08:00",
+  "row_counts": {
+    "sector_target_rows": 2122,
+    "mature_target_snapshots": 77,
+    "no_view_target_snapshots": 0,
+    "etf_target_snapshots": 77,
+    "oos_forecasts": 38
+  },
+  "target_date_range": {
+    "first_signal_date": "2019-12-31",
+    "last_mature_signal_date": "2026-04-30",
+    "last_maturity_date": "2026-07-29",
+    "minimum_endpoint_weight_coverage": 0.95829
+  },
+  "evaluation": {
+    "status": "HISTORICAL_REJECTED_FROZEN",
+    "candidate_id": "S1_SECTOR_FUNDAMENTAL_RIDGE_V1",
+    "mature_oos_predictions": 38,
+    "calibrated_predictions": 24,
+    "first_prediction_date": "2023-03-31",
+    "last_mature_prediction_date": "2026-04-30",
+    "spearman": -0.15877010613852718,
+    "bootstrap_spearman": {
+      "observations": 38,
+      "block_length_months": 3,
+      "repetitions": 5000,
+      "median_spearman": -0.1648676458254858,
+      "interval_95pct": [
+        -0.5389809673126909,
+        0.2914454734912994
+      ]
+    },
+    "model_mae": 0.0922993449262584,
+    "aggregate_baseline_mae": 0.11344545944346436,
+    "expanding_mean_mae": 0.05747516895284123,
+    "mae_improvement_vs_aggregate": 0.1863989499530755,
+    "mae_improvement_vs_expanding_mean": -0.6058994972592537,
+    "direction_accuracy": 0.39473684210526316,
+    "first_half_spearman": 0.08771929824561404,
+    "second_half_spearman": -0.22982456140350876,
+    "etf_x60_spearman": -0.17934128460444249,
+    "brier_skill": -0.3776022488728277,
+    "interval_80_coverage": 0.75,
+    "gates": {
+      "minimum_mature_oos_predictions": true,
+      "minimum_spearman": false,
+      "bootstrap_spearman_lower_bound": false,
+      "mae_improvement_vs_aggregate": true,
+      "mae_improvement_vs_expanding_mean": false,
+      "direction_accuracy": false,
+      "first_half_spearman": true,
+      "second_half_spearman": false,
+      "etf_x60_spearman": false,
+      "minimum_calibrated_predictions": true,
+      "brier_skill": false,
+      "interval_80_coverage": true
+    },
+    "safety": {
+      "forecast_eligible_emitted": false,
+      "position_mapping_enabled": false,
+      "order_generation_enabled": false,
+      "broker_connection_enabled": false
+    }
+  },
+  "governance": {
+    "historical_evidence_label": "HISTORICALLY_CONTAMINATED",
+    "historical_run_may_emit_forecast_eligible": false,
+    "driver_episode_features_allowed": false,
+    "x1_features_allowed": false,
+    "r6_reselection_allowed": false,
+    "position_mapping_enabled": false,
+    "order_generation_enabled": false,
+    "broker_connection_enabled": false,
+    "live_trading_authorized": false,
+    "missing_input_output": "NO_VIEW"
+  },
+  "safety": {
+    "forecast_eligible": "NOT_AUTHORIZED",
+    "position_mapping": "DISABLED",
+    "order_generation": "DISABLED",
+    "broker_connection": "DISABLED"
+  }
+}

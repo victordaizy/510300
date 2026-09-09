@@ -1,0 +1,69 @@
+program:
+  program_id: 510300_STRESS_TRANSMISSION_HAZARD_V2
+  execution_id: 510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_REMEDIATION_STATUS_CORRECTION_V1_0_1
+  version: "1.0.1"
+  stage_id: G1_STATUS_MAPPING_CORRECTION_ONLY
+  research_state: DISCOVERY_ONLY
+  return_evaluation: NOT_ALLOWED
+  model_training_allowed: false
+  probability_generation_allowed: false
+  portfolio_evaluation_allowed: false
+  g2_authorized_in_this_execution: false
+  position_impact: 0
+  executable_assets: [510300.SH, CASH_CNY]
+
+immutable_parent:
+  v1_frozen_manifest:
+    path: config/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1_manifest.json
+    bytes: 8679
+    sha256: 5149f71e29b42f0facab28759e9f214fc7524a8806d0d883b57bba9110226618
+  v1_build_receipt:
+    path: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_build_v1.json
+    bytes: 7106
+    sha256: c825d179dc47c77cc13babbd3c3290e1ef5415f404566728d3d5df81ed0fcfe9
+
+post_replay_inputs:
+  v1_replay_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_replay_v1.json
+  v1_status: reports/research/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1.json
+
+mapping_contract:
+  source_of_truth: V1_REPLAY_RECEIPT_G1_GATE_RESULT
+  full_pass:
+    condition: MECHANISM_TRUE_AND_FULL_MODEL_TRUE
+    g1_state: PASS_FULL_B2_AND_B3_EVENT_IDENTIFIABILITY
+    b2_state: PASS
+    b3_state: PASS
+  mechanism_only_pass:
+    condition: MECHANISM_TRUE_AND_FULL_MODEL_FALSE
+    g1_state: PASS_B2_MECHANISM_ONLY_B3_NOT_IDENTIFIABLE
+    b2_state: PASS_MECHANISM_DISCOVERY_PREREQUISITE
+    b3_state: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+    next_allowed_step_source: V1_REPLAY_RECEIPT_G1_GATE_RESULT_NEXT_ALLOWED_STEP
+  mechanism_fail:
+    condition: MECHANISM_FALSE
+    b2_state: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+    b3_state: NO_VIEW_INSUFFICIENT_EVENT_IDENTIFIABILITY
+  forbidden_mapping: TREAT_MECHANISM_ONLY_PASS_AS_TOTAL_G1_FAILURE
+  g2_must_remain_not_run: true
+  next_step_authorized_in_this_execution: false
+
+outputs:
+  corrected_status: reports/research/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1_0_1.json
+  correction_receipt: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.json
+
+freeze_contract:
+  implementation_files:
+    - scripts/correct_510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1_0_1.py
+  governance_files:
+    - config/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.yaml
+    - docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_REMEDIATION_STATUS_CORRECTION_V1_0_1_20260904.md
+    - tests/test_510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.py
+  manifest_output: config/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1_manifest.json
+  freeze_receipt_output: reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1_freeze_receipt.json
+
+forbidden_actions:
+  - MODIFY_ANY_V1_FILE_OUTPUT_RECEIPT_OR_STATUS
+  - CHANGE_ANY_SOURCE_ROW_FEATURE_SAMPLE_EVENT_COUNT_OR_GATE
+  - TREAT_B3_31_OF_40_AS_PASS
+  - ERASE_B2_MECHANISM_PASS
+  - RUN_G2_TRAIN_MODEL_GENERATE_PROBABILITY_OR_CREATE_POSITION

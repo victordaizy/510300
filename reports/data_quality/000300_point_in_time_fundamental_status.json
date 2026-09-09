@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checked_at": "2026-08-13T16:40:22.203914+08:00",
+  "snapshot_count": 60,
+  "first_date": "2021-08-31",
+  "last_date": "2026-07-31",
+  "minimum_coverages": {
+    "price_weight_coverage": 0.9950700000000001,
+    "earnings_weight_coverage": 0.9950700000000001,
+    "book_weight_coverage": 0.9950700000000001,
+    "roe_weight_coverage": 0.99988
+  },
+  "component_vendor_pe_correlation": 0.9940210745852893,
+  "component_vendor_pe_median_absolute_relative_error": 0.004961344144102653,
+  "component_vendor_pb_median_absolute_relative_error": 0.009951960406616278,
+  "valuation_cross_check_method": "与乐咕同口径：盈利公司总市值除以TTM归母净利润；PB使用经权益/股本校验的BPS。",
+  "output_file": "data/features/000300_point_in_time_fundamental_monthly.parquet",
+  "output_sha256": "c964b18a4d1716fc82587f91d7e1150e0528fc61615b971eb5bc32caab895121",
+  "inputs": {
+    "data/raw/constituents/000300_historical_weights.parquet": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+    "data/raw/fundamentals/csi300_financials_point_in_time.parquet": "39734e5612b409bafc493beb454f999def3076d0ca81155b020721870ae0ff92",
+    "data/raw/constituents/000300_constituent_daily.parquet": "7731d3482bc898562046eb17991320a8b3e6fe86ab91aaa9e6afd210a97a65c9"
+  },
+  "governance": "只使用快照日及以前已披露财务版本；当月官方权重不回填至快照日前。"
+}

@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-09-08T21:47:16.010884+08:00",
+  "status": "SOURCE_AND_BOUNDED_METHOD_COMPARISON_COMPLETE_NOT_FITTED",
+  "reference_cycles": 36,
+  "complete_entry_context_cycles": 36,
+  "mature_models_reusable": 114,
+  "minimum_training_cycles": 10,
+  "new_models": 0,
+  "new_accounts": 0,
+  "new_references": 0,
+  "method_difference": "原95预测整笔交易净收益决定是否进入；原90预测两组合未来二十日相对收益。本候选保留114已保存的周期内八项系数，另以已完成周期的进入三因子估计其剩余周期截距，只影响实际持有期间的继续价值。不是重开两项失败的交易规则。",
+  "bounded_search": "research/docs/config/tests中检索周期截距、cycle_intercepts、cycle_fixed_effect和entry_context加intercept，仅发现114及其后续设想；不声称穷尽所有方法。",
+  "limitations": "训练周期截距是估计量、每月仅十至二十周期，预测误差和同源选择风险仍在；只有完整实际账户能检验增量。",
+  "sources": [
+    {
+      "name": "features",
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "name": "cycles",
+      "path": "reports\\research\\510300_learned_cycle_exit_v1\\reference\\D60_INTRA_cycles.csv",
+      "sha256": "92a6f77dc7cd6fc58bfa4884501a3ac5791792699f5929f236edeeda45ab18e3"
+    },
+    {
+      "name": "models",
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\saved_models.json",
+      "sha256": "04de336c81d2d98013627bcc03a32dfe63a39a6fa7dcc71020e0becc67f1ecd8"
+    },
+    {
+      "name": "entry_gate",
+      "path": "docs\\510300_ENTRY_PAYOFF_GATE_V1.md",
+      "sha256": "320e95399b2a003016ea077a858353a751900313e1a7086d6031541851104d40"
+    },
+    {
+      "name": "parent_advantage",
+      "path": "docs\\510300_CONTEXTUAL_PARENT_ADVANTAGE_V1.md",
+      "sha256": "ecf48ee8adf6d6206588ffdad5a8d22975f466042f619a0defd63257c1eb446b"
+    }
+  ]
+}

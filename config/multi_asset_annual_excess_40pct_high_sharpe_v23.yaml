@@ -1,0 +1,66 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V23"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V22"
+  status: "FROZEN_BEFORE_CURRENT_QUARTER_SIGNAL_PERPETUAL_FACTOR_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v22_manifest.json"
+  v12r_manifest: "config/digital_asset_basis_ranked_spot_long_v12r_schema_correction_manifest.json"
+  v12r_visible_report: "reports/research/digital_asset_basis_ranked_spot_long_v12r_schema_correction_visible.json"
+
+registered_v12r_rejection:
+  candidate_id: "DIGITAL_ASSET_BASIS_RANKED_SPOT_LONG_V12R_SCHEMA_CORRECTION"
+  required_status: "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN"
+  required_all_visible_gates_pass: false
+  required_base_annualized_excess: -0.021413375777490348
+  required_stress_annualized_excess: -0.06576922381170869
+  required_base_sharpe: 0.22704165459345396
+  required_stress_sharpe: 0.1814672511852303
+
+new_lane:
+  lane: "DIGITAL_ASSET_CURRENT_QUARTER_SIGNAL_PERPETUAL_HIGH_LOW"
+  candidate_id: "DIGITAL_ASSET_CURRENT_QUARTER_SIGNAL_PERPETUAL_FACTOR_V13"
+  fixed_symbols: ["BTCUSDT", "ETHUSDT"]
+  visible_start: "2021-09-01"
+  visible_end: "2026-08-14"
+  signal: "FIVE_DAY_MEAN_LOG_SPOT_DIV_CURRENT_QUARTER_FUTURES_BASIS"
+  long_rule: "LONG_HIGHER_MEAN_BASIS_PERPETUAL"
+  short_rule: "SHORT_LOWER_MEAN_BASIS_PERPETUAL"
+  target_long_gross: 0.45
+  target_short_gross: 0.45
+  target_total_gross: 0.90
+  delivery_day_policy: "CASH_FROM_00UTC_THROUGH_23UTC"
+  actual_funding_history_required: true
+  turnover_lookback_observed_venue_hours: 168
+  maximum_order_fraction: 0.001
+  terminal_winddown_calendar_days: 7
+  base_total_perpetual_cost_bps_per_leg: 4.0
+  stress_total_perpetual_cost_bps_per_leg: 16.0
+  base_funding_receipt_multiplier: 1.0
+  base_funding_payment_multiplier: 1.0
+  stress_funding_receipt_multiplier: 0.75
+  stress_funding_payment_multiplier: 1.25
+  parameter_grid_search_allowed: false
+
+governance:
+  v12r_remains_frozen_rejection: true
+  v12r_files_may_be_modified: false
+  candidate_must_freeze_before_basis_rank_or_return_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

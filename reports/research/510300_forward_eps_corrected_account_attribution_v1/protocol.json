@@ -1,0 +1,267 @@
+{
+  "recorded_at": "2026-09-07T02:49:44.850066+08:00",
+  "source_returns_already_observed": true,
+  "new_strategy_returns_generated": false,
+  "methods_registered": 0,
+  "descriptive_attribution_not_new_tradable_strategy": true,
+  "costs": [
+    "BASE",
+    "STRESS"
+  ],
+  "accounts": {
+    "EPS": [
+      "510300_forward_eps_monthly_policy_v2_csi",
+      "E3_FORWARD_EPS",
+      "原前瞻EPS三因子"
+    ],
+    "PRICE_EPS": [
+      "510300_forward_eps_monthly_policy_v2_csi",
+      "E1_PRICE_FORWARD_EPS",
+      "价格加前瞻EPS"
+    ],
+    "PRICE": [
+      "510300_forward_eps_monthly_policy_v2_csi",
+      "E2_MATCHED_PRICE",
+      "共同月份价格对照"
+    ],
+    "DAILY_TREND_EXIT": [
+      "510300_forward_eps_utility_exit_v1",
+      "Z2_FORECAST_EXPIRY_AND_TREND",
+      "原EPS加期限与每日趋势退出"
+    ],
+    "REVISION_DISTRIBUTION": [
+      "510300_forward_eps_revision_distribution_policy_v1",
+      "D1_EPS_DISTRIBUTION",
+      "EPS加利润修正分布"
+    ],
+    "VALUATION": [
+      "510300_forward_eps_report_valuation_policy_v1",
+      "V1_EPS_REPORTED_VALUATION",
+      "EPS加研报估值空间"
+    ],
+    "MATCHED_EPS": [
+      "510300_forward_eps_report_valuation_policy_v1",
+      "V2_MATCHED_EPS",
+      "估值共同月份EPS对照"
+    ],
+    "OPTIONAL_VALUATION": [
+      "510300_forward_eps_optional_valuation_v1",
+      "O1_EPS_OPTIONAL_VALUATION",
+      "原EPS加可选估值修正"
+    ],
+    "BUY_HOLD": [
+      "510300_forward_eps_monthly_policy_v2_csi",
+      "BUY_HOLD",
+      "买入持有"
+    ]
+  },
+  "pairs": [
+    [
+      "EPS",
+      "BUY_HOLD"
+    ],
+    [
+      "PRICE_EPS",
+      "EPS"
+    ],
+    [
+      "PRICE_EPS",
+      "PRICE"
+    ],
+    [
+      "DAILY_TREND_EXIT",
+      "EPS"
+    ],
+    [
+      "REVISION_DISTRIBUTION",
+      "EPS"
+    ],
+    [
+      "VALUATION",
+      "MATCHED_EPS"
+    ],
+    [
+      "OPTIONAL_VALUATION",
+      "EPS"
+    ]
+  ],
+  "fixed_periods": [
+    "完整原评价期间",
+    "原EPS第一次可用预测的下一交易日起"
+  ],
+  "components": [
+    "mean_size",
+    "time_variation",
+    "dividend_entitlement",
+    "cost",
+    "net"
+  ],
+  "no_new_bootstrap_or_significance_claim": true,
+  "source_files": [
+    {
+      "path": "config/510300_forward_eps_monthly_policy_v2.json",
+      "bytes": 2769,
+      "sha256": "ee88616a62c33c30c96134f088c0c506043423adef21ca0b9fade4e8e1d17fb9"
+    },
+    {
+      "path": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+      "bytes": 1556736,
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "research/forward_eps_corrected_account_attribution_v1.py",
+      "bytes": 15520,
+      "sha256": "9e4f9417251d05cf40e58b30021ec32cfd6a0d68d2838097596ca3327a0d07c8"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/signals.parquet",
+      "bytes": 31901,
+      "sha256": "c571e26a764af4ebbc4277f3bd2c987e8b5ed027fef83f34050cc3e2f7cfdb35"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/monthly_features_and_mature_labels.parquet",
+      "bytes": 23744,
+      "sha256": "cee38457f081e72c823805ef5b668bf7e2c5177c6c9e807fa9558560c6d57650"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/BASE/E3_FORWARD_EPS_ledger.parquet",
+      "bytes": 86421,
+      "sha256": "b1d5cb70f8311e25f68a820528d81f2b97891770a955ccec4c14a6c32cd0e6d0"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/STRESS/E3_FORWARD_EPS_ledger.parquet",
+      "bytes": 86577,
+      "sha256": "9a16c5f519e7fa474cf047a1ca5b2a24204b7425d07b3616748c5fa2aceba15b"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/BASE/E1_PRICE_FORWARD_EPS_ledger.parquet",
+      "bytes": 88255,
+      "sha256": "41e115bbe5264551e9d7e4abb8298daaab69264104c011550906a17e5c635d9e"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/STRESS/E1_PRICE_FORWARD_EPS_ledger.parquet",
+      "bytes": 87368,
+      "sha256": "9e3a2ae61d05da9ccde4d7f4c4093a687e73a6df6d2143d1a8e96bbdaf7ad17f"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/BASE/E2_MATCHED_PRICE_ledger.parquet",
+      "bytes": 74119,
+      "sha256": "13e73d972b5962e9fdcd4f8c411286c821d4e25849ffef2583bce461341590c0"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/STRESS/E2_MATCHED_PRICE_ledger.parquet",
+      "bytes": 74066,
+      "sha256": "e83ede7b66d67a888621db6f55c6b59290bb96e9a973d00f995835cbf389e471"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_utility_exit_v1/evaluation/BASE/Z2_FORECAST_EXPIRY_AND_TREND_ledger.parquet",
+      "bytes": 86063,
+      "sha256": "c9f8f6ba5215bc869ef1eadf6b43e310ed535672bd5d1e9d06c82b0735073ec8"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_utility_exit_v1/evaluation/STRESS/Z2_FORECAST_EXPIRY_AND_TREND_ledger.parquet",
+      "bytes": 85935,
+      "sha256": "7a6f8f33cd3516a3f59f9196476a72d94f342a42f2c49f723f4b38498152e793"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_revision_distribution_policy_v1/evaluation/BASE/D1_EPS_DISTRIBUTION_ledger.parquet",
+      "bytes": 89853,
+      "sha256": "ad428671f9fe5d510bcdc794815d63f1634b5b2df9f31f3500dfcb8738faff9a"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_revision_distribution_policy_v1/evaluation/STRESS/D1_EPS_DISTRIBUTION_ledger.parquet",
+      "bytes": 89762,
+      "sha256": "a041f00f99babeb43a9019c0e682c6c6fc7cd9ee3e940b3452bafcdd59c37bf6"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_report_valuation_policy_v1/evaluation/BASE/V1_EPS_REPORTED_VALUATION_ledger.parquet",
+      "bytes": 85323,
+      "sha256": "ea26a5b493f545448d867bb14ee87eb18f85d548b629470577079c45c17aec4f"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_report_valuation_policy_v1/evaluation/STRESS/V1_EPS_REPORTED_VALUATION_ledger.parquet",
+      "bytes": 85258,
+      "sha256": "50001271f6be5a56848da7f27dd69b711621abdea92da676abdd19f73c458503"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_report_valuation_policy_v1/evaluation/BASE/V2_MATCHED_EPS_ledger.parquet",
+      "bytes": 84834,
+      "sha256": "69bb4d32f68806e2a2661767d4cd7ee3d735b852a0dddda8da36031528f10e86"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_report_valuation_policy_v1/evaluation/STRESS/V2_MATCHED_EPS_ledger.parquet",
+      "bytes": 84654,
+      "sha256": "2cb1c6c79876d235175429991a4b313a9eadb096eaaff570c279c0153741ae4d"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_optional_valuation_v1/evaluation/BASE/O1_EPS_OPTIONAL_VALUATION_ledger.parquet",
+      "bytes": 85958,
+      "sha256": "15211ced5c102399c2e506f913d1b0d17264e06dcf6dceb3c97cd24569c83519"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_optional_valuation_v1/evaluation/STRESS/O1_EPS_OPTIONAL_VALUATION_ledger.parquet",
+      "bytes": 86284,
+      "sha256": "d319fa75bf15bff1624def989216b226881b79c4b5f5b1c2ac891f21b70ee074"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/BASE/BUY_HOLD_ledger.parquet",
+      "bytes": 114323,
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/evaluation/STRESS/BUY_HOLD_ledger.parquet",
+      "bytes": 114317,
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/result.json",
+      "bytes": 9975,
+      "sha256": "c0ecec33d7fc3bce9d637883bfc617343c9e4b5aa12f92d5c4f7fb3ab995d3b1"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_monthly_policy_v2_csi/saved_numerical_verification.json",
+      "bytes": 666,
+      "sha256": "38cf7fab0e99efe6109bf3e3b15a1b851a1ce54a2eeb18ec4aa2b483afd49549"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_optional_valuation_v1/result.json",
+      "bytes": 8199,
+      "sha256": "cd1b6d5fef5404eda63d5c257baf3299abf861122d6a695797df9d273a03292c"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_optional_valuation_v1/saved_numerical_verification.json",
+      "bytes": 539,
+      "sha256": "c4b4f718780409eb7aa36be9e3bbc256069801bfe029d1323a44f61c04b1d5f5"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_report_valuation_policy_v1/result.json",
+      "bytes": 15186,
+      "sha256": "08f96febeb9b3965fc1da4fee6e064cf09c111f2e1057e1da22ba254b5877c92"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_report_valuation_policy_v1/saved_numerical_verification.json",
+      "bytes": 638,
+      "sha256": "e8eb2e7fd3c8b896f9a94758b72d3fb54bfb8179677fa15f56a0de2c2267af14"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_revision_distribution_policy_v1/result.json",
+      "bytes": 18160,
+      "sha256": "6f3cbe83ed144e475f18da0777d3892bbf7d49b57e3430d6f92f52eee0929313"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_revision_distribution_policy_v1/saved_numerical_verification.json",
+      "bytes": 520,
+      "sha256": "8c1ab371f034fda08ffe205a8d266bb9b753e4d9dabe80c2e999118d86ab5514"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_utility_exit_v1/result.json",
+      "bytes": 12269,
+      "sha256": "301b45a505ae15bb9a6b3464a461952dd4baa919c29bb87b5b170daf3659493a"
+    },
+    {
+      "path": "reports/research/510300_forward_eps_utility_exit_v1/saved_numerical_verification.json",
+      "bytes": 447,
+      "sha256": "d32dc58d92ffd3dd19a5c0434a88060605165e68c0781d85e7cba0f051046b30"
+    }
+  ]
+}

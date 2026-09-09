@@ -1,0 +1,59 @@
+{
+  "status": "COMPLETE_WITH_E1_PROTOCOL_LIMITATION",
+  "checked_at": "2026-08-16T14:24:14.141099+08:00",
+  "proxy_host": "fast.xiaodefa.cn",
+  "token_persisted_in_outputs": false,
+  "phases": {
+    "constituents": {
+      "status": "PASS",
+      "file": "data/raw/constituents/000300_constituent_daily.parquet",
+      "row_count": 483300,
+      "symbol_count": 493,
+      "trading_day_count": 1611,
+      "first_date": "2019-12-23",
+      "last_date": "2026-08-14",
+      "minimum_members_per_day": 300,
+      "maximum_members_per_day": 300,
+      "suspended_member_rows": 533,
+      "valid_total_return_close_ratio": 1.0,
+      "cache_file_count": 493,
+      "previous_file_backup": "data/raw/constituents/000300_constituent_daily_pre_tushare_backfill.parquet",
+      "cross_source_overlap": {
+        "overlap_row_count": 387900,
+        "comparable_close_row_count": 387895,
+        "noncomparable_close_row_count": 5,
+        "maximum_raw_close_difference": 0.0,
+        "raw_close_exact_match_ratio": 1.0
+      }
+    },
+    "industry": {
+      "status": "PASS",
+      "file": "data/raw/reference/a_share_sw_industry_static.parquet",
+      "row_count": 1298,
+      "symbol_count": 947,
+      "first_in_date": "1989-03-25",
+      "last_in_date": "2026-07-01",
+      "backup": "data/raw/reference/a_share_sw_industry_static_pre_pit.parquet",
+      "level_one_code_count": 32,
+      "downloaded_query_count": 64,
+      "reused_query_count": 0,
+      "member_day_count": 483300,
+      "covered_member_day_count": 481692,
+      "coverage_ratio": 0.9966728739913098,
+      "overlapping_member_day_count": 0,
+      "overlap_ratio": 0.0
+    },
+    "analyst_reports": {
+      "status": "ACQUIRED_NOT_CONSENSUS_VINTAGE",
+      "file": "data/raw/return_tail/earnings/csi300_analyst_reports_point_in_time.parquet",
+      "row_count": 581309,
+      "symbol_count": 492,
+      "report_day_count": 2349,
+      "first_report_date": "2019-12-23",
+      "last_report_date": "2026-08-14",
+      "eps_non_null_ratio": 0.9888871495194467,
+      "consensus_vintage_file_created": false,
+      "reason": "历史单篇研报可审计，但不是供应商逐日一致预期vintage，不得解除E1停止条件。"
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "status": "REJECTED_AS_ALPHA_SIGNAL_DIRECTION_GATE_FAILED",
+  "checked_at": "2026-08-13T16:29:02.214795+08:00",
+  "model": {
+    "fundamental_target": "目标月沪深300隐含EPS",
+    "multiple_target": "目标月沪深300PE_TTM",
+    "estimator": "固定alpha=10的标准化Ridge；不搜索超参数",
+    "interval": "训练期EPS与PE联合对数残差的10%/50%/90%分位",
+    "interval_calibration": "有至少20个已兑现预测后，改用信号日前已兑现的pseudo-OOS联合误差分位",
+    "training_rule": "信号月只使用目标结果已在该月前实现的训练样本"
+  },
+  "metrics": [
+    {
+      "horizon_months": 4,
+      "forecast_count": 54,
+      "first_signal_date": "2021-11-30",
+      "last_realized_signal_date": "2026-04-30",
+      "median_absolute_percentage_error": 0.1082103570709193,
+      "mean_absolute_percentage_error": 0.12036024798568382,
+      "direction_accuracy": 0.2777777777777778,
+      "interval_80_coverage": 0.5370370370370371,
+      "median_predicted_interval_width": 0.2543507324769966
+    },
+    {
+      "horizon_months": 6,
+      "forecast_count": 50,
+      "first_signal_date": "2022-01-28",
+      "last_realized_signal_date": "2026-02-27",
+      "median_absolute_percentage_error": 0.1218790735891146,
+      "mean_absolute_percentage_error": 0.14209575537026206,
+      "direction_accuracy": 0.34,
+      "interval_80_coverage": 0.34,
+      "median_predicted_interval_width": 0.21895663097245777
+    },
+    {
+      "horizon_months": 12,
+      "forecast_count": 38,
+      "first_signal_date": "2022-07-29",
+      "last_realized_signal_date": "2025-08-29",
+      "median_absolute_percentage_error": 0.21759610246462668,
+      "mean_absolute_percentage_error": 0.24453823441516312,
+      "direction_accuracy": 0.5263157894736842,
+      "interval_80_coverage": 0.21052631578947367,
+      "median_predicted_interval_width": 0.2606600534450215
+    }
+  ],
+  "calibrated_subset_metrics": [
+    {
+      "horizon_months": 4,
+      "forecast_count": 31,
+      "median_absolute_percentage_error": 0.09731351645890451,
+      "direction_accuracy": 0.25806451612903225,
+      "interval_80_coverage": 0.7096774193548387,
+      "median_predicted_interval_width": 0.26671889974895624
+    },
+    {
+      "horizon_months": 6,
+      "forecast_count": 25,
+      "median_absolute_percentage_error": 0.11643867195601176,
+      "direction_accuracy": 0.44,
+      "interval_80_coverage": 0.4,
+      "median_predicted_interval_width": 0.20454479408607673
+    },
+    {
+      "horizon_months": 12,
+      "forecast_count": 7,
+      "median_absolute_percentage_error": 0.18241270252183084,
+      "direction_accuracy": 0.2857142857142857,
+      "interval_80_coverage": 0.2857142857142857,
+      "median_predicted_interval_width": 0.26379628987349335
+    }
+  ],
+  "acceptance_gate": {
+    "minimum_calibrated_forecasts": 20,
+    "minimum_direction_accuracy": 0.55,
+    "four_month_direction_gate_passed": false,
+    "trading_use_authorized": false
+  },
+  "latest_forecasts": [
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "target_date": "2027-02-28 00:00:00",
+      "horizon_months": 6,
+      "current_etf": 4.748,
+      "predicted_eps": 359.65737056714534,
+      "predicted_fair_pe": 13.323311820256476,
+      "fair_etf_bear": 3.8439846993112488,
+      "fair_etf_base": 4.391571164738471,
+      "fair_etf_bull": 5.124352460688106,
+      "expected_fair_etf": 4.428610130842954,
+      "training_sample_count": 103
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "target_date": "2026-12-31 00:00:00",
+      "horizon_months": 4,
+      "current_etf": 4.748,
+      "predicted_eps": 353.85574785292704,
+      "predicted_fair_pe": 13.54641825715275,
+      "fair_etf_bear": 3.956949945881099,
+      "fair_etf_base": 4.479450932542126,
+      "fair_etf_bull": 5.059961556635451,
+      "expected_fair_etf": 4.491052860028586,
+      "training_sample_count": 105
+    },
+    {
+      "signal_date": "2026-08-12 00:00:00",
+      "target_date": "2027-08-31 00:00:00",
+      "horizon_months": 12,
+      "current_etf": 4.748,
+      "predicted_eps": 378.57556389800277,
+      "predicted_fair_pe": 13.418380453229322,
+      "fair_etf_bear": 3.680669946288145,
+      "fair_etf_base": 4.286382777148314,
+      "fair_etf_bull": 4.793351135087583,
+      "expected_fair_etf": 4.266633882564134,
+      "training_sample_count": 97
+    }
+  ],
+  "limitations": [
+    "当前指数级条件估值MVP未通过方向门槛，不得用于现货仓位。",
+    "达到20个历史已兑现预测后改用先前pseudo-OOS误差校准；更早预测仍回退训练内残差。",
+    "510300价格映射尚未单独预测基金分红与跟踪误差。",
+    "所有现有历史均已参与研究，只能称为pseudo-OOS。"
+  ],
+  "output_file": "data/features/000300_conditional_fair_value_forecasts.parquet",
+  "output_sha256": "1b491f66d60bf5cbaa93c80b89f8d9cacc72867ac44887e636f928fa1c3edeec"
+}

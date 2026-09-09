@@ -1,0 +1,238 @@
+{
+  "schema_version": "1.0.0",
+  "report_id": "510300_ANNUAL_EXCESS_20PCT_FORWARD_V1",
+  "generated_at": "2026-08-26T23:29:11.484919+08:00",
+  "status": "TARGET_NOT_YET_MET",
+  "goal_achieved": false,
+  "objective": {
+    "metric": "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR",
+    "minimum_annualized_excess": 0.2,
+    "benchmark": "H00300",
+    "base_and_stress_cost_required": true
+  },
+  "current_empirical_evidence": {
+    "legacy_20000_round5_510300_swing_annualized_excess": 0.014272566350448823,
+    "legacy_20000_round5_gap_to_20pct": 0.1857274336495512,
+    "legacy_20000_hash_holdout_base_annualized_excess": -0.17256878570243994,
+    "legacy_20000_hash_holdout_stress_annualized_excess": -0.3420303980242638,
+    "legacy_20000_hash_holdout_status": "STRICT_HASH_AND_TIME_HOLDOUT_REJECTED_FROZEN",
+    "legacy_results_directly_comparable_to_500000_contract": false,
+    "retrospective_500000_round5_reference": {
+      "status": "RETROSPECTIVE_ONLY_NOT_FORWARD_EVIDENCE",
+      "account_capital_cny": 500000.0,
+      "fee_rate_per_leg": 0.0001,
+      "base": {
+        "total_return": 0.12864309637312932,
+        "cagr": 0.0245018925613516,
+        "maximum_drawdown": -0.3012434808508013,
+        "ending_equity_cny": 564321.5481865647,
+        "annualized_excess_vs_h00300": 0.01117047199874599,
+        "rolling_242d_excess_vs_h00300": {
+          "window_trading_days": 242,
+          "median": 0.010197363552586602,
+          "minimum": -0.1725335234188239,
+          "maximum": 0.13027965344694326,
+          "positive_ratio": 0.6914344685242518,
+          "at_least_10pct_ratio": 0.053663570691434466,
+          "at_least_15pct_ratio": 0.0,
+          "observations": 969
+        },
+        "trade_count": 203,
+        "commission_cny": 553.4402017450001
+      },
+      "stress": {
+        "total_return": 0.11670379061666036,
+        "cagr": 0.02232483411259234,
+        "maximum_drawdown": -0.3032211305285569,
+        "ending_equity_cny": 558351.8953083302,
+        "annualized_excess_vs_h00300": 0.008993413549986728,
+        "rolling_242d_excess_vs_h00300": {
+          "window_trading_days": 242,
+          "median": 0.008920277496361262,
+          "minimum": -0.17490807375545403,
+          "maximum": 0.1267671490608575,
+          "positive_ratio": 0.6780185758513931,
+          "at_least_10pct_ratio": 0.03611971104231166,
+          "at_least_15pct_ratio": 0.0,
+          "observations": 969
+        },
+        "trade_count": 193,
+        "commission_cny": 544.923199545
+      },
+      "gates": {
+        "base_annualized_excess_at_least_20pct": false,
+        "stress_annualized_excess_at_least_20pct": false,
+        "base_rolling_median_at_least_20pct": false,
+        "stress_rolling_median_at_least_20pct": false
+      },
+      "interpretation": "只改变用户明确给定的本金和费率，沿用已冻结仓位路径；历史已被查看，不能作为前瞻通过。"
+    },
+    "current_500000_forward_candidate_evaluation_status": "NOT_YET_ELIGIBLE",
+    "no_verified_500000_candidate_meets_target": true
+  },
+  "active_streams": {
+    "PRIMARY_MARKET_PCF_IOPV": {
+      "status": "COLLECTING_NOT_ELIGIBLE",
+      "observed_trading_days": 4,
+      "full_quality_days": 2,
+      "first_unseen_gate_days": 80,
+      "replication_gate_days": 120,
+      "performance_eligible": false
+    },
+    "INDUSTRY_EXPECTATION_GAP": {
+      "status": "COLLECTING_FORWARD",
+      "view_status": "NO_VIEW",
+      "origin_cluster_count": 1,
+      "mature_origin_cluster_count": 0,
+      "non_overlapping_60d_block_count": 0,
+      "calibration_eligible": false,
+      "model_comparison_eligible": false
+    }
+  },
+  "pcf_iopv_feasibility": {
+    "gap_sample": {
+      "status": "DISCOVERY_ONLY_NOT_PERFORMANCE_EVIDENCE",
+      "row_count": 388,
+      "trade_date_count": 3,
+      "first_trade_date": "2026-08-14",
+      "last_trade_date": "2026-08-18",
+      "minimum_bps": -12.500264836118324,
+      "maximum_bps": 4.856726566295766,
+      "absolute_median_bps": 6.115692022186092,
+      "absolute_p95_bps": 9.99895883662255,
+      "absolute_p99_bps": 11.31835830608363,
+      "absolute_maximum_bps": 12.500264836118324,
+      "discovery_only": true
+    },
+    "account_capital_cny": 500000.0,
+    "maximum_single_round_trip_notional_cny": 250000.0,
+    "half_capital_base_round_trip_cost_bps": 11.999999999999998,
+    "half_capital_stress_round_trip_cost_bps": 32.0,
+    "required_base_gross_edge_bps_for_20pct_at_242_events": 28.52892561983471,
+    "required_stress_gross_edge_bps_for_20pct_at_242_events": 48.52892561983471,
+    "current_interpretation": "EXECUTION_FILTER_NOT_YET_PRIMARY_ALPHA_SOURCE",
+    "reason": "冻结前折溢价样本绝对极值低于小账户往返成本；样本仅用于容量预算，不构成终局否证。"
+  },
+  "cost_capacity_scenarios": [
+    {
+      "event_notional_cny": 50000.0,
+      "events_per_year": 242,
+      "base": {
+        "initial_capital_cny": 500000.0,
+        "annual_excess_target": 0.2,
+        "target_incremental_cny_first_year_approximation": 100000.0,
+        "event_notional_cny": 50000.0,
+        "events_per_year": 242,
+        "required_net_edge_bps_per_event": 82.64462809917356,
+        "round_trip_cost_bps": 11.999999999999998,
+        "required_gross_edge_bps_per_event": 94.64462809917356
+      },
+      "stress": {
+        "initial_capital_cny": 500000.0,
+        "annual_excess_target": 0.2,
+        "target_incremental_cny_first_year_approximation": 100000.0,
+        "event_notional_cny": 50000.0,
+        "events_per_year": 242,
+        "required_net_edge_bps_per_event": 82.64462809917356,
+        "round_trip_cost_bps": 32.0,
+        "required_gross_edge_bps_per_event": 114.64462809917356
+      }
+    },
+    {
+      "event_notional_cny": 125000.0,
+      "events_per_year": 242,
+      "base": {
+        "initial_capital_cny": 500000.0,
+        "annual_excess_target": 0.2,
+        "target_incremental_cny_first_year_approximation": 100000.0,
+        "event_notional_cny": 125000.0,
+        "events_per_year": 242,
+        "required_net_edge_bps_per_event": 33.05785123966942,
+        "round_trip_cost_bps": 11.999999999999998,
+        "required_gross_edge_bps_per_event": 45.05785123966942
+      },
+      "stress": {
+        "initial_capital_cny": 500000.0,
+        "annual_excess_target": 0.2,
+        "target_incremental_cny_first_year_approximation": 100000.0,
+        "event_notional_cny": 125000.0,
+        "events_per_year": 242,
+        "required_net_edge_bps_per_event": 33.05785123966942,
+        "round_trip_cost_bps": 32.0,
+        "required_gross_edge_bps_per_event": 65.05785123966942
+      }
+    },
+    {
+      "event_notional_cny": 250000.0,
+      "events_per_year": 242,
+      "base": {
+        "initial_capital_cny": 500000.0,
+        "annual_excess_target": 0.2,
+        "target_incremental_cny_first_year_approximation": 100000.0,
+        "event_notional_cny": 250000.0,
+        "events_per_year": 242,
+        "required_net_edge_bps_per_event": 16.52892561983471,
+        "round_trip_cost_bps": 11.999999999999998,
+        "required_gross_edge_bps_per_event": 28.52892561983471
+      },
+      "stress": {
+        "initial_capital_cny": 500000.0,
+        "annual_excess_target": 0.2,
+        "target_incremental_cny_first_year_approximation": 100000.0,
+        "event_notional_cny": 250000.0,
+        "events_per_year": 242,
+        "required_net_edge_bps_per_event": 16.52892561983471,
+        "round_trip_cost_bps": 32.0,
+        "required_gross_edge_bps_per_event": 48.52892561983471
+      }
+    }
+  ],
+  "decision": {
+    "primary_market_role": "继续收集；20个完整质量日后先做成本容量门，不直接优化交易阈值",
+    "industry_role": "继续独立原点；成熟前不读取部分收益或映射仓位",
+    "stop_rule": "若两条流在各自冻结成熟门后都不能支持20%净超额，替换机制而不降低目标或费用",
+    "next_evidence": "2026-08-27 V1.8 首个合格 PCF/IOPV 窗口"
+  },
+  "inputs": {
+    "contract": {
+      "path": "config/510300_annual_excess_20pct_forward_v1.yaml",
+      "sha256": "cb304ab85c299007d79d4d23aa2b4738c79f6dd2856a5e6531c9dea4a560fc01"
+    },
+    "pcf_readiness": {
+      "path": "reports/data_quality/510300_primary_market_readiness_v1_2.json",
+      "sha256": "a043d1c8c6f2229b310de54f895f6b718205fc9e2c6c68af108ba494ed692383"
+    },
+    "industry_status": {
+      "path": "reports/forward/industry_expectation_gap_v1_evaluation/operations_status_v1_2.json",
+      "sha256": "60eeeb6cc5767472b0eea0a779552913fd8e18d211e8a244db426b844f2b37fe"
+    },
+    "legacy_iopv": {
+      "path": "data/raw/primary_market/510300_iopv_snapshots.parquet",
+      "sha256": "519016d232c5b2cd7436f2d106f6bbf3b2e89bc522a1465242cf161cce75e568"
+    },
+    "round5_result": {
+      "path": "reports/backtest/round5_three_strategy_comparison.json",
+      "sha256": "2b7b411a5773332819e623bcfc3dc50cf2e602e9a3fa33330865aad931a77c77"
+    },
+    "hash_holdout_result": {
+      "path": "reports/backtest/a_share_hash_holdout_alpha_v2.json",
+      "sha256": "70b4092c09475f66ddd042539ef9bf11df71cfb6420e02ff23ab2e6809e2af64"
+    },
+    "daily_510300": {
+      "path": "data/raw/market/510300_daily_raw.parquet",
+      "sha256": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4"
+    },
+    "dividends_510300": {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    "h00300_total_return": {
+      "path": "data/raw/market/H00300_total_return_daily_raw.parquet",
+      "sha256": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733"
+    },
+    "round5_target_ledger": {
+      "path": "data/processed/round5_defensive_valuation_timing/enhanced_ledger.parquet",
+      "sha256": "06013c622dafe540f4b4292c01a82a01a3f73e39a65c6f8c60a41d74b4fbd5d7"
+    }
+  }
+}

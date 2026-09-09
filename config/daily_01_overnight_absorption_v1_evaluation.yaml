@@ -1,0 +1,63 @@
+evaluation_protocol:
+  project_id: "DAILY_01_OVERNIGHT_ABSORPTION_V1_PREDICTIVE_EVALUATION"
+  version: "1.0.0"
+  protocol_date: "2026-08-19"
+  parent_protocol_manifest: "config/daily_01_overnight_absorption_v1_protocol_manifest.json"
+  parent_protocol_manifest_sha256: "3e9f93a749ebbb417a0de4e7d63e948feccaabdd9772337a2e481aff491b56f0"
+  state: "IMPLEMENTATION_TO_FREEZE_BEFORE_REAL_FEATURE_OR_OUTCOME_RUN"
+  one_historical_run_allowed: true
+  strategy_backtest_authorized: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+
+sample:
+  historical_start: "2016-08-12"
+  historical_end: "2026-08-14"
+  chronological_split_method: "EQUAL_COUNT_AFTER_ALL_REQUIRED_FIELDS_VALID"
+  candidate_universe: "ON5_NEGATIVE_AND_ID5_POSITIVE"
+  favorable_group_percentile_at_least: 0.80
+  unfavorable_group_percentile_at_most: 0.20
+  minimum_group_observations: 20
+  minimum_mature_enter_events: 40
+
+labels:
+  horizons_trading_days: [5, 20]
+  primary_horizon_trading_days: 20
+  entry_index_offset_from_signal: 1
+  end_index_offset_from_signal: "HORIZON"
+  entry_price: "T_PLUS_1_OPEN_WITH_BUY_SLIPPAGE"
+  end_value: "T_PLUS_HORIZON_CLOSE_WITH_SELL_SLIPPAGE"
+  distribution_entitlement: "RECORD_DATE_ON_OR_AFTER_ENTRY_AND_ON_OR_BEFORE_END"
+  unreinvested_distribution_receivable_included: true
+  cash_residual_accrues: true
+  output: "NET_ACCOUNT_RETURN_MINUS_MATCHED_CASH_RETURN"
+
+statistics:
+  hac_lag_trading_days: 20
+  regression: "D20_NET_EXCESS = CONSTANT + H001_PAST_TOTAL_RETURN_5D + DAILY_01_ABSORPTION_RAW"
+  block_bootstrap_length_trading_days: 20
+  block_bootstrap_repetitions: 5000
+  bootstrap_confidence_level: 0.95
+  random_seed: 20260819
+  known_prior_trial_lower_bound_before_daily_01: 77
+  known_prior_trial_lower_bound_basis: "52个首轮至第四轮日线假设加25个R6候选；其他探索未计入，所以只是下界"
+
+decision:
+  pass_status: "HISTORICAL_FACTOR_SCREEN_PASS_STRATEGY_BACKTEST_NOT_AUTHORIZED"
+  fail_status: "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+  required_gates:
+    - "minimum_mature_enter_events"
+    - "minimum_group_observations"
+    - "both_chronological_halves_positive"
+    - "d20_top_minus_bottom_positive"
+    - "d20_block_bootstrap_lower_bound_positive"
+    - "incremental_hac_coefficient_positive"
+    - "d5_direction_not_reversed"
+
+artifacts:
+  implementation_manifest: "config/daily_01_overnight_absorption_v1_evaluation_manifest.json"
+  feature_output: "data/features/daily_01_overnight_absorption_v1.parquet"
+  report_json: "reports/discovery/daily_01_overnight_absorption_v1_result.json"
+  report_markdown: "reports/discovery/daily_01_overnight_absorption_v1_result.md"
+  candidate_rows: "reports/discovery/daily_01_overnight_absorption_v1_candidate_rows.csv"

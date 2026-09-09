@@ -1,0 +1,220 @@
+{
+  "status": "PRIMARY_FLOW_SCREENING_METRICS_PASSED_GOVERNANCE_GATES_FAILED",
+  "checked_at": "2026-08-13T16:55:27.274186+08:00",
+  "registry_status_before_test": "PRE_REGISTERED_CHALLENGER_BEFORE_OUTCOME_TEST",
+  "features": [
+    {
+      "column": "if_basis_median_5d",
+      "definition": "IF主连收盘/沪深300收盘-1的过去5日中位数",
+      "expected_sign": "positive",
+      "mechanism": "期指相对现货溢价反映杠杆资金风险偏好；5日中位数降低换月跳变影响。"
+    },
+    {
+      "column": "etf_premium_bps_median_5d",
+      "definition": "510300收盘相对当日单位净值溢折价基点的过去5日中位数",
+      "expected_sign": "positive",
+      "mechanism": "持续溢价代表二级市场需求强于基金净值，不使用盘中未来信息。"
+    },
+    {
+      "column": "latest_monthly_share_change_pct",
+      "definition": "截至信号日最近一次上交所披露的510300份额环比变化率",
+      "expected_sign": "positive",
+      "mechanism": "持续净申购代表一级市场资金流入；只从真实披露日向后沿用。"
+    }
+  ],
+  "model": {
+    "estimator": "固定C=0.1的标准化L2 Logistic",
+    "minimum_training_samples": 504,
+    "refit_interval_trading_days": 5,
+    "horizon_trading_days": 20,
+    "no_hyperparameter_search": true
+  },
+  "acceptance_gate": {
+    "minimum_realized_forecasts": 500,
+    "minimum_auc": 0.53,
+    "minimum_brier_skill_vs_expanding_base_rate": 0.0,
+    "require_top_minus_bottom_mean_net_return_positive": true,
+    "minimum_non_overlapping_auc_above_half_share": 0.6,
+    "trading_use_authorized": false
+  },
+  "evaluation": {
+    "realized_forecast_count": 655,
+    "positive_base_rate": 0.5297709923664122,
+    "brier_score": 0.2526038919245714,
+    "expanding_base_rate_brier_score": 0.26707979986719455,
+    "brier_skill_score": 0.054200684401520816,
+    "log_loss": 0.7252745436027872,
+    "auc": 0.6266233766233766,
+    "accuracy_at_0_5": 0.566412213740458,
+    "calibration_slope": 0.3149034586327725,
+    "probability_quintiles": [
+      {
+        "observations": 131,
+        "mean_probability": 0.26286192712613954,
+        "realized_hit_rate": 0.2824427480916031,
+        "mean_net_return": -0.016216908838975825
+      },
+      {
+        "observations": 131,
+        "mean_probability": 0.3437192235647475,
+        "realized_hit_rate": 0.6030534351145038,
+        "mean_net_return": 0.029914366097689042
+      },
+      {
+        "observations": 131,
+        "mean_probability": 0.45104030636928977,
+        "realized_hit_rate": 0.5190839694656488,
+        "mean_net_return": 0.014772190440988271
+      },
+      {
+        "observations": 131,
+        "mean_probability": 0.5671296266398237,
+        "realized_hit_rate": 0.5267175572519084,
+        "mean_net_return": 0.0021475582653646174
+      },
+      {
+        "observations": 131,
+        "mean_probability": 0.773221936408499,
+        "realized_hit_rate": 0.7175572519083969,
+        "mean_net_return": 0.019198157025964634
+      }
+    ],
+    "top_minus_bottom_mean_net_return": 0.03541506586494046,
+    "non_overlapping_cohort_auc_median": 0.618082788671024,
+    "non_overlapping_cohort_auc_above_half_share": 0.95,
+    "direction_gate_passed": true
+  },
+  "post_screening_diagnostics": {
+    "chronological_halves": {
+      "first_half": {
+        "realized_forecast_count": 327,
+        "positive_base_rate": 0.42507645259938837,
+        "brier_score": 0.25993172801676084,
+        "expanding_base_rate_brier_score": 0.25193866575000456,
+        "brier_skill_score": -0.03172622290017091,
+        "log_loss": 0.7295413671373924,
+        "auc": 0.5547413133323128,
+        "accuracy_at_0_5": 0.5351681957186545,
+        "calibration_slope": 0.026831022617922917,
+        "probability_quintiles": [
+          {
+            "observations": 66,
+            "mean_probability": 0.23826334207937247,
+            "realized_hit_rate": 0.2727272727272727,
+            "mean_net_return": -0.014813557753487007
+          },
+          {
+            "observations": 65,
+            "mean_probability": 0.30229127584248966,
+            "realized_hit_rate": 0.3384615384615385,
+            "mean_net_return": -0.01462775754716603
+          },
+          {
+            "observations": 65,
+            "mean_probability": 0.3342997537896554,
+            "realized_hit_rate": 0.6,
+            "mean_net_return": 0.03494918890374781
+          },
+          {
+            "observations": 65,
+            "mean_probability": 0.3998154412363609,
+            "realized_hit_rate": 0.5692307692307692,
+            "mean_net_return": 0.036511818012030885
+          },
+          {
+            "observations": 66,
+            "mean_probability": 0.5515421723271647,
+            "realized_hit_rate": 0.3484848484848485,
+            "mean_net_return": -0.003925302592094566
+          }
+        ],
+        "top_minus_bottom_mean_net_return": 0.01088825516139244,
+        "non_overlapping_cohort_auc_median": 0.5825892857142857,
+        "non_overlapping_cohort_auc_above_half_share": 0.7,
+        "direction_gate_passed": false
+      },
+      "second_half": {
+        "realized_forecast_count": 328,
+        "positive_base_rate": 0.6341463414634146,
+        "brier_score": 0.24529839679607768,
+        "expanding_base_rate_brier_score": 0.28217477199012475,
+        "brier_skill_score": 0.13068629393749498,
+        "log_loss": 0.7210207286765189,
+        "auc": 0.5853565705128204,
+        "accuracy_at_0_5": 0.5975609756097561,
+        "calibration_slope": 0.12348516827399118,
+        "probability_quintiles": [
+          {
+            "observations": 68,
+            "mean_probability": 0.36237869115370247,
+            "realized_hit_rate": 0.5441176470588235,
+            "mean_net_return": 0.007359672191844953
+          },
+          {
+            "observations": 64,
+            "mean_probability": 0.49473230417124786,
+            "realized_hit_rate": 0.609375,
+            "mean_net_return": 0.01650530681318134
+          },
+          {
+            "observations": 65,
+            "mean_probability": 0.5792392839421306,
+            "realized_hit_rate": 0.5384615384615384,
+            "mean_net_return": 0.00032394422342705626
+          },
+          {
+            "observations": 65,
+            "mean_probability": 0.6711101408707448,
+            "realized_hit_rate": 0.8153846153846154,
+            "mean_net_return": 0.02002765216924549
+          },
+          {
+            "observations": 66,
+            "mean_probability": 0.8645992424042509,
+            "realized_hit_rate": 0.6666666666666666,
+            "mean_net_return": 0.018011591137284986
+          }
+        ],
+        "top_minus_bottom_mean_net_return": 0.010651918945440032,
+        "non_overlapping_cohort_auc_median": 0.5833333333333334,
+        "non_overlapping_cohort_auc_above_half_share": 0.75,
+        "direction_gate_passed": false
+      }
+    },
+    "coefficient_signs": {
+      "if_basis_median_5d": {
+        "expected_sign": "positive",
+        "positive_share": 0.0,
+        "latest_standardized_coefficient": -0.5825743483278985
+      },
+      "etf_premium_bps_median_5d": {
+        "expected_sign": "positive",
+        "positive_share": 0.6888888888888889,
+        "latest_standardized_coefficient": 0.12144542754196772
+      },
+      "latest_monthly_share_change_pct": {
+        "expected_sign": "positive",
+        "positive_share": 1.0,
+        "latest_standardized_coefficient": 0.29038820722692976
+      }
+    },
+    "governance_gates": {
+      "mechanism_sign_gate_passed": false,
+      "temporal_brier_stability_passed": false,
+      "probability_calibration_gate_passed": false,
+      "all_post_screening_governance_gates_passed": false,
+      "note": "这些是首轮筛选后的通用治理检查，不追溯冒充预注册绩效门槛。"
+    },
+    "calibration_warning": "整体校准斜率显著低于1，原始概率过度自信；完成先前pseudo-OOS校准前不得映射仓位。"
+  },
+  "latest_forecast": {
+    "signal_date": "2026-08-12",
+    "direction_probability_positive_20d_net": 0.5856454598115957,
+    "share_snapshot_date": "2026-08-12",
+    "share_snapshot_age_calendar_days": 0
+  },
+  "trading_use_authorized": false,
+  "output_file": "data/features/510300_primary_flow_direction_forecasts.parquet",
+  "output_sha256": "063a53f162e03952d1d8196906a7b9acda21a9056f6f7c8b11ddfea32980a33f",
+  "registry_sha256": "b6b60086ec9993588017d37c14d62bef89c75c8f76359a1d76727a1d81ef566e"
+}

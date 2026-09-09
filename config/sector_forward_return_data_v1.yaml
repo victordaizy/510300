@@ -1,0 +1,45 @@
+protocol:
+  project_id: "510300_SECTOR_FORWARD_RETURN_DATA_V1"
+  version: "1.0.0"
+  state: "DATA_FEASIBILITY_ONLY"
+  data_start: "2019-12-23"
+  data_cutoff: "2026-07-31"
+  timezone: "Asia/Shanghai"
+
+inputs:
+  weights: "data/raw/constituents/000300_historical_weights.parquet"
+  financials: "data/raw/fundamentals/csi300_financials_point_in_time.parquet"
+  constituent_daily: "data/raw/constituents/000300_constituent_daily.parquet"
+  industry_intervals: "data/raw/reference/a_share_citic_industry_point_in_time.parquet"
+
+quality_gates:
+  minimum_snapshot_count: 72
+  forecast_horizon_trading_days_for_independence_audit: 60
+  minimum_nonoverlapping_time_blocks: 24
+  member_count_minimum: 300
+  member_count_maximum: 300
+  weight_sum_range: [0.98, 1.02]
+  minimum_price_weight_coverage: 0.99
+  minimum_industry_weight_coverage: 0.95
+  minimum_earnings_weight_coverage: 0.90
+  minimum_book_weight_coverage: 0.90
+  minimum_roe_weight_coverage: 0.90
+  minimum_sector_component_count: 2
+  minimum_sector_core_feature_coverage: 0.80
+  minimum_eligible_sector_weight_coverage: 0.90
+
+outputs:
+  sector_panel: "data/features/000300_sector_point_in_time_valuation_monthly_v1.parquet"
+  snapshot_audit: "data/features/000300_sector_point_in_time_snapshot_audit_v1.parquet"
+  status_json: "reports/data_quality/000300_sector_forward_return_data_v1_status.json"
+  status_markdown: "reports/data_quality/000300_sector_forward_return_data_v1_status.md"
+
+governance:
+  future_return_reading_allowed: false
+  predictive_model_fitting_allowed: false
+  feature_selection_allowed: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  missing_input_output: "NO_VIEW"

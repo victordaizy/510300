@@ -1,0 +1,69 @@
+{
+  "project_id": "000300_POINT_IN_TIME_VALUATION_V2_RECONSTRUCTIBILITY",
+  "version": "1.1.0",
+  "frozen_at": "2026-08-18T23:17:46.317253+08:00",
+  "source_commit": "6be33d3b55fa9be9c1692a0eb58f0d19fb242af2",
+  "worktree_dirty_at_freeze": true,
+  "prior_v1_0_manifest": {
+    "file": "config/point_in_time_valuation_v2_audit_manifest.json",
+    "sha256": "e60e00ed0a8e8ca7e9435719575a127f768efd52832ae74011b005ca1b99d537",
+    "mutated": false
+  },
+  "frozen_files": {
+    "config/point_in_time_valuation_price_backfill.yaml": "c6890d6e955b429b43db8376301eb40af92a709e3de581a684b55b313bf86fb1",
+    "research/point_in_time_valuation_price_acquisition.py": "86a902dd76f43e837c7016548268fdd574716ff55b96093a674762d999c691e7",
+    "scripts/download_point_in_time_valuation_prices.py": "dbb93791576ae3c2d9779550ff26fd57b9f7b5ccd39bf27c6cd1aa39b2414fad",
+    "config/point_in_time_valuation_v2_audit_v1_1.yaml": "68e5c18286e8f1a60e9c7ce093ffaf53227dd7551a085869166e58ad65b3a858",
+    "research/point_in_time_valuation_v2_post_acquisition.py": "10f574df4902a81586a4c8623d95249b384549cb814fdbd5c6f107e2382c90c8",
+    "scripts/audit_point_in_time_valuation_v2_v1_1.py": "ba25f7b4ee774e1cde2bba34823132932b1d34df92a543661e91175db63828b3",
+    "scripts/freeze_point_in_time_valuation_v2_v1_1.py": "d3e0714a4bef8c362903189a0a06f439d8d1066bb0a5fc844800dea63f1bce57",
+    "tests/test_point_in_time_valuation_price_acquisition.py": "f7bd8abcf35aaeae7c2f2b67462085e614fb3bdd1a30982234e0243ffc65a52b"
+  },
+  "output_files": {
+    "data/raw/constituents/000300_historical_weight_snapshot_prices.parquet": "be47f4f460910c8a0f2fc46bc9fe68b3ba830d94129fb55f572ed9ec12ad92f6",
+    "reports/data_quality/000300_valuation_price_backfill.json": "b377351f8f9892d5cb7a51a65ec5a92610eb531cc27c7a6fbf0289acbd4ce4e7",
+    "reports/data_quality/000300_valuation_price_backfill.md": "5057e25824857d94d6c4db01fcce359ae472e656b7bbe2df8bc9dac6961da10a",
+    "data/audit/000300_point_in_time_valuation_v2_snapshot_coverage_v1_1.parquet": "0f0f6eceeb4bb543b5212d042ab55c30cd73327a85f943943937a799a2bd555a",
+    "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.json": "83e3b6092f2666d65f4fb8616763b6e93bf9b545b3a522b92fd1663eaeaf23ac",
+    "reports/data_quality/000300_point_in_time_valuation_v2_reconstructibility_v1_1.md": "ae6d3b62cc97c72c53d4a786c9ed2b2c9f7cdcc5b2aeadb0b0cf08fb83bc12fe"
+  },
+  "cache": {
+    "directory": "data/raw/constituents/.tushare_valuation_price_cache",
+    "file_count": 437,
+    "content_sha256": "f9b7a8b4657007a281b906506a0a7fced723e87c41561d6f5a18824be94a0d88"
+  },
+  "status_at_freeze": {
+    "price_acquisition": "PASS_FIVE_YEAR_SNAPSHOT_PRICES",
+    "price_minimum_weight_coverage": 0.9998999999999999,
+    "price_missing_rows": 0,
+    "price_future_rows": 0,
+    "cross_source_exact_match_ratio": 1.0,
+    "VAL01_RAW_EY_5Y": "PASS_LOCAL_RECONSTRUCTIBLE_DATA_ONLY",
+    "VAL01_NORM_EY_5Y": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+    "VAL02_NORM_EY_SPREAD_5Y": "PARTIALLY_RECONSTRUCTIBLE_ACQUISITION_REQUIRED",
+    "VAL01_RAW_EY_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+    "VAL01_NORM_EY_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED",
+    "VAL02_NORM_EY_SPREAD_7Y": "BLOCKED_HISTORY_SHORT_AND_ACQUISITION_REQUIRED"
+  },
+  "governance": {
+    "return_calculation_performed": false,
+    "ic_calculation_performed": false,
+    "position_mapping_performed": false,
+    "order_generation_performed": false,
+    "broker_connection_performed": false,
+    "prior_v1_0_files_mutated": false
+  },
+  "test_result": {
+    "command": [
+      "C:\\Users\\戴周阳\\Documents\\New project 8\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_point_in_time_valuation_price_acquisition.py",
+      "tests/test_point_in_time_valuation_v2_audit.py",
+      "-q"
+    ],
+    "return_code": 0,
+    "stdout": ".............                                                            [100%]\n13 passed in 4.62s"
+  },
+  "manifest_content_sha256": "5e2415eb8b7d36daedcc541c975f103e2fb345c1fb9e71df5094a10e4d1814ac"
+}

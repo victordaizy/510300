@@ -1,0 +1,124 @@
+protocol:
+  project_id: CSI300_RETROSPECTIVE_HASH_ALPHA_V1
+  description: 历史沪深300成员的代码哈希留出十因子补充验证
+  evidence_class: RETROSPECTIVE_HASH_HOLDOUT_SECONDARY_EVIDENCE
+  research_only: true
+  may_replace_permanent_all_a_holdout: false
+
+inputs:
+  early_member_panel: data/raw/external_validation/csi300_2014_2021/000300_external_member_panel_2014_2021.parquet
+  recent_member_panel: data/raw/constituents/000300_constituent_daily_pre_tushare_backfill.parquet
+  early_benchmark: data/raw/external_validation/csi300_2014_2021/H00300_total_return_2014_2021.parquet
+  recent_benchmark: data/raw/market/H00300_total_return_daily_raw.parquet
+  early_data_status: reports/data_quality/csi300_external_validation_2014_2021_status.json
+  recent_data_status: reports/data_quality/000300_constituent_daily_status.json
+
+split:
+  algorithm: sha256_con_code_first_byte_mod_5
+  holdout_remainder: 0
+  training_remainders: [1, 2, 3, 4]
+  expected_holdout_fraction: 0.20
+
+periods:
+  training_signal_start: '2015-01-05'
+  training_signal_end: '2023-11-30'
+  holdout_evaluation_start: '2024-01-02'
+  holdout_evaluation_end: '2026-08-12'
+  rebalance_every_trading_days: 20
+  target_horizon_trading_days: 20
+  signal_time: t日收盘后
+  execution_time: t+1交易日开盘
+
+universe:
+  point_in_time_index_member_required: true
+  minimum_20d_average_amount_cny: 50000000.0
+  maximum_signal_price_for_one_lot_cny: 6500.0
+  maximum_open_total_return_gap_for_trade: 0.095
+
+factor_budget:
+  maximum: 10
+  used: 10
+  factors:
+    - medium_momentum_120_skip_20_rank
+    - momentum_60_skip_20_rank
+    - momentum_20_rank
+    - reversal_5_rank
+    - low_volatility_20_rank
+    - low_volatility_60_rank
+    - drawdown_position_60_rank
+    - liquidity_shock_20_120_rank
+    - range_compression_20_rank
+    - trend_efficiency_60_rank
+
+model:
+  type: HistGradientBoostingRegressor
+  loss: squared_error
+  learning_rate: 0.04
+  max_iter: 300
+  max_leaf_nodes: 31
+  min_samples_leaf: 50
+  l2_regularization: 2.0
+  max_bins: 255
+  early_stopping: false
+  random_state: 20260819
+  target_clip: [-0.50, 0.50]
+  training_half_life_calendar_days: 1095.75
+  hyperparameter_search_allowed: false
+
+selection:
+  holdings: 3
+  retention_prediction_rank: 5
+
+account:
+  initial_cash_cny: 20000.0
+  maximum_positions: 3
+  minimum_trade_notional_cny: 5000.0
+  lot_size: 100
+  cash_annual_rate: 0.015
+
+costs:
+  commission_rate: 0.0003
+  minimum_commission_cny: 5.0
+  stamp_duty_sell_rate: 0.0005
+  stamp_duty_sell_rate_before_reduction: 0.001
+  stamp_duty_reduction_effective_date: '2023-08-28'
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+
+evaluation:
+  annualized_excess_minimum: 0.20
+  stress_annualized_excess_minimum: 0.20
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  bootstrap_lower_bound_strictly_above: 0.0
+  positive_predefined_periods_minimum: 2
+  predefined_periods:
+    - {id: H1_2024, start: '2024-01-02', end: '2024-12-31'}
+    - {id: H2_2025, start: '2025-01-02', end: '2025-12-31'}
+    - {id: H3_2026, start: '2026-01-05', end: '2026-08-12'}
+  random_seed: 20260819
+
+paths:
+  protocol_manifest: config/csi300_retrospective_hash_alpha_v1_protocol_manifest.json
+  model_manifest: config/csi300_retrospective_hash_alpha_v1_model_manifest.json
+  trained_model: data/processed/csi300_retrospective_hash_alpha_v1/model.joblib
+  training_features: data/features/csi300_retrospective_hash_alpha_v1_training_features.parquet
+  training_report: reports/model/csi300_retrospective_hash_alpha_v1_training.json
+  evaluation_features: reports/backtest/csi300_retrospective_hash_alpha_v1_features.parquet
+  predictions: reports/backtest/csi300_retrospective_hash_alpha_v1_predictions.parquet
+  targets: reports/backtest/csi300_retrospective_hash_alpha_v1_targets.parquet
+  base_ledger: reports/backtest/csi300_retrospective_hash_alpha_v1_base_ledger.parquet
+  base_trades: reports/backtest/csi300_retrospective_hash_alpha_v1_base_trades.parquet
+  stress_ledger: reports/backtest/csi300_retrospective_hash_alpha_v1_stress_ledger.parquet
+  stress_trades: reports/backtest/csi300_retrospective_hash_alpha_v1_stress_trades.parquet
+  result_json: reports/backtest/csi300_retrospective_hash_alpha_v1.json
+  result_markdown: reports/backtest/CSI300_RETROSPECTIVE_HASH_ALPHA_V1.md
+
+governance:
+  no_post_result_parameter_rescue: true
+  permanent_blind_claim_forbidden: true
+  paper_signal: DISABLED
+  position_mapping: DISABLED
+  order_generation: DISABLED
+  broker_connection: DISABLED
+  live_trading: NOT_AUTHORIZED

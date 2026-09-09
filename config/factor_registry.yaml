@@ -1,0 +1,142 @@
+registry_version: 1
+registered_on: "2026-08-13"
+research_status: "RETROSPECTIVE_WITH_PSEUDO_OOS_NO_STRICT_HOLDOUT"
+
+targets:
+  primary: "exec_total_return_20d_net"
+  sensitivity: "exec_total_return_5d_net"
+
+strategy_rule:
+  long_only: true
+  entry_percentile: 0.70
+  exit_percentile: 0.30
+  retain_between_thresholds: true
+  minimum_history: 252
+  percentile_window: 756
+  initial_position: 0.0
+
+factor_definitions:
+  - factor_id: "ETF_TR_5D"
+    column: "factor_etf_total_return_5d"
+    name_cn: "510300过去5日含分红累计收益"
+    transform: "五日总收益连乘"
+    lookback: 5
+    expected_sign: "negative"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "短期价格冲击存在均值回归。"
+
+  - factor_id: "INDEX_R_20D"
+    column: "factor_index_return_20d"
+    name_cn: "沪深300过去20日累计收益"
+    transform: "收盘点位20日累计收益"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "中期指数趋势具有延续性。"
+
+  - factor_id: "INDEX_MA_20_60"
+    column: "factor_index_ma20_over_ma60"
+    name_cn: "沪深300二十日均线相对六十日均线"
+    transform: "MA20/MA60-1"
+    lookback: 60
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "中期趋势结构越强，未来多日收益越高。"
+
+  - factor_id: "INDEX_RANGE_60D"
+    column: "factor_index_range_position_60d"
+    name_cn: "沪深300六十日价格区间位置"
+    transform: "(Close-Low60)/(High60-Low60)"
+    lookback: 60
+    expected_sign: "positive"
+    threshold_mode: "unit_interval"
+    economic_hypothesis: "接近中期区间上沿表示趋势强度而非立即反转。"
+
+  - factor_id: "INDEX_RV_20D"
+    column: "factor_index_rv_20"
+    name_cn: "沪深300二十日实现波动率"
+    transform: "日对数收益标准差年化"
+    lookback: 20
+    expected_sign: "negative"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "高波动状态降低未来多日可执行风险收益。"
+
+  - factor_id: "INDEX_VOL_TERM_5_20"
+    column: "factor_index_vol_term_5_20"
+    name_cn: "沪深300短中期波动率比"
+    transform: "RV5/RV20"
+    lookback: 20
+    expected_sign: "negative"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "短期波动突然高于中期波动代表风险冲击。"
+
+  - factor_id: "ETF_PRICE_VOLUME_CONFIRM_20D"
+    column: "factor_etf_price_volume_confirmation_20d"
+    name_cn: "510300二十日价格与成交量确认"
+    transform: "ETF总收益20日乘当日对数成交量历史Z分数"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "与方向一致的成交量扩张提高趋势可信度；该指标不是订单流PV。"
+
+  - factor_id: "ETF_CLOSE_VWAP"
+    column: "factor_etf_close_over_daily_vwap"
+    name_cn: "510300收盘价相对当日VWAP"
+    transform: "Close/(Amount/Volume)-1"
+    lookback: 1
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    economic_hypothesis: "收盘维持在当日成交重心上方代表短期需求强度。"
+
+  - factor_id: "CSI300_PE_PCTL_5Y"
+    column: "factor_official_pe_percentile_5y"
+    name_cn: "沪深300官方PE五年滚动百分位"
+    transform: "仅使用截至当日五年窗口计算百分位"
+    lookback: 1210
+    expected_sign: "negative"
+    threshold_mode: "unit_interval"
+    economic_hypothesis: "较低估值提高未来多日风险补偿。"
+
+  - factor_id: "CSI300_PB_PCTL_5Y"
+    column: "factor_secondary_pb_percentile_5y"
+    name_cn: "沪深300PB五年滚动百分位"
+    transform: "仅使用截至当日五年窗口计算百分位"
+    lookback: 1210
+    expected_sign: "negative"
+    threshold_mode: "unit_interval"
+    economic_hypothesis: "较低账面估值提高未来多日风险补偿；作为次级估值来源单独审计。"
+
+hypotheses:
+  - {hypothesis_id: "H001", factor_id: "ETF_TR_5D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H002", factor_id: "INDEX_R_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H003", factor_id: "INDEX_MA_20_60", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H004", factor_id: "INDEX_RANGE_60D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H005", factor_id: "INDEX_RV_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H006", factor_id: "INDEX_VOL_TERM_5_20", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H007", factor_id: "ETF_PRICE_VOLUME_CONFIRM_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H008", factor_id: "ETF_CLOSE_VWAP", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H009", factor_id: "CSI300_PE_PCTL_5Y", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H010", factor_id: "CSI300_PB_PCTL_5Y", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "H011", factor_id: "ETF_TR_5D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H012", factor_id: "INDEX_R_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H013", factor_id: "INDEX_MA_20_60", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H014", factor_id: "INDEX_RANGE_60D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H015", factor_id: "INDEX_RV_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H016", factor_id: "INDEX_VOL_TERM_5_20", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H017", factor_id: "ETF_PRICE_VOLUME_CONFIRM_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H018", factor_id: "ETF_CLOSE_VWAP", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H019", factor_id: "CSI300_PE_PCTL_5Y", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "H020", factor_id: "CSI300_PB_PCTL_5Y", target: "exec_total_return_5d_net"}
+
+intraday_hypotheses:
+  - {hypothesis_id: "FVG001", event: "bullish_3bar_imbalance", horizon_bars: 4, expected_sign: "positive", role: "primary"}
+  - {hypothesis_id: "FVG002", event: "bearish_3bar_imbalance", horizon_bars: 4, expected_sign: "negative", role: "primary"}
+  - {hypothesis_id: "FVG003", event: "bullish_3bar_imbalance", horizon_bars: 1, expected_sign: "positive", role: "sensitivity"}
+  - {hypothesis_id: "FVG004", event: "bearish_3bar_imbalance", horizon_bars: 1, expected_sign: "negative", role: "sensitivity"}
+  - {hypothesis_id: "FVG005", event: "bullish_3bar_imbalance", horizon_bars: 8, expected_sign: "positive", role: "sensitivity"}
+  - {hypothesis_id: "FVG006", event: "bearish_3bar_imbalance", horizon_bars: 8, expected_sign: "negative", role: "sensitivity"}
+
+blocked_tracks:
+  pv_lc_order_flow: "缺少真实Level-2订单、成交、撤单与盘口历史，禁止由OHLCV伪造。"
+  weighted_breadth: "缺少五年历史点时成分、权重和行业映射。"
+  historical_market_cap_structure: "只有当前市值截面，不能倒填历史。"

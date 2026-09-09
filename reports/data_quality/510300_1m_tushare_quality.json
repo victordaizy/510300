@@ -1,0 +1,43 @@
+{
+  "status": "WARN",
+  "coverage_status": "PASS",
+  "checked_at": "2026-08-13T00:33:48.487114+08:00",
+  "symbol": "510300.SH",
+  "frequency": "1min",
+  "file": "data/raw/market/510300_1m_tushare_raw.parquet",
+  "sha256": "dee7f9c7d0bc7260cd8cea384b3f6673433752121f9477ef28e2b044c543d268",
+  "errors": [],
+  "warnings": [
+    {
+      "code": "UNOFFICIAL_PROXY",
+      "impact": "数据经第三方代理获取，不等同于直连TuShare官方主站。"
+    },
+    {
+      "code": "API_NAME_DOCUMENTATION_MISMATCH",
+      "impact": "代理请求名为stk_mins，TuShare当前官方ETF历史分钟文档记载的接口名为etf_mins。"
+    },
+    {
+      "code": "TRADE_TIME_SEMANTICS_NOT_PROVIDER_DEFINED",
+      "impact": "官方文档仅将trade_time解释为交易时间，不额外断言为bar_start或bar_end。"
+    },
+    {
+      "code": "NO_POST_CLOSE_FIXED_PRICE_SESSION",
+      "impact": "序列仅到15:00，不包含2026-07-06以后15:05至15:30盘后固定价格交易。"
+    }
+  ],
+  "evidence": {
+    "expected_trading_days": 1211,
+    "actual_trading_days": 1211,
+    "expected_rows": 291851,
+    "actual_rows": 291851,
+    "bars_per_day_distribution": {
+      "241": 1211
+    },
+    "daily_cross_source": {
+      "reference": "data/raw/market/510300_daily_raw.parquet",
+      "price_mismatch_days_over_one_tick": 0,
+      "volume_relative_difference_max": 5.060174262223412e-09,
+      "amount_relative_difference_max": 9.436035378153284e-09
+    }
+  }
+}

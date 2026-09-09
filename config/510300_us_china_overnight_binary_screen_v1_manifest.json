@@ -1,0 +1,72 @@
+{
+  "study_id": "510300_US_CHINA_OVERNIGHT_BINARY_SCREEN_V1",
+  "version": "1.0.0",
+  "status": "FROZEN_BEFORE_FIRST_SCREEN_RUN",
+  "frozen_at": "2026-08-28T19:26:49.917112+08:00",
+  "protocol_path": "config/510300_us_china_overnight_binary_screen_v1.yaml",
+  "protocol_sha256": "b255344f369b0af4aaa6ceffaf877560f7f2c0ff0b5d97f27562dc8f624bbb2a",
+  "candidate_contract_path": "config/510300_us_china_overnight_binary_screen_v1_candidates.yaml",
+  "candidate_contract_sha256": "836f662330d489007bbd35c700629643d5f3e5f5777dc9777a138ac587dff160",
+  "source_artifacts": {
+    "research/us_china_overnight_binary_screen_v1.py": "50bb6774298e1152fab48d8a8c294b1d5a82c5b487b775c399b41bb2ec63a80e",
+    "research/intraday_binary_livermore_screen_v1.py": "17618b315ae81235d6583c2f1c6bd3c6588f9a3b37ecae12745c47101b6a29fa",
+    "scripts/download_us_china_overnight_inputs_v1.py": "54bb928ac771748d51bc04c15a8d24453c81e5038c50be3c329b0563942cb5db",
+    "scripts/freeze_510300_us_china_overnight_binary_screen_v1.py": "365c7e0b9505ab06db988cc3b38361f6dd77e27b00656643069b842bf6d31c2b",
+    "tests/test_us_china_overnight_binary_screen_v1.py": "304510e2c01b389cc6f4ad731c66249b81e4c482c0793b43d498aef663bd2d50"
+  },
+  "input_artifacts": {
+    "data/raw/us_china_overnight_v1/ASHR_daily.parquet": "c6ba24c5cfe6e958590079b7dfc8f85dd7be87c4cccb6cbce721e404548199d4",
+    "data/raw/us_china_overnight_v1/FXI_daily.parquet": "18fbf404e5a6b2c90fcd2dcf2c11d8dd13a3351c0e5be16b2a10eff14a0f88ff",
+    "data/raw/us_china_overnight_v1/MCHI_daily.parquet": "a47f08f1275650319ca645dc5718d4c05b8319c0a5f80bde09082d602c0fc8c8",
+    "data/raw/us_china_overnight_v1/KWEB_daily.parquet": "9dfc2e74841c8162634a3d70caf0637623a77db30b99169b45bd80376359f2c6",
+    "data/raw/us_china_overnight_v1/SPY_daily.parquet": "d3093ba065ea978850de85a796d054334a2c0ffa074d7079c84f033580d73f3b",
+    "data/raw/us_china_overnight_v1/VIX_daily.parquet": "9ad6d7f985d0770b2e56b36223a1aef1a687eeebcd16c400339fe6f89be6acb1",
+    "reports/data_quality/us_china_overnight_inputs_v1.json": "1ab58c9c3566e0f53f8c1625e79b16d3bd2a9d896c14e2921523a2056f83327a",
+    "data/raw/market/510300_daily_raw.parquet": "640cc9ec1155c00ad62ed728cce23ab2a39240122af4b7a122974a7c523a9aa4",
+    "data/raw/market/H00300_total_return_daily_raw.parquet": "49a2ed230fe26d8715ad0ec8fa64dc90fbf945d39bb370fbd2efda437bd86733",
+    "data/reference/510300_dividends.csv": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+  },
+  "candidate_ids": [
+    "USCN_ASHR_NEG_CONTINUATION_CASH",
+    "USCN_BASKET_NEG_CONTINUATION_CASH",
+    "USCN_BASKET_BOTTOM10_CONTINUATION_CASH",
+    "USCN_SPECIFIC_BOTTOM10_CASH",
+    "USCN_ALL4_NEG_BREADTH_CASH",
+    "USCN_BASKET_BOTTOM20_VIX_TOP80_CASH",
+    "USCN_ASHR_TOP10_OVERREACTION_CASH",
+    "USCN_BASKET_TOP10_OVERREACTION_CASH"
+  ],
+  "candidate_count": 8,
+  "allowed_target_states": [
+    0,
+    1
+  ],
+  "signal_cutoff": "D_09_15_ASIA_SHANGHAI",
+  "execution_time": "D_OPEN_CALL_AUCTION",
+  "same_calendar_day_us_bar_forbidden": true,
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "start_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "period_ids": [
+    "EARLY_2017_2020",
+    "MID_2021_2023",
+    "LATE_2024_2026",
+    "COMBINED_2017_2026"
+  ],
+  "hard_gates": {
+    "minimum_annualized_excess": 0.2,
+    "minimum_rolling_242d_excess_median": 0.2,
+    "every_stress_period_and_start_required": true
+  },
+  "post_run_threshold_sign_clock_or_window_rescue": "FORBIDDEN",
+  "position_mapping": "DISABLED",
+  "live_trading_authorized": false
+}

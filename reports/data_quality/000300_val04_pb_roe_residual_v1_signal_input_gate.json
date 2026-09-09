@@ -1,0 +1,77 @@
+{
+  "project_id": "VAL04_PB_ROE_RESIDUAL_V1",
+  "version": "1.0.0",
+  "generated_at": "2026-08-19T04:26:28.803918+08:00",
+  "status": "PASS_PREDICTIVE_PROTOCOL_MAY_BE_FROZEN",
+  "hash_audit": {
+    "status": "PASS",
+    "files": [
+      {
+        "dataset": "feasibility_v2_result_manifest",
+        "file": "config/val04_pb_roe_residual_data_feasibility_v2_result_manifest.json",
+        "expected_sha256": "4f5f97f2780d1672435eee98bfe82854aa0004a7f95351be5c45efc7fc96b30c",
+        "actual_sha256": "4f5f97f2780d1672435eee98bfe82854aa0004a7f95351be5c45efc7fc96b30c",
+        "matches": true
+      },
+      {
+        "dataset": "constituent_feasibility_panel",
+        "file": "data/features/000300_val04_pb_roe_residual_feasibility_constituents_v2.parquet",
+        "expected_sha256": "6b878fa9e39f555bd36eb7beb5ba100cfe747b346a3f9a723add49fd01f1d170",
+        "actual_sha256": "6b878fa9e39f555bd36eb7beb5ba100cfe747b346a3f9a723add49fd01f1d170",
+        "matches": true
+      },
+      {
+        "dataset": "snapshot_feasibility_audit",
+        "file": "data/audit/000300_val04_pb_roe_residual_feasibility_snapshots_v2.parquet",
+        "expected_sha256": "c0b4de92e291db670d1be972e415874d37364af1eb57fd0737dbb3b0acd7de44",
+        "actual_sha256": "c0b4de92e291db670d1be972e415874d37364af1eb57fd0737dbb3b0acd7de44",
+        "matches": true
+      },
+      {
+        "dataset": "index_daily_calendar",
+        "file": "data/raw/market/000300_daily_feature_warmup.parquet",
+        "expected_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "actual_sha256": "a69b8086a5ce0ef25f7e483d28172fff31a6766a6bef597c479b589c102326ec",
+        "matches": true
+      }
+    ]
+  },
+  "checks": {
+    "input_hashes_pass": true,
+    "snapshot_count": true,
+    "company_snapshot_count": true,
+    "minimum_complete_case_coverage": true,
+    "full_rank_every_snapshot": true,
+    "residual_orthogonality_numeric_tolerance": true,
+    "ready_count": true,
+    "first_ready_date": true,
+    "first_execution_date": true
+  },
+  "failed_checks": [],
+  "signal_summary": {
+    "snapshot_count": 120,
+    "company_residual_row_count": 35536,
+    "first_snapshot": "2016-08-31",
+    "last_snapshot": "2026-07-31",
+    "minimum_complete_case_weight_coverage": 0.98197,
+    "minimum_complete_company_count": 282,
+    "minimum_design_residual_degrees_of_freedom": 251,
+    "maximum_absolute_residual_mean": 2.436509654716084e-15,
+    "raw_signal_minimum": -0.1874242470268184,
+    "raw_signal_median": -0.03699246786208574,
+    "raw_signal_maximum": 0.06656688287080278,
+    "ready_observation_count": 61,
+    "first_ready_observation_date": "2021-07-30",
+    "first_earliest_execution_date": "2021-08-02"
+  },
+  "governance": {
+    "future_returns_read": false,
+    "predictive_ic_calculated": false,
+    "strategy_returns_calculated": false,
+    "positions_generated": false,
+    "orders_generated": false,
+    "broker_connection_performed": false,
+    "parent_data_feasibility_files_mutated": false
+  },
+  "meaning": "信号输入通过不代表预测有效，不是仓位或买卖指令。"
+}

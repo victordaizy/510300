@@ -1,0 +1,122 @@
+program:
+  program_id: 510300_TOTAL_RETURN_COMPONENT_LEDGER_V1
+  version: 1.0.0
+  protocol_revision: INITIAL_ACCOUNTING_ATTRIBUTION_FREEZE
+  research_stage: ACCOUNTING_AND_ATTRIBUTION_ONLY
+  origin_start: 2015-01-01
+  observation_cutoff: 2026-08-14
+  horizons_market_days: [60, 120]
+  executable_assets: [510300.SH, CASH_CNY]
+  return_prediction_allowed: false
+  portfolio_evaluation_allowed: false
+  model_position_target: UNSET
+
+parent_contract:
+  power_audit_manifest: config/510300_structural_signal_power_and_identifiability_audit_v1_manifest.json
+  power_audit_status: reports/research/510300_structural_signal_power_and_identifiability_audit_v1_status.json
+  expected_manifest_payload_sha256: f50eb2e0ac8ab7cc375323b4e65a1537db5ef2035f595f44cbf00fa7c8366c82
+  expected_status_payload_sha256: f4493378596afa1f31bd36e5e262ee6080af9612a6049199a0e8cf1330dbbb22
+  expected_status: POWER_AND_IDENTIFIABILITY_AUDIT_COMPLETE_NO_MODEL_REQUALIFICATION
+
+source_contract:
+  price_index:
+    path: data/raw/market/000300_price_index_return_dispersion_v1.parquet
+    expected_sha256: 393e4906542184792d5f64ad7919294448e5d55d49f0b111b04a86d775ffcefc
+    symbol: 000300.SH
+  total_return_index:
+    path: data/raw/market/H00300_total_return_daily_2015_v2.parquet
+    expected_sha256: 5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c
+    symbol: H00300
+    pe_column: pe_ttm
+  etf_price:
+    path: data/raw/market/510300_daily_2015_v2.parquet
+    expected_sha256: 8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948
+    symbol: 510300.SH
+  etf_dividends:
+    path: data/reference/510300_dividends.csv
+    expected_sha256: a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d
+    role: OFFICIAL_ETF_CASH_DISTRIBUTION_ARCHIVE
+  component_total_return:
+    path: data/raw/market/csi300_absorption_ratio_v1_total_return_close.parquet
+    expected_sha256: da088157000d904b3cdd200500f1dd9b27c2d45baa9b1d444b49f4795a9bc13a
+    role: COMPONENT_TOTAL_RETURN_CLOSE
+  component_state:
+    path: data/curated/510300_structural_equity_risk_premium_engine_v1/csi300_component_monthly_state.parquet
+    expected_sha256: 4c8851f8b8880a00a004528e4e7bd563379003f6b28f44f3c7a9c36b22099b74
+    weight_role: POINT_IN_TIME_MARKET_CAP_PROXY_NOT_OFFICIAL_HISTORICAL_INDEX_WEIGHT
+  component_raw_price_yearly:
+    2015:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2015.parquet
+      expected_sha256: f831c12dc788cb182d40af057740b11ecbef36511817331df38a3c8ee308c93d
+    2016:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2016.parquet
+      expected_sha256: 2ac9b8213567d1b8c2b5c2a2181945fa00b2ae8b7ed75cd7a9d54ac07143d865
+    2017:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2017.parquet
+      expected_sha256: 13532326e64efde3f5332fe0feb4d9c5cca5b154df16da32c5d0cff422efb9f1
+    2018:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2018.parquet
+      expected_sha256: b0ccf393059ce5320c7e60c0424fe7563017e125fd8a670a3cb4d935109cdf1b
+    2019:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2019.parquet
+      expected_sha256: a095cf607e7c4a9b72a91b99f453e99bea87308fec3a9ff91d058da5acffe730
+    2020:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2020.parquet
+      expected_sha256: 87f8da71889ab9ab7fd4ee0dd2043c39770bde3726b19c7577bf2523b0dca7f9
+    2021:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2021.parquet
+      expected_sha256: 9a9ee70a936761c65483bafdef18367e9f276c2b67bed3010fa92f3ce734f349
+    2022:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2022.parquet
+      expected_sha256: fe9072749a7c36763a64c57f157c650a7dca882b15ee6a306c3b16f1f89623da
+    2023:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2023.parquet
+      expected_sha256: 2a9b4037ea03217219de62765422d6bcd203c22c8251a637e3f9f9725f2a8bfe
+    2024:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2024.parquet
+      expected_sha256: e02af79de7bccc3832b7b471676ffc51a51d2cfe6db08ddf04e7867394320f4d
+    2025:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2025.parquet
+      expected_sha256: acf999f7e8b78da294fcf657a89932ca8db75c0492209d613b18de0a0f400708
+    2026:
+      path: data/staging/a_share_hs_fund_breadth_trend_confirmation_v1/market_daily_v1_0_1/yearly/market_daily_2026.parquet
+      expected_sha256: 181ad5f472a6c3fa77341416818631d2dc69d3ee8178369e57e4f59e66925091
+
+ledger_contract:
+  scopes:
+    - ACTUAL_INDEX_CHAINED_SCOPE
+    - ORIGIN_FIXED_COMPONENTS_AND_WEIGHTS_SCOPE
+    - ORIGIN_FIXED_FINANCIAL_COVERAGE_COHORT_SCOPE
+  multiplicative_identity_target: ETF_TOTAL_RETURN_FACTOR
+  identity_tolerance: 1.0e-10
+  market_component_minimum_weight_coverage: 0.95
+  financial_pass_minimum_weight_coverage: 0.95
+  financial_partial_minimum_weight_coverage: 0.80
+  target_financial_snapshot_rule: LATEST_MONTHLY_ORIGIN_ON_OR_BEFORE_TARGET_DATE
+  effective_share_columns:
+    - total_shares
+    - independent_total_shares
+    - share_capital_current
+  actual_index_dividend_rule: TOTAL_RETURN_FACTOR_DIVIDED_BY_PRICE_FACTOR
+  component_pure_dividend_rule: NO_VIEW_WITHOUT_COMPONENT_DISTRIBUTION_ARCHIVE
+  component_distribution_proxy: TOTAL_RETURN_FACTOR_DIVIDED_BY_RAW_PRICE_FACTOR
+  membership_weight_rule: ACTUAL_INDEX_TOTAL_RETURN_DIVIDED_BY_FIXED_COHORT_TOTAL_RETURN
+  membership_weight_interpretation: MEMBERSHIP_WEIGHT_PLUS_METHOD_AND_PROXY_WEIGHT_RESIDUAL
+  tracking_rule: ETF_TOTAL_RETURN_DIVIDED_BY_ACTUAL_INDEX_TOTAL_RETURN
+  historical_official_weight_vintage_verified: false
+
+adjudication:
+  direct_total_return_forecast_allowed: false
+  portfolio_evaluation_allowed: false
+  portfolio_action: ABSTAIN
+  position_state: POSITION_UNSET
+  current_investable_strategy: NONE
+
+artifacts:
+  protocol_manifest: config/510300_total_return_component_ledger_v1_manifest.json
+  ledger_panel: data/processed/510300_total_return_component_ledger_v1/ledger_panel.parquet
+  coverage_panel: reports/data_quality/510300_total_return_component_ledger_v1_coverage.parquet
+  identity_audit: reports/data_quality/510300_total_return_component_ledger_v1_identity_audit.parquet
+  ledger_json: reports/research/510300_total_return_component_ledger_v1.json
+  final_report: reports/research/510300_TOTAL_RETURN_COMPONENT_LEDGER_V1.md
+  authoritative_status: reports/research/510300_total_return_component_ledger_v1_status.json

@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "generated_at": "2026-08-13T02:52:27.677849+08:00",
+  "round": 2,
+  "governance": "POSTHOC_MECHANISM_DECOMPOSITION_NO_STRICT_HOLDOUT",
+  "strategy_selection_status": "NO_ROUND2_STRATEGY_CANDIDATE",
+  "strategy_frozen": false,
+  "superseded_by": "reports/research/round3_factor_selection_decision.md",
+  "eligible_factor_ids": [],
+  "retired_round1_candidate": "ETF_PRICE_VOLUME_CONFIRM_20D",
+  "mechanism_watchlist_only": [
+    "ETF_VOLUME_SHOCK_20D"
+  ],
+  "context_watchlist_only": [
+    "IF_RELATIVE_LEAD_5D"
+  ],
+  "rejected_factor_ids": [
+    "ETF_TR_20D_COMPONENT",
+    "ETF_HIGH_VOLUME_TREND_20D"
+  ],
+  "reason": "第二轮没有因子通过统一持仓规则的pseudo-OOS超额与15bp压力门槛；旧价量乘积存在方向语义缺陷，修正交互项方向相反且策略失败。",
+  "posthoc_effective_sample_guard": "D20 pseudo-OOS近似独立观测仅9个，首次第二轮输出后统一将WEAK/STRONG封顶为WEAK_SAMPLE_LIMITED。",
+  "studywide_multiple_testing_audit": {
+    "status": "PASS",
+    "method": "Benjamini-Hochberg",
+    "round1_hypothesis_count": 20,
+    "round2_hypothesis_count": 8,
+    "studywide_hypothesis_count": 28,
+    "governance": "POSTHOC_AUDIT_ACROSS_ROUND1_AND_ROUND2"
+  },
+  "blocked_tracks": {
+    "historical_weights": "本机未检测到TUSHARE_TOKEN或TS_TOKEN；Tushare index_weight还要求账户至少2000积分，暂不能下载五年点时权重。",
+    "pv_lc_order_flow": "没有Level-2逐笔订单、成交、撤单与盘口快照；禁止用OHLCV伪造。",
+    "if_open_interest": "IF0主连持仓量跨换月存在极端跳变，本轮不将原始持仓量变化注册为因子。"
+  }
+}

@@ -1,0 +1,39 @@
+version: PRIORITY_FORWARD_AUTHORITATIVE_STATUS_V1_7
+timezone: Asia/Shanghai
+
+contract:
+  overall_research_status: NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET
+  original_90_day_decision: RUN_ONE_NEW_FROZEN_TEST
+  decision: STOP_NO_HISTORICAL_RETURN_EVALUATION
+  only_new_frozen_test: A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1
+  maximum_active_research_streams: 2
+  active_research_streams:
+    - id: A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1
+      priority: 1
+      resource_percent: 70
+    - id: PRIMARY_MARKET_PCF_IOPV
+      priority: 2
+      resource_percent: 30
+  historical_return_attempts_allowed: 0
+
+inputs:
+  csi300_source_admission: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.json
+  csi300_data_admission: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.json
+  csi300_pre_return_freeze: reports/audit/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PRE_RETURN_FREEZE.json
+  primary_market_readiness: reports/data_quality/510300_primary_market_readiness_v1_2.json
+  primary_market_current_task_status: reports/data_quality/510300_primary_market_task_status_v1_2_1.json
+  primary_market_task_receipt_glob: reports/data_quality/primary_market_task_runs_v1_2_1/*.json
+  priority_forward_manifest: config/priority_forward_research_operations_v1_8_manifest.json
+  priority_forward_manifest_expected_sha256: ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3
+
+outputs:
+  json: reports/audit/priority_forward_authoritative_status_v1_7.json
+  markdown: reports/audit/PRIORITY_FORWARD_AUTHORITATIVE_STATUS_V1_7.md
+
+execution_authorization:
+  research_only: true
+  shadow_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false

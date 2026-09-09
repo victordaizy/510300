@@ -1,0 +1,280 @@
+protocol:
+  project_id: "510300_RETURN_TAIL_GATING_DISCOVERY_V1"
+  version: "1.0.0"
+  protocol_date: "2026-08-16"
+  state: "DISCOVERY_ONLY"
+  historical_contamination_cutoff: "2026-08-14"
+  true_forward_start: null
+  candidate_budget: 9
+  univariate_hypothesis_count: 6
+  combination_model_count: 2
+  position_policy_count: 1
+  candidate_addition_after_freeze_forbidden: true
+  threshold_change_after_freeze_forbidden: true
+
+governance:
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+  returns_backtest_requires_branch_feasibility_pass: true
+  combination_requires_passing_univariate_signals: 2
+  historical_r6_reselection_allowed: false
+  r6_failed_family_data_may_select_parameters: false
+  output_when_inputs_missing: "NO_VIEW"
+
+timing:
+  timezone: "Asia/Shanghai"
+  signal_information_cutoff: "t日16:00"
+  execution_start: "t+1交易日开盘"
+  date_only_source_conservative_lag_trading_days: 1
+  signal_execution_delay_stress_trading_days: 1
+
+targets:
+  relative_return_definition: "从t+1开盘买入至第h个交易日收盘的510300含分红总收益，减同期现金收益"
+  adverse_path_definition: "从t+1开盘起，以每日含分红调整低价计算的相对现金路径最小值"
+  cash_annual_rate: 0.015
+  trading_days_per_year: 242
+  primary:
+    id: "BAD20"
+    horizon_trading_days: 20
+    threshold: -0.05
+  secondary:
+    id: "TAIL20"
+    horizon_trading_days: 20
+    threshold: -0.08
+  robustness:
+    - id: "BAD60"
+      horizon_trading_days: 60
+      threshold: -0.08
+    - id: "TAIL60"
+      horizon_trading_days: 60
+      threshold: -0.12
+
+standardization:
+  method: "EXPANDING_EMPIRICAL_CDF"
+  minimum_history_trading_days: 252
+  information_lag_trading_days: 1
+  direction: "全部信号转换为数值越大代表风险越高"
+  top_risk_group_lower_percentile: 0.90
+
+hypotheses:
+  - id: "O1"
+    name: "25日期权隐含左尾概率"
+    family: "OPTIONS"
+    expected_direction: "POSITIVE_RISK"
+    primary_maturity_calendar_days: 25
+    secondary_maturity_calendar_days: 45
+    raw_definition: "无套利平滑风险中性分布下，P(S_T/F_t <= 0.90)"
+    primary_statistic: "最高风险十分位BAD20发生率相对无条件发生率的Lift"
+    target_horizon_trading_days: 20
+  - id: "O2"
+    name: "25 Delta认沽偏斜"
+    family: "OPTIONS"
+    expected_direction: "POSITIVE_RISK"
+    primary_maturity_calendar_days: 25
+    secondary_maturity_calendar_days: 45
+    raw_definition: "25 Delta认沽隐含波动率减25 Delta认购隐含波动率"
+    primary_statistic: "最高风险十分位BAD20发生率相对无条件发生率的Lift"
+    target_horizon_trading_days: 20
+  - id: "O3"
+    name: "下行隐波期限结构"
+    family: "OPTIONS"
+    expected_direction: "POSITIVE_RISK"
+    primary_maturity_calendar_days: 25
+    secondary_maturity_calendar_days: 60
+    raw_definition: "25 Delta认沽25日固定期限隐含波动率减60日固定期限隐含波动率"
+    primary_statistic: "最高风险十分位BAD20发生率相对无条件发生率的Lift"
+    target_horizon_trading_days: 20
+  - id: "O4"
+    name: "方差风险溢价"
+    family: "OPTIONS"
+    expected_direction: "POSITIVE_RISK"
+    primary_maturity_calendar_days: 25
+    secondary_maturity_calendar_days: 60
+    raw_definition: "25日模型无关隐含方差减HAR(1,5,22)事前预测的未来20日实现方差"
+    primary_statistic: "最高风险十分位BAD20发生率相对无条件发生率的Lift"
+    target_horizon_trading_days: 20
+  - id: "X1"
+    name: "沪深300成分股共同尾部强度"
+    family: "CONSTITUENTS"
+    expected_direction: "POSITIVE_RISK"
+    lookback_trading_days: 5
+    tail_quantile: 0.05
+    quantile_minimum_history_trading_days: 504
+    raw_definition: "点时指数权重加权的成分股5日总收益低于各自事前5%尾部分位的比例"
+    secondary_statistic: "申万一级行业中尾部股票权重占比超过其事前90%分位的行业比例"
+    primary_statistic: "最高风险十分位BAD20发生率相对无条件发生率的Lift"
+    target_horizon_trading_days: 20
+  - id: "E1"
+    name: "点时一致盈利预测下修广度"
+    family: "EARNINGS_CONSENSUS"
+    expected_direction: "POSITIVE_RISK"
+    revision_lookback_trading_days: 20
+    secondary_lookback_trading_days: 60
+    raw_definition: "点时指数权重加权的FTM EPS下修股票比例减上修股票比例；零修订不计入两侧"
+    primary_statistic: "最高风险十分位BAD20发生率相对无条件发生率的Lift"
+    target_horizon_trading_days: 20
+    hard_stop_if_true_vintages_missing: true
+
+combination_models:
+  - id: "C1_EQUAL_PROBABILITY"
+    name: "通过单信号的固定等权概率组合"
+    build_gate: "至少两个单信号独立通过全部信号层门槛"
+    parameter_search_allowed: false
+  - id: "C2_SIGN_CONSTRAINED_LOGISTIC"
+    name: "符号约束Logistic组合"
+    build_gate: "至少两个单信号独立通过全部信号层门槛"
+    coefficient_constraint: "所有已转换风险信号系数不得小于0"
+    interaction_allowed: false
+    regularization_search_allowed: false
+
+position_policy:
+  id: "P1_100_50_HYSTERESIS"
+  build_gate: "至少一个组合或单信号通过单位成本后择时贡献门槛"
+  normal_exposure: 1.0
+  defensive_exposure: 0.5
+  exit_probability: 0.40
+  reentry_probability: 0.20
+  exit_confirmation_days: 1
+  reentry_confirmation_days: 3
+  assumed_avoidable_loss: 0.05
+  assumed_false_exit_loss: 0.03
+  assumed_round_trip_cost_per_unit: 0.0016
+  threshold_rationale: "(3.0%+0.16%)/(5.0%+3.0%)=39.5%，上取整为40%；不按回测结果调整"
+  alternative_position_grid_search_allowed: false
+  separate_reentry_model_allowed: false
+
+evaluation:
+  evidence_label: "HISTORICALLY_CONTAMINATED"
+  construction_period: ["2019-12-23", "2022-12-30"]
+  historical_pseudo_oos: ["2023-01-03", "2026-08-14"]
+  predefined_periods:
+    - {id: "P1", start: "2021-01-04", end: "2022-06-30"}
+    - {id: "P2", start: "2022-07-01", end: "2023-12-29"}
+    - {id: "P3", start: "2024-01-02", end: "2025-03-31"}
+    - {id: "P4", start: "2025-04-01", end: "2026-08-14"}
+  probability_estimation: "仅用信号日之前且标签已成熟的样本做扩展窗校准"
+  bootstrap_repetitions: 5000
+  bootstrap_block_length_trading_days: 20
+  circular_shift_repetitions: 5000
+  circular_shift_minimum_trading_days: 20
+  random_seed: 20260816
+  independent_episode_merge_gap_trading_days: 20
+  candidate_universe_for_selection_bias: 9
+  selection_bias_tests: ["WHITE_REALITY_CHECK", "PBO"]
+  required_metrics:
+    - "unconditional_event_rate"
+    - "top_risk_group_event_rate"
+    - "lift"
+    - "precision"
+    - "brier_skill_score"
+    - "log_loss"
+    - "calibration_curve"
+    - "future_relative_return_distribution"
+    - "future_maximum_adverse_path"
+  signal_gates:
+    bad20_lift_minimum: 2.0
+    lift_block_bootstrap_lower_bound_minimum: 1.0
+    oos_brier_skill_minimum: 0.0
+    oos_log_loss_must_beat_unconditional: true
+    calibration_systematic_bias_forbidden: true
+    one_day_delay_effect_retention_minimum: 0.70
+    incremental_vs_frozen_r6_required: true
+    pre_post_direction_consistency_required: true
+  economic_gates:
+    validation_unit_timing_after_cost_minimum: 0.0
+    excess_vs_static_mean_exposure_minimum: 0.0
+    excess_vs_static_vol_matched_minimum: 0.0
+    circular_shift_percentile_minimum: 0.95
+    double_cost_must_remain_positive: true
+    positive_predefined_periods_minimum: 3
+    predefined_period_count: 4
+    maximum_single_event_contribution_share: 0.35
+    false_exit_loss_may_not_exceed_correct_exit_gain: true
+    execution_mapping_direction_consistency: [0.10, 0.25]
+  true_forward_gates:
+    eligible_signal_days_minimum: 242
+    matured_20d_outcomes_minimum: 242
+    matured_60d_outcomes_minimum: 242
+    independent_bad_state_episodes_minimum: 5
+
+data_contracts:
+  options:
+    listing_date: "2019-12-23"
+    cutoff_date: "2026-08-14"
+    quote_file: "data/raw/return_tail/options/510300_eod_chain.parquet"
+    contract_master_file: "data/raw/return_tail/options/510300_contract_master.parquet"
+    cffex_cross_validation_file: "data/raw/return_tail/options/IO_eod_chain.parquet"
+    underlying_file: "data/raw/market/510300_daily_raw.parquet"
+    dividend_file: "data/reference/510300_dividends.csv"
+    risk_free_file: "data/raw/macro/china_government_bond_yields_daily.parquet"
+    quote_required_columns:
+      - "trade_date"
+      - "contract_code"
+      - "option_type"
+      - "expiry_date"
+      - "strike"
+      - "contract_unit"
+      - "contract_status"
+      - "is_adjusted"
+      - "bid1"
+      - "ask1"
+      - "close"
+      - "volume"
+      - "open_interest"
+      - "underlying_close"
+      - "quote_timestamp"
+      - "source"
+    master_required_columns:
+      - "contract_code"
+      - "underlying_code"
+      - "option_type"
+      - "list_date"
+      - "expiry_date"
+      - "strike"
+      - "contract_unit"
+      - "is_adjusted"
+      - "contract_status"
+      - "source"
+    minimum_expected_date_coverage: 0.98
+    maximum_required_field_null_ratio: 0.01
+    minimum_surface_usable_date_ratio: 0.90
+    minimum_usable_otm_put_strikes_per_expiry: 5
+    maximum_relative_bid_ask_spread: 0.50
+    maximum_inverted_quote_ratio: 0.001
+    allowed_contract_status: ["ACTIVE", "TRADING", "正常交易", "上市"]
+    official_references:
+      - "https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250611_10781547.shtml"
+      - "https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250610_10781448.shtml"
+      - "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20260116_10805396.shtml"
+      - "https://www.cffex.com.cn/lssjfw/"
+  constituents:
+    membership_file: "data/raw/constituents/000300_historical_membership_intervals.parquet"
+    weights_file: "data/raw/constituents/000300_historical_weights.parquet"
+    daily_file: "data/raw/constituents/000300_constituent_daily.parquet"
+    industry_file: "data/raw/reference/a_share_sw_industry_static.parquet"
+    market_file: "data/raw/market/510300_daily_raw.parquet"
+    minimum_member_count_per_day: 300
+    maximum_member_count_per_day: 300
+    minimum_valid_close_coverage: 0.99
+    minimum_history_trading_days: 1210
+    required_start_date: "2019-12-23"
+    required_end_date: "2026-08-14"
+    maximum_weight_age_calendar_days: 45
+    point_in_time_industry_required_for_secondary_statistic: true
+  earnings_consensus:
+    snapshot_file: "data/raw/return_tail/earnings/csi300_consensus_vintages.parquet"
+    membership_file: "data/raw/constituents/000300_historical_membership_intervals.parquet"
+    weights_file: "data/raw/constituents/000300_historical_weights.parquet"
+    required_columns:
+      - "asof_timestamp"
+      - "con_code"
+      - "forecast_fiscal_year"
+      - "consensus_eps"
+      - "analyst_count"
+      - "dispersion"
+      - "source"
+      - "source_vintage_id"
+    minimum_history_trading_days: 1210
+    current_database_backfill_forbidden: true

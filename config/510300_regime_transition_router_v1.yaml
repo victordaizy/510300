@@ -1,0 +1,304 @@
+protocol:
+  project_id: 510300_REGIME_TRANSITION_ROUTER_V1
+  version: 1.0.0
+  state: READY_TO_FREEZE_BEFORE_FIRST_OUTCOME_READ
+  registration_date: '2026-08-30'
+  timezone: Asia/Shanghai
+  research_stage: PHASE_1_STATE_IDENTIFIABILITY_ONLY
+  evidence_class: RETROSPECTIVE_HISTORICALLY_CONTAMINATED_MECHANISM_STATE_TEST
+  one_shot: true
+  outcome_read_before_freeze: false
+  parameter_rescue_after_result: forbidden
+  threshold_rescue_after_result: forbidden
+  window_rescue_after_result: forbidden
+  label_rescue_after_result: forbidden
+  source_substitution_after_result: forbidden
+  state_count_expansion_after_result: forbidden
+
+predecessor_boundaries:
+  liquidity_stress_long_cycle:
+    project_id: 510300_LIQUIDITY_STRESS_LONG_CYCLE_REPLICATION_V1
+    required_status: REJECTED_LONG_CYCLE_REPLICATION_NO_PHASE_2_NO_RESCUE
+    result_file: reports/research/510300_liquidity_stress_long_cycle_replication_v1.json
+    reuse_allowed: 原始份额、折溢价、两融输入及拼接审计
+    reuse_forbidden: cash_raw、cash_final、双影子门、近期表现门及其仓位结果
+  mechanism_atlas:
+    project_id: 510300_MECHANISM_ATLAS_V1
+    required_status: MECHANISM_ATLAS_DISCOVERY_COMPLETE_NO_STRATEGY_AUTHORIZATION
+    result_file: reports/research/510300_mechanism_atlas_v1.json
+    reuse_allowed: H3下行压力定义与风险峰值下降10%的机制先验
+    reuse_forbidden: 将病例、失败对照或局部投影结果解释为策略收益
+  downside_risk_budget:
+    project_id: 510300_DOWNSIDE_RISK_BUDGET_V1
+    required_status: REJECTED_FROZEN_DOWNSIDE_RISK_PREDICTIVE_GATE_FAILED_NO_RESCUE
+    result_file: reports/research/510300_downside_risk_budget_v1_result.json
+    reuse_allowed: 无
+    reuse_forbidden: 复合风险分数、0.30/0.70风险组、仓位映射及任何参数营救
+  macro_stress_avoidance:
+    project_id: 510300_MACRO_STRESS_AVOIDANCE_2015_START_V2
+    required_status: REJECTED_2015_START_SENSITIVITY_HISTORICAL_OR_ROBUSTNESS_GATE_FAILED_NO_RESCUE
+    result_file: reports/research/510300_macro_stress_avoidance_2015_v2_result.json
+    reuse_allowed: 首发时钟与缺失值不插补原则
+    reuse_forbidden: 旧宏观组合、旧滚动窗口、旧压力规则或仓位映射
+
+scope:
+  execution_asset: 510300.SH
+  allowed_holdings: [510300.SH, CASH_CNY]
+  observational_information:
+    - 510300_FUND_SHARES_AND_CLOSE_NAV_PREMIUM
+    - 510300_MARGIN_DETAIL
+    - CGB_1Y_10Y_OFFICIAL_CURVE
+    - CSI300_POINT_IN_TIME_EQUAL_WEIGHT_BREADTH
+    - 510300_PRICE_AND_CASH_DIVIDENDS
+  states:
+    - NORMAL_CARRY
+    - STRESS_DELEVERAGING
+    - RECOVERY_REPRICING
+    - UNCERTAIN
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_execution_allowed: false
+  return_backtest_allowed_in_phase_1: false
+  event_outcome_diagnostics_allowed: true
+  position_mapping: disabled
+  paper_signal: disabled
+  shadow_signal: disabled
+  order_generation: false
+  broker_connection: false
+  live_trading_authorized: false
+
+clocks:
+  etf_price_breadth_flow_asof: T日15:00后
+  cgb_curve_asof: 曲线日期T日17:30后
+  unified_state_decision_time: T日18:00后
+  earliest_hypothetical_execution: T+1交易日开盘
+  signal_calendar: 510300交易日
+  future_outcomes: 与状态面板物理分离，不得进入特征、状态或阈值
+
+dates:
+  feature_warmup_start: '2012-07-02'
+  breadth_warmup_start: '2014-07-01'
+  evaluation_start: '2015-01-05'
+  signal_cutoff: '2026-08-12'
+  outcome_market_cutoff: '2026-08-14'
+  early_period: ['2015-01-05', '2021-12-31']
+  late_period: ['2022-01-04', '2026-08-12']
+
+pressure_cycles:
+  DELEVERAGING_2015:
+    start: '2015-06-01'
+    end: '2016-02-29'
+    label: 2015去杠杆及后续压力
+  RISK_CONTRACTION_2018:
+    start: '2018-01-02'
+    end: '2018-12-28'
+    label: 2018持续风险收缩
+  PANDEMIC_SHOCK_2020:
+    start: '2020-01-02'
+    end: '2020-06-30'
+    label: 2020突发冲击与初期修复
+  DOWNTREND_2022:
+    start: '2022-01-04'
+    end: '2022-12-30'
+    label: 2022下跌周期
+  POLICY_STRUCTURE_2024_2026:
+    start: '2024-01-02'
+    end: '2026-08-12'
+    label: 2024年以来政策驱动和结构性行情
+
+inputs:
+  share_and_close_premium:
+    path: data/raw/flow/510300_etf_share_premium_level_full_v1.parquet
+    required_columns: [date, fund_shares, close_premium_to_nav, feature_asof, execution_earliest]
+  historical_margin:
+    path: data/external_validation/510300_etf_microstructure_dual_shadow_reverse_validation_v1_0_2/snapshots/20260828T125705_0800/510300_margin_detail_daily.parquet
+    required_columns: [date, rzye, rqye, rqyl, rzrqye, source]
+  current_margin:
+    path: data/raw/flow/510300_margin_detail_daily_tushare.parquet
+    required_columns: [date, rzye, rqye, rqyl, rzrqye, source]
+  etf_market:
+    path: data/raw/r6/510300_daily.parquet
+    required_columns: [date, open, high, low, close, volume, amount, symbol]
+  dividends:
+    path: data/reference/510300_dividends.csv
+    required_columns: [symbol, record_date, ex_date, payment_date, cash_dividend_per_share, source]
+  early_equal_weight_breadth:
+    path: data/features/000300_external_equal_weight_breadth_2015_2021.parquet
+    required_columns: [date, equal_above_ma60_share, member_count]
+  current_equal_weight_breadth:
+    path: data/features/000300_equal_weight_breadth_daily.parquet
+    required_columns: [date, component_count, equal_above_ma60_share, valid_for_price_breadth]
+  membership_audit:
+    path: reports/data_quality/000300_historical_membership_status.json
+    required_status: PASS_MEMBERSHIP_ONLY_NO_HISTORICAL_WEIGHTS
+    required_allowed_use_contains: 点时成分等权Breadth
+  external_breadth_audit:
+    path: reports/data_quality/csi300_external_validation_2014_2021_status.json
+    required_status: PASS
+  cgb_curve:
+    path: data/raw/regime_transition_router_v1/cgb_curve/cgb_1y_10y_daily_2012_2026.parquet
+    required_columns: [date, cgb_1y, cgb_10y, source, retrieved_at, available_at_rule]
+  cgb_audit:
+    path: reports/data_quality/510300_regime_transition_router_v1_cgb.json
+    required_status: PASS_CGB_LONG_HISTORY_ACQUISITION
+  long_cycle_result:
+    path: reports/research/510300_liquidity_stress_long_cycle_replication_v1.json
+  mechanism_atlas_result:
+    path: reports/research/510300_mechanism_atlas_v1.json
+  downside_risk_result:
+    path: reports/research/510300_downside_risk_budget_v1_result.json
+  macro_stress_result:
+    path: reports/research/510300_macro_stress_avoidance_2015_v2_result.json
+
+data_gates:
+  expected_evaluation_rows: 2821
+  required_first_evaluation_date: '2015-01-05'
+  required_last_signal_date: '2026-08-12'
+  margin_seam_date: '2021-08-12'
+  direct_margin_seam_absolute_tolerance: 0.0
+  derived_margin_seam_absolute_tolerance: 0.0001
+  breadth_member_count: 300
+  breadth_full_count_applies_from: '2015-01-05'
+  pre_evaluation_breadth_warmup_policy: ALLOW_REPORTED_USABLE_MEMBER_COUNT_BELOW_300_EXCLUDE_FROM_EVALUATION
+  maximum_cgb_calendar_staleness_days: 7
+  minimum_cgb_overlap_validation_rows: 20
+  future_columns_forbidden_in_state_panel: true
+  duplicate_policy: REJECT
+  missing_policy: REJECT_NO_FILL
+  current_constituent_backfill: forbidden
+  latest_revision_macro_backfill: forbidden
+  proxy_substitution: forbidden
+
+features:
+  liquidity_and_leverage:
+    fund_share_log_change_rows: 20
+    total_margin_log_change_rows: 3
+    causal_percentile_prior_rows: 252
+    causal_percentile_minimum_prior_rows: 126
+    liquidity_stress_score: 等权平均(1-份额20日变化点时分位,1-两融总余额3日变化点时分位)
+  discount_rate:
+    cgb_10y_change_curve_rows: 63
+    causal_percentile_prior_rows: 504
+    causal_percentile_minimum_prior_rows: 252
+    discount_rate_pressure: 10年国债63个曲线观测变化的点时分位
+  downside_pressure:
+    input: 510300现金分红总回报日收益
+    short_ewm_span: 5
+    long_ewm_span: 20
+    ratio: 负收益平方EWM根号5日除以20日
+  breadth_and_price:
+    breadth: 沪深300点时成员等权站上个股MA60比例
+    breadth_change_rows: 5
+    price_ma_rows: 20
+    price_log_slope_rows: 20
+
+state_machine:
+  stress_votes:
+    liquidity_score_at_least: 0.70
+    downside_ratio_at_least: 1.00
+    discount_pressure_at_least: 0.70
+    minimum_votes: 2
+    require_liquidity_or_downside_vote: true
+    consecutive_signal_rows_for_entry: 2
+  stress_exit_without_recovery:
+    consecutive_nonstress_rows_to_uncertain: 5
+  recovery:
+    liquidity_score_at_most: 0.50
+    downside_drop_from_prior_20d_peak_at_least: 0.10
+    downside_change_rows: 3
+    breadth_level_at_least: 0.50
+    breadth_change_must_be_positive: true
+    price_above_ma20: true
+    price_log_slope_positive: true
+    discount_pressure_below: 0.70
+    consecutive_signal_rows_for_entry: 2
+    recent_stress_lookback_rows: 20
+    minimum_hold_signal_rows: 10
+  normal:
+    stress_vote_count_must_equal: 0
+    breadth_and_price_direction_must_agree: true
+  missing_feature_state: UNCERTAIN
+
+outcomes:
+  interpretation: 条件路径诊断，不是策略净值或仓位收益
+  entry: T+1交易日未复权开盘
+  path_value: 未复权收盘加持有期间按登记日取得的每份现金分红应收
+  horizons_trading_days: [5, 10, 20, 60]
+  stress_primary_horizon: 10
+  recovery_primary_horizon: 20
+  metrics:
+    - open_to_horizon_close_total_return
+    - maximum_adverse_excursion_magnitude
+    - maximum_favorable_excursion
+    - positive_wealth_fraction
+  censored_policy: 保留CENSORED并排除对应期限统计，不填零
+
+state_gates:
+  minimum_state_days:
+    NORMAL_CARRY: 200
+    STRESS_DELEVERAGING: 100
+    RECOVERY_REPRICING: 50
+  minimum_state_episodes:
+    STRESS_DELEVERAGING: 10
+    RECOVERY_REPRICING: 5
+  persistence:
+    minimum_stress_median_episode_rows: 3
+    minimum_recovery_median_episode_rows: 5
+    maximum_stress_one_day_episode_share: 0.25
+  full_sample_structure:
+    stress_mean_mae_must_exceed_normal: true
+    stress_return_q20_must_be_below_normal: true
+    recovery_mean_return_must_exceed_stress: true
+    recovery_positive_fraction_must_exceed_stress: true
+  early_and_late:
+    both_periods_must_pass_all_structure_directions: true
+  held_out_cycles:
+    minimum_cycle_state_days: 5
+    minimum_cycles_passing_stress_directions: 4
+    minimum_cycles_passing_recovery_directions: 4
+  leave_one_cycle_out:
+    every_deletion_must_preserve_all_full_sample_directions: true
+  pass_requires_all_gates: true
+
+phase_2:
+  run_only_if_state_gate_passes: true
+  if_state_gate_fails: REJECTED_FROZEN_STATE_IDENTIFIABILITY_GATE_FAILED_NO_PHASE_2_NO_RESCUE
+  if_data_gate_fails: NO_VIEW_STATE_DATA_CONTRACT_FAILED_RETURN_EVALUATION_NOT_ALLOWED
+  if_state_gate_passes: PASS_STATE_IDENTIFIABILITY_PHASE_2_MODULE_RESEARCH_ALLOWED
+  no_automatic_strategy_promotion: true
+  no_same_history_rescue: true
+
+downstream_acceptance_not_run_in_phase_1:
+  base_and_stress_net_sharpe_minimum: 1.20
+  stress_cost_net_excess_must_be_positive: true
+  maximum_drawdown_magnitude_ratio_vs_buy_hold: 0.80
+  maximum_single_positive_cycle_share: 0.60
+  delete_any_major_cycle_must_preserve_value: true
+  costs:
+    initial_capital_cny: 200000.0
+    lot_size_shares: 100
+    base_commission_rate_per_leg: 0.0002
+    base_minimum_commission_cny_per_leg: 5.0
+    base_slippage_bps_per_leg: 5.0
+    stress_commission_rate_per_leg: 0.0004
+    stress_minimum_commission_cny_per_leg: 5.0
+    stress_slippage_bps_per_leg: 10.0
+    stamp_duty_rate: 0.0
+
+paths:
+  spec: docs/510300_REGIME_TRANSITION_ROUTER_V1_SPEC.md
+  manifest: config/510300_regime_transition_router_v1_manifest.json
+  freeze_receipt: reports/frozen/510300_regime_transition_router_v1_freeze_receipt.json
+  input_audit: reports/data_quality/510300_regime_transition_router_v1_input_audit.json
+  state_panel: data/research/510300_regime_transition_router_v1/state_panel.parquet
+  outcome_panel: data/research/510300_regime_transition_router_v1/outcome_panel.parquet
+  episodes: data/research/510300_regime_transition_router_v1/state_episodes.csv
+  period_state_metrics: data/research/510300_regime_transition_router_v1/period_state_metrics.csv
+  cycle_contrasts: data/research/510300_regime_transition_router_v1/cycle_contrasts.csv
+  leave_one_cycle_out: data/research/510300_regime_transition_router_v1/leave_one_cycle_out.csv
+  result_json: reports/research/510300_regime_transition_router_v1.json
+  result_markdown: reports/research/510300_REGIME_TRANSITION_ROUTER_V1.md
+  output_audit_json: reports/audit/510300_regime_transition_router_v1_output_audit.json
+  output_audit_markdown: reports/audit/510300_REGIME_TRANSITION_ROUTER_V1_OUTPUT_AUDIT.md
+  program_failure_json: reports/audit/510300_regime_transition_router_v1_program_failure.json

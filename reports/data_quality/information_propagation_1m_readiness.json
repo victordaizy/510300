@@ -1,0 +1,148 @@
+{
+  "experiment_id": "INFORMATION_PROPAGATION_ALPHA_V2",
+  "experiment_status": "PREREGISTERED_BEFORE_FORMAL_IF_MINUTE_ACQUISITION",
+  "inputs": {
+    "etf": {
+      "path": "data\\raw\\market\\510300_1m_tushare_raw.parquet",
+      "exists": true,
+      "required_columns": [
+        "trade_time",
+        "open",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "status": "READY",
+      "row_count": 291851,
+      "columns": [
+        "ts_code",
+        "trade_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "missing_columns": [],
+      "first_trade_time": "2021-08-12T09:30:00",
+      "last_trade_time": "2026-08-12T15:00:00",
+      "trading_day_count": 1211
+    },
+    "index": {
+      "path": "data\\raw\\market\\000300_1m_tushare_raw.parquet",
+      "exists": true,
+      "required_columns": [
+        "trade_time",
+        "close"
+      ],
+      "status": "READY",
+      "row_count": 291851,
+      "columns": [
+        "ts_code",
+        "trade_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "vol",
+        "amount"
+      ],
+      "missing_columns": [],
+      "first_trade_time": "2021-08-12T09:30:00",
+      "last_trade_time": "2026-08-12T15:00:00",
+      "trading_day_count": 1211
+    },
+    "futures": {
+      "path": "data\\raw\\futures\\IF_contracts_1m.parquet",
+      "exists": false,
+      "required_columns": [
+        "trade_time",
+        "contract",
+        "close",
+        "volume"
+      ],
+      "status": "MISSING"
+    },
+    "components": {
+      "path": "data\\raw\\constituents\\minute_1m",
+      "exists": true,
+      "required_columns": [
+        "trade_time",
+        "con_code",
+        "close",
+        "volume",
+        "amount"
+      ],
+      "status": "READY",
+      "row_count": 33853993,
+      "columns": [
+        "con_code",
+        "trade_time",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "amount"
+      ],
+      "missing_columns": [],
+      "partition_file_count": 117
+    },
+    "weights": {
+      "path": "data\\raw\\constituents\\000300_historical_weights.parquet",
+      "exists": true,
+      "required_columns": [
+        "trade_date",
+        "con_code",
+        "weight"
+      ],
+      "status": "READY",
+      "row_count": 36000,
+      "columns": [
+        "index_code",
+        "con_code",
+        "trade_date",
+        "weight",
+        "source",
+        "retrieved_at"
+      ],
+      "missing_columns": []
+    }
+  },
+  "governance_note": "全部既有510300结果已被探索性研究触及；时间切分只用于稳定性检查，不宣称严格样本外",
+  "supplemental_validation_input": {
+    "path": "data\\raw\\futures\\IF_1m_sina_validation.parquet",
+    "exists": true,
+    "required_columns": [
+      "trade_time",
+      "contract",
+      "close",
+      "volume",
+      "is_continuous"
+    ],
+    "status": "READY",
+    "row_count": 63426,
+    "columns": [
+      "trade_time",
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "open_interest",
+      "contract",
+      "is_continuous",
+      "source"
+    ],
+    "missing_columns": [],
+    "first_trade_time": "2021-08-16T13:58:00",
+    "last_trade_time": "2026-08-13T15:00:00",
+    "trading_day_count": 305,
+    "research_eligible": false
+  },
+  "status": "BLOCKED_MISSING_OR_INVALID_INPUT",
+  "blocking_inputs": [
+    "futures"
+  ]
+}

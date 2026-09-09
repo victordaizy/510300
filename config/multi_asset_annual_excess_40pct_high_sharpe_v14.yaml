@@ -1,0 +1,55 @@
+protocol:
+  protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V14"
+  parent_protocol_id: "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V13"
+  status: "FROZEN_BEFORE_DUAL_DIGITAL_ASSET_RELATIVE_STRENGTH_OUTCOME"
+  frozen_date: "2026-08-27"
+  research_only: true
+
+objective:
+  initial_capital_cny: 500000.0
+  benchmark: "H00300_TOTAL_RETURN"
+  minimum_annualized_net_excess: 0.40
+  minimum_strategy_net_sharpe: 1.50
+  user_transaction_fee_rate_per_leg: 0.0001
+  base_and_stress_must_both_pass: true
+
+inputs:
+  parent_manifest: "config/multi_asset_annual_excess_40pct_high_sharpe_v13_manifest.json"
+  v4_manifest: "config/digital_asset_dual_long_horizon_trend_v4_manifest.json"
+  v4_visible_report: "reports/research/digital_asset_dual_long_horizon_trend_v4_visible.json"
+
+registered_v4_rejection:
+  candidate_id: "DIGITAL_ASSET_DUAL_LONG_HORIZON_TREND_V4"
+  required_status: "REJECTED_VISIBLE_40PCT_OR_HIGH_SHARPE_GATE_FROZEN"
+  all_visible_gates_pass: false
+  sealed_replication_open: false
+
+new_lane:
+  lane: "DUAL_DIGITAL_ASSET_RELATIVE_STRENGTH_ROTATION"
+  maximum_candidates_before_family_specific_replication: 1
+  fixed_products: ["BTC-USD", "ETH-USD"]
+  eligibility_rule: "CLOSE_ABOVE_200_DAY_SMA_AND_126_DAY_RETURN_POSITIVE"
+  selection_rule: "HIGHEST_126_DAY_RETURN_AMONG_ELIGIBLE_PRODUCTS"
+  maximum_selected_products: 1
+  selected_target_weight: 1.0
+  gross_leverage_allowed: false
+  capacity_aware_execution: true
+  maximum_order_fraction: 0.003
+  terminal_winddown_calendar_days: 30
+  base_total_spot_cost_bps_per_leg: 76.0
+  stress_total_spot_cost_bps_per_leg: 106.0
+  parameter_grid_search_allowed: false
+
+governance:
+  v4_remains_rejected: true
+  v4_parameter_rescue_allowed: false
+  relative_strength_rotation_is_separate_fixed_mechanism: true
+  candidate_must_freeze_before_visible_outcome: true
+  historical_result_may_authorize_paper_or_live: false
+
+safety:
+  paper_position_generation: false
+  shadow_signal_generation: false
+  order_generation: false
+  exchange_account_connection: false
+  live_trading_authorized: false

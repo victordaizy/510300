@@ -1,0 +1,97 @@
+model_id: 510300_B1_DSV5_FORECAST_OBSERVATORY_V1
+version: 1.0.0
+role: RETAIN_AS_FORECAST_BENCHMARK_ONLY
+timezone: Asia/Shanghai
+position_mapping: DISABLED
+live_trading_authorized: false
+position_impact: 0
+schedule:
+  weekday_time: '19:30'
+  anchor_date: '2018-11-21'
+  cadence_trading_days: 5
+  primary_offset: 0
+  first_new_origin_date: '2026-09-11'
+  allowed_generation_start: '19:30:00'
+  allowed_generation_end: '23:59:59'
+  non_origin: NOT_ORIGIN_NOOP
+  missed_origin: NO_VIEW_MISSED_ORIGIN_NO_BACKFILL
+inputs:
+  seed_daily: data/raw/market/510300_daily_2015_v2.parquet
+  seed_dividends: data/reference/510300_dividends.csv
+  seed_dividend_coverage: data/reference/510300_dividends_coverage.json
+  seed_labels: data/research/510300_constituent_fragility_dsv5_increment_v1/dsv5_label_ledger.parquet
+  parent_protocol: config/510300_constituent_fragility_dsv5_increment_v1.yaml
+  parent_code: research/constituent_fragility_dsv5_increment_v1.py
+  parent_manifest: config/510300_constituent_fragility_dsv5_increment_v1_manifest.json
+  parent_receipt: reports/audit/510300_constituent_fragility_dsv5_increment_v1_execution_receipt.json
+  parent_result: reports/research/510300_constituent_fragility_dsv5_increment_v1_result.json
+  calendar_historical: data/reference/a_share_hs_trading_calendar_2010_2026_v1.csv
+  calendar_2026: data/reference/sse_trade_calendar_2026.csv
+  source_config: config/510300_stk_mins_source_admission_v1.yaml
+  source_code: research/stk_mins_source_admission_v1.py
+live_input:
+  raw_daily_source: SAME_FROZEN_FUND_DAILY_PROXY
+  raw_daily_capture_root: data/forward/510300_b1_dsv5_forecast_observatory_v1/raw_daily
+  dividend_ledger: data/reference/510300_dividends.csv
+  dividend_coverage_receipt: data/reference/510300_dividends_coverage.json
+  dividend_rule: REQUIRE_COMPLETE_OFFICIAL_RECEIPT_THROUGH_ORIGIN_AND_PIN_ALL_SOURCE_HASHES
+  missing_daily: NO_VIEW_MISSING_CURRENT_DAILY_CAPTURE
+  stale_dividend_coverage: NO_VIEW_STALE_OFFICIAL_DIVIDEND_COVERAGE
+  origin_snapshot_timing: SAME_DAY_RETRIEVED_AFTER_15_00_BEFORE_FORECAST
+  missed_days_never_count_as_forward_predictions: true
+model:
+  B0: MATURED_TRAINING_DSV5_MEAN_HELD_BETWEEN_REFITS
+  B1: PARENT_EXP_LINK_NONNEGATIVE_QLIKE_RIDGE
+  features: [LOG_RV20, NEG5, DD20]
+  l2_lambda: 1.0
+  epsilon: 0.00000001
+  refit_every_scheduled_new_origins: 13
+  initial_training: FROZEN_PARENT_OFFSET_ZERO_LABELS_ONLY
+  expanded_training: INITIAL_TRAINING_PLUS_VALID_MATURED_STRICT_FORWARD_ORIGINS
+  retrospective_gap_origins_added: false
+  refit_slots: 1_14_27_ETC
+  missing_refit_vintage: NO_VIEW_MISSING_FROZEN_REFIT_VINTAGE
+  historic_parent_training_or_evaluation_entrypoint_allowed: false
+  feature_price_history_mutation: NO_VIEW_INPUT_HISTORY_DRIFT
+label:
+  parent_five_day_definition_unchanged: true
+  first_return: LOG_NEXT_OPEN_DAY_CLOSE_DIV_NEXT_OPEN_DAY_OPEN
+  remaining_four: ENTITLEMENT_CORRECT_CASH_DIVIDEND_ADJUSTED_CLOSE_LOG_RETURN
+  dsv5: '252 / 5 * SUM(MIN(LOG_RETURN, 0)^2)'
+  evaluation_loss: PARENT_QLIKE_DEVIANCE_EPSILON_1E_MINUS8
+  loss_improvement_field_definition: B0_QLIKE_MINUS_B1_QLIKE_POSITIVE_IS_B1_BETTER
+record_fields:
+  - origin_date
+  - model_vintage_id
+  - training_end_date
+  - b0_predicted_dsv5
+  - b1_predicted_dsv5
+  - q_b1_div_b0
+  - input_sha256
+  - prediction_generated_at
+  - label_maturity_date
+  - matured_actual_dsv5
+  - b0_qlike
+  - b1_qlike
+  - b1_minus_b0_loss_improvement
+forbidden_record_fields: [target_weight, target_shares, buy_or_sell, order_intent, portfolio_return]
+review:
+  only_at_scheduled_origin_counts: [52, 104]
+  count_basis: FIRST_52_OR_104_NEW_GRID_ORIGINS_WITH_LABELS_MATURED
+  complete_valid_predictions_required: true
+  at_52:
+    overall_qlike_improvement_strictly_positive: true
+    recent_26_not_clearly_negative: BOOTSTRAP_ONE_SIDED_90PCT_UPPER_MEAN_LOSS_IMPROVEMENT_GE_ZERO
+    no_input_or_model_drift: true
+  at_104:
+    first_52_mean_improvement_strictly_positive: true
+    second_52_mean_improvement_strictly_positive: true
+    overall_bootstrap_lower_bound_strictly_positive: true
+  bootstrap:
+    unit: CIRCULAR_MOVING_BLOCKS_OF_13_ORIGINS
+    repetitions: 5000
+    seed: 20260905
+    lower_percentile: 0.10
+    upper_percentile: 0.90
+  failure: ARCHIVED_FORECAST_BENCHMARK_FAILED
+  after_104_pass: FORECAST_BENCHMARK_ONLY_NO_FURTHER_PROMOTION_OR_INTERIM_REVIEW

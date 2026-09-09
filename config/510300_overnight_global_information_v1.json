@@ -1,0 +1,133 @@
+{
+  "study_id": "510300_OVERNIGHT_GLOBAL_INFORMATION_V1",
+  "version": "1.0.0",
+  "evidence_class": "PREQUENTIAL_REPLAY_OF_ALREADY_OBSERVED_HISTORY",
+  "shadow_start": "2015-01-05",
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "gamma": 4.0,
+  "weights": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "weight_band": 0.1,
+  "minimum_train_samples": 300,
+  "random_seed": 20260906,
+  "models": [
+    {
+      "id": "C_LOGIT_H1_EXPANDING_MAGNITUDE",
+      "kind": "LOGIT",
+      "horizon": 1,
+      "train_window": null,
+      "weighting": "MAGNITUDE"
+    },
+    {
+      "id": "C_LOGIT_H5_EXPANDING_MAGNITUDE",
+      "kind": "LOGIT",
+      "horizon": 5,
+      "train_window": null,
+      "weighting": "MAGNITUDE"
+    },
+    {
+      "id": "C_LOGIT_H20_EXPANDING_MAGNITUDE",
+      "kind": "LOGIT",
+      "horizon": 20,
+      "train_window": null,
+      "weighting": "MAGNITUDE"
+    },
+    {
+      "id": "C_ET_H1_EXPANDING_MAGNITUDE",
+      "kind": "ET",
+      "horizon": 1,
+      "train_window": null,
+      "weighting": "MAGNITUDE"
+    },
+    {
+      "id": "C_ET_H5_EXPANDING_MAGNITUDE",
+      "kind": "ET",
+      "horizon": 5,
+      "train_window": null,
+      "weighting": "MAGNITUDE"
+    },
+    {
+      "id": "C_ET_H20_EXPANDING_MAGNITUDE",
+      "kind": "ET",
+      "horizon": 20,
+      "train_window": null,
+      "weighting": "MAGNITUDE"
+    }
+  ],
+  "rule_names": {},
+  "meta_names": {},
+  "primary": "D1_PRIMARY_EXTERNAL_H1",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "bootstrap_repetitions": 2000,
+  "bootstrap_day_block": 20,
+  "inputs": {
+    "prices": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "original_prices": "data/raw/r6/510300_daily.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "calendar": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+    "price_receipt": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "dividend_coverage": "reports/research/510300_adaptive_allocation_v1/frozen_inputs/dividend_coverage.json",
+    "corrections": "data/reference/510300_downside_risk_price_corrections_v1.csv"
+  },
+  "scope": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "live_trading_authorized": false,
+  "position_impact": 0,
+  "future_service_started": false,
+  "one_historical_run": true,
+  "authorization": "config/510300_research_authority_v6.json",
+  "consensus_upper": 0.52,
+  "consensus_lower": 0.48,
+  "historical_method_authorization": "docs/510300_SHARPE_1_2_RESEARCH_RESUMPTION_20260906.md",
+  "maximum_source_age_days": 7,
+  "decision_clock": "NEXT_CHINA_SESSION_09_00_ASIA_SHANGHAI",
+  "source_paths": {
+    "GSPC": [
+      "data/raw/cross_market_chart_ml_v1/GSPC_daily.parquet",
+      "US"
+    ],
+    "IXIC": [
+      "data/raw/cross_market_chart_ml_v1/IXIC_daily.parquet",
+      "US"
+    ],
+    "HSI": [
+      "data/raw/cross_market_chart_ml_v1/HSI_daily.parquet",
+      "ASIA_DELAY"
+    ],
+    "N225": [
+      "data/raw/cross_market_chart_ml_v1/N225_daily.parquet",
+      "ASIA_DELAY"
+    ],
+    "VIX": [
+      "data/raw/us_china_overnight_v1/VIX_daily.parquet",
+      "US"
+    ]
+  },
+  "historical_vendor_first_delivery_proven": false
+}

@@ -1,0 +1,189 @@
+protocol:
+  study_id: "510300_INTRADAY_BINARY_LIVERMORE_SCREEN_V1"
+  version: "1.0.0"
+  state: "PREFREEZE_IMPLEMENTATION_COMPLETE"
+  historical_evidence_label: "RETROSPECTIVE_DISCOVERY_ALL_HISTORY_PREVIOUSLY_EXPOSED"
+  created_date: "2026-08-28"
+  historical_cutoff: "2026-08-12"
+  purpose: "筛选只持有510300或现金的日内关键点状态机，检验其能否在成本后稳定实现相对H00300年化净超额20个百分点"
+  no_parameter_rescue: true
+  strict_holdout_available: false
+  is_trading_signal: false
+  paper_or_shadow_authorized: false
+  live_trading_authorized: false
+
+scope:
+  execution_asset: "510300.SH"
+  allowed_holdings: ["510300.SH", "CASH_CNY"]
+  allowed_target_states: [0, 1]
+  initial_capital_cny: 500000.0
+  long_only: true
+  leverage_allowed: false
+  short_selling_allowed: false
+  derivatives_allowed: false
+  signal_time: "每根15分钟柱结束时"
+  execution_time: "信号后的下一根实际15分钟柱开盘"
+  same_bar_execution_allowed: false
+  t_plus_one_rule: "当日买入的全部份额不得在同一交易日卖出"
+  full_state_definition: "按100份整手使用可用现金买入最大可负担份额；仅允许不足一手及费用准备金作为残余现金"
+  cash_state_definition: "卖出全部可卖510300份额；不得保留策略性底仓"
+
+objective:
+  benchmark_id: "H00300"
+  benchmark_return_type: "TOTAL_RETURN"
+  primary_metric: "STRATEGY_NET_CAGR_MINUS_H00300_TOTAL_RETURN_CAGR"
+  annualization_trading_days: 242
+  minimum_annualized_excess: 0.20
+  rolling_window_trading_days: 242
+  minimum_rolling_excess_median: 0.20
+  diagnostic_positive_floor: 0.0
+
+costs:
+  commission_rate_per_leg: 0.0001
+  minimum_commission_cny_per_leg: 0.0
+  base_slippage_bps_per_leg: 5.0
+  stress_slippage_bps_per_leg: 15.0
+  cash_annual_rate: 0.015
+  lot_size_shares: 100
+  etf_stamp_duty_rate: 0.0
+
+data_contracts:
+  intraday_bars:
+    file: "data/raw/market/510300_15m_from_1m_raw.parquet"
+    required_sha256: "5d8aabfb5241aed3fc4c5078fc627ef5f9fe9a7f69850f0e1127ff209f0be1a1"
+    required_rows: 19376
+    required_trading_days: 1211
+    required_bars_per_day: 16
+    required_first_bar_end: "2021-08-12T09:45:00"
+    required_last_bar_end: "2026-08-12T15:00:00"
+    required_symbol: "510300.SH"
+    required_columns: ["symbol", "trade_date", "bar_end", "open", "high", "low", "close", "volume", "amount"]
+  factor_file:
+    file: "data/features/510300_15m_technical_factors.parquet"
+    required_sha256: "3aa47ab615453dea994174c7aa67a8b0571193c617f615cbe334fce3651c0743"
+    required_rows: 19376
+    required_columns: ["bar_end", "adx_14bar", "plus_di_14bar", "minus_di_14bar"]
+  data_quality_receipt:
+    file: "reports/data_quality/510300_15m_from_1m_quality.json"
+    required_status: "PASS_WITH_SOURCE_CAVEATS"
+    required_sha256: "e7fc50490e038273dbdf205d64688f85838ab1c16d0d6871c01ed4f9dcc95e26"
+  benchmark_total_return:
+    file: "data/raw/r6/H00300_total_return_daily.parquet"
+    required_sha256: "2846746e1ae199cfae736655b29d90adeb7ca7ba339c04e87b46b98431f09961"
+    required_symbol: "H00300"
+    required_columns: ["date", "close", "symbol"]
+  cash_distributions:
+    file: "data/reference/510300_dividends.csv"
+    required_sha256: "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    required_event_count: 14
+    required_columns: ["symbol", "record_date", "ex_date", "payment_date", "cash_dividend_per_share", "source"]
+
+evaluation:
+  common_warmup_bars: 512
+  base_start_date: "2021-09-29"
+  end_date: "2026-08-12"
+  start_date_perturbations_trading_days: [0, 1, 2, 3, 4]
+  periods:
+    - id: "EARLY"
+      start_date: "2021-09-29"
+      end_date: "2023-12-29"
+    - id: "LATE"
+      start_date: "2024-01-02"
+      end_date: "2026-08-12"
+    - id: "COMBINED"
+      start_date: "2021-09-29"
+      end_date: "2026-08-12"
+  cost_scenarios: ["BASE", "STRESS"]
+  primary_selection_cost_scenario: "STRESS"
+  require_every_period_and_start_to_pass: true
+  candidate_state_history_begins_at_first_input_bar: true
+  initial_portfolio_state_at_each_perturbation: 0
+  dividend_entitlement_policy: "除息日开盘前持有的份额取得权益；支付日收盘转为现金；满仓目标最早下一交易日下一可成交柱再投资"
+
+candidate_family:
+  family_name: "固定利弗莫尔关键点与趋势状态机"
+  candidate_count: 13
+  candidates:
+    - id: "DONCHIAN_16_8"
+      type: "DONCHIAN_HYSTERESIS"
+      entry_lookback_bars: 16
+      exit_lookback_bars: 8
+    - id: "DONCHIAN_32_16"
+      type: "DONCHIAN_HYSTERESIS"
+      entry_lookback_bars: 32
+      exit_lookback_bars: 16
+    - id: "DONCHIAN_64_32"
+      type: "DONCHIAN_HYSTERESIS"
+      entry_lookback_bars: 64
+      exit_lookback_bars: 32
+    - id: "DONCHIAN_128_64"
+      type: "DONCHIAN_HYSTERESIS"
+      entry_lookback_bars: 128
+      exit_lookback_bars: 64
+    - id: "DONCHIAN_256_128"
+      type: "DONCHIAN_HYSTERESIS"
+      entry_lookback_bars: 256
+      exit_lookback_bars: 128
+    - id: "DONCHIAN_512_256"
+      type: "DONCHIAN_HYSTERESIS"
+      entry_lookback_bars: 512
+      exit_lookback_bars: 256
+    - id: "EMA_CROSS_8_32"
+      type: "EMA_CROSS_STATE"
+      fast_span_bars: 8
+      slow_span_bars: 32
+    - id: "EMA_CROSS_16_64"
+      type: "EMA_CROSS_STATE"
+      fast_span_bars: 16
+      slow_span_bars: 64
+    - id: "EMA_CROSS_32_128"
+      type: "EMA_CROSS_STATE"
+      fast_span_bars: 32
+      slow_span_bars: 128
+    - id: "EMA_CROSS_64_256"
+      type: "EMA_CROSS_STATE"
+      fast_span_bars: 64
+      slow_span_bars: 256
+    - id: "EMA_CROSS_128_512"
+      type: "EMA_CROSS_STATE"
+      fast_span_bars: 128
+      slow_span_bars: 512
+    - id: "PIVOT_80_32_ADX20"
+      type: "DONCHIAN_ADX_PIVOT"
+      entry_lookback_bars: 80
+      exit_lookback_bars: 32
+      entry_adx_minimum: 20.0
+      require_positive_directional_index: true
+    - id: "PIVOT_160_64_ADX20"
+      type: "DONCHIAN_ADX_PIVOT"
+      entry_lookback_bars: 160
+      exit_lookback_bars: 64
+      entry_adx_minimum: 20.0
+      require_positive_directional_index: true
+
+selection:
+  hard_pass_definition: "压力成本下，EARLY、LATE、COMBINED三个时期及五个起点的年化净超额和滚动242日超额中位数全部不低于20%"
+  positive_shadow_definition: "压力成本下，三个时期及五个起点的年化净超额和滚动242日超额中位数全部大于0"
+  rank_key: "所有压力成本时期与起点中，min(年化净超额,滚动242日超额中位数)的最小值"
+  tie_breakers: ["更少交易腿数", "更低压力执行成本", "候选ID字典序"]
+  no_composition_unless_positive_shadow: true
+  no_parameter_rescue_after_evaluation: true
+
+governance:
+  all_history_already_inspected: true
+  strict_holdout_available: false
+  result_label_if_passed: "RETROSPECTIVE_PASS_REQUIRES_NEW_PROSPECTIVE_VALIDATION"
+  result_label_if_rejected: "REJECTED_FIXED_INTRADAY_FAMILY_NO_RESCUE"
+  paper_or_shadow_requires_separate_freeze: true
+  broker_connection_authorized: false
+  order_generation_authorized: false
+
+artifacts:
+  freeze_manifest: "config/510300_intraday_binary_livermore_screen_v1_manifest.json"
+  report_json: "reports/research/510300_intraday_binary_livermore_screen_v1.json"
+  report_markdown: "reports/research/510300_INTRADAY_BINARY_LIVERMORE_SCREEN_V1.md"
+  output_directory: "data/research/510300_intraday_binary_livermore_screen_v1"
+  candidate_summary_parquet: "data/research/510300_intraday_binary_livermore_screen_v1/candidate_summary.parquet"
+  period_results_parquet: "data/research/510300_intraday_binary_livermore_screen_v1/period_results.parquet"
+  top_candidate_daily_ledger_parquet: "data/research/510300_intraday_binary_livermore_screen_v1/top_candidate_stress_daily_ledger.parquet"
+  top_candidate_trades_parquet: "data/research/510300_intraday_binary_livermore_screen_v1/top_candidate_stress_trades.parquet"

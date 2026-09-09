@@ -1,0 +1,266 @@
+{
+  "all_required_sources_admitted": false,
+  "bad10_census_rerun": false,
+  "blocked_channels": [
+    "M2"
+  ],
+  "broker_action_performed": false,
+  "channel_results": {
+    "F1": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "F1",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "F2": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "F2",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "etf_price",
+        "etf_dividends"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "F3": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "F3",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "sw_pit_industry"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "M1": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "M1",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "csi300_official_pe",
+        "china_10y_government_bond_yield"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "M2": {
+      "admitted": false,
+      "blockers": [
+        {
+          "source_id": "dr007_daily",
+          "status": "BLOCKED_LICENSED_DR007_HISTORY_REQUIRED"
+        }
+      ],
+      "channel_id": "M2",
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "dr007_daily",
+        "pboc_7d_reverse_repo_policy_rate"
+      ],
+      "status": "BLOCKED_REQUIRED_SOURCE_ADMISSION_FAILED"
+    },
+    "M3": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "M3",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "tsf_stock_yoy_first_release"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "T1": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "T1",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "T2": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "T2",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "sw_pit_industry"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    },
+    "T3": {
+      "admitted": true,
+      "blockers": [],
+      "channel_id": "T3",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "required_sources": [
+        "pit_csi300_membership",
+        "constituent_total_return_panel",
+        "sw_pit_industry"
+      ],
+      "status": "PASS_SOURCE_ADMISSION_WITH_DATE_LEVEL_NO_VIEW"
+    }
+  },
+  "completed_at": "2026-09-02T20:07:28.669678+08:00",
+  "feature_construction_allowed": false,
+  "feature_values_constructed": false,
+  "g2_allowed": false,
+  "label_artifacts_read": false,
+  "label_window_threshold_changed": false,
+  "live_trading_authorized": false,
+  "model_trained": false,
+  "next_allowed_action": "IMPORT_LICENSED_DR007_WEIGHTED_AVERAGE_DAILY_EXPORT_WITH_PROVENANCE",
+  "order_generated": false,
+  "paper_shadow_generated": false,
+  "parent_source_admission": {
+    "completed_at": "2026-09-02T17:29:44.168337+08:00",
+    "mutated": false,
+    "receipt_payload_sha256": "21a9d266ec29da9caa450d03cda6a22dbc91000e4e63df866591a717a4ce8afb",
+    "status": "NO_VIEW_SOURCE_ADMISSION_FAILED"
+  },
+  "portfolio_metrics_read": false,
+  "position_generated": false,
+  "position_impact": 0,
+  "probability_threshold_selected": false,
+  "program_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1",
+  "remediation_id": "510300_ASYMMETRIC_STRESS_HAZARD_V1_SOURCE_REMEDIATION_V1_0_1",
+  "rescue_allowed": false,
+  "research_disposition": "NO_VIEW",
+  "return_evaluation": "NOT_ALLOWED",
+  "source_results": {
+    "dr007_daily": {
+      "admitted": false,
+      "availability_clock": null,
+      "date_level_no_view_required": false,
+      "feature_values_constructed": false,
+      "limitations": [
+        "PUBLIC_CHINAMONEY_ENDPOINT_RETENTION_STARTS_AFTER_FROZEN_WINDOW",
+        "LOCAL_AUTHORIZED_DR007_EXPORT_ABSENT",
+        "FORBIDDEN_SUBSTITUTES=FDR007,R007,FR007,EXCHANGE_REPO_R_007"
+      ],
+      "metrics": {
+        "frozen_input_present": false,
+        "public_retention_observed_start": "2026-08-19",
+        "required_coverage_cutoff": "2026-08-14",
+        "required_coverage_start": "2015-01-05"
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "dr007_daily",
+      "status": "BLOCKED_LICENSED_DR007_HISTORY_REQUIRED",
+      "whole_source_blocked": true
+    },
+    "pboc_7d_reverse_repo_policy_rate": {
+      "admitted": true,
+      "availability_clock": "AVAILABLE_AT_ARCHIVED_OFFICIAL_PUBLICATION_TIMESTAMP",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "ONLY_ACTUALLY_PUBLISHED_7D_OPERATION_RATES_ADMITTED",
+        "ZERO_OPERATION_WITHOUT_PUBLISHED_RATE_REMAINS_NO_VIEW",
+        "NO_INTERPOLATION_OR_INFERRED_CHANGE_DATES"
+      ],
+      "metrics": {
+        "article_count_archived": 2850,
+        "inferred_change_dates_used": false,
+        "interpolation_performed": false,
+        "list_page_count_archived": 145,
+        "missing_value_rule": "NO_VIEW_WHEN_RATE_NOT_ACTUALLY_PUBLISHED",
+        "no_7d_operation_row_count": 663,
+        "notice_count": 2773,
+        "notice_date_count": 2711,
+        "notice_first_date": "2014-01-21",
+        "notice_last_date": "2026-08-14",
+        "pre_window_anchor_date": "2014-01-21",
+        "pre_window_anchor_rate_percent": 4.1,
+        "published_7d_rate_date_count": 2104,
+        "published_7d_rate_row_count": 2104,
+        "rate_change_count": 25,
+        "unique_rate_values": [
+          1.4,
+          1.5,
+          1.7,
+          1.8,
+          1.9,
+          2.0,
+          2.1,
+          2.2,
+          2.25,
+          2.35,
+          2.4,
+          2.45,
+          2.5,
+          2.55,
+          2.7,
+          3.35,
+          3.45,
+          3.55,
+          3.65,
+          3.75,
+          3.85,
+          4.1
+        ],
+        "zero_operation_without_published_rate_count": 6
+      },
+      "missing_value_rule": "NO_VIEW_WHEN_RATE_NOT_ACTUALLY_PUBLISHED",
+      "source_id": "pboc_7d_reverse_repo_policy_rate",
+      "state_carry_rule": "LAST_ACTUALLY_PUBLISHED_7D_RATE_AVAILABLE_BY_SIGNAL_CLOCK",
+      "status": "PASS_OFFICIAL_PBOC_7D_RATE_WITH_PRE_WINDOW_ANCHOR",
+      "whole_source_blocked": false
+    },
+    "sw_pit_industry": {
+      "admitted": true,
+      "availability_clock": "RECORD_UPDATED_AT_NOT_LATER_THAN_MEMBER_DATE_15_00_ASIA_SHANGHAI",
+      "date_level_no_view_required": true,
+      "feature_values_constructed": false,
+      "limitations": [
+        "ANY_SESSION_WITH_FEWER_THAN_300_PIT_AVAILABLE_INDUSTRIES_IS_NO_VIEW",
+        "RECORD_UPDATED_AT_USED_AS_CONSERVATIVE_AVAILABILITY_CLOCK",
+        "NO_CURRENT_CLASSIFICATION_BACKFILL"
+      ],
+      "metrics": {
+        "codebook_raw_sha256": "17e962574a4562372df21ba6b22f8fd3fa76040bd5beb8e9babcea20e3f546ae",
+        "first_full_300_member_session": "2026-06-01",
+        "full_300_member_session_count": 54,
+        "history_raw_sha256": "4f103a9c5d585686fe5800b9f9af717f715db23d61b14f97d2bdaa3911944e0d",
+        "member_day_count": 846900,
+        "no_view_session_count": 2769,
+        "pit_available_member_days": 743098,
+        "pit_coverage_ratio": 0.8774329909080175,
+        "pit_no_view_member_days": 103802,
+        "session_count": 2823,
+        "structural_effective_date_missing_member_days": 5
+      },
+      "missing_value_rule": "NO_VIEW_NO_INTERPOLATION",
+      "source_id": "sw_pit_industry",
+      "status": "PASS_OFFICIAL_SW_PIT_WITH_DATE_LEVEL_NO_VIEW",
+      "whole_source_blocked": false
+    }
+  },
+  "stage_id": "POINT_IN_TIME_M_F_T_SOURCE_REMEDIATION_V1_0_1",
+  "status": "NO_VIEW_SOURCE_REMEDIATION_PARTIAL_DR007_BLOCKED",
+  "substitute_or_proxy_used": false,
+  "version": "1.0.1"
+}

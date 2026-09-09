@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "registration_id": "PRIORITY_FORWARD_V1_9_STRICT_TLS_ROUTE_REGISTRATION",
+  "status": "REGISTERED_REPAIR_AWAITING_FIRST_ELIGIBLE_WINDOW",
+  "created_at": "2026-08-29T04:02:04.9861860+08:00",
+  "scope": "PCF_IOPV_FORWARD_COLLECTION_FOUNDATION_ONLY",
+  "predecessor": {
+    "manifest_id": "PRIORITY_FORWARD_RESEARCH_OPERATIONS_V1_8",
+    "manifest_sha256": "ae8215c5b7e35837564d464eb975054a2d79e2dd33a0cc25636b2c667fdcd1c3",
+    "preserved_unchanged": true
+  },
+  "failed_attempt": {
+    "target_date": "2026-08-28",
+    "run_status": "FAILED",
+    "collection_status": "EXTERNAL_FREE_SOURCE_FAILED",
+    "task_exit_code": 3,
+    "consecutive_failure_stop_threshold": 5,
+    "failure_class": "TLS_CERTIFICATE_VERIFICATION_FAILED_SELF_SIGNED_CERTIFICATE",
+    "raw_response_captured": false,
+    "quality_day_created": false,
+    "same_day_retry_after_terminal_receipt": false,
+    "backfill_or_rerun_authorized": false,
+    "immutable_task_receipt": {
+      "path": "reports/data_quality/primary_market_task_runs_v1_2_1/20260828T0125025110922Z_20016.json",
+      "sha256": "5d07b44f76cb3a6f5806be6e6fa86aebe7dbd855a6af902e1f3d421a50006b54"
+    },
+    "task_log": {
+      "path": "output/primary_market_forward_logs_v1_2_1/20260828.task.log",
+      "sha256": "41470c811153b3a02ccb65b9e5fcc7ebc0f85430d6ab5a356640dab8cfff045f"
+    }
+  },
+  "diagnosis": {
+    "classification": "INTERMITTENT_ENVIRONMENT_PROXY_CERTIFICATE_CHAIN_FAILURE_MOST_SUPPORTED",
+    "causal_certainty": "HIGH_FOR_ROUTE_CLASS_MEDIUM_FOR_PROXY_INTERNAL_CAUSE",
+    "wininet_proxy_enabled": true,
+    "wininet_proxy_server": "127.0.0.1:15732",
+    "observed_listener_process": "ViewTurboCore-x86_64-pc-windows-msvc",
+    "source_or_parser_permanent_failure_supported": false,
+    "tls_verification_disable_required": false,
+    "certificate_store_mutation_required": false
+  },
+  "repair": {
+    "runtime_patch_id": "PCF_IOPV_STRICT_TLS_ROUTE_V1_3",
+    "environment_route_first": true,
+    "strict_direct_fallback_enabled": true,
+    "fallback_trigger_only_on": "CERTIFICATE_VERIFICATION_FAILED",
+    "fallback_attempt_limit_per_request": 1,
+    "fallback_trust_environment_proxy": false,
+    "tls_verification_required_on_all_routes": true,
+    "insecure_tls_allowed": false,
+    "allowed_https_endpoints": [
+      "query.sse.com.cn:443",
+      "yunhq.sse.com.cn:32042"
+    ],
+    "raw_official_payload_mutated": false,
+    "normalized_transport_evidence_added": true,
+    "source_endpoints_changed": false,
+    "research_protocol_changed": false,
+    "model_or_candidate_changed": false,
+    "historical_signal_changed": false,
+    "maturity_thresholds_changed": false,
+    "data_purchase_budget_cny": 0
+  },
+  "daily_crosscheck_parser_alignment": {
+    "defect_observed_during_read_only_probe": true,
+    "observed_market_date": "2026-08-28",
+    "official_low_cny": 4.680,
+    "official_close_cny": 4.679,
+    "absolute_relation_gap_cny": 0.001,
+    "existing_frozen_maximum_ohl_price_difference_cny": 0.005,
+    "new_threshold_introduced": false,
+    "implementation": "V1.3 parser applies the existing five-mill tolerance and rejects larger gaps"
+  },
+  "validation": {
+    "unit_and_runtime_tests": {
+      "status": "PASS",
+      "passed": 19,
+      "failed": 0,
+      "files": [
+        "tests/test_sse_strict_transport_v1_3.py",
+        "tests/test_primary_market_runtime_patch_v1_3.py"
+      ]
+    },
+    "read_only_live_probe": {
+      "status": "PASS_ALL_THREE_PROVIDERS",
+      "persistence_performed": false,
+      "quality_day_created": false,
+      "probe_market_date": "2026-08-28",
+      "pcf_positive_nav": true,
+      "iopv_positive": true,
+      "daily_close_positive": true,
+      "observed_routes": [
+        "ENVIRONMENT_ROUTE_TLS_VERIFIED"
+      ],
+      "tls_verification_required": true
+    }
+  },
+  "deployment_contract": {
+    "effective_from": "2026-08-31T09:20:00+08:00",
+    "first_eligible_scheduled_window": "2026-08-31T09:25:00+08:00",
+    "late_backfill_enabled": false,
+    "rerun_2026_08_28_enabled": false,
+    "status_until_first_eligible_run": "DEPLOYED_AWAITING_FIRST_ELIGIBLE_WINDOW",
+    "windows_logout_reboot_persistence": "BLOCKED_PERMISSION_S4U_REGISTRATION_ACCESS_DENIED"
+  },
+  "research_only": true,
+  "position_mapping_enabled": false,
+  "order_generation_enabled": false,
+  "broker_connection_enabled": false,
+  "live_trading_enabled": false
+}

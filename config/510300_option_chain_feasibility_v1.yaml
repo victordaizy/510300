@@ -1,0 +1,131 @@
+protocol:
+  study_id: 510300_OPTION_CHAIN_FEASIBILITY_V1
+  version: 1.0.0
+  state: PREREGISTERED_OUTCOME_BLIND_DATA_AND_PREVALENCE_AUDIT
+  research_stage: DATA_FEASIBILITY_ONLY
+  target_underlying: 510300.SH
+  option_listing_date: '2019-12-23'
+  evaluation_start: '2019-12-23'
+  evaluation_end: '2026-08-14'
+  future_outcome_reads_allowed: false
+  prediction_model_allowed: false
+  portfolio_evaluation_allowed: false
+  option_trading_allowed: false
+  trade_asset_if_later_promoted:
+    - 510300.SH
+    - CASH_CNY
+
+inputs:
+  contract_master: data/raw/return_tail/options/510300_contract_master.parquet
+  option_eod: data/raw/return_tail/options/510300_tushare_eod.parquet
+  official_risk_indicators: data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+  trading_calendar: data/raw/return_tail/options/sse_trading_calendar.parquet
+  dividends: data/reference/510300_dividends.csv
+  contract_adjustment_ledger: data/reference/510300_option_contract_adjustment_ledger_v1.parquet
+  contract_adjustment_evidence: data/reference/510300_option_contract_adjustment_evidence_v1.json
+  vendor_entitlement_evidence: data/reference/510300_option_history_entitlement_evidence.json
+
+source_contract:
+  option_eod_provider: TUSHARE_PROXY_OPT_DAILY
+  option_eod_price_field: settlement
+  close_and_settlement_mixing_allowed: false
+  official_risk_provider: 上海证券交易所
+  official_risk_endpoint: https://query.sse.com.cn/commonQuery.do
+  official_risk_sql_id: SSE_ZQPZ_YSP_GGQQZSXT_YSHQ_QQFXZB_DATE_L
+  official_listing_url: https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250611_10781547.shtml
+  official_market_page: https://www.sse.com.cn/assortment/options/price/
+  official_adjustment_page: https://www.sse.com.cn/assortment/options/disclo/update/
+  official_historical_product_page: https://www.sseinfo.com/services/assortment/historical/
+  official_product_price_page: https://www.sseinfo.com/services/cpfwjg/
+  live_validation_sample_positions:
+    - 0.0
+    - 0.5
+    - 1.0
+  live_validation_numeric_tolerance: 1.0e-12
+  same_day_publication_time_proven: false
+  conservative_availability_lag_trading_days: 1
+  official_or_licensed_historical_eod_evidence_required: true
+  contract_adjustment_announcement_ledger_required: true
+
+outcome_blindness:
+  allowed_input_paths:
+    - data/raw/return_tail/options/510300_contract_master.parquet
+    - data/raw/return_tail/options/510300_tushare_eod.parquet
+    - data/raw/return_tail/options/510300_sse_risk_indicators.parquet
+    - data/raw/return_tail/options/sse_trading_calendar.parquet
+    - data/reference/510300_dividends.csv
+    - data/reference/510300_option_contract_adjustment_ledger_v1.parquet
+    - data/reference/510300_option_contract_adjustment_evidence_v1.json
+    - data/reference/510300_option_history_entitlement_evidence.json
+  forbidden_column_tokens:
+    - future_return
+    - forward_return
+    - return_10d
+    - future_drawdown
+    - target_label
+    - strategy_return
+    - portfolio_return
+    - pnl
+    - sharpe
+  required_future_data_reads: 0
+
+surface_geometry:
+  price_field: settlement
+  adjusted_contract_rows_preserved_for_audit: true
+  adjusted_contracts_allowed_in_surface_geometry: false
+  minimum_days_to_expiry: 7
+  maximum_days_to_expiry: 190
+  near_30d_minimum_dte: 20
+  near_30d_maximum_dte: 45
+  near_60d_minimum_dte: 46
+  near_60d_maximum_dte: 90
+  minimum_valid_maturities_per_day: 2
+  minimum_matched_call_put_strikes_per_maturity: 3
+  minimum_otm_puts_per_maturity: 2
+  minimum_otm_calls_per_maturity: 2
+  maximum_atm_moneyness_gap: 0.05
+  target_put_absolute_delta: 0.25
+  minimum_positive_iv_ratio: 0.90
+  maximum_put_call_parity_forward_dispersion_ratio: 0.03
+  monotonicity_price_tolerance: 0.002
+  convexity_slope_tolerance: 0.05
+  maximum_obvious_static_arbitrage_violation_ratio: 0.05
+  price_upper_bound_tolerance_ratio: 0.02
+  static_arbitrage_repair_method: NONE_AUDIT_ONLY
+
+hard_gates:
+  minimum_valid_surface_day_ratio: 0.90
+  minimum_valid_maturities_per_day: 2
+  minimum_days_to_expiry: 7
+  contract_adjustment_ledger_complete: true
+  maximum_duplicate_date_contract_rows: 0
+  complete_point_in_time_option_chain_required: true
+  official_risk_history_revalidation_required: true
+  future_data_reads: 0
+
+terminal_states:
+  pass: PASS_OPTION_CHAIN_DATA_FEASIBILITY_ONLY
+  blocked: BLOCKED_NO_COMPLETE_POINT_IN_TIME_OPTION_CHAIN
+
+governance:
+  if_blocked_start_prediction_model: false
+  if_blocked_run_portfolio: false
+  if_blocked_rescue_with_other_underlying_options: false
+  if_blocked_rescue_with_if: false
+  if_blocked_rescue_with_macro: false
+  if_blocked_rescue_with_price_trend: false
+  backup_candidate_only_after_block: 510300_PIT_EARNINGS_INFORMATION_DIFFUSION_10D_RISK_V1
+  position_output: ABSTAIN_POSITION_UNSET
+  existing_holdings_override_allowed: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_authorized: false
+
+paths:
+  manifest: config/510300_option_chain_feasibility_v1_manifest.json
+  result_json: reports/data_quality/510300_option_chain_feasibility_v1.json
+  result_markdown: reports/data_quality/510300_OPTION_CHAIN_FEASIBILITY_V1.md
+  daily_audit: reports/data_quality/510300_option_chain_feasibility_v1_daily.parquet
+  maturity_audit: reports/data_quality/510300_option_chain_feasibility_v1_maturities.parquet
+  official_source_receipt: reports/data_quality/510300_option_chain_feasibility_v1_official_source_receipt.json
+

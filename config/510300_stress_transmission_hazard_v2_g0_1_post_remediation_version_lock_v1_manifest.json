@@ -1,0 +1,4221 @@
+{
+  "authorization": {
+    "b1_or_b2_model_fit_allowed": false,
+    "b3_allowed": false,
+    "broker_paper_shadow_position_or_order_allowed": false,
+    "formal_g2_allowed": false,
+    "purpose": "LOCK_POST_REMEDIATION_VERSION_AND_REPLAY_G1_ONLY",
+    "return_or_portfolio_read_allowed": false
+  },
+  "config_file": "config/510300_stress_transmission_hazard_v2_g0_1_post_remediation_version_lock_v1.yaml",
+  "config_sha256": "dabf0712d965072071858e48082414cc5f70858752054ff011c17e7721740234",
+  "data_files": [
+    {
+      "bytes": 297424,
+      "column_count": 12,
+      "columns": [
+        "notice_date",
+        "published_at",
+        "title",
+        "announcement_number",
+        "source_url",
+        "raw_sha256",
+        "has_seven_day_row",
+        "seven_day_operation_amount_100m",
+        "seven_day_rate_percent",
+        "parse_status",
+        "list_title",
+        "raw_path"
+      ],
+      "contract_sources": [
+        "mft.inputs.reverse_repo_7d_policy_rate"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_published_rates_anchor_20150105_20260814.parquet",
+      "persisted_semantic_sha256": "8e952b5ec059330e4880f890af1722d80229aa8aef30886f52de8600ca711ab1",
+      "row_count": 2104,
+      "sha256": "33d8f1cd8fb10269aefd89dd7f5f0978e7b293bc9a1e44df7b180f67b59bc1f0"
+    },
+    {
+      "bytes": 55355,
+      "column_count": 12,
+      "columns": [
+        "date",
+        "dr007",
+        "ts_code",
+        "repo_maturity",
+        "provider_value_field",
+        "value_semantics",
+        "source_identity",
+        "source_url",
+        "retrieved_at",
+        "availability_rule",
+        "raw_response_set_sha256",
+        "missing_value_rule"
+      ],
+      "contract_sources": [
+        "mft.inputs.dr007"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_daily_20150105_20260814.parquet",
+      "persisted_semantic_sha256": "6bf467232b830ce93129204a76065f2a91699ab739238013dca938f52f89b9b6",
+      "row_count": 2905,
+      "sha256": "710268140f0ea4dae28520c9497e1b0f98877a4af7f27191aa85e8e8b3354957"
+    },
+    {
+      "bytes": 139181,
+      "column_count": 6,
+      "columns": [
+        "membership_date",
+        "index_code",
+        "symbol",
+        "state_transition_session",
+        "state_cycle_id",
+        "source_contract"
+      ],
+      "contract_sources": [
+        "mft.inputs.point_in_time_membership",
+        "remediation.inputs.point_in_time_membership"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "persisted_semantic_sha256": "0a9bc28eeae322247e8bfb8743a879378ddef55ce64d2c5557a902aa1e893ad1",
+      "row_count": 846900,
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    },
+    {
+      "bytes": 18973979,
+      "column_count": 22,
+      "columns": [
+        "date",
+        "symbol",
+        "previous_unadjusted_close",
+        "unadjusted_close",
+        "source_observed",
+        "supplier_conflict",
+        "official_suspension",
+        "suspension_evidence_id",
+        "corporate_action_status",
+        "corporate_action_evidence_id",
+        "cash_distribution_per_pre_event_share",
+        "post_to_pre_share_ratio",
+        "subscription_cash_outflow_per_pre_event_share",
+        "constituent_return_state",
+        "daily_total_shareholder_return",
+        "return_is_usable",
+        "state_reason",
+        "daily_source",
+        "previous_observed_date",
+        "daily_pre_close",
+        "action_reference_gap_cny",
+        "action_resolution_reason"
+      ],
+      "contract_sources": [
+        "mft.inputs.classified_constituent_returns",
+        "remediation.inputs.classified_constituent_returns"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/classified_constituent_returns_20141103_20260814.parquet",
+      "persisted_semantic_sha256": "6c9f5400bc9fb6636108f969a5a274a1f9970ab04ae500e23b9a17eb144cf4a0",
+      "row_count": 1347235,
+      "sha256": "3a03e9064a94ca2ce928e276f48550c3c1cdec2971beee2c8bd57d342c62b5d0"
+    },
+    {
+      "bytes": 207278,
+      "column_count": 23,
+      "columns": [
+        "date",
+        "symbol",
+        "official_interval_matched",
+        "start_at",
+        "effective_resume_at",
+        "source_record_id",
+        "source_kind",
+        "source_url",
+        "source_sha256",
+        "stop_reason",
+        "raw_stop_time",
+        "raw_record_type",
+        "official_start_at",
+        "official_resume_at",
+        "dividend_action_candidate_on_date",
+        "previous_valid_observed_date",
+        "previous_valid_unadjusted_close",
+        "previous_valid_close_available",
+        "promotable_to_official_suspension",
+        "block_reason",
+        "target_scope",
+        "event_or_label_used_for_selection",
+        "missing_return_zero_filled"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.target_evidence"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/all_missing_member_day_official_evidence.parquet",
+      "persisted_semantic_sha256": "23c96e273f57a551c4706ea19053ab63f1034c626891c6b079e6b780f603e88e",
+      "row_count": 15340,
+      "sha256": "b54589586bba4d3a7d0209d997c7c8f7b2c00c31f93f6c13b1e2b2aa5dc77649"
+    },
+    {
+      "bytes": 19496231,
+      "column_count": 22,
+      "columns": [
+        "date",
+        "symbol",
+        "previous_unadjusted_close",
+        "unadjusted_close",
+        "source_observed",
+        "supplier_conflict",
+        "official_suspension",
+        "suspension_evidence_id",
+        "corporate_action_status",
+        "corporate_action_evidence_id",
+        "cash_distribution_per_pre_event_share",
+        "post_to_pre_share_ratio",
+        "subscription_cash_outflow_per_pre_event_share",
+        "daily_source",
+        "previous_observed_date",
+        "daily_pre_close",
+        "action_reference_gap_cny",
+        "action_resolution_reason",
+        "constituent_return_state",
+        "daily_total_shareholder_return",
+        "return_is_usable",
+        "state_reason"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.remediated_classified_returns"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/classified_constituent_returns_remediated.parquet",
+      "persisted_semantic_sha256": "46d35c73297290ad459147357afd76d6fc694eb1e52f62bb91cfa5d1708d72b7",
+      "row_count": 1347235,
+      "sha256": "2007ecbc926f11186c9e51d33ab4722731d5f9584300d9d510bdd91c4652faf7"
+    },
+    {
+      "bytes": 34472,
+      "column_count": 10,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "usable_member_count",
+        "usable_member_ratio",
+        "member_coverage_passed",
+        "usable_weight_ratio",
+        "weight_coverage_passed",
+        "weight_coverage_state",
+        "aggregation_state",
+        "missing_member_count"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.four_state_daily_coverage"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/four_state_daily_coverage.parquet",
+      "persisted_semantic_sha256": "0c33587f569cde23484990f04b0ff5acdf1f5312514a3308438f864d513c5706",
+      "row_count": 2823,
+      "sha256": "030f6aac3852656b86c6a01b4931d8e1b671d80061fb4691aad6e2621291451e"
+    },
+    {
+      "bytes": 8322,
+      "column_count": 10,
+      "columns": [
+        "event_id",
+        "total_positive_origin_count",
+        "b2_eligible_positive_origin_count",
+        "b2_eligible_positive_origin_ratio",
+        "b2_identifiable_event",
+        "b2_positive_model_weight_sum",
+        "b3_eligible_positive_origin_count",
+        "b3_eligible_positive_origin_ratio",
+        "b3_identifiable_event",
+        "b3_positive_model_weight_sum"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.g1_event_eligibility"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/g1_event_eligibility.parquet",
+      "persisted_semantic_sha256": "da113f5c8aa4574285b20f1ebe6cd1f19ad6a3d67470c3758ff59c0e0b17ba8a",
+      "row_count": 58,
+      "sha256": "4d4b7b0467939d22ba1679fc7564009d178fd7ad0c58f00fb643423cbca7dc73"
+    },
+    {
+      "bytes": 272566,
+      "column_count": 30,
+      "columns": [
+        "origin_date",
+        "entry_date",
+        "horizon_end_date",
+        "bad10",
+        "event_id",
+        "sample_group_id",
+        "bootstrap_event_block_id",
+        "calendar_year_block_id",
+        "training_weight",
+        "split_assignment",
+        "b1_realized_vol20_risk_percentile",
+        "b1_drawdown20_risk_percentile",
+        "b1_downside_return5_risk_percentile",
+        "B1_state",
+        "F",
+        "M",
+        "T",
+        "T_x_F",
+        "T_x_M",
+        "B2_feature_state",
+        "B3_feature_state",
+        "b1_eligible",
+        "b2_vs_b1_eligible",
+        "b3_vs_b2_eligible",
+        "b2_vs_b1_model_weight",
+        "b3_vs_b2_model_weight",
+        "b2_vs_b1_state",
+        "b2_vs_b1_no_view_reason",
+        "b3_vs_b2_state",
+        "b3_vs_b2_no_view_reason"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.g1_sample_eligibility"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/g1_sample_eligibility.parquet",
+      "persisted_semantic_sha256": "8b537d4259e614e4471b965ddff9dda07ed1a7cf36536f47d88cd706c2f3b24f",
+      "row_count": 2813,
+      "sha256": "ba0b9ded2ef60e517a673863bf30da717ad0c2819dca07ce9d36915cefe76e25"
+    },
+    {
+      "bytes": 395102,
+      "column_count": 30,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "return20_scoreable_member_count",
+        "return20_coverage_ratio",
+        "tail_scoreable_member_count",
+        "tail_coverage_ratio",
+        "comovement_scoreable_member_ratio",
+        "breadth20",
+        "leadership_gap20",
+        "comovement20",
+        "breadth_drop5",
+        "tail_diffusion5",
+        "comovement_accel5",
+        "f1_breadth_risk_percentile",
+        "f2_leadership_risk_percentile",
+        "f3_comovement_risk_percentile",
+        "F",
+        "t1_breadth_drop_risk_percentile",
+        "t2_tail_diffusion_risk_percentile",
+        "t3_comovement_accel_risk_percentile",
+        "internal_formula_coverage_state",
+        "four_state_daily_coverage_state",
+        "internal_feature_state",
+        "f1_breadth_risk_percentile_before_no_view_gate",
+        "f2_leadership_risk_percentile_before_no_view_gate",
+        "f3_comovement_risk_percentile_before_no_view_gate",
+        "F_before_no_view_gate",
+        "t1_breadth_drop_risk_percentile_before_no_view_gate",
+        "t2_tail_diffusion_risk_percentile_before_no_view_gate",
+        "t3_comovement_accel_risk_percentile_before_no_view_gate"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.internal_features"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/internal_F_T_features.parquet",
+      "persisted_semantic_sha256": "2175f0e2e4b3b0c75125b8976b406b63569461989e34ed5d2172f4fa3ef45d1e",
+      "row_count": 2823,
+      "sha256": "aecba7fc8b849d41a65eba68e5cea3c735c9f0945155823f6d978b0c8e0b7cf0"
+    },
+    {
+      "bytes": 36084,
+      "column_count": 9,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "newly_entered_member_count",
+        "members_with_full_20d_public_price_history",
+        "members_without_full_20d_public_price_history",
+        "members_with_at_least_15_of_20_pit_member_days",
+        "members_below_15_of_20_pit_member_days",
+        "pre_membership_public_price_history_allowed",
+        "nonmember_days_count_as_comovement_history"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.member_history_ledger"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/member_history_ledger.parquet",
+      "persisted_semantic_sha256": "e5ab7ebda6a71fd0e454ea7722f60338dae88a524a9eac6355570c61afd0c154",
+      "row_count": 2823,
+      "sha256": "c5f8a5ca7ef07c7249f655287861d128f0fcf0daa40154e176f99a81d7dd3f29"
+    },
+    {
+      "bytes": 45142,
+      "column_count": 17,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "return20_scoreable_member_count",
+        "return20_coverage_ratio",
+        "tail_scoreable_member_count",
+        "tail_coverage_ratio",
+        "comovement_scoreable_member_ratio",
+        "four_state_daily_coverage_state",
+        "internal_formula_coverage_state",
+        "internal_feature_state",
+        "F_state",
+        "M_state",
+        "T_state",
+        "B2_feature_state",
+        "B3_feature_state",
+        "MODEL_STATE",
+        "NO_VIEW_REASON"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.mft_coverage"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/mft_coverage.parquet",
+      "persisted_semantic_sha256": "56349899b6d0f96632df81d4f0bd7d680b531f8bc2d3a9f87f5032136575aff0",
+      "row_count": 2823,
+      "sha256": "9fb0f911373ef420b3e29060564c0f17a060c7a66beaf75f479794cb475cf373"
+    },
+    {
+      "bytes": 888010,
+      "column_count": 67,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "return20_scoreable_member_count",
+        "return20_coverage_ratio",
+        "tail_scoreable_member_count",
+        "tail_coverage_ratio",
+        "comovement_scoreable_member_ratio",
+        "breadth20",
+        "leadership_gap20",
+        "comovement20",
+        "breadth_drop5",
+        "tail_diffusion5",
+        "comovement_accel5",
+        "f1_breadth_risk_percentile",
+        "f2_leadership_risk_percentile",
+        "f3_comovement_risk_percentile",
+        "F",
+        "t1_breadth_drop_risk_percentile",
+        "t2_tail_diffusion_risk_percentile",
+        "t3_comovement_accel_risk_percentile",
+        "internal_formula_coverage_state",
+        "four_state_daily_coverage_state",
+        "internal_feature_state",
+        "f1_breadth_risk_percentile_before_no_view_gate",
+        "f2_leadership_risk_percentile_before_no_view_gate",
+        "f3_comovement_risk_percentile_before_no_view_gate",
+        "F_before_no_view_gate",
+        "t1_breadth_drop_risk_percentile_before_no_view_gate",
+        "t2_tail_diffusion_risk_percentile_before_no_view_gate",
+        "t3_comovement_accel_risk_percentile_before_no_view_gate",
+        "csi300_earnings_yield",
+        "csi300_earnings_yield_source_observation_date",
+        "csi300_earnings_yield_source_available_at",
+        "china_10y_yield",
+        "china_10y_yield_source_observation_date",
+        "china_10y_yield_source_available_at",
+        "dr007",
+        "dr007_source_observation_date",
+        "dr007_source_available_at",
+        "reverse_repo_7d_rate",
+        "reverse_repo_7d_rate_source_observation_date",
+        "reverse_repo_7d_rate_source_available_at",
+        "ey_rate_buffer",
+        "funding_spread",
+        "funding_spread_5d_mean",
+        "funding_spread_20d_mean",
+        "funding_shock5",
+        "m1_ey_rate_buffer_risk_percentile",
+        "m2_funding_spread_risk_percentile",
+        "M",
+        "t4_funding_shock_risk_percentile",
+        "macro_state",
+        "newly_entered_member_count",
+        "members_with_full_20d_public_price_history",
+        "members_without_full_20d_public_price_history",
+        "members_with_at_least_15_of_20_pit_member_days",
+        "members_below_15_of_20_pit_member_days",
+        "pre_membership_public_price_history_allowed",
+        "nonmember_days_count_as_comovement_history",
+        "T",
+        "F_state",
+        "M_state",
+        "T_state",
+        "B2_feature_state",
+        "B3_feature_state",
+        "MODEL_STATE",
+        "NO_VIEW_REASON"
+      ],
+      "contract_sources": [
+        "remediation_build_receipt.outputs.mft_feature_panel"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/mft_feature_panel.parquet",
+      "persisted_semantic_sha256": "889ea978de0419cc3ed4da907a7024bd6c92facfd09af588f320f5ace99f9fb4",
+      "row_count": 2823,
+      "sha256": "6d8221a45771514fcf70605a1f7e996ff10410cb243e624dbd6aab409100d9d3"
+    },
+    {
+      "bytes": 787941,
+      "column_count": 67,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "return20_scoreable_member_count",
+        "return20_coverage_ratio",
+        "tail_scoreable_member_count",
+        "tail_coverage_ratio",
+        "comovement_scoreable_member_ratio",
+        "breadth20",
+        "leadership_gap20",
+        "comovement20",
+        "breadth_drop5",
+        "tail_diffusion5",
+        "comovement_accel5",
+        "f1_breadth_risk_percentile",
+        "f2_leadership_risk_percentile",
+        "f3_comovement_risk_percentile",
+        "F",
+        "t1_breadth_drop_risk_percentile",
+        "t2_tail_diffusion_risk_percentile",
+        "t3_comovement_accel_risk_percentile",
+        "internal_formula_coverage_state",
+        "four_state_daily_coverage_state",
+        "internal_feature_state",
+        "f1_breadth_risk_percentile_before_no_view_gate",
+        "f2_leadership_risk_percentile_before_no_view_gate",
+        "f3_comovement_risk_percentile_before_no_view_gate",
+        "F_before_no_view_gate",
+        "t1_breadth_drop_risk_percentile_before_no_view_gate",
+        "t2_tail_diffusion_risk_percentile_before_no_view_gate",
+        "t3_comovement_accel_risk_percentile_before_no_view_gate",
+        "csi300_earnings_yield",
+        "csi300_earnings_yield_source_observation_date",
+        "csi300_earnings_yield_source_available_at",
+        "china_10y_yield",
+        "china_10y_yield_source_observation_date",
+        "china_10y_yield_source_available_at",
+        "dr007",
+        "dr007_source_observation_date",
+        "dr007_source_available_at",
+        "reverse_repo_7d_rate",
+        "reverse_repo_7d_rate_source_observation_date",
+        "reverse_repo_7d_rate_source_available_at",
+        "ey_rate_buffer",
+        "funding_spread",
+        "funding_spread_5d_mean",
+        "funding_spread_20d_mean",
+        "funding_shock5",
+        "m1_ey_rate_buffer_risk_percentile",
+        "m2_funding_spread_risk_percentile",
+        "M",
+        "t4_funding_shock_risk_percentile",
+        "macro_state",
+        "newly_entered_member_count",
+        "members_with_full_20d_public_price_history",
+        "members_without_full_20d_public_price_history",
+        "members_with_at_least_15_of_20_pit_member_days",
+        "members_below_15_of_20_pit_member_days",
+        "pre_membership_public_price_history_allowed",
+        "nonmember_days_count_as_comovement_history",
+        "T",
+        "F_state",
+        "M_state",
+        "T_state",
+        "B2_feature_state",
+        "B3_feature_state",
+        "MODEL_STATE",
+        "NO_VIEW_REASON"
+      ],
+      "contract_sources": [
+        "g1.inputs.mft_feature_panel"
+      ],
+      "format": "PARQUET",
+      "path": "data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/mft_feature_panel_20150105_20260814.parquet",
+      "persisted_semantic_sha256": "e7fb1f6a076bb6de320348d519688bb0e79dcee5d8f1956b136faf75e92e62e2",
+      "row_count": 2823,
+      "sha256": "5f8128031ee8c7f8e5699e74aa9c52a9047ed29a4f9b187486fc4ba53ac7deae"
+    },
+    {
+      "bytes": 370698,
+      "column_count": 15,
+      "columns": [
+        "ts_code",
+        "end_date",
+        "ann_date",
+        "div_proc",
+        "stk_div",
+        "stk_bo_rate",
+        "stk_co_rate",
+        "cash_div",
+        "cash_div_tax",
+        "record_date",
+        "ex_date",
+        "pay_date",
+        "div_listdate",
+        "imp_ann_date",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "remediation.inputs.dividend_action_candidates"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1/dividend_action_candidates.parquet",
+      "persisted_semantic_sha256": "a69c1e2cb4e0720bd16bdf67181722f514004a0737ae48a2c32a13d46d700685",
+      "row_count": 40192,
+      "sha256": "815154766465b481379e9e2f325989cbba3ef042b6a47c7ce13d591c9572f677"
+    },
+    {
+      "bytes": 770779,
+      "column_count": 16,
+      "columns": [
+        "exchange",
+        "symbol",
+        "start_at",
+        "resume_at",
+        "open_ended",
+        "full_day_scope",
+        "stop_reason",
+        "raw_start",
+        "raw_resume",
+        "raw_stop_time",
+        "raw_record_type",
+        "source_kind",
+        "source_url",
+        "source_sha256",
+        "source_record_id",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "collection_receipt.official_intervals"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/normalized_official_suspension_intervals.parquet",
+      "persisted_semantic_sha256": "83f148f6e0f5950795485f17100e68d53ed15612e462ad2c0b7a45734583cda0",
+      "row_count": 14205,
+      "sha256": "cd96fba924756653c541acac9e0d5001215b803a1914e9d8afbcf87ed11b1eae"
+    },
+    {
+      "bytes": 38273,
+      "column_count": 5,
+      "columns": [
+        "path",
+        "bytes",
+        "sha256",
+        "source_url",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/raw_file_index.parquet",
+      "persisted_semantic_sha256": "9f5b3407a1e47a7ed1e8528d1d0e2b8a03f0b6356c8245462d997727869a23fe",
+      "row_count": 298,
+      "sha256": "18f917c4c948a9300b2bbdd8bfec68d53951eccd05afa408d58b18a9d52e20db"
+    },
+    {
+      "bytes": 104289,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2014_page_0001.json",
+      "sha256": "f30890fa3bf8ec04e568e7d0c1b748352258bb563a75bde556f7554c44ff076d"
+    },
+    {
+      "bytes": 460504,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2015_page_0001.json",
+      "sha256": "ad4fa3f8a03e01eaff437fac2b5adec9ab9dd682e7369721923bc65b822ea932"
+    },
+    {
+      "bytes": 389618,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2015_page_0002.json",
+      "sha256": "8fd82536527066b21f9f500392f5267038cf4814cf0cbb1ccf4c921ebb4f89cb"
+    },
+    {
+      "bytes": 455764,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2016_page_0001.json",
+      "sha256": "15454c7a0667e9294188b496f8aaaa3fe56f6be6ca498d47dbc2d4384bdc2535"
+    },
+    {
+      "bytes": 69016,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2016_page_0002.json",
+      "sha256": "ab3130a151dc44286b140f62fa6a4434a6e61060e5fc77999c5516b1e0cb120a"
+    },
+    {
+      "bytes": 417979,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2017_page_0001.json",
+      "sha256": "3ccebbe76b444053490669e48c1eb418bdaaa68ad67ff2002f9e52be8d6c4fe3"
+    },
+    {
+      "bytes": 261679,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2018_page_0001.json",
+      "sha256": "9e8f97958dc06062bc2d13b1c2752a220185821abd728c06710e2fb625944fcc"
+    },
+    {
+      "bytes": 159237,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2019_page_0001.json",
+      "sha256": "299be26627bae63c39f1ef9b4a238c16915f8b04c409f91187ef85e4355691f6"
+    },
+    {
+      "bytes": 213083,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2020_page_0001.json",
+      "sha256": "03b9081c01dda0f0d1f79db744cf219e8e520c7bfff1ed11d6eb417547455173"
+    },
+    {
+      "bytes": 234931,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2021_page_0001.json",
+      "sha256": "0aae43a857078c221a39ffdbf0bd5d4bc482e82c4f001ca3f1a7d11c43f4f49e"
+    },
+    {
+      "bytes": 203063,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2022_page_0001.json",
+      "sha256": "becb2b65e0f2a8f2300610e9b49f69f6bf27ec1dd310a38fa5de4509f62459ce"
+    },
+    {
+      "bytes": 194927,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2023_page_0001.json",
+      "sha256": "e2598f335a104ef287bc79036be8450991313cf42dbb43e33b3ed1a012b3a648"
+    },
+    {
+      "bytes": 285231,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2024_page_0001.json",
+      "sha256": "7de27195387ad41ec0071e51e49b8bd9444fef1fa64c757f9f371ba8e7338542"
+    },
+    {
+      "bytes": 314601,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2025_page_0001.json",
+      "sha256": "9696ea624e418c156be957ecac22bdf7b3d24f42eec6a36bd0794540fadd6545"
+    },
+    {
+      "bytes": 194727,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "JSON",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/sse/2026_page_0001.json",
+      "sha256": "6ccb21e2781f7a06d653ae63035fa0c43657058dee5f399592fcefaa635224d5"
+    },
+    {
+      "bytes": 121971,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_index.html",
+      "sha256": "f511c2d8a08aad522ef86a8ab9c330323c1f3f89a1d960c109b8c8d763672d34"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2014-12_t20150106_535926.html",
+      "sha256": "cf782c0698298a63eeb9ec6ee7550c40972b6e2012425fea60b0256e913e57bb"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-01_t20150204_535927.html",
+      "sha256": "8dafa44b052642f0872181645f9c1585c1b0cf635ebcfcb5ab8e9544be93199d"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-02_t20150303_535928.html",
+      "sha256": "69eacc73cb184db153f3ae4c3f5ff14d2144f7665dfc0642f069640692ff3d7c"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-03_t20150403_535929.html",
+      "sha256": "fccc3e0b6c7939357e171e5e82c3d595d685b917cc7d6342f53fd81d6f1ea880"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-04_t20150507_535930.html",
+      "sha256": "468b819e7ca6dc1e70c993d20d3fc9875c4fff58aadffbbd76378ba52747e6d6"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-05_t20150603_535931.html",
+      "sha256": "5aa197dbc5e00f30e7062cb335418b4b5a5f7b0482c6ccfdb5e15d3e06ea33b0"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-06_t20150703_535932.html",
+      "sha256": "990a09e1812cd891cf2936b4775c69fdb11316245ff95278cd2e51aee3514123"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-07_t20150805_535933.html",
+      "sha256": "1ca40aa0730e4c239db672b85f9327b32d94bebd553fbd678d98a9edb8240f89"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-08_t20150907_535934.html",
+      "sha256": "2461f7533f9f92fba637857fbd376305109a09b5a6b7aa3435658cd2471a8aba"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-09_t20151012_535935.html",
+      "sha256": "8d82c43df7b138362f2887810ef0dd5c77c7522a718006abc2e8a303be60a7d1"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-10_t20151104_535936.html",
+      "sha256": "c28b4eb58dbb50cb42dddee11c132ff2ff6f4f759fddf12820ec7d0351fda3af"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-11_t20151202_535937.html",
+      "sha256": "f283d73da12b8d2ce2507064f8cfac15a531f9b11f9ba7780799a5b0053166f4"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2015-12_t20160105_535938.html",
+      "sha256": "3cd9af459867c97be93641b135d21befcee50c959e11e4d3823f1b8c246670ca"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-01_t20160202_535939.html",
+      "sha256": "03e371e3fbb1be0bc17b8b8cebde87f9b15bf3bb954722fe0f4c4d48c2ca2686"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-02_t20160302_535940.html",
+      "sha256": "d571e040344836bf6b2145f08b8c95c6277720285e0a5981a8ffc8eb9908ae5a"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-03_t20160408_535941.html",
+      "sha256": "50b61743a03cdbea073cc553753403c3784ee4df5ca3385c6b935c811167bc14"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-04_t20160505_535942.html",
+      "sha256": "8359e0aac5311ec96083bb8557a986ee5470b00f7dddb5c6cc9a0f43f477687f"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-05_t20160606_535943.html",
+      "sha256": "74a257c222e4918dfedc86a17794241a52f9ae7bdd2675ba1085d3fbcba483f9"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-06_t20160704_535944.html",
+      "sha256": "e84d8e1cb3fb7a8f6e4bdf0ffa1b4f08a8c0e5e3e63aad94fd4178f7327e545e"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-07_t20160805_535945.html",
+      "sha256": "e09f2b044fe8cc1d6e6336d0eb84f7ba7eba6479aefa65461245870acb28f7f3"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-08_t20160906_535946.html",
+      "sha256": "3ccf1767b06af213b515fa010a813262f68347f345d82c97d743d9a9a2b2f715"
+    },
+    {
+      "bytes": 21767,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-09_t20161013_535947.html",
+      "sha256": "3de4577672434633cf49a53a9e9163b3df10e5230f78608a2eb4babb549ab181"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-10_t20161104_535948.html",
+      "sha256": "bba5cccd873303408d59d6ac0304cc0d1049885c44657c01ef0e96ad1cec535c"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-11_t20161205_535949.html",
+      "sha256": "451b1be861d673e9c1987a405960a1b6e02e6743911f2f6f71bb05588e8d4b70"
+    },
+    {
+      "bytes": 21761,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2016-12_t20170106_535950.html",
+      "sha256": "623eef6d631240d11a720cfd981c1fa4b068d5e30b296c64e80b56775f175976"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-01_t20170207_535951.html",
+      "sha256": "6d2e9f2cbfacc77f93f24fa52c4290da6d2b86c01544bdddfbac26bb23826309"
+    },
+    {
+      "bytes": 21523,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-02_t20170306_535952.html",
+      "sha256": "e84d697cc8fc5c2779a4b3832172748bafafc1b420eb1143d4b606758678664e"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-03_t20170407_535953.html",
+      "sha256": "aa1081755cf6222ff73bebfa2ef3593d9258c2a3b1801f0fdc4ff27ee1e3b7f8"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-04_t20170504_535954.html",
+      "sha256": "cc12c594acddf542eee67b3d12164da79b1ad4908b7c526efc79dc4e39f7069c"
+    },
+    {
+      "bytes": 21523,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-05_t20170605_535955.html",
+      "sha256": "f3ac7bd9d12b70f8cdb14a6af2cf459328d828da49a131c47093b5eca8814702"
+    },
+    {
+      "bytes": 21522,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-06_t20170706_535956.html",
+      "sha256": "7a356280cd0a4c7184fa4f51c80a2ed2fc624dd4099c1e1784bba72d0598ad53"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-07_t20170801_535957.html",
+      "sha256": "c26d5d9b03d6a839f3ce0a91d0b6fb777e43cfa0bf57021e47a9ccbf11052ba1"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-08_t20170904_535958.html",
+      "sha256": "d35ab28ba15c382229895b8778dba4b3a634ab77b6c72cae53ee1b85d8988775"
+    },
+    {
+      "bytes": 21523,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-09_t20171011_535959.html",
+      "sha256": "7178c7522ab52f8c4f0572ff61f6fd075cc379641bf00d4e032e8d3ee0e39782"
+    },
+    {
+      "bytes": 21523,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-10_t20171102_535960.html",
+      "sha256": "ad104535c02f641b296c465613656cd84bfe6a4c3fda9802e64da371f9261167"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-11_t20171205_535961.html",
+      "sha256": "9d98b836ade41f50a977efa5fc156e73e6c66579bfca44d7ca114a87b4622ba6"
+    },
+    {
+      "bytes": 21517,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2017-12_t20180104_535962.html",
+      "sha256": "00edbd00d2ea8c3858ee18234d8911d0f50141ffd4ae4276336eb1fe6a09e621"
+    },
+    {
+      "bytes": 19460,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-01_t20180222_535963.html",
+      "sha256": "d256e931fa5532f5c772040aa7e3baab027420ed319feb7a69dc7ca6d91f02d3"
+    },
+    {
+      "bytes": 19460,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-02_t20180305_535964.html",
+      "sha256": "84b829214c00ff75117028a1998869dffa71db7677e3a4f7c83e9ab279594641"
+    },
+    {
+      "bytes": 18468,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-03_t20180404_535965.html",
+      "sha256": "298071e537012d0a145c63d5c4d4225d80ab704f339a061c03a9bb1c8d197197"
+    },
+    {
+      "bytes": 21850,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-04_t20180521_536592.html",
+      "sha256": "13e2327154df951d0195ffa388f07b23c5575ec8512b701c2c0d8c0674156692"
+    },
+    {
+      "bytes": 21220,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-05_t20180606_539196.html",
+      "sha256": "df441b99fa5a24140e8c5514bfdab2dc59be79ad128ebb740ffbd17eccbdf8c0"
+    },
+    {
+      "bytes": 21096,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-06_t20180706_553515.html",
+      "sha256": "a652af65de5e8db470f9f8da3c8821d4c354222b78e8b84948ac5f711c6a4c63"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-07_t20180807_554044.html",
+      "sha256": "84dd67d78054e12457c051459e51454da37675f9bec8acad1b74a49664ff6e68"
+    },
+    {
+      "bytes": 21657,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-08_t20180905_554584.html",
+      "sha256": "1e20b0b257021d93cd173c3bc2243dfe6235f4487de95ce4e10b9972e9c0f61a"
+    },
+    {
+      "bytes": 20584,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-09_t20181010_555623.html",
+      "sha256": "9624bc7bd0e82dc676668c77c2c5d515bdacf75b78857b7217f17adeaea9f22c"
+    },
+    {
+      "bytes": 20886,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-10_t20181106_557377.html",
+      "sha256": "99afb208151b40e08fbbe529943d849836707fc447234ecfe7666ec6142422b7"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-11_t20181205_563381.html",
+      "sha256": "b05aecbcac3f08a054e454b296e41073d405c965b7490365b14898a976062970"
+    },
+    {
+      "bytes": 21595,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2018-12_t20190107_563940.html",
+      "sha256": "d4de368e346ff5a84120e303bc0ea27ed3069dbc5034b97d92700d0a13a49f56"
+    },
+    {
+      "bytes": 21113,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-01_t20190213_564700.html",
+      "sha256": "72a774b5be43476d3a00dc52497ac2940e223afde090efcd9e2f45d6c61db842"
+    },
+    {
+      "bytes": 20805,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-02_t20190308_565390.html",
+      "sha256": "86eeb15944584cd602424e6db4550d0a71e3f42d1b9674b5ba1295589bf046e3"
+    },
+    {
+      "bytes": 20999,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-03_t20190403_566022.html",
+      "sha256": "586b59f3ab3cc88fc58340571509f0a80dfc8c0246d7d8baf1146e09587a733b"
+    },
+    {
+      "bytes": 21731,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-04_t20190508_567016.html",
+      "sha256": "ace79f39f6691843cc27743c3b91b98feb6d8172324536ea154484d3477efd50"
+    },
+    {
+      "bytes": 21065,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-05_t20190604_567592.html",
+      "sha256": "e5629cbfd15abffb958fa5b3fccb77845dbf6ebf7c848399c6c9071de0870965"
+    },
+    {
+      "bytes": 20964,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-06_t20190708_568518.html",
+      "sha256": "ce92dfaba20fe52f4a296d8cf9c7d8066633622bf7ab1898f7ee96b1d0b7aabb"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-07_t20190801_569166.html",
+      "sha256": "ffa16b3a8a71d2e13f7e95b0572e76613fd1f00c6b4362b1448b2e8a3288ac91"
+    },
+    {
+      "bytes": 21652,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-08_t20190903_570379.html",
+      "sha256": "e2930d39bdd89948c9396b46aa4d4bc533bd1fd8e4df581c67db80b451fa4f15"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-09_t20191008_571133.html",
+      "sha256": "345acc577a9e5d922f4b58d3377f297b8d130bc3febb55a1c5b9a814191493b6"
+    },
+    {
+      "bytes": 25948,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-10_t20191107_571814.html",
+      "sha256": "ff0105e5f62bc80a0efb90c0c0ec1a2b97a3adf597674e3e0e332bdb25264ae6"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-11_t20191202_572322.html",
+      "sha256": "5abb07dcde0ce0afb2ee9e29020979f420de79c5422d143a1d65cbdeb0cf8646"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2019-12_t20200121_573762.html",
+      "sha256": "2f8bfd373a4c76ef7a08869782ad35540dec9c61b1670170e2462e76fe678d4a"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-01_t20200204_573960.html",
+      "sha256": "06b3e6d5e02fed068f982de0c805a063766dd20d42e5d7ea31b58d15c8a9c031"
+    },
+    {
+      "bytes": 22216,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-02_t20200304_574725.html",
+      "sha256": "6d535d99ac237690d6327cd4924715124ae987a34575d54b9d76e7e3e0f7b088"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-03_t20200402_575690.html",
+      "sha256": "73e2f12397d6cdb5818b7522da5f7694c5ac8e601cac81246c97a3e4ed033c21"
+    },
+    {
+      "bytes": 21559,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-04_t20200508_576915.html",
+      "sha256": "5e99aa625748ce7614ee6d3badeba0bc81f6b5f437fb9b2af990b2371ed302c3"
+    },
+    {
+      "bytes": 20555,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-05_t20200602_578033.html",
+      "sha256": "ac6678a3c2013591f8440796d9291cbc0f8aa270120031e63c4dd984b4d337f9"
+    },
+    {
+      "bytes": 23672,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-06_t20200706_579272.html",
+      "sha256": "893cf41532964406df19a89e10d8d24bfe7a1dcd0eb2afb1585b1d3b817492ee"
+    },
+    {
+      "bytes": 21041,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-07_t20200813_580543.html",
+      "sha256": "b4694f1e354d889298c528428671ac85bbb4785d71b34af5ca307878e0d520e1"
+    },
+    {
+      "bytes": 21987,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-08_t20200902_581224.html",
+      "sha256": "18c468e4acf74442b18fb1bc91f935b22b7d48d7601e9bc067c7a73fdc883cb6"
+    },
+    {
+      "bytes": 21439,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-09_t20201013_582042.html",
+      "sha256": "890547f866d0e884a3795b00a5e902e275ae29efd43035d0a062716f352ffb61"
+    },
+    {
+      "bytes": 23896,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-10_t20201104_582899.html",
+      "sha256": "419bb9bce9b8f17734337c63b9417050bc18be6ae1573431a6373c0b1f41ae24"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-11_t20201204_583667.html",
+      "sha256": "c3b5ffee773e542d68e5fb34979f969b4a4ee76041243ee78d2f723cd4dee71a"
+    },
+    {
+      "bytes": 22071,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2020-12_t20210106_584125.html",
+      "sha256": "da390dfeb630c27987e00161954fa53a7c071160e5d66087e2aef8ac49169650"
+    },
+    {
+      "bytes": 20971,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-01_t20210203_584651.html",
+      "sha256": "a76c50b02844f73d193b72857e90a4811abba05d46368928a37e9632ed5b1847"
+    },
+    {
+      "bytes": 21087,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-02_t20210303_584989.html",
+      "sha256": "5135aec409885b1a902db8f0a61a3038ce659b87e2454949184de14686973ba5"
+    },
+    {
+      "bytes": 21065,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-03_t20210402_585373.html",
+      "sha256": "b436d6825ac73db00dfbbc2c570390c8d1998ac374663dc116d79f03e378a123"
+    },
+    {
+      "bytes": 20255,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-04_t20210513_585897.html",
+      "sha256": "3bd1c3860f044d218d26785dd0345119b9ba56aa23f48d804b56f809daf37aa6"
+    },
+    {
+      "bytes": 20320,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-05_t20210604_586266.html",
+      "sha256": "54880f0a1044ea344d235bb0f072e086f0e0057c81d6f239b340955ed0f350a6"
+    },
+    {
+      "bytes": 25660,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-06_t20210707_586826.html",
+      "sha256": "315971d683793dba9732a6388f84187646917d5b5bc84b5d1429295d4ae2f46c"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-07_t20210805_587471.html",
+      "sha256": "77c6feaccf0be8ea4bfea2198b030f15cd44ee399b9fcd0e3530d6656a634ca4"
+    },
+    {
+      "bytes": 20956,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-08_t20210907_588195.html",
+      "sha256": "358e5d68462aea00c2d521397d031b79cee2574a32e7818912e1c2f3ea903b65"
+    },
+    {
+      "bytes": 20296,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-09_t20211018_588888.html",
+      "sha256": "af23d6177aa7e77e1025035342f5b3189ba540b792b9a033efe4f5f03b22f6d3"
+    },
+    {
+      "bytes": 20997,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-10_t20211105_589478.html",
+      "sha256": "bc8dae0257ede4361ec9d287594199c060c1d12d79ac35fbdd9e6a910f4a2eac"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-11_t20211214_590235.html",
+      "sha256": "bb0923f5dd6a7ccaff426b554119dfc859f992510129c9207f2b5c5df8fd1b9e"
+    },
+    {
+      "bytes": 20504,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2021-12_t20220110_590565.html",
+      "sha256": "9b39c903a35e6870dc8c382982c4041bd7945a09954e8edc71de42459cba84dd"
+    },
+    {
+      "bytes": 20157,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-01_t20220211_591196.html",
+      "sha256": "7d414a05a277eab40c3b3d65126d7dd5171d5d45139807808481736d9e748b6e"
+    },
+    {
+      "bytes": 24309,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-02_t20220303_591637.html",
+      "sha256": "f41de835c747b29dc5c49f23309f7cab490188075b24e0348546bcaf2de44f61"
+    },
+    {
+      "bytes": 20437,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-03_t20220408_592297.html",
+      "sha256": "d56e8f40565b696d065e5e6618d2240daa7873114aa45a58daeefcc0c1e4c289"
+    },
+    {
+      "bytes": 23434,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-04_t20220511_592810.html",
+      "sha256": "3b2a7eed420953f584a7d029ea190f9ced342d1a9ba61a21c92b2cde2e3317d4"
+    },
+    {
+      "bytes": 20956,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-05_t20220606_593657.html",
+      "sha256": "47a6c03b35a35e6dafd7af6b56842c14801cf80a1679e3f5ff08e55748473bc1"
+    },
+    {
+      "bytes": 26707,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-06_t20220707_594673.html",
+      "sha256": "e8f27646624e3af8c8c1cf4d3ab276f878a046bf6fac3cb80c63a1070efbbfca"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-07_t20220803_595221.html",
+      "sha256": "dbb9a095e3c9034f067899224b746a3c32379e5717ce7362d38d0bddc52e1489"
+    },
+    {
+      "bytes": 24188,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-08_t20220907_595755.html",
+      "sha256": "a7de0dc08de740d80f430b23fd8e114662113cda79096eddbd60699f5dafb6d6"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-09_t20221024_596752.html",
+      "sha256": "509e58f2d2e75dce7ac6a4bf537410fea97f4025f9fd4271c221114326e096c6"
+    },
+    {
+      "bytes": 22417,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-10_t20221104_597180.html",
+      "sha256": "1a862cdd9ea86ac4e3d6e9f84d0bc1f9f0e87a3aad4938d7de3dc5351633cd04"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-11_t20221207_597709.html",
+      "sha256": "ff100e7a1b25344e66a2c4f661fe43566419d0ce9cb4d13c80cc1a23e2bc749f"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2022-12_t20230103_598084.html",
+      "sha256": "0f1d7c80d82583739dfef9d2f545a612c46ee9c2c2f5830fc42ab752870e6e6c"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-01_t20230202_598541.html",
+      "sha256": "2e16a2ab7334c44f25f506d70de66b357379889b86581c5e662705ae6a445874"
+    },
+    {
+      "bytes": 21427,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-02_t20230313_599196.html",
+      "sha256": "20ae618d82c2f980d56a5d0d5970a37f4139f8dbeb2909c8096609f3f40405d5"
+    },
+    {
+      "bytes": 20991,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-03_t20230411_599864.html",
+      "sha256": "e61399bf708320f52087eaa78c990dbeca0de4857bed812f4a51fcf8af299af0"
+    },
+    {
+      "bytes": 24316,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-04_t20230509_600312.html",
+      "sha256": "3b7e143a62edff52380ae0e661a01b5cf5525ed5d76d851bb487ea7410f2a14b"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-05_t20230607_601029.html",
+      "sha256": "e1b300f581c6d61f9fb55a1ac1146b80627a9dfc9170c76a0ca469651e52a679"
+    },
+    {
+      "bytes": 20932,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-06_t20230710_601663.html",
+      "sha256": "1d48d963597041021b07b5bcd6df2acdb4c3a8555fefe6d7058040138188f79e"
+    },
+    {
+      "bytes": 20654,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-07_t20230808_602544.html",
+      "sha256": "03e5882cd42cd5ec7359ea4800236cff5afaf70120805eed90b2b17b00630184"
+    },
+    {
+      "bytes": 21453,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-08_t20230912_603474.html",
+      "sha256": "d625e1064b990f4c31c41e54da5ca530a82798084e3b6d4ee81bc89e820ee677"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-09_t20231010_603950.html",
+      "sha256": "87cc54eb7f6d80d9c21ae68efc0e674d2a4879cb016982b6e53d5b0f603351c2"
+    },
+    {
+      "bytes": 20272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-10_t20231109_604553.html",
+      "sha256": "fc2b179e6297ea9b766243da7e4cd7d6b2a4d283b9047f8d09827bcfd48461b6"
+    },
+    {
+      "bytes": 20603,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-11_t20231207_604888.html",
+      "sha256": "c0180f575e57f0000759df33f3c9093078c4f87c5674812b9b90a3d47e17bf57"
+    },
+    {
+      "bytes": 20272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2023-12_t20240115_605628.html",
+      "sha256": "3b5f642c3545622f95a1fa374d7f639be1bd7e2866ef1c250b2ed6430b7e0eec"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-01_t20240207_606015.html",
+      "sha256": "09f13232653d889979714ebf4d53f37560a6d68ab482a33d40946003b0ca752c"
+    },
+    {
+      "bytes": 20437,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-02_t20240312_606257.html",
+      "sha256": "2a6c8aa7e3d4824daee3171b7e928dff805c5fdf02272360cbe085d387d48a7c"
+    },
+    {
+      "bytes": 20272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-03_t20240411_606807.html",
+      "sha256": "567d82dbde2461d1b9a0a6b66132a439724d90c61c8705ad60825598df305a4b"
+    },
+    {
+      "bytes": 20932,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-04_t20240513_607186.html",
+      "sha256": "d490f27218c25e49ee5cb27457b2896e2d0eef4f5ca2be501b5d436372a73d88"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-05_t20240607_607623.html",
+      "sha256": "4b7d2892400e8ef3e5f3f4915806546cb4abbe1959f66dfc27998bb6818debd7"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-06_t20240705_608038.html",
+      "sha256": "9a81f4b242672e567509cecf35448b076ca4f25e07ba5f3e8da4ce27a22a3eb3"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-07_t20240807_608544.html",
+      "sha256": "f040a175044d0e77cd2d8846e8d225214c6382fb328e4a3aebc6695bc538f813"
+    },
+    {
+      "bytes": 22252,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-08_t20240909_609280.html",
+      "sha256": "23a82d00f4001cead780957b5045ef00784dba020f89060c6f3834114d4d73ee"
+    },
+    {
+      "bytes": 20767,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-09_t20241014_609963.html",
+      "sha256": "3bee4aa86db6476bba24d7be03bf558861570b5fa31d19a7d2d7874a2ecdd373"
+    },
+    {
+      "bytes": 20602,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-10_t20241105_610380.html",
+      "sha256": "54a9a32232d47a405b953a72cb552cdfdba2cfa79240fedf94da97dbcf94267d"
+    },
+    {
+      "bytes": 20767,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-11_t20241204_610800.html",
+      "sha256": "a20e8ac818b52da2f0ae7b33495650ea2984f58eb2f54b42537e7d59557cfb1c"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2024-12_t20250106_611421.html",
+      "sha256": "5660f0a43ce375eee9e68840703a2948fc1bc261024ce66e1154383b067fe3e7"
+    },
+    {
+      "bytes": 20434,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-01_t20250205_611796.html",
+      "sha256": "03a1ea047573b039cc0ef349107b8bebd4c642b6bcadca1c08dbd7e90bc0fc13"
+    },
+    {
+      "bytes": 21717,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-02_t20250306_612208.html",
+      "sha256": "87d45185f7c10887a15e175cf5d62888daf906cf973747e7afeca8b4689988cc"
+    },
+    {
+      "bytes": 20104,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-03_t20250402_612753.html",
+      "sha256": "b3c104517da09d2e6d7e23146c025e0d57668b38027490830b7a2ffb5d970096"
+    },
+    {
+      "bytes": 20104,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-04_t20250513_613468.html",
+      "sha256": "5331c8e5594b5bc7b6f90a863f4646a89f2602700d5822023db0ddff78f1164b"
+    },
+    {
+      "bytes": 20599,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-05_t20250609_613960.html",
+      "sha256": "66a3de9d44ff34603ab9902415c575ced90804418d2bf71c7007e2331c0f22ba"
+    },
+    {
+      "bytes": 21424,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-06_t20250704_614727.html",
+      "sha256": "e9a8f7d32d3306fdbfac04ed5640c45998e2c18819d3774cabd8c93cb22d5d12"
+    },
+    {
+      "bytes": 22137,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-07_t20250805_615341.html",
+      "sha256": "14327872550bab75dbb71461c49e13088a7a136512da38fc86e7dfccd69fccb3"
+    },
+    {
+      "bytes": 20599,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-08_t20250905_615827.html",
+      "sha256": "fe16ff3473398ddbfa5716fa9180fdadf73c09855400720dd4b4fbeecb998ed7"
+    },
+    {
+      "bytes": 21919,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-09_t20251013_616459.html",
+      "sha256": "6b4a0a99c8389d6b22df6d1e3f4b4cb1ae5688278b344707a0326ec1504d75f2"
+    },
+    {
+      "bytes": 20767,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-10_t20251106_617088.html",
+      "sha256": "1a576045f2567971a3dd40655f214b9014220fc6ec5e1fad27aef1a3bb819dc2"
+    },
+    {
+      "bytes": 22693,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-11_t20251203_617676.html",
+      "sha256": "4c3267ef13d496e4f4489cf2ac427835d609a983dd7967f9e47ab2afc6c84e41"
+    },
+    {
+      "bytes": 20272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2025-12_t20260107_618297.html",
+      "sha256": "202304c774008d6d9a46c5413a596ae96a2926e225019debee9363b711bfd259"
+    },
+    {
+      "bytes": 20463,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-01_t20260204_618927.html",
+      "sha256": "055cf4954737cacf8fc8746b23e8961931145247d17d1ad114627f626c856154"
+    },
+    {
+      "bytes": 20602,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-02_t20260304_619294.html",
+      "sha256": "85932e9e4985908ddae137fea973ab45dafe14047ec48db83bdde47facf6de1c"
+    },
+    {
+      "bytes": 20272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-03_t20260403_619833.html",
+      "sha256": "efe639693609fc1ff733391dca977288aa63b044e73f916f7105e3d9c69e6439"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-04_t20260511_620438.html",
+      "sha256": "2478bffbab06a0e23943d42621df34bbfd986b92777b8a3d85375a84dfdb215d"
+    },
+    {
+      "bytes": 20932,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-05_t20260605_620906.html",
+      "sha256": "fbacf9d40f7584f0937631cb9275cf9bc6af6ff5c8525ecab02c08ad0503b7c5"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-06_t20260706_621517.html",
+      "sha256": "ba9f8ef6c43969adea7102af610500a41c177513f485c39902f791d1601996c3"
+    },
+    {
+      "bytes": 20107,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-07_t20260806_622028.html",
+      "sha256": "8b7dcc3b00597abce973fd8c82e561ffa58b217a82a433aa6d9ccca2c1583418"
+    },
+    {
+      "bytes": 20272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/month_main/2026-08_t20260903_622679.html",
+      "sha256": "dc81a5095bf98fa696a183450ebc8e9f721e29b49f6868a1078992e968a8620c"
+    },
+    {
+      "bytes": 45108,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2014-12_P020180328480054695347.html",
+      "sha256": "e56712b2b03b88cfa9dec43cf16fbcc848dc469eefe438e7a4cb892387348c46"
+    },
+    {
+      "bytes": 34824,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-01_P020180328480122941314.html",
+      "sha256": "0162c1c4bf1227f49e1384ffaa3d84336747a2ca09d92052b79d4ae0c1e3a799"
+    },
+    {
+      "bytes": 22418,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-02_P020180328480189257352.html",
+      "sha256": "470c2bfb4dc57e8d0895b1eba701aa9dda326d15f3cb84585e09d23c93748f46"
+    },
+    {
+      "bytes": 47371,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-03_P020180328480259557775.html",
+      "sha256": "8f3ea6dc3aef2d551c40ea44e2ad57589d17232b7a9ae913598f4122e526021a"
+    },
+    {
+      "bytes": 55564,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-04_P020180328480327205633.html",
+      "sha256": "93151f1e309e3bdd7b7f074cbb0ba5f3cc50d4d2e20e08216c7c9372f65da012"
+    },
+    {
+      "bytes": 56131,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-05_P020180328480393836100.html",
+      "sha256": "6f67b57a661c803d91687880d583763c6e710cf82f725ee934708831450bcd3b"
+    },
+    {
+      "bytes": 65272,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-06_P020180328480459673947.html",
+      "sha256": "38f4a5239f1356267fd83141f908e13a178e44065415a8813baf99fb362357f0"
+    },
+    {
+      "bytes": 183095,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-07_P020180328480526080155.html",
+      "sha256": "78e0fa134937e18a3fd1d8ad74cbbc440082731e29c46e98b271610a81eba077"
+    },
+    {
+      "bytes": 34118,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-08_P020180328480592795195.html",
+      "sha256": "dcdc0daf5e0333ef6f1893080e4d0e28c02c75b982a6e1c7ee5e6e546872d10e"
+    },
+    {
+      "bytes": 20462,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-09_P020180328480660579021.html",
+      "sha256": "b04a97f96ee92c2dd878a5a312580743d2f70e200027ff70b2d44aa3eb84ee7f"
+    },
+    {
+      "bytes": 27248,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-10_P020180328480727700300.html",
+      "sha256": "552aee14e15dae9431373c4be367408c031700e4cbf34ca10a11d9d9ec4ee713"
+    },
+    {
+      "bytes": 30862,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-11_P020180328480795149948.html",
+      "sha256": "c24e1f5b295d7bf451934a4b2b3d5be6b2272eb56dadb8ee0146c4cffbd0b87f"
+    },
+    {
+      "bytes": 28406,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2015-12_P020180328480864650386.html",
+      "sha256": "cf41ff5303e81ef78b0512cbd4709983995bafba8d40c97dfd8da0a52dffd273"
+    },
+    {
+      "bytes": 32763,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-01_P020180328480934933218.html",
+      "sha256": "c64aba71b09fc33c526e113c767a1f9d496e11eb4543badaa7470a920d1a5469"
+    },
+    {
+      "bytes": 23716,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-02_P020180328481003939939.html",
+      "sha256": "966ab2b451d4fc6e5e7f78b95bdf28053e10098a577a5af0e4aefb02326300f6"
+    },
+    {
+      "bytes": 34927,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-03_P020180328481070823920.html",
+      "sha256": "cc09f221c3e2f0534f75568a94669089e11746436b04f186fe899fa08f1a6c27"
+    },
+    {
+      "bytes": 43611,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-04_P020180328481137127999.html",
+      "sha256": "c1fda22cd26a72a69290fb5c6398e9223826f3422edb52507915bc980d09b46a"
+    },
+    {
+      "bytes": 27160,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-05_P020180328481204685646.html",
+      "sha256": "9887681c2c464de4f59ebffdc95c4b8bb348405ce1ba4e0d3c6dd02cd9954a6d"
+    },
+    {
+      "bytes": 23799,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-06_P020180328481273635597.html",
+      "sha256": "286998852aaa89cd4efd81610b966d464e5507e76abad6398ac4a58443d86118"
+    },
+    {
+      "bytes": 21974,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-07_P020180328481342591091.html",
+      "sha256": "a571a82ac10a4e689d29b959a01d1a337a34c6c03b3e07f2cd2adcaa09af7bd2"
+    },
+    {
+      "bytes": 19624,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-08_P020180328481415471239.html",
+      "sha256": "a1b7d2b03c891f053c42fff718699519d14fd26c0db7e8d57f7ed3b870e42dd4"
+    },
+    {
+      "bytes": 30109,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-09_P020180328481484514579.html",
+      "sha256": "15b32e918a4121b786563e5a3b1734969b102cc24bff0aabe875dabefe4c595e"
+    },
+    {
+      "bytes": 20659,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-10_P020180328481556677346.html",
+      "sha256": "5f224feec205c615b9ee1ca80636e15c1f31a21d630d5de9de32059e0025c494"
+    },
+    {
+      "bytes": 25591,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-11_P020180328481628751494.html",
+      "sha256": "74bff9f77db4b8ea4dd9b8c424ff7c7eda0fd1fba49320032e1fa40f1d77aaa0"
+    },
+    {
+      "bytes": 24271,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2016-12_P020180328481699030021.html",
+      "sha256": "866613c46df095d4908d17ab3d695718ff37b7abc011e6aa9832cd95ca5e268e"
+    },
+    {
+      "bytes": 21809,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-01_P020180328481765618076.html",
+      "sha256": "d126e28a28f3de5fa7faca1b88db09ce6760bd676cb87182f93d9b283a8dce6e"
+    },
+    {
+      "bytes": 18478,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-02_P020180328481831954977.html",
+      "sha256": "d62a1512f67fdbe16d15d39f78cbe1c68acce2e90ace2a19abd859809c3621f6"
+    },
+    {
+      "bytes": 22600,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-03_P020180328481898727042.html",
+      "sha256": "955afde9e37e52e99c651a5a36240e6b36773aadae1e4fe7d335ba16cdf52f38"
+    },
+    {
+      "bytes": 33327,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-04_P020180328481968869907.html",
+      "sha256": "16816a739226b216428a8e913be9358187dd77be03896416bc8af3c677928dcc"
+    },
+    {
+      "bytes": 26222,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-05_P020180328482033423583.html",
+      "sha256": "df49c7844a854bc4c5358188e24a270abb63392254bc8f0fd1de1d7e34938762"
+    },
+    {
+      "bytes": 21381,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-06_P020180328482107002409.html",
+      "sha256": "82f44041fb47b80b9c9d1dee8c1b3d262f37aef4a63b091b72c1c462ea8208be"
+    },
+    {
+      "bytes": 22619,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-07_P020180328482174490854.html",
+      "sha256": "d92ab0a1d67b329e087ca2ed2983ee6009ab6fc94a0632c4bfd5b924737e97e0"
+    },
+    {
+      "bytes": 18061,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-08_P020180328482242458333.html",
+      "sha256": "dc82301e7818c6d7271c154e5c34d8c8a2fdc87cbdc31e19eb53b994d1c3e009"
+    },
+    {
+      "bytes": 20276,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-09_P020180328482312145308.html",
+      "sha256": "07dc19d0326031b82066671bd054493fc6b66237e37de125721eed1f4f90ea38"
+    },
+    {
+      "bytes": 17755,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-10_P020180328482381306938.html",
+      "sha256": "0f3d059e2ec370c4487dbd6c22a21cc94bd679799752e998378ea46bc50b6c07"
+    },
+    {
+      "bytes": 28570,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-11_P020180328482453201375.html",
+      "sha256": "4ef8a9fe8c7a4326166c88b58ae111efb93a8629ab7ba750c6d1e755d08a0185"
+    },
+    {
+      "bytes": 28356,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2017-12_P020180328482525993358.html",
+      "sha256": "57839a60d6b89dfb234831fe0d89cea271856342105925389a9c5de03a45dcb7"
+    },
+    {
+      "bytes": 22554,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-01_P020180328482594162951.html",
+      "sha256": "d13053298131be50331ebd9ae7964421b6ad533b878011cc13318e44ad341a53"
+    },
+    {
+      "bytes": 34106,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-02_P020180328482664499297.html",
+      "sha256": "3d08f5827b0167b4bf246e87bf8bbb9c4cb6f723c4fd7924af817126e9b4d1b1"
+    },
+    {
+      "bytes": 21281,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-03_P020180502701336372191.html",
+      "sha256": "2fc867dc46895b52719a0f711f671ae4d2605a169dd21d0aa952ea9d0cf956b3"
+    },
+    {
+      "bytes": 17336,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-04_W020180521566354482167.html",
+      "sha256": "9ce137f629df033e091b46caf9093b94904e9553240fad6f05ec8a407c811b59"
+    },
+    {
+      "bytes": 23796,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-05_W020180606397048600536.html",
+      "sha256": "20d5068c3088f817c28da1f3f785e866fbe36b3b58258dc8e2a1416fb15dae75"
+    },
+    {
+      "bytes": 23456,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-06_W020180706554212186968.html",
+      "sha256": "3add4b371f087cc70c1f3e6578e7fa878406e8dd5f2387ed2cbda7dabe659d36"
+    },
+    {
+      "bytes": 5703,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-07_W020180807543346523706.html",
+      "sha256": "331b36dbba5af81b24673bc51d4a3971cb5aa0c6102356963badd40bf92a3f5d"
+    },
+    {
+      "bytes": 7162,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-08_W020180905603805777097.html",
+      "sha256": "36dae38c9008e08122972b6e4266ce30fb5f0e757e441648a48ad439ee482925"
+    },
+    {
+      "bytes": 9305,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-09_W020181010550020823078.html",
+      "sha256": "0601d79e65af332ccb67065a067746e9b6ef1f51ee725a6c7bda7c49f2fb2a06"
+    },
+    {
+      "bytes": 15695,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-10_W020181106567126578767.html",
+      "sha256": "3b9bb7207df83b4bdaed5e69d1aebcdf38c0e741d0954dfe84c825bb872926ae"
+    },
+    {
+      "bytes": 11374,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-11_W020181205571126327155.html",
+      "sha256": "993843c6a479e41beebf2fc7115e58aa4e3e507e250808702b94c0b94d147e5a"
+    },
+    {
+      "bytes": 9220,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2018-12_W020190107543659658243.html",
+      "sha256": "4fd6aadb491b105a7c7e682b6a070c60c3510ed61e8277ecc403ed471eda12bb"
+    },
+    {
+      "bytes": 5570,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-01_W020190213543931753734.html",
+      "sha256": "5b30a1aaef46e0ade97702a914bdc7df03fe932adcf8185acae83b8894256f78"
+    },
+    {
+      "bytes": 7886,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-02_W020190313531548392825.html",
+      "sha256": "bb84755b0ea500baa7690c9cdfd552f490c8299c28ea9590b02cc9b1f180e604"
+    },
+    {
+      "bytes": 14729,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-03_W020190403347976937981.html",
+      "sha256": "cc4f63a2d595635729df335ec3a17865bedf5383c699ee46cf7dabac96b5dd4b"
+    },
+    {
+      "bytes": 36541,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-04_W020190508543653690544.html",
+      "sha256": "7331e7e937974dbe307b6804962c5f984a282c2a78bdaeaede83f809e64e822f"
+    },
+    {
+      "bytes": 8167,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-05_W020190604358393194370.html",
+      "sha256": "b5e5dab001a0886af8cdedbd7eccf4958859b5354b3eb43e864297b31cbb589d"
+    },
+    {
+      "bytes": 5437,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-06_W020190708347779220423.html",
+      "sha256": "0175b2096d344fab43f21e3fd0f7f83b8f0d425733d8800da6f8f7fa110d44da"
+    },
+    {
+      "bytes": 8704,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-07_W020190801551188547713.html",
+      "sha256": "dad9338946123ed4a04e730ffb5648a5270c1850da4ff5661e476d64624ee304"
+    },
+    {
+      "bytes": 6204,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-08_W020190903546404666801.html",
+      "sha256": "737bdcbe19e24b5f4f5e3a1c2f3bba5ca12b6929d894a0554af28796803dbd7a"
+    },
+    {
+      "bytes": 6504,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-09_W020191008371620534111.html",
+      "sha256": "95debaee53a6c852a93261b1181dd7c3a83325b8d19d459d0804dadc16e3f205"
+    },
+    {
+      "bytes": 8928,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-10_W020191107568764070620.html",
+      "sha256": "fe46e9818ea80df8e104ca3159a0d33415b4488ef3b5210e300cad8bfc3f08df"
+    },
+    {
+      "bytes": 8297,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-11_W020191202520114071805.html",
+      "sha256": "b5a0bf7b46eae9aa78a6d12e6c08e72ae67821c9362a84231a3b8e61b0f6ef73"
+    },
+    {
+      "bytes": 9089,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2019-12_W020200121333627892051.html",
+      "sha256": "fa56ccc7ece5f16d914d3d57848c70162c230a55473565916d5d2360f3b09ac6"
+    },
+    {
+      "bytes": 5535,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-01_W020200204529396691250.html",
+      "sha256": "e175cd03c2b9f3863d2d0e6753b2d233a03ef070abf352d28ce9d1cc1cd38772"
+    },
+    {
+      "bytes": 2747,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-02_W020200304379815541900.html",
+      "sha256": "db9907df7315a5aa2341e891b263acd6b27c56b8ff69d85a8cf8c299b789941b"
+    },
+    {
+      "bytes": 5399,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-03_W020200402344436163286.html",
+      "sha256": "1e2906974548378408c4559589e14bc5f21ebb0910d68289d5cfaf769dcc2ba6"
+    },
+    {
+      "bytes": 29362,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-04_W020200508536845722227.html",
+      "sha256": "321d0f8c7e304f5fb054cdc041e0f7134ede615b52773787735b6e8274191afe"
+    },
+    {
+      "bytes": 7558,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-05_W020200602522514474831.html",
+      "sha256": "261acbdb963f87b6e088a7d01eebd630270cea67e843e267720761351951a6fb"
+    },
+    {
+      "bytes": 18122,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-06_W020200706567747589729.html",
+      "sha256": "5b7d149d7306ae119e0c623b1995b598c6af1942d43fef2f05a509747bf6b320"
+    },
+    {
+      "bytes": 8053,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-07_W020200813499493880866.html",
+      "sha256": "28774cbee443426f9da9ceafa8b24bdd181f2f1080c3f147f882c0c9ef1a76ed"
+    },
+    {
+      "bytes": 9361,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-08_W020200902529144060217.html",
+      "sha256": "66d554e05ee5502d94bdffcda250517c9ac6e7ce7d55414199d02fea519f4896"
+    },
+    {
+      "bytes": 10565,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-09_W020201013520548714089.html",
+      "sha256": "e00cd9227da6175772c35c2447c3ae5bec3880eb8cc21767f9828432edba8374"
+    },
+    {
+      "bytes": 5568,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-10_W020201104533160540599.html",
+      "sha256": "8f0106861733975dd71aea8f476ef56ae12c0690ef1640e64ed64b4fa9618594"
+    },
+    {
+      "bytes": 5584,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-11_W020201204536053060880.html",
+      "sha256": "50516042c0e870cd0ec48ac54d6329fba79a6fcb5332de6d7bebb0e48c89b131"
+    },
+    {
+      "bytes": 5966,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2020-12_W020210106529680133065.html",
+      "sha256": "714d2aeea2f72642c04d6d35337f31e742b9e07302f7b67ba81153378487f738"
+    },
+    {
+      "bytes": 6322,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-01_W020210203512193331605.html",
+      "sha256": "2be31bc2c800484e213e7e45b2717ddf013d508e5b2d5a59963c5d98c4facbb3"
+    },
+    {
+      "bytes": 6643,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-02_W020210303553006341936.html",
+      "sha256": "5692b4a4cda32e8106ae2ce60a690c791e7f7f76207c02fefaf5e49edd0549b0"
+    },
+    {
+      "bytes": 7205,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-03_W020210402346923850551.html",
+      "sha256": "bf461a6388e5947bfbc289a84d9be3c96424559ed15680511ea882c0f745d587"
+    },
+    {
+      "bytes": 29671,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-04_W020210513514767815558.html",
+      "sha256": "396cd11524cd911e0241e94c9163607e86fe4b8f29f0032457432e244477524f"
+    },
+    {
+      "bytes": 9935,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-05_W020210604320374342296.html",
+      "sha256": "796ddfc31d9c1321959c54b49f7e049fa4e2b2b6280a95f8eea7a806d639626b"
+    },
+    {
+      "bytes": 11050,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-06_W020210707583309286907.html",
+      "sha256": "6f42dab90b57d9a28c8ff44dbbd77b08fb7ce56ef354fdef09efcf9d3525004c"
+    },
+    {
+      "bytes": 6283,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-07_W020210805367164388523.html",
+      "sha256": "dd33011800483b782e651fb0a4e15ed664eca653a082ffef0d1de4e158d4d5d2"
+    },
+    {
+      "bytes": 5764,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-08_W020210907547542494089.html",
+      "sha256": "28fcfad6c2d53618724c4893e1b7530db81f1aa9a98ad144ecdbfd1c83eca45d"
+    },
+    {
+      "bytes": 6643,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-09_W020211018550320623547.html",
+      "sha256": "0a693f1f29ecf5e4378c1aafee9444503a0b02090d92640c33cebe066f9b2738"
+    },
+    {
+      "bytes": 3786,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-10_W020211105348245508828.html",
+      "sha256": "b60c29ab603136786be37970e5de7c1adf7d173c0fe1bfc0e51abfce42949689"
+    },
+    {
+      "bytes": 5641,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-11_W020211214585272214043.html",
+      "sha256": "bcf051acc7c844870627c40166a2ac42924189ec5f521d5ddeabe8f6fa3e1427"
+    },
+    {
+      "bytes": 8106,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2021-12_W020220110591426646597.html",
+      "sha256": "0a7da530de862bfca03802d69f74e1935c22548d6be11e3604690a854f97c1d8"
+    },
+    {
+      "bytes": 5543,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-01_W020220211393972039504.html",
+      "sha256": "484269ab46007a111aeb9f4711ffdab4b6c1972aa3822ff736aac4da53409db9"
+    },
+    {
+      "bytes": 3552,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-02_W020220303379625478609.html",
+      "sha256": "130f64c1c0c71fdc5e8327918627fad833e7a98d40d65cd061973271a2320b8f"
+    },
+    {
+      "bytes": 5408,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-03_W020220408565950756780.html",
+      "sha256": "0e0c59793981279b64fb0019db250c7523012b21114ed13f14c7c02038bca7d8"
+    },
+    {
+      "bytes": 17995,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-04_W020220511397986494671.html",
+      "sha256": "8559e1cc26e8e285a7c35266ff2b4330fcbd53d58b9e6ccc40dfc1585e0b38b6"
+    },
+    {
+      "bytes": 25670,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-05_W020220606563104248781.html",
+      "sha256": "5e239f3e04ef79fc17c6964f3b66683d421f566ba711430b6146bd6c9192a863"
+    },
+    {
+      "bytes": 8970,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-06_W020220707565370935500.html",
+      "sha256": "7f7385e2b961f50ad57ee89023a76df429ad7aee5b258c94437367b5f62fd517"
+    },
+    {
+      "bytes": 4667,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-07_W020220803513880261545.html",
+      "sha256": "99c43534947dd4540af57c5b7e032e4db8e65935a8782899cd46fb4b299e3da9"
+    },
+    {
+      "bytes": 4536,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-08_W020220907650895549500.html",
+      "sha256": "1df525447a3da9d56db7ca91287fa5747078cb637b099e4ca8d0432a3d6c476f"
+    },
+    {
+      "bytes": 5968,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-09_W020221024571997384268.html",
+      "sha256": "70ad1c14fd5912262d5fc5adc358158a386537c742b6150a0dc49f876a36495e"
+    },
+    {
+      "bytes": 3908,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-10_W020221104527037302581.html",
+      "sha256": "2eae3b761f9e4d423e90fb163a2e5b059fc6fd6fbeea3406bb6ad24528aabbfa"
+    },
+    {
+      "bytes": 6195,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-11_W020221207371484510999.html",
+      "sha256": "0a6c0320a38076bfa489206d232a9fb95ee7c05810af1a1233788ec9cb8dfb6a"
+    },
+    {
+      "bytes": 7306,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2022-12_W020230103528849516883.html",
+      "sha256": "a61267900084e1f7f874c3b70c9996ed569a9a432874b4b6eb326a02d041b157"
+    },
+    {
+      "bytes": 5921,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-01_W020230202548759938270.html",
+      "sha256": "c90dc57432c96e5efcc6794e58200d6b1f51aa36aeb6d6f06248575c20c7a4f3"
+    },
+    {
+      "bytes": 4447,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-02_W020230313549109714209.html",
+      "sha256": "62ae9375ccbc26bc14c551d212715955bdfc38935553dde07bd8394d04b49b1f"
+    },
+    {
+      "bytes": 3775,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-03_W020230411506512635358.html",
+      "sha256": "e82216442b63dc0aef06e2e966800f54d58fa9449388fa219e12f8b9c06ea931"
+    },
+    {
+      "bytes": 18777,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-04_W020230509551829252290.html",
+      "sha256": "3727d8200d769a2c22282d076f3688e4559f1e293493c4c48eb1e576fb60b825"
+    },
+    {
+      "bytes": 22532,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-05_W020230607362728234975.html",
+      "sha256": "acaffcf20f996ad35cfc1022dccc63bb5924ff57e84b7b5ac300b017cd24c2ad"
+    },
+    {
+      "bytes": 8506,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-06_W020230710387876992911.html",
+      "sha256": "01186fc7b1b70a18f04dcd5586cf8d627a29b8e215d14f473329ea51d4aff8b9"
+    },
+    {
+      "bytes": 3649,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-07_W020230808524522984624.html",
+      "sha256": "dee24e5f4ec5904b2d89bef1dbe0eae76ae5081e36282ab8ad951b6f80d9f280"
+    },
+    {
+      "bytes": 2976,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-08_W020230912344258642105.html",
+      "sha256": "7388f5b2ea7543a001fbc7f81df24f889fbc03d36ef3936d0040c3c003f9b2d6"
+    },
+    {
+      "bytes": 3919,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-09_W020231010359634505347.html",
+      "sha256": "8544a23a29a59053304ac710c3cbb9f4ce8abefda09632b1e8ecc2a56d8f87fb"
+    },
+    {
+      "bytes": 3734,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-10_W020231109584427762243.html",
+      "sha256": "24f17e9cf0f6da92f69b500b8386d80d5723a5aa8e4ad027b685064e031a4473"
+    },
+    {
+      "bytes": 5972,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-11_W020231207599964240990.html",
+      "sha256": "c079c57c9f88533454d75691f223e035ba2d2a3a6eb9f727ca3e76c2cda5e413"
+    },
+    {
+      "bytes": 7802,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2023-12_W020240115343587084719.html",
+      "sha256": "2781b16017e7cc88695bb8274f4c084a884ac184269bf509925874c188ff3cef"
+    },
+    {
+      "bytes": 3593,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-01_W020240207349092453652.html",
+      "sha256": "e3e1d740224bfde76fa43169cf83c08454a3dce84b16df0a039f9ab7622409d3"
+    },
+    {
+      "bytes": 2685,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-02_W020240312338262679835.html",
+      "sha256": "8532a840de07c44eca27322cdc048a0fd1a7d9b43cea9842203771815f0c34b3"
+    },
+    {
+      "bytes": 3835,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-03_W020240411655272759866.html",
+      "sha256": "01ba33a53be6682567c2d91f0be264d1d0ebd65a43bde9d33746a483a8b3c10f"
+    },
+    {
+      "bytes": 28250,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-04_W020240513367375059769.html",
+      "sha256": "6e1fb8083756f714fa2b9b1120be0c5240d60192c0a28a39e24c46c684b6afc3"
+    },
+    {
+      "bytes": 7752,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-05_W020240607344713407827.html",
+      "sha256": "0afac87ca0398edb6ab48c7b44a4f5f7cf849549ac7a1f30cb0492fd92eb97bb"
+    },
+    {
+      "bytes": 6409,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-06_W020240705335395162563.html",
+      "sha256": "f795e7d552d3dc62e22f15d1458a5e0c299b64a1af9ca47533959b43ecc9e174"
+    },
+    {
+      "bytes": 7526,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-07_W020240807524546197486.html",
+      "sha256": "582fd055800f6b723bcb0b8070873a90594dde70144632779b06a69859c7d1b3"
+    },
+    {
+      "bytes": 3717,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-08_W020240909360100851548.html",
+      "sha256": "47616a0e96faebdd64452897f8feccee355a6007ab4a559fb8cb24b8514907cb"
+    },
+    {
+      "bytes": 4626,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-09_W020241014330935790784.html",
+      "sha256": "1e12216725e2d5821bbcb88c5d69e6a125641432d0caad428880408faa950a38"
+    },
+    {
+      "bytes": 5720,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-10_W020241105386663787584.html",
+      "sha256": "0736273d702aa8b5b41be2861a34dcf17afa589c36e04546f6d15ab756c44487"
+    },
+    {
+      "bytes": 5891,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-11_W020241204353991708193.html",
+      "sha256": "7312d8dc86dc84d0233d410c01f9549d6e770646d2b2aec5795d69faa1cd94d6"
+    },
+    {
+      "bytes": 8587,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2024-12_W020250106355093494057.html",
+      "sha256": "faffcc7d9567654d08f189a1cd5513f106b909de1101d1f7c091e18092514121"
+    },
+    {
+      "bytes": 5983,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-01_W020250205525147487197.html",
+      "sha256": "c27006276fe1cf134367d3a9b383f288a773b0b873659f3c3db12a81dca1c440"
+    },
+    {
+      "bytes": 3266,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-02_W020250306525471706945.html",
+      "sha256": "65d607d9cb52610694b65720b5535b28dfd0d9c53c4bf5ec81e241e44c8a51a5"
+    },
+    {
+      "bytes": 11299,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-03_W020250402560972420752.html",
+      "sha256": "918e44ec81018d63f4ee9a0e991e94f8f0d5cf01ca6a04b03da6be0ca116268d"
+    },
+    {
+      "bytes": 41782,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-04_W020250513504903042042.html",
+      "sha256": "43d58eac821bee704c6ca4bfa819e9df15b647515116a148b51f9fdf508c71d1"
+    },
+    {
+      "bytes": 10789,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-05_W020250609367176360547.html",
+      "sha256": "ef38c68ce485ec548e4c29a8448091438d003dff9b45ce739e43d043b808a40a"
+    },
+    {
+      "bytes": 10053,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-06_W020250704340863755711.html",
+      "sha256": "335f98b60af074ab4c93b1c6964b282855d7c37d8be33b12db9c28bd365fa14a"
+    },
+    {
+      "bytes": 8974,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-07_W020250805527892740980.html",
+      "sha256": "0654239de38bb1a10299abedaf2605e7e6563cabc4536cb46fd5b48a636ca739"
+    },
+    {
+      "bytes": 5483,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-08_W020250905347571947097.html",
+      "sha256": "1faab30c12a1459de124510529050382c34dfc8a5f0fbffc98c9e275b69a57c8"
+    },
+    {
+      "bytes": 7572,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-09_W020251013318287409109.html",
+      "sha256": "329f0f47691d0006a8a4fa30959178b62acc45564c6224ed23f6807227bd61f2"
+    },
+    {
+      "bytes": 5841,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-10_W020251106333385028085.html",
+      "sha256": "7521e8df17baeea62d91fd2b64b0cb4a11d8946a02cbfd48dfc32c9557f44f51"
+    },
+    {
+      "bytes": 8288,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-11_W020251203531511185547.html",
+      "sha256": "39e4ed374e7d516b18302c2d421ce5ebb5826c7608338bfab6dc9ed8cc38bbaa"
+    },
+    {
+      "bytes": 14830,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2025-12_W020260107516673514910.html",
+      "sha256": "8e013bd400135663214b4dfe117c2964c14ca051fed8f327d96f07c2a59aa181"
+    },
+    {
+      "bytes": 9975,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-01_W020260204330568435092.html",
+      "sha256": "c3f2db9c42282057c9db0e2f97cd64531eb1b9dede61132a0e4faa0079af4ef9"
+    },
+    {
+      "bytes": 6205,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-02_W020260304555325249520.html",
+      "sha256": "a31fa41fd3d472c0925cd80468a63d7f98fc1c070c4b8c97f16b1658c0069f9f"
+    },
+    {
+      "bytes": 6491,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-03_W020260403534498695444.html",
+      "sha256": "06ee458fe7878dbb4711b9c227e11079a7942f38ab6b3db1feee386a3c63d197"
+    },
+    {
+      "bytes": 37967,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-04_W020260511542158556516.html",
+      "sha256": "020a4edf794439919ef42ed37cfb3b8e8d7aa7790d69459f8604c4a1f378df1c"
+    },
+    {
+      "bytes": 8017,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-05_W020260605534754002075.html",
+      "sha256": "72ea7ee8187bc933ee49ba628206e0f3b8ffa6c45924e52b6484008e1dcea5ae"
+    },
+    {
+      "bytes": 10770,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-06_W020260706503109040008.html",
+      "sha256": "06987c345df8af15349cbd291d0648f8a1f5cf85a80e37601a875ee4cca559d6"
+    },
+    {
+      "bytes": 7493,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-07_W020260806351615093691.html",
+      "sha256": "5e1657ecd3c5c67d62e986b9bb3c8be9bd3a8b347fead27b6fc9c5b877a69275"
+    },
+    {
+      "bytes": 7505,
+      "contract_sources": [
+        "collection_receipt.raw_file_index"
+      ],
+      "format": "HTML",
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/szse/suspension_tables/2026-08_W020260903544741911834.html",
+      "sha256": "f82f75a52f61f08c2223fd6329fb25d0b04f75fb1857c81959cfb06e64b6ac23"
+    },
+    {
+      "bytes": 58269,
+      "column_count": 5,
+      "columns": [
+        "date",
+        "cgb_1y",
+        "cgb_10y",
+        "source",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "mft.inputs.china_10y_yield"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/macro/china_government_bond_yields_daily.parquet",
+      "persisted_semantic_sha256": "79148946a01e49b20dc10f1e73ca832d907c1f600ff1582987ba58d6b6b6c364",
+      "row_count": 2509,
+      "sha256": "091f51fa55a1ddfdbf99dd715d1086c1f5d9bc086589de7b2938e66fd1b6952f"
+    },
+    {
+      "bytes": 116186,
+      "column_count": 12,
+      "columns": [
+        "date",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "amount",
+        "symbol",
+        "source",
+        "volume_unit",
+        "amount_unit",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "g1.inputs.etf_unadjusted_daily"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/market/510300_daily_2015_v2.parquet",
+      "persisted_semantic_sha256": "50b97dffa16724aec15ee10e0fa9d0c49b45416311889a8338974dcc5683feb7",
+      "row_count": 2830,
+      "sha256": "8c3e3213f1f43af6fca6b7084b79408e968b4c296b3a1edf17c0241986e1d948"
+    },
+    {
+      "bytes": 130830,
+      "column_count": 18,
+      "columns": [
+        "date",
+        "symbol",
+        "name",
+        "指数中文简称",
+        "指数英文全称",
+        "指数英文简称",
+        "开盘",
+        "最高",
+        "最低",
+        "close",
+        "change",
+        "pct_change",
+        "volume",
+        "amount",
+        "constituent_count",
+        "pe_ttm",
+        "source",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "mft.inputs.h00300_total_return_close"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/market/H00300_total_return_daily_2015_v2.parquet",
+      "persisted_semantic_sha256": "33bf56cf0390ad46c5eceb754a8aef505275aa7d7e9560c475d8dfdc6112bf32",
+      "row_count": 2831,
+      "sha256": "5c01062c6a3710afa32677ee1f511a230c7bc440a3dcc4cf430535a8ee05ba3c"
+    },
+    {
+      "bytes": 45675,
+      "column_count": 8,
+      "columns": [
+        "date",
+        "index_code",
+        "index_name_cn",
+        "index_name_en",
+        "pe_official",
+        "provider_original_field",
+        "source",
+        "retrieved_at"
+      ],
+      "contract_sources": [
+        "mft.inputs.csi300_official_pe"
+      ],
+      "format": "PARQUET",
+      "path": "data/raw/valuation/000300_pe_official_raw.parquet",
+      "persisted_semantic_sha256": "917ffb2dae9660d86a29c31a678e59d0ea87f58477c363b6883993d2a1668de0",
+      "row_count": 3752,
+      "sha256": "613a06a7b22f09bab8b615a583d50446839883bdf41931ff2ec54e1c90403d73"
+    },
+    {
+      "bytes": 37367,
+      "column_count": 10,
+      "columns": [
+        "date",
+        "point_in_time_member_count",
+        "usable_member_count",
+        "usable_member_ratio",
+        "member_coverage_passed",
+        "usable_weight_ratio",
+        "weight_coverage_passed",
+        "weight_coverage_state",
+        "aggregation_state",
+        "missing_member_count"
+      ],
+      "contract_sources": [
+        "mft.inputs.four_state_daily_coverage"
+      ],
+      "format": "PARQUET",
+      "path": "reports/data_quality/510300_stress_transmission_hazard_v2_four_state_daily_coverage_v1_0_1.parquet",
+      "persisted_semantic_sha256": "099769c6434b5c8eb53c3a63478f4114a0ce78261738170a1c61d9c6875dac80",
+      "row_count": 2823,
+      "sha256": "f6a48081c34d6a806bb5c81469dc69cbe3b3f64efe9312ac40a1753768cda0c8"
+    }
+  ],
+  "data_summary": {
+    "file_count": 320,
+    "parquet_file_count": 22,
+    "parquet_total_rows": 3650968,
+    "total_bytes": 52603638
+  },
+  "execution_id": "510300_STRESS_TRANSMISSION_HAZARD_V2_G0_1_POST_REMEDIATION_VERSION_LOCK_V1",
+  "expected_replay": {
+    "b2_common_sample_day_count": 1279,
+    "b2_eligible_non_event_risk_day_count": 1102,
+    "b2_identifiable_event_count": 31,
+    "b2_view_day_count": 1279,
+    "event_era_distribution": {
+      "2015-2017": {
+        "b2_identifiable_events": 0,
+        "b3_identifiable_events": 0,
+        "total_events": 10
+      },
+      "2018-2020": {
+        "b2_identifiable_events": 5,
+        "b3_identifiable_events": 5,
+        "total_events": 15
+      },
+      "2021-2023": {
+        "b2_identifiable_events": 19,
+        "b3_identifiable_events": 19,
+        "total_events": 22
+      },
+      "2024-2026": {
+        "b2_identifiable_events": 7,
+        "b3_identifiable_events": 7,
+        "total_events": 11
+      }
+    },
+    "g1_state": "PASS_B2_MECHANISM_ONLY_B3_NOT_IDENTIFIABLE"
+  },
+  "feature_or_label_value_used_to_select_git_or_data_scope": false,
+  "formal_g2_run": false,
+  "frozen_at": "2026-09-04T13:03:55.863464+08:00",
+  "git_contract": {
+    "branch_required": "codex/510300-v2-g0-1-g1b-v1",
+    "clean_commit_worktree_required": true,
+    "detached_clean_worktree_allowed": true,
+    "local_commit_required": true,
+    "materialized_untracked_data_allowed": true,
+    "remote_push_required": false,
+    "tracked_file_change_after_checkout_allowed": false
+  },
+  "manifest_payload_sha256": "1f1162022b57e8f33d6733e59c123f36db9608d0d91f3915a0df3b9d9c59c474",
+  "model_trained": false,
+  "portfolio_or_return_read": false,
+  "position_impact": 0,
+  "pre_lock_branch": "codex/510300-v2-g0-1-g1b-v1",
+  "pre_lock_head_sha": "a0e1d72c61d6f95d294b297642949482eb6697de",
+  "program_id": "510300_STRESS_TRANSMISSION_HAZARD_V2",
+  "required_git_files": [
+    {
+      "bytes": 8158,
+      "path": ".gitattributes",
+      "sha256": "ee3199b19f03bef996a4f1026124559cb1df262779fb9b052d5ef606c58e09f8"
+    },
+    {
+      "bytes": 18495,
+      "path": "config/510300_stress_transmission_hazard_v2.yaml",
+      "sha256": "06064c26ef4a0dc3a8c7a8c6b5d49bd44d05d351bee0083c1839e79b52e609d8"
+    },
+    {
+      "bytes": 8743,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.yaml",
+      "sha256": "5212456bd862567a5029c9128cf4db4d5db6bf7858b41ca62836c16205ce43c4"
+    },
+    {
+      "bytes": 5728,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.yaml",
+      "sha256": "a88342b475e6cc7698a535c11c7261347f1f16c7c3280eff1869965990ec6d9c"
+    },
+    {
+      "bytes": 6799,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1_manifest.json",
+      "sha256": "a39acf5e861a800601a6b0dfb4b5641c3d746df307febe018fe555caceefd89b"
+    },
+    {
+      "bytes": 9120,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_manifest.json",
+      "sha256": "0603abcb36cb02ff861264bbc8b9050f64ea6f607d67a3b6cdb0147264645145"
+    },
+    {
+      "bytes": 9282,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_sources_v1.yaml",
+      "sha256": "f74ef7b653b74d5ed6c3930d3d811fe9f2d7de81526d077be6b42cd189c43e8a"
+    },
+    {
+      "bytes": 3870,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1.yaml",
+      "sha256": "8c5bd232ef5ae22fa523658ead13e0e21540c29ec9a4374c1cc9173c4ead645b"
+    },
+    {
+      "bytes": 4482,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1_manifest.json",
+      "sha256": "3d94e61e70d075949efde87ac733bc15303273b8107da8e823d840e489969027"
+    },
+    {
+      "bytes": 10450,
+      "path": "config/510300_stress_transmission_hazard_v2_four_state_sources_v1_manifest.json",
+      "sha256": "38b8b611efab33845584b37b9192759fabff986f2e6263115977b0b0dea70a7f"
+    },
+    {
+      "bytes": 5972,
+      "path": "config/510300_stress_transmission_hazard_v2_g0_1_post_remediation_version_lock_v1.yaml",
+      "sha256": "dabf0712d965072071858e48082414cc5f70858752054ff011c17e7721740234"
+    },
+    {
+      "bytes": 10508,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.yaml",
+      "sha256": "811ff0f8d3597a855546ef0eacf8bc9783fa057efb27302dba1cea3b674b1334"
+    },
+    {
+      "bytes": 4901,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.yaml",
+      "sha256": "f4f37ec0b857599364cbf54012d7c63012e87b18b905742d2a7ee580b018753f"
+    },
+    {
+      "bytes": 5370,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1_manifest.json",
+      "sha256": "2f8382f90d779fca94bfff0313c3c6d22a867e6b9020872a2abe8a14537b2706"
+    },
+    {
+      "bytes": 10232,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_manifest.json",
+      "sha256": "457e6c6073fd7b7eb6dd8fb62bc95e8965fa5997ed8f833acd020eec98ec81ee"
+    },
+    {
+      "bytes": 9687,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1.yaml",
+      "sha256": "cb9faeb16f11ce1a76326d8209d1be955445fb056b0f3435bd70b77766ca386d"
+    },
+    {
+      "bytes": 9361,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1_manifest.json",
+      "sha256": "6182cadeb764d2530502e126954ae7a648b3051e2fe079d2558e817155d94465"
+    },
+    {
+      "bytes": 3327,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.yaml",
+      "sha256": "3112f749406287a7fc9bee70c2944cabe7eee236da92a18a4ceebe46495f8502"
+    },
+    {
+      "bytes": 3498,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1_manifest.json",
+      "sha256": "d5bb456d66ccb8f6b7aad932007faa892092fa576b5397507c6a6520f70dfdb6"
+    },
+    {
+      "bytes": 9696,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1.yaml",
+      "sha256": "78c34df1bde42abfbac5fd52c8c894141e381238a0bd85e15a74390f7ae1d755"
+    },
+    {
+      "bytes": 8679,
+      "path": "config/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1_manifest.json",
+      "sha256": "5149f71e29b42f0facab28759e9f214fc7524a8806d0d883b57bba9110226618"
+    },
+    {
+      "bytes": 10256,
+      "path": "config/510300_stress_transmission_hazard_v2_g2_counterfactual_v1.yaml",
+      "sha256": "e10039bbdb50ff4c7f584f819b0ad01d7e1627f5ab75a93a844d049b0d63d3e8"
+    },
+    {
+      "bytes": 17838,
+      "path": "config/510300_stress_transmission_hazard_v2_manifest.json",
+      "sha256": "4deb7fb8c8a2eb7f6819a3033067d869d26dcf69f994173c94398b43d2dee0be"
+    },
+    {
+      "bytes": 12028,
+      "path": "config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1.yaml",
+      "sha256": "2e0160a9e1b7336f48b9b691f605fb4c8913332b2e3413cb85b25d7d844e68fa"
+    },
+    {
+      "bytes": 5278,
+      "path": "config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.yaml",
+      "sha256": "1cacfa02527c19d3711271c4bd5287e3344321b1890d2056ecc877b2b488ce7b"
+    },
+    {
+      "bytes": 5842,
+      "path": "config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1_manifest.json",
+      "sha256": "b6878c07522a5a0243ccf46ea488939730044bc74c6a91b5b64a3f7de8577ae4"
+    },
+    {
+      "bytes": 11930,
+      "path": "config/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_manifest.json",
+      "sha256": "26223a8e71ef959a72e2166d357af89b4b3997d84169e1ed99e2f10e9aeed079"
+    },
+    {
+      "bytes": 1337,
+      "path": "data/raw/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/collection_receipt.json",
+      "sha256": "cabfe6b3f4f59b0b6c40b854d6b9cb5dab72a4c9dc1449bbc5597927bc3279d6"
+    },
+    {
+      "bytes": 2021,
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "bytes": 1111,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_EXECUTION_V1_0_1_20260903.md",
+      "sha256": "2730939826e789d9f6c7278fddec8ba37576e300de58a69a6e5ae6fcbb02ffe7"
+    },
+    {
+      "bytes": 3440,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_EXECUTION_V1_20260903.md",
+      "sha256": "00c0f007b196d27923d07bb311af40ceeff3d4b52a44cf6649f4115b5849f58e"
+    },
+    {
+      "bytes": 4301,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_SOURCE_ADMISSION_20260903.md",
+      "sha256": "06cb994b93e0192cc2d4ad92f284e8e579cd97534fa16be046a03a1d6c391802"
+    },
+    {
+      "bytes": 1276,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_SOURCE_ADMISSION_V1_0_1_20260903.md",
+      "sha256": "d788c456fdbba188ff05f3ac8901f115ba0a4d3c0d9f1dbd9afb5f9bd1b6589a"
+    },
+    {
+      "bytes": 4097,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G0_1_POST_REMEDIATION_VERSION_LOCK_V1_20260904.md",
+      "sha256": "3327546839ce5df197e21c4bf52bcbf9134623d24d8c96e2b67090a0920edc12"
+    },
+    {
+      "bytes": 1895,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1_0_1_20260903.md",
+      "sha256": "dcd7fd1ed7843d68206cc9955aa982322d333b864048c307569e862b12ad35f5"
+    },
+    {
+      "bytes": 4418,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1_20260903.md",
+      "sha256": "ef9af82643fb1bb9a30ce93657937c13b4dabc324f6b5517524471c57aa42c98"
+    },
+    {
+      "bytes": 2766,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_COVERAGE_AUDIT_V1_20260903.md",
+      "sha256": "36baaf4c04c8322911b611567e8e9434dd7a81029184bb00dbee8f5a504ea5e5"
+    },
+    {
+      "bytes": 1347,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_REMEDIATION_STATUS_CORRECTION_V1_0_1_20260904.md",
+      "sha256": "798a70b70ecd2b131d5bee201ab91b7770976fb06c74666125c929f2f5177838"
+    },
+    {
+      "bytes": 2472,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_REMEDIATION_V1_20260903.md",
+      "sha256": "f86afdb1d746022990e3b62ade26a43a6ebe11522f9851526475541520f4f817"
+    },
+    {
+      "bytes": 2883,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_G2_COUNTERFACTUAL_V1_20260903.md",
+      "sha256": "9c2a9822ce1222e7dc2a516b1c471802c09b928c0bc3bec0402f20e3f8d9bca3"
+    },
+    {
+      "bytes": 1604,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURE_EXECUTION_V1_0_1_20260903.md",
+      "sha256": "36cb5d65ab92d61d9140cde471d05095033ee03d97d8e16858d77b597c951aa7"
+    },
+    {
+      "bytes": 3420,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURE_EXECUTION_V1_20260903.md",
+      "sha256": "b26d31aaae990ec1ebad6b8c23eb5afc9e7d0ae8913a710d875fbb0470464bd0"
+    },
+    {
+      "bytes": 12579,
+      "path": "docs/510300_STRESS_TRANSMISSION_HAZARD_V2_PROTOCOL_20260903.md",
+      "sha256": "754018ab33501aa51e04860d835c911e69aa265035329aff652399bf4da34e4d"
+    },
+    {
+      "bytes": 2015,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_bad10_ledger_receipt.json",
+      "sha256": "d2840e0bdc2c73759041a99af5a6b9062fadfa475930a2b98a8220f9a4f3f2f2"
+    },
+    {
+      "bytes": 726,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_input_acquisition_v1_0_1.json",
+      "sha256": "b5356d9189b91c42e8a555854a958e81d0063e6745eaad174e10ca9b69c6a81f"
+    },
+    {
+      "bytes": 494,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_input_acquisition_v1_failure_receipt.json",
+      "sha256": "e182af4bbe8e2c619e1749890c1a339f8454e901efff29e6d684aeb1d4158658"
+    },
+    {
+      "bytes": 834,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1_freeze_receipt.json",
+      "sha256": "d3a636cd689d1978e5b522961823e1cb1453b3715919c64f3518efbccf83e444"
+    },
+    {
+      "bytes": 634,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_freeze_receipt.json",
+      "sha256": "65f1f001c356038f6cac295f17ad44f98966818980308f7362a21b3f529c8789"
+    },
+    {
+      "bytes": 3459,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_ledger_v1_0_1.json",
+      "sha256": "1bf9abe220b74a60203221d87a53e7c248c5e236be5c128cfdb1f23fc0a03193"
+    },
+    {
+      "bytes": 2705,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_source_probe_v1_0_1.json",
+      "sha256": "d791f4ef3d620a21c279518fff393215a0fe23b1a51f274f2b499bf4b6c8078f"
+    },
+    {
+      "bytes": 890,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_source_probe_v1_failure_receipt.json",
+      "sha256": "3a6bca7931035f28d6199f8b7c70ce0d6f14b2f5216b2757dc870e90ce3e377a"
+    },
+    {
+      "bytes": 852,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1_freeze_receipt.json",
+      "sha256": "07f83fba7c7833150a9207227fbf555f6a90ab199ed45eac027502923a7e7b23"
+    },
+    {
+      "bytes": 1088,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_four_state_sources_v1_freeze_receipt.json",
+      "sha256": "d6863986f872bb82187adc2c367268a0d85530dc918402dfb0bf476fbc82e4d9"
+    },
+    {
+      "bytes": 1524,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_freeze_receipt.json",
+      "sha256": "c22323760644b4c3c76482db0ee96b892aeea376925cadbad2d308c8020cb8e1"
+    },
+    {
+      "bytes": 4912,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_build_v1.json",
+      "sha256": "0fefea5793506f05f663bf78af86964c9251babfcd4c30da9322cf78dea69da9"
+    },
+    {
+      "bytes": 4257,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_0_1.json",
+      "sha256": "63f8e6391ce022f7cb86f5ee6d90574e69c7a589f37829c18847fac8930db231"
+    },
+    {
+      "bytes": 781,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_clean_replay_v1_failure.json",
+      "sha256": "9a0db2c986d1f1f29a76d201b9e0a42859045d08396107e3d353743d6711b770"
+    },
+    {
+      "bytes": 710,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1_freeze_receipt.json",
+      "sha256": "6e95e69a919f9544cbbc9cf7d8f16f1060152065b50635c15a07485b6adcb86e"
+    },
+    {
+      "bytes": 735,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_freeze_receipt.json",
+      "sha256": "e6eab49a3ec7e7a6c4ab897c25ad1e746fe4cb1977db08fd857e3279ab56ddbf"
+    },
+    {
+      "bytes": 6928,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_build_v1.json",
+      "sha256": "b82daa2b96910e4ed821bba3d8e160b42aa647bc1c15ee244b93773db74ebd35"
+    },
+    {
+      "bytes": 5934,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_clean_replay_v1.json",
+      "sha256": "e8f0afca639a32d2cb7b459981062a6416e5720cf8ad0f9568d494554f86b62a"
+    },
+    {
+      "bytes": 731,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1_freeze_receipt.json",
+      "sha256": "7043f9531e10140444bb3998a8a3c4f85deed0eff3d2b4a91557a68e5ae3cc68"
+    },
+    {
+      "bytes": 7106,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_build_v1.json",
+      "sha256": "c825d179dc47c77cc13babbd3c3290e1ef5415f404566728d3d5df81ed0fcfe9"
+    },
+    {
+      "bytes": 6985,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_replay_v1.json",
+      "sha256": "c89c7caadcfb2dade37523a200aba569c1fe117a20513df3de3160c567cd1bb4"
+    },
+    {
+      "bytes": 1150,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.json",
+      "sha256": "3776855c0c757e6482e4043cbd1b2c079d7992f74f0d859beb2e462337a10c6e"
+    },
+    {
+      "bytes": 638,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1_freeze_receipt.json",
+      "sha256": "f1bde38155bea6d15496f07269da639349a9f2d937d3d45b84de484d21c2d019"
+    },
+    {
+      "bytes": 622,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1_freeze_receipt.json",
+      "sha256": "27a25da8938bffb82d78e822eb8accfd65112edb13ced2e3238e4cf2a8507447"
+    },
+    {
+      "bytes": 4669,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1_0_1.json",
+      "sha256": "2e8692e8aaa72fe362dfcafe6d774779cfbfefecf75c039d47be60a44c8d9dab"
+    },
+    {
+      "bytes": 804,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_clean_replay_v1_failure_receipt.json",
+      "sha256": "e0256b0332ebf75505cd030e5ea6d7f55dbc34dcea626bb7234e8da4ed609d0f"
+    },
+    {
+      "bytes": 7633,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_feature_build_v1.json",
+      "sha256": "1ba2d56c10c069b4764f18b80e5131b55a6e295535eef4b68946136d93a8f8c7"
+    },
+    {
+      "bytes": 894,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1_freeze_receipt.json",
+      "sha256": "ea2c783e0e08033fc380934e8a009e302024790d5400d0629d3db3f86aca3713"
+    },
+    {
+      "bytes": 627,
+      "path": "reports/audit/510300_stress_transmission_hazard_v2_mft_feature_execution_v1_freeze_receipt.json",
+      "sha256": "844a8fea021713e595942b8fed22e1690212ffc2c175d7078b9500cf5d8b84eb"
+    },
+    {
+      "bytes": 859,
+      "path": "reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_FOUR_STATE_LEDGER_V1_0_1.md",
+      "sha256": "4d6bde7b1534e7deb24bfa1a9d5a78bec7d255d3c8421b1ffb7f38b8a581e112"
+    },
+    {
+      "bytes": 1422,
+      "path": "reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_EVENT_PREDICTION_ADMISSION_V1.md",
+      "sha256": "b60b6130e2b9ab1a6e05274b6aede247cabda157fa1c3c37c25d4d3250499923"
+    },
+    {
+      "bytes": 6842,
+      "path": "reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_COVERAGE_AUDIT_V1.md",
+      "sha256": "3d33500aaab6c159ee7043b644717d82a82e7b2bd92b046a315ff9b8abd9ff6e"
+    },
+    {
+      "bytes": 1140,
+      "path": "reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_REMEDIATION_V1.md",
+      "sha256": "2a2b07121dcfcfbe84b4bd198839bee8d6ceb122c3e2bb54f24006a569193332"
+    },
+    {
+      "bytes": 2237,
+      "path": "reports/data_quality/510300_STRESS_TRANSMISSION_HAZARD_V2_MFT_FEATURES_V1.md",
+      "sha256": "c62645c557ddccf6da87c217ede8a3853c0bb1670234ef576c1f0a9bc7b44caa"
+    },
+    {
+      "bytes": 1160,
+      "path": "reports/research/510300_STRESS_TRANSMISSION_HAZARD_V2_BAD10_EVENT_LEDGER.md",
+      "sha256": "91bb0f61a7ddc7d303c99c7db41037ce7d0d033fabc758e3767e5b3af979d4c2"
+    },
+    {
+      "bytes": 4312,
+      "path": "reports/research/510300_STRESS_TRANSMISSION_HAZARD_V2_G1_HISTORICAL_REMEDIATION_FINAL_V1_0_1.md",
+      "sha256": "4baf4f0654da45773bc38902c8236f0b85fae04366bb468973b5f6c11ae9dfbc"
+    },
+    {
+      "bytes": 9001,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_bad10_events.csv",
+      "sha256": "500211e77463b4e1017df32eecd0b482b6a0d5986910161cb4ce2231fa477d40"
+    },
+    {
+      "bytes": 386019,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_bad10_sample_ledger.csv",
+      "sha256": "7a73e2d52b7edecf039ba9d277b581d65994aa05a80f1cd9ce4518aa104281a5"
+    },
+    {
+      "bytes": 640,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_four_state_input_acquisition_status_v1_0_1.json",
+      "sha256": "a7c58ff1710bfccc37570742255763cf101b3f899211f1d35f3315dcd01d7f56"
+    },
+    {
+      "bytes": 874,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_four_state_ledger_status_v1_0_1.json",
+      "sha256": "0e200bc3e5044139006b4814c4bafe618ae507ae9f4ed24911a4ced275f1c107"
+    },
+    {
+      "bytes": 893,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_four_state_source_status_v1_0_1.json",
+      "sha256": "18696cb687e5c154442fcef2733ed2cc9c79685c209b7d9bad4e9356373fa713"
+    },
+    {
+      "bytes": 1210,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_g0_status_v1_0_1.json",
+      "sha256": "bc97330090ad56bc1322395c7409d85f628b32524aea5203ca4f45a3aee85bf7"
+    },
+    {
+      "bytes": 3906,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_status_v1.json",
+      "sha256": "c49fb49b88a1a8da12507d67c77009a79e1463643354a7c36067eddf79954055"
+    },
+    {
+      "bytes": 1386,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1.json",
+      "sha256": "aae7725c4cd6c964f4a77861f64f1201fe1c423770bb3d882b0aed5c2a611144"
+    },
+    {
+      "bytes": 2045,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1_0_1.json",
+      "sha256": "0af62d367b00d022ceb9d34351ea75290bba4b3c9742d9eacdd9353b5eca29ee"
+    },
+    {
+      "bytes": 2240,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_g1_status_v1_0_1.json",
+      "sha256": "af7d5257e288ed532e3078e1aa4067f6f6ddbdae11a6096c3be1da643546f4a6"
+    },
+    {
+      "bytes": 800,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_mft_feature_status_v1.json",
+      "sha256": "43d10c1cc4c2deb84a2168340e7fc5cc199fa7ab517342d0a988dfcd0eb41bc1"
+    },
+    {
+      "bytes": 2136,
+      "path": "reports/research/510300_stress_transmission_hazard_v2_status.json",
+      "sha256": "24730fd2090266e6f238320b37d86d57af11a2a9be76fc007bfcbd0fb1b9e58a"
+    },
+    {
+      "bytes": 15913,
+      "path": "research/project_evidence_contract_v1.py",
+      "sha256": "92d8b9a687b1f3a84111ab5b7ea517aa5533fbd16ddc3cd5a9ae0eb1cc2c1671"
+    },
+    {
+      "bytes": 51415,
+      "path": "research/stress_transmission_hazard_v2.py",
+      "sha256": "1795066171459658f836d7a0f16433673662866bdb8fcb21c3279efaa0dc4aa0"
+    },
+    {
+      "bytes": 25215,
+      "path": "research/stress_transmission_hazard_v2_four_state_ledger_v1.py",
+      "sha256": "b75c81fb9adbe7e2d1a8f40cea704496d8b0f8be77f84babe3898da27d7b92eb"
+    },
+    {
+      "bytes": 15493,
+      "path": "research/stress_transmission_hazard_v2_g0_1_version_lock_v1.py",
+      "sha256": "78831e9fd00d5e1b32c16b2be8b1051801b99bcc763e0ed4a7ba4adc8dfe0f25"
+    },
+    {
+      "bytes": 27872,
+      "path": "research/stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py",
+      "sha256": "5ab77b4b4291e90c52243546a7b95a6ee75027092238d25952cb3eab66e77735"
+    },
+    {
+      "bytes": 36761,
+      "path": "research/stress_transmission_hazard_v2_g1_historical_coverage_audit_v1.py",
+      "sha256": "60dde86408b3d462937b94804586c6c979797bb21fe264ae69104413dca25186"
+    },
+    {
+      "bytes": 33484,
+      "path": "research/stress_transmission_hazard_v2_g1_historical_remediation_v1.py",
+      "sha256": "1050210b1f9a24dd244a4e0890e63436baaae18737ff20390d4cdbf4bf3c6b34"
+    },
+    {
+      "bytes": 35427,
+      "path": "research/stress_transmission_hazard_v2_g2_counterfactual_v1.py",
+      "sha256": "88e63f50b702d01b491e010bcb58e1d63a008319987f3725541f5e0bb3d3a939"
+    },
+    {
+      "bytes": 32126,
+      "path": "research/stress_transmission_hazard_v2_mft_features_v1.py",
+      "sha256": "1bfe46af6a8e2b1f7f505258efd398b54bf3ed0d8c47aa7d36add376c47624af"
+    },
+    {
+      "bytes": 16679,
+      "path": "scripts/acquire_510300_stress_transmission_hazard_v2_four_state_inputs_v1.py",
+      "sha256": "f702ad716eefa9595685d31ae2371ddbc84d58a2f884bb7c67e288ba8e351655"
+    },
+    {
+      "bytes": 13187,
+      "path": "scripts/acquire_510300_stress_transmission_hazard_v2_four_state_inputs_v1_0_1.py",
+      "sha256": "e683cb34d87787a24f40e9965bc240fd3a0a292a07c23da6e73b0eea54de1e90"
+    },
+    {
+      "bytes": 11089,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_bad10_ledger.py",
+      "sha256": "e958e87dafc4ec929c3516f95640d92cb0981c98f7431ec348b3806a60424a5d"
+    },
+    {
+      "bytes": 11582,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_four_state_ledger_v1.py",
+      "sha256": "c8c0de1b17ea577a21921a815d382dd52ecf4d04d353c83d5b9f02f38d46c207"
+    },
+    {
+      "bytes": 10004,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_four_state_ledger_v1_0_1.py",
+      "sha256": "c58a08ce89cdedc088f76ece674385cd516fadd2050fadd1602138581421e996"
+    },
+    {
+      "bytes": 11107,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py",
+      "sha256": "b378182cae5111434271a93feac848506cd52851a2f25a94c4d24cd20ef0f877"
+    },
+    {
+      "bytes": 13504,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1.py",
+      "sha256": "8856a6409367ea99664000b41fa2fe7be0dc0def336034f0a9096891b768ab8b"
+    },
+    {
+      "bytes": 13335,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py",
+      "sha256": "89759fc36364a10786963502bf7312d19bb239675b48c19fae1e2a9a8e56eff6"
+    },
+    {
+      "bytes": 58559,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_gpt_pro_full_review_package_20260903.py",
+      "sha256": "73689eefe5e9b371b697f3c7547a4ca6a49b91f5bd49d47bb1ae4db22cd2b22d"
+    },
+    {
+      "bytes": 11757,
+      "path": "scripts/build_510300_stress_transmission_hazard_v2_mft_features_v1.py",
+      "sha256": "02d60486d4c98701a0f1f369053181baecbf15f39b5dc4784394d2aba2c43c85"
+    },
+    {
+      "bytes": 12985,
+      "path": "scripts/correct_510300_stress_transmission_hazard_v2_g1_historical_remediation_status_v1_0_1.py",
+      "sha256": "cdaf557b84bcf9ac33b239489ad8a563653dca42f93fa385644272eb5a0f7e6b"
+    },
+    {
+      "bytes": 25555,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2.py",
+      "sha256": "1ae5d0ff420d0e61b54b639a9590776995bc265ce1aef1742e9b622c7a8e3ed3"
+    },
+    {
+      "bytes": 13309,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.py",
+      "sha256": "d4cb9e2f99bf188953ebd6d3c7bb023cdf8947b52b9ec6039d654d197fe68190"
+    },
+    {
+      "bytes": 12279,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.py",
+      "sha256": "f3e47353fcbbc0f042a5d8c11a74505d05f5abfbef12f97d51a8c73b1591c1d9"
+    },
+    {
+      "bytes": 15189,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_four_state_sources_v1.py",
+      "sha256": "5b282e1bd29f95c3513136a0d00002fec78283a200c564ed5dc4210b5144ad41"
+    },
+    {
+      "bytes": 11402,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1.py",
+      "sha256": "d1c7a6f4cdacda92d49037e3d9dcbf55c5447a1909411465edc5b51b5656f0c3"
+    },
+    {
+      "bytes": 18207,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py",
+      "sha256": "985b43a347660464a03470694a2c05e1efdf340ea1180844bccd756e5cb48209"
+    },
+    {
+      "bytes": 13549,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py",
+      "sha256": "496d6243e5feaab22dd1949758e7cbe0c131ec133b2aec5a6607a74fd2c155e9"
+    },
+    {
+      "bytes": 18023,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1.py",
+      "sha256": "e673140fe2fdcbcebe78a7975a1c652e35742c6f57eb9c318f4acbc5e5776bce"
+    },
+    {
+      "bytes": 20287,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py",
+      "sha256": "bbca282fd6aff16ec84e3aa3e55c7bd2af92645c4344cd1e2ac742102ff18bed"
+    },
+    {
+      "bytes": 14162,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py",
+      "sha256": "c5189acc034c4ce150ed025ad6de7a1fd0fb4c64a6467178daa1a98c99c61441"
+    },
+    {
+      "bytes": 13201,
+      "path": "scripts/freeze_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py",
+      "sha256": "9b39341faabe89409b37bfe2d31d5e6466e2885a241a27fe69565dd9a542c40b"
+    },
+    {
+      "bytes": 9865,
+      "path": "scripts/probe_510300_stress_transmission_hazard_v2_four_state_sources_v1.py",
+      "sha256": "b7de2135274ae5acfd1de20ff1287887735ab42f0e5cda72a8b6cfee4de16009"
+    },
+    {
+      "bytes": 7965,
+      "path": "scripts/probe_510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1.py",
+      "sha256": "efcfe29c6531f5247c051a6f2dfd1382b642216198556810c54cda2133efb2de"
+    },
+    {
+      "bytes": 12255,
+      "path": "scripts/replay_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py",
+      "sha256": "5d52b517f88027b02e8130913a165cf6326ec2248f393d5f9ce1d952f0afc996"
+    },
+    {
+      "bytes": 13390,
+      "path": "scripts/replay_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py",
+      "sha256": "8f4549ea79bb7557b7a758cddfc024f2042a823475532ed523f1a3cbe4ce6773"
+    },
+    {
+      "bytes": 11832,
+      "path": "scripts/replay_510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1.py",
+      "sha256": "d216120688b0b27d68bec979a2d02209fae5017b33f0cfd5e204bdb9c355c1ec"
+    },
+    {
+      "bytes": 12817,
+      "path": "scripts/replay_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py",
+      "sha256": "13f8b328fbef78e19d8f368a5d76e8ee41a8acf53369df89f1903b8e4b87b423"
+    },
+    {
+      "bytes": 8961,
+      "path": "scripts/replay_510300_stress_transmission_hazard_v2_mft_features_v1.py",
+      "sha256": "a0369029549ee14b647ec8abbd64d2d60be5739c3f30d80e727c7d8c24142f67"
+    },
+    {
+      "bytes": 12188,
+      "path": "scripts/replay_510300_stress_transmission_hazard_v2_mft_features_v1_0_1.py",
+      "sha256": "f10bf59a678fc67773b8d386e148ddcf5978f7c0f54a44b9978127ef0bcca665"
+    },
+    {
+      "bytes": 27187,
+      "path": "scripts/run_510300_stress_transmission_hazard_v2_g0_1_version_lock_v1.py",
+      "sha256": "bad447680a8c7c114d99e4a37754934cc61f91a33a083c5c3ba4a03a8ff3cb93"
+    },
+    {
+      "bytes": 47738,
+      "path": "scripts/run_510300_stress_transmission_hazard_v2_g1_historical_remediation_v1.py",
+      "sha256": "115b78e9c9b41372995db87d59ba3826dfbbfd371cd8031044c1d839c5da6686"
+    },
+    {
+      "bytes": 17381,
+      "path": "tests/test_510300_stress_transmission_hazard_v2.py",
+      "sha256": "32e7adfe40e81e90a545c4c7d375b8fe28781c3f3b39f6fa52b03c7a479a1486"
+    },
+    {
+      "bytes": 10689,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1.py",
+      "sha256": "a056a9e83a5e1ec97987cc65b3cdd3dd7699ab2edb23f4e97f25370ca036ad74"
+    },
+    {
+      "bytes": 2956,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_four_state_ledger_execution_v1_0_1.py",
+      "sha256": "747c77c2cf85a020cc441adee2f6093267a0f90949ec5bb116904d303467f82d"
+    },
+    {
+      "bytes": 4697,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1.py",
+      "sha256": "9c12e27866573b2cb48165599e645823e482931ab77d39bf40544bedd5ce1b55"
+    },
+    {
+      "bytes": 2613,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_four_state_sources_v1_0_1.py",
+      "sha256": "550416c2625ff60c2ad04b6c309382174e6bd9ac77ac436eb11d287356012eca"
+    },
+    {
+      "bytes": 7701,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g0_1_version_lock_v1.py",
+      "sha256": "60ead599f3274922894fa51e0811d17f89b45b5138610c681aa68867fc935871"
+    },
+    {
+      "bytes": 10088,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1.py",
+      "sha256": "f451a1ddae4e7380ddd1c7452f43787ca15095340d14cdb65313d71e3737d359"
+    },
+    {
+      "bytes": 3945,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g1_event_prediction_admission_v1_0_1.py",
+      "sha256": "c276a44cf8716675ebefa23ab70ff35de4db16b46686a5a29710dc12c79fdb0d"
+    },
+    {
+      "bytes": 8072,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g1_historical_coverage_audit_v1.py",
+      "sha256": "20b40852eb3b63b901ace6e00e0b7bedbe9ffa40a50ee0371cde2d534f0cf500"
+    },
+    {
+      "bytes": 2097,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g1_historical_remediation_status_correction_v1_0_1.py",
+      "sha256": "d86aa801051367a5b4f21a4fd55ac32c3210b417be8db42b4e7bed0eb43615a7"
+    },
+    {
+      "bytes": 12084,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g1_historical_remediation_v1.py",
+      "sha256": "3f88f847cbc7583487ea79aa994a9e352aaada042506ce80a95ee17affa736fa"
+    },
+    {
+      "bytes": 8307,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_g2_counterfactual_v1.py",
+      "sha256": "60cb32603f76611a4cde788d63dd78c565a54c12e2369bdef5d724374b9fb81c"
+    },
+    {
+      "bytes": 9524,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1.py",
+      "sha256": "336935ff2159cb4a572ca721be1e2228608289e3930e25a2d45d8a5a9a3d8c15"
+    },
+    {
+      "bytes": 4408,
+      "path": "tests/test_510300_stress_transmission_hazard_v2_mft_feature_execution_v1_0_1.py",
+      "sha256": "c87c1ab386c1f2dfc0cd23f7a6817954c2eb968ebfbf869e9ea2a0d2fbc956bd"
+    }
+  ],
+  "status": "FROZEN_POST_REMEDIATION_GIT_AND_DATA_VERSION_LOCK",
+  "version": "1.0.0"
+}

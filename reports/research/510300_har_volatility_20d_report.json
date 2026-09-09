@@ -1,0 +1,87 @@
+{
+  "status": "HAR_VOLATILITY_REJECTED",
+  "checked_at": "2026-08-13T17:33:16.235195+08:00",
+  "registry_status_before_test": "PRE_REGISTERED_BEFORE_OUTCOME_TEST",
+  "features": [
+    "log_rv_5",
+    "log_rv_20",
+    "log_rv_60",
+    "log_parkinson_rv_20",
+    "log_component_return_dispersion_20"
+  ],
+  "model": {
+    "estimator": "标准化Ridge(alpha=1)的HAR式对数波动率回归",
+    "target": "log(future_realized_volatility_20d)",
+    "minimum_training_samples": 504,
+    "refit_interval_trading_days": 5,
+    "no_hyperparameter_search": true
+  },
+  "acceptance_gate": {
+    "minimum_realized_forecasts": 500,
+    "require_overall_mae_better_than_rv20_persistence": true,
+    "require_overall_qlike_better_than_rv20_persistence": true,
+    "minimum_model_actual_correlation": 0.35,
+    "require_each_half_mae_better_than_persistence": true,
+    "require_each_half_qlike_better_than_persistence": true,
+    "require_non_overlapping_median_mae_improvement_positive": true,
+    "trading_use_authorized": false
+  },
+  "gate_checks": {
+    "minimum_realized_forecasts": true,
+    "overall_mae": true,
+    "overall_qlike": true,
+    "correlation": false,
+    "each_half_mae": true,
+    "each_half_qlike": true,
+    "non_overlapping_mae": true
+  },
+  "evaluation": {
+    "realized_forecast_count": 649,
+    "model_mae": 0.04985445925876164,
+    "persistence_baseline_mae": 0.06590425369822671,
+    "model_rmse": 0.09128408195448003,
+    "persistence_baseline_rmse": 0.1111463171373849,
+    "model_qlike": 0.10791077107877443,
+    "persistence_baseline_qlike": 0.15871786173343683,
+    "model_actual_correlation": 0.16705693811201866,
+    "persistence_actual_correlation": 0.1562989634509006,
+    "non_overlapping_cohort_mae_improvement_median": 0.016446353072627533,
+    "volatility_gate_passed": false
+  },
+  "chronological_halves": {
+    "first_half": {
+      "realized_forecast_count": 324,
+      "model_mae": 0.06071689737530634,
+      "persistence_baseline_mae": 0.08014833848601097,
+      "model_rmse": 0.11808601118438296,
+      "persistence_baseline_rmse": 0.1399398000594553,
+      "model_qlike": 0.16293430000097253,
+      "persistence_baseline_qlike": 0.2232627691576055,
+      "model_actual_correlation": 0.06714707571568429,
+      "persistence_actual_correlation": 0.13906171956773172,
+      "non_overlapping_cohort_mae_improvement_median": 0.020612605986247264,
+      "volatility_gate_passed": false
+    },
+    "second_half": {
+      "realized_forecast_count": 325,
+      "model_mae": 0.039025444028729386,
+      "persistence_baseline_mae": 0.05170399686363563,
+      "model_rmse": 0.052330941343859266,
+      "persistence_baseline_rmse": 0.07173635789234532,
+      "model_qlike": 0.0530565453224908,
+      "persistence_baseline_qlike": 0.09437155402441938,
+      "model_actual_correlation": 0.45292571321319874,
+      "persistence_actual_correlation": 0.2038031978576157,
+      "non_overlapping_cohort_mae_improvement_median": 0.01259910296861565,
+      "volatility_gate_passed": false
+    }
+  },
+  "latest_forecast": {
+    "signal_date": "2026-08-12",
+    "predicted_realized_volatility_20d": 0.17864504645350207
+  },
+  "trading_use_authorized": false,
+  "output_file": "data/features/510300_har_volatility_20d_forecasts.parquet",
+  "output_sha256": "00e5300331d9dd2459fb27d0361a0822e55edfdd28bd0d2af722ee11661e48ff",
+  "registry_sha256": "e345e9ca837c16e7aaa947ede59e4b71a160492b4f912537de7dc6f94cb27009"
+}

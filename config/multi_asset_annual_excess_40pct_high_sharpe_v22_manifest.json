@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V22_MANIFEST",
+  "status": "FROZEN_BEFORE_BASIS_RANKED_SPOT_LONG_OUTCOME",
+  "frozen_at": "2026-08-27T08:27:41.054958+08:00",
+  "protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V22",
+  "parent_protocol_id": "MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V21",
+  "tracked_files": {
+    "config/multi_asset_annual_excess_40pct_high_sharpe_v22.yaml": "7aabc8e066b2f36ca1b257ed812d4f60ee45866aa7f1107efdac950d21dbd780",
+    "docs/MULTI_ASSET_ANNUAL_EXCESS_40PCT_HIGH_SHARPE_V22_SPEC.md": "d019fca013972e39bdb069d5790729b37d6299ac1167e3340dc69f99500e94b9",
+    "scripts/freeze_multi_asset_annual_excess_40pct_high_sharpe_v22.py": "119a6d8074108f077ecd5f75f1ccfdf14f515680fb2a023c8440c5a117c78028"
+  },
+  "tracked_content_sha256": "050770690f3be219571b09546ecddefb8107c2a75ef8c05ae50b439c54a6354f",
+  "parent_manifest_sha256": "e121d1c3bffb1b6d89b1dcb0a0b8d179ae1054bfea02f48b9fe37ebbec598edd",
+  "v11_failure": {
+    "checks": {
+      "candidate": true,
+      "status": true,
+      "error_type": true,
+      "error": true,
+      "performance_unavailable": true,
+      "manifest_verified": true,
+      "manifest_snapshot": true
+    },
+    "manifest_sha256": "038e2a26dfdb6592977fd5e8b0841d2823e098f554c08ee446efcf6a4960b05d",
+    "report_sha256": "e6be51252b606f77848361da41ab9a114f1549484c1c05367d140262fd7ab5d7",
+    "tracked_content_sha256": "c5dc9194c43b757a2da521d2358a69d58d8868c79cc57d82c80a1ce59d36c869",
+    "error": "V11末端七日容量减仓后仍有非零当季期货持仓",
+    "performance_metrics_available": false
+  },
+  "objective": {
+    "initial_capital_cny": 500000.0,
+    "benchmark": "H00300_TOTAL_RETURN",
+    "minimum_annualized_net_excess": 0.4,
+    "minimum_strategy_net_sharpe": 1.5,
+    "user_transaction_fee_rate_per_leg": 0.0001,
+    "base_and_stress_must_both_pass": true
+  },
+  "new_lane": {
+    "lane": "DIGITAL_ASSET_BASIS_RANKED_SPOT_LONG",
+    "candidate_id": "DIGITAL_ASSET_BASIS_RANKED_SPOT_LONG_V12",
+    "empirical_reference": "CHI_HAO_HU_RAN_2023_LONG_LEG_DOMINATES_BASIS_FACTOR",
+    "fixed_symbols": [
+      "BTCUSDT",
+      "ETHUSDT"
+    ],
+    "visible_start": "2021-09-01",
+    "visible_end": "2026-08-14",
+    "signal": "FIVE_DAY_MEAN_LOG_SPOT_DIV_CURRENT_QUARTER_FUTURES_BASIS",
+    "selection": "LONG_HIGHER_MEAN_BASIS_SYMBOL",
+    "execution": "NEXT_DAY_00UTC_SPOT_OPEN",
+    "target_long_gross": 0.9,
+    "cash_buffer": 0.1,
+    "short_or_derivative_position_allowed": false,
+    "delivery_day_policy": "CASH_FROM_00UTC_THROUGH_23UTC",
+    "turnover_lookback_observed_venue_hours": 168,
+    "maximum_order_fraction": 0.001,
+    "terminal_winddown_calendar_days": 7,
+    "base_total_spot_cost_bps_per_leg": 4.0,
+    "stress_total_spot_cost_bps_per_leg": 16.0,
+    "parameter_grid_search_allowed": false
+  },
+  "basis_rank_or_return_computed_during_freeze": false,
+  "historical_result_can_verify_target": false,
+  "paper_or_live_authorized": false
+}

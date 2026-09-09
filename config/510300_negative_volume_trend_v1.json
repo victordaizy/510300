@@ -1,0 +1,174 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "candidate_configurations": 1,
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "registered_at": "2026-09-09T03:15:44.346859+08:00",
+  "source_budget_cny": 0,
+  "goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "position_impact": 0,
+  "study_id": "510300_NEGATIVE_VOLUME_TREND_V1",
+  "round": 129,
+  "primary": "NEGATIVE_VOLUME_TREND",
+  "name": "缩量日累计涨跌趋势",
+  "signal_period": 255,
+  "initial_index": 1000.0,
+  "ema_seed": "FIRST_255_LEVELS_SIMPLE_MEAN_INCLUDING_INITIAL_1000",
+  "recurrence": "ADD_100_TIMES_ECONOMIC_SIMPLE_RETURN_ONLY_ON_STRICT_VOLUME_DECREASE",
+  "price_change": "DECIMAL_CLOSE_MINUS_PREVIOUS_PLUS_DIVIDEND_DIVIDED_BY_PREVIOUS",
+  "volume": "ACTUAL_TRADED_SHARES",
+  "equal_volume": "KEEP_INDEX",
+  "equal_indicator_and_mean": "KEEP_ACTUAL_STATE",
+  "source_gap": "NO_VIEW_REMAINDER_NO_RESEED",
+  "old_cooldown_or_rearm": false,
+  "rules": "docs/510300_NEGATIVE_VOLUME_TREND_V1.md",
+  "input_receipt": "reports/research/510300_negative_volume_trend_preflight_20260909/result.json",
+  "previous_goal_turn_classification": "PROGRESS_ROUND128_COMPLETED_AND_129_METHOD_REVIEW",
+  "frozen_files": [
+    {
+      "path": "config\\510300_rearmed_session_exit_v1.json",
+      "sha256": "052a9483acd107de824cb20d63e6e65200b6d8f4689572ead9c8284aef9d96cf"
+    },
+    {
+      "path": "config\\510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_NEGATIVE_VOLUME_TREND_V1.md",
+      "sha256": "4ea8b4ac053a8cfc7722394adbedeb8a19bb6f8c451e35f274a23ac679e9e55d"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "84627b8d8b953d14c5aa196a04a153da9db8d66bd0e9bcc0d1cb7628b21564fd"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\earlier_diagnostic\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "5b7e0cc9a843c888ea3262615d102a8b16ba511f235d278b2f882a00ce013c81"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\BASE\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "864a38a3e707c277b4079cb9ce20648e4bd2409e801682da84187aa2c39d123e"
+    },
+    {
+      "path": "reports\\research\\510300_continuous_reference_min_variance_v1\\evaluation\\STRESS\\CONTINUOUS_REFERENCE_MIN_VARIANCE_ledger.parquet",
+      "sha256": "e7371121c04f2af078ee69e36a4bebc6b9d8690767c3da1bda3fd83d9dca9f2f"
+    },
+    {
+      "path": "reports\\research\\510300_negative_volume_trend_preflight_20260909\\result.json",
+      "sha256": "19435a9f2ede0d2d966686011b3ed58286b2a7c8e4408957c03a82f733d46376"
+    },
+    {
+      "path": "reports\\research\\510300_negative_volume_trend_v1\\tests_receipt.json",
+      "sha256": "fe6b67819cccc1e1bd45a8f912bde8280226bd9d6e696f6e4338781ee743d083"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "942f26e0431eb1b0273d59bf3b152516e648ddee1cd5aa242a05767d5170b298"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "debb0bd6bbfe47cce41cd9863ccbf41edfe1c13f01df6d607179bd7d07642a5b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\REARM_RIDGE_ledger.parquet",
+      "sha256": "9e057b46a57b8bf8c843bbc19da8b990bffc4cb2c4b2dddf122a36c94cdddfd2"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\REARM_RIDGE_ledger.parquet",
+      "sha256": "5576e8e5b7286d1bf8486356223a4576ca9a8f77fa61500affdce5ccfe1f2a7b"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\earlier_diagnostic\\BASE\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "ce47e6f1bcdbbf9d2256b92d89c8f5c79800453f1785e8889ee9bd77e10fe9a7"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\earlier_diagnostic\\STRESS\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "e2b326e0c9533f3bf6ece7ddfee18b74429597d1df3272cc98e1cb63ecc720dc"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\evaluation\\BASE\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "da8525233fece4b59eb152f533a3835c067917475cfff6d66cae11e7a72b65c6"
+    },
+    {
+      "path": "reports\\research\\510300_within_cycle_exit_v1\\evaluation\\STRESS\\WITHIN_CYCLE_EXIT_ledger.parquet",
+      "sha256": "b63c8314849483176d0a613923695a4404ee1679f8c8f39900dbe3773771585d"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\fixed_signal_account_round_v1.py",
+      "sha256": "daebd14bfd4a2249f05b4a90220bd9712183dd92f4c72982609c7ba8315ea086"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\joint_entry_exit_account_v1.py",
+      "sha256": "90f32aba6429303057a880858c114c51e7fe3aecd5af04fcf2042e269516652e"
+    },
+    {
+      "path": "research\\negative_volume_trend_inputs_v1.py",
+      "sha256": "41ba4e6bae547707439172d6ee4f5b4e26535975628557942be6f29c2598f519"
+    },
+    {
+      "path": "research\\negative_volume_trend_v1.py",
+      "sha256": "43f8780159275d604fc4db3dd31489bfebacb265779919a85accd5638c3b8068"
+    },
+    {
+      "path": "tests\\test_negative_volume_trend_v1.py",
+      "sha256": "1958ce0768d5a278a5d66feb55b74c5efd15f60f683c28bdd4c6dfe856ffadd2"
+    }
+  ]
+}

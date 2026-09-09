@@ -1,0 +1,44 @@
+version: PRIORITY_FORWARD_AUTHORITATIVE_STATUS_V1_8_1
+timezone: Asia/Shanghai
+
+contract:
+  overall_research_status: NO_VERIFIED_TRADABLE_ALPHA_OR_STRONG_BETA_YET
+  original_90_day_decision: RUN_ONE_NEW_FROZEN_TEST
+  decision: STOP_NO_HISTORICAL_RETURN_EVALUATION
+  only_new_frozen_test: A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1
+  maximum_active_research_streams: 2
+  active_research_streams:
+    - id: A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1
+      priority: 1
+      resource_percent: 70
+    - id: PRIMARY_MARKET_PCF_IOPV
+      priority: 2
+      resource_percent: 30
+  historical_return_attempts_allowed: 0
+
+inputs:
+  csi300_source_admission: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_SOURCE_ADMISSION.json
+  csi300_data_admission: reports/data_quality/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_D4_D5_ADMISSION.json
+  csi300_pre_return_freeze: reports/audit/A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1_PRE_RETURN_FREEZE.json
+  primary_market_readiness: reports/data_quality/510300_primary_market_readiness_v1_2.json
+  primary_market_task_receipt_globs:
+    - reports/data_quality/primary_market_task_runs_v1_2_1/*.json
+    - reports/data_quality/primary_market_task_runs_v1_3/*.json
+  priority_forward_manifest: config/priority_forward_research_operations_v1_10_manifest.json
+  expected_runtime_patch_id: PCF_IOPV_STRICT_TLS_ROUTE_V1_3_AND_STATUS_MODULE_ENTRYPOINT_V1_8_1
+
+outputs:
+  json: reports/audit/priority_forward_authoritative_status_v1_8_1.json
+  markdown: reports/audit/PRIORITY_FORWARD_AUTHORITATIVE_STATUS_V1_8_1.md
+  snapshot_directory: reports/audit/priority_forward_authoritative_status_runs_v1_8_1
+  task_status: reports/audit/priority_forward_authoritative_status_task_v1_8_1.json
+  task_receipt_directory: reports/audit/priority_forward_authoritative_status_task_runs_v1_8_1
+  log_directory: output/priority_forward_authoritative_status_logs_v1_8_1
+
+execution_authorization:
+  research_only: true
+  shadow_enabled: false
+  position_mapping_enabled: false
+  order_generation_enabled: false
+  broker_connection_enabled: false
+  live_trading_enabled: false
