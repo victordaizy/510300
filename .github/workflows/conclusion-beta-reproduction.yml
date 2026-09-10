@@ -1,0 +1,122 @@
+name: 全结论迭代成分信息完整复算
+on:
+  push:
+    branches: [codex/conclusion-led-iteration-20260910]
+    paths: [.github/workflows/conclusion-beta-reproduction.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 2579b3f660113841da7768ac39dd979e665a25c3
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13.5'
+      - name: 安装固定环境
+        run: python -m pip install numpy==2.3.5 pandas==2.2.3 scipy==1.17.0 scikit-learn==1.8.0 pyarrow==25.0.1 pytest==8.4.2
+      - name: 取得现有原始输入，不下载新行情
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 34465032366 --repo "$GITHUB_REPOSITORY" --name annual10-complete-reproduced-evidence --dir /tmp/old-inputs
+          gh run download 34482167866 --repo "$GITHUB_REPOSITORY" --name conclusion-led-original-inputs --dir /tmp/new-inputs
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile,zipfile,hashlib,json,shutil,ast
+          root=Path.cwd();dest=Path('/tmp/conclusion-beta');dest.mkdir()
+          old=Path('/tmp/old-inputs/510300_annual10_complete_evidence.tar.gz')
+          assert hashlib.sha256(old.read_bytes()).hexdigest()=='cefbee29754d04a64b2b3ce14f71ff3dcbedad29785f2f0b6921bcbb91414136'
+          with tarfile.open(old) as archive:
+              for m in archive.getmembers():
+                  assert not m.issym() and not m.islnk()
+                  assert (dest/m.name).resolve().is_relative_to(dest)
+              archive.extractall(dest,filter='data')
+          work=dest/'workspace'
+          zpath=Path('/tmp/new-inputs/conclusion-led-original-inputs.zip')
+          assert hashlib.sha256(zpath.read_bytes()).hexdigest()=='5b346ba68b84abad7b6c714e2cce1c43a1b7fd49e00c04fbbdfabec8b1ebd2c1'
+          with zipfile.ZipFile(zpath) as archive:
+              manifest=json.loads(archive.read('source_manifest.json'))
+              for row in manifest['files']:
+                  content=archive.read(row['path'])
+                  assert hashlib.sha256(content).hexdigest()==row['sha256']
+                  target=work/row['path'];assert target.resolve().is_relative_to(work)
+                  target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(content)
+          rel='tools/research/conclusion_beta_iteration_20260910.py'
+          raw=(root/rel).read_text(encoding='utf-8')
+          assert hashlib.sha256(raw.encode()).hexdigest()=='a34e7460bb5962de09d488732c573f08af646b2799ecc593402a387b16b22a26'
+          replacements=[
+              ('    order=eligible[np.argsort(b[eligible],kind=\'stable\')];k=len(order)//3','    # 输入股票列已按代码排序，stable保证beta相同按代码排序。'),
+              ('    prior=mem.shift(1,fill_value=False).to_numpy(bool); rows=[];groups=[]','    # 当日分组使用上一交易日点时成员。首日无成员视野，不用未来回填。'),
+              ('    beta=np.linspace(.1,2.5,300);ret=beta*.01','    # t日冲击不改变t日beta；当天真实残差应被统计量捕获。'),
+              ('    xx=x.copy();xx[:130,0]=np.nan;bb,nn=lagged_beta(xx,m);assert np.isnan(bb[:200,0]).all()','    # beta配对样本数不足不得当零beta。'),
+          ]
+          restored=raw
+          for anchor,comment in replacements:
+              assert restored.count(anchor)==1
+              restored=restored.replace(anchor,comment+'\n'+anchor)
+          assert ast.dump(ast.parse(raw))==ast.dump(ast.parse(restored))
+          assert hashlib.sha256(restored.encode()).hexdigest()=='f2f375f72e9c7551d07c7aa5959ad4f435665560a084c3de7a72389d1555a734'
+          (work/rel).write_text(restored,encoding='utf-8')
+          assert not (work/'research_runs/conclusion_beta_iteration_20260910').exists()
+          print('INPUTS_VERIFIED; FOUR_COMMENT_LINES_RESTORED; EXECUTABLE_AST_UNCHANGED')
+          PY
+      - name: 按原规则重做全部账户与检验
+        working-directory: /tmp/conclusion-beta/workspace
+        run: |
+          python tools/repository/snapshot.py verify
+          python tools/research/conclusion_beta_iteration_20260910.py freeze
+          python tools/research/conclusion_beta_iteration_20260910.py run
+          python -m pytest -q tests/test_event_clock_account_v1.py tests/test_rearmed_cycle_exit_account_v1.py tests/test_two_policy_min_variance_v1.py
+      - name: 保存复算结果及哈希，不掩盖不一致
+        working-directory: /tmp/conclusion-beta/workspace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,tarfile
+          p=Path('research_runs/conclusion_beta_iteration_20260910')
+          actual=hashlib.sha256((p/'metrics.csv').read_bytes()).hexdigest()
+          expected='d1ed46ecd4609f7dde1d3cccea8ba5b2687b394c182cc36d91dda3724ee2ad55'
+          receipt={'status':'BYTE_IDENTICAL' if actual==expected else 'EXPORTED_FOR_FULL_NUMERICAL_COMPARISON','metrics_sha256':actual,'expected_local_metrics_sha256':expected,'strategy_parameter_changes':0,'new_independent_market_samples':0,'publication_correction':'RESTORE_FOUR_COMMENT_ONLY_LINES_TO_MATCH_ACTUAL_LOCAL_EXECUTION; AST_IDENTICAL'}
+          (p/'ci_reproduction_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
+          with tarfile.open('/tmp/conclusion-beta-reproduced-results.tar.gz','w:gz') as archive:
+              archive.add(p,arcname=p.as_posix())
+              archive.add('tools/research/conclusion_beta_iteration_20260910.py',arcname='tools/research/conclusion_beta_iteration_20260910.py')
+          print(json.dumps(receipt,ensure_ascii=False))
+          PY
+      - name: 仅向本研究分支保存可读结果，不修改main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess,json,base64,os
+          root=Path('/tmp/conclusion-beta/workspace');repo=os.environ['GITHUB_REPOSITORY'];branch='codex/conclusion-led-iteration-20260910'
+          prefix='research_runs/conclusion_beta_iteration_20260910'
+          names=['metrics.csv','result.json','protocol.json','source_receipt.json','factor_receipt.json','prefix_receipt.json','tests_receipt.json','independent_checks.csv','coverage.csv','conditional_bootstrap.csv','rolling_three_year.csv','yearly.csv','adjudications.csv','buy_hold_replay.csv','ci_reproduction_receipt.json']
+          paths=[prefix+'/'+name for name in names]+['tools/research/conclusion_beta_iteration_20260910.py']
+          for rel in paths:
+              content=(root/rel).read_bytes();assert len(content)<100000
+              body={'message':'研究复算结果：'+rel,'branch':branch,'content':base64.b64encode(content).decode()}
+              previous=subprocess.run(['gh','api',f'repos/{repo}/contents/{rel}?ref={branch}'],capture_output=True,text=True)
+              if previous.returncode==0:body['sha']=json.loads(previous.stdout)['sha']
+              tmp=Path('/tmp/conclusion-payload.json');tmp.write_text(json.dumps(body),encoding='utf-8')
+              subprocess.run(['gh','api','--method','PUT',f'repos/{repo}/contents/{rel}','--input',str(tmp)],check=True,stdout=subprocess.DEVNULL)
+              print('SAVED',rel)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: conclusion-beta-reproduced-evidence
+          path: /tmp/conclusion-beta-reproduced-results.tar.gz
+          retention-days: 90
+          if-no-files-found: error
