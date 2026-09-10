@@ -1,0 +1,134 @@
+{
+  "study_id": "510300_STABILITY_FIRST_DISTRIBUTION_20260910",
+  "registered_at": "2026-09-10T19:41:47.810759+08:00",
+  "remote_protocol_commit": "a4ebe512744f930ee4f6246980094fd803441eaa",
+  "source_commit": "7b773765575ec0f5a778254a1b84bc974b08fc3f",
+  "parameters": {
+    "horizon": 5,
+    "embargo": 5,
+    "label_anchor": 252,
+    "train_window": 1260,
+    "min_train": 80,
+    "min_years": 3,
+    "min_year_rows": 10,
+    "k_min": 20,
+    "gamma": 4.0,
+    "target_vol": 0.1,
+    "weights": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "annual_days": 242,
+    "bootstrap_block": 63,
+    "bootstrap_reps": 2000,
+    "bootstrap_seed": 20260910,
+    "rolling_window": 726
+  },
+  "features": [
+    "mom5_risk",
+    "mom20_risk",
+    "mom60_risk",
+    "drawdown60_risk",
+    "session_balance60",
+    "vol_ratio",
+    "downside_ratio",
+    "volume_surprise",
+    "signed_participation5",
+    "range_risk",
+    "close_location",
+    "efficiency20"
+  ],
+  "models": [
+    "PRIMARY_YEAR_ROBUST",
+    "POINT_CONTROL"
+  ],
+  "files": [
+    {
+      "path": "tools/research/stability_distribution_20260910.py",
+      "bytes": 21795,
+      "sha256": "23768322a5e471132187d82067f09a4ddb59414e1aaf44d00dfaa84756af7c9e"
+    },
+    {
+      "path": "config/510300_continuous_reference_min_variance_v1.json",
+      "bytes": 14317,
+      "sha256": "b98fbf011322647eeb8bc079d5d2b21787ea3307286090174b89514a8ac60745"
+    },
+    {
+      "path": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+      "bytes": 1556736,
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "bytes": 2021,
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "tools/research/annual10_capital_20260910.py",
+      "bytes": 7717,
+      "sha256": "08242f6dc98a8b1430e93044699e1f39c97ff15bf59c609e48936c4eeacf3fae"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "bytes": 37255,
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/event_clock_account_v1.py",
+      "bytes": 6356,
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "bytes": 47324,
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/evaluation/BASE/C__IMMEDIATE__H5__FULL__MAX_ledger.parquet",
+      "bytes": 94056,
+      "sha256": "089a84c97d15d54b184e5afcf08c8a76f7dbabbc23fd2aa65a9ca99b4102eaa7"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/evaluation/BASE/C__IMMEDIATE__H5__FULL__MAX_decisions.parquet",
+      "bytes": 43808,
+      "sha256": "2f94189775079639777f5f23d6b8ca5d9cdcd1d233699cb4d4cdf34a5e897725"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/evaluation/STRESS/C__IMMEDIATE__H5__FULL__MAX_ledger.parquet",
+      "bytes": 93933,
+      "sha256": "ffcf7562da9e4e7f5eede5b8b2a735543b241a1c01c0fbdfa44b67c20d2641bc"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/evaluation/STRESS/C__IMMEDIATE__H5__FULL__MAX_decisions.parquet",
+      "bytes": 43797,
+      "sha256": "ae1ffed936001b5f3ca7a4f9ca05f699be02b93459d2958d6058d137406f5d56"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/earlier_diagnostic/BASE/C__IMMEDIATE__H5__FULL__MAX_ledger.parquet",
+      "bytes": 74007,
+      "sha256": "f42e4c16b4c794211c80a12cbc6cb691aa2798173844d5bf5f8be8b0cf47f014"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/earlier_diagnostic/BASE/C__IMMEDIATE__H5__FULL__MAX_decisions.parquet",
+      "bytes": 34138,
+      "sha256": "1fc0576e142a4225b3f83e86f8f9379e8001729670f14c7814b80aaa8fe3f106"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/earlier_diagnostic/STRESS/C__IMMEDIATE__H5__FULL__MAX_ledger.parquet",
+      "bytes": 74160,
+      "sha256": "9fd50215f12a280caada61985add52ce34218840f4e317f9703d201cc37f4889"
+    },
+    {
+      "path": "research_runs/annual10_sequential_20260910/earlier_diagnostic/STRESS/C__IMMEDIATE__H5__FULL__MAX_decisions.parquet",
+      "bytes": 34137,
+      "sha256": "216dc9d5fa198bc98352a92e59bac938eaaf710ab06802428b6a18cf75877eb5"
+    }
+  ],
+  "historical_selection": "PREVIOUSLY_OBSERVED_HISTORY",
+  "independent_validation": "NOT_ESTABLISHED",
+  "position_impact": 0,
+  "live_trading_authorized": false
+}
