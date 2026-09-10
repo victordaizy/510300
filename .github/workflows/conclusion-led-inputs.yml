@@ -1,0 +1,48 @@
+name: 全结论迭代原成分输入
+on:
+  push:
+    branches: [codex/conclusion-led-iteration-20260910]
+    paths: [.github/workflows/conclusion-led-inputs.yml]
+permissions:
+  contents: read
+jobs:
+  restore-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: e5433a24e6aecc2e3333ac12e050fbb84f9169ce
+          persist-credentials: false
+      - name: 还原精确原文件并核对摘要
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, zipfile
+          from tools.repository.snapshot import load_index, restore, sha256
+          root=Path.cwd()
+          paths=[
+            'data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/classified_constituent_returns_remediated.parquet',
+            'data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet',
+          ]
+          _,rows,assets=load_index(root)
+          selected=[r for r in rows if r['path'] in paths]
+          assert len(selected)==len(paths)
+          assert sum(r['bytes'] for r in selected)<25_000_000
+          needed={a for r in selected for a in r['assets']}
+          assert sum(assets[a]['bytes'] for a in needed)<400_000_000
+          restore(root,paths)
+          manifest={'source_commit':'e5433a24e6aecc2e3333ac12e050fbb84f9169ce','files':selected,'new_models':0,'new_strategy_accounts':0}
+          with zipfile.ZipFile('conclusion-led-original-inputs.zip','w',zipfile.ZIP_DEFLATED) as out:
+            for r in selected:
+              assert sha256(root/r['path'])==r['sha256']
+              out.write(root/r['path'],r['path'])
+            out.writestr('source_manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2))
+          print('VERIFIED',len(selected),'FILES; NO_NEW_STRATEGY_RESULTS')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: conclusion-led-original-inputs
+          path: conclusion-led-original-inputs.zip
+          retention-days: 90
+          if-no-files-found: error
