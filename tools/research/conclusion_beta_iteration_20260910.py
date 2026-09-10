@@ -76,6 +76,7 @@ def group_factor(stock_return, beta, prior_members, market_return, min_members=2
     result={'beta_eligible':len(eligible),'group_n':0,'high_valid':0,'low_valid':0,'raw':np.nan,'residual':np.nan,
             'high_beta':np.nan,'low_beta':np.nan,'high_return':np.nan,'low_return':np.nan,'factor_status':'NO_VIEW_BETA_COVERAGE'}
     if len(eligible)<min_members or not np.isfinite(market_return): return result,[],[]
+    # 输入股票列已按代码排序，stable保证beta相同按代码排序。
     order=eligible[np.argsort(b[eligible],kind='stable')];k=len(order)//3
     lo,hi=order[:k],order[-k:]; lv=lo[np.isfinite(s[lo])];hv=hi[np.isfinite(s[hi])]
     result.update(group_n=k,high_valid=len(hv),low_valid=len(lv))
@@ -89,6 +90,7 @@ def group_factor(stock_return, beta, prior_members, market_return, min_members=2
 
 def build_factors(market,stocks,mem,save_groups=False):
     beta,count=lagged_beta(stocks.to_numpy(float),market.total_simple.to_numpy(float))
+    # 当日分组使用上一交易日点时成员。首日无成员视野，不用未来回填。
     prior=mem.shift(1,fill_value=False).to_numpy(bool); rows=[];groups=[]
     values=stocks.to_numpy(float);codes=stocks.columns.to_numpy()
     for t in range(len(market)):
@@ -123,11 +125,13 @@ def basic_tests():
     b,n=lagged_beta(x,m,126,80);np.testing.assert_allclose(b[130:],np.tile(true,(70,1)),atol=1e-12)
     altered=x.copy();altered[150:]*=100
     bp,_=lagged_beta(altered,m,126,80);np.testing.assert_allclose(b[:151],bp[:151],equal_nan=True,atol=0,rtol=0)
+    # t日冲击不改变t日beta；当天真实残差应被统计量捕获。
     beta=np.linspace(.1,2.5,300);ret=beta*.01
     g,hi,lo=group_factor(ret,beta,np.ones(300,bool),.01);assert abs(g['residual'])<1e-15 and g['raw']>0
     missing=ret.copy();missing[hi[:11]]=np.nan
     bad,_,_=group_factor(missing,beta,np.ones(300,bool),.01);assert np.isnan(bad['residual'])
     g,_,_=group_factor(ret,beta,np.zeros(300,bool),.01);assert g['beta_eligible']==0 and np.isnan(g['raw'])
+    # beta配对样本数不足不得当零beta。
     xx=x.copy();xx[:130,0]=np.nan;bb,nn=lagged_beta(xx,m);assert np.isnan(bb[:200,0]).all()
     return {'checks':6,'passed':True,'check_names':['linear_beta_identity','current_and_future_do_not_change_prior_beta','market_beta_cancelled','10pct_missing_group_fails','unknown_members_not_backfilled','insufficient_pairs_no_beta']}
 
