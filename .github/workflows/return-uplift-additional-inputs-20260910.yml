@@ -43,7 +43,8 @@ jobs:
           print('SAVED_INPUTS_VERIFIED', len(selected))
           PY
       - name: 下载原快照版本的Parquet读取器供离线运行
-        run: python -m pip download --only-binary=:all: --no-deps --dest offline-inputs pyarrow==25.0.1
+        run: |
+          python -m pip download --only-binary=:all: --no-deps --dest offline-inputs pyarrow==25.0.1
       - name: 保存输入和依赖摘要
         run: |
           python - <<'PY'
