@@ -1,0 +1,29 @@
+{
+  "status": "PASS_EXACT_ACCOUNTS_WITH_DOCUMENTED_FLOAT_AGGREGATION_DIFFERENCES",
+  "github_run_id": 34485060095,
+  "artifact_id": 10155297465,
+  "daily_ledger_tables_exact": 28,
+  "daily_decision_tables_exact": 28,
+  "group_table_exact": true,
+  "code_bytes_exact": true,
+  "all_discrete_signals_and_target_weights_exact": true,
+  "metrics_csv_bytes_exact": false,
+  "continuous_factor_differences": [
+    {"column": "PRICE", "different_finite_values": 2846, "max_abs_difference": 5.551115123125783e-17}
+  ],
+  "summary_differences": [
+    {"column": "cumulative_return", "different_values": 4, "max_abs_difference": 2.220446049250313e-16},
+    {"column": "annualized_return", "different_values": 1, "max_abs_difference": 1.0018028073766061e-16},
+    {"column": "max_drawdown", "different_values": 4, "max_abs_difference": 1.1102230246251565e-16}
+  ],
+  "all_sharpe_values_exact": true,
+  "all_goal_adjudications_exact": true,
+  "economic_rule_changes": 0,
+  "new_independent_market_samples": 0,
+  "local_metrics_sha256": "d1ed46ecd4609f7dde1d3cccea8ba5b2687b394c182cc36d91dda3724ee2ad55",
+  "remote_metrics_sha256": "fe0c0bcfb79567fd8095ea04fe751896aeb65bc1cad33a9917a6bad02bbec0a9",
+  "initial_strict_failure_preserved_in_delivery": "cross_environment_initial_strict_comparison.json",
+  "tolerance_scope": "1e-12 only for PRICE continuous diagnostics and summary floating aggregation; no tolerance for cash, shares, fills, daily returns or target weights.",
+  "publication_note": "The first code publication omitted four comment-only lines. These were restored to the original executed bytes; AST was identical before and after.",
+  "metadata_erratum": "Unused frozen field estimated_beta_is_not_a_forecast=false is a descriptive metadata error. Beta is a historical exposure estimate, not a supervised future-return forecast. No runtime decision reads this field; frozen originals remain unchanged."
+}
