@@ -1,0 +1,106 @@
+name: 序贯机会10%与1.2历史候选复算
+on:
+  push:
+    branches: [codex/annual10-sequential-opportunity-20260910]
+    paths: [.github/workflows/annual10-sequential-reproduce.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 8c518a2a08501ef316732da3512ad8a0504116ff
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13.5'
+      - name: 安装固定计算环境
+        run: python -m pip install numpy==2.3.5 pandas==2.2.3 scipy==1.17.0 scikit-learn==1.8.0 pyarrow==25.0.1 pytest==8.4.2
+      - name: 取得已经核验的前六组原始输入和核心账本
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 34465032366 --repo "$GITHUB_REPOSITORY" --name annual10-complete-reproduced-evidence --dir /tmp/previous-evidence
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile, shutil, hashlib
+          root=Path.cwd()
+          dest=Path('/tmp/sequential-reproduction')
+          dest.mkdir()
+          archive=Path('/tmp/previous-evidence/510300_annual10_complete_evidence.tar.gz')
+          with tarfile.open(archive, 'r:gz') as t:
+              for m in t.getmembers():
+                  assert not m.issym() and not m.islnk()
+                  assert (dest/m.name).resolve().is_relative_to(dest)
+              t.extractall(dest, filter='data')
+          work=dest/'workspace'
+          for name,expected in [('annual10_sequential_20260910.py','42fe457309e1029acdd9ef8ab5ee90d589e4c42d68e2148ea95d042ce265bf03'),('annual10_sequential_audit_20260910.py','670fb9131a7d4a49c2bcbd42b421c7ca0d9c932f381e3d5db084ccfb543a814a')]:
+              p=root/'tools/research'/name
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==expected
+              shutil.copyfile(p, work/'tools/research'/name)
+          assert not (work/'research_runs/annual10_sequential_20260910').exists()
+          PY
+      - name: 完整运行固定72政策与全部四情景
+        working-directory: /tmp/sequential-reproduction/workspace
+        run: |
+          python tools/repository/snapshot.py verify
+          python tools/research/annual10_sequential_20260910.py freeze
+          for period in evaluation earlier_diagnostic; do
+            for cost in BASE STRESS; do
+              python tools/research/annual10_sequential_20260910.py "$period" "$cost"
+            done
+          done
+          python tools/research/annual10_sequential_20260910.py finish
+          python tools/research/annual10_sequential_audit_20260910.py
+          python -m pytest -q tests/test_event_clock_account_v1.py tests/test_rearmed_cycle_exit_account_v1.py tests/test_monotone_episode_budget_v1.py tests/test_two_policy_min_variance_v1.py
+      - name: 保留CSV差异并导出完整结果供逐字段核对
+        working-directory: /tmp/sequential-reproduction/workspace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,tarfile
+          p=Path('research_runs/annual10_sequential_20260910')
+          expected='b116a341c671a3812fae4b50eee50ffff7b1231656bf3583452db1389ed30a66'
+          actual=hashlib.sha256((p/'all_metrics.csv').read_bytes()).hexdigest()
+          receipt={'status':'PENDING_CROSS_ENV_NUMERICAL_COMPARISON','all_288_metrics_csv_byte_identical':actual==expected,'original_local_csv_sha256':expected,'remote_csv_sha256':actual,'previous_failed_run':34469555642,'note':'字节校验未通过不等于数值复现通过。保留双方摘要，导出完整逐日账本后另行比较；没有修改策略、数据或参数。','new_market_evidence':False,'new_candidates':0,'source_code_commit':'8c518a2a08501ef316732da3512ad8a0504116ff'}
+          (p/'ci_reproduction_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
+          with tarfile.open('/tmp/sequential-reproduced-results.tar.gz','w:gz') as t:
+              t.add(p,arcname=p.as_posix())
+          print(json.dumps(receipt))
+          PY
+      - name: 只向本研究分支发布可读结果，不合并main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import base64,json,subprocess,os
+          from pathlib import Path
+          repo=os.environ['GITHUB_REPOSITORY']
+          prefix='research_runs/annual10_sequential_20260910'
+          root=Path('/tmp/sequential-reproduction/workspace')
+          paths=['all_metrics.csv','result.json','protocol.json','tests_receipt.json','ci_reproduction_receipt.json','audit/selected_metrics.csv','audit/conditional_bootstrap.json','audit/leave_one_source_episode_out.csv','audit/extra_execution_day.csv','audit/yearly.csv','audit/concentration.csv','audit/completion.json']
+          for rel in paths:
+              name=prefix+'/'+rel
+              content=(root/name).read_bytes()
+              assert len(content)<200000
+              payload={'message':'研究结果：保存序贯机会完整复算证据 '+rel,'branch':'codex/annual10-sequential-opportunity-20260910','content':base64.b64encode(content).decode()}
+              tmp=Path('/tmp/research-payload.json');tmp.write_text(json.dumps(payload),encoding='utf-8')
+              subprocess.run(['gh','api','--method','PUT',f'repos/{repo}/contents/{name}','--input',str(tmp)],check=True,stdout=subprocess.DEVNULL)
+              print('CREATED',name)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: sequential-opportunity-reproduced-evidence
+          path: /tmp/sequential-reproduced-results.tar.gz
+          retention-days: 90
+          if-no-files-found: error
