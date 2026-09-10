@@ -44,7 +44,7 @@ def flow_features(data,sources):
 
 def prepare():
     cfg,data,div=setup();OUT.mkdir(parents=True,exist_ok=True);require(not (OUT/'protocol.json').exists(),'不覆盖已登记研究')
-    paths=[Path(__file__),ROOT/cfg['features'],ROOT/cfg['dividends']]+[ROOT/v for v in PATHS.items()] if False else [Path(__file__),ROOT/cfg['features'],ROOT/cfg['dividends']]+[ROOT/v for v in PATHS.values()]
+    paths=[Path(__file__),ROOT/cfg['features'],ROOT/cfg['dividends']]+[ROOT/v for v in PATHS.values()]
     write_json(OUT/'protocol.json',{'registered_at':now(),'remote_protocol_commit':'4a818bcd526197f70db622b4f6f8bb750593c318','features_price':FEATURES,'models':KINDS,'feature_sets':SETS,'horizons':HORIZONS,'minimum_samples':252,'source_lag':2,
       'thresholds':[0.,.01],'modes':['STANDALONE','REMAINING_CORE150X2'],'accounts':256,'publication_vintage':'UNVERIFIED','evidence':'ASSUMED_LAG_PROXY_DISCOVERY_ONLY','code_sha256':digest(Path(__file__)),
       'files':[{'path':str(p.relative_to(ROOT)),'sha256':digest(p)} for p in paths]},exclusive=True)
