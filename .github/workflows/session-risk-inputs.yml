@@ -1,0 +1,43 @@
+name: 时段风险研究原分钟输入
+on:
+  push:
+    branches: [codex/session-risk-transfer-20260910]
+    paths: [.github/workflows/session-risk-inputs.yml]
+permissions:
+  contents: read
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: e5433a24e6aecc2e3333ac12e050fbb84f9169ce
+          persist-credentials: false
+      - name: 校验并提取已有文件
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from tools.repository.snapshot import load_index,restore,sha256
+          import json,zipfile
+          root=Path.cwd()
+          paths=['data/curated/510300_stk_mins_source_admission_v1/510300_1min.parquet','data/curated/510300_stk_mins_source_admission_v1/daily_quality_ledger.parquet']
+          _,rows,assets=load_index(root)
+          selected=[r for r in rows if r['path'] in paths]
+          assert len(selected)==2 and sum(r['bytes'] for r in selected)<15000000
+          needed={a for r in selected for a in r['assets']}
+          assert sum(assets[a]['bytes'] for a in needed)<400000000
+          restore(root,paths)
+          with zipfile.ZipFile('session-risk-original-inputs.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for r in selected:
+                  assert sha256(root/r['path'])==r['sha256']
+                  z.write(root/r['path'],r['path'])
+              z.writestr('source_manifest.json',json.dumps({'source_commit':'e5433a24e6aecc2e3333ac12e050fbb84f9169ce','files':selected,'new_strategy_accounts':0},ensure_ascii=False,indent=2))
+          print('INPUTS_VERIFIED',len(selected))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: session-risk-original-inputs
+          path: session-risk-original-inputs.zip
+          retention-days: 90
+          if-no-files-found: error

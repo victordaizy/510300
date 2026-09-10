@@ -1,0 +1,102 @@
+name: 时段风险研究固定复算
+on:
+  push:
+    branches: [codex/session-risk-transfer-20260910]
+    paths: [.github/workflows/session-risk-reproduction.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 81180074fc60bf1a879aa4a555c3264ae2f761ef
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13.5'
+      - name: 安装固定计算环境
+        run: python -m pip install numpy==2.3.5 pandas==2.2.3 scipy==1.17.0 scikit-learn==1.8.0 pyarrow==25.0.1 pytest==9.0.2
+      - name: 取得已经核验的原始资料
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 34437161089 --repo "$GITHUB_REPOSITORY" --name return-uplift-research-inputs-20260910 --dir /tmp/base-inputs
+          gh run download 34475650583 --repo "$GITHUB_REPOSITORY" --name session-risk-original-inputs --dir /tmp/minute-inputs
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile,zipfile,hashlib,shutil,json
+          source=Path.cwd();work=Path('/tmp/session-risk-reproduction');work.mkdir()
+          archive=Path('/tmp/base-inputs/research-input-bundle.tar.gz')
+          assert hashlib.sha256(archive.read_bytes()).hexdigest()=='348c0273078acc58b61ccc1204fdf8370ce8ec13c156e6902086e3b5c9e06da1'
+          with tarfile.open(archive) as t:
+              for m in t.getmembers():
+                  assert not m.issym() and not m.islnk() and (work/m.name).resolve().is_relative_to(work)
+              t.extractall(work,filter='data')
+          with zipfile.ZipFile('/tmp/minute-inputs/session-risk-original-inputs.zip') as z:
+              manifest=json.loads(z.read('source_manifest.json'))
+              for row in manifest['files']:
+                  target=work/row['path'];assert target.resolve().is_relative_to(work)
+                  content=z.read(row['path']);assert hashlib.sha256(content).hexdigest()==row['sha256']
+                  target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(content)
+          for name,expected in [('session_risk_transfer_20260910.py','fb0ae6faa9bef338bf856ac7b67f3c386d8ff867004c158b4bc0289ecf2861dc'),('session_risk_reproduce_20260910.py','fb9969dc9dc22dd0becfcedb8f7fab13d714debf89bd1bd73878ac3bfcbad49d')]:
+              p=source/'tools/research'/name;assert hashlib.sha256(p.read_bytes()).hexdigest()==expected
+              target=work/'tools/research'/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
+          assert not (work/'research_runs/session_risk_transfer_20260910').exists()
+          PY
+      - name: 完整执行固定账户与核验
+        working-directory: /tmp/session-risk-reproduction
+        run: |
+          mkdir -p research_runs/session_risk_transfer_20260910
+          python tools/repository/snapshot.py verify > research_runs/session_risk_transfer_20260910/ci_snapshot_verify.log
+          python tools/research/session_risk_transfer_20260910.py freeze
+          python tools/research/session_risk_transfer_20260910.py earlier
+          python tools/research/session_risk_transfer_20260910.py main
+          python tools/research/session_risk_transfer_20260910.py finish
+          python tools/research/session_risk_reproduce_20260910.py audit
+          python -m pytest -q tests/test_event_clock_account_v1.py tests/test_rearmed_cycle_exit_account_v1.py tests/test_two_policy_min_variance_v1.py > research_runs/session_risk_transfer_20260910/ci_pytest.log
+      - name: 保存字节比较及完整结果
+        working-directory: /tmp/session-risk-reproduction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,tarfile
+          p=Path('research_runs/session_risk_transfer_20260910')
+          expected='8d3c15d59fdd6b2d90056984850bcabf0b9223c1cbff37120cd8be75a1f553f6'
+          actual=hashlib.sha256((p/'metrics.csv').read_bytes()).hexdigest()
+          receipt={'status':'COMPUTATION_COMPLETE','metrics_csv_byte_identical':actual==expected,'expected_metrics_sha256':expected,'actual_metrics_sha256':actual,'source_code_commit':'81180074fc60bf1a879aa4a555c3264ae2f761ef','new_model_fits':0,'new_independent_market_evidence':False,'all_daily_frames_cross_environment_compared':False}
+          (p/'ci_reproduction_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
+          with tarfile.open('/tmp/session-risk-reproduced-evidence.tar.gz','w:gz') as t:t.add(p,arcname=p.as_posix())
+          print(json.dumps(receipt))
+          PY
+      - name: 向独立研究分支写入全部可读结果，不合并main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64,json,os,subprocess
+          root=Path('/tmp/session-risk-reproduction/research_runs/session_risk_transfer_20260910')
+          files=['metrics.csv','result.json','protocol.json','source_receipt.json','opportunity_coverage.csv','account_checks.csv','buy_hold_replay.csv','tests_before_freeze.json','prefix_tests.json','session_components.csv','session_component_intervals.csv','fixed_quantity_cost_attribution.csv','yearly.csv','eras.csv','four_scenario_adjudications.csv','rolling_726_summary.csv','audit_receipt.json','ci_reproduction_receipt.json']
+          for rel in files:
+              p=root/rel;assert p.stat().st_size<200000
+              name='research_runs/session_risk_transfer_20260910/remote_reproduction/'+rel
+              payload={'branch':'codex/session-risk-transfer-20260910','message':'研究复算：保留全部结果 '+rel,'content':base64.b64encode(p.read_bytes()).decode()}
+              temp=Path('/tmp/session-payload.json');temp.write_text(json.dumps(payload),encoding='utf-8')
+              subprocess.run(['gh','api','--method','PUT',f"repos/{os.environ['GITHUB_REPOSITORY']}/contents/{name}",'--input',str(temp)],check=True,stdout=subprocess.DEVNULL)
+              print('CREATED',name)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: session-risk-reproduced-evidence
+          path: /tmp/session-risk-reproduced-evidence.tar.gz
+          retention-days: 90
+          if-no-files-found: error
