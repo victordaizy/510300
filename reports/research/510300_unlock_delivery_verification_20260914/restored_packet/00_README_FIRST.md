@@ -1,0 +1,11 @@
+# 本轮阅读顺序
+
+当前结论：解禁公告密度V1已否决，目标仍未实现。先读01_研究结论与下一步.md，再读02_GPT审阅提示.md、docs/510300_UNLOCK_ANNOUNCEMENT_INCREMENT_V1_PROTOCOL.md和冻结/结果文件。
+
+目录保留项目相对路径。reports/research/510300_unlock_announcement_increment_v1包括全部模型、预测、8个账户、固定区块、输入快照及运行回执。data/raw/market/510300_unlock*包括来源探测、三批采集、连接失败、时间变化、原始PDF和关键页；不能只看最后的PASS而删掉旧失败。data/curated/510300_unlock_announcement_daily_source_v1是日粒度合并表。FILE_INDEX.csv为本ZIP唯一成员索引，索引本身不自引用哈希。
+
+Windows复核：在新目录解压后，以Python建立独立虚拟环境，并安装reports/research/510300_unlock_announcement_increment_v1/requirements-review.txt中的版本。随后在解压根目录运行`.venv\Scripts\python.exe scripts\verify_510300_unlock_source_saved_v1_1.py`，再运行`.venv\Scripts\python.exe scripts\run_510300_unlock_announcement_increment_v1.py verify`。这两条只重核保存来源、特征、模型、账户及区块，不抓新数据、不重新拟合、不再模拟账户。后者会写验证回执，因此解压后的该回执时间会变化，原ZIP不变。
+
+旧的verify_510300_unlock_source_admission_v1.py verify有已保留的pandas日期dtype失败；应使用上述补充只读入口，它统一日期存储精度后逐值严格比较。不要再次运行已经消费claim的采集、freeze或run入口。源代码保留是供审阅，不是要求重复研究。
+
+包包含当前研究直接输入及原始来源、已有成员名单与来源证据；不包含Python运行环境和无关旧研究的全量数据。package_scope.json记载祖先来源引用与旧ZIP身份。原始历史权重文件即使作为成员来源证据收录，也没有准入为模型权重。结构检查、保存重算和本地打包不等于外部审阅或科学有效性，更不授权实时交易。

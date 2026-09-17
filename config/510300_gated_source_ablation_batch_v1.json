@@ -1,0 +1,438 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_GATED_SOURCE_ABLATION_BATCH_V1",
+  "round": 208,
+  "registered_at": "2026-09-13T08:54:17.031442+08:00",
+  "primary": "ABLATE_105_NO_EPISODE",
+  "candidate_models": [
+    "ABLATE_100_NO_EPISODE",
+    "ABLATE_100_NO_REBOUND",
+    "ABLATE_100_CORE_ONLY",
+    "ABLATE_105_NO_EPISODE",
+    "ABLATE_105_NO_REBOUND",
+    "ABLATE_105_CORE_ONLY"
+  ],
+  "candidate_configurations": 6,
+  "candidate_settings": {
+    "ABLATE_100_NO_EPISODE": {
+      "parent": "NO_EPISODE",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "TWO_CLOSE_ZERO_EXIT": 0.9411764705882353,
+        "CONFIRMED_RISK_EPISODE_30_10": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.058823529411764705
+      }
+    },
+    "ABLATE_100_NO_REBOUND": {
+      "parent": "NO_REBOUND",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "TWO_CLOSE_ZERO_EXIT": 0.8421052631578947,
+        "CONFIRMED_RISK_EPISODE_30_10": 0.15789473684210525,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "ABLATE_100_CORE_ONLY": {
+      "parent": "CORE_ONLY",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "TWO_CLOSE_ZERO_EXIT": 1.0,
+        "CONFIRMED_RISK_EPISODE_30_10": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "ABLATE_105_NO_EPISODE": {
+      "parent": "NO_EPISODE",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.05,
+      "source_weights": {
+        "TWO_CLOSE_ZERO_EXIT": 0.9411764705882353,
+        "CONFIRMED_RISK_EPISODE_30_10": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.058823529411764705
+      }
+    },
+    "ABLATE_105_NO_REBOUND": {
+      "parent": "NO_REBOUND",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.05,
+      "source_weights": {
+        "TWO_CLOSE_ZERO_EXIT": 0.8421052631578947,
+        "CONFIRMED_RISK_EPISODE_30_10": 0.15789473684210525,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "ABLATE_105_CORE_ONLY": {
+      "parent": "CORE_ONLY",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.05,
+      "source_weights": {
+        "TWO_CLOSE_ZERO_EXIT": 1.0,
+        "CONFIRMED_RISK_EPISODE_30_10": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    }
+  },
+  "parent_models": [
+    "TWO_CLOSE_ZERO_EXIT",
+    "CONFIRMED_RISK_EPISODE_30_10",
+    "MEAN_REBOUND_AUX_50"
+  ],
+  "source_folders": {
+    "TWO_CLOSE_ZERO_EXIT": "510300_two_close_zero_exit_v1",
+    "CONFIRMED_RISK_EPISODE_30_10": "510300_confirmed_exit_existing_budget_batch_v1",
+    "MEAN_REBOUND_AUX_50": "510300_mean_rebound_auxiliary_v1"
+  },
+  "decision_clock": "15:05:00",
+  "annual_return_target": 0.1,
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "source_budget_cny": 0,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "evidence_class": "RETROSPECTIVE_GATED_SOURCE_ABLATION_WITH_PLANNED_EXPOSURE",
+  "prior_goal_turn_classification": "PROGRESS_ROUND207_COMPLETED_32_ACCOUNTS_AND_REDUCTION_BRANCH_REJECTED",
+  "rules": "docs/510300_GATED_SOURCE_ABLATION_BATCH_V1.md",
+  "frozen_files": [
+    {
+      "path": "config\\510300_confirmed_exit_existing_budget_batch_v1.json",
+      "sha256": "a2e744cbf0112ffbfe08ad928a806188ea0621de01faf37a0d7a4c7838ddc005"
+    },
+    {
+      "path": "config\\510300_finite_rebalance_band_batch_v1.json",
+      "sha256": "0a72e5a5c386be8cdd269bfe9dce2867fa029ce256677c313d39a51e6d3c6387"
+    },
+    {
+      "path": "config\\510300_mean_rebound_auxiliary_v1.json",
+      "sha256": "42debe93e5feef105f5913f940ea63be795ca1fd7aa6601e4bec1f2471f379f5"
+    },
+    {
+      "path": "config\\510300_two_close_zero_exit_v1.json",
+      "sha256": "b319ca102ca1f739a667bb0a31449422f81003d32c5c118fe8eb3e2d8a37303d"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_FINITE_REBALANCE_BAND_BATCH_V1.md",
+      "sha256": "685e9e731522efac9f1cf2ff6d3f51c62bc1a738ac6f964d36884f57dcbda8b8"
+    },
+    {
+      "path": "docs\\510300_GATED_SOURCE_ABLATION_BATCH_V1.md",
+      "sha256": "4dc27fd44b782b289f03cac60d7855298fdaf7b6f1d525879d9d995b821eae10"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "01d5866da7e9553945136097b14dfb04eb15a4e2f9af6b7c30717db1e0758d8b"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "753a210f3abbdc1ce6622ccc9790112ff53723f5f20fb8173d18eb7a8a5ee27f"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\BASE\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "1ab526b81021b30f2484f3a44d0b328bddee13bca9d375cdfa7b762dc0366209"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\STRESS\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "2d13c755765ce80eecbdef9b8d850288ef4ab5eff758748019b0c046cd33f61a"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "1de9a476745ea09f012866489ec29548fe9a842dfc1cf8673dbd016a9198a3ab"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "f4acc17534c262d671a8449dfbfce9fdd00c74311da88c12b9f5ba4c54238248"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\evaluation\\BASE\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "19fdac1007119e3db5607923b04d2c1116d737d16b75b927f812d1d925be214b"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\evaluation\\STRESS\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "a3054f148944313a3552b0baafd36d56dbd86ab0f9510b1fe68e9f74f7d5d15b"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\earlier_diagnostic\\BASE\\CONFIRMED_RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "ddb4388eca222049d0b4d9d0def4f1e61f7ad76bebc92473e64a3d4a00345b54"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\earlier_diagnostic\\BASE\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+      "sha256": "b69a06506c468906627b90bc17697e3a13796466646f8837767e8a5945fd9c02"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\earlier_diagnostic\\STRESS\\CONFIRMED_RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "edd76776b00fc5ecaf845423b6ec8d2b8488585bdb397f586192bfb3e4786e50"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\earlier_diagnostic\\STRESS\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+      "sha256": "2be79af14d0ccb179215caa26c1fc839ce5184864a41ad5d6f913763aec3534d"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\evaluation\\BASE\\CONFIRMED_RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "568cecaaa370638c265fdc2cf8bbc432a711beb17fae8d3b70e1e13feb6399ff"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\evaluation\\BASE\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+      "sha256": "6a3451159a0c77798390a1023ef6a29461625956cf948a04bf9b91433885e15b"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\evaluation\\STRESS\\CONFIRMED_RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "9c253016ed684a60b6918778fff3dd2eff3e8aa89e9839905509230aa8d96e19"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\evaluation\\STRESS\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+      "sha256": "17cc138ae28ddf197fc3deabf5644f9c97d0b8c29fb4be50edfb789e0113128b"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\saved_verification_receipt.json",
+      "sha256": "3a1a3aaf1b86f8529949a19fea79672a7620c959073dd7286535b0f09f4b9776"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "571f61f75e8bc06d4cb7ff6124eef0126529bc13dda70c7781d3c0cb7d1952d2"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "2386fbd8628ad716ae38e8f824e616f09b866e1cc1bbd464b00acc52cc92e666"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "8cf0bbdc7bc2d27a92fc8428ed1057aa7992d1963e398b11b1a2ea2312b9eb9b"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "a734860af6d33352c7ed4b5bf6a0857248cd56f4c4fb25e12ad0bfa8ad43d5af"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "87bb120c86ae7758451ebf93a0a0df69e93a6617367afc1d2ff85bbc459fbcbc"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "0349f1d284d92b3830d403b04d356b7c69caf8a0be846448c187a65f1e598afc"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "61267649fc2c3356c2ec89b3e567d9a345689d92074b06f590679da689290f8e"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "6369fa870341c70728bbdb5cb72e904958f7e77017e9735e9f4e148c524cb494"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\saved_verification_receipt.json",
+      "sha256": "0f9d411f5e1d1f0061faccdb3af81c40c9cde7848f64acbd0cdfb478f276dadb"
+    },
+    {
+      "path": "reports\\research\\510300_gated_source_ablation_batch_v1\\tests_output.txt",
+      "sha256": "b829155ee0ab56e5166a6fd82de4986d2f7b020cfcf7b87bf6673287aaee2288"
+    },
+    {
+      "path": "reports\\research\\510300_gated_source_ablation_batch_v1\\tests_receipt.json",
+      "sha256": "03da929a90c53388cff5841945364e2fc1da653e3a026c4641410695ae90eb72"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\BASE\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "143a6b05f2dbc22f75f56ddc6faedda756637d5d147fb62eb70fc9e54322c4e2"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\BASE\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "dc7fe1d5a8e76f3a5b9d778e3c0679e6bc4cdff0105d7ee3b7edfedd811f2e2d"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\STRESS\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "64b2d06d3dd1eb28d38beff568567c3b6821c23456a5db56e08aef17106f1c88"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\STRESS\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "80e3093d96b87cc52c0178943479371b81566583f83b04b2c56ba335b28911fb"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\BASE\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "31e7825e8361d0a0618428b03791eff9c29307b412bee820d1f77d459866f945"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\BASE\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "a5879092d0f3cf1875e9c531bd4fd6d6b7b7849722c4935dd13b02f5869ad793"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\STRESS\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "2a2afedfe334de0b62abeb980947dfab2a228e417d866e8dfd77b8d8e2be5184"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\STRESS\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "d0f1f5b979a846cac88f0f4c25f34be1b7fed00f0e92fbccf1a79356ab31faee"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\saved_verification_receipt.json",
+      "sha256": "964cfa8ac935f641b88ee0b24f86591340c6c36549caf47199b8311aaa8f784b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\BASE\\TWO_CLOSE_ZERO_EXIT_decisions.parquet",
+      "sha256": "e7623ef457a5df7d396c1049c1f50f4e74c35489ed868205d993e5805bd49a45"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "462bef7d1920798ec23e53578e359f42ac8c7b6a696e3709bd261054adc8cc67"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\STRESS\\TWO_CLOSE_ZERO_EXIT_decisions.parquet",
+      "sha256": "bc2a83f204bc69e80bb4b74aaecaf061948b2d62898894bed13044c74ac428d0"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "04d63bbb427b6259ef38f02a80a3d6852796956e0d75a82ec30888abd3055fd9"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\BASE\\TWO_CLOSE_ZERO_EXIT_decisions.parquet",
+      "sha256": "15c0cf0c845ea7d156ea8295ef09fb60f2d8ec2a414984de48e2da648e318011"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "a9046544d5643e3d82db27768325970a22979c4f9a61e636aa92abcabce70baf"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\STRESS\\TWO_CLOSE_ZERO_EXIT_decisions.parquet",
+      "sha256": "39de7c75261eb70932aec452b36971c902f7a5e09b8c61c523edcb9ef8dc8a8e"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "e58be8e9a147385353510cb7b6b50292ed0d6bc1a62bc509bd102aa6672ed95f"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\saved_verification_receipt.json",
+      "sha256": "96ccb67def3c50e1c9b471f4648e43466cbf6686af34b49ce5f96ad77d4028b8"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\close_return_buy_gate_batch_inputs_v1.py",
+      "sha256": "c249b099019e89349767b3fd5a8406814f28b4079f6e787fa8a645468c55f355"
+    },
+    {
+      "path": "research\\close_return_buy_strength_gate_batch_inputs_v1.py",
+      "sha256": "686b32c0762422344b4bc0fc2237aa39f83a04cb36a74e2bcf7399f8b77e4a21"
+    },
+    {
+      "path": "research\\event_account_indexed_request_v1.py",
+      "sha256": "87d34e7ec33f4270cdba02ff084c37a7fb4e2a6d36e41bb38a0a313e6ead24c9"
+    },
+    {
+      "path": "research\\gated_source_ablation_batch_inputs_v1.py",
+      "sha256": "549a2667022fd404d5d35b3b6326cfe99b5e88014c97b1fa9de92ea13c5c9ace"
+    },
+    {
+      "path": "research\\gated_source_ablation_batch_v1.py",
+      "sha256": "9e1b705c37d86cdb7bebec56108586199ebd810e4024fda4cdb026939be80632"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\joint_account_acceptance_v1.py",
+      "sha256": "6d3db2310fe66559bca39ca9191c8ef22f81b450279112fd3de66acb1b4a79e3"
+    },
+    {
+      "path": "research\\saved_parent_target_alignment_v1.py",
+      "sha256": "b55ff702bacfd040bc0f2b97a276a4c02c609991faabf8bdf6ecab11595ec856"
+    },
+    {
+      "path": "research\\saved_requested_account_checks_v1.py",
+      "sha256": "2948b3a2b6e9d24279677679ee2072fbcfdd745612fa140ba73fc0deef2e7d54"
+    },
+    {
+      "path": "research\\saved_target_custom_execution_v1.py",
+      "sha256": "d6787ba30f288c73a29e602ab4a91383c546192987cc3440be7a0e81f9503dd9"
+    },
+    {
+      "path": "research\\three_source_order_intent_mix_inputs_v1.py",
+      "sha256": "b06729d3d3cf7eb6b47c21aa09e7a0e46cd017a345c2e62499ce33fa6549e030"
+    },
+    {
+      "path": "scripts\\verify_round195_20260913.py",
+      "sha256": "68a04a645592fd3d5689b6e7bd72dfd9be8183be860d4c52811ee26de01517e0"
+    },
+    {
+      "path": "tests\\test_gated_source_ablation_batch_v1.py",
+      "sha256": "9994dbe49dc2ac0fd80382417207818ad4d8842eddbbfe3f94f569f68de85b15"
+    },
+    {
+      "path": "tests\\test_target_band_partial_rebalance_v1.py",
+      "sha256": "267444cd96ea86978e5c47233374e2c776e0f86a7680acfce3fcfd4e5769b8b2"
+    },
+    {
+      "path": "tests\\test_three_source_order_intent_mix_v1.py",
+      "sha256": "856accdf55513bef11d2f4e521523e2dd1f95b0954fa65486f22a6a9943afaab"
+    },
+    {
+      "path": "tests\\test_two_close_zero_exit_v1.py",
+      "sha256": "bc525d3a5351892898da4c943de3723e1bc17c669e055a3dd97815e6e200929e"
+    }
+  ]
+}

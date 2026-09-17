@@ -1,0 +1,52 @@
+{
+  "study_id": "510300_MONTHLY_DOWNSIDE_FORECAST_V1",
+  "rules": "docs/510300_MONTHLY_DOWNSIDE_FORECAST_V1.md",
+  "features": "reports/research/510300_post_selection_extension_inputs_v1/candidate_features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "data_cutoff": "2026-09-11",
+  "evaluation_first_origin": "2014-12-31",
+  "candidate": "LOG_RISK_RIDGE",
+  "comparators": ["PAST_MONTHLY_MEAN", "RECENT_DOWNSIDE20"],
+  "factor_window_days": 20,
+  "training_months": 60,
+  "minimum_training_months": 24,
+  "standardized_clip": 3.0,
+  "ridge_mean_loss_penalty": 1.0,
+  "positive_risk_floor": 1e-8,
+  "primary_loss": "LOG_FORECAST_PLUS_OBSERVED_RISK_DIVIDED_BY_FORECAST",
+  "bootstrap_repetitions": 5000,
+  "bootstrap_block_months": 6,
+  "bootstrap_lower_quantile": 0.05,
+  "random_seed": 20260914,
+  "gate": {
+    "both_periods_loss_improvement_vs_both_comparators": true,
+    "pooled_block_bootstrap_lower_positive_vs_both_comparators": true,
+    "complete_year_wins_minimum_vs_each_comparator": 8,
+    "complete_year_count": 11,
+    "minimum_paired_months_each_period": 48
+  },
+  "periods": {
+    "early": ["2015-01-05", "2019-12-31", "2020-01-02"],
+    "main": ["2020-01-02", "2026-09-11", "2026-09-14"]
+  },
+  "initial_capital": 200000,
+  "target_volatility": 0.10,
+  "weight_band": 0.10,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.10,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0,
+  "costs": {
+    "BASE": {"commission": 0.0002, "minimum": 5.0, "slippage": 0.0005},
+    "STRESS": {"commission": 0.0004, "minimum": 5.0, "slippage": 0.001}
+  },
+  "new_candidate_methods": 1,
+  "account_stage_only_if_all_prediction_gates_pass": true,
+  "conditional_new_accounts": 12,
+  "conditional_reused_accounts": 8,
+  "historical_data_previously_seen": true,
+  "independent_validation": false,
+  "goal_achieved": false,
+  "position_impact": 0
+}

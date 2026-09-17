@@ -1,0 +1,34 @@
+Traceback (most recent call last):
+  File "C:\Users\戴周阳\Documents\New project 8\scripts\verify_510300_unlock_source_admission_v1.py", line 141, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\戴周阳\Documents\New project 8\scripts\verify_510300_unlock_source_admission_v1.py", line 135, in main
+    pd.testing.assert_frame_equal(eligible, pd.read_parquet(OUT/"eligible_with_membership_diagnostic.parquet"))
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\戴周阳\Documents\New project 8\.venv\Lib\site-packages\pandas\util\_decorators.py", line 220, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\戴周阳\Documents\New project 8\.venv\Lib\site-packages\pandas\_testing\asserters.py", line 1347, in assert_frame_equal
+    assert_series_equal(
+    ~~~~~~~~~~~~~~~~~~~^
+        lcol,
+        ^^^^^
+    ...<12 lines>...
+        check_flags=False,
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\戴周阳\Documents\New project 8\.venv\Lib\site-packages\pandas\util\_decorators.py", line 193, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\戴周阳\Documents\New project 8\.venv\Lib\site-packages\pandas\_testing\asserters.py", line 1029, in assert_series_equal
+    assert_attr_equal("dtype", left, right, obj=f"Attributes of {obj}")
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\戴周阳\Documents\New project 8\.venv\Lib\site-packages\pandas\_testing\asserters.py", line 448, in assert_attr_equal
+    raise_assert_detail(obj, msg, left_attr, right_attr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\戴周阳\Documents\New project 8\.venv\Lib\site-packages\pandas\_testing\asserters.py", line 619, in raise_assert_detail
+    raise AssertionError(msg)
+AssertionError: Attributes of DataFrame.iloc[:, 15] (column name="membership_diagnostic_session") are different
+
+Attribute "dtype" are different
+[left]:  datetime64[s]
+[right]: datetime64[ms]

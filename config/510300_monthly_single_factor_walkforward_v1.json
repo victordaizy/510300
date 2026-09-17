@@ -1,0 +1,42 @@
+{
+  "study_id": "510300_MONTHLY_SINGLE_FACTOR_WALKFORWARD_V1",
+  "user_authorization": "我们现在还能进行对过去的数据进行挖掘，减少过拟合",
+  "rules": "docs/510300_MONTHLY_SINGLE_FACTOR_WALKFORWARD_V1.md",
+  "features": "reports/research/510300_post_selection_extension_inputs_v1/candidate_features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "data_cutoff": "2026-09-11",
+  "candidate_models": {"MONTHLY_MOM20": "mom20", "MONTHLY_Z20": "z20", "MONTHLY_LOGVOL20": "logvol20"},
+  "factor_window_days": 20,
+  "training_months": 60,
+  "minimum_training_months": 24,
+  "standardized_clip": 3.0,
+  "ridge_mean_loss_penalty": 1.0,
+  "entry_prediction_buffer": 0.004,
+  "target_volatility": 0.10,
+  "weight_band": 0.10,
+  "initial_capital": 200000,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.10,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "costs": {
+    "BASE": {"commission": 0.0002, "minimum": 5.0, "slippage": 0.0005},
+    "STRESS": {"commission": 0.0004, "minimum": 5.0, "slippage": 0.001}
+  },
+  "periods": {
+    "early": ["2015-01-05", "2019-12-31", "2020-01-02"],
+    "main": ["2020-01-02", "2026-09-11", "2026-09-14"]
+  },
+  "planned_new_primary_accounts": 12,
+  "planned_new_comparator_accounts": 8,
+  "planned_reused_comparator_accounts": 8,
+  "method_selection": "NONE_REPORT_ALL_THREE",
+  "continuation_full_year_outperformance_count_min": 8,
+  "continuation_full_year_count": 11,
+  "historical_data_previously_seen": true,
+  "strict_forward_evidence_days": 0,
+  "automatic_strategy_promotion": false,
+  "goal_achieved": false,
+  "position_impact": 0
+}

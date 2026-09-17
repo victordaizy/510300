@@ -1,0 +1,23 @@
+{
+  "study_id": "510300_EPS_GROWTH_DISAGREEMENT_SOURCE_FEASIBILITY_V1",
+  "question": "同公司同月两机构的年度EPS对称增长差异，是否有足够覆盖与变化供下一轮单独登记增量预测检验",
+  "input": "reports/research/510300_forward_eps_two_institution_features_v3/institution_company_month_evidence.parquet",
+  "old_monthly_input": "reports/research/510300_forward_eps_two_institution_features_v3/monthly_two_institution_features.parquet",
+  "institutions": ["guosen", "soochow"],
+  "per_company_statistic": "abs(guosen_eps_growth-soochow_eps_growth)",
+  "monthly_statistic": "median_of_company_absolute_differences",
+  "minimum_paired_companies": 30,
+  "minimum_eligible_months_for_next_protocol": 24,
+  "eligible_month_requires_old_common_sources_valid": true,
+  "maximum_report_age_days": 180,
+  "same_target_year_required": true,
+  "time_rule": "两端保守可用日期均严格早于当月原点，目标财政年度均为原点年份加一",
+  "new_strategy_preregistration": false,
+  "old_strategy_outcomes_previously_seen": true,
+  "source_screen_only": true,
+  "new_return_labels": 0,
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_network_requests": 0,
+  "goal_achieved": false
+}

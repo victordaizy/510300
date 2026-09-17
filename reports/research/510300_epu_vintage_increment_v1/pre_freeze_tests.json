@@ -1,0 +1,30 @@
+{
+  "status": "PASS_PREFREEZE_SYNTHETIC_BOUNDARIES",
+  "recorded_at": "2026-09-13T23:34:52.672613+08:00",
+  "command": ".venv\\Scripts\\python.exe -m pytest tests\\test_epu_vintage_increment_v1.py -q",
+  "exit_code": 0,
+  "passed": 10,
+  "duration_seconds": 3.86,
+  "test_path": "tests/test_epu_vintage_increment_v1.py",
+  "test_sha256": "665153d2d5524c3f124b6e544868dd41dd676674b5c6f4f37ed71da02712eb45",
+  "real_future_labels_read": false,
+  "real_models_fitted": 0,
+  "real_accounts_computed": 0,
+  "covered": [
+    "芝加哥时区和夏令时",
+    "延迟后的历史修订生效",
+    "未来修改不改变过去信息",
+    "批量发布不回填旧信号",
+    "每月一个样本和月首退出",
+    "标签排除进场前跳空及旧分红权益",
+    "标签成熟严格早于原点",
+    "常量增量不改变预测",
+    "方差开平方的风险预算与完整分红财富恒等式",
+    "月份区块保留缺失月份"
+  ],
+  "prefreeze_implementation_corrections": [
+    "版本矩阵列名按 YYYYMMDD 解析",
+    "共用 RV20 为方差，账户预算修正为 sqrt(RV20*242) 并加入定值测试"
+  ],
+  "all_corrections_before_labels_and_freeze": true
+}

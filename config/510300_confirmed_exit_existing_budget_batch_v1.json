@@ -1,0 +1,643 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_CONFIRMED_EXIT_EXISTING_BUDGET_BATCH_V1",
+  "round": 199,
+  "registered_at": "2026-09-13T07:05:21.459530+08:00",
+  "primary": "CONFIRMED_RISK_DAILY_120_10",
+  "candidate_models": [
+    "CONFIRMED_RISK_DAILY_30_10",
+    "CONFIRMED_RISK_DAILY_30_12",
+    "CONFIRMED_RISK_DAILY_30_15",
+    "CONFIRMED_RISK_DAILY_120_10",
+    "CONFIRMED_RISK_DAILY_120_12",
+    "CONFIRMED_RISK_DAILY_120_15",
+    "CONFIRMED_RISK_EPISODE_30_10",
+    "CONFIRMED_RISK_EPISODE_30_12",
+    "CONFIRMED_RISK_EPISODE_30_15",
+    "CONFIRMED_RISK_EPISODE_60_12",
+    "CONFIRMED_RISK_EPISODE_60_15",
+    "CONFIRMED_RISK_EPISODE_120_10",
+    "CONFIRMED_RISK_EPISODE_120_12",
+    "CONFIRMED_RISK_EPISODE_120_15",
+    "CONFIRMED_EPISODE_ACCOUNT_RISK_BUDGET",
+    "CONFIRMED_ACCOUNT_RISK_12",
+    "CONFIRMED_ACCOUNT_RISK_15"
+  ],
+  "candidate_configurations": 17,
+  "candidate_sources": {
+    "RISK_DAILY_30_10": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "DAILY",
+      "window": 30,
+      "budget_percent": 10
+    },
+    "RISK_DAILY_30_12": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "DAILY",
+      "window": 30,
+      "budget_percent": 12
+    },
+    "RISK_DAILY_30_15": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "DAILY",
+      "window": 30,
+      "budget_percent": 15
+    },
+    "RISK_DAILY_120_10": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "DAILY",
+      "window": 120,
+      "budget_percent": 10
+    },
+    "RISK_DAILY_120_12": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "DAILY",
+      "window": 120,
+      "budget_percent": 12
+    },
+    "RISK_DAILY_120_15": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "DAILY",
+      "window": 120,
+      "budget_percent": 15
+    },
+    "RISK_EPISODE_30_10": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 30,
+      "budget_percent": 10
+    },
+    "RISK_EPISODE_30_12": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 30,
+      "budget_percent": 12
+    },
+    "RISK_EPISODE_30_15": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 30,
+      "budget_percent": 15
+    },
+    "RISK_EPISODE_60_12": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 60,
+      "budget_percent": 12
+    },
+    "RISK_EPISODE_60_15": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 60,
+      "budget_percent": 15
+    },
+    "RISK_EPISODE_120_10": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 120,
+      "budget_percent": 10
+    },
+    "RISK_EPISODE_120_12": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 120,
+      "budget_percent": 12
+    },
+    "RISK_EPISODE_120_15": {
+      "folder": "510300_risk_window_clock_batch_v1",
+      "clock": "EPISODE",
+      "window": 120,
+      "budget_percent": 15
+    },
+    "EPISODE_ACCOUNT_RISK_BUDGET": {
+      "folder": "510300_episode_account_risk_budget_v1",
+      "clock": "EPISODE",
+      "window": 60,
+      "budget_percent": 10
+    },
+    "ACCOUNT_RISK_12": {
+      "folder": "510300_finite_account_risk_calibration_v1",
+      "clock": "DAILY",
+      "window": 60,
+      "budget_percent": 12
+    },
+    "ACCOUNT_RISK_15": {
+      "folder": "510300_finite_account_risk_calibration_v1",
+      "clock": "DAILY",
+      "window": 60,
+      "budget_percent": 15
+    }
+  },
+  "candidate_mapping": {
+    "CONFIRMED_RISK_DAILY_30_10": "RISK_DAILY_30_10",
+    "CONFIRMED_RISK_DAILY_30_12": "RISK_DAILY_30_12",
+    "CONFIRMED_RISK_DAILY_30_15": "RISK_DAILY_30_15",
+    "CONFIRMED_RISK_DAILY_120_10": "RISK_DAILY_120_10",
+    "CONFIRMED_RISK_DAILY_120_12": "RISK_DAILY_120_12",
+    "CONFIRMED_RISK_DAILY_120_15": "RISK_DAILY_120_15",
+    "CONFIRMED_RISK_EPISODE_30_10": "RISK_EPISODE_30_10",
+    "CONFIRMED_RISK_EPISODE_30_12": "RISK_EPISODE_30_12",
+    "CONFIRMED_RISK_EPISODE_30_15": "RISK_EPISODE_30_15",
+    "CONFIRMED_RISK_EPISODE_60_12": "RISK_EPISODE_60_12",
+    "CONFIRMED_RISK_EPISODE_60_15": "RISK_EPISODE_60_15",
+    "CONFIRMED_RISK_EPISODE_120_10": "RISK_EPISODE_120_10",
+    "CONFIRMED_RISK_EPISODE_120_12": "RISK_EPISODE_120_12",
+    "CONFIRMED_RISK_EPISODE_120_15": "RISK_EPISODE_120_15",
+    "CONFIRMED_EPISODE_ACCOUNT_RISK_BUDGET": "EPISODE_ACCOUNT_RISK_BUDGET",
+    "CONFIRMED_ACCOUNT_RISK_12": "ACCOUNT_RISK_12",
+    "CONFIRMED_ACCOUNT_RISK_15": "ACCOUNT_RISK_15"
+  },
+  "parent_models": [
+    "RISK_DAILY_30_10",
+    "RISK_DAILY_30_12",
+    "RISK_DAILY_30_15",
+    "RISK_DAILY_120_10",
+    "RISK_DAILY_120_12",
+    "RISK_DAILY_120_15",
+    "RISK_EPISODE_30_10",
+    "RISK_EPISODE_30_12",
+    "RISK_EPISODE_30_15",
+    "RISK_EPISODE_60_12",
+    "RISK_EPISODE_60_15",
+    "RISK_EPISODE_120_10",
+    "RISK_EPISODE_120_12",
+    "RISK_EPISODE_120_15",
+    "EPISODE_ACCOUNT_RISK_BUDGET",
+    "ACCOUNT_RISK_12",
+    "ACCOUNT_RISK_15"
+  ],
+  "zero_confirmations": 2,
+  "decision_clock": "15:05:00",
+  "annual_return_target": 0.1,
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "source_budget_cny": 0,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "evidence_class": "RETROSPECTIVE_FIXED_EXIT_AND_EXISTING_BUDGET_INTERACTION_BATCH",
+  "rules": "docs/510300_CONFIRMED_EXIT_EXISTING_BUDGET_BATCH_V1.md",
+  "frozen_files": [
+    {
+      "path": "config\\510300_episode_account_risk_budget_v1.json",
+      "sha256": "2d54446ee39474f4e93611423328cb7f4223d0839e36bc831b6e83251bb3a30c"
+    },
+    {
+      "path": "config\\510300_finite_account_risk_calibration_v1.json",
+      "sha256": "77f01fe6fd66f926d647d9f2b4a59a0ea7596b4e9827994aab099496efd6e6e6"
+    },
+    {
+      "path": "config\\510300_return_confirmation_auxiliary_batch_v1.json",
+      "sha256": "fe7c19a53b44bbc2f8b541e46245fec610f648927e8151af2c3fa25d5ce83313"
+    },
+    {
+      "path": "config\\510300_risk_window_clock_batch_v1.json",
+      "sha256": "f0ee37496e6f6d8f088a3ac3d1397f6243bd418e92c45922b3e4cc637fa81ff1"
+    },
+    {
+      "path": "config\\510300_two_close_zero_exit_v1.json",
+      "sha256": "b319ca102ca1f739a667bb0a31449422f81003d32c5c118fe8eb3e2d8a37303d"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_CONFIRMED_EXIT_EXISTING_BUDGET_BATCH_V1.md",
+      "sha256": "daf95de73e2a75ae29ed03f1314799ef676db69030295949bcb344da3d82194a"
+    },
+    {
+      "path": "docs\\510300_RETURN_CONFIRMATION_AUXILIARY_BATCH_V1.md",
+      "sha256": "447892956b8838eb8450ebac4ef5a0c0d9e6993c4a918a0acecd5c6a5e8ca5d7"
+    },
+    {
+      "path": "reports\\research\\510300_account_volatility_exposure_v1\\earlier_diagnostic\\BASE\\ACCOUNT_VOLATILITY_EXPOSURE_ledger.parquet",
+      "sha256": "87a66a435b0ee8716cbce82840facd21ad74e4894399c55d3bce30f2a52e9891"
+    },
+    {
+      "path": "reports\\research\\510300_account_volatility_exposure_v1\\earlier_diagnostic\\STRESS\\ACCOUNT_VOLATILITY_EXPOSURE_ledger.parquet",
+      "sha256": "ed6571f71bc5f1375a2ef5b9e7ccb7b438c02d2f3a26b694dc2c959b55c56571"
+    },
+    {
+      "path": "reports\\research\\510300_account_volatility_exposure_v1\\evaluation\\BASE\\ACCOUNT_VOLATILITY_EXPOSURE_ledger.parquet",
+      "sha256": "f7aa1cf21ea03f09726b09045fea245897ff9f5b8ab286830837d83dae4e9b89"
+    },
+    {
+      "path": "reports\\research\\510300_account_volatility_exposure_v1\\evaluation\\STRESS\\ACCOUNT_VOLATILITY_EXPOSURE_ledger.parquet",
+      "sha256": "464bc7245ab9d576716c0382fcbbb77801d91611f81b74e85991a75443873854"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\tests_output.txt",
+      "sha256": "d2b5273571cba97011af4c346b3e76d9835ff91c3ab0f9a09b88249e84352fe9"
+    },
+    {
+      "path": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\tests_receipt.json",
+      "sha256": "60c30a873adbbe7ef358b8f8bba8b8b073b49fe8bf76af6fb961c616e0108a1b"
+    },
+    {
+      "path": "reports\\research\\510300_episode_account_risk_budget_v1\\earlier_diagnostic\\BASE\\EPISODE_ACCOUNT_RISK_BUDGET_decisions.parquet",
+      "sha256": "41210611a3b5aa85fd983b49ad3f3623b9fb043a39692b02bb06de701ed1fe2e"
+    },
+    {
+      "path": "reports\\research\\510300_episode_account_risk_budget_v1\\earlier_diagnostic\\STRESS\\EPISODE_ACCOUNT_RISK_BUDGET_decisions.parquet",
+      "sha256": "8d70df5daac568973c3cf7e92de288b511ee8c99c0c81ab4e441b5a1a5f9d146"
+    },
+    {
+      "path": "reports\\research\\510300_episode_account_risk_budget_v1\\evaluation\\BASE\\EPISODE_ACCOUNT_RISK_BUDGET_decisions.parquet",
+      "sha256": "f7dee1e4e47ccb4ae99043074fd6b7ad165322ea278f9882a569bfa9361b4ac8"
+    },
+    {
+      "path": "reports\\research\\510300_episode_account_risk_budget_v1\\evaluation\\STRESS\\EPISODE_ACCOUNT_RISK_BUDGET_decisions.parquet",
+      "sha256": "2bbf8ca27a9d366b0dcd1538de21c0e7148842894cf431ac239dca6cf3a74639"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\earlier_diagnostic\\BASE\\ACCOUNT_RISK_12_decisions.parquet",
+      "sha256": "6ef96e69dbf999ee314181e4e4ea1a01bca6fc2f3f98d1bc56690b3bfa406c2b"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\earlier_diagnostic\\BASE\\ACCOUNT_RISK_15_decisions.parquet",
+      "sha256": "37350f572d0b57b5716ca59d50c4fa3d416ac50c7e855f1a4bd54126d495609d"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\earlier_diagnostic\\STRESS\\ACCOUNT_RISK_12_decisions.parquet",
+      "sha256": "500aa7947134936fae9641235c4902a3b112def0e0e5c21898bee9a471995910"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\earlier_diagnostic\\STRESS\\ACCOUNT_RISK_15_decisions.parquet",
+      "sha256": "b2646aa58130215493366a88f6b6c3f0b5dc2b17a2b845eaa819afc1e3e8a163"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\evaluation\\BASE\\ACCOUNT_RISK_12_decisions.parquet",
+      "sha256": "caaddd71df5f81c138686ef083e7054593cecc3265abc6e3352cd5e998cd7c89"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\evaluation\\BASE\\ACCOUNT_RISK_15_decisions.parquet",
+      "sha256": "64547d6f0c6e40b5c5f1af2c651bae45afc230552d825d77630781426bdcf253"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\evaluation\\STRESS\\ACCOUNT_RISK_12_decisions.parquet",
+      "sha256": "30f741922adeb32111754f4f169ebf0d7a87e7f67d191d56e828c2c3c807089b"
+    },
+    {
+      "path": "reports\\research\\510300_finite_account_risk_calibration_v1\\evaluation\\STRESS\\ACCOUNT_RISK_15_decisions.parquet",
+      "sha256": "3bd63caa2fd1a76d7e500e10473a654f53ef3eed3d6a41b2e1287025d5c70225"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_DAILY_120_10_decisions.parquet",
+      "sha256": "20e0979d2554ee55987000ca1ea4cd84abddb05b8a5cc746cb6f5712b8e38a96"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_DAILY_120_12_decisions.parquet",
+      "sha256": "58b06fa62fa8e39a028c5c8c7ff29860dac7975890481c6d3bfdd02bfac48808"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_DAILY_120_15_decisions.parquet",
+      "sha256": "ec94d39eda751c1e858f260860930c2b6f56e32984811e822d6c9da8689cae2d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_DAILY_30_10_decisions.parquet",
+      "sha256": "7b9de6c9d0620e6c2f4ced6a1cac5adfd45a1c38b21da7fc012599283f0753be"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_DAILY_30_12_decisions.parquet",
+      "sha256": "cd1fc7b91e1bd795369d5a7e58b238126a48d718911ff7684270e3f037ab056d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_DAILY_30_15_decisions.parquet",
+      "sha256": "714268da047d3d7faaca1500feefc32ad4f04d507c15d53f1f250cb40f963b9d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_120_10_decisions.parquet",
+      "sha256": "2d6283c0888423bd34b63e0c24de26f794e77f523ed5eb221042227176371904"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_120_12_decisions.parquet",
+      "sha256": "903d213f384f87fe894535c926c7ebb5e7eb076c0b07116098940613493d0394"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_120_15_decisions.parquet",
+      "sha256": "466a4971fb7405f1438cf354c41ef3a8035c5d56ab6fa8a02c28241697a55bdf"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "1e7561a22e5ca9fb8f44be4fdd243855958e535d27bfba263dabf0d96331f3a3"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_30_12_decisions.parquet",
+      "sha256": "c4b027b5bc2141ab5b35300ba3f96027e0c30dc8e1fed29b2a825090b63a4d32"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_30_15_decisions.parquet",
+      "sha256": "c3fb5614539275ba99fc06b276749c61423bf022110ae95d6b33472e0caa442b"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_60_12_decisions.parquet",
+      "sha256": "3a2815a03346e9dfed5e5cc356ed54b9a930bfd983c8a88c06d7e7af1aa83b8d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\BASE\\RISK_EPISODE_60_15_decisions.parquet",
+      "sha256": "0c0579ed3e38c8ca3ca440aefbc45c0261db2c0e143c95601e6574ddb17dd415"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_DAILY_120_10_decisions.parquet",
+      "sha256": "77a9f8618dd1878613f1c08c4d019643d9d78c8034bb7d2b92f95e13a8fa7021"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_DAILY_120_12_decisions.parquet",
+      "sha256": "3406c60e2d86df9aa4e133f84478af96912cec95d7ebbc0bda0e8c13c239642d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_DAILY_120_15_decisions.parquet",
+      "sha256": "b2c87a238f7a2c85f340069358495e7d60ea0f056de218485ccfc4901d350aae"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_DAILY_30_10_decisions.parquet",
+      "sha256": "4f209e16a0519fc08f0793ce4b178939651d5d74197ab415ff34e968cc452c38"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_DAILY_30_12_decisions.parquet",
+      "sha256": "f688d7605968ede989fbe7f2240d4c8894c21f8cebc1a70a6347dc9b49ce1581"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_DAILY_30_15_decisions.parquet",
+      "sha256": "8c16992da330e122df17f74176cfbc83bcdd447dcaa7c6bdbf63d48a1b4394b5"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_120_10_decisions.parquet",
+      "sha256": "fadff73951a1a19435bb0ecc81f23a74800796fd5876490c019c75d239c35611"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_120_12_decisions.parquet",
+      "sha256": "811b32654ff80e2702cb0330881dc60937ab030a063ceca8428c3f15fa54c0b5"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_120_15_decisions.parquet",
+      "sha256": "ce2ade0ecad03ba14bef9e8743fbfb92bbfaf240ad56f7279d50a689eb20ae6b"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "5b6bfe38ab9278419af0940d9b0dd170221e77b06a73c1886380bf0eaf99ead4"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_30_12_decisions.parquet",
+      "sha256": "bf627db2f4f62c78262ac8ae8cba084562b48c408b591060f06f1697527d7d4b"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_30_15_decisions.parquet",
+      "sha256": "b702750cf243edeb5f6691a43403b06903e3af5b5d0b6b06fc2e3b36fd60a314"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_60_12_decisions.parquet",
+      "sha256": "bcb859557386997fbb6dda9f1857c374f933067711f3d49b415b1022c54d4f1f"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\earlier_diagnostic\\STRESS\\RISK_EPISODE_60_15_decisions.parquet",
+      "sha256": "185c6fd0639ef4ed7c87b7808ed725fba0e90a04f7255c5a7ed79ec37ffefb35"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_DAILY_120_10_decisions.parquet",
+      "sha256": "205c627cd9d513128e892707e7f6989cee21a6666c5eeb3514526c324a289992"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_DAILY_120_12_decisions.parquet",
+      "sha256": "2c6adc1a92ebde2e62952eae12c9ceba4dd468d02381402a51f8a6e98a827fdf"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_DAILY_120_15_decisions.parquet",
+      "sha256": "6d6555d75010a6f18120cb1d61138cc4c205961f0ac18e8f1f5d584c2557899c"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_DAILY_30_10_decisions.parquet",
+      "sha256": "6e7816ab2f8b0da72f4c957002392d75abec7332b7f625c4cd4f234efdaf0d18"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_DAILY_30_12_decisions.parquet",
+      "sha256": "69bbba4c1b8ddd85a6bccd001aeb6e966a0de29863371875254a3c7a5f327718"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_DAILY_30_15_decisions.parquet",
+      "sha256": "8e4f7409b7ce3cb2ad193afe5f7580faa9630b0595420e8cdfe8b620fd4c4b2d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_120_10_decisions.parquet",
+      "sha256": "3039ed9974ab948a8994ef399d3660fd87b77f54d7444ce9f3e2f21f34678b5d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_120_12_decisions.parquet",
+      "sha256": "975ed03d08d1bf4dd31b8b8a29c4f748b44dd7e58aff93e73ad41c94571bea9e"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_120_15_decisions.parquet",
+      "sha256": "058452af73326331dd52387fa1e73682c33e60ab01368526f4a1704795a9ece6"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "fd7f863421baa2e0f9ca4a08b1237f1880fae8d1955b2b004dc66879cdd94e2f"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_30_12_decisions.parquet",
+      "sha256": "fb97063930ee4c02aea3b9b1dcfc245e8d5761ed7c352059e83883b8ce1e35b4"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_30_15_decisions.parquet",
+      "sha256": "4792a8eb92fffc705f1eb553dee3129e6fc5cfac9c7737dc23f28302deb56e0a"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_60_12_decisions.parquet",
+      "sha256": "a341b38323baabe5bf1b17c8ade60dd08356cb046d2a8bf66170f7567ff5105d"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\BASE\\RISK_EPISODE_60_15_decisions.parquet",
+      "sha256": "c3ba64b5d48367c4191627f0b22b7427233d721c2f5872b51aedc2f4e0fac9b2"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_DAILY_120_10_decisions.parquet",
+      "sha256": "c25d95bf0d6d0b9ef5c35b6a4bf0229d746128cd3b680e772b7637874374e1a0"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_DAILY_120_12_decisions.parquet",
+      "sha256": "d7526ccbde590dfa13e92eda4121cab09af7aea5a11b08a0f9e7d63f59ead34c"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_DAILY_120_15_decisions.parquet",
+      "sha256": "70eedd6015c1d671a79f2fe242fe1ef195b3c4b6fd58baa28e3648aa56d94c03"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_DAILY_30_10_decisions.parquet",
+      "sha256": "4833604c9b0681c0b5b35180ce42c0afe581ef3cc418cf66aa6ff6cd2da9d8be"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_DAILY_30_12_decisions.parquet",
+      "sha256": "0ebcd08f0951b60944936b38d874040146d9e21ccd0bbe8acb303070a0d145f9"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_DAILY_30_15_decisions.parquet",
+      "sha256": "8d3575857de2e3dced9c830ea50a113eb0856743401c369dee2b2753545272b4"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_120_10_decisions.parquet",
+      "sha256": "70fe5345427e9c467843263c9ba5480c98785971b03860ae4b5947f54deea1ac"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_120_12_decisions.parquet",
+      "sha256": "cbd093c90052d2983c98865dd67193eba5f6e5158960d0fee1d3497ff56081d7"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_120_15_decisions.parquet",
+      "sha256": "dd956bfe1d3459c2a16c38ea72b26410a255a4053e41b8257245fd8f6a91ca62"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_30_10_decisions.parquet",
+      "sha256": "6faceb6afb4abbf02cca3aa73d06ff9d59d1001da42ed2ff6052cafb57f27811"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_30_12_decisions.parquet",
+      "sha256": "2d10dcbc5d8e281042b6b936acf5cf7a6f482d3e0d87034274173910a7527c19"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_30_15_decisions.parquet",
+      "sha256": "ada863ac9060c03e76bd3801eb35875370c3930163679900d0b00e46a981e702"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_60_12_decisions.parquet",
+      "sha256": "426a6bbe4736de29c6f3b6df7a17e08f95fff3b8471bde7f86274eb8f5e44d11"
+    },
+    {
+      "path": "reports\\research\\510300_risk_window_clock_batch_v1\\evaluation\\STRESS\\RISK_EPISODE_60_15_decisions.parquet",
+      "sha256": "b8931c8707b524dac2d73486cd10f091e33653fb5877b663db0207e113726da2"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "462bef7d1920798ec23e53578e359f42ac8c7b6a696e3709bd261054adc8cc67"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "04d63bbb427b6259ef38f02a80a3d6852796956e0d75a82ec30888abd3055fd9"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "a9046544d5643e3d82db27768325970a22979c4f9a61e636aa92abcabce70baf"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "e58be8e9a147385353510cb7b6b50292ed0d6bc1a62bc509bd102aa6672ed95f"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\saved_verification_receipt.json",
+      "sha256": "96ccb67def3c50e1c9b471f4648e43466cbf6686af34b49ce5f96ad77d4028b8"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\confirmed_exit_existing_budget_batch_inputs_v1.py",
+      "sha256": "1d9aae76e36c44e05c2e86ebf217e19322690a8ebf0b96a0580efe723c9184cc"
+    },
+    {
+      "path": "research\\confirmed_exit_existing_budget_batch_v1.py",
+      "sha256": "da6e401c0a5dbd2fffd3284da4564d46e9120134037473b4f96a7ae43a069fd2"
+    },
+    {
+      "path": "research\\event_account_indexed_request_v1.py",
+      "sha256": "87d34e7ec33f4270cdba02ff084c37a7fb4e2a6d36e41bb38a0a313e6ead24c9"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\joint_account_acceptance_v1.py",
+      "sha256": "6d3db2310fe66559bca39ca9191c8ef22f81b450279112fd3de66acb1b4a79e3"
+    },
+    {
+      "path": "research\\risk_window_clock_batch_inputs_v1.py",
+      "sha256": "cbdc4949f675a054f605d6a28f9bf166b60c6233583ce2641d5c56d65e4929a5"
+    },
+    {
+      "path": "research\\saved_parent_target_alignment_v1.py",
+      "sha256": "b55ff702bacfd040bc0f2b97a276a4c02c609991faabf8bdf6ecab11595ec856"
+    },
+    {
+      "path": "research\\saved_requested_account_checks_v1.py",
+      "sha256": "2948b3a2b6e9d24279677679ee2072fbcfdd745612fa140ba73fc0deef2e7d54"
+    },
+    {
+      "path": "research\\saved_target_custom_execution_v1.py",
+      "sha256": "d6787ba30f288c73a29e602ab4a91383c546192987cc3440be7a0e81f9503dd9"
+    },
+    {
+      "path": "research\\two_close_zero_exit_account_v1.py",
+      "sha256": "922d3f5f2144c3fcfddca98b83565bd69326c5362a458f2a85ad5d0d97639dde"
+    },
+    {
+      "path": "research\\two_close_zero_exit_inputs_v1.py",
+      "sha256": "94a0704a50eefc98d758bb5eea84f9cd4c5c988bf67b4a0519d70f137d2fd8e0"
+    },
+    {
+      "path": "research\\two_close_zero_exit_v1.py",
+      "sha256": "12a4be8cc4c0a5a04282ad6fcaf76fc4c25d29cbc67259a42db304a816fe2098"
+    },
+    {
+      "path": "scripts\\verify_round195_20260913.py",
+      "sha256": "68a04a645592fd3d5689b6e7bd72dfd9be8183be860d4c52811ee26de01517e0"
+    },
+    {
+      "path": "tests\\test_confirmed_exit_existing_budget_batch_v1.py",
+      "sha256": "79430eae3ca3bb603d02e8436e1af6d15a9fdaa5f3e7e376c8558b38cb3b1869"
+    },
+    {
+      "path": "tests\\test_target_band_partial_rebalance_v1.py",
+      "sha256": "267444cd96ea86978e5c47233374e2c776e0f86a7680acfce3fcfd4e5769b8b2"
+    },
+    {
+      "path": "tests\\test_two_close_zero_exit_v1.py",
+      "sha256": "bc525d3a5351892898da4c943de3723e1bc17c669e055a3dd97815e6e200929e"
+    }
+  ]
+}

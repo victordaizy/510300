@@ -1,0 +1,48 @@
+..........FF..                                                           [100%]
+================================== FAILURES ===================================
+_ test_future_prices_and_targets_do_not_change_earlier_fills[TARGET_BAND_EDGE] _
+
+model = 'TARGET_BAND_EDGE'
+
+    @pytest.mark.parametrize('model', CANDIDATES)
+    def test_future_prices_and_targets_do_not_change_earlier_fills(model):
+        target = np.array([.3, .8, .4, .8, .2, .4, .8, .6, .3, .3])
+        original_ledger, original_decisions = run(model, target)
+        frame = fixture()[0]
+        frame.loc[6:, ['open', 'close', 'previous_close']] = 10.2
+        target[5:] = [0., .8, np.nan, .01, .9]
+        changed_ledger, changed_decisions = run(model, target, frame)
+        pd.testing.assert_frame_equal(original_ledger.iloc[:5], changed_ledger.iloc[:5])
+>       pd.testing.assert_frame_equal(original_decisions.iloc[:5], changed_decisions.iloc[:5])
+E       AssertionError: Attributes of DataFrame.iloc[:, 9] (column name="own_close_shares") are different
+E       
+E       Attribute "dtype" are different
+E       [left]:  int64
+E       [right]: float64
+
+tests\test_target_band_partial_rebalance_v1.py:102: AssertionError
+_ test_future_prices_and_targets_do_not_change_earlier_fills[TARGET_HALF_GAP] _
+
+model = 'TARGET_HALF_GAP'
+
+    @pytest.mark.parametrize('model', CANDIDATES)
+    def test_future_prices_and_targets_do_not_change_earlier_fills(model):
+        target = np.array([.3, .8, .4, .8, .2, .4, .8, .6, .3, .3])
+        original_ledger, original_decisions = run(model, target)
+        frame = fixture()[0]
+        frame.loc[6:, ['open', 'close', 'previous_close']] = 10.2
+        target[5:] = [0., .8, np.nan, .01, .9]
+        changed_ledger, changed_decisions = run(model, target, frame)
+        pd.testing.assert_frame_equal(original_ledger.iloc[:5], changed_ledger.iloc[:5])
+>       pd.testing.assert_frame_equal(original_decisions.iloc[:5], changed_decisions.iloc[:5])
+E       AssertionError: Attributes of DataFrame.iloc[:, 9] (column name="own_close_shares") are different
+E       
+E       Attribute "dtype" are different
+E       [left]:  int64
+E       [right]: float64
+
+tests\test_target_band_partial_rebalance_v1.py:102: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_target_band_partial_rebalance_v1.py::test_future_prices_and_targets_do_not_change_earlier_fills[TARGET_BAND_EDGE]
+FAILED tests/test_target_band_partial_rebalance_v1.py::test_future_prices_and_targets_do_not_change_earlier_fills[TARGET_HALF_GAP]
+2 failed, 12 passed in 4.81s

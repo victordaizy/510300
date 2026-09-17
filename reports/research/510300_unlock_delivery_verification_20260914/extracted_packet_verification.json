@@ -1,0 +1,97 @@
+{
+  "status": "PASS_EXTRACTED_PACKET_SOURCE_MODEL_ACCOUNT_RECOMPUTATION",
+  "verified_at": "2026-09-14T01:04:21.903285+08:00",
+  "zip": "C:\\Users\\戴周阳\\Documents\\New project 8\\deliverables\\510300_解禁公告信息增量_V1_GPT审阅_20260914.zip",
+  "zip_sha256": "c1af723401d927ed6e897cffcfa01ea1ea0b261232bdf60076e81cf3ef11b3f0",
+  "extracted_indexed_files_checked": 8058,
+  "restore_directory": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_unlock_delivery_verification_20260914\\restored_packet",
+  "checks": [
+    {
+      "name": "restored_source_verify",
+      "command": [
+        "scripts/verify_510300_unlock_source_saved_v1_1.py"
+      ],
+      "exit_code": 0,
+      "result": {
+        "status": "PASS_OFFLINE_RAW_SOURCE_AND_MEMBERSHIP_RECOMPUTATION_AFTER_DATE_UNIT_NORMALIZATION",
+        "verified_at": "2026-09-14T01:04:21.472945+08:00",
+        "all_records_checked": 33722,
+        "raw_responses_checked": 1603,
+        "membership_sessions": 2823,
+        "date_storage_normalization": [
+          {
+            "file": "eligible_with_membership_diagnostic.parquet",
+            "recreated_dates": [
+              {
+                "column": "membership_diagnostic_session",
+                "before": "datetime64[s]",
+                "comparison_dtype": "datetime64[ns]"
+              }
+            ],
+            "stored_dates": [
+              {
+                "column": "membership_diagnostic_session",
+                "before": "datetime64[ms]",
+                "comparison_dtype": "datetime64[ns]"
+              }
+            ],
+            "all_cell_values_equal": true
+          },
+          {
+            "file": "company_day_activity_diagnostic.parquet",
+            "recreated_dates": [
+              {
+                "column": "membership_diagnostic_session",
+                "before": "datetime64[s]",
+                "comparison_dtype": "datetime64[ns]"
+              }
+            ],
+            "stored_dates": [
+              {
+                "column": "membership_diagnostic_session",
+                "before": "datetime64[ms]",
+                "comparison_dtype": "datetime64[ns]"
+              }
+            ],
+            "all_cell_values_equal": true
+          }
+        ],
+        "previous_dtype_failure_preserved": true,
+        "source_data_or_model_inputs_modified": false,
+        "new_network_calls": 0,
+        "new_return_labels": 0,
+        "new_model_fits": 0,
+        "new_accounts": 0,
+        "new_random_samples": 0,
+        "verifier_sha256": "b517d101308dec30db4d3452ad3b15d053da201533fc4788b6c31be903c1a4e1"
+      }
+    },
+    {
+      "name": "restored_model_account_verify",
+      "command": [
+        "scripts/run_510300_unlock_announcement_increment_v1.py",
+        "verify"
+      ],
+      "exit_code": 0,
+      "result": {
+        "status": "PASS_SAVED_ANNOUNCEMENT_CLOCK_FEATURE_MODEL_ACCOUNT_RECOMPUTATION",
+        "verified_at": "2026-09-14T01:04:00.635426+08:00",
+        "models_checked": 160,
+        "prediction_rows": 1604,
+        "max_prediction_error": 0.0,
+        "accounts_checked": 8,
+        "new_labels": 0,
+        "new_model_fits": 0,
+        "new_accounts": 0,
+        "new_random_samples": 0,
+        "network_calls": 0
+      }
+    }
+  ],
+  "new_return_labels": 0,
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_random_samples": 0,
+  "network_calls": 0,
+  "original_workspace_research_inputs_changed": false
+}

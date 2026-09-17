@@ -17,7 +17,7 @@
 ## 阅读顺序
 
 1. 阅读根目录 `README.md`，确认快照版本和文件范围。
-2. 通过 `catalog/studies.csv` 找到具体研究目录及报告入口；根目录 `RESEARCH_STATUS.md` 保留已有状态导航。
+2. 通过 `catalog/studies.csv` 找到具体研究目录及报告入口；本轮更新入口是 `docs/UPDATE_20260917.md`，近期汇总是 `reports/research/510300_sharpe_1_2_latest_research.json`；根目录 `RESEARCH_STATUS.md` 保留较早的历史状态。
 3. 按具体报告阅读协议、权限、来源、结果与反证；同一研究存在多个版本时，逐一核对编号与时间，不把旧摘要当成新结果。
 4. 如果报告引用的文件通过 Release 保存，使用还原工具按文件或目录前缀下载。
 5. 需要完整复核时，下载全部附件，再执行 `verify --all`。
@@ -36,6 +36,6 @@
 
 CI 检查所有原始 Git 文件的大小和摘要、附件映射结构，以及还原工具的关键行为。它不下载全部历史数据、不运行研究模型，也不把结构检查称为安全审计、科学有效性结论或外部 GPT 审阅。
 
-本次还独立回读了全部188,994个通过Release保存的原文件，核对ZIP CRC、成员集合、大小及SHA-256，并验证原包分片的顺序拼接摘要。结果见 `catalog/SAVED_ASSETS_VERIFICATION.json`。
+本次独立回读本轮新附件内的 33,403 个原文件，核对 ZIP CRC、成员集合、大小、SHA-256 和原包分片重组摘要。结果见 `catalog/SAVED_ASSETS_VERIFICATION.json`；历史附件的既有回读结果保存在 `catalog/history/snapshot-2026-09-09/`，并在发布时重新核对复用附件的远端摘要。
 
-还原后的Release材料由 `.gitignore` 中依据索引生成的规则管理。188,994条Release路径全部受到忽略规则覆盖，7,583条原始Git路径没有被误忽略。后续更新发布索引后，可运行 `python tools/repository/update_ignore_rules.py` 重新生成并用Git检查这些规则。
+还原后的Release材料由 `.gitignore` 中依据索引生成的规则管理。222,395条Release路径全部受到忽略规则覆盖，10,033条原始Git路径没有被误忽略。后续更新发布索引后，可运行 `python tools/repository/update_ignore_rules.py` 重新生成并用Git检查这些规则。
