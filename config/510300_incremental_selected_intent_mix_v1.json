@@ -1,0 +1,588 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_INCREMENTAL_SELECTED_INTENT_MIX_V1",
+  "round": 209,
+  "registered_at": "2026-09-13T09:03:57.947046+08:00",
+  "primary": "SELECTED_MIX_BAND00_SIMPLE3",
+  "candidate_models": [
+    "SELECTED_MIX_BAND00_FULL",
+    "SELECTED_MIX_BAND00_TOP3",
+    "SELECTED_MIX_BAND00_SIMPLE3",
+    "SELECTED_MIX_BAND00_SIMPLE2",
+    "SELECTED_MIX_BAND10_FULL",
+    "SELECTED_MIX_BAND10_TOP3",
+    "SELECTED_MIX_BAND10_SIMPLE3",
+    "SELECTED_MIX_BAND10_SIMPLE2"
+  ],
+  "candidate_configurations": 8,
+  "candidate_settings": {
+    "SELECTED_MIX_BAND00_FULL": {
+      "parent": "FULL",
+      "band": 0.0,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.5873056240665467,
+        "ADD_GATE_EXPOSURE_110": 0.1510211953628028,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.11345480921469046,
+        "REDUCE_105_HOLD": 0.08804980993442482,
+        "MEAN_REBOUND_AUX_50": 0.060168561421535184
+      }
+    },
+    "SELECTED_MIX_BAND00_TOP3": {
+      "parent": "TOP3",
+      "band": 0.0,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.6895025723922746,
+        "ADD_GATE_EXPOSURE_110": 0.1773003670004189,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.13319706060730654,
+        "REDUCE_105_HOLD": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "SELECTED_MIX_BAND00_SIMPLE3": {
+      "parent": "SIMPLE3",
+      "band": 0.0,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.7,
+        "ADD_GATE_EXPOSURE_110": 0.15,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.15,
+        "REDUCE_105_HOLD": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "SELECTED_MIX_BAND00_SIMPLE2": {
+      "parent": "SIMPLE2",
+      "band": 0.0,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.85,
+        "ADD_GATE_EXPOSURE_110": 0.0,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.15,
+        "REDUCE_105_HOLD": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "SELECTED_MIX_BAND10_FULL": {
+      "parent": "FULL",
+      "band": 0.1,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.5873056240665467,
+        "ADD_GATE_EXPOSURE_110": 0.1510211953628028,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.11345480921469046,
+        "REDUCE_105_HOLD": 0.08804980993442482,
+        "MEAN_REBOUND_AUX_50": 0.060168561421535184
+      }
+    },
+    "SELECTED_MIX_BAND10_TOP3": {
+      "parent": "TOP3",
+      "band": 0.1,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.6895025723922746,
+        "ADD_GATE_EXPOSURE_110": 0.1773003670004189,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.13319706060730654,
+        "REDUCE_105_HOLD": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "SELECTED_MIX_BAND10_SIMPLE3": {
+      "parent": "SIMPLE3",
+      "band": 0.1,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.7,
+        "ADD_GATE_EXPOSURE_110": 0.15,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.15,
+        "REDUCE_105_HOLD": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    },
+    "SELECTED_MIX_BAND10_SIMPLE2": {
+      "parent": "SIMPLE2",
+      "band": 0.1,
+      "direction": "LOWER",
+      "return_threshold": 0.01,
+      "exposure_multiplier": 1.0,
+      "source_weights": {
+        "ADD_GATE_EXPOSURE_115": 0.85,
+        "ADD_GATE_EXPOSURE_110": 0.0,
+        "RUNS_OPPORTUNITY_CAPPED_SUM": 0.15,
+        "REDUCE_105_HOLD": 0.0,
+        "MEAN_REBOUND_AUX_50": 0.0
+      }
+    }
+  },
+  "parent_models": [
+    "ADD_GATE_EXPOSURE_115",
+    "ADD_GATE_EXPOSURE_110",
+    "RUNS_OPPORTUNITY_CAPPED_SUM",
+    "REDUCE_105_HOLD",
+    "MEAN_REBOUND_AUX_50"
+  ],
+  "source_folders": {
+    "ADD_GATE_EXPOSURE_115": "510300_addition_gate_exposure_batch_v1",
+    "ADD_GATE_EXPOSURE_110": "510300_addition_gate_exposure_batch_v1",
+    "RUNS_OPPORTUNITY_CAPPED_SUM": "510300_runs_opportunity_union_v1",
+    "REDUCE_105_HOLD": "510300_positive_target_reduction_batch_v1",
+    "MEAN_REBOUND_AUX_50": "510300_mean_rebound_auxiliary_v1"
+  },
+  "decision_clock": "15:05:00",
+  "annual_return_target": 0.1,
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "source_budget_cny": 0,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "evidence_class": "RETROSPECTIVE_INCREMENTAL_SELECTED_PLANNED_INTENT_MIX",
+  "prior_goal_turn_classification": "PROGRESS_ROUND207_208_COMPLETED_56_ACCOUNTS_AND_NEW_VIRTUAL_MIX_POINT_PASS",
+  "rules": "docs/510300_INCREMENTAL_SELECTED_INTENT_MIX_V1.md",
+  "frozen_files": [
+    {
+      "path": "config\\510300_addition_gate_exposure_batch_v1.json",
+      "sha256": "9ce5da7e9f4f265ed15a28c7493b57065070a6afb701c9af328ed26ab136eea4"
+    },
+    {
+      "path": "config\\510300_finite_rebalance_band_batch_v1.json",
+      "sha256": "0a72e5a5c386be8cdd269bfe9dce2867fa029ce256677c313d39a51e6d3c6387"
+    },
+    {
+      "path": "config\\510300_mean_rebound_auxiliary_v1.json",
+      "sha256": "42debe93e5feef105f5913f940ea63be795ca1fd7aa6601e4bec1f2471f379f5"
+    },
+    {
+      "path": "config\\510300_positive_target_reduction_batch_v1.json",
+      "sha256": "8bb49ab2158171e67227b82b2c8a69dfd3f4e40105e134b29424f046e922916a"
+    },
+    {
+      "path": "config\\510300_runs_opportunity_union_v1.json",
+      "sha256": "8b926b257c54b328b88e4397f9cea4d2d16a7daca22967b10bbf3ada0784c987"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_ADDITION_GATE_EXPOSURE_BATCH_V1.md",
+      "sha256": "a5d8eccc432e78bd4d2ba6435abe4f71a477c886e626aacd09435a57eb6f32a9"
+    },
+    {
+      "path": "docs\\510300_FINITE_REBALANCE_BAND_BATCH_V1.md",
+      "sha256": "685e9e731522efac9f1cf2ff6d3f51c62bc1a738ac6f964d36884f57dcbda8b8"
+    },
+    {
+      "path": "docs\\510300_INCREMENTAL_SELECTED_INTENT_MIX_V1.md",
+      "sha256": "b8080901477e04294efeafed76a9ec9cf226077c7eb41bd0fd85e478e8d1bd27"
+    },
+    {
+      "path": "docs\\510300_POSITIVE_TARGET_REDUCTION_BATCH_NEXT_20260913.md",
+      "sha256": "8c3ff2c7370760dfb01b06201975335c72bf509122259ff537140a023d72c8ae"
+    },
+    {
+      "path": "docs\\510300_RUNS_OPPORTUNITY_UNION_V1.md",
+      "sha256": "baa1231b075c4317e919977a3726ddc41f11533614e2c89f8672da480b8e71c6"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "01d5866da7e9553945136097b14dfb04eb15a4e2f9af6b7c30717db1e0758d8b"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_EXPOSURE_110_decisions.parquet",
+      "sha256": "285786efbb657b9f51995f7889c5f97a81401266c286e94a133e163cd44d3a34"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_EXPOSURE_110_ledger.parquet",
+      "sha256": "765ac36585e79ff3053d641453deb6d764fa383768f3a3d7e0d8d52a6c7ea424"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_EXPOSURE_115_decisions.parquet",
+      "sha256": "eb361a7a6aeeb787615cbe986769906e41f1b26761f3edb174fc462e8345e1dd"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_EXPOSURE_115_ledger.parquet",
+      "sha256": "046d8a248143b5659f4c303d3395f21d3a13aa45db5262ade893fbe47c345c52"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "753a210f3abbdc1ce6622ccc9790112ff53723f5f20fb8173d18eb7a8a5ee27f"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_EXPOSURE_110_decisions.parquet",
+      "sha256": "726dc44e2afbee270d936024c1220d22f30a232ef3a47cb1266ab035c2d147bc"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_EXPOSURE_110_ledger.parquet",
+      "sha256": "6b26bbdd9cdf1229ea111b5a87670de38862725b7aa950cfbaeb591a44193850"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_EXPOSURE_115_decisions.parquet",
+      "sha256": "e2bb10a0fdd50859fc1e2cb723e49b4c76cb3ad8bc9946440b1f1730ee0be00c"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_EXPOSURE_115_ledger.parquet",
+      "sha256": "580a1061ca5e4de5b6c5585e7a8e08fcb632a5714f18eda674f15d7e60d0379f"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\BASE\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "1ab526b81021b30f2484f3a44d0b328bddee13bca9d375cdfa7b762dc0366209"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\BASE\\ADD_GATE_EXPOSURE_110_decisions.parquet",
+      "sha256": "bf8c4453d9014c8239960148f38c755ac4d72a6d3c1e3f6654a9306d2b839235"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\BASE\\ADD_GATE_EXPOSURE_110_ledger.parquet",
+      "sha256": "7acdc2a5566aee45d66496648caf6c0db3434955dfce2cd6dc497cbf6adff1ef"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\BASE\\ADD_GATE_EXPOSURE_115_decisions.parquet",
+      "sha256": "fc8e0656d3794c2ce049f45df8708b71b045d811b3a9f2ed0522194a028c9ab0"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\BASE\\ADD_GATE_EXPOSURE_115_ledger.parquet",
+      "sha256": "8a75829cd304b3f074cfe167f2dad1d290744429e29f84a18e44e96b9e11bd9a"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\STRESS\\ADD_GATE_EXPOSURE_105_ledger.parquet",
+      "sha256": "2d13c755765ce80eecbdef9b8d850288ef4ab5eff758748019b0c046cd33f61a"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\STRESS\\ADD_GATE_EXPOSURE_110_decisions.parquet",
+      "sha256": "05e2f388ca36d95a583b93e3c7f506312117f674032ca933c64a0c5ba5030619"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\STRESS\\ADD_GATE_EXPOSURE_110_ledger.parquet",
+      "sha256": "9f3e0acfb4e826615251f88462e42fcaa9f55e926c818e96d93b46691b55b464"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\STRESS\\ADD_GATE_EXPOSURE_115_decisions.parquet",
+      "sha256": "83b9aa5bcc3903a79fe32ccf1e832470673f477654ac00ff7f9675823cfb9f8b"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\evaluation\\STRESS\\ADD_GATE_EXPOSURE_115_ledger.parquet",
+      "sha256": "f13cd8a00924a86279ea2651f69a0bbf125282baf99c5fc7c86a68f048b1e897"
+    },
+    {
+      "path": "reports\\research\\510300_addition_gate_exposure_batch_v1\\saved_verification_receipt.json",
+      "sha256": "fc9243d05a4d35cfcd579f030fdf832232c19286fd55a11a792f62a4bcc11ed6"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\earlier_diagnostic\\BASE\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "1de9a476745ea09f012866489ec29548fe9a842dfc1cf8673dbd016a9198a3ab"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\earlier_diagnostic\\STRESS\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "f4acc17534c262d671a8449dfbfce9fdd00c74311da88c12b9f5ba4c54238248"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\evaluation\\BASE\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "19fdac1007119e3db5607923b04d2c1116d737d16b75b927f812d1d925be214b"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\evaluation\\STRESS\\ADD_GATE_BAND20_LOWER01_ledger.parquet",
+      "sha256": "a3054f148944313a3552b0baafd36d56dbd86ab0f9510b1fe68e9f74f7d5d15b"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "571f61f75e8bc06d4cb7ff6124eef0126529bc13dda70c7781d3c0cb7d1952d2"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "2386fbd8628ad716ae38e8f824e616f09b866e1cc1bbd464b00acc52cc92e666"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "8cf0bbdc7bc2d27a92fc8428ed1057aa7992d1963e398b11b1a2ea2312b9eb9b"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "a734860af6d33352c7ed4b5bf6a0857248cd56f4c4fb25e12ad0bfa8ad43d5af"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "87bb120c86ae7758451ebf93a0a0df69e93a6617367afc1d2ff85bbc459fbcbc"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "0349f1d284d92b3830d403b04d356b7c69caf8a0be846448c187a65f1e598afc"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "61267649fc2c3356c2ec89b3e567d9a345689d92074b06f590679da689290f8e"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "6369fa870341c70728bbdb5cb72e904958f7e77017e9735e9f4e148c524cb494"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\saved_verification_receipt.json",
+      "sha256": "0f9d411f5e1d1f0061faccdb3af81c40c9cde7848f64acbd0cdfb478f276dadb"
+    },
+    {
+      "path": "reports\\research\\510300_incremental_saved_mix_through208\\result.json",
+      "sha256": "ae5e6da6931d8a08086448d6fc78d6fee7cb3931ebc853e4cd83ecd835183e62"
+    },
+    {
+      "path": "reports\\research\\510300_incremental_selected_intent_mix_v1\\tests_output.txt",
+      "sha256": "96b5843da97a0a3a2d547f65496cb6078b5ce7c10b75e4db3233e449565bb916"
+    },
+    {
+      "path": "reports\\research\\510300_incremental_selected_intent_mix_v1\\tests_receipt.json",
+      "sha256": "2b0b7601dd634b8f7806b3e8212281863894501df4155921550bdcca745ea4ef"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\BASE\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "143a6b05f2dbc22f75f56ddc6faedda756637d5d147fb62eb70fc9e54322c4e2"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\BASE\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "dc7fe1d5a8e76f3a5b9d778e3c0679e6bc4cdff0105d7ee3b7edfedd811f2e2d"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\STRESS\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "64b2d06d3dd1eb28d38beff568567c3b6821c23456a5db56e08aef17106f1c88"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\STRESS\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "80e3093d96b87cc52c0178943479371b81566583f83b04b2c56ba335b28911fb"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\BASE\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "31e7825e8361d0a0618428b03791eff9c29307b412bee820d1f77d459866f945"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\BASE\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "a5879092d0f3cf1875e9c531bd4fd6d6b7b7849722c4935dd13b02f5869ad793"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\STRESS\\MEAN_REBOUND_AUX_50_decisions.parquet",
+      "sha256": "2a2afedfe334de0b62abeb980947dfab2a228e417d866e8dfd77b8d8e2be5184"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\STRESS\\MEAN_REBOUND_AUX_50_ledger.parquet",
+      "sha256": "d0f1f5b979a846cac88f0f4c25f34be1b7fed00f0e92fbccf1a79356ab31faee"
+    },
+    {
+      "path": "reports\\research\\510300_mean_rebound_auxiliary_v1\\saved_verification_receipt.json",
+      "sha256": "964cfa8ac935f641b88ee0b24f86591340c6c36549caf47199b8311aaa8f784b"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\earlier_diagnostic\\BASE\\REDUCE_105_HOLD_decisions.parquet",
+      "sha256": "f5d2fea6008847c6ee2c2c1c0fd977ffdfa7d89b2848de627632e1d7b57f3228"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\earlier_diagnostic\\BASE\\REDUCE_105_HOLD_ledger.parquet",
+      "sha256": "16ef05f2fb3d208c880319888006fd6d986a28bae29392b75f8e4200fcc68942"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\earlier_diagnostic\\STRESS\\REDUCE_105_HOLD_decisions.parquet",
+      "sha256": "4fea80c38bac08f749ea0933991137559b4382f823cb6e2362b99dacb69cc621"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\earlier_diagnostic\\STRESS\\REDUCE_105_HOLD_ledger.parquet",
+      "sha256": "c5dd5ffcdf412c4b3f46a2febc094fb539704aed0c688ddf280aaa8bd1d1750c"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\evaluation\\BASE\\REDUCE_105_HOLD_decisions.parquet",
+      "sha256": "e94101dd4e449ad2d0cd72e3da0c26fa2f7b0e1493c0c799ba09d2c11547fa78"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\evaluation\\BASE\\REDUCE_105_HOLD_ledger.parquet",
+      "sha256": "4dd2a958aee9321b804a19fdaf9eefc26854070aaffc2b958d98876cd061f923"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\evaluation\\STRESS\\REDUCE_105_HOLD_decisions.parquet",
+      "sha256": "682f2af7e7ba03dac5cfe9c216528f2e73ff2607460ee687d36c4bd3532cbc0c"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\evaluation\\STRESS\\REDUCE_105_HOLD_ledger.parquet",
+      "sha256": "a4689442b80a2e20b6e562e0fd9a8ca3f32f0461e99dcaad65d34e03887965c3"
+    },
+    {
+      "path": "reports\\research\\510300_positive_target_reduction_batch_v1\\saved_verification_receipt.json",
+      "sha256": "ab6fe4df9305f10a980521dce5e7e0b311654fc57a81707beee5af594d6f9396"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\earlier_diagnostic\\BASE\\RUNS_OPPORTUNITY_CAPPED_SUM_decisions.parquet",
+      "sha256": "9fe49c4be16a503715d7fcbfabccb10cf911e729010bb3e38c70d75769be1f8f"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\earlier_diagnostic\\BASE\\RUNS_OPPORTUNITY_CAPPED_SUM_ledger.parquet",
+      "sha256": "e9a8dc1e4af00550e87f892fae0815e21a92998b9f9c9fe84ab0563c4d1a8a89"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\earlier_diagnostic\\STRESS\\RUNS_OPPORTUNITY_CAPPED_SUM_decisions.parquet",
+      "sha256": "2ea436de24208c6ab8a460cae59a34e0cb70873d52826a60363dc65d152c3320"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\earlier_diagnostic\\STRESS\\RUNS_OPPORTUNITY_CAPPED_SUM_ledger.parquet",
+      "sha256": "0c8e40637750a3bcd4b414cddab9428d305d6914325946aa84e8ad7472420299"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\evaluation\\BASE\\RUNS_OPPORTUNITY_CAPPED_SUM_decisions.parquet",
+      "sha256": "a769aac01b4562fb2e2bd99d4b1ab8af8df2db8714105ba7d179fac63efa5d61"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\evaluation\\BASE\\RUNS_OPPORTUNITY_CAPPED_SUM_ledger.parquet",
+      "sha256": "78672775b2b465232146c8d7ff68012344130adb2480ce9c7470fa66e7cc52dd"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\evaluation\\STRESS\\RUNS_OPPORTUNITY_CAPPED_SUM_decisions.parquet",
+      "sha256": "1799ac3e60a07c6706d066b4e87b2d8b2fde6e249feabd25212f12f95ad2b166"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\evaluation\\STRESS\\RUNS_OPPORTUNITY_CAPPED_SUM_ledger.parquet",
+      "sha256": "ffc527122af5beb3a1fea3b2c5f0e7683fc2dcd215d9af0e99e71de027e10740"
+    },
+    {
+      "path": "reports\\research\\510300_runs_opportunity_union_v1\\saved_verification_receipt.json",
+      "sha256": "e50325b307444422c29763e93d1dc5637816d2a332f1508ded8acf261d6a3bfd"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "462bef7d1920798ec23e53578e359f42ac8c7b6a696e3709bd261054adc8cc67"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "04d63bbb427b6259ef38f02a80a3d6852796956e0d75a82ec30888abd3055fd9"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "a9046544d5643e3d82db27768325970a22979c4f9a61e636aa92abcabce70baf"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "e58be8e9a147385353510cb7b6b50292ed0d6bc1a62bc509bd102aa6672ed95f"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\close_return_buy_gate_batch_inputs_v1.py",
+      "sha256": "c249b099019e89349767b3fd5a8406814f28b4079f6e787fa8a645468c55f355"
+    },
+    {
+      "path": "research\\close_return_buy_strength_gate_batch_inputs_v1.py",
+      "sha256": "686b32c0762422344b4bc0fc2237aa39f83a04cb36a74e2bcf7399f8b77e4a21"
+    },
+    {
+      "path": "research\\event_account_indexed_request_v1.py",
+      "sha256": "87d34e7ec33f4270cdba02ff084c37a7fb4e2a6d36e41bb38a0a313e6ead24c9"
+    },
+    {
+      "path": "research\\incremental_selected_intent_mix_inputs_v1.py",
+      "sha256": "4e21597712dd182a0a39ac3a8eebc9211ca53ab2a78e5105c88ff2a4ce04a18a"
+    },
+    {
+      "path": "research\\incremental_selected_intent_mix_v1.py",
+      "sha256": "efc5300a857d25eeeac7cc9f0332765576bce28c722d5cdafcfd8518c413cb11"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\joint_account_acceptance_v1.py",
+      "sha256": "6d3db2310fe66559bca39ca9191c8ef22f81b450279112fd3de66acb1b4a79e3"
+    },
+    {
+      "path": "research\\saved_parent_target_alignment_v1.py",
+      "sha256": "b55ff702bacfd040bc0f2b97a276a4c02c609991faabf8bdf6ecab11595ec856"
+    },
+    {
+      "path": "research\\saved_requested_account_checks_v1.py",
+      "sha256": "2948b3a2b6e9d24279677679ee2072fbcfdd745612fa140ba73fc0deef2e7d54"
+    },
+    {
+      "path": "research\\saved_target_custom_execution_v1.py",
+      "sha256": "d6787ba30f288c73a29e602ab4a91383c546192987cc3440be7a0e81f9503dd9"
+    },
+    {
+      "path": "research\\three_source_order_intent_mix_inputs_v1.py",
+      "sha256": "b06729d3d3cf7eb6b47c21aa09e7a0e46cd017a345c2e62499ce33fa6549e030"
+    },
+    {
+      "path": "scripts\\verify_round195_20260913.py",
+      "sha256": "68a04a645592fd3d5689b6e7bd72dfd9be8183be860d4c52811ee26de01517e0"
+    },
+    {
+      "path": "tests\\test_incremental_selected_intent_mix_v1.py",
+      "sha256": "77762dddfeac008bd8eba50745f01fe471fef4e12f1737d9412ea905bf89f3a8"
+    },
+    {
+      "path": "tests\\test_target_band_partial_rebalance_v1.py",
+      "sha256": "267444cd96ea86978e5c47233374e2c776e0f86a7680acfce3fcfd4e5769b8b2"
+    },
+    {
+      "path": "tests\\test_three_source_order_intent_mix_v1.py",
+      "sha256": "856accdf55513bef11d2f4e521523e2dd1f95b0954fa65486f22a6a9943afaab"
+    },
+    {
+      "path": "tests\\test_two_close_zero_exit_v1.py",
+      "sha256": "bc525d3a5351892898da4c943de3723e1bc17c669e055a3dd97815e6e200929e"
+    }
+  ]
+}

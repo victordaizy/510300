@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-09-14T02:27:54.325009+08:00",
+  "status": "FROZEN_VERIFY_FAILED_ON_NONPERSISTED_ROW_INDEX",
+  "command": "python research/eps_profit_attribution_pair_adjudication_v1.py --mode verify --receipt reports/research/510300_eps_profit_pair_delivery_verification_20260914/workspace_verification.json",
+  "exit_code": 1,
+  "error": "AssertionError: DataFrame.index values are different (100.0 %); left RangeIndex(start=653, stop=990, step=1), right RangeIndex(start=0, stop=337, step=1)",
+  "cause": "筛选保留原990行中的653至989内存索引，Parquet按原代码index=False不保存该索引。原核对器错误地比较了未持久化的行号。",
+  "saved_result_json_comparison_reached_and_passed_before_failure": true,
+  "remedy": "单独V1.1离线核对器规范内存索引后比较原顺序、业务键及所有字段精确值；冻结核心、原claim和输出全部保留。",
+  "numerical_success_claimed_from_failed_command": false,
+  "strategy_or_data_rules_changed": false
+}

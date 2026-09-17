@@ -1,0 +1,151 @@
+{
+  "study_id": "510300_SINGLE_FACTOR_DIRECT_STUMP_V1",
+  "rules": "docs/510300_SINGLE_FACTOR_DIRECT_STUMP_V1.md",
+  "features": "reports/research/510300_post_selection_extension_inputs_v1/candidate_features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "data_cutoff": "2026-09-11",
+  "initial_fit_origin": "2014-12-31",
+  "signal_feature": "five_day_total_return",
+  "feature_source": "EXPM1_OF_SAVED_MOM5",
+  "training_days": 363,
+  "confirmation_days": 121,
+  "threshold_quantiles": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "quantile_method": "linear",
+  "minimum_training_signal_origins": 52,
+  "utility_mean_variance_gamma": 10.0,
+  "utility_comparison_tolerance": 1e-12,
+  "training_cost": "STRESS",
+  "learning_schedule": "INITIAL_ORIGIN_AND_FIRST_TRADING_DAY_CLOSE_OF_EACH_MONTH",
+  "execution_decision_weekday": 4,
+  "friday_holiday_rule": "NO_ADDITIONAL_SIGNAL_THIS_WEEK",
+  "primary": "CONFIRMED_STUMP",
+  "comparators": [
+    "NO_FACTOR_LEARNER",
+    "FIXED_WEEKLY_VOL10"
+  ],
+  "initial_capital": 200000,
+  "target_volatility": 0.1,
+  "weight_band": 0.1,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "periods": {
+    "early": [
+      "2015-01-05",
+      "2019-12-31",
+      "2020-01-02"
+    ],
+    "main": [
+      "2020-01-02",
+      "2026-09-11",
+      "2026-09-14"
+    ]
+  },
+  "new_complete_learning_methods": 1,
+  "inner_training_policies_per_fit": 8,
+  "inner_confirmation_policies_per_fit_max": 3,
+  "planned_new_evaluation_accounts": 12,
+  "planned_reused_reference_accounts": 8,
+  "continuation_full_year_wins_min": 8,
+  "all_internal_selection_trials_disclosed": true,
+  "goal_achieved": false,
+  "independent_validation": false,
+  "position_impact": 0,
+  "registered_at": "2026-09-14T04:49:59.692569+08:00",
+  "planned_learning_batches": 142,
+  "planned_internal_training_accounts": 1136,
+  "planned_internal_confirmation_accounts_max": 426,
+  "own_actual_results_read_before_freeze": false,
+  "frozen_files": [
+    {
+      "path": "config\\510300_single_factor_direct_stump_v1.json",
+      "sha256": "816e7a7341c20a1667bbbc97a8516c1598517a2aca28d6706b8f921f934e3f53"
+    },
+    {
+      "path": "docs\\510300_SINGLE_FACTOR_DIRECT_STUMP_V1.md",
+      "sha256": "e72f5cf87f67b470fb13d38bfaf00f3b27ad5d39ae635490420d2e49fc7ba755"
+    },
+    {
+      "path": "research\\single_factor_direct_stump_v1.py",
+      "sha256": "038f26395ba9020672f80c6fb566ad959bb4ccd7e957d0f6f862b914ec85e399"
+    },
+    {
+      "path": "reports\\research\\510300_post_selection_extension_inputs_v1\\candidate_features.parquet",
+      "sha256": "92e2a5dc4f917d5cd058de71d08ed87a043427452cc1f2e5092b6b417a2fa899"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "tests\\test_single_factor_direct_stump_v1.py",
+      "sha256": "1019fb2c212e107723959cd6b6291d8567a972edf9e4fbf9a98e8a89815121ad"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\post_selection_continuous_accounts_v1.py",
+      "sha256": "1e601a4ec87264ce60a89d152ba4f18fd049f648dbb4a01b8d852d04b2e07766"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\strategy_review_diagnostics_v1.py",
+      "sha256": "78c5a1d7fb792de775dd0ebee23aec04065656c5670446d3a1e5a11c12034ace"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\early_BUY_HOLD_BASE\\ledger.parquet",
+      "sha256": "c93333ba6616bb70b3e645c4b282c83bfeb5b823ab865dbc3a1af7649a7ccfab"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\early_ETF_VOL10_BASE\\ledger.parquet",
+      "sha256": "fd31f5176890ed6a6551f63de8e7ae506917db31b0338d26c37c19c4c6c12cd6"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\early_BUY_HOLD_STRESS\\ledger.parquet",
+      "sha256": "5586a3de9b2762ed93a13fb4963ff9e99eae89e896ee53ba063809c9df9c6295"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\early_ETF_VOL10_STRESS\\ledger.parquet",
+      "sha256": "3d94f8f8ea7e74b715579fcebdaa9ef375593053a90bd273dd0a589f357bf1ae"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\main_BUY_HOLD_BASE\\ledger.parquet",
+      "sha256": "b0d7bb111d662ca6e6ad5e0cb97ccc4979c5d223bd2467629c555db8ac05c76c"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\main_ETF_VOL10_BASE\\ledger.parquet",
+      "sha256": "4c6a0c76ce49cc36a7768ef2344484161e52ded88571bd1c128d091846ca3ef7"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\main_BUY_HOLD_STRESS\\ledger.parquet",
+      "sha256": "34998554613cc0804d82e0f765ed57f53798eae11f385ff7dddff1aee67e20d3"
+    },
+    {
+      "path": "reports\\research\\510300_simple_core_window_diagnostic_v1\\comparators\\main_ETF_VOL10_STRESS\\ledger.parquet",
+      "sha256": "d964f35ee4b26826317766363ece3ff6bc7bfd77016d06ec882d025661405b22"
+    }
+  ]
+}

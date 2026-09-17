@@ -1,0 +1,27 @@
+继续用户完整目标：510300成本后夏普至少1.2、稳定超额和独立证据。用户要求加快、灵活改策略，暂停EPS、公募、估值及慢来源；全部因素和进出场规则写中文。无GPT数值包、ZIP、重复Word或额外安全审计。仅510300.SH/CASH_CNY；其他ETF问题待回复，不重复问。没有券商、订单、实盘、Paper、Shadow、新任务、子代理或memory写入授权。config/510300_research_authority_v6.json允许新有限方法、历史滚动训练及完整账户，无预测显著性前置门。旧冻结规则、来源、失败结论保留，不能改失败方法参数、方向、年份、费用或父来源救回。
+
+本回合为PROGRESS：164已经完成实现、六测试11.23秒、一次冻结、四新账户、独立顺序枚举与资金核对、失败关闭及中文交付。权威reports/research/510300_sharpe_1_2_latest_research.json现在164轮、448设置、464已评价来源版本、469登记含5旧未运行、2066主指标。goal_achieved=false，running_studies为空，无运行进程。禁止重跑164及更早prepare/freeze/run/verify/finalize和旧诊断，THROUGH163及更早进度已过时。继续前读最新索引及下一项具体文件即可，不重新遍历长历史。Windows中文，PYTHONIOENCODING=utf-8，.venv\Scripts\python.exe，用模块入口。
+
+均衡比较候选仍143 TREND_NOISE_REFERENCE_BLEND。主2020-01-02至2026-08-14终点OPEN，基础／压力S1.2909916883150099/1.2318487745129247，CAGR.04420270287353553/.042030205345845555；较早2015-01-05至2019-12-31终点OPEN，S1.0221226798425842/1.0437899028328752，CAGR.05251039130251532/.05455730048699888。四整段CAGR超额正，但较早S<1.2，原20/60日区块对139夏普增量和对买入持有年化超额95%区间均跨0，较早前三盈利周期占净利92.22%/94.99%。不是稳定或独立证明。最后比较164。完整docs/510300_TREND_NOISE_REFERENCE_BLEND_V1.md，reports/research/510300_trend_noise_reference_blend_v1。原120趋势与20波动连续分配131和139预算，保持研究身份。
+
+164研究510300_ORDINAL_ENTROPY_V1，主模型ORDINAL_ENTROPY，research/ordinal_entropy_inputs_v1.py、ordinal_entropy_v1.py，config/510300_ordinal_entropy_v1.json，reports/research/510300_ordinal_entropy_v1，docs/510300_ORDINAL_ENTROPY_V1.md。完整60财富值的58组三日模式，精确平局早日期先，六类频数计算标准化熵；momentum60要求完整61wealth。熵<.9且动量>0连续2允许，熵>.95连续2或动量<=0连续2退出；各自计数，其余延续。未知重启内部状态、实际保留shares。允许目标min(1,.1/vol20)，不允许0。无父目标无训练。
+
+164主基础／压力净夏普.23678410148214585/.21521620152941795，年化.00765602831620415/.006906981824496222，回撤−.045865150871184014/−.04624964370869343；较早净夏普.6743644559636529/.6606267746219213，年化.027578538161228554/.026974924111854922，回撤−.06796264803244861/−.06859037566485449。四S低1.2/143，四CAGR低BH。核心四账户2.458592300012242秒，不含开发测试核对交付。主各5周期213持仓收盘21成交，较早4周期158收盘13成交，18周期在终点前全部结束。无未知目标或受阻请求。主213正1391零目标，较早158正1061零。平均仓位主约7.75%/7.76%、较早约7.20%，不能把低风险直接当达标。
+
+164四价格利润11804.9/11896.4/30138.6/30126.9元，费用1434.6623/2560.49768/764.42326/1430.61792，净利10370.2377/9335.90232/29374.17674/28696.28208。实际登记日没有分红权利，四实际分红0，原分红来源和处理逻辑正常。较143终值少56031.83494/53413.93188/29440.29612/32663.57892。较早基础首周期33027.96342元超过全期净利，其他周期合计减少利润；主基础2025年6至8月一个周期9181.4268元接近全期10370.2377，收益仍集中。
+
+164 scripts/verify_round164_20260910.py已独立从rawclose/div重建wealth，再3397完整窗口每个58组模式用Python按值和日期枚举，频数及熵误差0；5646收盘决定、18完整持仓、68原价开盘成交及完整资金费用分红通过。回执2026-09-10T11:12:30.368284+08:00，reviewerSHA8e2f0e1ddeb48826dda3745749e09a7e45ce59aa85f19066ce0247c087ae8bdf，共享saved_target_account_checks_v1.py SHA2602e9268fc97f31f5af332ae45816947a10614b852e0d51c5900367db20dffc。finalize_round164_20260910完成，关闭CLOSED_ORDINAL_ENTROPY_FULL_GOAL_NOT_MET，deliverables/510300价格顺序分布_第164轮_20260910/价格顺序分布_结果及全部中文规则.md含全部18周期。
+
+162日内隔夜排序、163价量相关也全部关闭交付，均四S低1.2/143、四CAGR低BH；路径session_signed_rank_v1及price_volume_coherence_v1。163相关系数独立核对3436窗口、四账户116周期369成交，主S.16738/.10281、较早.57184/.47605；162主S.25256/.23184、较早.44409/.42170。不要因较早S高于BH而说全指标均低BH。三轮都不重跑。
+
+下一165直接读docs/510300_RETURN_RUNS_STATE_NEXT_20260910.md全部事前规则。目前仅有MD，尚未实现测试冻结或计算。先检查research/return_runs_state_inputs_v1.py、return_runs_state_v1.py、config/510300_return_runs_state_v1.json、reports/research/510300_return_runs_state_v1及scripts/prepare_round165_20260910.py是否有后续进展，接续不覆盖。建议研究510300_RETURN_RUNS_STATE_V1、主模型RETURN_RUNS_STATE，一设置四新账户、零训练/新增参考/外部data；保存对照143/131/BH，每段8指标。
+
+165取含今天完整60个total_log收益，按该整个窗口同一个中位数（第30/31值平均）重分所有60天：高于中位数强，低于弱，精确等于者已知平局移出段数序列；原时间顺序不变。这里强弱不是正负收益，切勿误写上涨下跌天数。n强/m弱/N=n+m，R=非平局序列首段1加每次类别切换。E=1+2nm/N，V=2nm*(2nm−N)/(N²*(N−1))；两类均有且V>0时z=(R−E)/sqrtV，无连续修正。否则z未知，不人造分数；全部60相同也未知。完整窗口动量sum60 total_log；z<−1且动量>0联合连续2准入，z>=0连续2或动量<=0连续2退出，三个条件分别计数，不符分别归0。其余完整延续方向，不在入场/评价边界reset。任何来源窗口缺失或z未定义，当天direction/targetunknown，内部方向计数清0，完整恢复从0重启；实际unknown保留shares。允许且vol20>0target=min(1,.1/vol20)，不允许0，允许风险unknown只影响target不改方向。
+
+165 NIST原定义已查https://www.itl.nist.gov/div898/handbook/eda/section3/eda35d.htm，二值序列示例11强9弱9段，均值方差公式如上。这里只采用描述性分数，负一/零为事前固定门槛，不称为通过金融独立性检验或交易概率。此前targeted runs.test/游程检验没有旧策略命中，仅123bayesian_run_length旧对象不同且已关闭。165中位数强弱连续性不同于162差值幅度rank和164三日价格顺序分布，不改旧阈值救回。必要测试手算R/E/V/z、强弱个数相同但排列不同、精确中位数ties/常数/缺失、两退出单独确认、futureprefix、风险目标、nextOPEN实际进出分红。独立排序求中位数并用逐段分组实现R，核对四资金路径。
+
+165复用saved_target_batch_runner_v1、event_clock_account_v1，已有163/164入口测试核对框架可以静态复用。空仓positive直接算整百份买入，已有positive偏差<.1带保持否则调中心；known0及terminalOPEN优先全退。无学习/止盈止损/持有期限/入场锁/重入等待/每笔退出锁。受阻nextclose最新目标，unknown保留实际股数。一次freeze和四账户，保存对照不重新跑。
+
+共有行情reports/research/510300_adaptive_allocation_v1/features.parquet，3456日2012-05-28至2026-08-14，SHAbce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a；主first1852/anchor1851/1604行，较早前缀1852/first633/anchor632/1219行。data/reference/510300_dividends.csv14事件，SHAa96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d。每账户20万元、242年化、现金及无风险0，基础佣金.0002/min5/slip.0005，压力.0004/min5/slip.001；100份/.001价位/10%方向涨跌停/T+1/登记除息到账分开/真实nextOPEN及终点OPEN清仓。实际份额ledger.shares，应收分红不当可用现金。
+
+交付使用fast_round_delivery_v1，先candidate_outcomes和saved_verification_receipt，再完整中文结果及进出规则；165完成预计449设置465已评价470登记含旧未运行2074主指标，更新143最后比较并准备一个确有区别的新有限方法。通过automation_update更新原510300-1-2完整字段并回读TOML，不直接编辑、不创建重复任务。prompt去尾换行属于工具标准化，可比对正文和其他字段。goal本轮实际读取仍usageLimited、tokensUsed17764782；不达标不标complete，有明确新工作不标blocked，不消耗重置或购买额度。保留原ACTIVE及通知偏好，无变化安静，只在实质进展、完成、失败或需行动时通知。继续推进。

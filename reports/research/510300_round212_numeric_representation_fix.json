@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-09-13T09:49:17.753505+08:00",
+  "status": "ENGINEERING_INPUT_CHECK_CORRECTION_BEFORE_ANY_OUTPUT_ADMISSION",
+  "original_program": "research\\post_selection_extension_inputs_v1.py",
+  "original_program_sha256": "6e85874091bec592ca99ad06bf594c2a82bcd46b171ef9b84f195ec27cede58f",
+  "original_config": "config/510300_post_selection_extension_inputs_v1.json",
+  "failure": "腾讯尾数未能由新浪按百单位舍入复现：amount",
+  "cause": "腾讯原字符串金额按万元乘一万后存在二进制浮点表示误差；两处最大0.00000095367431640625元",
+  "correction": "舍入后的整数金额必须精确相同，换算的非整数浮点残差另要求不超过0.000001元；原50元来源精度阈值不变",
+  "new_settings": 0,
+  "new_accounts": 0,
+  "old_outputs_overwritten": false
+}

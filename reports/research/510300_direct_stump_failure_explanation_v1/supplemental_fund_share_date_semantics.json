@@ -1,0 +1,103 @@
+{
+  "status": "NO_VIEW_HISTORICAL_PUBLICATION_TIME_NOT_ESTABLISHED_IN_READ_SOURCE",
+  "checked_at": "2026-09-14T05:16:14.088167+08:00",
+  "scope": "完成账户解释时附带检查旧日频申赎资料；非本轮固定绩效分析的输入",
+  "source": "data\\raw\\flow\\510300_fund_share_daily_tushare.parquet",
+  "source_rows": 1216,
+  "first_date": "2021-08-12",
+  "last_date": "2026-08-12",
+  "columns": [
+    "date",
+    "ts_code",
+    "fund_share_10k",
+    "fund_shares",
+    "fund_type",
+    "market",
+    "source",
+    "retrieved_at"
+  ],
+  "historical_publication_time_columns": [],
+  "batch_retrieved_at_values": [
+    "2026-08-13 17:01:16.074747+08:00"
+  ],
+  "source_date_meaning": "下载程序将原trade_date复制为date；原接口定义为交易变动日期",
+  "consumer_behavior": "原特征程序把date改名为share_snapshot_date，按相同日期允许合并，注释称真实披露日",
+  "official_document": "https://tushare.pro/document/2?doc_id=207",
+  "official_document_checked_in_browser": true,
+  "official_document_output_fields": [
+    "ts_code",
+    "trade_date",
+    "fd_share"
+  ],
+  "existing_rejection": "DAILY_ETF_FLOW_DIRECTION_REJECTED",
+  "existing_evaluation": {
+    "realized_forecast_count": 663,
+    "positive_base_rate": 0.530920060331825,
+    "brier_score": 0.2830277741517953,
+    "expanding_base_rate_brier_score": 0.2671892735909658,
+    "brier_skill_score": -0.059278205101438,
+    "log_loss": 0.7862161856693427,
+    "auc": 0.46992838351359256,
+    "accuracy_at_0_5": 0.4555052790346908,
+    "calibration_slope": -0.7529168011221005,
+    "probability_quintiles": [
+      {
+        "observations": 133,
+        "mean_probability": 0.31781861633792813,
+        "realized_hit_rate": 0.5639097744360902,
+        "mean_net_return": 0.02404950960844674
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.3653093145940987,
+        "realized_hit_rate": 0.4393939393939394,
+        "mean_net_return": 0.004777000167190629
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.3840597438606045,
+        "realized_hit_rate": 0.6015037593984962,
+        "mean_net_return": 0.011266724300382076
+      },
+      {
+        "observations": 132,
+        "mean_probability": 0.42641530931978483,
+        "realized_hit_rate": 0.6136363636363636,
+        "mean_net_return": 0.013008115833444439
+      },
+      {
+        "observations": 133,
+        "mean_probability": 0.4742519636282928,
+        "realized_hit_rate": 0.43609022556390975,
+        "mean_net_return": -0.0036595393517837105
+      }
+    ],
+    "top_minus_bottom_mean_net_return": -0.02770904896023045,
+    "non_overlapping_cohort_auc_median": 0.4723311546840958,
+    "non_overlapping_cohort_auc_above_half_share": 0.2,
+    "direction_gate_passed": false
+  },
+  "finding_limit": "证明本次所读文件与代码未建立历史披露时点；没有证明每一行实际发生前视，也不证明全项目没有其他时间证据",
+  "disposition": "保留原失败；不给本文件同日可用保证，不随意加一日延迟后当作已证明，不为改善成绩倒转因子方向",
+  "new_source_downloads": 0,
+  "new_accounts": 0,
+  "new_model_fits": 0,
+  "files": [
+    {
+      "path": "data\\raw\\flow\\510300_fund_share_daily_tushare.parquet",
+      "sha256": "e34ef2ee9ead0616aef2705a93b1b32c2e10be7841134c59126071b126ba71f4"
+    },
+    {
+      "path": "scripts\\download_daily_flow_data_tushare.py",
+      "sha256": "adc06816ffee36d0d04df0606d03e225ea47f928153b5e765b4dc1d8b9bbbf76"
+    },
+    {
+      "path": "research\\daily_etf_flow_direction_challenger.py",
+      "sha256": "a606275dbe457ed1960ee2ccbfe5fbe804bf2c6466f399e9141a27806e083dcb"
+    },
+    {
+      "path": "reports\\research\\510300_daily_etf_flow_direction_report.json",
+      "sha256": "3f667b9d20db674f4f910ef81ad48958b6a0b6381eaee1fc95426fdcb9bf4aff"
+    }
+  ]
+}

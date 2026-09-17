@@ -1,0 +1,298 @@
+{
+  "evaluation_start": "2020-01-02",
+  "data_cutoff": "2026-08-14",
+  "initial_capital": 200000.0,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0.0,
+  "high_sharpe_target": 1.2,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "features": "reports/research/510300_adaptive_allocation_v1/features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "earlier_start": "2015-01-05",
+  "earlier_terminal": "2019-12-31",
+  "weight_band": 0.1,
+  "study_id": "510300_ADDITION_ONLY_RETURN_GATE_BATCH_V1",
+  "round": 205,
+  "registered_at": "2026-09-13T08:29:26.964978+08:00",
+  "primary": "ADD_GATE_BAND00_LOWER00",
+  "candidate_models": [
+    "ADD_GATE_BAND00_UPPER00",
+    "ADD_GATE_BAND00_UPPER01",
+    "ADD_GATE_BAND00_LOWER00",
+    "ADD_GATE_BAND00_LOWER01",
+    "ADD_GATE_BAND20_UPPER00",
+    "ADD_GATE_BAND20_UPPER01",
+    "ADD_GATE_BAND20_LOWER00",
+    "ADD_GATE_BAND20_LOWER01"
+  ],
+  "candidate_configurations": 8,
+  "candidate_settings": {
+    "ADD_GATE_BAND00_UPPER00": {
+      "parent": "INTENT_MIX_BAND_00",
+      "band": 0.0,
+      "direction": "UPPER",
+      "return_threshold": 0.0
+    },
+    "ADD_GATE_BAND00_UPPER01": {
+      "parent": "INTENT_MIX_BAND_00",
+      "band": 0.0,
+      "direction": "UPPER",
+      "return_threshold": 0.01
+    },
+    "ADD_GATE_BAND00_LOWER00": {
+      "parent": "INTENT_MIX_BAND_00",
+      "band": 0.0,
+      "direction": "LOWER",
+      "return_threshold": 0.0
+    },
+    "ADD_GATE_BAND00_LOWER01": {
+      "parent": "INTENT_MIX_BAND_00",
+      "band": 0.0,
+      "direction": "LOWER",
+      "return_threshold": 0.01
+    },
+    "ADD_GATE_BAND20_UPPER00": {
+      "parent": "INTENT_MIX_BAND_20",
+      "band": 0.2,
+      "direction": "UPPER",
+      "return_threshold": 0.0
+    },
+    "ADD_GATE_BAND20_UPPER01": {
+      "parent": "INTENT_MIX_BAND_20",
+      "band": 0.2,
+      "direction": "UPPER",
+      "return_threshold": 0.01
+    },
+    "ADD_GATE_BAND20_LOWER00": {
+      "parent": "INTENT_MIX_BAND_20",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.0
+    },
+    "ADD_GATE_BAND20_LOWER01": {
+      "parent": "INTENT_MIX_BAND_20",
+      "band": 0.2,
+      "direction": "LOWER",
+      "return_threshold": 0.01
+    }
+  },
+  "parent_models": [
+    "INTENT_MIX_BAND_00",
+    "INTENT_MIX_BAND_20"
+  ],
+  "decision_clock": "15:05:00",
+  "annual_return_target": 0.1,
+  "new_model_fits": 0,
+  "new_reference_accounts": 0,
+  "source_budget_cny": 0,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "evidence_class": "RETROSPECTIVE_ENTRY_PRESERVED_ADDITION_ONLY_RETURN_FILTERS",
+  "prior_goal_turn_classification": "PROGRESS_ROUND203_204_COMPLETED_32_ACCOUNTS_AND_ENTRY_ADDITION_SEPARATION_EVIDENCE",
+  "rules": "docs/510300_ADDITION_ONLY_RETURN_GATE_BATCH_V1.md",
+  "frozen_files": [
+    {
+      "path": "config\\510300_finite_rebalance_band_batch_v1.json",
+      "sha256": "0a72e5a5c386be8cdd269bfe9dce2867fa029ce256677c313d39a51e6d3c6387"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "docs\\510300_ADDITION_ONLY_RETURN_GATE_BATCH_V1.md",
+      "sha256": "108e5a5e42208a5a0788f28b508d0d7563d24bc76c4440df16c7e9ab796ace85"
+    },
+    {
+      "path": "docs\\510300_FINITE_REBALANCE_BAND_BATCH_V1.md",
+      "sha256": "685e9e731522efac9f1cf2ff6d3f51c62bc1a738ac6f964d36884f57dcbda8b8"
+    },
+    {
+      "path": "reports\\research\\510300_adaptive_allocation_v1\\features.parquet",
+      "sha256": "bce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\tests_output.txt",
+      "sha256": "4e6320a7128fbd5426bc61ee2e8d880c6980f0cb5215c1a716f30d0aeac2b608"
+    },
+    {
+      "path": "reports\\research\\510300_addition_only_return_gate_batch_v1\\tests_receipt.json",
+      "sha256": "ac6a95521efd2733ed2c075c9f6e999a01cf749987ae6db8908a7e1975538cc8"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_00_decisions.parquet",
+      "sha256": "612622c87a91db954ccd7359a211295ae1733c733884b3757be3b01dc7bd054c"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "571f61f75e8bc06d4cb7ff6124eef0126529bc13dda70c7781d3c0cb7d1952d2"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_20_decisions.parquet",
+      "sha256": "8d54174a1cd413171af1790a4aa91e19cfab0de936ebd77ad0dae14868e3b831"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\BASE\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "2386fbd8628ad716ae38e8f824e616f09b866e1cc1bbd464b00acc52cc92e666"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_00_decisions.parquet",
+      "sha256": "342aa433c56a9d3ee66bb1b29973e969ade933ef726dfc5c33bcd29c83abf26f"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "8cf0bbdc7bc2d27a92fc8428ed1057aa7992d1963e398b11b1a2ea2312b9eb9b"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_20_decisions.parquet",
+      "sha256": "c720566e5d74bfc0a148fd7ed4d0af6b2ca6db5200da91889a68692cdf62cb59"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\earlier_diagnostic\\STRESS\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "a734860af6d33352c7ed4b5bf6a0857248cd56f4c4fb25e12ad0bfa8ad43d5af"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_00_decisions.parquet",
+      "sha256": "18e79c2eb5af029c3b568a3d35b8cf437b2b5d140a26cb9b0ee6acc7065fc5e9"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "87bb120c86ae7758451ebf93a0a0df69e93a6617367afc1d2ff85bbc459fbcbc"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_20_decisions.parquet",
+      "sha256": "b765b7b207e029c277be9198897a4782d183fa331aa8d7583147e9303bd100e9"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\BASE\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "0349f1d284d92b3830d403b04d356b7c69caf8a0be846448c187a65f1e598afc"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_00_decisions.parquet",
+      "sha256": "e009eb209e8dd084a876b497ddb476579c62b4aeacfef5c0347bada17a400f57"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_00_ledger.parquet",
+      "sha256": "61267649fc2c3356c2ec89b3e567d9a345689d92074b06f590679da689290f8e"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_20_decisions.parquet",
+      "sha256": "b23b46b446d067479f2d90b21ef82d80a7a1e7b197ac27f88445ac083273bf4d"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\evaluation\\STRESS\\INTENT_MIX_BAND_20_ledger.parquet",
+      "sha256": "6369fa870341c70728bbdb5cb72e904958f7e77017e9735e9f4e148c524cb494"
+    },
+    {
+      "path": "reports\\research\\510300_finite_rebalance_band_batch_v1\\saved_verification_receipt.json",
+      "sha256": "0f9d411f5e1d1f0061faccdb3af81c40c9cde7848f64acbd0cdfb478f276dadb"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "c86bb252d0a621b91f9da2fa8df94cb7f935982b249621cdfdb68eda800c8089"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\earlier_diagnostic\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "2332753b8b1caab44c4860a69ec7e16ce13aed096bb45168e733b5b92eae859b"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\BASE\\BUY_HOLD_ledger.parquet",
+      "sha256": "ae367c23e434978c34c11e1003084191b8dd2f49e4f7a3da5730683c05f56670"
+    },
+    {
+      "path": "reports\\research\\510300_rearmed_session_exit_v1\\evaluation\\STRESS\\BUY_HOLD_ledger.parquet",
+      "sha256": "74a4254915fb4d378b301eadefd5396c6d97425eddcced9faca238c153c7f8db"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "462bef7d1920798ec23e53578e359f42ac8c7b6a696e3709bd261054adc8cc67"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "04d63bbb427b6259ef38f02a80a3d6852796956e0d75a82ec30888abd3055fd9"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "a9046544d5643e3d82db27768325970a22979c4f9a61e636aa92abcabce70baf"
+    },
+    {
+      "path": "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+      "sha256": "e58be8e9a147385353510cb7b6b50292ed0d6bc1a62bc509bd102aa6672ed95f"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\addition_only_return_gate_batch_inputs_v1.py",
+      "sha256": "e9ad90242678d6bd28f05b0bea720fbc65ec608c5d8a792a55515b421bc21688"
+    },
+    {
+      "path": "research\\addition_only_return_gate_batch_v1.py",
+      "sha256": "c5f449295ccbef1de0889cf04a58ad6a285456aef29d6e0e9e095ee20a1d3be7"
+    },
+    {
+      "path": "research\\close_return_buy_gate_batch_inputs_v1.py",
+      "sha256": "c249b099019e89349767b3fd5a8406814f28b4079f6e787fa8a645468c55f355"
+    },
+    {
+      "path": "research\\close_return_buy_strength_gate_batch_inputs_v1.py",
+      "sha256": "686b32c0762422344b4bc0fc2237aa39f83a04cb36a74e2bcf7399f8b77e4a21"
+    },
+    {
+      "path": "research\\event_account_indexed_request_v1.py",
+      "sha256": "87d34e7ec33f4270cdba02ff084c37a7fb4e2a6d36e41bb38a0a313e6ead24c9"
+    },
+    {
+      "path": "research\\intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research\\joint_account_acceptance_v1.py",
+      "sha256": "6d3db2310fe66559bca39ca9191c8ef22f81b450279112fd3de66acb1b4a79e3"
+    },
+    {
+      "path": "research\\saved_parent_target_alignment_v1.py",
+      "sha256": "b55ff702bacfd040bc0f2b97a276a4c02c609991faabf8bdf6ecab11595ec856"
+    },
+    {
+      "path": "research\\saved_requested_account_checks_v1.py",
+      "sha256": "2948b3a2b6e9d24279677679ee2072fbcfdd745612fa140ba73fc0deef2e7d54"
+    },
+    {
+      "path": "research\\saved_target_custom_execution_v1.py",
+      "sha256": "d6787ba30f288c73a29e602ab4a91383c546192987cc3440be7a0e81f9503dd9"
+    },
+    {
+      "path": "scripts\\verify_round195_20260913.py",
+      "sha256": "68a04a645592fd3d5689b6e7bd72dfd9be8183be860d4c52811ee26de01517e0"
+    },
+    {
+      "path": "tests\\test_addition_only_return_gate_batch_v1.py",
+      "sha256": "ec92b27e0ea7e2ae63d4a7a67ce5c74f501f88c550f9bbbe63662ecbf7d270f0"
+    },
+    {
+      "path": "tests\\test_target_band_partial_rebalance_v1.py",
+      "sha256": "267444cd96ea86978e5c47233374e2c776e0f86a7680acfce3fcfd4e5769b8b2"
+    },
+    {
+      "path": "tests\\test_two_close_zero_exit_v1.py",
+      "sha256": "bc525d3a5351892898da4c943de3723e1bc17c669e055a3dd97815e6e200929e"
+    }
+  ]
+}

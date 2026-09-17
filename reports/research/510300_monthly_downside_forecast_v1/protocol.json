@@ -1,0 +1,112 @@
+{
+  "study_id": "510300_MONTHLY_DOWNSIDE_FORECAST_V1",
+  "rules": "docs/510300_MONTHLY_DOWNSIDE_FORECAST_V1.md",
+  "features": "reports/research/510300_post_selection_extension_inputs_v1/candidate_features.parquet",
+  "dividends": "data/reference/510300_dividends.csv",
+  "data_cutoff": "2026-09-11",
+  "evaluation_first_origin": "2014-12-31",
+  "candidate": "LOG_RISK_RIDGE",
+  "comparators": [
+    "PAST_MONTHLY_MEAN",
+    "RECENT_DOWNSIDE20"
+  ],
+  "factor_window_days": 20,
+  "training_months": 60,
+  "minimum_training_months": 24,
+  "standardized_clip": 3.0,
+  "ridge_mean_loss_penalty": 1.0,
+  "positive_risk_floor": 1e-08,
+  "primary_loss": "LOG_FORECAST_PLUS_OBSERVED_RISK_DIVIDED_BY_FORECAST",
+  "bootstrap_repetitions": 5000,
+  "bootstrap_block_months": 6,
+  "bootstrap_lower_quantile": 0.05,
+  "random_seed": 20260914,
+  "gate": {
+    "both_periods_loss_improvement_vs_both_comparators": true,
+    "pooled_block_bootstrap_lower_positive_vs_both_comparators": true,
+    "complete_year_wins_minimum_vs_each_comparator": 8,
+    "complete_year_count": 11,
+    "minimum_paired_months_each_period": 48
+  },
+  "periods": {
+    "early": [
+      "2015-01-05",
+      "2019-12-31",
+      "2020-01-02"
+    ],
+    "main": [
+      "2020-01-02",
+      "2026-09-11",
+      "2026-09-14"
+    ]
+  },
+  "initial_capital": 200000,
+  "target_volatility": 0.1,
+  "weight_band": 0.1,
+  "lot": 100,
+  "tick": 0.001,
+  "limit_fraction": 0.1,
+  "annual_days": 242,
+  "cash_annual_rate_assumption": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "new_candidate_methods": 1,
+  "account_stage_only_if_all_prediction_gates_pass": true,
+  "conditional_new_accounts": 12,
+  "conditional_reused_accounts": 8,
+  "historical_data_previously_seen": true,
+  "independent_validation": false,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "registered_at": "2026-09-14T03:54:40.083256+08:00",
+  "tests_passed": 5,
+  "candidate_forecast_results_read_before_registration": false,
+  "frozen_files": [
+    {
+      "path": "config\\510300_monthly_downside_forecast_v1.json",
+      "sha256": "b2d46c17c67ab86c5b9dac6fcca810650b3d1c78e6b5cd5f877534b3ffef13ca"
+    },
+    {
+      "path": "docs\\510300_MONTHLY_DOWNSIDE_FORECAST_V1.md",
+      "sha256": "2e56d0831fd4d247a16a45f9ef39ec4d687427774b08bea9d0181bfa23f2655a"
+    },
+    {
+      "path": "research\\monthly_downside_forecast_v1.py",
+      "sha256": "6244748d9eca36147c0e70c425d3c3112f880aca495b577606fbc0fff509371e"
+    },
+    {
+      "path": "reports\\research\\510300_post_selection_extension_inputs_v1\\candidate_features.parquet",
+      "sha256": "92e2a5dc4f917d5cd058de71d08ed87a043427452cc1f2e5092b6b417a2fa899"
+    },
+    {
+      "path": "data\\reference\\510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "tests\\test_monthly_downside_forecast_v1.py",
+      "sha256": "55fc0c86352501a3d6911dc767698372f1121f6438710958e480e08e409e8579"
+    },
+    {
+      "path": "research\\monthly_single_factor_walkforward_v1.py",
+      "sha256": "146f3267d036343be07f0215f370aa5112b892dbff8e9967106620d49975c292"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\post_selection_continuous_accounts_v1.py",
+      "sha256": "1e601a4ec87264ce60a89d152ba4f18fd049f648dbb4a01b8d852d04b2e07766"
+    }
+  ]
+}

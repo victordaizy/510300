@@ -1,0 +1,197 @@
+{
+  "study_id": "510300_SIMPLE_CORE_WINDOW_DIAGNOSTIC_V1",
+  "registered_at": "2026-09-13T20:45:13.669709+08:00",
+  "research_question": "原价格入场核心在移除学习退出和内部风险放大后，三邻近窗口是否仍有一致经济改善迹象",
+  "windows": [
+    50,
+    60,
+    70
+  ],
+  "periods": {
+    "main": [
+      "2020-01-02",
+      "2026-09-11",
+      "2026-09-14"
+    ],
+    "early": [
+      "2015-01-05",
+      "2019-12-31",
+      "2020-01-02"
+    ]
+  },
+  "costs": [
+    "BASE",
+    "STRESS"
+  ],
+  "settings": {
+    "initial_capital": 200000.0,
+    "lot": 100,
+    "tick": 0.001,
+    "limit_fraction": 0.1,
+    "annual_days": 242,
+    "costs": {
+      "BASE": {
+        "commission": 0.0002,
+        "minimum": 5.0,
+        "slippage": 0.0005
+      },
+      "STRESS": {
+        "commission": 0.0004,
+        "minimum": 5.0,
+        "slippage": 0.001
+      }
+    },
+    "dividends": "data/reference/510300_dividends.csv",
+    "weight_band": 0.1,
+    "cash_annual_rate_assumption": 0.0
+  },
+  "price_specification": {
+    "cooldown": 2,
+    "modes": {
+      "1": {
+        "loss": 0.06,
+        "trail": 0.08,
+        "take": null,
+        "days": 60
+      }
+    }
+  },
+  "score": "SUM_N(intraday_log-overnight_log)/(STDEV.S_N(intraday_log-overnight_log)*SQRT(N))",
+  "entry": "连续两日分数严格大于1；保留原feature_valid；必须满足原价格参考实际成交状态的空仓、再入场许可及冷却期",
+  "rearm": "价格参考实际清仓后入场模式先归零才重置许可；入场成交后关闭许可；冷却=决策索引-实际退出索引>=2",
+  "price_reference": "直接复用simulate_rearmed_exit(controller=None)。每个价格周期只买入一次和全部退出；含分红成本收益/高点口径不改。参考账本仅产生0/1，不以其收益或波动决定倍率。",
+  "funded_account": "唯一资金账户目标=同日价格参考的reference_weight乘ordinary_multiplier；目标映射不额外滞后；次日开盘成交。再入场状态来自原价格参考，不把波动调仓视为新价格周期。",
+  "volatility": "ETF含分红日收益20日样本标准差乘SQRT(242)；倍率=min(1,0.10/vol20)；无效值沿用前值、初始1。",
+  "execution": "沿用target_request，正目标与当前收盘仓位差小于10个百分点保留份额；零目标不受带宽阻挡；100份整手、现金、T+1及原涨跌停成交约束。",
+  "terminal": "两个区间均末日收盘估值，不人工末日开盘清仓；末日决定仅保存待下一交易日执行。",
+  "removed": [
+    "学习退出",
+    "内部账户波动风险放大",
+    "1.15倍乘数",
+    "多计划及辅助信号合成",
+    "额外两次归零等待"
+  ],
+  "planned_primary_accounts": 12,
+  "planned_price_reference_accounts": 12,
+  "planned_new_comparison_accounts": 4,
+  "planned_reused_main_comparison_accounts": 4,
+  "comparators": "BUY_HOLD和ETF_VOL10；主历史4份直接复用；早期4份仅对齐末日收盘重新计算，并核对前1218日与旧账本一致。",
+  "concentration": "实际资金账户已完成持仓周期的最大/前5净盈利对总净利润；另列2024年9月25日至10月8日固定事件窗口盈亏，及未完成周期。总净利润<=0不报告比例。",
+  "decision_rule": "不选最佳窗口：一致改善才值得后续逐模块验证；只有60突出或主要依赖特殊大赢家则停止本路线扩展；不确定则保留观察而不增加过滤器。",
+  "strict_forward_evidence_days": 0,
+  "new_model_fits": 0,
+  "random_samples": 0,
+  "network_requests": 0,
+  "historical_data_previously_observed": true,
+  "candidate_returns_read_before_freeze": false,
+  "current_strategy_disposition": "HIGH_OVERFITTING_RISK_LOCAL_ROBUSTNESS_FAILED_FROZEN_RESEARCH_CONTROL",
+  "automatic_strategy_promotion": false,
+  "goal_achieved": false,
+  "position_impact": 0,
+  "frozen_files": [
+    {
+      "path": "research/simple_core_window_diagnostic_v1.py",
+      "sha256": "9ecd8ccf3d6a249f0390223595b0483bb18fa8ce7f6b9658ad4e292267682169"
+    },
+    {
+      "path": "research/post_selection_continuous_accounts_v1.py",
+      "sha256": "1e601a4ec87264ce60a89d152ba4f18fd049f648dbb4a01b8d852d04b2e07766"
+    },
+    {
+      "path": "research/post_selection_continuous_factors_v1.py",
+      "sha256": "a91193621e335aab388f0eb72d4e826c15e872ca34a33cf31f4c4d68871b8d09"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research/session_window_neighborhood_v1.py",
+      "sha256": "6b09991f120b21314fd73cad4773e8932e596008e4d67dd112ffc8761546ce97"
+    },
+    {
+      "path": "research/strategy_review_diagnostics_v1.py",
+      "sha256": "78c5a1d7fb792de775dd0ebee23aec04065656c5670446d3a1e5a11c12034ace"
+    },
+    {
+      "path": "config/510300_entry_vintage_exit_v1.json",
+      "sha256": "7b99ec0d1c7e15c870aca6a517dcd4335b48bbe3f3673e42b9620d85308de447"
+    },
+    {
+      "path": "config/510300_incremental_selected_intent_mix_v1.json",
+      "sha256": "587c7c3b27213fb293cb9709791779bae57657bf3343e47a93576012b0900167"
+    },
+    {
+      "path": "config/510300_research_authority_v6.json",
+      "sha256": "8bd7b6c0160d5e2f942627789cb720bdcce556ce03215e2582c91b312bdc5651"
+    },
+    {
+      "path": "reports/research/510300_post_selection_extension_inputs_v1/candidate_features.parquet",
+      "sha256": "92e2a5dc4f917d5cd058de71d08ed87a043427452cc1f2e5092b6b417a2fa899"
+    },
+    {
+      "path": "reports/research/510300_post_selection_extension_inputs_v1/candidate_prices.parquet",
+      "sha256": "1c9562eceafe4d069b8e227b53d10c60af2c50b93b512a9dcff0934ec176c841"
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_simple_core_window_diagnostic_v1/用户评审原文.md",
+      "sha256": "fea73f6c11cefe3d628b7a6bb7b322a0f343fe51664833cd08947ceda6f5bdc7"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/BUY_HOLD/main/BASE/ledger.parquet",
+      "sha256": "b0d7bb111d662ca6e6ad5e0cb97ccc4979c5d223bd2467629c555db8ac05c76c"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/BUY_HOLD/main/BASE/decisions.parquet",
+      "sha256": "404956c294a3aee2e75c364f36a670eaf7671306039aee25b3965779d6fe934e"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/BUY_HOLD/main/BASE/checkpoint.json",
+      "sha256": "475e6d0108e7f2e92b8878def4541a14aacb5ea5ee83a24d82111856923fc4f7"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/BUY_HOLD/main/STRESS/ledger.parquet",
+      "sha256": "34998554613cc0804d82e0f765ed57f53798eae11f385ff7dddff1aee67e20d3"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/BUY_HOLD/main/STRESS/decisions.parquet",
+      "sha256": "404956c294a3aee2e75c364f36a670eaf7671306039aee25b3965779d6fe934e"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/BUY_HOLD/main/STRESS/checkpoint.json",
+      "sha256": "8cec3037166a01bff03979ec285bee50e5288f6bdd4e2d4e3344eefca5950bb5"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/ETF_VOL10/main/BASE/ledger.parquet",
+      "sha256": "4c6a0c76ce49cc36a7768ef2344484161e52ded88571bd1c128d091846ca3ef7"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/ETF_VOL10/main/BASE/decisions.parquet",
+      "sha256": "e645a949fe445496b06c02d149f08d0a779d5a6828f75324e684f03bf74456de"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/ETF_VOL10/main/BASE/checkpoint.json",
+      "sha256": "9ba170a221c7d5183ac34a5bc287c7e036c0b666411806500e0b555ecd6a8e1e"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/ETF_VOL10/main/STRESS/ledger.parquet",
+      "sha256": "d964f35ee4b26826317766363ece3ff6bc7bfd77016d06ec882d025661405b22"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/ETF_VOL10/main/STRESS/decisions.parquet",
+      "sha256": "6afbfc04fc9795a42509e2de92f581080a43daa271d15a3f19cbd90dd757b3bd"
+    },
+    {
+      "path": "reports/research/510300_strategy_review_diagnostics_v1/counterfactuals/ETF_VOL10/main/STRESS/checkpoint.json",
+      "sha256": "e6a460539fd769cba4210d2e53d4bd2a350fba7173bb3cdb07b076eafb3d70ee"
+    }
+  ]
+}

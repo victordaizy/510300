@@ -1,0 +1,124 @@
+{
+  "completed_at": "2026-09-13T07:10:59.872787+08:00",
+  "status": "COMPLETED_INCREMENTAL_VIRTUAL_MIX_NOT_ACCOUNT_BACKTEST",
+  "reused_paths": 224,
+  "new_candidates_read": 34,
+  "new_ledger_files_read": 136,
+  "new_distinct_paths": 34,
+  "total_paths": 258,
+  "duplicates": [],
+  "optimizer_starts": 2,
+  "optimizer_objective_evaluations": 31,
+  "best_virtual_minimum_joint_ratio": 0.98380977191932,
+  "top_three_virtual_minimum_joint_ratio": 0.9838097719193284,
+  "best_weights": [
+    {
+      "weight": 0.7773627392378106,
+      "column": 240,
+      "model": "TWO_CLOSE_ZERO_EXIT",
+      "name": "连续两个收盘明确归零才退出",
+      "returns_sha256": "5d1faa853ab965c402dd421167894b2b5c00380a6eb2a67cb176e13fdae31549",
+      "source": {
+        "round": 198,
+        "folder": "reports\\research\\510300_two_close_zero_exit_v1",
+        "ledger_files": [
+          "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+          "reports\\research\\510300_two_close_zero_exit_v1\\evaluation\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+          "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\BASE\\TWO_CLOSE_ZERO_EXIT_ledger.parquet",
+          "reports\\research\\510300_two_close_zero_exit_v1\\earlier_diagnostic\\STRESS\\TWO_CLOSE_ZERO_EXIT_ledger.parquet"
+        ]
+      }
+    },
+    {
+      "weight": 0.14546503296374771,
+      "column": 247,
+      "model": "CONFIRMED_RISK_EPISODE_30_10",
+      "name": "30日、10%预算、区间固定、两次零确认",
+      "returns_sha256": "293de5fcfc47bdc566b97a204c779bc70fa76dc2c4285a862d5eda3f20c37405",
+      "source": {
+        "round": 199,
+        "folder": "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1",
+        "ledger_files": [
+          "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\evaluation\\BASE\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+          "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\evaluation\\STRESS\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+          "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\earlier_diagnostic\\BASE\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet",
+          "reports\\research\\510300_confirmed_exit_existing_budget_batch_v1\\earlier_diagnostic\\STRESS\\CONFIRMED_RISK_EPISODE_30_10_ledger.parquet"
+        ]
+      }
+    },
+    {
+      "weight": 0.07717222779840979,
+      "column": 223,
+      "model": "MEAN_REBOUND_AUX_50",
+      "name": "原181加二分之一均值反弹",
+      "source": {
+        "round": 195,
+        "folder": "reports\\research\\510300_mean_rebound_auxiliary_v1",
+        "earlier_source": "reports\\research\\510300_mean_rebound_auxiliary_v1\\result.json",
+        "ledger_files": [
+          "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\BASE\\MEAN_REBOUND_AUX_50_ledger.parquet",
+          "reports\\research\\510300_mean_rebound_auxiliary_v1\\evaluation\\STRESS\\MEAN_REBOUND_AUX_50_ledger.parquet",
+          "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\BASE\\MEAN_REBOUND_AUX_50_ledger.parquet",
+          "reports\\research\\510300_mean_rebound_auxiliary_v1\\earlier_diagnostic\\STRESS\\MEAN_REBOUND_AUX_50_ledger.parquet"
+        ]
+      },
+      "returns_sha256": "c9abbce7741ae0b6e40a87fa97107dafb9faaaf92530e074fe6f69dedf399ccd"
+    }
+  ],
+  "metrics": [
+    {
+      "variant": "完整虚拟权重",
+      "scenario": "主历史基础",
+      "net_sharpe": 1.2506091175005924,
+      "annualized_return": 0.10493512023035777
+    },
+    {
+      "variant": "完整虚拟权重",
+      "scenario": "主历史压力",
+      "net_sharpe": 1.180571726303185,
+      "annualized_return": 0.09838097719193259
+    },
+    {
+      "variant": "完整虚拟权重",
+      "scenario": "较早历史基础",
+      "net_sharpe": 1.1805717263031923,
+      "annualized_return": 0.10781606182372548
+    },
+    {
+      "variant": "完整虚拟权重",
+      "scenario": "较早历史压力",
+      "net_sharpe": 1.1819245344738598,
+      "annualized_return": 0.10876287684583245
+    },
+    {
+      "variant": "前三来源归一化",
+      "scenario": "主历史基础",
+      "net_sharpe": 1.2506091175006004,
+      "annualized_return": 0.10493512023035964
+    },
+    {
+      "variant": "前三来源归一化",
+      "scenario": "主历史压力",
+      "net_sharpe": 1.180571726303194,
+      "annualized_return": 0.09838097719193449
+    },
+    {
+      "variant": "前三来源归一化",
+      "scenario": "较早历史基础",
+      "net_sharpe": 1.1805717263031994,
+      "annualized_return": 0.1078160618237269
+    },
+    {
+      "variant": "前三来源归一化",
+      "scenario": "较早历史压力",
+      "net_sharpe": 1.1819245344738691,
+      "annualized_return": 0.10876287684583406
+    }
+  ],
+  "new_accounts": 0,
+  "new_prediction_models": 0,
+  "goal_achieved": false,
+  "independent_validation": false,
+  "run_seconds": 3.1721506000030786,
+  "limitation": "使用过历史后的理想日净收益混合，未模拟组合资金和成交，不能把这些指标当作可交易策略；数值未找到达标也不构成不可行性证明。"
+}

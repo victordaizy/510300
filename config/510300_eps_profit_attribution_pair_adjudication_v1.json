@@ -1,0 +1,28 @@
+{
+  "study_id": "510300_EPS_PROFIT_ATTRIBUTION_PAIR_ADJUDICATION_V1",
+  "scope": "两组固定现成研报的归母利润语义核实，以及一次条件资产覆盖诊断",
+  "origin": "2025-04-30",
+  "target_fiscal_year": 2026,
+  "pairs": [
+    {"symbol": "000333.SZ", "name": "美的集团", "institution": "guosen", "current_report_id": "AP202503311649595017", "prior_report_id": "AP202411041640708828", "detail_page": 4, "detail_label": "归属于母公司净利润", "detail_unit": "百万元"},
+    {"symbol": "601166.SH", "name": "兴业银行", "institution": "guosen", "current_report_id": "AP202503311649636738", "prior_report_id": "AP202408261639463099", "detail_page": 2, "detail_label": "归母净利润", "detail_unit": "十亿元"}
+  ],
+  "original_fact_root": "reports/research/510300_forward_eps_csi_facts_v2/document_facts",
+  "original_record_root": "reports/research/510300_forward_eps_csi_originals_v1/document_records",
+  "previous_diagnostic": "reports/research/510300_eps_disclosed_holdings_diagnostic_v1",
+  "same_historical_anchor_year": 2023,
+  "old_source_rule": "来源字段标签必须完全相等，否则不计算修正",
+  "canonical_profit_definition": "归属于母公司股东的净利润，不能自动替换为合并净利润或普通股东净利润",
+  "adjudication_rule": "首页精确数值必须与同一报告明确归母名称的详细表一致；详细表为十亿元整数时，精确百万元值必须落在舍入区间，并排除总净利润行",
+  "currency_rule": "保留报告给出的元、百万元与十亿元单位及共同历史列；不把内部单位一致升级为独立ISO币种认证",
+  "coverage_use": "仅条件来源诊断，保持旧因子、旧账户、旧NO_VIEW和旧交付包不变",
+  "all_primary_text_previews_already_seen": true,
+  "new_strategy_preregistration": false,
+  "general_net_profit_label_alias_allowed": false,
+  "new_network_requests": 0,
+  "new_return_labels": 0,
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "resumed_large_source_queues": false,
+  "goal_achieved": false
+}
