@@ -1,0 +1,62 @@
+name: 增收研究后续轮次输入与离线读取依赖
+on:
+  push:
+    branches: [codex/return-uplift-research-20260910]
+    paths: [.github/workflows/return-uplift-additional-inputs-20260910.yml]
+permissions:
+  contents: read
+jobs:
+  export-additional-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: e5433a24e6aecc2e3333ac12e050fbb84f9169ce
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: 提取固定后续轮次输入
+        run: |
+          python - <<'PY'
+          import json, tarfile
+          from pathlib import Path
+          from tools.repository.snapshot import load_index, restore, sha256
+          root = Path.cwd()
+          prefixes = ['reports/research/510300_trend_noise_reference_blend_v1/', 'reports/research/510300_monotone_episode_budget_v1/']
+          _, rows, assets = load_index(root)
+          selected = [r for r in rows if r['storage'] == 'release' and any(r['path'].startswith(p) for p in prefixes)]
+          assert len(selected) == 73 and sum(r['bytes'] for r in selected) == 5855842
+          restore(root, prefixes)
+          out = root / 'offline-inputs'
+          out.mkdir()
+          manifest = {'source_commit': 'e5433a24e6aecc2e3333ac12e050fbb84f9169ce', 'files': []}
+          with tarfile.open(out / 'later-round-inputs.tar.gz', 'w:gz') as archive:
+              for row in selected:
+                  assert sha256(root / row['path']) == row['sha256']
+                  archive.add(root / row['path'], arcname=row['path'], recursive=False)
+                  manifest['files'].append({'path': row['path'], 'bytes': row['bytes'], 'sha256': row['sha256']})
+          (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
+          print('SAVED_INPUTS_VERIFIED', len(selected))
+          PY
+      - name: 下载原快照版本的Parquet读取器供离线运行
+        run: |
+          python -m pip download --only-binary=:all: --no-deps --dest offline-inputs pyarrow==25.0.1
+      - name: 保存输入和依赖摘要
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+          rows = [{'name': p.name, 'bytes': p.stat().st_size, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(Path('offline-inputs').iterdir())]
+          Path('offline-inputs/bundle_hashes.json').write_text(json.dumps(rows, indent=2), encoding='utf-8')
+          print(json.dumps(rows))
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: return-uplift-additional-inputs-20260910
+          path: offline-inputs/
+          if-no-files-found: error
+          retention-days: 7
