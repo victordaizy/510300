@@ -1,5 +1,7 @@
 # 510300 研究资料库
 
+**2026-10-06 新研究正在发布。** 当前更新分支已上传本轮核心代码、冻结协议和结论，完整增量数据与来源附件仍在归档。阅读：[项目状态](docs/PROJECT_STATE.md) · [研究决策](docs/RESEARCH_DECISIONS.md) · [日周线状态](docs/PROJECT_STATE_TECHNICAL_LINE.md) · [正式目标](config/510300_high_return_sharpe_goal_v1.json) · [最新央行双文本账户结果](reports/research/510300_pbc_report_phase_account_v1/summary.json)。研究目标尚未实现，原失败、未知及受阻状态保留。下方完整已发布版本仍是9月17日快照，待全部附件和必需检查结束后更新。
+
 [![仓库完整性检查](https://github.com/victordaizy/510300/actions/workflows/repository-checks.yml/badge.svg)](https://github.com/victordaizy/510300/actions/workflows/repository-checks.yml)
 
 510300（沪深300 ETF）的研究代码、冻结协议、来源资料、历史结果和审阅交付物。最新版本为 **snapshot-2026-09-17**，在 9 月 9 日快照上新增 **35,851** 个原文件、更新 **7** 个原文件；包含来源工作区的相关未提交内容。
