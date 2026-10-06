@@ -1,0 +1,905 @@
+{
+  "study_id": "510300_ALL_FACTOR_JOINT_SCORECARD_V1",
+  "registered_at": "2026-10-06T12:56:53.997158+08:00",
+  "user_instruction": "所有因素全部加进来讨论，进行打分",
+  "purpose": "全因素目录、原完整案例事实矩阵与联合解释工作等级；非预测或金融策略",
+  "sources": [
+    {
+      "key": "daily",
+      "path": "reports/research/510300_macro_technical_first_passage_v1_clock_adapter/results/全部3488当时已知技术与宏观_未知保留.parquet",
+      "sha256": "12bc155a37c4c6b54f9cf85597b5b02024ac3a90fe2ec91774685cbeec7329ae"
+    },
+    {
+      "key": "points",
+      "path": "reports/research/510300_core_support_complement_description_v1/implementation_v1_0_1/results/全部12支持接受_公布锚价格时钟与宏观原值.parquet",
+      "sha256": "19c663dac262dccc7d0d4a52f69fb170ff904d1f74a0456e3301e69c92ba5793"
+    },
+    {
+      "key": "keys",
+      "path": "reports/research/510300_macro_technical_first_passage_v1_clock_adapter/results/事前固定17关键日期_宏观与技术.parquet",
+      "sha256": "6366238e167988c693f3f65f26bfe4dd85d8de401bb6129fa5d3987e2ae7ed31"
+    },
+    {
+      "key": "credit",
+      "path": "reports/research/510300_policy_expectation_thesis_exit_v1/implementation_v1_0_1/results/全部84月_双期限兑现与缺失不删.parquet",
+      "sha256": "95078e1f37bfdeb6c7e260cd0831711f57ce5a42b46db182bd87cd4cae8f1ebe"
+    },
+    {
+      "key": "brokers",
+      "path": "reports/research/510300_source_expectation_transmission_review_v1/results/七券商报告_方法用途与历史预测分开.parquet",
+      "sha256": "27271955ae788c424a50579e8ce91aa0d9bb9d4fd736d9550ac614fcb987e25a"
+    },
+    {
+      "key": "old_joint",
+      "path": "reports/research/510300_macro_technical_first_passage_v1_clock_adapter/summary.json",
+      "sha256": "1578e98e55bc23b4b71411b301ef28ef897f43868efff7dcc47a05efa710b1c0"
+    },
+    {
+      "key": "old_nonlinear",
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/result.json",
+      "sha256": "58b7bc03bc6067185917e16986b6d92d82b719db40089eb1d641364df25ed2ae"
+    },
+    {
+      "key": "valuation",
+      "path": "reports/research/510300_historical_index_valuation_repricing_v1/daily_valuation.parquet",
+      "sha256": "34cf75956a0898045ce3c27fb718fcf6cd1a7a43aae37186a7f2b8aeb2e2faf5"
+    },
+    {
+      "key": "earnings",
+      "path": "reports/research/510300_historical_index_earnings_population_v1/aggregates.parquet",
+      "sha256": "ad1c2310223ef89a2db9534990e6e8d6fae69d34e4abed28227b899b745f3020"
+    }
+  ],
+  "code_sha256": "b3367ecc23906e8b8c82dc86a50c83cfc804b38c483bdd5cdaa3e21b138a5dec",
+  "catalogue": [
+    {
+      "factor_id": "G01_01",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "原始收盘",
+      "binding": "close",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_02",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "现金股息调整价",
+      "binding": "ac",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_03",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "支持区域上沿",
+      "binding": "setup_high",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_04",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "支持区域下沿",
+      "binding": "setup_low",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_05",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "EMA偏离/ATR",
+      "binding": "ema_distance_atr",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_06",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "突破与回踩结构",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_07",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "日周线支撑阻力",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G01_08",
+      "group": "价格结构",
+      "role": "确认",
+      "factor": "跳空与价格缺口",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_01",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "日线MACD/ATR",
+      "binding": "daily_hist_atr",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_02",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "上一已完成周MACD/ATR",
+      "binding": "weekly_hist_atr",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_03",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "五日标准化动量",
+      "binding": "momentum5_scaled",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_04",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "RSI",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_05",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "KDJ",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_06",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "ADX趋势强度",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G02_07",
+      "group": "动量与技术",
+      "role": "确认",
+      "factor": "背离与趋势衰减",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_01",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "相对成交量",
+      "binding": "relative_volume",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_02",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "五日上涨量占比",
+      "binding": "up_volume_balance5",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_03",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "日内实体效率",
+      "binding": "body_efficiency",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_04",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "成交金额",
+      "binding": "amount",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_05",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "OBV",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_06",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "MFI",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G03_07",
+      "group": "量价参与",
+      "role": "确认",
+      "factor": "真实换手率",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G04_01",
+      "group": "波动与风险",
+      "role": "风险",
+      "factor": "ATR14相对价格",
+      "binding": "atr_percent",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G04_02",
+      "group": "波动与风险",
+      "role": "风险",
+      "factor": "短长实现波动比",
+      "binding": "rv_ratio",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G04_03",
+      "group": "波动与风险",
+      "role": "风险",
+      "factor": "原已知ES95",
+      "binding": "known_es95",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G04_04",
+      "group": "波动与风险",
+      "role": "风险",
+      "factor": "下行波动",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G04_05",
+      "group": "波动与风险",
+      "role": "风险",
+      "factor": "止损距离与扣费后目标空间",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G04_06",
+      "group": "波动与风险",
+      "role": "风险",
+      "factor": "账户回撤与集中度",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_01",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "PMI新订单水平",
+      "binding": "pmi_orders",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_02",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "PMI新订单变化",
+      "binding": "pmi_orders_change",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_03",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "PMI生产与就业",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_04",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "企业经营预期",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_05",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "M1/M2及统计制度",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_06",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "社融及信用组成",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_07",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "PPI/CPI",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_08",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "工业生产",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_09",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "消费与出口",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G05_10",
+      "group": "宏观周期",
+      "role": "背景",
+      "factor": "GDP与财政节奏",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_01",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "原支持信息与公布上界",
+      "binding": "support_information",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_02",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "去重共同来源数",
+      "binding": "support_common_count",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_03",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "当月LPR双期限兑现",
+      "binding": "credit_state",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_04",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "OMO事前数量预期",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_05",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "降准及净流动性增量",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_06",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "财政政策实施与支出",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G06_07",
+      "group": "政策与预期兑现",
+      "role": "催化/失效",
+      "factor": "宣布实施市场接受时序",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_01",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "DR007与政策利率差",
+      "binding": "funding_gap_pp",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_02",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "资金差五日变化",
+      "binding": "funding_gap_change5",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_03",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "融资余额五日变化",
+      "binding": "financing_net_change5",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_04",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "融资买入活跃度",
+      "binding": "financing_buy_activity",
+      "binding_status": "BOUND_DESCRIPTIVE_ONLY",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_05",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "信用利差",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_06",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "银行贷款与融资需求",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G07_07",
+      "group": "资金价格与融资",
+      "role": "传导",
+      "factor": "回购计划实施",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G08_01",
+      "group": "真实流量与订单流",
+      "role": "传导",
+      "factor": "ETF连续新份额变化",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G08_02",
+      "group": "真实流量与订单流",
+      "role": "传导",
+      "factor": "PCF/IOPV与申赎",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G08_03",
+      "group": "真实流量与订单流",
+      "role": "传导",
+      "factor": "ETF溢折价",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G08_04",
+      "group": "真实流量与订单流",
+      "role": "传导",
+      "factor": "北向披露可比口径",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G08_05",
+      "group": "真实流量与订单流",
+      "role": "传导",
+      "factor": "逐笔主动买卖与CVD",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G08_06",
+      "group": "真实流量与订单流",
+      "role": "传导",
+      "factor": "L2分类资金流定义",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G09_01",
+      "group": "指数主线与广度",
+      "role": "传导",
+      "factor": "当时指数成员及权重",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G09_02",
+      "group": "指数主线与广度",
+      "role": "传导",
+      "factor": "行业相对强弱",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G09_03",
+      "group": "指数主线与广度",
+      "role": "传导",
+      "factor": "上涨成分扩散",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G09_04",
+      "group": "指数主线与广度",
+      "role": "传导",
+      "factor": "强势行业持续性",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G09_05",
+      "group": "指数主线与广度",
+      "role": "传导",
+      "factor": "主线对510300贡献",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G09_06",
+      "group": "指数主线与广度",
+      "role": "传导",
+      "factor": "行业盈利与价格接受",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_01",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "指数PE/PB",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_02",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "股息率",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_03",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "股债收益差",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_04",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "整体盈利与利润率",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_05",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "EPS预测及修订",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_06",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "盈利改善广度",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G10_07",
+      "group": "估值与盈利",
+      "role": "空间/传导",
+      "factor": "预期已反映的程度",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G11_01",
+      "group": "博弈与情绪",
+      "role": "路径/风险",
+      "factor": "市场拥挤与持仓披露",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G11_02",
+      "group": "博弈与情绪",
+      "role": "路径/风险",
+      "factor": "IF基差",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G11_03",
+      "group": "博弈与情绪",
+      "role": "路径/风险",
+      "factor": "期权IV/PCR/偏斜",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G11_04",
+      "group": "博弈与情绪",
+      "role": "路径/风险",
+      "factor": "涨跌停与极端广度",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G11_05",
+      "group": "博弈与情绪",
+      "role": "路径/风险",
+      "factor": "新股解禁与资金供给",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G11_06",
+      "group": "博弈与情绪",
+      "role": "路径/风险",
+      "factor": "制度变化及再平衡",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G12_01",
+      "group": "外部环境与事件",
+      "role": "背景/风险",
+      "factor": "人民币汇率",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G12_02",
+      "group": "外部环境与事件",
+      "role": "背景/风险",
+      "factor": "美元与美债利率",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G12_03",
+      "group": "外部环境与事件",
+      "role": "背景/风险",
+      "factor": "美联储与全球流动性",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G12_04",
+      "group": "外部环境与事件",
+      "role": "背景/风险",
+      "factor": "海外市场已知收盘",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G12_05",
+      "group": "外部环境与事件",
+      "role": "背景/风险",
+      "factor": "商品与油价",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    },
+    {
+      "factor_id": "G12_06",
+      "group": "外部环境与事件",
+      "role": "背景/风险",
+      "factor": "地缘及突发事件",
+      "binding": null,
+      "binding_status": "NOT_BOUND_IN_THIS_CARD",
+      "independent_vote": false,
+      "limitation": "绑定只代表本轮解释可读；不代表历史首版认证或预测有效。未绑定不代表项目无此数据。"
+    }
+  ],
+  "cutoff": "历史交易日15:05 Asia/Shanghai",
+  "cases": "全部12原支持接受日＋原固定17关键日＋2023-06-20已有持仓兑现复查；去重完整保留",
+  "history_role": "DEVELOPMENT_ALREADY_OBSERVED_NOT_INDEPENDENT",
+  "grades": "0/20/40/60/80是事前本用途固定解释等级；100要求完整主线/盈利/估值/风险等不同证据，尚未实现",
+  "not_allowed": [
+    "按已知输赢改等级",
+    "多指标同源重复加分",
+    "未知填0",
+    "把工作分当胜率",
+    "把原失败模型直接激活",
+    "原金融策略修改",
+    "新金融回测",
+    "新股票收益标签",
+    "实盘委托"
+  ],
+  "financial_admission": "NOT_ADMITTED",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "previous_results": "原联合树、非线性评分及全部旧固定金融裁决保留，不以本目录营救"
+}
