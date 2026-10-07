@@ -1,0 +1,42 @@
+{
+  "title": "510300 与 M1-M2 剪刀差走势对比",
+  "price_observations": 2111,
+  "macro_observations": 103,
+  "start": "2018-01-02",
+  "end": "2026-09-11 15:00:00",
+  "macro_last_stat_month": "2026-07",
+  "macro_last_published_at": "2026-08-14 16:30:05",
+  "macro_definition": "M1同比增速减M2同比增速，单位百分点",
+  "price_basis": "未复权收盘价，单位元",
+  "macro_alignment": "按实际公布时间逐次更新；日度导出表仅合并当日15:00已经公布的信息",
+  "M1_definition_boundary_at_release": "2025-02-14 17:00:45",
+  "backcasts_used": false,
+  "outside_price_cutoff_macro_months_excluded": [
+    "2026-08"
+  ],
+  "source_files": [
+    {
+      "path": "reports/research/510300_post_selection_extension_inputs_v1/candidate_features.parquet",
+      "sha256": "92e2a5dc4f917d5cd058de71d08ed87a043427452cc1f2e5092b6b417a2fa899"
+    },
+    {
+      "path": "reports/research/510300_m1_m2_monthly_increment_v1/release_features.csv",
+      "sha256": "9abac903156eb079d65947e1775cc16cdd25597fb6bf766abf583502a9f3e416"
+    }
+  ],
+  "checks": [
+    "价格日期唯一且有序",
+    "剪刀差等于M1同比减M2同比",
+    "日度合并无未来公布信息",
+    "新旧M1口径不跨界连线"
+  ],
+  "new_accounts": 0,
+  "new_model_fits": 0,
+  "visual_check": {
+    "status": "PASS",
+    "chinese_fonts_readable": true,
+    "axes_and_legends_readable": true,
+    "definition_break_visible": true,
+    "figure_clipping_observed": false
+  }
+}

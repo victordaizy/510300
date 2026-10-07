@@ -1,0 +1,38 @@
+{
+  "study": "510300_POINT_B05_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T13:10:56.401907+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "六个真实负收益事件的单位相对金额推进衰减能否增加原八项继续价值信息。",
+  "information_role": "EXISTING_NEGATIVE_IMPACT_NEW_CONDITIONAL_EXIT_USE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定B05一列，原当前回撤保留，无交互或新入场规则。",
+  "field": "six_negative_event_impact_decay",
+  "formula": "原raw close及当日已除息现金生成经济log收益r；amount为CNY。事件j严格r[j]<0且已知，当日相对金额a[j]=amount[j]/median(amount[j-20..j-1])，严格20个实际完整正金额；冲击h[j]=abs(r[j])/a[j]。t收盘按真实发生顺序选最近6个负事件，字段=mean(h[后三个])/mean(h[前三个])；含当日负事件，正日保留最近6个，不按日历时间裁剪。原cycle_drawdown继续保留，无交互或新入场规则。",
+  "zero_missing": "首市场点没有收益区间，强制未知且不登记。六负事件不足、任何被选事件冲击未知、此前20金额缺口/非正、前三均值非正均NO_VIEW，不填零/epsilon、不删除未知负事件换更早合格事件。非初始未知收益符号清空事件记忆，待六个新真实事件重建。未被选作负事件的当前正日金额缺口不改已知六事件比值，但仍会影响后续事件的20日基线；事件不足不是真0。",
+  "unchanged": "原标签/全部成熟成员/20周期/10周期100行/周期等权/alpha1/clip5/周期截距/入场锁定/两负确认。",
+  "ninth_model": "原加权标准化及周期内岭，新周期截距为成熟周期截距等均值。",
+  "source_clock": "负事件按原卡发生顺序，事件j冲击使用当天收益/金额及严格此前20完整金额中位数；当前收盘更新、下一合法开盘执行。",
+  "event_scope": "在本轮任何字段数量或收益检验前，按原卡最近六个真实负收益事件固定发生序列，不限定日历20日；20仅用于各事件日严格此前金额中位数基线。旧rapid的20日内至少6个事件HIGH/LOW政策及失败原样保留。当前不同条件继续价值用途是开展研究的理由，取消日历范围本身不是新信息或营救理由；不平行试20日、不按结果换范围。",
+  "prediction_gate": "原自然点/收益单位全部配对，周期等权MSE两期严格改善、预设入场年份块5000次/seed51030091改进95%下界都>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序九项、标签、权重和设置完全相同才复用，失败不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历BASE/STRESS两期，净CAGR和夏普均高于A、净pB>1/平均周期净收益>0/回撤<=10%，频率软目标。",
+  "old_failures": "旧B05二十日分位政策、价格恐慌及全部旧失败保留；不据范围差异营救旧政策。",
+  "no_rescue": "不恢复旧HIGH/LOW政策、不变六事件/3比3/20金额基线、事件范围或收益边界、金额单位/财富坐标、分母/epsilon/未知、维度/交互、原标签/成员/周期权重/岭/锁定/两负确认、门/时期/成本营救。先完整支持再一个固定条件模型，结果失败后结束该配置。",
+  "feature_regression_calls": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

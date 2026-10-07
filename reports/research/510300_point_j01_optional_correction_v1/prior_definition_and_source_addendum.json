@@ -1,0 +1,111 @@
+{
+  "at": "2026-10-02T20:05:51.178288+08:00",
+  "status": "BOUND_SEPARATE_OPTIONAL_J01_DEVELOPMENT_RESIDUAL_PRESERVING_R104_REJECTION",
+  "old_R104_source_rejection_preserved": true,
+  "separate_optional_development_function_bound": true,
+  "old_strict_source_gate_promoted": false,
+  "correction_to_R121_next_step": "R121的下一J01有限提案遗漏TECH.R104已有来源准入结果；现在依据当前文件明确纠正。旧提案保留历史快照，不重复执行R104，也不把本次当全新国债来源。",
+  "old_R104": {
+    "status": "NOT_ADMITTED_FIXED_J01_LOCAL_YIELD_SOURCE_PUBLICATION_OR_MEMBER_GATE_FAILED",
+    "source_gate_passed": false,
+    "algorithmic_supported_natural_rows": 1486,
+    "fully_supported_original_mature_months": 115,
+    "first_publication_supported_natural_rows": 0,
+    "new_model_fits": 0,
+    "new_strategy_accounts": 0,
+    "source_snapshot_last_date": "2026-08-25T00:00:00"
+  },
+  "fixed_original_source_and_fields": {
+    "path": "data/raw/regime_transition_router_v1/cgb_curve/cgb_1y_10y_daily_2012_2026.parquet",
+    "fields": [
+      "J01_yield20_change_bp",
+      "J01_stock_yield20_interaction"
+    ],
+    "formula": [
+      "J01_yield20_change_bp = 100*(cgb_10y[T−1]−cgb_10y[T−21])",
+      "J01_stock_yield20_interaction = J01_yield20_change_bp*原已冻结mom20[T]"
+    ],
+    "clock": "原官网日终17:30；沿旧股债研究更保守观测日23:59:59算法上界。T只取T−1观察日，不把同日最终曲线放入15:05。",
+    "window": "两个固定实际股票日期T−1与T−21，恰20股票交易区间；任一精确日期缺源则未知，不asof/ffill或借补班债券日。",
+    "unit": "bp，100×(yield_recent−yield_base)",
+    "unchanged": true
+  },
+  "substantive_separate_function": "R104原门是完整1507预测成员/115训练月字段及真实首版资格，未登记或拟合当前收益模型。本次另登记后续可选修正框架：原八项/截距/尺度固定，原全部成员和成熟钟保留，只估两个周期内原预测残差系数，全局新增截距0。源缺失不填值，仅可选修正不活动时函数精确回退原预测。它使复合预测函数定义完整，但不使原字段、首版或R104严格门通过。",
+  "authority": "当前thread明确允许新增隔离实验代码、保留原冻结策略，并要求提高收益夏普和控制过拟合；本次只历史开发、无交易。不是借用其他共享研究线的重新开发权限。",
+  "old_financial_uses": {
+    "verdicts": {
+      "P_LPR": "REJECTED_FROZEN_NO_RELIABLE_INCREMENT",
+      "P_JOINT": "REJECTED_FROZEN_NO_RELIABLE_INCREMENT",
+      "R_LPR": "REJECTED_FROZEN_NO_RELIABLE_INCREMENT",
+      "R_JOINT": "REJECTED_FROZEN_NO_RELIABLE_INCREMENT"
+    },
+    "account_status": {
+      "P_LPR": "NOT_RUN_OWN_PREDICTION_GATE",
+      "P_JOINT": "NOT_RUN_OWN_PREDICTION_GATE",
+      "R_LPR": "NOT_RUN_OWN_PREDICTION_GATE",
+      "R_JOINT": "NOT_RUN_OWN_PREDICTION_GATE"
+    },
+    "evaluation_months": 45,
+    "evaluation_reviews": 231,
+    "direct_joint_comparisons": [
+      {
+        "candidate": "P_JOINT",
+        "reference": "P_LPR",
+        "mean_improvement": -1.3241399123825945e-06,
+        "one_sided_98_75pct_lower": -1.6635231238745534e-05,
+        "central_97_5pct_upper": 1.722530834493795e-05,
+        "first_half_improvement": -3.4603440078173222e-06,
+        "second_half_improvement": 7.191857441201913e-07,
+        "passed": false
+      },
+      {
+        "candidate": "R_JOINT",
+        "reference": "R_LPR",
+        "mean_improvement": -0.009330464647730954,
+        "one_sided_98_75pct_lower": -0.0375213920467184,
+        "central_97_5pct_upper": 0.001260735778149056,
+        "first_half_improvement": 0.001902620900160508,
+        "second_half_improvement": -0.02007515517180105,
+        "passed": false
+      }
+    ],
+    "old_decision_clock": "复核日之后下一股票交易日09:00形成判断，09:30开盘作为收益起点；此时已取得复核日全部股价及日终中债曲线。",
+    "old_bond_clock": "原日曲线定义为工作日日终17:30发布；本轮另用观测日23:59:59保守上界。原09:30下一股票日衍生账簿仅作数值交叉核对，不改写旧研究时钟。"
+  },
+  "different_from_old_LPR_financial_study": "旧LPR的日变动/股价交互用于独立20日收益及风险模型；368旧拟合/45完整评价月/231复核已经失败、账户NOT_RUN。原裁决不改，本次当前原自然继续目标的周期内残差及精确回退并非其方向/阈值/期限救援。20日窗口变化本身不构成新信息。",
+  "historical_source_admission": {
+    "strict_R104_source_gate_passed": false,
+    "complete_J01_all_member_field_admission": false,
+    "physical_first_vintage_verified": false,
+    "algorithmic_clock_is_assumption": true,
+    "optional_prediction_function_only": true,
+    "historical_use": "DEVELOPMENT_CALIBRATION",
+    "independent_claims_allowed": false
+  },
+  "official_definition_check": {
+    "web_tool_calls": 1,
+    "open_attempts": 1,
+    "successful_page_bodies": 1,
+    "url": "https://yield.chinabond.com.cn/cbweb-cbrc-web/cbrc/showCbrc",
+    "supported": "官方网站当前说明曲线百分数及10年期限，并列出每工作日日终17:30发布时间；与R104已存原页定义一致。",
+    "limit": "一般发布说明及当前正文不能证明2012—2026每个原值的历史首发或无修订。页面可见2026-09-30曲线报价，不存入/不补齐本次输入；原3660行截点及21缺源原点保持。",
+    "new_model_input_rows_from_page": 0,
+    "market_history_download_requests": 0
+  },
+  "necessary_tests": {
+    "passed": 7,
+    "first_attempt_passed": 4,
+    "first_attempt_failed": 3,
+    "failure": "三个合成模型测试夹具缺原模型kind身份，KeyError发生在合成测试；实际模型/行情未运行。",
+    "repair": "只给合成原模型补原WITHIN_CYCLE_FIXED_INTERCEPT_RIDGE身份；未改真实冻结模型或新增研究方法。",
+    "actual_financial_fits_before_freeze": 0
+  },
+  "no_rescue": "本函数登记后不变源/10年/20区间/原mom20/交互/时钟/缺失/alpha/评价时期/双期门；不改原R104协议和失败，也不按新结果拼R117/R119/R121。",
+  "proposal_historical_snapshot_sha256": "dd664e35c27055f6966f7af51876e73d00e22ea8b165f70caa8eb7cd3a3e9a02",
+  "original_R104_protocol_sha256": "2d310792feb2f7bad2487bffc6415ecdb40d2f2e9f78defa8c10e9c7a08ad0f3",
+  "original_R104_result_sha256": "9e2c424512acadb502f86f8a2de994858df3fe4971aa7879f1fc185f4af887b6",
+  "original_R104_source_code_sha256": "17b9e9a61468bfe6c88da0debc7c66829ac170d8d1a5932d45c398119b1aa054",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "bond_trading_authorized": false
+}

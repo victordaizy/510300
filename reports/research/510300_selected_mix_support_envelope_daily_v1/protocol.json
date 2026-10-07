@@ -1,0 +1,61 @@
+{
+  "study_id": "510300_SELECTED_MIX_SUPPORT_ENVELOPE_DAILY_V1",
+  "at": "2026-09-25T14:04:19.632790+08:00",
+  "primary": "D60_SUPPORT_ENVELOPE_RISK_BAND10",
+  "question": "两年日更的学习退出在当前八项状态超出D60成熟训练范围时暂不采用，是否改善完整账户。",
+  "motivation": "父共享模型压力D60学习账户2020年起292个可预测日中，63日至少一项超出同窗D60各项范围；其中8日预测为负。这是已看历史的结构诊断，未据后续盈亏选特征。",
+  "fixed_change": "使用每个当日模型已经登记的D60训练成员，保存原八项特征各自最小值和最大值。实际状态任一项超界则该日学习预测NO_VIEW并清零学习退出连续计数。所有项范围内才沿用原预测与连续两个负值确认。只用1e-12浮点容差，无分位数或距离阈值。",
+  "interpretation": "各项范围内并不证明联合状态有充分支持，也不是概率置信区间；此规则只限制明显的单项外推。范围外仍正常执行原价格、止损和最长持有规则。",
+  "training": "复用三类共享训练的全部已保存系数，不新增系数拟合。范围仅取当日已登记D60成熟成员，完整周期入场和观察在最近两日历年，退出索引严格小于当日。每天重新检查，不携带过期范围。",
+  "unchanged": [
+    "三类训练资料及八项特征、类别截距和共享斜率",
+    "原价格入场、再入场和失效边界",
+    "两年每日参考协方差与下行预算",
+    "当前末端尾部预算及风险投影后的10个百分点交易带",
+    "20万元、100份、T+1、佣金、滑点、分红及连续收盘结算"
+  ],
+  "duplicate_review": {
+    "deleted_cycle_round72": "逐次删周期要求一致负值，已完成；本轮不重做。",
+    "bounded_five_day_value": "未结束周期的五日成熟标签已经检验；本轮沿用原自然周期标签。",
+    "model_support_router": "旧路由只检查模型是否满足周期/行数，不检查当前状态值。",
+    "cycle_analogue_round122": "旧近邻用五个不同周期直接重估收益；本轮不改变预测。"
+  },
+  "period": [
+    "2020-01-02",
+    "2026-09-16"
+  ],
+  "capital": 200000,
+  "annual_days": 242,
+  "target": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "tail_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "primary_comparator": "POOLED_RISK_BEFORE_BAND10",
+  "new_full_accounts": 2,
+  "new_internal_dependency_accounts": 22,
+  "new_reference_accounts": 0,
+  "new_coefficient_fits": 0,
+  "new_parameter_grid": 0,
+  "statistics": "完整同日收益差20日区块2000次，种子20261003；报告所有年份和全部滚动两年。",
+  "checks": {
+    "inclusive_marginal_boundaries": true,
+    "outside_feature_identified": true,
+    "two_negative_confirmation_and_outside_reset": true,
+    "raw_prediction_retained": true
+  },
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "new_market_collection": false,
+  "evidence_class": "已研究历史的新固定开发假设，无独立新增资料"
+}

@@ -1,0 +1,54 @@
+{
+  "recorded_at": "2026-09-29T11:44:07.324749+08:00",
+  "cards": [
+    {
+      "id": "F1",
+      "name": "订单分化延续",
+      "forecast": "9月制造业新订单PMI>=50且非制造业新订单PMI<50",
+      "evaluation_at": "2026-09-30 09:30 Asia/Shanghai，若官方改期按实际首次发布",
+      "components_scored_separately": true,
+      "joint_hit_rule": "两个方向都成立才记联合命中",
+      "cause": "制造业订单、出口及新产业需求支撑，与非制造业需求弱并存",
+      "alternative": "国内支出或政策落地速度改变，出口订单回落",
+      "status": "PENDING_FUTURE_RELEASE"
+    },
+    {
+      "id": "F2",
+      "name": "成本向售价传导仍不完全",
+      "forecast": "9月制造业购进价格PMI>出厂价格PMI",
+      "evaluation_at": "同F1",
+      "cause": "国际商品价格传导和已见购进价格广度较强",
+      "alternative": "商品供给恢复、售价调整加快或采购需求转弱",
+      "interpretation_limit": "扩散指数差不是企业利润率，购进回落也可能是需求恶化",
+      "status": "PENDING_FUTURE_RELEASE"
+    },
+    {
+      "id": "F3",
+      "name": "跨季后资金压力缓和",
+      "forecast": "节后指定三日DR007减7天逆回购政策利率的日均差<=节前指定两日日均差",
+      "before_dates": [
+        "2026-09-29",
+        "2026-09-30"
+      ],
+      "after_dates": [
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-12"
+      ],
+      "required_inputs": "对应日官方最终DR007与当日适用的7天逆回购政策利率；操作未发生日须可证明适用政策利率未改，不用盘中快照代替",
+      "cause": "货币政策维稳取向和跨季度、假日现金需求可能缓解",
+      "alternative": "节后缴税、政府债缴款或新的流动性冲击",
+      "missing_input_rule": "缺值记未能评价，不算成功，不更换比较日期",
+      "status": "PENDING_FUTURE_OBSERVATIONS"
+    }
+  ],
+  "thresholds_not_selected_from_returns": true,
+  "probabilities": null,
+  "not_independent_samples": [
+    "F1",
+    "F2"
+  ],
+  "shock_treatment": "保留原预测误差并另记新事件，不追溯删除失败",
+  "strategy_rule_created": false,
+  "automation_created": false
+}

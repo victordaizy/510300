@@ -1,0 +1,137 @@
+{
+  "study_id": "510300_MULTIDIM_FISCAL_DEPOSIT_CAUSE_SCORE_V1",
+  "experiment_id": "E2",
+  "registered_at": "2026-10-02T03:22:27.325454+08:00",
+  "status_at_registration": "REGISTERED_NOT_RUN",
+  "question": "财政性存款累计净增加这一部门资金停留事实，在相同月份、M2预期偏差和八项指数状态下，是否带来不同的可成交剩余收益与高分机会？",
+  "hypothesis": "资金价格或M2的相同变化可能对应不同财政收支与部门持有结构；财政性存款提供此前联合树没有表达的上游状态，但不预设正负方向。",
+  "authority": "当前历史发现goal和E2提案；继续遵守先不要修改代码。只通过项目Python标准输入计算，完整程序保存为执行回执的文本。",
+  "scope": "本thread的历史指数宏观联合评分；执行资产只有510300.SH和CASH_CNY，不启动其他研究线。",
+  "source_preflight_before_new_returns": {
+    "months": 104,
+    "period": [
+      "2018-01",
+      "2026-08"
+    ],
+    "unique_fields": true,
+    "direct_ytd_preferred_counts": {
+      "YEAR_TO_DATE": 56,
+      "MONTH": 48
+    },
+    "finite_ratio": true,
+    "first_vintage_authenticated": false
+  },
+  "feature_name": "财政性存款累计净增占人民币存款余额",
+  "feature_definition": "100×当时最新已公布财政性存款年初累计净增加（亿元）/同一原文人民币存款余额（亿元）。这是公布累计状态的规模比例，不称实际财政流量、融资供给冲击或股市资金。",
+  "interval_rule": "按财政字段最近的人民币存款总量标题独立识别单月/累计；当月仅加同年之前连续已公布累计，1月重置；有直接累计优先。保存原文、精度、依赖月份和时钟。不同年度不跨界；不以累计差分制造单月流量。",
+  "seasonality_control": "统计月份的sin(2πm/12)、cos(2πm/12)同时进入删除财政字段的对照和联合树；年月是当时确定的日历信息。只运行这一固定表达，不比较无日历或另种季调版。",
+  "statistical_scope": "2023金融统计机构范围扩展保留标记并报告；归一化分母仍受范围/修订影响。历史原文为今日重建，不认证当年首版。当前年度余额表不准入。",
+  "nearest_rejected_studies": [
+    {
+      "study": "510300_FISCAL_EXECUTION_STATE_20D_V1",
+      "result": "88评价事件，P1/P2/R1/R2均拒绝；账户未运行",
+      "difference": "旧字段是财政部两本预算累计支出可比同比、与资金利差的一项交互、20日岭回归。本轮是央行金融机构财政性存款累计净增加比例，与M2事前预期和指数状态的5日事件树；不更改旧财政支出同比表达、窗口或裁决。"
+    },
+    {
+      "study": "510300_HOUSEHOLD_BANK_BALANCE_DAILY_V1",
+      "result": "已失败封存",
+      "difference": "旧表达是住户存款减住户贷款的累计差额；本字段是不同持有部门的财政性存款，不使用该住户差额。"
+    },
+    {
+      "study": "510300_FISCAL_MONEY_TRANSMISSION_V29",
+      "result": "5个月历史原因解释，没有新拟合/账户",
+      "difference": "其年度余额快照只作事后说明。本轮使用104份发布原文的当时财政存款净增加，而不是年底表回填。"
+    }
+  ],
+  "prior_fiscal_uses": "宏观波动观察与春节桥已抽取存款分项作描述，未见此字段在本联合事件收益表达中受检验；不能据此声称未看过有关历史。",
+  "event_universe": "完整复用纠正后的M2月度68个准入事件。所有104个月来源保留，2025-12-31后公布或缺失事前预期的事件不入模型；不按E1收益选择。",
+  "clock": "原公布日23:59:59前已知财政字段及全部累积依赖；既有判断截止、指数状态、下一交易日开盘入场与入场后第5交易日开盘退出完全不变。",
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "sample_unit": "每次合格公布一行",
+    "label_availability": "exit_at<=decision_at",
+    "update": "每次公布",
+    "no_future_releases": true
+  },
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "features_control": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦",
+    "财政性存款累计净增占人民币存款余额"
+  ],
+  "tree": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "comparisons": [
+    "同池11变量删除财政字段的树",
+    "同池12变量财政联合树",
+    "同12变量训练标准化岭回归alpha10",
+    "同池成熟标签平均"
+  ],
+  "label": "原保存actual_net5：固定10000份、下一开盘到5个持有间隔后的开盘、现金分红权益、4bp佣金且最低5元、10bp滑点、0.001报价单位；不是完整账户收益。",
+  "score": "模型预测在同训练池拟合预测的中位百分位秩，0到100，不是上涨概率。",
+  "evaluation": "原固定五档全部保留；按时间顺序选score>=80且预测净收益>0、持有结束前不增加事件；所有年份、反例、实际路径和训练叶成员保存。",
+  "increment_gate": {
+    "primary_joint_mse_not_worse_than_matched_control": true,
+    "primary_joint_high_mean_net5_positive": true,
+    "primary_joint_high_mean_not_worse_than_matched_control_when_nonempty": true,
+    "at_least_one_primary_joint_high_date_not_in_control_or_parent_M2": true,
+    "at_least_one_primary_new_high_path_actually_uses_fiscal_field": true,
+    "path_only_fiscal_information_without_new_high_is_insufficient": true
+  },
+  "account_admission": "上述预先固定条件全部满足才另行固定完整账户；只要一项不满足就拒绝这个表达，不改阈值、方向、日历控制、模型深度、窗口、持有期、剔除九月或添加字段营救。",
+  "selection_history": "全项目旧历史已看过，E1和财政失败已读；本轮是历史开发，没有恢复独立性，不把未来新信息反填。",
+  "causal_limit": "财政性存款不同于央行负债表政府存款；财政收支、发债、其他划转与统计修订都可能影响其状态。央行可对冲流动性；本字段不能唯一识别原因或预期差、财政刺激、新增需求和实际股票买入。",
+  "official_mechanism_references_consulted_before_fit": [
+    {
+      "url": "https://www.pbc.gov.cn/zhengcehuobisi/125207/125227/125957/3307990/f0b7f194d7a64548be1fa3aafbd5afd2/2017051310260490469.pdf",
+      "role": "2017Q1报告说明财政支出改变政府存款与银行备付金，央行可能相应减少投放；只支持机制边界，不将它的政府存款定义强加给金融机构财政性存款。"
+    },
+    {
+      "url": "https://www.pbc.gov.cn/zhengcehuobisi/125207/125227/125957/4246985/f13557ddebc344d2951a8c6b24a1ad1b/2021051118023165538.pdf",
+      "role": "2021Q1报告说明公开市场操作综合考虑财政收支与资金需求；不填入更早事件解释标签。"
+    }
+  ],
+  "parameter_searches": 0,
+  "new_source_files": 0,
+  "new_market_downloads": 0,
+  "new_repository_code_edits": 0,
+  "accounts_at_registration": 0,
+  "new_prospective_forecasts_enabled": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false
+}

@@ -1,0 +1,57 @@
+{
+  "at": "2026-09-25T23:34:30.787728+08:00",
+  "study_id": "510300_HKMA_AFTERNOON_LIQUIDITY_DAILY_V1",
+  "primary": "PRICE_AND_AFTERNOON_FUNDING",
+  "control": "PRICE",
+  "mean_reference": "HISTORY",
+  "question": "在相似的A股价格弱势下，香港人民币日间回购安排在下午14至16时的借款余额变化能否区分随后修复与持续恶化？",
+  "hypothesis": "下午增加借款可能伴随结算或融资需求，减少可能表示偿还；信息方向由仅过去两年的条件分布估计，不事先声称全部变化都是市场压力。",
+  "single_new_information": "(intraday_repo_at_1600-intraday_repo_at_1400)/(1+intraday_repo_at_1600+intraday_repo_at_1400)，金额单位为百万元。原始二时点都为零时特征为零；不加入其他额度或期限。",
+  "methodology": "设施额度、价格和可接受抵押品曾变化。固定用同日二时点变化避免机械跨日额度跳变，但不宣称彻底消除制度影响；2025-10-09前后单独描述，不依此选择区间。",
+  "availability": "设施源日翌日00:00计划可用，合并至执行日09:00，来源年龄最多7自然日。香港与A股交易日分别处理，不使用执行日16:00的未来数据。历史首版与首次实际送达未认证。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "targets": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "fixed_parent_methods": {
+    "protocol": "reports/research/510300_repo_segmentation_daily_v1/protocol.json",
+    "training": "最近两个日历年，每日更新，退出开盘严格早于执行日；最少252共同成熟原点。",
+    "distribution": "训练内标准化截断[-5,5]、固定126近邻经验分布；价格3特征加一个新信息；HISTORY同池经验分布。",
+    "account": "五日弱势时才新增库存，枚举100份目标，w*mu5-2*w^2*var5-调仓及退出费用；两候选两档成本共4连续账户。",
+    "risk": "50%目标上限，5日ES95为2.5%，10%跳空预算为权益5%且不超过距90%权益峰值余量一半；先扣调仓费用再算预算；10%回撤下一可卖开盘退出且本轮不恢复。",
+    "execution": "09:00判断、下一开盘模拟成交，现金、T+1、涨跌停、100份整手及分红分账；末端照常收盘计价，有仓计退出储备。"
+  },
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "new_final_accounts": 4,
+  "new_parameter_searches": 0,
+  "evaluation": "完整同日账户增量、20日循环区块2000次seed2026092508；固定2020-2023、2024-末端，以及全部滚动两年；五日预测含全部成熟与当时价格弱势两个已定义口径。",
+  "monitor": "固定5日相位，只有已成熟结果进入最近60个标签的分位覆盖监控，突破率超过15%记录报警，不据结果再加启停参数。",
+  "development_gate": "主压力账户三目标达标、收益增量95%下界>0且两个固定时期增量均正，才保留开发候选；仍无独立前向验证。",
+  "duplicate_boundary": "此前大陆回购定盘差、DR007政策利差、央行操作总量和美国NFCI均保留原结果；本次新增香港官方日间设施同日下午变化，价格与账户方法沿用，不扫描宏观变量。",
+  "prices_previously_researched": true,
+  "new_independent_forward_observations": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

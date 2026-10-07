@@ -1,0 +1,54 @@
+{
+  "study_id": "510300_ABSORPTION_AVAILABLE_MEMBERS_TRAINING_V1",
+  "user_instruction": "不用那么严格，直接进入训练；不用采集",
+  "relation_to_old_study": "同一吸收率家族的探索延续，不是独立新证据。旧V1的95%覆盖门失败记录保留；用户允许放宽限制后，本次只将可计算成员覆盖要求设为90%，不填上市前收益，不改500日窗口，不调用采集入口。",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.5,
+  "target_max_drawdown_magnitude": 0.1,
+  "annual_days": 242,
+  "evaluation_start": "2015-01-05",
+  "evaluation_end": "2026-08-14",
+  "minimum_valid_members": 270,
+  "minimum_valid_coverage": 0.90,
+  "factor": "保留原公式：500日收益指数加权协方差、250日半衰期、前floor(N/5)个特征值占总方差比例；15日与250日均值差除以250日样本标准差。",
+  "event": "标准化吸收率变化从前一日大于-1穿越至当日小于等于-1，收盘形成候选；次日开盘才可进入。全程只用当时成分与截至当日价格。",
+  "horizon_sessions": 20,
+  "min_train": 12,
+  "ridge_mean_loss_penalty": 1.0,
+  "features": {
+    "price": ["past20", "logvol20"],
+    "coverage": ["valid_member_coverage"],
+    "absorption": ["absorption_ratio", "standardized_absorption_ratio_shift"]
+  },
+  "models": {
+    "A_PRICE": {"groups": ["price"]},
+    "C_PRICE_COVERAGE": {"groups": ["price", "coverage"]},
+    "B_ABSORPTION": {"groups": ["price", "coverage", "absorption"]},
+    "MATURE_MEAN_REFERENCE": {"groups": []}
+  },
+  "policies": {
+    "ERROR_BUFFER_PRIMARY": {"prediction_error_multiplier": 1.0, "min_mature_prequential_errors": 6},
+    "NET_POSITIVE_DIAGNOSTIC": {"prediction_error_multiplier": 0.0, "min_mature_prequential_errors": 0}
+  },
+  "account": {
+    "vol_target_annual": 0.1,
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "slippage_per_side": {"BASE": 0.0005, "STRESS": 0.001},
+    "lot_size": 100,
+    "prediction_error_multiplier": 1.0,
+    "min_mature_prequential_errors": 6,
+    "drawdown_brake": 0.08,
+    "force_close_on_last_day": true,
+    "dividend_cash_policy": "除息日记应收权益，按已有分红表付款日转现金；到账前不能买入。",
+    "cash_and_risk_free_daily_return": 0,
+    "scope": "首次可拟合后至2026-08-14完整交易日，包含全部空仓日；训练前预热单列。期末未到20日的交易按期末清算单列，不冒充完整20日周期。",
+    "exit": "固定20交易日收盘；收盘回撤8%后次开盘清仓并停止；已有持仓时跳过新事件，不延长持有。"
+  },
+  "historical_prices_seen": true,
+  "no_parameter_grid": true,
+  "new_downloads": 0,
+  "executable_assets": ["510300.SH", "CASH_CNY"],
+  "orders_authorized": false,
+  "goal_achieved": false
+}

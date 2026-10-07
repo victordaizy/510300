@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-25T22:56:01.385881+08:00",
+  "study_id": "510300_HUIJIN_ETF_EVENT_SAVED_COMPLETION_V1",
+  "parent": "reports/research/510300_huijin_etf_event_probe_v1",
+  "failure": {
+    "at": "2026-09-25T22:53:54.571671+08:00",
+    "stage": "ALL_FOUR_ACCOUNTS_SAVED_PREFIX_DECISION_VERIFICATION",
+    "error": "execution_date datetime64[ms] versus datetime64[us] dtype assertion",
+    "full_ledger_prefix_exact_comparison_passed": true,
+    "numeric_account_results_already_saved": true,
+    "no_strategy_or_model_change_needed": true,
+    "continuation": "在独立保存结果完成脚本中统一日期存储精度后比较；不重跑四个完整账户。"
+  },
+  "correction": "比较数据帧前，把所有datetime列统一到纳秒精度；不改日期值、账户账本、决策、价格、费用、窗口或策略。",
+  "evaluation": "复用四个完整账户，完成原协议中的两档配对比较、逐年及滚动两年，并重放一次截断前缀。",
+  "new_full_accounts": 0,
+  "saved_full_accounts": 4,
+  "new_prefix_verification_replays": 1,
+  "new_return_model_fits": 0,
+  "new_parameter_searches": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

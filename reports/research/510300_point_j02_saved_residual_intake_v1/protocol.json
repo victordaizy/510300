@@ -1,0 +1,25 @@
+{
+  "study": "510300_POINT_J02_SAVED_RESIDUAL_INTAKE_V1",
+  "at": "2026-10-02T15:58:17.286335+08:00",
+  "binding": {
+    "only_source": "既有rmb_residual_state_v1/daily_models.parquet中residual_fx_change5，按date精确取用",
+    "field": "J02_saved_fx_change5_residual",
+    "unit": "USD/CNH五个共同来源日期log变化减原美元/利差解释值；CNH额外走强为负，但当前不选择符号门。",
+    "original_model": "此前两日历年、至少252个合格源端点OLS；当前源端点不参与估计。本轮不重算OLS、秩、参数或残差公式，不新建252日版本。",
+    "source_clock": "旧共同原值在来源日期后第二自然日23:59 Asia/Shanghai可用；七自然日以上陈旧未知。检查旧16:00保存模型的输入/训练名单在当前15:05是否也已可用。",
+    "physical_clock_boundary": "原保存计算时刻为16:00晚于15:05；即使所用输入集合在两个截止相同，也仅建立算法可重现输入代理，不证明当时15:05已实际计算/发布旧残差。",
+    "metadata_checks": "旧2019—2025市场日期/510300身份，全部保存训练名单与valid端点/两年/当前端点之前集合一致，原计数和起止、来源最新idx/日期/时间及5日解释变量同源；bar结束≤代理可用时刻、跨缺失2018窗口三列未知。",
+    "missing_rule": "非旧登记日期/原无模型或陈旧均未知不carry；原真实零残差保持0，不用原primary False填值；所有原成员保持。",
+    "historical_first_publication": "source_revision/quality明确historical_first_seen_proven=False；两日延迟只是代理，所有首版证据False，不声称同步行情或外生意外。"
+  },
+  "purpose": "既有两年保存残差的来源/算法时钟/原成员核对，不建立新252日模型或改变原毛收益初筛。",
+  "support_gate": "完整1507原自然成员及115成熟月全部原训练成员支持，并需实际历史首版/可用版本；算法代理不替代物理来源门。",
+  "no_rescue": "不补2018或2026/早年、不重试已止429、不拼供应商/变币种/用中间价替代现汇，不改旧两年/252门/5日/方向/七日/2日代理或当前目标/成员/原8项/训练/锁定/双期门营救。旧有源140事件均值0.44639%与费用代理不是账户收益，描述性去最大不删主样本。",
+  "fixed_source_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "goal_achieved": false
+}

@@ -1,0 +1,137 @@
+{
+  "at": "2026-10-02T17:41:52.033697+08:00",
+  "technical_intake": "TECH.R112",
+  "technical_prediction": "TECH.R113",
+  "prior_cases": [
+    {
+      "id": "P03",
+      "hypothesis": "同百分比回撤在不同入场前波幅环境是否具有不同继续价值。",
+      "method": "实际旧高点时间、持仓×市场与浮盈×回撤用途、ATR保护用途及当前原字段/标签比对。",
+      "result": "旧高点时间普通九项模型已失败，STRESS年化3.950215%、夏普0.528669、回撤12.448880%；十二交互与浮盈回撤各失败。ATR14旧用于保护止损/分层距离；本次只检验固定入场前ATR尺度的当前回撤是否在当前8项固定周期截距模型中增加原继续目标信息，未检验该精确条件用途。",
+      "decision": "BOUND_ENTRY_ATR_DRAWDOWN_COMPONENT_PENDING_COMPLETE_MEMBER_INTAKE",
+      "full_card_validated": false,
+      "old_failures_reopened": false
+    },
+    {
+      "id": "N04",
+      "hypothesis": "季末最后三交易日与季度收益及机构重仓代理的交互是否有效。",
+      "method": "三类旧日历最终账户、原日历定义与该原完整卡比对。",
+      "result": "月初/日历组合/启停旧用途目标未达，不能写成季末交互完整卡已否定。机构重仓代理与历史年历公布时钟未建立共同合同；现成观察日期表不是当时已公布的未来日历。",
+      "decision": "ORIGINAL_CALENDAR_INTERACTION_NOT_BOUND_SOURCE_DEPENDENCIES_NOT_ADMITTED",
+      "accepted": false
+    },
+    {
+      "id": "P04",
+      "hypothesis": "当前合法提前卖出与再等待的净价值能否预测。",
+      "method": "原自然继续目标、E09剩余期限边界与固定H1—4剩余持有价值迁移检验比较。",
+      "result": "现有原等待净价值目标已是该经济问题的一种精确定义；另有H1—4迁移失败，两配对增量区间跨0。当前未登记另一个H，不能择期限/换标签营救，不新增这个重复方向。",
+      "decision": "EXISTING_WAITING_VALUE_TARGET_AND_REJECTED_FIXED_HORIZON_TRANSFER_PRESERVED",
+      "accepted": false
+    }
+  ],
+  "source_intake": {
+    "status": "PASS_COMPLETE_ORIGINAL_MEMBERS_ENTRY_ATR_FIELD",
+    "technical_decision": "TECH.R112",
+    "market_rows": 3488,
+    "natural_rows": 1507,
+    "supported_original_natural_rows": 1507,
+    "original_mature_months": 115,
+    "fully_supported_original_mature_months": 115,
+    "original_unknown_months_preserved": 27,
+    "support_gate_passed": true,
+    "monthly_metadata_checks": 142,
+    "feature_ols_calls": 0,
+    "new_return_labels_fits_predictions_accounts": 0,
+    "source_clock": "LOCAL_FROZEN_DAILY_HISTORY_PRE_ENTRY_ATR_COMPONENT_NOT_NEW_PHYSICAL_SOURCE",
+    "strict_source_first_seen_independence": "NOT_ESTABLISHED",
+    "goal_achieved": false
+  },
+  "prediction": {
+    "at": "2026-10-02T17:37:50.992108+08:00",
+    "study": "510300_POINT_P03_ENTRY_ATR_EXIT_PREDICTION_V1",
+    "technical_decision": "TECH.R113",
+    "status": "REJECTED_FIXED_ENTRY_ATR_DRAWDOWN_PREDICTION_GATE_FAILED",
+    "periods": [
+      {
+        "period": "2015_2019",
+        "original_available_rows": 262,
+        "paired_rows": 262,
+        "cycles": 6,
+        "complete_pair_coverage": true,
+        "baseline_raw_return_mse": 0.006796098625414917,
+        "candidate_raw_return_mse": 0.006811842942253125,
+        "relative_mse_change": 0.0023166698581049694,
+        "improvement_interval": {
+          "status": "COMPUTED_DEVELOPMENT_YEAR_BLOCK_SENSITIVITY",
+          "years": [
+            2017,
+            2018,
+            2019
+          ],
+          "iterations": 5000,
+          "seed": 51030099,
+          "low": -5.746362242050711e-05,
+          "high": 7.501340687326996e-05,
+          "independence_established": false
+        },
+        "prediction_gate_passed": false
+      },
+      {
+        "period": "2020_2026",
+        "original_available_rows": 748,
+        "paired_rows": 748,
+        "cycles": 18,
+        "complete_pair_coverage": true,
+        "baseline_raw_return_mse": 0.0055065266523754795,
+        "candidate_raw_return_mse": 0.00550728718869001,
+        "relative_mse_change": 0.00013811543329267373,
+        "improvement_interval": {
+          "status": "COMPUTED_DEVELOPMENT_YEAR_BLOCK_SENSITIVITY",
+          "years": [
+            2020,
+            2021,
+            2022,
+            2024,
+            2025,
+            2026
+          ],
+          "iterations": 5000,
+          "seed": 51030099,
+          "low": -3.313715311678858e-05,
+          "high": 3.11435681067241e-05,
+          "independence_established": false
+        },
+        "prediction_gate_passed": false
+      }
+    ],
+    "prediction_gate_passed": false,
+    "paired_sign_changes_not_trades": 3,
+    "original_unknown_prediction_rows": 497,
+    "trial_accounting": {
+      "candidate_configurations": 1,
+      "monthly_records": 142,
+      "mature_monthly_records": 115,
+      "distinct_training_inputs": 25,
+      "new_candidate_fit_attempts": 25,
+      "successful_candidate_fits": 25,
+      "failed_candidate_fits": 0,
+      "reused_monthly_records": 90,
+      "control_coefficient_reestimations": 25,
+      "control_monthly_parameter_checks": 115,
+      "total_fit_calls": 50,
+      "original_unknown_months_preserved": 27,
+      "new_return_labels": 0,
+      "new_strategy_accounts": 0,
+      "global_DSR_PBO": "NOT_COMPUTED"
+    },
+    "history_role": "DEVELOPMENT_CALIBRATION",
+    "independent_validation": "NOT_ESTABLISHED",
+    "overall_overfit_removed": false,
+    "net_cagr": "NOT_COMPUTED",
+    "net_sharpe": "NOT_COMPUTED",
+    "goal_achieved": false
+  },
+  "next_plan": "reports/research/510300_point_next_information_intake_20261002/M01_M04_M06_N03_N06_O05_prior_source_plan.json",
+  "frozen_original_strategy_modified": false,
+  "goal_achieved": false
+}

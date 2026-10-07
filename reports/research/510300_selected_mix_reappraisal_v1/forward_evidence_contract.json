@@ -1,0 +1,28 @@
+{
+  "at": "2026-09-25T11:40:36.469390+08:00",
+  "status": "IMPLEMENTED_FIXED_REFERENCE_WAITING_FOR_NEW_LOCAL_EVIDENCE",
+  "fixed_strategy": "SELECTED_MIX_BAND10_SIMPLE2",
+  "configuration_and_code_freeze": "freeze.json",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "no_options": true,
+  "start": "本轮协议冻结后的首个有完整资料且全部决定可在下一开盘前保存的交易日；不回填缺失日期为及时证据",
+  "decision_clock": "原收盘15:05，次一交易日开盘模拟成交",
+  "data_requirements": [
+    "官方交易日连续的日线与分红覆盖",
+    "原特征及来源账本完整",
+    "到原月度更新时具备全部已成熟周期和新月模型记录",
+    "不可变决定保存时间早于执行开盘；每个数据文件有来源、取得时间和哈希"
+  ],
+  "evaluation": "使用全部连续账户日，包括空仓、失败、未成交和缺失。按预先固定252个交易日阶段复核；不足20个完整周期时保留证据不足。不能首次点值过线即提前结束。",
+  "acceptance": "预定阶段压力完整账户夏普>=1.2、复合年化>=10%、最大回撤<=10%，并披露区块不确定性与集中度；样本不足不确认目标",
+  "training_clock_conflict": "若未来要求原版也改为两年日更，须视为新版本并独立冻结，不能沿用原版绩效。",
+  "live_trading": false,
+  "automation_enabled": false,
+  "market_collection_enabled": false,
+  "current_market_view": "NO_VIEW",
+  "current_signal": null,
+  "reason": "现有合格本地资料截至2026-09-16，没有本轮冻结后的可评价交易。"
+}

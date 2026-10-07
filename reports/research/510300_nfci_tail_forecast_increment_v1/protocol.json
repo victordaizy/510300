@@ -1,0 +1,41 @@
+{
+  "at": "2026-09-25T21:40:13.221485+08:00",
+  "study_id": "510300_NFCI_TAIL_FORECAST_INCREMENT_V1",
+  "primary": "RELATIVE_CREDIT",
+  "question": "控制原本地动量风险分组后，事前已知的金融条件变化能否改善五日VaR/ES预测。",
+  "difference_from_failed_exit_use": "检验损失分布，不拟合继续持有均值，不改变退出模型。风险预测合格之前不运行新账户，也不以账户收益选择分组。",
+  "known_prior_result": "NFCI持有/退出增量用途已经失败；本项是随后提出的另一明确用途，计入整个项目选择历史，不是独立外部验证。",
+  "baseline": "精确复用两年内已成熟五日含分红开盘至开盘收益分布，匹配20日动量方向，至少60行。",
+  "two_fixed_comparisons": {
+    "AGGREGATE_TIGHTENING": "原组内再匹配当时已知NFCI四周变化是否>0",
+    "RELATIVE_CREDIT": "原组内再匹配信用减风险分项四周变化是否>0"
+  },
+  "sample_rule": "原风险样本中进一步匹配宏观状态，至少60行，否则回退原风险预测；宏观过期也回退。训练仅最近两个日历年、退出严格早于预测日、逐日更新。",
+  "risk_measure": "5%经验分位数、原定义的最差ceil(5%N)收益均值；不改原估计公式。",
+  "periods": {
+    "earlier": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "main": [
+      "2020-01-02",
+      "2026-09-16"
+    ]
+  },
+  "evaluation": "逐日保存预测及全日评分；主评价固定从首预测原点每隔五个交易日取一次，持有段不重叠，全部保留；只评价在各区间内已经成熟的结果，跨区间标签不计入前区间，另列所有年份。",
+  "score": "FZ0联合VaR/ES评分，原始值越低越好；VaR分位数损失与实际跌破率另列。",
+  "score_source": "https://public.econ.duke.edu/~ap172/Patton_Ziegel_Chen_JoE_2019.pdf",
+  "statistics": "固定4个非重叠观察组成20交易日区块，2000次，种子20260925；差值为新方案减原对照，未校正项目级反复检验。",
+  "continuation_gate": "预指定RELATIVE_CREDIT在两个完整评价区间的FZ0均值差95%区间上界都<0，两个区间的分位数平均损失均不增加，且各区间VaR实际跌破率<=10%；否则该用途冻结，新账户NOT_RUN。",
+  "orders_authorized": false,
+  "new_model_parameter_search": 0,
+  "new_regression_fits": 0,
+  "planned_new_accounts_before_gate": 0,
+  "goal_achieved": false,
+  "checks": {
+    "future_and_expired_labels_excluded": true,
+    "missing_macro_exact_baseline_fallback": true,
+    "joint_score_hand_calculation": true,
+    "score_difference_scale_invariance": true
+  }
+}

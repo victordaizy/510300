@@ -1,0 +1,139 @@
+FFFFFFFF.                                                                [100%]
+================================== FAILURES ===================================
+_______________ test_baiyunshan_real_annual_consolidated_fields _______________
+
+    def test_baiyunshan_real_annual_consolidated_fields():
+        target = next(t for t in json.loads((OUT / "batch_targets.json").read_text(encoding="utf-8"))
+                      if t["announcement_id"] == "1209410909")
+        parsed = selected_parser().extract_official_pdf_facts((ROOT / target["pdf_relative_path"]).read_bytes(),
+            period_type="FY", report_period=target["report_period"])
+        values = {m["metric_id"]: m for m in parsed["metrics"]}
+        for metric, expected in [("OPERATING_CASH_FLOW_YTD", 585185023.09),
+                                 ("PARENT_NET_PROFIT_YTD", 2915244576.05),
+                                 ("TOTAL_ASSETS_END", 59760062879.12)]:
+>           assert values.get(metric, {}).get("metric_value_cny") == pytest.approx(expected, abs=.011, rel=0)
+E           assert 778464955.25 == 585185023.09 ± 0.011
+E             
+E             comparison failed
+E             Obtained: 778464955.25
+E             Expected: 585185023.09 ± 0.011
+
+tests\test_factor96_financial_parser_scope_v2.py:27: AssertionError
+_ test_unqualified_statement_ends_consolidated_scope[\u8d44\u4ea7\u8d1f\u503a\u8868] _
+
+title = '资产负债表'
+
+    @pytest.mark.parametrize("title", ["资产负债表", "利润表", "现金流量表", "股东权益变动表", "所有者权益变动表"])
+    def test_unqualified_statement_ends_consolidated_scope(title):
+        context = selected_parser().Context()
+        context.advance("合并现金流量表\n2020年度\n单位：人民币元", 152)
+        context.headers = [(300, 460, "本年")]
+        context.advance(title + "\n2020年度\n单位：人民币元", 155)
+>       assert context.section == "EXCLUDED"
+E       AssertionError: assert 'CASH' == 'EXCLUDED'
+E         
+E         - EXCLUDED
+E         + CASH
+
+tests\test_factor96_financial_parser_scope_v2.py:38: AssertionError
+___ test_unqualified_statement_ends_consolidated_scope[\u5229\u6da6\u8868] ____
+
+title = '利润表'
+
+    @pytest.mark.parametrize("title", ["资产负债表", "利润表", "现金流量表", "股东权益变动表", "所有者权益变动表"])
+    def test_unqualified_statement_ends_consolidated_scope(title):
+        context = selected_parser().Context()
+        context.advance("合并现金流量表\n2020年度\n单位：人民币元", 152)
+        context.headers = [(300, 460, "本年")]
+        context.advance(title + "\n2020年度\n单位：人民币元", 155)
+>       assert context.section == "EXCLUDED"
+E       AssertionError: assert 'CASH' == 'EXCLUDED'
+E         
+E         - EXCLUDED
+E         + CASH
+
+tests\test_factor96_financial_parser_scope_v2.py:38: AssertionError
+_ test_unqualified_statement_ends_consolidated_scope[\u73b0\u91d1\u6d41\u91cf\u8868] _
+
+title = '现金流量表'
+
+    @pytest.mark.parametrize("title", ["资产负债表", "利润表", "现金流量表", "股东权益变动表", "所有者权益变动表"])
+    def test_unqualified_statement_ends_consolidated_scope(title):
+        context = selected_parser().Context()
+        context.advance("合并现金流量表\n2020年度\n单位：人民币元", 152)
+        context.headers = [(300, 460, "本年")]
+        context.advance(title + "\n2020年度\n单位：人民币元", 155)
+>       assert context.section == "EXCLUDED"
+E       AssertionError: assert 'CASH' == 'EXCLUDED'
+E         
+E         - EXCLUDED
+E         + CASH
+
+tests\test_factor96_financial_parser_scope_v2.py:38: AssertionError
+_ test_unqualified_statement_ends_consolidated_scope[\u80a1\u4e1c\u6743\u76ca\u53d8\u52a8\u8868] _
+
+title = '股东权益变动表'
+
+    @pytest.mark.parametrize("title", ["资产负债表", "利润表", "现金流量表", "股东权益变动表", "所有者权益变动表"])
+    def test_unqualified_statement_ends_consolidated_scope(title):
+        context = selected_parser().Context()
+        context.advance("合并现金流量表\n2020年度\n单位：人民币元", 152)
+        context.headers = [(300, 460, "本年")]
+        context.advance(title + "\n2020年度\n单位：人民币元", 155)
+>       assert context.section == "EXCLUDED"
+E       AssertionError: assert 'CASH' == 'EXCLUDED'
+E         
+E         - EXCLUDED
+E         + CASH
+
+tests\test_factor96_financial_parser_scope_v2.py:38: AssertionError
+_ test_unqualified_statement_ends_consolidated_scope[\u6240\u6709\u8005\u6743\u76ca\u53d8\u52a8\u8868] _
+
+title = '所有者权益变动表'
+
+    @pytest.mark.parametrize("title", ["资产负债表", "利润表", "现金流量表", "股东权益变动表", "所有者权益变动表"])
+    def test_unqualified_statement_ends_consolidated_scope(title):
+        context = selected_parser().Context()
+        context.advance("合并现金流量表\n2020年度\n单位：人民币元", 152)
+        context.headers = [(300, 460, "本年")]
+        context.advance(title + "\n2020年度\n单位：人民币元", 155)
+>       assert context.section == "EXCLUDED"
+E       AssertionError: assert 'CASH' == 'EXCLUDED'
+E         
+E         - EXCLUDED
+E         + CASH
+
+tests\test_factor96_financial_parser_scope_v2.py:38: AssertionError
+_____ test_current_year_column_is_explicit_and_previous_year_is_excluded ______
+
+    def test_current_year_column_is_explicit_and_previous_year_is_excluded():
+        parser = selected_parser()
+>       assert parser.HEADER_RE.search("本年")
+E       AssertionError: assert None
+E        +  where None = <built-in method search of re.Pattern object at 0x000002C7D96DD450>('本年')
+E        +    where <built-in method search of re.Pattern object at 0x000002C7D96DD450> = re.compile('本报告期|报告期末|本期|当期|期末|年初|上年|上期|去年|期初|增减|变动|同比|增长|附注|20\\d{2}|第一季度|第二季度|第三季度|第四季度').search
+E        +      where re.compile('本报告期|报告期末|本期|当期|期末|年初|上年|上期|去年|期初|增减|变动|同比|增长|附注|20\\d{2}|第一季度|第二季度|第三季度|第四季度') = <module 'research.factor96_financial_row_parser_v1' from 'C:\\Users\\戴周阳\\Documents\\New project 8\\research\\factor96_financial_row_parser_v1.py'>.HEADER_RE
+
+tests\test_factor96_financial_parser_scope_v2.py:44: AssertionError
+______ test_new_statement_heading_does_not_inherit_a_prior_table_header _______
+
+    def test_new_statement_heading_does_not_inherit_a_prior_table_header():
+        context = selected_parser().Context()
+        context.advance("合并现金流量表\n2020年度\n单位：元", 1)
+        context.headers = [(300, 460, "2020年12月31日")]
+        context.advance("合并现金流量表\n2020年度\n单位：元", 8)
+>       assert context.headers is None
+E       AssertionError: assert [(300, 460, '2020年12月31日')] is None
+E        +  where [(300, 460, '2020年12月31日')] = Context(section='CASH', unit='元', unit_page=8, scope_page=8, ytd_explicit=False, headers=[(300, 460, '2020年12月31日')]).headers
+
+tests\test_factor96_financial_parser_scope_v2.py:54: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_baiyunshan_real_annual_consolidated_fields
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_unqualified_statement_ends_consolidated_scope[\u8d44\u4ea7\u8d1f\u503a\u8868]
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_unqualified_statement_ends_consolidated_scope[\u5229\u6da6\u8868]
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_unqualified_statement_ends_consolidated_scope[\u73b0\u91d1\u6d41\u91cf\u8868]
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_unqualified_statement_ends_consolidated_scope[\u80a1\u4e1c\u6743\u76ca\u53d8\u52a8\u8868]
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_unqualified_statement_ends_consolidated_scope[\u6240\u6709\u8005\u6743\u76ca\u53d8\u52a8\u8868]
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_current_year_column_is_explicit_and_previous_year_is_excluded
+FAILED tests/test_factor96_financial_parser_scope_v2.py::test_new_statement_heading_does_not_inherit_a_prior_table_header
+8 failed, 1 passed in 37.05s

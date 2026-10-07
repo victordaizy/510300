@@ -1,0 +1,149 @@
+{
+  "study_id": "510300_BANK_LOAN_APPROVAL_CONDITION_FIXED_NINE_FIELD_JOINT_SCORE_V1",
+  "experiment_id": "E81",
+  "registered_at": "2026-10-03T11:01:28.651020+08:00",
+  "status": "REGISTERED_ONE_ORIGINAL_BANK_APPROVAL_FIELD_FIXED_JOINT_SCORE_BEFORE_RETURN_LABEL_USE",
+  "hypothesis": "银行贷款审批条件的不同已知主观状态，可能改变原订单/资金价格/融资/趋势/波动联合条件的剩余五日净收益估计。它与贷款需求是不同原问题，但共享受访银行根来源；不预设线性符号，不识别纯外生原因。",
+  "previous_studies_preserved": [
+    "E80审批原字段仅来源资格成立，不是经济结果",
+    "E78贷款需求固定表达拒绝、E79主期零费用信号仍负",
+    "E76超额准备金率来源未通过、E17晚版本拒绝",
+    "原八变量及价格/采购/生产/就业/服务等全部失败"
+  ],
+  "source_gate": "reports/research/510300_bank_loan_approval_conditions_source_v1/source_gate.json",
+  "source_original_quarters": 29,
+  "source_claim": "同一29当季原报告表头/当前季度行/编制方法/显示公开钟全齐，1711成员和1212原成熟池支持全齐；未见已知晚版本。仅保守历史重构，真正首版/首次公开与独立验证未认证。",
+  "fixed_model_plan": {
+    "features8_reused": [
+      "订单水平",
+      "订单月度变化",
+      "资金利率与政策利率差",
+      "融资五日净变化",
+      "融资买入活跃度",
+      "指数趋势强度",
+      "短长波动比",
+      "成交活跃度"
+    ],
+    "added_features": [
+      "银行贷款审批指数"
+    ],
+    "added_definition": "唯一已公布本季银行贷款审批指数原百分数0—100；审批条件放松回答占比×1+基本不变回答占比×0.5。未用贷款需求字段、差分、同比、变号、季节模型或信息龄预测列。是受访银行主观松紧感受，非实际获批率、纯外生供给冲击、指数流入或精确预期差。",
+    "tree": {
+      "max_depth": 3,
+      "min_samples_leaf": 60,
+      "random_state": 20261001
+    },
+    "ridge": {
+      "alpha": 10,
+      "std_ddof": 1,
+      "clip": [
+        -5,
+        5
+      ],
+      "center_after_clip": true,
+      "constant_scale_below": 1e-12
+    },
+    "training": {
+      "lookback_sessions": 504,
+      "minimum_mature_rows": 252,
+      "mature": "exit_idx<=decision_idx",
+      "membership": "全部原纠错八变量成熟身份，不删换"
+    },
+    "dates": "原1212日，2021—2023较早与2024—2025主期全保留",
+    "labels": "原5日下一开盘入、idx+6开盘出、10000股费用/分红标签只复用",
+    "score": "原训练拟合值midrank0—100；原80线且预测>0，全时间连续非重叠机会",
+    "primary_increment_gate": [
+      "主期树MSE严格小于原纠错八变量",
+      "主期树MSE严格小于同池均值",
+      "主期高分自然机会平均净标签>0",
+      "至少一新增主期自然高分日期",
+      "至少一主期高分实际路径使用新增字段"
+    ],
+    "new_tree_and_ridge_fits_if_ready": 2424,
+    "baseline_refits": 0,
+    "new_full_accounts": 0,
+    "account_rule": "五项全过才另登记原完整账户；否则固定表达拒绝，不换参数/字段/符号/时期救回。"
+  },
+  "parents": [
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "bytes": 1880663,
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/共同成熟训练池.json",
+      "bytes": 8002821,
+      "sha256": "2edb4d5dc05c51cc64ca2c53be66af971af33ce44c88aa67cd2ddf702734eb32"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量每日联合评分.csv",
+      "bytes": 182577,
+      "sha256": "554a2ec51bd1844409fe396167f4dd8ee381796912253481478c3dcec6ce9a68"
+    }
+  ],
+  "source_stage_outputs": [
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/source_gate.json",
+      "bytes": 2752,
+      "sha256": "1074d3259263adfe1aae767bcd3c7dac2bd4f7639c6d07974ad4dc40ae5dd7b6"
+    },
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/全部29当前审批字段_原表头季度行及方法.json",
+      "bytes": 105019,
+      "sha256": "e1d284215cde71950b72e733bd402ff59c0b90a962dcf56f6f147f8a0c06fdaa"
+    },
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/原八字段与银行审批_未读股票标签.parquet",
+      "bytes": 313929,
+      "sha256": "b4a2b4735d38db363002e22d7a8742669497bdc25a8758a9fa0230695c0cd9a6"
+    },
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/全部1711原成员_审批当时公开信息.csv",
+      "bytes": 178808,
+      "sha256": "cc98cde1fe929c5ba2b7b4a2106b3592b58595d0a55295186a660d9129ea0812"
+    },
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/全部1212原评分日_审批全成熟池支持.csv",
+      "bytes": 64418,
+      "sha256": "12536059f670246f53203199dd4195903afcd9210f5f057af0f6fadd494627db"
+    },
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/03_同一2020Q4审批原页目视核对.json",
+      "bytes": 1330,
+      "sha256": "8dda62b24cd4b2c7f344da1b12adfa50da8d0eefd5ef55b734db268101d7c0be"
+    },
+    {
+      "path": "reports/research/510300_bank_loan_approval_conditions_source_v1/实际旧字段用途资格.json",
+      "bytes": 17021,
+      "sha256": "5bef526d87df8450cb574ec6f005d0d3a78144b40e0052c4e1cd6dbfddf43947"
+    }
+  ],
+  "economic_candidates": 1,
+  "parameters_changed_from_original_control": false,
+  "new_tree_fits_budget": 1212,
+  "new_ridge_comparator_fits_budget": 1212,
+  "baseline_refits_budget": 0,
+  "new_stock_labels_budget": 0,
+  "new_accounts_budget": 0,
+  "source_code_edits_budget": 0,
+  "parameter_grids": 0,
+  "decision": "五项原主期门全过才另登记完整20万主/2万敏感性账户；否则该固定审批表达拒绝，只解释全部原机会信号/费用/路径。不更换审批字段表达、阈值、符号、持有期、时期或费用营救。",
+  "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY",
+  "historical_first_vintage_authenticated": false,
+  "market_expectation_surprise": "NOT_IDENTIFIED",
+  "bank_approval_causal_equity_effect": "NOT_IDENTIFIED",
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "only_executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "target_net_sharpe": 1.2,
+  "target_net_cagr": 0.1,
+  "target_max_drawdown": 0.1,
+  "annualization_sessions": 242,
+  "minimum_naturally_completed_cycles_per_full_year": 5
+}

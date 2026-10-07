@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-01T20:07:07.276011+08:00",
+  "generator": "research\\prepare_reference_observation_engines_v1.py",
+  "generator_sha256": "101c775aa617540d2ae44452d54a44e249aa7d3fe6992451c5ab500de6a8c047",
+  "sources": [
+    {
+      "path": "research\\rearmed_cycle_exit_account_v1.py",
+      "sha256": "212fc0ce478232e2b05c0db3b48f90e30e641507e7fda1849da2f1fc861795d2",
+      "source_function": "simulate_rearmed_exit",
+      "generated_function": "observe_rearmed_exit",
+      "source_first_line": 8,
+      "source_last_line": 149
+    },
+    {
+      "path": "research\\event_clock_account_v1.py",
+      "sha256": "d5d79557d1cce16683c276129d80dc699a52eba43a57886601a0532f1e0308e8",
+      "source_function": "simulate_event_account",
+      "generated_function": "observe_event_account",
+      "source_first_line": 7,
+      "source_last_line": 101
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311",
+      "source_function": "simulate_policy",
+      "generated_function": "observe_price_policy",
+      "source_first_line": 106,
+      "source_last_line": 234
+    }
+  ],
+  "destination": "research\\reference_observation_accounts_v1.py",
+  "destination_sha256": "1dac4bde6da8821ffa5fab47957f2d017609dbb1182476ad323432c3cbf481c6",
+  "changes": [
+    "计划下一执行日期由调用方提供，不需要未来行情行",
+    "最后已知交易日与其他日一样执行前收盘请求并按真实收盘记账",
+    "最后收盘仍产生下一计划执行意向",
+    "未自然结束的持仓标记观察未完成，不假平仓或计算完成收益"
+  ],
+  "unchanged": "进入退出条件、模型控制器、费用、登记股息、涨跌停、整手、等待及实际参考份额规则均保留",
+  "original_sources_modified": false,
+  "future_price_rows_created": 0
+}

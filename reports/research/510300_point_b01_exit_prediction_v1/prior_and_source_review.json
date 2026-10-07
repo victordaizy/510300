@@ -1,0 +1,149 @@
+{
+  "at": "2026-10-02T10:18:15.125420+08:00",
+  "status": "ADMITTED_EXISTING_B01_TWO_FIELD_BLOCK_FOR_CONDITIONAL_EXIT_DEVELOPMENT",
+  "information_role": "已有sma5基准及原卡标准化变换的原八项条件退出用途；不是新原始字段或新物理来源。",
+  "original_natural_rows_supported": 1507,
+  "original_mature_months_supported": 115,
+  "original_monthly_records": 142,
+  "daily_rows": 3488,
+  "complete_daily_block_rows": 3468,
+  "raw_daily_rows": 3484,
+  "raw_saved_sma5_max_error": 0.0,
+  "fields": [
+    "ma5_deviation",
+    "ma5_deviation_rv20"
+  ],
+  "minimum_unique_values_per_ready_month": {
+    "ma5_deviation": 438,
+    "ma5_deviation_rv20": 438
+  },
+  "raw_field_ranges": {
+    "ma5_deviation": [
+      -0.15260496562695303,
+      0.1352786568685298
+    ],
+    "ma5_deviation_rv20": [
+      -1.7575398338505541,
+      2.2153839271680775
+    ]
+  },
+  "bound_coordinate": {
+    "P": "A01已验证的close/previous_close及当日已除息现金前向累乘wealth，首点1；不回溯复权。",
+    "MA5": "W[t-4..t]五完整财富点算术均值，包括当日，仅跨4个差分。",
+    "raw": "W[t]/mean(W[t-4..t])-1，有符号，不只截取负值。",
+    "rv20": "原total_log=log1p(total_simple)的r[t-19..t]20完整已发生日收益样本标准差，ddof1，含当日，不年化；需完整W[t-20..t]21点。",
+    "normalized": "raw/(rv20*sqrt5)，原卡sqrt5保持，不按效果选raw或normalized。",
+    "zero_missing": "完整raw真实0保留0；波动0、缺失或不足21点时标准化及完整块NO_VIEW；不得补0或删原成员。",
+    "application": "两列各自沿原周期等权标准化/clip5线性进入固定alpha1周期截距岭；无交互、阈值、压分或原八项替换。"
+  },
+  "nearest_contracts": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/factor_progress.csv",
+      "sha256": "1fc79064542cfcad3b40bccf8528dd7de7d4d37c82f24c8f46fcfedf504805f7"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/B01_candidate_intake_plan.json",
+      "sha256": "b929c8f5843415c522800c744064f0fa966043f0e8ce2acb0a408c73591d263d"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "config/510300_simple_price_entry_exit_v1.json",
+      "sha256": "50ac35b7394f9fa5ffb5aea37fc1b78de9eae260d33020a10c1cf56a24959a59"
+    },
+    {
+      "path": "reports/research/510300_simple_price_entry_exit_v1/result.json",
+      "sha256": "00d49b42f4d042ba070039adc89b2f1645ac58781ae4538f05390bd36884dc16"
+    },
+    {
+      "path": "reports/research/510300_simple_price_entry_exit_v1/acceptance_outcome.json",
+      "sha256": "3398246c62864e6f8c6f681eb2dc2826ce3c082a373ba8f0e2ab866f534e0349"
+    },
+    {
+      "path": "research/mean_rebound_auxiliary_inputs_v1.py",
+      "sha256": "94c6788bab1d9c8b24063d69af1ee6ba3bac88b35e075322cb9af01d7e57ef2f"
+    },
+    {
+      "path": "reports/research/510300_mean_rebound_auxiliary_v1/result.json",
+      "sha256": "da8c2ad6a0676b85b69fe3ed11a01a3c55076644d702692628a406ae81c9f44e"
+    },
+    {
+      "path": "reports/research/510300_mean_rebound_auxiliary_v1/acceptance_outcome.json",
+      "sha256": "b09f10903fd481f727a1329a7b6bb14ba34798943a7c8279c03bfe0928849448"
+    },
+    {
+      "path": "research/synthetic_fear_recovery_v1.py",
+      "sha256": "949c93f76f53b50ea6035946c2bf27239bdf95fe01fc1c008beeee3f82c6ca4b"
+    },
+    {
+      "path": "research/anchored_sparse_mean_reversion_grid_v1.py",
+      "sha256": "f7cc484222e5d512e29341c512d43d1324590a9c77bb4e1befd1d4fe4dc5336c"
+    },
+    {
+      "path": "config/510300_anchored_sparse_mean_reversion_grid_v1.yaml",
+      "sha256": "fd63a11bdc0c2196f7868bd18379d371ff913d0d88a4698d8d5830c4f883f3eb"
+    },
+    {
+      "path": "reports/research/510300_anchored_sparse_mean_reversion_grid_v1.json",
+      "sha256": "cc8a9f1a5f80c57e9e8169892840a04ec353d63e5190b865940820d149c8bb11"
+    },
+    {
+      "path": "research/multi_scale_nonlinear_trend_reversion_v1.py",
+      "sha256": "fdd34b5366bde4bdb7d16769c0c893a3d81e66ef64be9d466c166fc686afa2b6"
+    },
+    {
+      "path": "config/510300_multi_scale_nonlinear_trend_reversion_v1.yaml",
+      "sha256": "1164956aab34a3c274f91e6a6e8aad6ac3e6ff208cc3f7a4983a3b08f7550b99"
+    },
+    {
+      "path": "reports/research/510300_multi_scale_nonlinear_trend_reversion_v1_result.json",
+      "sha256": "30b5d099d7701301f60c456675a490e45a96ff2ea9891c78a19e63a505a6fb64"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "research/daily_liquidity_insurance_tail_v1.py",
+      "sha256": "e11f5ae833b3f3ab9d96fcfc3b974cb0de922227a4e6e0923094122b1de89c96"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/point_a01_exit_prediction_v1.py",
+      "sha256": "956f5357009beadcd2e4717e3ffbf597ffc48b4a2e20f1c50f5361e24e53a447"
+    },
+    {
+      "path": "research/point_c02_exit_prediction_v1.py",
+      "sha256": "8899b32919df994ae13d588e8370a21bf9eb6606e875f52c34e9b174319165f8"
+    }
+  ],
+  "source_definition_review_sha256": "826e197f915b14088fc51560ea3e173a54352edccec5db5d6ec7de0d24a0ffb1",
+  "support_table_sha256": "fe2afc8e8932b48d8ae5f2b7620a3fb6efc93465f0b020e91ac3f9617b4e4c87",
+  "necessary_tests": 9,
+  "all_current_history_role": "DEVELOPMENT_CALIBRATION",
+  "new_physical_source": false,
+  "target_new_definition": false,
+  "new_empirical_model_fits_before_admission": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "old_frozen_failures_and_original_card_status_preserved": true,
+  "independent_validation": "NOT_ESTABLISHED",
+  "bounded_review_limit": "只核对列明实际合同；没有证明全仓算法等价完备性或从未使用标准化B01。raw5已存在，当前条件两列用途尚须数量准入，不能称全项目新颖发现。"
+}

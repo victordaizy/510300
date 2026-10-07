@@ -1,0 +1,418 @@
+{
+  "at": "2026-10-05T01:28:03.123165+08:00",
+  "study": "510300_DOWNTREND_BREAK_STUDY_V1",
+  "registration_decision": "TECH.R172",
+  "result_decision": "TECH.R173",
+  "hypothesis": "价格首次突破此前已经确认的下降结构最后高点，可能比完整双抬升更早到达；被突破旧高和向上移动的确认低点提供完整失效时钟，须检验全账户收益夏普。",
+  "policy_intent_fixed_before_new_outcome_join": "只在首次合格下降结构突破且空仓时次真实开一次尝试。初始失效线为信号前一原点已确认、当日刚突破的高点H2；次开现金平移价<=该已知线取消，不追入。持有后只在已知原点用最新已确认低点将失效线取max向上移；已知收盘<=该线次合法开退出，未知本身不退出。风险只减，无加仓、混A、固定2R或20日；期末不人工清仓。",
+  "complete_signal": "原严格2/2日收盘交替枢轴、当前更极端尾点更新时钟保持。上一原点已经确认至少四个交替点，两高和两低都严格下降；上一收盘<=上一已确认最新高点H2、当日现金平移收盘>同一个H2。只接受同一H2中心/确认身份首次合格越过，未知跨越不补、同锚反复越过只描述。",
+  "entry": "上一已确认两高两低严格下降，上一收盘<=同一旧H2而当前收盘>该H2，同锚只首次；空仓次真实开尝试，次开现金平移价<=旧H2取消，不追入。原现金及风险只缩减昨晚计划份额。",
+  "exit": "初始线为事件上一原点已确认旧H2，持有后每个已知原点仅将线取max(原线,最新已确认低点)；已知收盘<=线次合法开退出，未知不强制退出，原风险只减，无加仓/混A/固定2R/20日，期末不人工清仓。",
+  "old_contract_review": [
+    {
+      "source": "research/confirmed_structure_inputs_v1.py",
+      "actual_status": "REJECTED_FIXED_CONFIRMED_STRUCTURE_FULL_ACCOUNT_GATE_FAILED",
+      "definition": "R170最近两高两低同时抬升的出生及结构失效。原2/2组件复用，本轮为下降结构尚在时首次突破旧高点，持有失效基于被突破高点及只上移确认低点；不是缩短原确认或调整原窗口。"
+    },
+    {
+      "source": "research/simple_volume_reversal_v1.py",
+      "actual_status": "COMPLETED_TARGET_NOT_MET",
+      "definition": "V3前20日高突破且量>=1.5，前10日低/6%亏损及跟踪/60日等退出；V5当日低破20日低收回且收盘位置>=0.6，均值及3%亏损/5%目标/5日退出；其余急跌、缩量或波动反转，六实际候选目标未达。"
+    },
+    {
+      "source": "research/daily_supply_test_v1.py",
+      "actual_status": "REJECTED_FROZEN_NO_PARAMETER_RESCUE",
+      "definition": "先20日低收复、10日内较高低点回测、3日内破测试高；缩量缩幅，事件低减0.5ATR失效/原2R目标/20日。固定研究已拒绝。"
+    },
+    {
+      "source": "research/graph_regime_martin_turtle_v2.py",
+      "registered_pass_count": 0,
+      "actual_decisions": {
+        "T0_DONCHIAN_20_10": "FAIL",
+        "T1_TURTLE_GRAPH_EXIT": "FAIL",
+        "M0_CAPPED_MARTINGALE_ONLY": "INSUFFICIENT_EVIDENCE",
+        "P0_BIAS28_SWING_ONLY": "INSUFFICIENT_EVIDENCE",
+        "S1_MARTINGALE_TURTLE_SWITCH": "FAIL",
+        "S2_BIAS28_TURTLE_SWITCH": "FAIL"
+      },
+      "definition": "3/3 OHLC、ATR幅度及价格/DIF配对背离；入场20日突破或震荡底背离，10日低/顶背离、均值/ATR/到期等失效，未定义本次严格收盘上一确认下降高点的首次突破。当前实际报告六轨道FAIL或INSUFFICIENT_EVIDENCE，原结论保持。"
+    },
+    {
+      "source": "research/factor96_rapid_structure_v1.py",
+      "worth_followup": [],
+      "definition": "名称虽有structure，实际为IF合约OI集中度及固定三ETF份额迁移代理，不是价格枢轴，不能作为重复价格用途。实际worth_followup为空，原失败保持。"
+    }
+  ],
+  "admission_reason": "R171全体具体路径及失效解释、四输入测试/四真实前缀和旧完整用途核对已完成；新用途在连接旧结果标签前固定，不根据其描述选择过滤、参数或退出。八共同控制精确复现、四账户行为测试通过。只准入一次完整开发测量，不称有盈利优势。",
+  "primary": "FIRST_CONFIRMED_DOWNTREND_BREAK",
+  "controls": [
+    "A_SAVED_WEIGHT",
+    "PRICE_CONFIRMATION"
+  ],
+  "account": "原20万元/252交易日/现金收益0、510300.SH/CASH_CNY、50%上限、ES5预算2.5%、负10%跳空预算min(5%NAV,半剩余DD余量)、DD10%停止新买，T+1/100份/.001刻度/最低佣金5元；原登记、除息应收及付款股息。",
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ]
+  },
+  "primary_gate": "全部两时期两费用净CAGR和全日历净Sharpe同时高于0、原A和纯价格，DD<=10%，实际完成周期pB>1且pB-q>0；未知质量不填0或无穷，次数软目标。",
+  "uncertainty": "固定20/252日配对循环区块，各2000、种子510300154；两尺度两比较全报告，95%差值下界均>0才过历史稳定门，仍属开发描述。",
+  "purpose_gate": "完整技术规则用途，不应用原退出MSE/115成员门；原退出R145及预测R158失败保持，不称原模型修复。",
+  "candidate_configurations": 1,
+  "new_primary_accounts_planned": 4,
+  "saved_control_accounts_replayed": 8,
+  "necessary_tests": 8,
+  "new_model_fits": 0,
+  "new_training_labels": 0,
+  "new_market_requests": 0,
+  "source_first_vintage": "NOT_CERTIFIED",
+  "historical_sample_role": "DEVELOPMENT_CALIBRATION",
+  "selection_bias": "全部历史已经使用，机制由已知案例启发；提前固定用途仍不创造独立样本，有限旧核对不声称穷尽全项目。",
+  "no_rescue": "R170双抬升固定用途及所有旧终态保持；不改原2/2确认、严格越过、同锚首次、初始旧高或只上移低点、费用/时期/预算，不由结果加量价/MACD/RV过滤或混A。",
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "overfitting_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "sources": [
+    {
+      "path": "research/downtrend_break_study_v1.py",
+      "sha256": "1f78101c82c537337dd408d0c9009e88088de80e31f9d92a2abcf10851ad0146"
+    },
+    {
+      "path": "research/downtrend_break_inputs_v1.py",
+      "sha256": "c962f765ca34ef6745421e9a6ec6b767b594091ded141bd766590dc30efd5fa1"
+    },
+    {
+      "path": "research/downtrend_break_account_v1.py",
+      "sha256": "510799ea739cf4acf3f37981cdc7e45176d267d7fcf5b5af9d9b351c0d4140cc"
+    },
+    {
+      "path": "tests/test_downtrend_break_inputs_v1.py",
+      "sha256": "30ba5ecf027806b24320e6f610816bff282f0677ca9326ca7240848a5b21acd3"
+    },
+    {
+      "path": "tests/test_downtrend_break_account_v1.py",
+      "sha256": "2a87b786089fcde9500889afa42661482fe60a3c960c28a99ab9ad687a7af88d"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_study_v1/tests_receipt.json",
+      "sha256": "1230e00865a3efd6b10e89593b4238267caa3589fc7da3d6fbb606795a94237e"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_study_v1/control_preflight.json",
+      "sha256": "76781a5357f7c2665ec754375eb4c9ae0a55f8e93a6c36e091748e8a911218f6"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/protocol.json",
+      "sha256": "7a38d9a3822a0d3275229b777a296956364e3cdd08a85482fcab9cdac36bce92"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/summary.json",
+      "sha256": "97c84433e93306f520d3ab8ca2a0991b362dc0f937b5630ca144509eb375d5db"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/results/全部原点_上一确认下降结构与首次突破.parquet",
+      "sha256": "6cda82d51e8407c82001a1346d8e8ccebbbb42757569f874cd77fc21c9c35b5f"
+    },
+    {
+      "path": "research/point_fresh_repair_order_account_v1.py",
+      "sha256": "202dfad559b54928f9255abc89225362916ae788e7c4d4518d7b7db6d7a3703a"
+    },
+    {
+      "path": "research/point_fresh_repair_order_inputs_v1.py",
+      "sha256": "7a4015c226fbcd0d263c01c722f95d6e35a5b3c3305cbe8c67c0f7d29189d78a"
+    },
+    {
+      "path": "research/point_account_nr7_complement_v1.py",
+      "sha256": "fa2585dd4101578668d3a17eb911085659c1273fc40a1598ddded9253457803b"
+    },
+    {
+      "path": "research/point_directional_confirmation_study_v1.py",
+      "sha256": "1d2941f19edd61a08da2eaaa13c04b9cbe4af8b74a0819c8affd32fc8f9e221a"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/protocol.json",
+      "sha256": "1f69e758fce7362c229a10f40cac189593f0d66c4f7b1049de8eb7c3cbfe91b1"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/summary.json",
+      "sha256": "3956d1dba4937e121048fa58036a3c8c496a45130ded59cd09801e64b7dff3d4"
+    },
+    {
+      "path": "research/downtrend_break_explanation_v1.py",
+      "sha256": "42b083cddcd8d9e887503924a027deaee8d1b5754007596f8e82a30a08a28056"
+    },
+    {
+      "path": "research/confirmed_structure_inputs_v1.py",
+      "sha256": "5b4de4a6df56fee9bf9ebd37eaa7fca3c80afc59a90f5ec19416ab0a72a609d8"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/tests_receipt.json",
+      "sha256": "b434a10d6b7e0afdbb337dec26a82ef504883a3212a1b63720f0deb4bfb71d91"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/initial_input_test_failure.json",
+      "sha256": "bc6d0d4588c1f37ed9cd84c39ec2d31289de47afe59a089fc6a9ae0c8bee207b"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/initial_input_failure_explanation.json",
+      "sha256": "9f2f40388e883f2525e6e4113e7d73986cbe7854f2a461129690af7d2bf033f6"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_explanation_v1/initial_inputs_before_anchor_dtype_fix.py",
+      "sha256": "9e765d604fb8e1f483c7fd99fa8b2873c292df1a9ccda7dd3eec880c6b927916"
+    },
+    {
+      "path": "reports/research/510300_confirmed_structure_study_v1/next_structure_break_explanation_proposal.json",
+      "sha256": "df487c5d43f53b6305d9117342e890d0e437a45ee6284c2c7fc05cb09ceb1dde"
+    },
+    {
+      "path": "reports/research/510300_confirmed_structure_study_v1/summary.json",
+      "sha256": "169d9b9b6f9c50456f835ac1f5421d5a9d9038279267bbaaf6fa25b37d52e50c"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/上涨段全集.parquet",
+      "sha256": "7f2e8b91cae86c364eaa4105c382c894cb4dcc76c4f8c3b53a3e91416dfffdb6"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/全部原点结果标签.parquet",
+      "sha256": "605bc67d6ec4b5450a9bed536150c61f67d84d6a145903c479a9ab309a78d7a0"
+    },
+    {
+      "path": "reports/research/510300_confirmed_structure_explanation_v1/results/全部原点_已确认高低结构.parquet",
+      "sha256": "c9b9742138d2410ca9767569a4dfd9d45cbfcecd24f7c55ee976d1747429503c"
+    },
+    {
+      "path": "research/point_fresh_repair_order_study_v1.py",
+      "sha256": "b84f7db8b6df9a44916faa321c52abe66401106f60886a653e9b0d57eaedd4b0"
+    },
+    {
+      "path": "research/upward_episode_anatomy_v1.py",
+      "sha256": "d2409657f026a50948c5dd15afc4172d7e0ce68ec06caea156abfcda40b0e90b"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/post_repair_path_inputs_v1.py",
+      "sha256": "df14e018e25355ed0b7c31276d5eb4699cd5acc6546bf90838e76bfab5de0712"
+    },
+    {
+      "path": "research/point_first_passage_study_v1.py",
+      "sha256": "dd1dc78d81200aadde09cc64e0e08acfd5bf92b11eecbf0167b86b0e98eee9ad"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/weekly_daily_technical_v1.py",
+      "sha256": "289ffb2f49c49a4fe409322bd7ee5f5660130a03766b32a6671cffdad871b5fc"
+    },
+    {
+      "path": "research/directional_entry_timing_v1.py",
+      "sha256": "2f96233d417054e2a0602c8d92377feb77c0544425a0f96bdb24fc4c42ae305d"
+    },
+    {
+      "path": "research/sequential_patterns_regime_v1.py",
+      "sha256": "af3d5f66cf88769c94adf74eca95462a70a095c09138608ecadf8ab7f5cea93b"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/graph_regime_martin_turtle_v2.py",
+      "sha256": "f2c907f0dff6e1580f9c42250174dc65f7d5b27cfc5c235206f6697ba075ef13"
+    },
+    {
+      "path": "config/graph_regime_martin_turtle_v2.yaml",
+      "sha256": "e1a45a844f298c3a1c58114836388301efb6ffe3d35ef983462f53f8a4657e3b"
+    },
+    {
+      "path": "scripts/run_graph_regime_martin_turtle_v2.py",
+      "sha256": "abc74202278b9d206d0a180cd71152fb917fce17eade2254e4d87e38f6c7615c"
+    },
+    {
+      "path": "reports/backtest/graph_regime_martin_turtle_v2.json",
+      "sha256": "205e8b8e20ecc076d42db95bf83daa6307de2873b29d8f34d42bbace40750a9b"
+    },
+    {
+      "path": "research/simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "config/510300_simple_volume_reversal_v1.json",
+      "sha256": "f169dbe7614f7e26b19ca2731d52a47db115f511cb966fa99bb8f56dfd0dc9b4"
+    },
+    {
+      "path": "reports/research/510300_simple_volume_reversal_v1/acceptance_outcome.json",
+      "sha256": "656b3bcc6de911aa6062be1c52c88862087f590eeafac6700515e5e5f63c01e7"
+    },
+    {
+      "path": "reports/research/510300_daily_supply_test_v1/result.json",
+      "sha256": "f79df47aea7f9e30f223fc866797eb2819ee3aded61c293aa3c70ea6f6e5af71"
+    },
+    {
+      "path": "research/factor96_rapid_structure_v1.py",
+      "sha256": "4b36eef46178c99602eaa3d56af19fc60778f657d76744bc2b6b8956be00b327"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_structure_v1/result.json",
+      "sha256": "a8e7087fd95a1d10d3eea77a6fc54cc6ca352c63913e9d2364f910dd64568e46"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/BASE/PRICE_CONFIRMATION/daily.parquet",
+      "sha256": "30db4ccb6de8367b908853f45382824cb3e209604c53622b0487311113b40cdf"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/BASE/PRICE_CONFIRMATION/orders.parquet",
+      "sha256": "77ebbf3364c38cc516e32a5e1475e648314e0cc76b276479067626a58a95f902"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/BASE/PRICE_CONFIRMATION/trades.parquet",
+      "sha256": "c72d862073515c71aee6ff0fae8d2e89149918bbea62b3339a77a4abe385bfc7"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/STRESS/PRICE_CONFIRMATION/daily.parquet",
+      "sha256": "b0b3ce30d86fdafbb8808f40971baa2e93d1d74c06cd9c1e40d8b6543e1540ae"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/STRESS/PRICE_CONFIRMATION/orders.parquet",
+      "sha256": "e7acc8d3169400b245f64ff01835a9e4a7f9d237a375b4f4a2bdea046dc04958"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/STRESS/PRICE_CONFIRMATION/trades.parquet",
+      "sha256": "bd83fea19f9b0965f8070fa4306fd9421298ff2b7f387b7056625e2e1b768567"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/BASE/PRICE_CONFIRMATION/daily.parquet",
+      "sha256": "0af5b3ae3cd9956ea0a2c83b4ae5adcd4b9100d32b27399e793f03ff0aac199f"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/BASE/PRICE_CONFIRMATION/orders.parquet",
+      "sha256": "fb910e31c459b908c4b08d539bf63cc23561579c2a17fc82f061d387fe4037e2"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/BASE/PRICE_CONFIRMATION/trades.parquet",
+      "sha256": "99e2320328a6880905057701785214769460d9a95377eb2156f1357562a23943"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/STRESS/PRICE_CONFIRMATION/daily.parquet",
+      "sha256": "0eb53762eda3672140e9b1987834a4b725d73ec0cefff26f7855fe9899edf98f"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/STRESS/PRICE_CONFIRMATION/orders.parquet",
+      "sha256": "7fbc64685a94c991a3cd1d63e00df2ecb0ea7273946f9553d0a33cae83eebd61"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/STRESS/PRICE_CONFIRMATION/trades.parquet",
+      "sha256": "394056e2a05c9bb71b5bae02dd58a9692a620583e5b0fabda9772ba7abdc4e32"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_study_v1/initial_account_test_failure.json",
+      "sha256": "dc85d5b9c3a94087c674ccc5986354d0451385242aa49eb6a8fa7b364b4330df"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_study_v1/initial_account_test_failure_explanation.json",
+      "sha256": "be3bf5eb293484e91078a13b686ac3227005db5d8af44944f31fafcd81942d51"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_study_v1/initial_account_tests.py",
+      "sha256": "2a87b786089fcde9500889afa42661482fe60a3c960c28a99ab9ad687a7af88d"
+    },
+    {
+      "path": "reports/research/510300_downtrend_break_study_v1/initial_account_before_cash_coordinate_fix.py",
+      "sha256": "48b37d66020ea26085e55cf0048af53fa05405ab67c1dc90e181d25cead68c6f"
+    }
+  ]
+}

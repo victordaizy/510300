@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-01T18:27:49.820531+08:00",
+  "latest_user_frequency_instruction": "不一定每年五次，但还是希望提高每年交易次数",
+  "latest_user_scope_instruction": "我们只研究点位，多空盈亏比和胜率",
+  "research_universe": [
+    "510300.SH作为标的研究对象"
+  ],
+  "allowed_directions": [
+    "LONG",
+    "SHORT"
+  ],
+  "bars": [
+    "DAILY",
+    "PREVIOUS_COMPLETED_WEEK"
+  ],
+  "frequency_constraint": "SOFT_OBJECTIVE_NO_ANNUAL_MINIMUM",
+  "hard_minimum_cycles_each_full_year": null,
+  "frequency_reporting": [
+    "每年完成周期数",
+    "零交易年份",
+    "完整年份平均次数",
+    "最长等待时间"
+  ],
+  "quality_objective": "扣参考摩擦后的实际胜率p乘实际盈亏比B严格大于1，并正确报告标准数学期望。",
+  "working_comparison_lines": null,
+  "current_phase_exclusions": [
+    "期权合约选择",
+    "期权收益回测",
+    "完整账户夏普或年化收益验收"
+  ],
+  "background_option_permission": "后续可以使用510300对应期权表达多空，本轮只评价标的点位",
+  "goal_effective_scope_note": "当前用户最新澄清优先于旧goal文本中的年度5笔硬门槛与旧现货单向范围；不改写已冻结的研究输出。",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "latest_user_quality_instruction": "胜率乘以盈亏比数学期望得是正的，大于1",
+  "quality_hard_gate": {
+    "p_times_actual_payoff_strictly_greater_than": 1.0,
+    "standard_net_expectancy_greater_than": 0.0,
+    "basis": "标的点位统一摩擦后的实际平均盈利/实际平均亏损，不能用计划目标比替代"
+  },
+  "expectation_definition": "标准亏损单位期望=p*B-q，q为亏损率；无平手时q=1-p。利润因子=p*B/q。用户指定p*B>1作为更严格的额外硬门槛。",
+  "old_disjunction": "原55%胜率或盈亏比2的工作比较线不再作为通过标准"
+}

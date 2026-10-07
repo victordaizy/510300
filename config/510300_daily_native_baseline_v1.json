@@ -1,0 +1,51 @@
+{
+  "study_id": "510300_DAILY_NATIVE_BASELINE_V1",
+  "classification": "DESIGN_DIAGNOSTIC_NOT_ALPHA_SEARCH",
+  "parent_config": "config/510300_intraday_process_increment_v1.json",
+  "parent_output": "reports/research/510300_intraday_process_increment_v1",
+  "output": "reports/research/510300_daily_native_baseline_v1",
+  "user_scope": "先完成第一批：封卷修正、依赖拆分与可运行基准",
+  "training_origin_start": "2021-08-12",
+  "origin_end": "2026-08-12",
+  "account_first_signal": "2024-08-29",
+  "account_start": "2024-08-30",
+  "account_end": "2026-08-12",
+  "daily_features": ["daily_total_return", "daily_intraday_return", "daily_range", "daily_close_location", "log_amount", "log_amount_relative20", "log_rv20", "momentum20"],
+  "model": {
+    "alpha": 1.0,
+    "minimum_training_days": 504,
+    "refit_interval_trading_days": 20,
+    "standardized_clip": 5.0,
+    "target": "T_PLUS_1_OPEN_TO_T_PLUS_2_CLOSE_WITH_ENTITLED_DIVIDENDS",
+    "training_membership": "D自身字段合格且退出标签在决策前成熟；训练起点与父实验相同，不补长至2012年",
+    "regime_policy": "D日频定义保持，跨2026-07-06延续训练与更新时钟；执行分阶段标注，仅作条件迁移诊断",
+    "selection": "一个预登记版本，无参数/方向/期限/仓位搜索"
+  },
+  "account": {
+    "capitals": [20000, 200000],
+    "costs": ["BASE", "STRESS"],
+    "engine": "原simulate_account不修改；相同471日历、入场/退出/费用/容量/T+1/现金/分红/终点合同",
+    "execution_amount_consistency_gate": "保留原09:30/15:00量额一致性检查；只属于执行资格，不连带否定D预测",
+    "fill_evidence": "CONDITIONAL_PRICE_AND_CAPACITY_PROXY_NOT_ACTUAL_FILL"
+  },
+  "metric_contract": {
+    "primary_annual_days": 242,
+    "bridge_annual_days": 252,
+    "cagr": "(期末净值/初始本金)^(年化交易日数/完整账户日数)-1",
+    "cash_yield": 0.0,
+    "sharpe_risk_free_daily": 0.0,
+    "research_net_sharpe_reference": 1.2,
+    "research_cagr_reference": 0.1,
+    "real_capital_confirmed": false,
+    "real_risk_limits_confirmed": false,
+    "promotion_allowed": false
+  },
+  "future_receipt_policy": "历史回放时钟只表明经济可知顺序，不倒造实际接收时间；当日无本地输入则明确未知",
+  "new_alpha_families": 0,
+  "new_bootstrap_draws": 0,
+  "new_market_downloads_allowed": false,
+  "scheduled_collection_allowed": false,
+  "actual_trading_authorized": false,
+  "original_results_immutable": true,
+  "maximum_output_bytes": 31457280
+}

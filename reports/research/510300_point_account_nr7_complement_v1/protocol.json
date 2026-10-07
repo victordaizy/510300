@@ -1,0 +1,77 @@
+{
+  "study": "510300_POINT_ACCOUNT_NR7_COMPLEMENT_V1",
+  "at": "2026-10-01T22:25:49.798907+08:00",
+  "user_instruction": "意思是，我们的交易还不够，还要继续提高我们的收益夏普率",
+  "question": "当前两个固定点位映射到共同现金账户后表现如何；一条不同时间尺度的日线窄幅突破能否补空仓并同时提高净收益、夏普和有效次数？",
+  "known_before_freeze": "此前已知道两点位2020年以来pB约1.0951/1.0289，2020—2025年均约4.17/4次、机会重合。旧模型加减仓账户、常规压缩后20日突破和RSI失败摆动均有冻结结果，保留原结论。所有历史已用于其他研究。",
+  "baseline_semantics": "只读取STRESS父状态的正/零，入场按共同风险预算确定份额，以后只减仓不补仓，父状态零退出。它是对当前点位建立的新资金测量，不是复活旧失败加减仓账户；旧1.53夏普不可继承。两档执行成本使用同一组固定父状态。",
+  "capital": 200000,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "long_only": true,
+  "bars": [
+    "DAILY",
+    "PREVIOUS_COMPLETED_WEEK_CONTEXT_ONLY"
+  ],
+  "primary_period": [
+    "2020-01-02",
+    "2026-09-30"
+  ],
+  "earlier_nr7_diagnostic": [
+    "2015-01-05",
+    "2019-12-31"
+  ],
+  "policies": [
+    "POINT_A",
+    "POINT_B",
+    "NR7_ONLY",
+    "POINT_A_PLUS_NR7"
+  ],
+  "primary_increment": "POINT_A_PLUS_NR7 minus POINT_A",
+  "nr7": {
+    "setup": "当日原始最高减最低的报价刻度宽度，严格小于此前六日每一日的宽度，且大于零。",
+    "confirmation": "只接受准备日紧接的下一交易日收盘严格超过准备日最高价，价格以截至各日已除息现金前向平移。没有三日等待、20日新高或MACD过滤。",
+    "execution": "确认后的下一交易日开盘仅尝试一次；开盘已低于结构止损或涨停不可买则取消，持仓或当天刚卖出时忽略新事件。",
+    "stop": "准备日最低价，按前向现金平移保存；不是当日最低价触及即成交。",
+    "target": "入场开盘加两倍开盘至结构止损距离；计划2R不等于实际盈亏比。",
+    "exit": "收盘触及止损、计划2R或持有满10个收盘，下一可卖开盘退出；退出受阻持续请求。",
+    "parameters_searched": false,
+    "combination": "组合空仓且旧A父目标为正时优先旧A；父目标明确为零且有新窄幅确认才进入NR7。持仓按入场来源自身退出，不中途转换身份，不同日卖出再买入。"
+  },
+  "distinction_from_old_compression": "旧第54轮为5/20/60日收益波动压缩及长期低分位，准备20日后等待20日区间突破；本轮为单日高低幅七日新低、紧接一日收盘突破。保留旧阈值和旧裁决，不从旧失败中搜索救援参数。",
+  "costs": {
+    "BASE": {
+      "commission_each_side": 0.0002,
+      "slippage_each_side": 0.0005,
+      "minimum_fee_cny": 5,
+      "tick": 0.001,
+      "lot": 100
+    },
+    "STRESS": {
+      "commission_each_side": 0.0004,
+      "slippage_each_side": 0.001,
+      "minimum_fee_cny": 5,
+      "tick": 0.001,
+      "lot": 100
+    }
+  },
+  "risk": "沿用本任务完整账户：最高50%股票仓位、5日条件ES预算2.5%、10%跳空情景预算5%并受回撤余量约束；估计只用两年内已成熟5日标签，按已知RV20距离选126条、最差7条均值。10%账户收盘回撤触发下一可卖开盘退出并停止新开仓。此约束不保证真实最大回撤一定不超10%。",
+  "clock": "次日开盘使用前一收盘的信号、风险和最大份额，开盘价格只允许缩减可买份额，不增加昨晚计划数量；T+1、不虚构日内先后。",
+  "dividend": "按登记日收盘份额确认资格，除息形成应收，支付日现金到账；应收不能用于买入。",
+  "cash_and_sharpe": "现金收益率及无风险比较率均明确假设0；252交易日年化，全部交易日日收益包含空仓和成本，标准差ddof=1。",
+  "terminal": "最后真实收盘按市值和应收记账，不人为清仓；未来退出费用另列估计，不计为已发生成本或完整交易。",
+  "trade_quality": "完整账户周期净损益除实际买入支出，含风险减仓；pB>1且均值>0。另保留原固定十万元点位，两个口径不混用。",
+  "frequency": "按最终清仓年统计周期；部分减仓订单不增加次数，零交易年份保留，2026单列。",
+  "increment_gate": "两成本下组合相对A年化收益和夏普都严格提高、年均完整周期增加、组合回撤不超过10%、组合及NR7单独账户实际净pB>1且均值为正。另分别报告2020—2023与2024—2026结果，不选择最有利时期。即使通过也仅是开发期线索。",
+  "uncertainty": "固定20日循环区块、配对重采样2000次、种子20261001，报告收益和夏普增量描述区间；不声称校正长期多次选择或建立独立验证。",
+  "sources": [
+    "https://chartschool.stockcharts.com/table-of-contents/trading-strategies-and-models/trading-strategies/narrow-range-day-nr7",
+    "https://web.stanford.edu/~wfsharpe/art/sr/sr.htm"
+  ],
+  "source_limits": "StockCharts给出窄幅日及突破概念；本研究的次日收盘确认、2R、10日期限和账户组合是事前固定的本地改写，来源不提供510300盈利证明。",
+  "orders_authorized": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

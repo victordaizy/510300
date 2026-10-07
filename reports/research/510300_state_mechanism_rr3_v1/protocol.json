@@ -1,0 +1,93 @@
+{
+  "study_id": "510300_STATE_MECHANISM_RR3_V1",
+  "frozen_at": "2026-09-24T15:10:54.574688+08:00",
+  "period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "user_direction": [
+    "不同市场状态、流动性、宏观对应不同策略",
+    "只做能够用事实解释的高盈亏比机会",
+    "确认入场前压力成本后至少3:1"
+  ],
+  "primary": "JOINT_ROUTE",
+  "primary_comparison": "JOINT_ROUTE_MINUS_PRICE_ROUTE_MATCHED",
+  "policies": [
+    "TREND_ONLY",
+    "REPAIR_ONLY",
+    "UNION",
+    "PRICE_ROUTE",
+    "PRICE_ROUTE_MATCHED",
+    "JOINT_ROUTE",
+    "CASH",
+    "BUY_HOLD"
+  ],
+  "method": "先固定两套不同触发、目标、失效点及持有期限，再检验宏观资金是否改变其适用性；不拟合收益，不以历史赢家配置状态。",
+  "market_state": "沿用此前trend_z>1为UP、<-1为DOWN、其余RANGE；使用前一日收盘。",
+  "trend_entry": "复用第23轮T4：含分红价高于120日均线，前一日不高于20日均线、当日重新站上。目标为触发前60日最高收盘；失效为包含触发日的5日最低价减0.1ATR20；最多20个交易日。",
+  "repair_entry": "复用第23轮R3：前一日结束的5日累计跌超3%，今日收盘回升且收盘位置>=0.6。目标为该5日急跌前收盘；失效为含确认日6日最低价减0.1ATR20；最多5个交易日。",
+  "price_route": "UP只允许趋势回调；RANGE或DOWN只允许急跌修复。",
+  "joint_trend": "价格路由成立，已发布新订单>=50且连续3个月变化>=0，DR007没有同时高于政策率且5日上升，成分股成交分类5日强度>=0且正强度权重占比>=50%。",
+  "joint_repair": "价格路由成立，已发布新订单3个月变化>=0，DR007最近5日不再上升，成分股成交分类强度及正强度占比均较3个可用观察日前不减。新订单水平可以仍低于50。",
+  "mechanism_claim_limit": "这些是经济机制假设及可观测支持，目标价格是历史位置锚点，不是估值证明；成交分类不是具名机构净买入。必须报告反证和实际目标实现。",
+  "clock": "执行日09:00使用既有已核定available_at；价格候选来自前日收盘。开盘前确定最高买价和份额，09:30仅检验可成交性；不用当天高低价判断开盘买入。",
+  "rr_gate": {
+    "minimum_planned_net_reward_risk": 3.0,
+    "cost": "STRESS",
+    "target_and_stop": "随信号固定，不为提高比例放大目标或缩窄止损。",
+    "gap_up": "开盘压力报价使比例不足3则不成交",
+    "sizing": "最高允许买价下计划失效损失不超过全账户权益1%，份额和现金均在开盘前确定。"
+  },
+  "execution": "100份、tick0.001、佣金最低5；T+1；停止/目标在收盘确认后下一个可卖开盘退出，不假定按线成交。已知适用状态失效在09:00可请求当日可卖开盘；缺资料不强行卖。退出请求持续，卖出日不从另一策略即时重入。",
+  "dividends": "每笔只计实际登记持有权益，除息应收及支付分账；持仓目标比较含应得股息的每份清算价值。已知除息日新买无登记权益，价格锚点机械除息调整。",
+  "missing": "PRICE_ROUTE_MATCHED与JOINT_ROUTE新入场使用同一信息覆盖；无资料仅NO_VIEW，无观点不等于看空。其他单策略与价格路由为不同覆盖对照，分别报告。",
+  "holiday_and_events": "沿用已知节前三日、统计局事前日程、已公开海外冲击标签分层记录；前轮普遍避险未获支持，本轮不反转或优化那些日历规则。跨休市与T+1跳空损失均留在账户。",
+  "account": {
+    "capital_cny": 200000,
+    "assets": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "annual_days": 252,
+    "cash_return": 0,
+    "costs": {
+      "BASE": [
+        0.0002,
+        0.0005
+      ],
+      "STRESS": [
+        0.0004,
+        0.001
+      ]
+    },
+    "planned_risk_fraction": 0.01
+  },
+  "target": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1,
+    "annual_cycle_quota": null
+  },
+  "inference": "一个主要配对增量；20日共同循环区块2000次、固定种子202609243；报告年化算术增量95%及单侧5%下界。各策略状态成交分组仅描述，不能用同批历史选择映射。",
+  "old_research_difference": "第9轮是基于价格趋势/波动的机制收益追踪，第179轮是在两个旧合成账户内按状态历史夏普选胜者；本轮不用这两个合成账户、不恢复85/15。第23轮仅复用两个可解释触发，结构目标和3:1是用户本次新增合同。旧CF/DR条件图仍为有限描述，不把其部分通过升级。",
+  "stop_after_frozen_failure": 1,
+  "parameter_grid": 0,
+  "model_fits": 0,
+  "source_first_vintage_authenticated": 0,
+  "independent_forward_observations": 0,
+  "new_collection": 0,
+  "orders_authorized": 0,
+  "review_package": 0,
+  "pre_return_counts": {
+    "candidate_signals_all_history": 243,
+    "reference_rr3_ready_all_history": 15,
+    "common_state_days": 724
+  },
+  "mechanism_checks": [
+    "压力3:1及1%预算、最低佣金整手",
+    "不合格空间拒绝",
+    "开盘跳高不成交",
+    "T+1和跳空可能超过计划损失",
+    "除息权益及到账不制造止损"
+  ]
+}

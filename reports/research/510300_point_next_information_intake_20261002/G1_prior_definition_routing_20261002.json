@@ -1,0 +1,476 @@
+{
+  "at": "2026-10-02T07:31:18.477451+08:00",
+  "status": "COMPLETED_G1_PRIOR_ROUTING_SNAPSHOT_NOT_FACTOR_ACCEPTANCE",
+  "G1_cards": 29,
+  "rapid_related_G1_cards": 9,
+  "route_counts": {
+    "FIXED_TECHNICAL_USE_COMPLETED_REJECTED": 3,
+    "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT": 9,
+    "RELATED_ANCHOR_FAMILY_AND_DAILY_EXPRESSION_PRIOR_REJECTION": 1,
+    "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED": 9,
+    "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW": 7
+  },
+  "scope": "原表、已知旧初筛源码及协议、组件记录和本技术线固定结果的对应；不是全仓库算法等价完备证明或完整因子收益验证。",
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/factor_progress.json",
+      "sha256": "1adee57b4b579d444b129d33e7a98a0282d077aebb39b7efdc405edb17f960c9"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/strategy_progress.json",
+      "sha256": "fdb8b8895562554546737217d7b3b59c542acb9a5cfb2e86ed66f4f3595167b3"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "research/factor96_margin_repair_v1.py",
+      "sha256": "299aaae3ce803c0f4c179c80744e0aca7d448b81b58651663913f609bb1a35e2"
+    },
+    {
+      "path": "reports/research/510300_point_a04_exit_prediction_v1/prediction_summary.json",
+      "sha256": "923310a7029ba8d3663982328aefb1398175d5d0ba17cb12f74d18de35be0422"
+    },
+    {
+      "path": "reports/research/510300_point_c04_information_intake_v1/summary.json",
+      "sha256": "6d1121ca9926b1046531e264c620b545c954a0c552ec67d4e62dc5a6a0d3f519"
+    },
+    {
+      "path": "reports/research/510300_point_c06_exit_prediction_v1/prediction_summary.json",
+      "sha256": "97aea0214e1ef3c01deea6c6a501d73db25891aad5d0c02b49b4fbf42a334334"
+    },
+    {
+      "path": "reports/research/510300_point_method_intake_20261002/prior_direction_review.json",
+      "sha256": "e6f6e68632a21d29a1ff9cc5e8f866a5003b4db2d4a2c440304fed57c2ea9595"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+      "sha256": "29ea808e904942701e56a4024531aee104dae0116be79e4d036090045f871cde"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv",
+      "sha256": "0fa32a2d2a2a87bf07bc0fdbf18b110a2e0a7fa19a74dcbc60107e4e139424fc"
+    }
+  ],
+  "rows": [
+    {
+      "id": "A01",
+      "name": "有方向的路径效率",
+      "registered_definition": "ER20=(P[t]-P[t-20])/sum(abs(P[j]-P[j-1]),j=t-19..t)。分母为0记缺失。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "依赖T01组合已拒绝接近旧突破回踩的重试；不能推断其每个连续字段都已完整验证，须查具体表达。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/strategy_progress.json"
+      ]
+    },
+    {
+      "id": "A02",
+      "name": "突破后回踩保留率",
+      "registered_definition": "突破日e满足C[e]>max(H[e-20:e-1])；冻结U和ATR20[e-1]。确认后第1至3个完整交易日内，L>=U-0.5ATR且C>=U的日数/已观察日数。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "依赖T01组合已拒绝接近旧突破回踩的重试；不能推断其每个连续字段都已完整验证，须查具体表达。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/strategy_progress.json"
+      ]
+    },
+    {
+      "id": "A03",
+      "name": "新高频率与加速",
+      "registered_definition": "过去20日内C超过各自前20日最高收盘的次数/20；比较最近5日与此前15日的频率。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "20日新高频率，另存5日相对前15日的频率加速。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "A04",
+      "name": "回调消耗的前段涨幅",
+      "registered_definition": "拐点用左右各2根bar确认且延迟2日可用；在已确认低点a至高点b后，(P[b]-P[t])/(P[b]-P[a])，分母<=0缺失。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "FIXED_TECHNICAL_USE_COMPLETED_REJECTED",
+      "known_related_operationalization": "REJECTED_FIXED_A04_FIELD_PREDICTION_GATE_FAILED",
+      "note": "原八项第九项固定用途较早FAIL、近期PASS、整体拒绝；原完整卡不反写。",
+      "direct_source_paths": [
+        "reports/research/510300_point_a04_exit_prediction_v1/prediction_summary.json"
+      ]
+    },
+    {
+      "id": "A05",
+      "name": "事前事件锚定均价收复",
+      "registered_definition": "事件e由固定公告或价格触发定义；AVWAP代理=sum(P[j]*Q[j],j=e..t)/sum(Q[j])；记录P/AVWAP-1及首次转正。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_ANCHOR_FAMILY_AND_DAILY_EXPRESSION_PRIOR_REJECTION",
+      "known_related_operationalization": null,
+      "note": "旧日成交均价同表达已拒绝；原多日事件锚定A05完整机制尚未验证，不混为同一表达，也不据NOT_RUN复试旧日均价表达。",
+      "direct_source_paths": [
+        "reports/research/510300_point_method_intake_20261002/prior_direction_review.json"
+      ]
+    },
+    {
+      "id": "A06",
+      "name": "趋势速度相对剩余空间",
+      "registered_definition": "记录log(P/MA60)/(rv20*sqrt(60))与过去5日收益/(rv20*sqrt(5))两维；不先压成单分。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "5日速度为单变量筛查；60日均价偏离另列，不把二者压成一分，不冒充原卡完整联合检验。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "B01",
+      "name": "五日均线负偏离",
+      "registered_definition": "d5=P/MA5-1；同时保留d5/(rv20*sqrt(5))。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "原卡与实际代码/结果尚须逐项核对，不据NOT_RUN登记新信息。",
+      "direct_source_paths": []
+    },
+    {
+      "id": "B02",
+      "name": "二次试低的压力衰减",
+      "registered_definition": "首次低点a按2日延迟确认；后续10日内低价距a低点<0.5ATR，比较本次与a前后已知区段成交额、日跌幅和CLV。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "PARTIAL_COMPONENT_TESTED",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "两日确认首次低点、十日内二测；成交额/回报/CLV只记录。T02完整账户未达标。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "B03",
+      "name": "破低收复用时",
+      "registered_definition": "L0=min(L[t-20:t-1])在破位日冻结；记录首次C重新超过L0所用交易日，以及再跌破次数。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "PARTIAL_COMPONENT_TESTED",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "二测日冻结前20日低点，收复后才请求下一开盘；2个未收复事件保留。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "B04",
+      "name": "冲击后波动回落速度",
+      "registered_definition": "冲击日e由r[e]/rv20[e-1]<-2定义；之后记录rv3/rv20[e-1]和是否创新低；事件每10日去重。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "PARTIAL_COMPONENT_TESTED",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "已实现负2倍波动冲击、10日去重和确认事件；卡片中的rv3衰减幅度未作独立筛选。 T14另按原卡片实现冲击后10日内首次收涨；rv3比值仅记录，无事后新增波动门。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "B05",
+      "name": "单位成交额的下跌推进衰减",
+      "registered_definition": "在负收益日计算abs(r)/相对成交额；比较最近3个负收益日与之前3个；与当前回撤同看。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "最近3个负收益日价格冲击均值/此前3个负收益日均值；负日限定最近20交易日，另存回撤。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "B06",
+      "name": "下跌速度减弱后的首个收复",
+      "registered_definition": "v1=sum(r最近3日)/3；v0=sum(r此前3日)/3；v1-v0>0且收盘超过前一日高点。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "PARTIAL_COMPONENT_TESTED",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "已实现速度差与超过前日高点的首次确认，用于T05及价格对照。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "C01",
+      "name": "下跌与上涨的价格冲击不对称",
+      "registered_definition": "过去20日负收益和正收益两组分别取median(abs(r)/成交额)，取负组/正组；样本各少于5则缺失。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "PARTIAL_COMPONENT_TESTED",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "已实现20日涨跌价格冲击中位数比，正负日各至少5个。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json",
+        "research/factor96_margin_repair_v1.py"
+      ]
+    },
+    {
+      "id": "C02",
+      "name": "成交很多但价格不再推进",
+      "registered_definition": "relative_amount=成交额/过去20日成交额中位数；progress=abs(r)/rv20；保存两维及方向。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "原卡与实际代码/结果尚须逐项核对，不据NOT_RUN登记新信息。",
+      "direct_source_paths": []
+    },
+    {
+      "id": "C03",
+      "name": "上涨效率与回调效率差",
+      "registered_definition": "最近10日正收益总和/正日成交额合计，与负收益绝对值总和/负日成交额合计比较；各自乘同一期日均成交额归一。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "10日正、负收益成交效率之差，乘同窗平均成交额归一。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "C04",
+      "name": "回调中的成交收缩比",
+      "registered_definition": "在已确认上涨后的回调期e..t，日均成交额/此前5日均额；记录回撤/ATR与该比值。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "FIXED_TECHNICAL_USE_COMPLETED_REJECTED",
+      "known_related_operationalization": "REJECTED_FIXED_C04_NINTH_FIELD_INCOMPLETE_ORIGINAL_MEMBER_SUPPORT",
+      "note": "本次固定阶段字段502/1507支持、0/115成熟月完整，仅拒绝直接第九项用途，未拟合。",
+      "direct_source_paths": [
+        "reports/research/510300_point_c04_information_intake_v1/summary.json"
+      ]
+    },
+    {
+      "id": "C05",
+      "name": "剔除价格与波动后的成交异常",
+      "registered_definition": "用此前252日拟合log(金额)=a+b*abs(r)+c*rv20+星期效应；只计算当天预测残差。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "此前252日OLS解释对数成交额：绝对收益、20日波动和星期；当天残差。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。 旧残差最多252/最少126先前合格行、两日历年限制；严格252原卡未完整验证，仅改行数不足以建立新信息。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "C06",
+      "name": "历史交易价格的上方密集区",
+      "registered_definition": "以过去60日日收盘与成交量建固定ATR宽度直方图，计算当前价上方1至3ATR内成交量占比。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "FIXED_TECHNICAL_USE_COMPLETED_REJECTED",
+      "known_related_operationalization": "REJECTED_FIXED_C06_FIELD_PREDICTION_GATE_FAILED",
+      "note": "固定第九项两期预测门FAIL，经济SKIPPED；原完整卡不反写。",
+      "direct_source_paths": [
+        "reports/research/510300_point_c06_exit_prediction_v1/prediction_summary.json"
+      ]
+    },
+    {
+      "id": "D01",
+      "name": "日内相对隔夜强弱",
+      "registered_definition": "用同口径公司行为调整后的开收盘计算rOC、rCO，S20=sum(rOC-rCO)/[sd(rOC-rCO)*sqrt(20)]。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "20日日内与隔夜对数收益差的标准化和，含现金分红并保持财富分解恒等式。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "D02",
+      "name": "隔夜冲击被日内吸收比例",
+      "registered_definition": "gap=rCO；当gap<0时abs负缺口中被当日正rOC抵消的比例=max(rOC,0)/abs(gap)，同时保留gap规模。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "负隔夜缺口由当日正收益吸收的比率；正隔夜日未知，另存缺口大小。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "D03",
+      "name": "收盘位置持续性",
+      "registered_definition": "CLV=(2*C-H-L)/(H-L)，记录mean(CLV,5)及5日为正天数；H=L缺失。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "5日平均收盘位置CLV，另存正CLV天数。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "D06",
+      "name": "隔夜尾部占总风险比例",
+      "registered_definition": "最近60日sum(min(rCO,0)^2)/sum(rCO^2+rOC^2)，另报隔夜最差5%经验均值。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "FIXED_COMPONENT_TESTED_IN_FAILED_T16_OVERLAY",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "已在T16固定观察基准检验单项与联合减半覆盖，主方案失败、增量区间跨0；不赋独立因子夏普或声称盈利基准已合格。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "N04",
+      "name": "季末位置与交易方向交互",
+      "registered_definition": "季末最后3日指示变量，与季内已实现涨跌及机构重仓代理分别交互。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "原卡与实际代码/结果尚须逐项核对，不据NOT_RUN登记新信息。",
+      "direct_source_paths": []
+    },
+    {
+      "id": "P01",
+      "name": "下行半方差占比",
+      "registered_definition": "DS20=sum(min(r,0)^2)/sum(r^2)；与总体rv20同时保留。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "RELATED_EXPRESSION_EXISTS_IN_RAPID_SCREEN_FULL_CARD_NOT_ESTABLISHED",
+      "known_related_operationalization": "20日下行平方收益占比，另存总波动。",
+      "note": "旧初筛已计算并用于HIGH/LOW方向；是相关有限表达，不冒充完整卡或独立收益验证，不以NOT_RUN视为未尝试。",
+      "direct_source_paths": [
+        "research/factor96_rapid_feasibility_v1.py",
+        "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+        "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv"
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "风险冲击与预测误差",
+      "registered_definition": "前序拟合或EWMA得到下一期方差预测，记录当天实现平方收益/此前预测方差及尾部超越。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "FIXED_COMPONENT_TESTED_IN_FAILED_T16_OVERLAY",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "已在T16固定观察基准检验单项与联合减半覆盖，主方案失败、增量区间跨0；不赋独立因子夏普或声称盈利基准已合格。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "相同回撤的时间消耗",
+      "registered_definition": "实际持有以来的回撤/入场前ATR与已持有天数、距最近高点天数共同记录。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "须与原持仓时间/回撤及已失败现金流、成熟误差路线去重，不把既有输入重命名为新信息。",
+      "direct_source_paths": []
+    },
+    {
+      "id": "P04",
+      "name": "等待一段时间的增量价值",
+      "registered_definition": "固定成熟历史中，下一合法卖出点与再持有H日的净价值差；用当下已知信息预测该差。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "NOT_RUN",
+      "route_status": "REQUIRES_PRIOR_OPERATIONALIZATION_REVIEW",
+      "known_related_operationalization": null,
+      "note": "须与原持仓时间/回撤及已失败现金流、成熟误差路线去重，不把既有输入重命名为新信息。",
+      "direct_source_paths": []
+    },
+    {
+      "id": "P05",
+      "name": "不同信息家族的判断分歧",
+      "registered_definition": "仅使用各家族前序训练所得当前预测，记录符号一致率及校准后的离散度。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "TESTED_DAILY_CALIBRATION_VARIANT_NO_STANDALONE_CLAIM",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "日更变体固定检验未达到目标；仅本轮固定三家族预测分歧及有界成熟误差CUSUM用途，不能泛化为全部因子用途有效。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "冻结策略的失效监测",
+      "registered_definition": "对已经成熟的预测损失/净交易结果建立前序参考分布，采用预注册CUSUM或序贯阈值；停用与恢复同时注册。",
+      "original_library_status": "NOT_RUN",
+      "program_current_status": "TESTED_DAILY_CALIBRATION_VARIANT_NO_STANDALONE_CLAIM",
+      "route_status": "PROGRAM_ALREADY_RECORDS_COMPONENT_OR_VARIANT",
+      "known_related_operationalization": null,
+      "note": "日更变体固定检验未达到目标；仅本轮固定三家族预测分歧及有界成熟误差CUSUM用途，不能泛化为全部因子用途有效。 原卡状态与组件用途分别保留，不赋独立因子夏普。",
+      "direct_source_paths": [
+        "reports/research/510300_factor96_program_v1/factor_progress.json"
+      ]
+    }
+  ],
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_registry_and_program_status_modified": false,
+  "goal_achieved": false,
+  "pre_delivery_source_pointer_correction": "交付前将A05的意向计划指针改为实际旧表达核对原件；不改变任何实验定义、结果或原冻结文件。",
+  "old_execution_summary": {
+    "factor_cards": 10,
+    "direction_candidates": 20,
+    "saved_account_rows": 88,
+    "all_nine_G1_both_directions_present": true,
+    "saved_joint_target_count": 0,
+    "verification_role": "EXTRACTED_SAVED_EXECUTION_METADATA_NOT_ACCOUNT_RECOMPUTATION",
+    "new_account_evaluations": 0
+  }
+}

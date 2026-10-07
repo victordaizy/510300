@@ -1,0 +1,229 @@
+{
+  "saved_share_closure": {
+    "status": "CLOSED_NO_HISTORICAL_PUBLICATION_TIME_IN_DIRECTLY_LINKED_RECEIPTS",
+    "source_rows": 1216,
+    "source_first_date": "2021-08-12",
+    "source_last_date": "2026-08-12",
+    "actual_trading_dates_covered": 1211,
+    "extra_non_trading_dates": [
+      "2022-12-31",
+      "2023-09-30",
+      "2023-12-31",
+      "2024-03-31",
+      "2024-06-30"
+    ],
+    "extra_dates_already_excluded_in_old_merge": true,
+    "historical_raw_response_count": 2220,
+    "historical_publication_fields_found": [],
+    "historical_raw_file_timestamp_meaning": "原索引标注文件保存时间，不能解释为历史首次公布时间",
+    "extension_rows": 4,
+    "extension_does_not_backfill_earlier_publication_proof": true,
+    "decision": "结束此输入的局部补充；无新原始披露证据不再重查相同回执，不延迟或反向改造旧失败因子",
+    "scope_limit": "仅本结果列出的直接关联回执和份额响应；不声称全项目或外部世界不存在其他证据"
+  },
+  "closed_receipt_handling": "直接引用旧2220响应核对结论；本轮未重扫、未重新计为2220新进展，没有新首版证据。",
+  "original_T07_gate": {
+    "status": "NOT_RUN_DAILY_SYSTEM_FLOW_SOURCE_GATE",
+    "existing_data": "固定10只上海ETF周度份额，沪深300子池3只，2021年起；没有当时动态全体系、逐日NAV及份额发布时点。",
+    "old_terminal_rule": "既有五条周度二元申赎规则固定失败，禁止改ETF池、阈值、方向、时钟或组合救援。",
+    "new_definition_missing": [
+      "历史同指数上市产品池及退出",
+      "日频份额与拆分调整",
+      "同口径前日NAV",
+      "与数值对应的历史发布时钟"
+    ],
+    "pcf_boundary": "公开申赎清单的开市前规则与前日NAV，不自动证明规模查询表TOT_VOL的历史首次公开时点；不重扫已关闭的2220条同一份额响应。"
+  },
+  "original_T06_scope": {
+    "status": "ADMITTED_OVERLAY_QUESTION_DISCOVERY_ONLY",
+    "difference": "旧融资级联是大量全A特征与分类器的二元收益发现；本次是已固定价格基准下，融资增长高分位但价格停滞与同成员中位收益变弱共同触发的减半/恢复层，保留两项单独削减及无削减对照。",
+    "baseline_boundary": "沿用旧20日均线价格条件作为观察基准，采用T06表列5日持有上限及当前共同风险合同。不是重跑旧PRICE20_ONLY完整规则，也不登记或晋升为新价格策略。",
+    "F05_boundary": "F5严格按过去252日80分位定义；余额/自由流通市值未额外使用，不声称已测试全部F05。",
+    "E05_boundary": "同成员20日中位收益的5日变化是主触发；ETF与中位收益差另存，不把缺权重补成权重信号。",
+    "five_day_field_resolution": "T06表中max_hold_days=5与条件恢复同时出现。本轮把5日明确作为各臂共同的基准最大持有期限，而非削减状态届时强制恢复；价格或到期退出优先。"
+  },
+  "saved_free_float_gate": {
+    "status": "CURRENT_CREDENTIAL_EXPIRED",
+    "provider_code": 40101,
+    "receipt": "reports/research/510300_factor96_free_float_source_probe_v1/single_auth_validation_receipt.json",
+    "required_external_change": "在本机更新可用数据接口凭据，或取得口径一致的历史自由流通股本来源。",
+    "no_new_requests_without_changed_credentials_or_source": true
+  },
+  "saved_free_float_receipt": {
+    "at": "2026-09-28T00:14:39.186501+08:00",
+    "network_requests": 1,
+    "new_accounts": 0,
+    "http_status": 200,
+    "response_sha256": "2e7c411483749b710caa629bd5d9bf021663703c6e3bfd64e70accf3429210cb",
+    "provider_code": 40101,
+    "message": "您的token已过期，请联系续费。",
+    "rows": 0,
+    "fields": [],
+    "status": "CURRENT_SERVICE_NOT_ADMITTED"
+  },
+  "credential_claim_limit": "只引用2026-09-28保存的过期/0行凭证，本轮未测试当前凭据或请求接口。",
+  "old_binary": {
+    "status": "REJECTED_FIXED_ETF_SHARE_PREMIUM_LEVEL_BINARY_FAMILY_NO_RESCUE",
+    "scope": {
+      "execution_asset": "510300.SH",
+      "allowed_states": [
+        0,
+        1
+      ],
+      "benchmark": "H00300 total return",
+      "signal_time": "T_CLOSE_AFTER_NAV_AND_SHARE_RECORD_AVAILABLE",
+      "execution_time": "T_PLUS_1_OPEN",
+      "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY"
+    },
+    "candidate_count": 8,
+    "result_rows": 320,
+    "passing_candidates": [],
+    "positive_shadow_candidates": [],
+    "decision": "八个预先固定规则均未过双20门槛；禁止改分位、改方向、改窗口或组合条件营救。"
+  },
+  "old_binary_eight_saved_summaries": [
+    {
+      "candidate_id": "ETF_SHARE5D_BOTTOM10_CASH",
+      "rule": "5日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.07364346580672362,
+      "stress_min_rolling_242d_excess_median": -0.054487001840493855,
+      "stress_combined_annualized_excess_offset0": -0.044040954649521534,
+      "stress_combined_rolling_median_offset0": -0.02445517460912988,
+      "base_combined_annualized_excess_offset0": -0.029055512785382695,
+      "base_combined_rolling_median_offset0": -0.015570907006013362,
+      "cash_state_share_full_input_window": 0.10658174097664544,
+      "state_change_count_full_input_window": 140,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE5_BOTTOM20_AND_PREMIUM_BOTTOM20_CASH",
+      "rule": "5日份额变化与折溢价水平均不高于各自0.20分位则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.07815521881479505,
+      "stress_min_rolling_242d_excess_median": -0.08088569359210651,
+      "stress_combined_annualized_excess_offset0": -0.035121829322153963,
+      "stress_combined_rolling_median_offset0": -0.01997005058011702,
+      "base_combined_annualized_excess_offset0": -0.016101223189273234,
+      "base_combined_rolling_median_offset0": -0.008870031737252725,
+      "cash_state_share_full_input_window": 0.052653927813163484,
+      "state_change_count_full_input_window": 177,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE5_TOP20_AND_PREMIUM_TOP20_CASH",
+      "rule": "5日份额变化与折溢价水平均不低于各自0.80分位则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.08144859012674187,
+      "stress_min_rolling_242d_excess_median": -0.0631356360401407,
+      "stress_combined_annualized_excess_offset0": -0.043526366105324524,
+      "stress_combined_rolling_median_offset0": -0.04610447093666792,
+      "base_combined_annualized_excess_offset0": -0.024243305192258445,
+      "base_combined_rolling_median_offset0": -0.03216817856383023,
+      "cash_state_share_full_input_window": 0.05222929936305733,
+      "state_change_count_full_input_window": 182,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE20D_BOTTOM10_CASH",
+      "rule": "20日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.095403037840394,
+      "stress_min_rolling_242d_excess_median": -0.07757615095718426,
+      "stress_combined_annualized_excess_offset0": -0.027102922690137067,
+      "stress_combined_rolling_median_offset0": -0.007968938769477678,
+      "base_combined_annualized_excess_offset0": -0.02009853602800679,
+      "base_combined_rolling_median_offset0": -0.005019741196381669,
+      "cash_state_share_full_input_window": 0.10148619957537156,
+      "state_change_count_full_input_window": 64,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_SHARE1D_BOTTOM10_CASH",
+      "rule": "1日基金份额变化分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.098981200793584,
+      "stress_min_rolling_242d_excess_median": -0.10244671997714822,
+      "stress_combined_annualized_excess_offset0": -0.0715965420687374,
+      "stress_combined_rolling_median_offset0": -0.0769702729446379,
+      "base_combined_annualized_excess_offset0": -0.03405460911060836,
+      "base_combined_rolling_median_offset0": -0.03418855936091511,
+      "cash_state_share_full_input_window": 0.10828025477707007,
+      "state_change_count_full_input_window": 361,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_PREMIUM_BOTTOM10_CASH",
+      "rule": "收盘折溢价水平分位不高于0.10则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.10538799188969694,
+      "stress_min_rolling_242d_excess_median": -0.10168768374808554,
+      "stress_combined_annualized_excess_offset0": -0.0779411836864454,
+      "stress_combined_rolling_median_offset0": -0.0650769469496397,
+      "base_combined_annualized_excess_offset0": -0.047367547537586756,
+      "base_combined_rolling_median_offset0": -0.035753750780752463,
+      "cash_state_share_full_input_window": 0.08195329087048832,
+      "state_change_count_full_input_window": 297,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_PREMIUM_TOP10_CASH",
+      "rule": "收盘折溢价水平分位不低于0.90则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.13488357481019936,
+      "stress_min_rolling_242d_excess_median": -0.13772111575446805,
+      "stress_combined_annualized_excess_offset0": -0.09729815543656745,
+      "stress_combined_rolling_median_offset0": -0.08891177775688118,
+      "base_combined_annualized_excess_offset0": -0.056570145802198546,
+      "base_combined_rolling_median_offset0": -0.04768011734809196,
+      "cash_state_share_full_input_window": 0.09893842887473461,
+      "state_change_count_full_input_window": 400,
+      "maximum_t_plus_one_violations": 0
+    },
+    {
+      "candidate_id": "ETF_ABS_PREMIUM_TOP10_CASH",
+      "rule": "收盘折溢价绝对值分位不低于0.90则次日空仓，否则满仓",
+      "hard_pass": false,
+      "positive_shadow": false,
+      "stress_min_annualized_excess": -0.15349840870751566,
+      "stress_min_rolling_242d_excess_median": -0.12373213420445345,
+      "stress_combined_annualized_excess_offset0": -0.0939613115229492,
+      "stress_combined_rolling_median_offset0": -0.08269965659955905,
+      "base_combined_annualized_excess_offset0": -0.05910919685407415,
+      "base_combined_rolling_median_offset0": -0.05433271205539891,
+      "cash_state_share_full_input_window": 0.09087048832271762,
+      "state_change_count_full_input_window": 340,
+      "maximum_t_plus_one_violations": 0
+    }
+  ],
+  "old_binary_units": "原50万元/现金年利率1.5%/无最低佣金、年化242及H00300超额双20门；不是当前20万元原252现金0净收益夏普口径，320结果行不是320独立策略。",
+  "old_migration": {
+    "classification": "EXPLORATORY_RAPID_SCREEN_NOT_ACCEPTANCE",
+    "publication_clock": "ASSUMED_T_PLUS_1_CLOSE_NOT_HISTORICALLY_VERIFIED",
+    "original_G04_T07_validated": false,
+    "qualified_candidates": 0,
+    "worth_followup": []
+  },
+  "migration_coverage": {
+    "first_observation": "2021-01-08T00:00:00",
+    "last_observation": "2025-12-31T00:00:00",
+    "evaluation_start": "2022-02-07",
+    "evaluation_end": "2025-12-31",
+    "observation_count": 256,
+    "invalid_input_observations": 1,
+    "eligible_decision_days": 200,
+    "high_decision_days": 19,
+    "low_decision_days": 23,
+    "historical_publication_timestamp_verified": false
+  },
+  "migration_population": "固定510300/510310/510330三只沪市产品，2021起周度，原始收盘价估值；非动态全体系日频NAV。",
+  "current_1507_support": "NOT_COMPUTED",
+  "current_115_support": "NOT_COMPUTED"
+}

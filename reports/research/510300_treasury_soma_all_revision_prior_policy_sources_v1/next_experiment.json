@@ -1,0 +1,27 @@
+{
+  "proposal_id": "E15_ANNOUNCED_TREASURY_QT_CAP_PATH_STATE",
+  "status": "PROPOSED_NOT_REGISTERED_NOT_RUN",
+  "question": "从上游正式公开时点重建的未来三整月国债兑付上限路径状态，是否具有原国内订单/资金/融资/量价状态之外的信息增量？",
+  "why_different": "E6是财政部发行长端gross增幅；E12是季度借款更新现金及扣现金修订。此题是Fed先公开的政策上限路径状态，事件可用时点可能早数周；不改旧字段、源年龄、符号或失败模型。并非将借款更新重新标成政策意外。",
+  "preliminary_duplicate_search": "已只读E6来源/模型、E12模型协议，定向检索research/scripts/config；找到旧利率/期限溢价解释，但未在此检索范围发现同定义的未来三整月国债兑付上限评分。有限检索不认证全仓无重复；来源前须核目标定义。",
+  "source_first_scope": {
+    "history": "2022—2025原32次FOMC日期集合；原US事件元数据可读、股市标签不读。只从2022-05-04明确计划后开始合格政策路径。",
+    "objects": "复用已存声明/原计划；固定32次原声明及最多1份2025-10-29实施说明，不扩大至记者会/当前市场或未来事件。",
+    "maximum_statement_htmls": 32,
+    "maximum_end_implementation_htmls": 1,
+    "source_gate": "必须能证明所纳入历史决定期间的政策上限变化、生效月、续行及结束范围；12月国债全部滚续须实施原文，不能从aggregate结束或季度10反推国债0。",
+    "missing_handling": "无法识别变更/适用范围即保留未知并结束来源问题，不按股票收益选择删事件或替代数值。",
+    "no_new_equity_labels_models_accounts": true
+  },
+  "one_candidate_field": "美国已公布未来三整月国债兑付上限合计",
+  "one_candidate_definition": "只依decision_at之前正式公布的政策路径，对其纽约日期所属月之后三个完整自然月已知国债兑付上限求和，十亿美元；月末/阶段切换按公告生效月，未公布的未来更改不使用。没有精确到期量时只称上限状态，不称预计现金兑付。",
+  "state_persistence_rule": "政策安排按明示生效及后来正式修改更新；不能把季度预估120日有效期直接套用，但连续性须原声明覆盖证明，不能凭默认为不变。",
+  "root_dependence": "4个已定位政策根及计划内台阶都分别记录；多个月度股票事件共享公开路径，不制造独立政策根。",
+  "model_intent_not_registration": "源合格后另登记一次11国内/月份控制对12单字段联合比较；原纠正后68M2事件共同池、504日/12成熟、深2叶6、原五间隔成本标签及80分线；alpha10/均值仅参考，不选模型营救。评分、收益和账户均未运行。",
+  "known_history": "E1—E14及原M2历史结果已经观察，后续仍为历史开发，不声称独立验证。",
+  "financial_target_and_risk_unchanged": true,
+  "old_E6_E9_E12_rejections_preserved": true,
+  "independent_validation": false,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

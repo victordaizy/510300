@@ -1,0 +1,87 @@
+{
+  "study_id": "510300_SCHEDULED_MACRO_CAPITAL_RISK_V1",
+  "frozen_at": "2026-09-24T13:55:49.207634+08:00",
+  "periods": {
+    "PRIMARY": [
+      "2021-01-04",
+      "2026-08-14"
+    ],
+    "RECENT_DIAGNOSTIC": [
+      "2024-08-20",
+      "2026-08-14"
+    ]
+  },
+  "question": "已知重大宏观数据日程是否提供事前避险价值；不继承旧NBS公布后五分钟漂移模型。",
+  "parent": "固定三形态原账户A，原失效和五日退出。",
+  "event_population": "既有国民经济运行情况完整110条计划记录；仅用日程信息，不按分钟行情质量、结果方向或旧模型入选条件筛选。",
+  "known_at": "官方日程出版日期取23:59:59保守上界；年度修订只能在该版出版后使用。2022和2024早期不回填后来的修订日程。",
+  "risk_open": "不晚于计划发布时间的最后一个证券开盘；在该开盘前09:00决定。计划10点公布时为同日09:30；休市日公布则为此前最后开盘。",
+  "S_SCHEDULE": "所有已知计划窗口否决形态新买入，并卖出可卖旧份额。",
+  "S_FUNDS": "只在同一计划窗口且已知宏观资金收紧、微观成交分类承压同时发生时否决或退出；资金定义、滞后和阈值沿用上一轮已固定定义。",
+  "NO_VIEW": "对这层风险否决不形成新增请求，原形态策略继续；不把未知事件或未知资金自动当成空仓。",
+  "after_event": "不补买曾被否决的旧形态、不机械重建已经退出的旧交易；后续新形态照原规则。",
+  "sampling": "事件发生前未公开的日程留为NO_VIEW；不拿actual发布日期替换未知计划。",
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ]
+  },
+  "capital_cny": 200000,
+  "cash_yield": 0,
+  "annual_days": 252,
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "candidates": [
+    "S_SCHEDULE",
+    "S_FUNDS"
+  ],
+  "fits": 0,
+  "parameter_grids": 0,
+  "statistics": "主压力两个候选相对A，20日联合循环区块2000次，单侧.05/2；全局重复研究的选择偏差仍存在。",
+  "independence": false,
+  "current_view": "NO_VIEW",
+  "original_NBS_drift_rejection_preserved": true,
+  "new_collection": false,
+  "orders": false,
+  "review_package": false,
+  "source_references": [
+    {
+      "year": 2021,
+      "path": "data/raw/official/nbs/national_economy_release_schedule_v1/retrieved_at=20260904T224713672250+0800/year=2021.html",
+      "sha256": "c4edf165e489acbd7bb07cca5502424d768f1e8866e26bbbb2449d149052de6b"
+    },
+    {
+      "year": 2022,
+      "path": "data/raw/official/nbs/national_economy_release_schedule_v1/retrieved_at=20260904T224713672250+0800/year=2022.html",
+      "sha256": "06a4d7dc1ae8bc2a9e995292f652138d703fcf9cf141549be55b63d0ce957730"
+    },
+    {
+      "year": 2023,
+      "path": "data/raw/official/nbs/national_economy_release_schedule_v1/retrieved_at=20260904T224713672250+0800/year=2023.html",
+      "sha256": "65ae15af06ad8af5357ef732732d022d36edf4862cc2e31e7b9301ea56d0539b"
+    },
+    {
+      "year": 2024,
+      "path": "data/raw/official/nbs/national_economy_release_schedule_v1/retrieved_at=20260904T224713672250+0800/year=2024.html",
+      "sha256": "ffd6342dd1687b8637fb59d79bfb63f824102e9aefa791ed026ed31ce3b05ce5"
+    },
+    {
+      "year": 2025,
+      "path": "data/raw/official/nbs/national_economy_release_schedule_v1/retrieved_at=20260904T224713672250+0800/year=2025.html",
+      "sha256": "f147315b1e1c12d7bd0e5fd6cb9947773e241949396fa44bb522ddca1079d870"
+    },
+    {
+      "year": 2026,
+      "path": "data/raw/official/nbs/national_economy_release_schedule_v1/retrieved_at=20260904T224713672250+0800/year=2026.html",
+      "sha256": "a2da32301ab66adda9dfd408d4dddf7854fe61320be84ab0583b1d8664866c16"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "execution_mode": "PROJECT_PYTHON_STDIN_NO_SOURCE_FILE_EDIT",
+  "status": "COMPLETED",
+  "catalog_source": "from pathlib import Path\nfrom bs4 import BeautifulSoup\nimport requests,json,hashlib,re\nfrom datetime import datetime\nd=Path('reports/research/510300_multidim_treasury_long_supply_cause_score_v1')\nprotocol=json.loads((d/'protocol.json').read_text(encoding='utf-8'))\nassert (d/'freeze.json').is_file() and not (d/'sources').exists()\nout=d/'sources';out.mkdir()\nurl=protocol['source_scope']['catalog_url']\nr=requests.get(url,timeout=40);r.raise_for_status()\n(out/'官方按年声明目录.html').write_bytes(r.content)\nsoup=BeautifulSoup(r.content,'html.parser')\nmain=soup.select_one('article') or soup.select_one('main')\nprint(main.get_text('\\n',strip=True)[-20000:])\nlinks=[{'text':a.get_text(' ',strip=True),'href':a.get('href')} for a in main.select('a[href]')]\n(out/'目录链接.json').write_text(json.dumps(links,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8',newline='\\n')\n(d/'catalog_receipt.json').write_text(json.dumps({'retrieved_at':datetime.now().astimezone().isoformat(),'url':url,'http_status':r.status_code,'bytes':len(r.content),'sha256':hashlib.sha256(r.content).hexdigest()},ensure_ascii=False,indent=2)+'\\n',encoding='utf-8',newline='\\n')\n",
+  "new_repository_py_files": 0,
+  "executed_source_sha256": "ae7681225c51fd94abfd768963157bf8fc871cd0b763dbec4c43dbbc5120a4f1"
+}

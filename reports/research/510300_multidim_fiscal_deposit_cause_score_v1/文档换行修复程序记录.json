@@ -1,0 +1,6 @@
+{
+  "analysis_source": "from pathlib import Path\nimport re,json,hashlib\nfrom datetime import datetime\nROOT=Path.cwd();OUT=ROOT/'reports/research/510300_multidim_fiscal_deposit_cause_score_v1'\ndef sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()\nrecord=json.loads((OUT/'长期状态更新回执.json').read_text(encoding='utf-8'))\nrepairs=[]\nfor name in ['docs/PROJECT_STATE.md','docs/RESEARCH_DECISIONS.md']:\n p=ROOT/name;before=p.read_bytes();fixed=re.sub(rb'\\r+\\n',b'\\r\\n',before)\n assert p.read_bytes()==before\n p.write_bytes(fixed)\n for item in record['changes']:\n  if item['path']==name:\n   item['before_newline_normalization_sha256']=item['after_sha256']\n   item['after_sha256']=sha(p)\n repairs.append({'path':name,'duplicate_carriage_returns_removed':before.count(b'\\r\\r\\n'),\n                 'after_sha256':sha(p),'meaningful_document_text_unchanged':True})\nrecord['newline_normalization']=repairs\nrecord['finalized_at']=datetime.now().astimezone().isoformat()\n(OUT/'长期状态更新回执.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')\nfor item in repairs:print(item['path'],'换行已统一；去除重复回车',item['duplicate_carriage_returns_removed'])\n",
+  "execution_mode": "项目Python标准输入",
+  "new_repository_source_files": 0,
+  "analysis_source_sha256": "72684e7144149e4bc2335c9c9f2ae0f3cf5ac3a9fad99d2e7122bbd3b3fe54ae"
+}

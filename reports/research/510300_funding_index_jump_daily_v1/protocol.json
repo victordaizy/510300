@@ -1,0 +1,165 @@
+{
+  "at": "2026-09-26T01:34:31.731846+08:00",
+  "study_id": "510300_FUNDING_INDEX_JUMP_DAILY_V1",
+  "primary": "PRICE_FUNDING_RV_AND_JUMP",
+  "question": "在相同价格弱势、盘中波动规模及资金模型意外下，指数波动集中程度代理能否改善五日分布与完整账户？",
+  "mechanism_hypothesis": "持续价格调整和少数集中变化可能对应不同的后续路径；跳跃不能直接识别消息、知情交易或被迫卖出。对收益改善只作待检验假设。",
+  "measurement": {
+    "asset": "000300.SH",
+    "price": "分钟标签close",
+    "sampling": {
+      "AM": [
+        "09:35:00",
+        "09:40:00",
+        "09:45:00",
+        "09:50:00",
+        "09:55:00",
+        "10:00:00",
+        "10:05:00",
+        "10:10:00",
+        "10:15:00",
+        "10:20:00",
+        "10:25:00",
+        "10:30:00",
+        "10:35:00",
+        "10:40:00",
+        "10:45:00",
+        "10:50:00",
+        "10:55:00",
+        "11:00:00",
+        "11:05:00",
+        "11:10:00",
+        "11:15:00",
+        "11:20:00",
+        "11:25:00"
+      ],
+      "PM": [
+        "13:05:00",
+        "13:10:00",
+        "13:15:00",
+        "13:20:00",
+        "13:25:00",
+        "13:30:00",
+        "13:35:00",
+        "13:40:00",
+        "13:45:00",
+        "13:50:00",
+        "13:55:00",
+        "14:00:00",
+        "14:05:00",
+        "14:10:00",
+        "14:15:00",
+        "14:20:00",
+        "14:25:00",
+        "14:30:00",
+        "14:35:00",
+        "14:40:00",
+        "14:45:00",
+        "14:50:00",
+        "14:55:00"
+      ]
+    },
+    "returns_each_session": 22,
+    "returns_total": 44,
+    "RV": "两段内部五分钟对数收益平方之和",
+    "BV": "每段(pi/2)*(22/21)*相邻收益绝对值乘积之和，再相加",
+    "finite_sample_adjustment": "22/21仅补每段22收益只有21相邻积，在独立同方差正态模型下校正项数；并非对任意真实市场无偏。",
+    "jump_fraction": "max(RV-BV,0)/RV；不是显著性跳跃检验，不识别跳跃方向",
+    "rv_control": "log(RV/源日前20个510300含分红日对数收益平方均值)",
+    "excluded": "隔夜、午休、开盘初段及收盘末段均未测量，不能称全天总跳跃风险",
+    "zero_or_invalid": "端点缺失、非正价格或RV为0保留NO_VIEW，不填补"
+  },
+  "source_clock": "源日15:30计划可用，最早下一A股交易日09:00判断、09:30开盘；历史首次送达及分钟标签起止语义未认证。",
+  "funding": "复用当前两年窗内重构的FDR007日历模型残差，不携带旧窗参数，不重估资金回归。",
+  "models": {
+    "HISTORY": [],
+    "PRICE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60"
+    ],
+    "PRICE_AND_INTRADAY_RV": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "log_intraday_rv_ratio"
+    ],
+    "PRICE_RV_AND_JUMP": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "log_intraday_rv_ratio",
+      "jump_fraction"
+    ],
+    "PRICE_FUNDING_AND_RV": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "log_intraday_rv_ratio",
+      "funding_innovation"
+    ],
+    "PRICE_FUNDING_RV_AND_JUMP": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "log_intraday_rv_ratio",
+      "funding_innovation",
+      "jump_fraction"
+    ]
+  },
+  "primary_increment": "PRICE_FUNDING_RV_AND_JUMP减PRICE_FUNDING_AND_RV，控制细粒度RV后检验跳跃信息；另比较减PRICE_RV_AND_JUMP以检验资金增量。",
+  "other_controls": [
+    "PRICE_AND_INTRADAY_RV",
+    "PRICE"
+  ],
+  "training": "六模型共同成熟池，最近两日历年且退出开盘严格早于当前判断；至少252原点，固定126近邻，训练内标准化、截断5，距离同分按原点编号。HISTORY使用完整共同池。",
+  "reuse": "PRICE和HISTORY必须与旧下午响应研究逐日训练集、选中集和预测值一致，才只读复用PRICE两成本账户；四个新模型共8新账户。",
+  "account": "沿用原每日滚动库存引擎而非按上一轮点值选择期限；新增只在五日已知价格弱势，T+1、整手、费用、现金股息分账与账户尾部限制均不变。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free_rate": 0,
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparison": "完整账户全部日期，20日循环区块2000次，seed2026092602；固定2020-2023及2024-末端，另保存所有滚动两年。",
+  "development_gate": "主压力账户同时满足三目标，相对四对照的收益差95%下界均正且两固定时期均正，才可列开发候选；仍需独立验证。",
+  "monitor": "固定五日间隔的成熟预测，最近60条q05跌穿率超过15%记警报，纯诊断不临时改账户；尾部预算与回撤规则继续执行。",
+  "coverage": "全期账户保留分钟资料缺失和训练不足现金日；不以实际可预测短区间替代完整目标。",
+  "duplicates": "旧下午价格、日内隔夜、成交压力、成分广度、限价和五日期限结果不重跑；本轮只改变指数RV与双幂差代理信息。",
+  "new_parameter_grid": 0,
+  "new_funding_regression_fits": 0,
+  "new_full_accounts": 8,
+  "reused_full_accounts": 2,
+  "new_market_downloads": 0,
+  "historical_first_vintage_authenticated": false,
+  "new_independent_forward_observations": 0,
+  "source_quality_warnings": [
+    {
+      "code": "GENERIC_PROXY_ENDPOINT",
+      "detail": "数据由代理stk_mins返回000300.SH，不等同于已获得官方idx_mins权限。"
+    },
+    {
+      "code": "TIMESTAMP_INTERVAL_SEMANTICS_PENDING",
+      "detail": "标签集合通过不等同于bar起止语义已人工确认。"
+    },
+    {
+      "code": "NON_RESEARCH_OHLC_ANOMALY_PRESERVED",
+      "daily_mismatch_day_count": 2,
+      "nonpositive_row_count": 1,
+      "impact": "本研究指数合同只使用close；原始异常不修改。"
+    }
+  ],
+  "method_source": "https://shephard.scholars.harvard.edu/sites/g/files/omnuum7741/files/power.pdf",
+  "goal_achieved": false,
+  "orders_authorized": false
+}

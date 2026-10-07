@@ -1,0 +1,181 @@
+{
+  "study": "510300_BROKER_STAGE_POLICY_V1",
+  "at": "2026-10-05T20:02:51.481014+08:00",
+  "registration_decision": "TECH.R211",
+  "result_decision": "TECH.R212",
+  "question": "宏观角色与价格阶段共同定义进入、确认和失效，能否较固定退出及未分阶段进入提高完整收益和夏普？",
+  "known_before_freeze": "全部历史已用于研究，R208拒绝；R210四原案例与全部状态描述已知。不是新样本或独立验证，也不声称首次做自适应。",
+  "policies": [
+    "STAGE_ENTRY_AND_EXIT",
+    "SAME_ENTRY_FIXED_EXIT",
+    "RAW_ENTRY_SAME_EXIT"
+  ],
+  "primary": "STAGE_ENTRY_AND_EXIT",
+  "parameter_grid": false,
+  "entry": "三路线均只在完整资格条件由假转真时尝试次开；同日优先重新定价、回踩、修复。修复=收盘>EMA20且日柱>0、上周柱<=0、RV20/RV60<=1，且已知资金差<=0并五日下降，或PMI订单连续月改善。重新定价=严格突破前20收盘高、当日量/前20中位>=1.5、日柱>0，不要求慢宏观同时确认。回踩=昨日<=昨日EMA20、今日>EMA20、日柱回升，且上周柱>0、已知融资五日>=0。",
+  "unknown": "宏观资格未知则相关路线NO_VIEW，但完全可知的重新定价可独立观察；不填零，PMI绝对水平不作为修复硬门。未知不等于宏观看空。",
+  "support": "实际进入前已知上一完整自然周最低现金平移价；次开已在该位或更低取消本次，三政策共用。",
+  "phase_holding": "真实成交后EARLY。收盘<=入场结构位退出；上周柱>0、收盘>EMA20、已知融资五日>=0后一次晋为TREND，不倒改进入身份；TREND结构位取原位与每个已知上一周低的最大值，只升不降。跌破结构位或上周柱<=0退出；EARLY日柱<0且收盘<EMA20退出。资金差>0并五日上升、融资五日<0且收盘<EMA20时两阶段均退出。没有固定止盈或持有期限。",
+  "fixed_exit_control": "完全相同阶段资格进入与开盘结构取消，成交经济开盘下1ATR/上2ATR/20收盘到期，ATR取决定日；只改持有退出条件。机会因资金占用会不同，不声称每笔配对。",
+  "unconditioned_entry_control": "去掉修复的周线/波动/宏观资格、去掉回踩的周线/融资资格；原价格与成交事件仍保留，三种原条件各自上升沿；持有退出、风险和费用与主政策完全相同。不是把三条账户收益拼起来。",
+  "account": "每时期20万元，510300.SH/CASH_CNY；不补买，只允许风险减仓；最大50%、成熟ES5预算2.5%、10%跳空预算5%和半数剩余回撤余量；账户DD10%触发次可卖开盘清仓且永久停止新买入。下一开盘只减原计划可买数量，涨跌停、T+1、100份、.001报价、股息登记/应收/到账、252年化及全部现金日、终点自然持仓保持。",
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ],
+    "minimum_commission": 5
+  },
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "economic_gate": "主政策四场景均CAGR、完整Sharpe为正并严格高于原A及两归因对照，DD<=10%、实际完成pB>1且标准亏损单位期望>0；次数是软目标，零亏损时B不定义，不用预计pB或计划2R替代。",
+  "stability": "原20/252日循环块各2000、种子510300154；相对A及两对照的CAGR/Sharpe增量95%下界都>0才支持历史稳定；全部区间报告，历史多次选择未校正。",
+  "new_policy_accounts": 12,
+  "original_A_replays": 4,
+  "new_models": 0,
+  "new_labels": 0,
+  "necessary_tests": 9,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "first_vintage": "原市场和宏观首版未认证；保存钟不等于首版认证。",
+  "scope_of_novelty": "第9轮在线机制专家、第39/40轮趋势与日内强弱路由、原周日技术和量先价后均已研究。本次为宏观改善/融资确认分工、技术重新定价独立路线、真实持仓晋级及上一完整周结构失效的完整共同政策；有限查重不证明穷尽所有旧规则。",
+  "no_rescue": "本配置一次运行；不按结果改资格、符号、尺度、止盈、持有、资金风险、费用或时期；不同用途另立，旧失败和原13项前瞻保持。",
+  "sources": [
+    {
+      "path": "research\\broker_stage_policy_study_v1.py",
+      "sha256": "e499afbe707a7ee114cf2ff3fdf69de934516560842db472fc4120a4bd3c53d5"
+    },
+    {
+      "path": "research\\broker_stage_policy_inputs_v1.py",
+      "sha256": "f6a1c40ba78f9493a180c4bf9e6e68c0bb98c26e1dd426906b0ccfab2f986104"
+    },
+    {
+      "path": "research\\point_first_passage_study_v1.py",
+      "sha256": "dd1dc78d81200aadde09cc64e0e08acfd5bf92b11eecbf0167b86b0e98eee9ad"
+    },
+    {
+      "path": "research\\point_first_passage_account_v1.py",
+      "sha256": "aa02f183c9bf21434906370be4f47e6a29c4bee83896b0c0e447bc71fd341edf"
+    },
+    {
+      "path": "research\\point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research\\daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research\\point_account_nr7_complement_v1.py",
+      "sha256": "fa2585dd4101578668d3a17eb911085659c1273fc40a1598ddded9253457803b"
+    },
+    {
+      "path": "research\\point_directional_confirmation_study_v1.py",
+      "sha256": "1d2941f19edd61a08da2eaaa13c04b9cbe4af8b74a0819c8affd32fc8f9e221a"
+    },
+    {
+      "path": "tests\\test_broker_stage_policy_v1.py",
+      "sha256": "6dfe3adf7327f5a0aebb83cdd85986c673fdd5d3dff922148bf7466bff9c7594"
+    },
+    {
+      "path": "docs\\510300_BROKER_STAGE_POLICY_V1.md",
+      "sha256": "5ec0723e7ea580277232868a2476aef88176bd2763fcc3473a72ace5f20a9070"
+    },
+    {
+      "path": "reports\\research\\510300_cnh_macro_first_passage_v1\\results\\全部3488当时已知技术宏观与定盘偏离_未知保留.parquet",
+      "sha256": "36d2ac3feac4b01ee575ea7db75aff7c89144ec6c8976da2d77f846956c4b314"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\inputs\\dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\inputs\\risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\inputs\\parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\inputs\\earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports\\research\\510300_broker_cycle_inspiration_v1\\phase_observation_summary.json",
+      "sha256": "faf4dfbc5e0543cea811aa535feb17a66357eee42ae50f0fca23068971aa8265"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\BASE\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\BASE\\A_SAVED_WEIGHT\\orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\BASE\\A_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\STRESS\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\STRESS\\A_SAVED_WEIGHT\\orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\STRESS\\A_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\BASE\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\BASE\\A_SAVED_WEIGHT\\orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\BASE\\A_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\STRESS\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\STRESS\\A_SAVED_WEIGHT\\orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\STRESS\\A_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    },
+    {
+      "path": "reports\\research\\510300_broker_stage_policy_v1\\tests_receipt.json",
+      "sha256": "4b1e53723d80f1a1f461efa45f7c29d55637a36cad6d742fb4e8d528c7212f67"
+    },
+    {
+      "path": "reports\\research\\510300_broker_stage_policy_v1\\control_preflight.json",
+      "sha256": "171160012fe0dc2359d309a315dfee86d0625ce6365eaa548772d784c7bd70c9"
+    }
+  ]
+}

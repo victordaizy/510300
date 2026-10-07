@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-02T19:23:57.548956+08:00",
+  "study": "510300_POINT_FUNDING_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R118",
+  "result_decision": "TECH.R119",
+  "candidate_configurations": 1,
+  "hypothesis": "资金价格相对已实施政策利率的连续压力与缓和能否增加原继续价值信息。",
+  "different_use": "旧T14高低分位入场退出组合只有1闭合周期、点位失败保持；此处没有该规则的价格确认、分位阈值或账户营救。",
+  "fields": [
+    "DR_POLICY_GAP_MEAN5",
+    "DR_POLICY_GAP_MEAN5_CHANGE5"
+  ],
+  "formula": "原点t使用原日历t-5..t-1五个DR日各自减该DR日收盘前已公布且已实施的政策七天利率的均值；变化为该均值减t-5原点对应均值，共需t-10..t-1十个原日历观测。单位百分点。",
+  "clock": "DR源DR007.IB/DR007/weight，加权平均百分比；每个利率日期后的下一510300交易日09:30才可用，原状态15:05。政策原公布时刻及实施日均须成立。",
+  "policy": "25个原操作变更及已核实R02实施事实；2024-09-27按23:59:59可用，不把9/24宣布目标提前当操作利率，也不把实施事实当独立政策意外。",
+  "calendar": "完整2905条DR源均保存；2823原股票交易日完整，另82银行间日期保留原表。本定义使用原股票日历前十日的对应观测，银行间额外日期不改变该五日单位。",
+  "missing": "应有日期、当日可知政策版本或十日窗口缺任一即可选输入未知，原值NULL、修正不活动，直接返回原预测；不插值、不拖末值、不回退较旧窗口。源截止8/14，之后仅合法下一开盘可用观测，不伪造9月资金值。",
+  "core_and_training": "原1507状态、142月115可用27未知、八项系数/截距/尺度不动；全部原成熟训练行、目标、周期总权重1、最近20/最少10周期100行及实际入场锁定不变。",
+  "model": "唯一两系数可选残差Ridge：已知行按原权重标准化、clip±5，再中心化令全训练设计均值0；未知设计为不活动分支0但原字段仍NULL。原全部行的设计和原预测残差分别周期内中心化，alpha1，新增全局截距0。",
+  "prediction_gate": "两个固定时期原可用预测完整配对，周期等权原收益MSE严格改善，入场年份块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "complete_K05_all_member_field_admission": false,
+  "economic_gate": "仅预测门通过后另登记原20万元252日BASE/STRESS两时期账户；净CAGR和净夏普均高于A，实际净pB>1、标准净期望>0、回撤<=10%，次数软目标。",
+  "no_rescue": "不按结果改变五日、变化期、时钟、缺失分支、alpha/clip、方向、标签、成员、费用或子期；季末只记录已知日历，不临时加筛子。",
+  "new_return_labels": 0,
+  "network_requests": 0,
+  "historical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "orders_authorized": false,
+  "goal_achieved": false
+}

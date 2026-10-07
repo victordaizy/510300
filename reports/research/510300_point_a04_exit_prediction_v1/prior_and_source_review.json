@@ -1,0 +1,234 @@
+{
+  "at": "2026-10-02T06:46:03.274531+08:00",
+  "status": "ADMITTED_SINGLE_A04_OPERATIONALIZATION_FOR_DEVELOPMENT_PREDICTION",
+  "candidate": "A04",
+  "hypothesis": "市场已确认前涨幅的回调比例可能补充原动量/实际持仓回撤摘要。",
+  "scope": "有限语义关键词定位及所列直接合同核对；不是全仓库算法等价搜索完备证明。",
+  "nearest_contracts": [
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "sha256": "dc370c32e272436467b05ac0c636ffff6a1384202eedcc4e83efebdb73040d30",
+      "difference": "旧周线OHLC严格高低点、下一周可用，构造支撑/阻力和进入事件；新定义日收盘确认后连续输出已知波段幅度比例，不以新日线采样重新试旧进入规则。"
+    },
+    {
+      "path": "research/weekly_anchor_bidirectional_v1.py",
+      "sha256": "a4463144edd2619a768277c64a2c0b2ab5c89110e42cbbf030f8c2e7756a6942",
+      "difference": "旧周线多空锚定位置及事件；本轮不增加这些事件/阈值，也不重开旧策略。"
+    },
+    {
+      "path": "research/breakout_retest_entry_v1.py",
+      "sha256": "59d5225a9bea3db07e2f24cf7f74df5ea811baca8bf6cdab9c34986786fae9f7",
+      "difference": "旧55轮20日突破水平固定后等待10日回踩守住进入；与最新已确认低点到高点幅度比例不同。"
+    },
+    {
+      "path": "config/510300_breakout_retest_entry_v1.json",
+      "sha256": "9d539870bf25e3aece7c6343899e964cb9aa8d93c48f2ec4f142aad42d05d0d4",
+      "difference": "原固定突破回踩合同保留。"
+    },
+    {
+      "path": "reports/research/510300_breakout_retest_entry_v1/acceptance_outcome.json",
+      "sha256": "96cdc3faf25b68767d20d216e390bae2811b87836521174daaedc903282cb3a0",
+      "difference": "旧55轮跨期改进未过，正式结束，不营救。"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311",
+      "difference": "旧20日通道/均线收复/RSI及回撤规则保留；不使用这些入场阈值换周期救回。"
+    },
+    {
+      "path": "research/force_pullback_inputs_v1.py",
+      "sha256": "0fc4a8a236020bcc8963f7e45161909aee8dc437b8d1570ffcd0495b8c19b750",
+      "difference": "旧2/13期经济价差乘成交量力度；与严格两侧确认的价格幅度比例不同。"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929",
+      "difference": "旧供给试探价低/量缩和修复事件不变；A04当前只作退出状态第九项。"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e",
+      "difference": "原cycle_drawdown为实际参考持仓当前值相对持有以来峰值；A04是市场已确认涨幅消耗比例，锚点不取实际买入日或持仓峰值。"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b",
+      "difference": "原A04卡只是假设；本次绑定日收盘、右2确认、最新合法配对和原始范围。"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/A04_candidate_intake_plan.json",
+      "sha256": "a95d78514a99f5f039b14b9ca4af4ca3d1c0f990d5d1494d8d8f210e07cacdae",
+      "difference": "本轮开始前的有限去重、时钟和支持候选计划。"
+    },
+    {
+      "path": "reports/research/510300_point_c06_exit_prediction_v1/prediction_summary.json",
+      "sha256": "97aea0214e1ef3c01deea6c6a501d73db25891aad5d0c02b49b4fbf42a334334",
+      "difference": "前轮不同C06字段固定失败保留；不改变其分箱、坐标、方向或门。"
+    }
+  ],
+  "scan_hits": [
+    {
+      "path": "research/money_consensus_increment_v2.py",
+      "line": 277,
+      "text": "        \"account_runs\":0,\"account_CAGR\":None,\"account_net_Sharpe\":None,\"retracement_exit_comparison\":\"NOT_RUN_ENTRY_NOT_VALIDATED\","
+    },
+    {
+      "path": "research/participant_identity_clock_v1.py",
+      "line": 67,
+      "text": "        \"chart_rule\": \"价格趋势仅作完整日频描述，不用图上拐点选窗口；持有结构与公开时点分别表达。\","
+    },
+    {
+      "path": "research/point_account_nr7_complement_v1.py",
+      "line": 332,
+      "text": "             \"\", \"两条已有点位保留为历史线索；新窄幅假说若没有同时提高收益、夏普和交易质量，就不加入候选。既有RSI失败摆动、二次供给测试、普通周支撑、指标拐点与旧高过拟合混合方案的原裁决保持。\","
+    },
+    {
+      "path": "research/weekly_anchor_bidirectional_v1.py",
+      "line": 85,
+      "text": "                           (\"new_pivot_low\", \"new_pivot_high\"), (\"new_pivot_high\", \"new_pivot_low\")]:"
+    },
+    {
+      "path": "research/weekly_anchor_bidirectional_v1.py",
+      "line": 89,
+      "text": "        if pd.notna(row.new_pivot_low):"
+    },
+    {
+      "path": "research/weekly_anchor_bidirectional_v1.py",
+      "line": 90,
+      "text": "            support = {\"support_index\": float(row.new_pivot_low), \"support_pivot_date\": row.last_date if j < 2 else mw.last_date.iloc[j - 2],"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 110,
+      "text": "    w[\"new_pivot_low\"] = np.nan"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 111,
+      "text": "    w[\"new_pivot_high\"] = np.nan"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 116,
+      "text": "            w.loc[j, \"new_pivot_low\"] = w.low.iloc[center]"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 118,
+      "text": "            w.loc[j, \"new_pivot_high\"] = w.high.iloc[center]"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 123,
+      "text": "        if pd.notna(row.new_pivot_low):"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 124,
+      "text": "            support = {\"support_index\": float(row.new_pivot_low), \"support_pivot_date\": w.last_date.iloc[j - 2], \"support_confirm_date\": row.last_date, \"support_pivot_week\": j - 2}"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 160,
+      "text": "            highs = known[(known.index >= r.completed_week_idx - 52) & known.new_pivot_high.gt(r.ac)]"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 161,
+      "text": "            target = float(highs.new_pivot_high.min()) if len(highs) else np.nan"
+    },
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "line": 162,
+      "text": "            target_row = highs.loc[highs.new_pivot_high.idxmin()] if len(highs) else None"
+    }
+  ],
+  "direct_sources": [
+    {
+      "path": "research/weekly_daily_entry_locations_v1.py",
+      "sha256": "dc370c32e272436467b05ac0c636ffff6a1384202eedcc4e83efebdb73040d30"
+    },
+    {
+      "path": "research/weekly_anchor_bidirectional_v1.py",
+      "sha256": "a4463144edd2619a768277c64a2c0b2ab5c89110e42cbbf030f8c2e7756a6942"
+    },
+    {
+      "path": "research/breakout_retest_entry_v1.py",
+      "sha256": "59d5225a9bea3db07e2f24cf7f74df5ea811baca8bf6cdab9c34986786fae9f7"
+    },
+    {
+      "path": "config/510300_breakout_retest_entry_v1.json",
+      "sha256": "9d539870bf25e3aece7c6343899e964cb9aa8d93c48f2ec4f142aad42d05d0d4"
+    },
+    {
+      "path": "reports/research/510300_breakout_retest_entry_v1/acceptance_outcome.json",
+      "sha256": "96cdc3faf25b68767d20d216e390bae2811b87836521174daaedc903282cb3a0"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research/force_pullback_inputs_v1.py",
+      "sha256": "0fc4a8a236020bcc8963f7e45161909aee8dc437b8d1570ffcd0495b8c19b750"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/A04_candidate_intake_plan.json",
+      "sha256": "a95d78514a99f5f039b14b9ca4af4ca3d1c0f990d5d1494d8d8f210e07cacdae"
+    },
+    {
+      "path": "reports/research/510300_point_c06_exit_prediction_v1/prediction_summary.json",
+      "sha256": "97aea0214e1ef3c01deea6c6a501d73db25891aad5d0c02b49b4fbf42a334334"
+    },
+    {
+      "path": "reports/research/510300_point_a04_exit_prediction_v1/原训练成员第九项数量支持.csv",
+      "sha256": "ce98cc8703de3bad259f294cf4516d725706fa4ca39564ebb2d4d934003aafa9"
+    }
+  ],
+  "source_contract": {
+    "input_rows": 3488,
+    "first_date": "2012-05-28",
+    "last_date": "2026-09-30",
+    "source": "原冻结510300日线及当日除息现金事件，决策后下一开盘执行。",
+    "first_vintage_limit": "继承纠正历史日线的开发范围，不宣称新独立市场时期。",
+    "pivot_price": "DAILY_CASH_ADJUSTED_CLOSE",
+    "strict_left_right_bars": [
+      2,
+      2
+    ],
+    "all_pivots_confirmed_before_feature": true,
+    "new_bars": 0,
+    "initial_missing_is_not_zero": true
+  },
+  "field_coverage": {
+    "finite_daily_rows": 3474,
+    "natural_reference_rows": 1507,
+    "finite_reference_rows": 1507,
+    "mature_monthly_records": 115,
+    "complete_original_training_months": 115,
+    "minimum_distinct_values_in_mature_month": 425,
+    "minimum_positive_up_swing_amplitude": 0.005999999999999783,
+    "minimum_raw_fraction": -78.46153846153904,
+    "maximum_raw_fraction": 30.4285714285728,
+    "legal_pairs_formed": 451,
+    "nonpositive_new_pairs_ignored": 13
+  },
+  "small_denominator_rule": "按原卡非正分母不更新；不因已有幅度分布增加最小幅度门。原模型标准化与clip5仍固定。",
+  "new_candidate_outcomes_read": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED"
+}

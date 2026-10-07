@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-02T00:40:41.367568+08:00",
+  "latest_user_frequency_instruction": "不一定每年五次，但还是希望提高每年交易次数",
+  "latest_user_scope_instruction": "我们只研究点位，多空盈亏比和胜率",
+  "research_universe": [
+    "510300.SH作为标的研究对象"
+  ],
+  "allowed_directions": [
+    "LONG",
+    "SHORT"
+  ],
+  "bars": [
+    "DAILY",
+    "PREVIOUS_COMPLETED_WEEK"
+  ],
+  "frequency_constraint": "SOFT_OBJECTIVE_NO_ANNUAL_MINIMUM",
+  "hard_minimum_cycles_each_full_year": null,
+  "frequency_reporting": [
+    "每年完成周期数",
+    "零交易年份",
+    "完整年份平均次数",
+    "最长等待时间"
+  ],
+  "quality_objective": "扣参考摩擦后的实际胜率p乘实际盈亏比B严格大于1，并正确报告标准数学期望。",
+  "working_comparison_lines": null,
+  "current_phase_exclusions": [
+    "期权合约选择",
+    "期权收益回测",
+    "实盘委托",
+    "分钟线"
+  ],
+  "background_option_permission": "后续可以使用510300对应期权表达多空，本轮只评价标的点位",
+  "goal_effective_scope_note": "最新指令恢复完整账户收益与夏普比较；多头优先、次数软目标、实际净pB>1门槛保留。旧goal逐年五次硬门槛继续失效。",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "latest_user_quality_instruction": "胜率乘以盈亏比数学期望得是正的，大于1",
+  "quality_hard_gate": {
+    "p_times_actual_payoff_strictly_greater_than": 1.0,
+    "standard_net_expectancy_greater_than": 0.0,
+    "basis": "标的点位统一摩擦后的实际平均盈利/实际平均亏损，不能用计划目标比替代"
+  },
+  "expectation_definition": "标准亏损单位期望=p*B-q，q为亏损率；无平手时q=1-p。利润因子=p*B/q。用户指定p*B>1作为更严格的额外硬门槛。",
+  "old_disjunction": "原55%胜率或盈亏比2的工作比较线不再作为通过标准",
+  "latest_user_priority_instruction": "如果空头困难可以先只做多头，后面补空头",
+  "current_priority": "NET_RETURN_AND_SHARPE_IMPROVEMENT_WITH_OVERFIT_CONTROLS",
+  "current_phase_required_directions": [
+    "LONG"
+  ],
+  "deferred_directions": [
+    "SHORT"
+  ],
+  "short_status": "DEFERRED_BY_USER_UNTIL_LONG_RESEARCH_READY",
+  "latest_user_account_instruction": "请继续，提高夏普率和收益率",
+  "account_quality_objective": "在同资金、同成本和风险口径下，提高净年化收益与全日历净夏普；增加交易不得损害净优势；检验实际回撤。",
+  "account_scope_addendum": "account_return_sharpe_scope_addendum_20261001.json",
+  "latest_user_anti_overfitting_instruction": "去除过拟合，并把我们的模型完善做得更好，夏普率更高，收益率更高",
+  "anti_overfitting_scope_addendum": "anti_overfitting_scope_addendum_20261001.json",
+  "independent_claim_gate": "research/anti_overfit_evidence_inputs_v1.py",
+  "prior_used_outcomes_through": "2026-09-30",
+  "all_current_history_role": "DEVELOPMENT_AND_CALIBRATION",
+  "accepted_independent_candidates": [],
+  "calendar_coverage_check": "research/point_forward_calendar_check_v1.py",
+  "calendar_denominator": "OFFICIAL_EXCHANGE_CALENDAR_TIMES_FROZEN_CANDIDATES",
+  "independent_account_evaluation_plan_status": "PREDECLARED_MECHANISM_COMPARISON_NOT_FULL_STRATEGY_VALIDATION",
+  "forward_account_comparison_protocol": "reports\\research\\510300_point_weight_forward_v1\\protocol.json",
+  "registered_forward_mechanism_comparisons": 1,
+  "latest_user_instruction": "请继续，提高夏普率和收益率",
+  "joint_model_quality_scope_addendum": "joint_model_quality_scope_addendum_20261002.json",
+  "return_sharpe_resume_scope_addendum": "return_sharpe_resumed_scope_20261002.json"
+}

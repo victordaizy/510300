@@ -1,0 +1,90 @@
+{
+  "study_id": "510300_INDEX_STATE_ACTIVE_ALLOCATION_V1",
+  "at": "2026-09-25T13:48:59.972082+08:00",
+  "primary": "MACRO_HMM",
+  "question": "若分配只允许当日已有参考持仓信号的策略，是否比允许给暂时空仓参考配置权重更有利。",
+  "experts": [
+    "D60_INTRA",
+    "R2_Z_CONFIRM",
+    "PANIC_ONLY"
+  ],
+  "expert_status": "三类固定价格参考，未被称为独立有效Alpha；不加入原学习退出或旧85/15模型。",
+  "reference_clock": "按原价格规则和压力成本，从原2013参考起点连续重建；不因评价起点重置已有参考策略状态。",
+  "value_label": "参考账户在当日开盘交易前权益至第五个后续开盘交易前权益的净收益。除去第一个开盘前的隔夜涨跌，不把入场前跳空计入可获得收益。参考过程内的合法成交和分红全部保留。",
+  "information": "复用已保存两年日更HISTORY、PRICE_HMM、MACRO_HMM的相同成熟标签权重，隐藏状态不重新训练、不改状态参数。仅将被加权的结果换为具体策略的五日收益。",
+  "allocation": "每天计算三策略条件均值与协方差，协方差固定50%收缩到对角并加1e-10数值对角项；最大化w均值-2*w协方差w，w>=0且总和<=1，余量为现金。无正效用则现金。",
+  "actual_account": "将三个参考当天计划仓位按上述权重合成一个510300目标，之后统一尾部预算和10个百分点交易带；不是把三条净值相加。",
+  "common_risk": "四个分配政策统一使用同一MACRO_HMM的五日指数尾部分布；比较只隔离状态对策略分配的作用。PRICE_HMM是价格信息分配对照，不是完全不含宏观风险信息的账户。",
+  "policies": {
+    "EQUAL_EXPERTS": "三类固定等权参考",
+    "HISTORY": "不分状态的策略价值分配",
+    "PRICE_HMM": "价格状态条件策略价值分配",
+    "MACRO_HMM": "宏观持续状态条件策略价值分配"
+  },
+  "risk": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "capital": 200000,
+  "annual_days": 252,
+  "targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "new_reference_accounts": 0,
+  "new_full_accounts": 6,
+  "new_hidden_models": 0,
+  "comparison": "主MACRO_HMM对PRICE_HMM、HISTORY及EQUAL_EXPERTS；完整同日账户20日区块2000次，种子20261001。",
+  "duplicate_boundary": "区别于直接预测指数涨跌，以及过去仅按总体均值/风险配置的旧参考分配；本次固定检验持续状态与各具体策略未来收益的关系。",
+  "new_parameter_grid": 0,
+  "new_market_collection": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "evidence_limit": "同一段历史反复研究后的新固定开发比较，不是独立验证。",
+  "motivation": [
+    {
+      "policy": "HISTORY",
+      "signal_days": 744,
+      "signal_but_zero_allocation_days": 267,
+      "idle_despite_positive_available_expert_mean": 76,
+      "mean_inactive_expert_weight_on_signal_days": 0.3392505410408556
+    },
+    {
+      "policy": "PRICE_HMM",
+      "signal_days": 744,
+      "signal_but_zero_allocation_days": 276,
+      "idle_despite_positive_available_expert_mean": 72,
+      "mean_inactive_expert_weight_on_signal_days": 0.3431561454575267
+    },
+    {
+      "policy": "MACRO_HMM",
+      "signal_days": 744,
+      "signal_but_zero_allocation_days": 263,
+      "idle_despite_positive_available_expert_mean": 55,
+      "mean_inactive_expert_weight_on_signal_days": 0.3716596982690113
+    }
+  ],
+  "interpretation": "旧策略给当日空仓参考分配资金可能具有等待未来机会的经济价值，不能直接认定为错误。本轮只检验新增当日可用动作约束。",
+  "fixed_change": "参考当前目标为0则优化权重固定为0；当前目标为1才允许优化。保持原三策略五日均值与协方差、收缩和惩罚，未改训练样本或状态。全无可用信号或无正效用时现金。",
+  "forecast_label_limit": "沿用原无条件参考五日价值，尚未按当前持仓阶段条件化收益标签；此实验不能证明解决全部价值标注问题。",
+  "new_hidden_model_fits": 0,
+  "new_statistical_fits": 0,
+  "new_optimizations": 4083,
+  "recomputed_equal_accounts": 2,
+  "checks": {
+    "all_available_matches_parent": 40,
+    "none_available_cash": 40
+  },
+  "primary_comparison": "主宏观状态政策对其父政策；原价格与无状态对照同样加可用约束，等权对照逐列重现。20日块2000次seed20261002。"
+}

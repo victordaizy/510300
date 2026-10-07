@@ -1,0 +1,67 @@
+{
+  "at": "2026-09-26T02:09:55.538327+08:00",
+  "study_id": "510300_CORPORATE_REPURCHASE_FACT_LEDGER_V1",
+  "purpose": "先修复股票实际需求的计量，再决定是否具备完整指数与两年滚动预测所需证据。",
+  "source_rows": 57,
+  "source_companies": [
+    "600519.SH",
+    "300750.SZ"
+  ],
+  "period": [
+    "2024-09-01",
+    "2026-09-24"
+  ],
+  "scheme_mapping": [
+    {
+      "symbol": "600519.SH",
+      "floor_100m": 30,
+      "cap_100m": 60,
+      "scheme": "600519_20240921"
+    },
+    {
+      "symbol": "600519.SH",
+      "floor_100m": 15,
+      "cap_100m": 30,
+      "scheme": "600519_20251106"
+    },
+    {
+      "symbol": "300750.SZ",
+      "floor_100m": 20,
+      "cap_100m": 30,
+      "scheme": "300750_20231031"
+    },
+    {
+      "symbol": "300750.SZ",
+      "floor_100m": 40,
+      "cap_100m": 80,
+      "scheme": "300750_20250407"
+    },
+    {
+      "symbol": "300750.SZ",
+      "floor_100m": 200,
+      "cap_100m": 400,
+      "scheme": "300750_20260725"
+    }
+  ],
+  "rules": "计划与执行分开；累计值仅同方案求差；期前累计基数不计成新增；完成方案的剩余上限不再作为潜在买入；限制性股票回购注销排除；持股清单、债权人通知、价格上限调整不增加实际金额。",
+  "time": "以目录日期、签章日期和可匹配的交易所日期三者最大值的当日末为已知上界，次日交易时点方可使用；按经济截止日期回填禁止。",
+  "daily_panel": "只生成过去已披露累计状态；不平均摊日、不产生当日实际买入额，不将每个前向填充日当新观察。",
+  "validation_limit": "两家公司、五方案只验证数据处理可行性，不代表全指数；本轮无新账户或预测拟合。",
+  "first_vintage_delivery_authenticated": false,
+  "new_independent_forward_observations": 0,
+  "implementation_checks": {
+    "money_units_exact_cents": true,
+    "unchanged_cumulative_is_zero_increment": true,
+    "schemes_not_spliced": true,
+    "unknown_starting_baseline_not_zero": true,
+    "restriction_cancellation_excluded": true,
+    "future_disclosure_does_not_change_past_state": true,
+    "daily_actual_purchases_not_fabricated": true
+  },
+  "code_sha256": "a9ab4ccf024b543683dd0adad3874edf608c8869fd8f65387bbaf18009594bb8",
+  "source_manifest_sha256": "175b15a5f4d7cbd9e3000deff2d8542f67aeae54741850cefcfbfcd9dacb8ed1",
+  "new_accounts": 0,
+  "new_fits": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

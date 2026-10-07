@@ -1,0 +1,140 @@
+{
+  "at": "2026-10-02T04:17:16.111776+08:00",
+  "role": "SAVED_PRIOR_DIRECTION_REVIEW_NOT_NEW_ECONOMIC_TEST",
+  "user_authorization": "允许新增隔离实验代码，保留原冻结策略",
+  "daily_close_vwap": {
+    "formula": "Close/(Amount/Volume)-1",
+    "exact_prior_match": "config/factor_registry.yaml ETF_CLOSE_VWAP + research/registered_factors.py:86-87",
+    "prior_results": [
+      {
+        "hypothesis_id": "H008",
+        "factor_id": "ETF_CLOSE_VWAP",
+        "factor": "factor_etf_close_over_daily_vwap",
+        "target": "exec_total_return_20d_net",
+        "horizon": 20,
+        "expected_sign": "positive",
+        "evidence": {
+          "score": 0,
+          "rating": "REJECTED",
+          "checks": {
+            "development_spearman_direction": false,
+            "pseudo_oos_spearman_direction": false,
+            "pseudo_oos_nonoverlap_direction": false,
+            "pseudo_oos_costed_bucket_effect_positive": false,
+            "pseudo_oos_year_direction_ratio_ge_60pct": false,
+            "pseudo_oos_bootstrap_median_direction": false,
+            "pseudo_oos_hac_direction_and_q_le_20pct": false
+          }
+        }
+      },
+      {
+        "hypothesis_id": "H018",
+        "factor_id": "ETF_CLOSE_VWAP",
+        "factor": "factor_etf_close_over_daily_vwap",
+        "target": "exec_total_return_5d_net",
+        "horizon": 5,
+        "expected_sign": "positive",
+        "evidence": {
+          "score": 3,
+          "rating": "INCONCLUSIVE",
+          "checks": {
+            "development_spearman_direction": false,
+            "pseudo_oos_spearman_direction": true,
+            "pseudo_oos_nonoverlap_direction": true,
+            "pseudo_oos_costed_bucket_effect_positive": true,
+            "pseudo_oos_year_direction_ratio_ge_60pct": false,
+            "pseudo_oos_bootstrap_median_direction": false,
+            "pseudo_oos_hac_direction_and_q_le_20pct": false
+          }
+        }
+      }
+    ],
+    "backtest_status": "NOT_ELIGIBLE",
+    "decision": "STOP_THIS_PROPOSED_EXPRESSION_DO_NOT_RETEST_OR_FLIP_DIRECTION",
+    "A05_distinction": "96因子A05为事前事件锚定的多日收盘量加权代理，当前NOT_RUN，不等于本当日真实成交均价表达。"
+  },
+  "other_rejected_duplicate_suggestions": [
+    {
+      "name": "删除每个成熟训练周期后全部模型负值才退出",
+      "exact_prior": "510300_DELETED_CYCLE_EXIT_STABILITY_V1",
+      "result": "已完成2055子拟合，主BASE Sharpe0.356497低于原0.704868，未达完整目标",
+      "decision": "不重跑，不改全部同意为多数或百分位"
+    },
+    {
+      "name": "高低区间加隔夜风险缩放原父目标",
+      "exact_prior": "510300_RANGE_OVERNIGHT_RISK_V1",
+      "decision": "原固定家族保留，不能只换波动估计公式作为本轮新账户"
+    }
+  ],
+  "next_distinct_method": {
+    "id": "510300_POINT_VOLATILITY_UNIT_EXIT_V1",
+    "role": "E05_新拟合单位方法，非新市场字段",
+    "formula": "原经济target/当时vol20拟合，再乘预测原点vol20恢复收益单位",
+    "bounded_search_result": "在技术线、退出/周期相关源码和配置的精确target/sigma、risk-normalized/volatility-normalized target搜索中未发现同一定义；不能宣称全仓所有数学等价表达已穷尽。",
+    "different_from_huber": "原Huber改变按拟合残差截尾的损失；本次按预测原点已知收益波动改变标签单位及还原，不变原经济标签、八项特征和周期等权。",
+    "different_from_risk_budgets": "不改变volatility目标、ES、账户仓位风险参数；先在原收益单位评估，不用标准化误差改善替代经济效果。",
+    "pre_freeze_baseline_recomputation_calls": 3,
+    "baseline_fit_origins": [
+      "2017-03-01",
+      "2019-12-02",
+      "2026-09-01"
+    ],
+    "max_saved_parameter_error": 0.0,
+    "new_candidate_outputs_read": false,
+    "new_strategy_accounts": 0,
+    "method_reference": "https://www.statsmodels.org/stable/generated/statsmodels.regression.linear_model.WLS.html",
+    "method_limit": "WLS文档要求权重对应误差方差倒数；已知收益vol20不自动等于继续预测误差标准差。本次为有限模型单位假设而非已证明的WLS最优性。"
+  },
+  "sources": [
+    {
+      "path": "config/factor_registry.yaml",
+      "sha256": "a1b4f91ad89df7d79b105e75368b5b6542820b6b511bb07c9e1688cfdd1efc14"
+    },
+    {
+      "path": "research/registered_factors.py",
+      "sha256": "13508b33134f15f14d1d981b1ce6ef4a3fb8892c4ed992c4af1f1711c954e8b2"
+    },
+    {
+      "path": "reports/research/registered_factor_research.json",
+      "sha256": "fa26e524e194a7b060fccd5da85989a0ef012a4e1b19252ffc3c1c4e70165d9b"
+    },
+    {
+      "path": "reports/backtest/registered_factor_backtests.json",
+      "sha256": "28b03f106c66d5a9258d2c33ca825bd8e07d407163b5de1d78180ceb54af35e1"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_progress.json",
+      "sha256": "8ba9bf98b30ae45e10051ef66b54435a31ef24a6425574ade2f878945c86427b"
+    },
+    {
+      "path": "docs/510300_DELETED_CYCLE_EXIT_STABILITY_V1.md",
+      "sha256": "d07141bbc309dd5c440f32bf0caac347cc148274ef758b35d6f559e551e24c60"
+    },
+    {
+      "path": "reports/research/510300_deleted_cycle_stability_v1/result.json",
+      "sha256": "b03b761827ad3cf711bdb4d852af44a25a8b55c5080498e590b3afd3aa332dcb"
+    },
+    {
+      "path": "docs/510300_RANGE_OVERNIGHT_RISK_V1.md",
+      "sha256": "d863cb1efc65d15ec60256cf0fe7d23d8eb3b5c4762d2c2adbf8503eb95531b7"
+    },
+    {
+      "path": "research/range_overnight_risk_inputs_v1.py",
+      "sha256": "1e644a506e3dbc2a8ef50c71955a46ddc3e3f006242b7fd3f6093ada0bd00617"
+    },
+    {
+      "path": "research/robust_cycle_exit_inputs_v1.py",
+      "sha256": "3ce0057294f039d1a3b7c05f128eb3bdfb5a7b3a496ea23d94e7fa7ef64f7b0a"
+    },
+    {
+      "path": "research/recency_weighted_exit_v1.py",
+      "sha256": "27cdeceb62e77572127238fd5607a2c6fcbf146f877b36ea0eceed61f6c040af"
+    },
+    {
+      "path": "research/point_monthly_model_inputs_v1.py",
+      "sha256": "685fcad63a7b4f3b69a5c8d935baf0e57d9508b3fa9c70f2a51b87882a4f46d2"
+    }
+  ],
+  "old_strategies_modified": false,
+  "goal_achieved": false
+}

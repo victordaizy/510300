@@ -1,0 +1,80 @@
+{
+  "at": "2026-09-25T23:54:00.632034+08:00",
+  "study_id": "510300_FUNDING_CALENDAR_INNOVATION_DAILY_V1",
+  "primary": "PRICE_AND_FUNDING_INNOVATION",
+  "level_control": "PRICE_AND_RAW_FDR",
+  "price_control": "PRICE",
+  "question": "资金利率中的月初、月末、季末可预期成分与其余意外变化分开后，能否改善下跌后的510300条件收益与账户？",
+  "mechanism": "央行报告说明资金需求受季末、税期和节假日影响。本轮只建模自然月初、月末、季末，不声称穷尽税期、节假日、监管与政策冲击。",
+  "primary_source_for_mechanism_only": "https://www.pbc.gov.cn/zhengcehuobisi/125207/125227/125957/3066656/61ed5a0548c542428584bccc244c9d5c/2016110818532756152.pdf",
+  "source": "复用官方FDR007上午定盘，2017-05-31至2026-09-24共2328日；不是DR007全天利率，也不是中性利率。源日12时计划可用，A股次开盘执行，年龄最多7自然日。历史首版/首次送达未认证。",
+  "funding_forecast": {
+    "features": [
+      "lag1",
+      "mean20",
+      "month_first3",
+      "month_last5",
+      "quarter_last5"
+    ],
+    "lags": "前一个定盘、前20个定盘均值",
+    "calendar": "自然月前3日、自然月末5日、季末月末5日；不读取未来实际开休市长度。",
+    "regression": "训练内标准化岭回归，alpha固定10、截距不惩罚，无截断或非负修正。",
+    "minimum_training_rows": 126,
+    "forecast_controls": [
+      "PERSISTENCE_LAST_RATE",
+      "AR_TWO_INPUTS",
+      "AR_PLUS_THREE_CALENDAR_INPUTS"
+    ],
+    "strict_two_year_memory": "对每个A股决策日重置两年原始利率窗，前20行只作滞后输入。窗内每个源日j只用j之前的利率拟合，至少126行；历史残差同样重新嵌套计算。不携带两年前模型参数，不使用j本身或后续数值预测j。",
+    "innovation": "FDR007实际值减上述日历模型事前预测，百分点。属于模型意外，不是市场一致预期差，也不识别纯资金供给冲击。"
+  },
+  "equity_prediction": "价格、原始利率、利率意外三方案和HISTORY使用完全相同的成熟训练池；最近两日历年，至少252行，退出开盘严格早于当前09:00。沿用标准化截断5、固定126近邻经验分布。",
+  "accounts": "三个方案各BASE/STRESS，共6连续账户。仅五日价格下跌时增加库存；沿用原固定库存效用与扣调仓费后的尾部预算，不修改入场或退出窗口。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "initial_capital": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_riskfree_rate": 0,
+  "targets": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "risk": "目标仓位50%；5日ES95预算2.5%；10%跳空预算5%且至多使用距90%权益峰值余量一半；调仓及退出费用先计入。10%回撤后下一可卖开盘退出，本轮不恢复。",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "comparison": "主方案对原始利率及价格，完整同日账户20日循环区块2000次，seed2026092511；固定2020-2023/2024-末端及全部滚动两年。",
+  "prediction_evaluation": "全部成熟及当时五日下跌样本，均值MSE和5%分位损失。资金预测按每个源日首次进入A股决策时的预测计一次，嵌套重复拟合不当新增独立观察。",
+  "development_gate": "主压力三目标联合通过，相对两个对照的增量95%下界都正且两个固定时期均正；日历资金预测MSE同时优于持续性和AR对照。仍需独立前向验证。",
+  "monitor": "每五个A股原点的固定相位，只收已成熟标签，最近60个5%分位突破率大于15%记录，不根据结果反调启停。",
+  "duplicate_boundary": "旧日历直接择时、FR-FDR水平、央行操作量相对20日均值以及已失败的库存/HMM用途保留。本次只检验在当前两年窗口内部因果重建的资金利率预测残差，不重搜旧参数。",
+  "new_market_downloads": 0,
+  "new_final_accounts": 6,
+  "parameter_searches": 0,
+  "previously_researched_history": true,
+  "independent_forward_observations": 0,
+  "implementation_checks": {
+    "current_and_future_rate_excluded_from_own_forecast": true,
+    "all_raw_rate_inputs_inside_current_two_year_window": true,
+    "batch_solution_matches_direct_training_slices": 3,
+    "calendar_requires_no_future_trading_dates": true
+  },
+  "orders_authorized": false,
+  "goal_achieved": false
+}

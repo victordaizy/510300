@@ -1,0 +1,68 @@
+{
+  "study_id": "510300_MULTIDIM_EVENT_STATE_CONTROL_V1",
+  "frozen_at": "2026-10-01T23:15:28.189579+08:00",
+  "previous_goal_turn_classification": "PROGRESS_MONTHLY_SCORE_ACCOUNT_POINT_SHARPE_ONLY",
+  "question": "此前高分月度事件的收益来自可重复的指数状态，还是仅出现在公布时点或少数新冲击附近？",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "model": "复用原47棵八变量状态树及各自训练池的预测分布；不重新拟合，不使用M2偏差，不修改阈值。",
+  "ordinary_clock": "每个拟入场交易日前一自然日23:59:59判断；八项状态只取此前最近完整交易日16点快照。只使用在该截止前已经生成的最近一棵月度状态树。",
+  "model_age": "原有模型在下一次合格月度更新前保持不变，记录实际年龄，不按事后盈亏增加过期阈值。",
+  "announcement_class": "全部104月原公布台账按真实公布日期映射到严格次日后的首个交易日；该入场槽位均记公布日，包括缺预期的月份。其余槽位才是普通日期。周末与节假日公布并入随后首个开盘，不重复计算同一笔入场。",
+  "missing_models": "第一棵原模型生成前不评分，覆盖表保留；退出超出2025年末的样本不进入本次已实现收益比较。",
+  "score": "按原成熟月度训练池的拟合预测中位百分位秩；>=80且预测净收益>0为原固定高分口径。",
+  "label": "完全沿用原固定10000份、下一交易日开盘买入、入场后第5个交易日开盘卖出的成本后标签，包括原佣金、滑点和权益登记口径。不是完整账户。",
+  "nonoverlap": "各日期类别分别按判断时序保留第一个高分机会，原退出开盘以前不再进入；类别分别观察，不拼成组合。",
+  "matched_control": {
+    "lookback_sessions": 504,
+    "nearest_nonoverlapping_dates": 3,
+    "pool": "每个原公布事件之前已完成五日退出、八项状态齐全且判断时不是公布槽位的普通日期。",
+    "distance": "用该历史池八项状态各自总体标准差归一化；八维差异的均方根距离；标准差为零时置1。按距离从小到大，平局取较近日期，贪心取三个持有区间互不重叠的日期。",
+    "outcomes": "相似日期的选择只使用状态、时序和公布分类，不读取其收益作排名。选择完成后才附加收益。",
+    "support": "不设结果驱动的相似度门槛；保存八维距离和逐维差异，匹配差时不声称控制充分。",
+    "reused_dates": "不同公布事件可以重复匹配同一历史日期；按事件等权报告，明确唯一日期数，不把匹配次数当独立样本数。"
+  },
+  "causal_boundary": "普通日与公布日没有随机分配；匹配只含八个可观察状态且普通对照来自此前，时间环境、新政策和未观察信息仍可能不同。收益差只能作发现，不能命名为公告因果效应。",
+  "future_news": "不因持有期间后来出现公告而剔除日期；未来新消息不能用于当时选择。",
+  "selection_history": "这些历史已被研究；此前五笔主要期高分机会及9月利润集中已知，本轮属于事后归因与扩展诊断，不能恢复独立性。",
+  "closest_old_studies": [
+    "510300_MULTIDIM_MONEY_SURPRISE_SCORE_V1",
+    "510300_MULTIDIM_NONLINEAR_SCORE_V1"
+  ],
+  "substantive_difference": "此前月度模型只在公布事件评价，日频模型另行每天拟合。本轮保持月度模型及评分完全不变，只增加随后普通日期与先前相似日期的对照。",
+  "new_fits": 0,
+  "parameter_grids": 0,
+  "new_accounts": 0,
+  "account_boundary": "对照结果不扩大旧月度账户的交易授权，不把固定股数收益当账户夏普；原全部账户及失败结论保留。",
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/historical_inputs_and_labels.parquet",
+      "sha256": "afd82d54745fcad558306eb4c665e36e85edc89a243e8089d2ec3a723a84d49f"
+    },
+    {
+      "path": "reports/research/510300_money_consensus_increment_v2/inputs/104个月共识选择.csv",
+      "sha256": "a54366fe043f66ebc0d365a1f8125d238e21670546816efc301a6fdbae296d79"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/saved_models.json",
+      "sha256": "66b760871ed3f840ce6ac4018e842a30ba0e92601bb8b81eb0484839e9e45560"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/逐事件联合评分.csv",
+      "sha256": "3674e59c9f01cf11298bf45e758eeae113e363ca0516d540a1dab18821278520"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/月度事件联合状态及标签.parquet",
+      "sha256": "7c91f3ee5fbb206a634465080d2fa19f13bd7b70f746418c5161c4c079ed3dfa"
+    }
+  ],
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false
+}

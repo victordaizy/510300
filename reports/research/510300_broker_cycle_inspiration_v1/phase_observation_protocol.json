@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-05T19:22:43.339729+08:00",
+  "registration_decision": "TECH.R209",
+  "result_decision": "TECH.R210",
+  "question": "券商市场阶段思路能否用于解释原上涨与反例，如何区分同一活跃波动状态的不同价格及宏观背景？",
+  "mechanism": "共同状态观察，不再统一给宏观或放量加分；此处不识别真实牛熊周期，也不运行策略。",
+  "state": "ETF20日平均成交份额/60日平均份额与含息日log收益20日/60日样本标准差，各以1为固定分界，交叉四类；相等归不增加/不扩张，未知不分组。",
+  "source_difference": "华泰原版使用指数实际换手率及长周期波动；本观察为ETF成交活跃度替代性的独立描述，不是原指标复现。20/60沿用既有标准尺度，不搜索窗口或四类标签。",
+  "clock": "当日16:00观察，上一完整周；若之后另立交易用途，下一合法开盘。宏观逐值复用R208已知钟和未知。",
+  "selection": "全部3488原日、全部61原分段/49正式上涨、四原案例240行和原17关键日，均不新增或挑选。",
+  "future_usage": "既有分段只作事后对齐，不进入计算；不读取新未来收益，不拟合、生成新标签或新账户。",
+  "prefix_check": "17原关键日逐一截断输入复算状态，要求过去观察精确相同；完整周钟保留。",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "new_fits": 0,
+  "new_accounts": 0,
+  "financial_metrics": "NOT_COMPUTED",
+  "inputs": {
+    "known_daily": {
+      "path": "reports\\research\\510300_cnh_macro_first_passage_v1\\results\\全部3488当时已知技术宏观与定盘偏离_未知保留.parquet",
+      "sha256": "36d2ac3feac4b01ee575ea7db75aff7c89144ec6c8976da2d77f846956c4b314"
+    },
+    "cases": {
+      "path": "reports\\research\\510300_volume_lead_price_confirm_explanation_v1\\results\\四原案例逐日全部量价及量先恢复状态.parquet",
+      "sha256": "11c7f7d5bed4351d2c2c341fcebeb4c7479ae00f68fc5c5e1ab214ff83ba69c1"
+    },
+    "episodes": {
+      "path": "reports\\research\\510300_upward_episode_anatomy_v1\\results\\上涨段全集.parquet",
+      "sha256": "7f2e8b91cae86c364eaa4105c382c894cb4dcc76c4f8c3b53a3e91416dfffdb6"
+    }
+  },
+  "code_sha256": "d0b6070256a4276d4b9c2e3c8ea6fb54fc08af29f8f00adc9ca56367facc03e8"
+}

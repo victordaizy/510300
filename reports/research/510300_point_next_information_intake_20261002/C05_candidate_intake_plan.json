@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-02T11:42:07.407078+08:00",
+  "status": "PROPOSED_C05_FINITE_PRIOR_PURPOSE_PRICE_AMOUNT_CLOCK_AND_MEMBER_REVIEW_NOT_ADMITTED",
+  "candidate_id": "C05",
+  "name": "剔除价格与波动后的成交异常",
+  "registered_definition": "用此前252日拟合log(金额)=a+b*abs(r)+c*rv20+星期效应；只计算当天预测残差。",
+  "reason_to_review": "残差可能提供不同于原八项和C02相对成交额的条件信息；既有公式本身不新。先确认旧初筛/量价/带量周期内模型是否已经直接覆盖同一继续收益用途。",
+  "bounded_next_checks": [
+    "逐项核对旧rapid OLS最多252/最少126、两日历年及HIGH/LOW目标/政策，与price_volume_coherence和signed_volume_within八项继续收益用途；原NOT_RUN不等于未试。",
+    "只有实质不同的原八项条件继续收益用途成立，才绑定原金额CNY、严格正额取log、r与rv20的经济收益定义/窗口/单位、星期编码和训练截至t-1；不用全样本回归。",
+    "明确此前252完整日还是合格行的分母、缺额/零额/窗口不足/秩不足的NO_VIEW；不因数量或表现改窗口、补零、删原成员或改成熟门。",
+    "只以原1507成员/115可用月完整支持判准入，原27未知保留；同用途已覆盖或来源/支持不足则停止。",
+    "若真正不同用途及时钟/支持通过，才能另冻结一个固定第九项；原标签、周期等权、20周期/10周期100行、原八项、alpha1/clip5及入场锁定不改，无新交互或阈值。"
+  ],
+  "existing_formula_not_new_information": true,
+  "old_failures_preserved": true,
+  "new_candidate_field_bound": false,
+  "new_candidate_field_admitted": false,
+  "new_model_registered": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_E03_forward_preserved": true,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_fine_prior_followups_20261002.json",
+      "sha256": "72a34c50fceea28f688e55e894fe9badb01e60ea98d131fa2eac03809a7d2676"
+    },
+    {
+      "path": "reports/research/510300_point_a02_information_intake_v1/summary.json",
+      "sha256": "9430e637ae3e6625cb6602766a2c115e942a2a72ee85b6cf84597c429f93cb60"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/entry_context_intercept_prior_review_20261002.json",
+      "sha256": "86bc4ec9f2484f7eb374a89b5e4a68065771016b7f64d9977e2d86bae51bd00b"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "research/price_volume_coherence_inputs_v1.py",
+      "sha256": "86d54acc23ae9a6367d8dab1e93f33a87f50709a62af48dafe78f4ee87b3eaa7"
+    },
+    {
+      "path": "research/signed_volume_within_inputs_v1.py",
+      "sha256": "c6f90b891ce6ceb829a1c631f13963629fb627d6c4e7b92182627fa844256741"
+    },
+    {
+      "path": "reports/research/510300_point_c02_exit_prediction_v1/prediction_summary.json",
+      "sha256": "8dc2aa3adfdea7ad44406a20beaea45041e48e5663fee0c9755e17c8bf8e0a93"
+    }
+  ],
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

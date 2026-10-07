@@ -1,0 +1,225 @@
+{
+  "at": "2026-10-02T12:35:13.947446+08:00",
+  "status": "ADMITTED_D03_CONDITIONAL_PURPOSE_AND_OHLC_CLOCK_PENDING_ORIGINAL_MEMBER_SUPPORT",
+  "conditional_purpose_and_source_clock_bound": true,
+  "full_field_admitted": false,
+  "old_rapid_use": "同一CLV五日均值及正值天数组成已计算；仅D03均值经前两日历年70/30分位形成HIGH/LOW政策。正值天数不是原八项条件退出第二列。原8条保存指标只抽取、不重算，不重试旧政策。",
+  "old_D03_saved_account_rows": [
+    {
+      "policy": "D03_HIGH",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.0916328708961084,
+      "cagr": -0.0031419806497602,
+      "max_drawdown": 0.0979311215474858,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_LOW",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.0531293734860843,
+      "cagr": -0.0025133940803988,
+      "max_drawdown": 0.0960351400284496,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_HIGH",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.236137401225456,
+      "cagr": -0.0070175794612348,
+      "max_drawdown": 0.0986360352680183,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_LOW",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.2133160729251238,
+      "cagr": -0.0070300654847735,
+      "max_drawdown": 0.0985015665451887,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_HIGH",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.3231601451437368,
+      "cagr": -0.0080442332698886,
+      "max_drawdown": 0.0963841368584758,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_LOW",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.2703795987292027,
+      "cagr": -0.0073627621879119,
+      "max_drawdown": 0.0963736125735369,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_HIGH",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3966268501220729,
+      "cagr": -0.0086695153206642,
+      "max_drawdown": 0.0962014177462722,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D03_LOW",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.337073698552063,
+      "cagr": -0.0077834520204966,
+      "max_drawdown": 0.0959670925618707,
+      "joint_historical_target": false
+    }
+  ],
+  "old_close_location_gate_use": "21日CLV均值和量加权均值确认入场；单日零区间旧记0，不是五日两列继续价值模型，本次H=L严格未知。",
+  "old_entry_payoff_use": "完整入场最终账户收益标签的九项含单日close_location=(C-L)/(H-L)，不是自然持仓状态继续收益的CLV五日两列。",
+  "old_session_strength_use": "六十日日内相对隔夜强弱d60_factor条件第九项，日内/隔夜收益拆分不是高低收盘位置。",
+  "finite_code_review": "定向原计划7模块及session_strength_within_inputs/close_location_entry_gate/entry_payoff_gate；研究源码文本候选另见跨资产及分钟fragility、internal_reclaim两低点CLV、volume_reversal与post_selection的单日入场、sell_pressure阈值。有限用途归类，没有声明全项目或完整原卡从未试验。",
+  "new_purpose": "原八项继续自然持仓价值加固定CLV五日均值/正天数两列，原标签/成员/成熟权重/拟合/入场固定版本保持，既有公式新条件用途，不是新物理来源。",
+  "field_binding": "CLV[t]=(2*C[t]-H[t]-L[t])/(H[t]-L[t])，只用已冻结修正的原OHLC；mean(CLV[t-4..t])及sum(CLV[j]>0,j=t-4..t)两列一起，含当日五个完整实际交易日。",
+  "OHLC_identity": {
+    "features_equal_candidate_prices_exact": true,
+    "corrected_rows": [
+      {
+        "date": "2015-12-07",
+        "open": 3.732,
+        "high": 3.76,
+        "low": 3.707,
+        "close": 3.735,
+        "source_original": "akshare.fund_etf_hist_sina",
+        "correction_reason": "两项独立来源一致且与新浪主源相差2个最小价位"
+      },
+      {
+        "date": "2017-02-21",
+        "open": 3.474,
+        "high": 3.487,
+        "low": 3.47,
+        "close": 3.474,
+        "source_original": "akshare.fund_etf_hist_sina",
+        "correction_reason": "两项独立来源一致且与新浪主源相差1个最小价位"
+      },
+      {
+        "date": "2018-09-04",
+        "open": 3.382,
+        "high": 3.438,
+        "low": 3.37,
+        "close": 3.423,
+        "source_original": "akshare.fund_etf_hist_sina",
+        "correction_reason": "两项独立来源一致且与新浪主源相差1个最小价位"
+      }
+    ],
+    "coordinate": "原人民币OHLC，不使用回溯复权；同日H/L/C共同增加当日已知现金，CLV数学上不变；未来现金不参与本字段。"
+  },
+  "missing_rule": "H=L、非有限/非正OHLC、O或C越界或完整五日任何缺口NO_VIEW；真实CLV0、正天数0合法，不用原close_location的0.5缺失替代，不删原日期/成员、不压缩合格行。",
+  "support_rule": "冻结操作定义/测试后计算；全部1507原自然成员、115原可用月全部训练成员两列有限才能注册；原142月中的27无模型状态保留。",
+  "field_regression_accounting": "纯OHLC算术和固定滚动，不进行技术字段OLS；原继续收益候选/对照估计及保存复算分别计数。",
+  "no_rescue": "不改5日、两列维度/正值边界/CLV坐标/缺失处理、原标签/成员/岭/权重/确认/门/时期或成本，不恢复高低分位或21日入场，不因结果再加交互、换窗或反向交易。",
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_library_NOT_RUN_preserved": true,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/result.json",
+      "sha256": "29ea808e904942701e56a4024531aee104dae0116be79e4d036090045f871cde"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv",
+      "sha256": "0fa32a2d2a2a87bf07bc0fdbf18b110a2e0a7fa19a74dcbc60107e4e139424fc"
+    },
+    {
+      "path": "research/simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research/close_location_entry_gate_v1.py",
+      "sha256": "aa553c4130e729516b360eec5d047fb2d0362bba156121ad854f8f2ea325480f"
+    },
+    {
+      "path": "config/510300_close_location_entry_gate_v1.json",
+      "sha256": "07e7709b89b84b4866252507abcd51400097c1c2e53ebd8150a75e3264d366b8"
+    },
+    {
+      "path": "reports/research/510300_close_location_entry_gate_v1/result.json",
+      "sha256": "87b4106e9b52a664b37a886270c46328dc4a80297509357caa6c2069e74b5153"
+    },
+    {
+      "path": "research/entry_payoff_gate_inputs_v1.py",
+      "sha256": "92390ce426001c8b0eba5aeb6f92a2fcbab09e30a3f491eae0f71f3f6b92c426"
+    },
+    {
+      "path": "research/session_strength_within_inputs_v1.py",
+      "sha256": "4e233ef41c05858c1a781d94348ba6114ae2ce8181677cbd5ff1ed9b74d73fef"
+    },
+    {
+      "path": "config/510300_session_strength_within_v1.json",
+      "sha256": "447d03c30d18ea919187fea484cec5116269e304ec7bfdc5908e7baae2d06350"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research/simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/within_cycle_exit_inputs_v1.py",
+      "sha256": "986db7742140db8bbf59794c6250f8ab3cef99d48788262de8e2bcc4964c4c37"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/D03_candidate_intake_plan.json",
+      "sha256": "8c9ff0b2df809874915a8b4c1be710bfeef072ac16ae92083cd0f5d578c225c3"
+    },
+    {
+      "path": "reports/research/510300_point_c05_exit_prediction_v1/prediction_summary.json",
+      "sha256": "025d6923db5453335a7fb8f7ab4c3da7f9cdaa24f505acb1010a5de17e8e4f10"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/admission_receipt.json",
+      "sha256": "d455b517e50050e8b4b4c0a9f5b61c4087aa3afd4149534c8996b02403172d21"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/execution_discovery.json",
+      "sha256": "2c018f675ee4bbe34ca333fe8adf02de70d71bab80c0dd314ba68f46854f2b01"
+    }
+  ]
+}

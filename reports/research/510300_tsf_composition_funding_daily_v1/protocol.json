@@ -1,0 +1,91 @@
+{
+  "at": "2026-09-26T03:48:21.267010+08:00",
+  "study_id": "510300_TSF_COMPOSITION_FUNDING_DAILY_V1",
+  "primary": "PRICE_FUNDING_CREDIT_AND_COMPOSITION__FIXED5_NO_ADD",
+  "question": "在相同价格状态、资金意外和总社融增速变化下，政府债券占比的同比变化能否改善五日分布与完整账户？",
+  "mechanism_hypothesis": "总量信贷扩张可来自不同融资部门；政府融资占比变化可能伴随不同财政支持、实体融资需求和利率环境。仅凭构成不能断言财政资金进入股票，也不预设高占比利多或利空。",
+  "government_composition": "使用当期央行原文直接公布的政府债券余额占社融比重同比变化，单位百分点，不代替私人信用或中性利率。",
+  "credit_control": "当前已公布总社融存量同比减三个月前当期已公布同比；保留两个发布时间，不用后来修订年表重写过去。",
+  "funding": "复用每一决策日严格两年窗内重建的FDR007日历残差，不新增资金回归。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_AND_FUNDING": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation"
+    ],
+    "PRICE_FUNDING_AND_TOTAL_CREDIT": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "credit_acceleration3_pp"
+    ],
+    "PRICE_FUNDING_CREDIT_AND_COMPOSITION": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "credit_acceleration3_pp",
+      "government_share_yoy_change_pp"
+    ]
+  },
+  "training": "所有模型同一共同成熟池，最近两日历年、五日退出开盘早于决策日、至少252原点；固定126近邻，训练内标准化截断5、距离同分按原点顺序。每日重复月值不当独立宏观公布，另存各训练池独立月份数。",
+  "clock": "月报保守日末可用，最早下一交易日；从该日末起31自然日过期。原来源发布时点、历史首次实际送达边界保持原记录。",
+  "execution": "主方案FIXED5_NO_ADD：空仓入场、五日到期退出、期间只按原风险预算缩量；对照ROLL_NO_ADD：已有库存不加仓，每天按原五日分布选择。两者均复用已有执行引擎，不搜索退出期。",
+  "economic_entry": "仅已知五日价格弱势，持仓大小由正期望、估计成本、方差及账户尾部预算决定；股息、T+1、100份、tick0.001、涨跌停与现金限制全保留。",
+  "capital": 200000,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "risk": {
+    "position_max": 0.5,
+    "ES95_5day_budget": 0.025,
+    "gap_return": -0.1,
+    "gap_budget": 0.05,
+    "drawdown_reserve_share": 0.5,
+    "drawdown_stop": 0.1
+  },
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "cash_and_risk_free_rate": 0,
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparison": "主方案对同期限总社融对照和价格资金对照，及同一构成信息ROLL_NO_ADD执行对照；20日循环区块2000次seed2026092605，固定2020-2023和2024-末端、全部滚动两年；不事后选择有利时期。",
+  "development_gate": "主压力三目标通过，两个同期限信息对照的完整配对差95%下界均正、两个固定时期增量均正，才列开发候选；仍需独立验证。",
+  "monitor": "五日固定相位、60成熟原点q05跌穿率超过15%记警报，诊断不回改账户；月度重复及样本不足另存。",
+  "source_coverage": {
+    "common_dates": 1563,
+    "first": "2020-01-17T00:00:00",
+    "last": "2026-09-14T00:00:00"
+  },
+  "new_accounts": 12,
+  "new_source_months": 80,
+  "new_funding_regression_fits": 0,
+  "new_parameter_grid": 0,
+  "historical_prices_previously_researched": true,
+  "historical_first_delivery_authenticated": false,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

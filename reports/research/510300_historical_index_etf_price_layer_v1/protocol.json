@@ -1,0 +1,51 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_ETF_PRICE_LAYER_V1",
+  "registered_at": "2026-10-01T21:24:07.810711+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "question": "指数整体重估、ETF价格相对净值偏离及原完整交易的利润分别来自哪里；溢价回落由价格回落还是净值追赶构成。",
+  "novelty": "既有研究已量出9月23至30日溢价扩张。本轮固定两个自然月，继续拆开随后收敛的价格与净值变化，并把原最大盈利周期精确桥接到日终净值；不重复折价买入筛选。",
+  "window_start": "2024-09-02",
+  "window_end": "2024-10-31",
+  "fixed_segments": [
+    [
+      "2024-09-02",
+      "2024-09-23",
+      "政策前"
+    ],
+    [
+      "2024-09-23",
+      "2024-09-30",
+      "9月政策后至月末"
+    ],
+    [
+      "2024-09-30",
+      "2024-10-08",
+      "假期前后"
+    ],
+    [
+      "2024-10-08",
+      "2024-10-31",
+      "10月后续"
+    ]
+  ],
+  "saved_trade_source": "reports/research/510300_annual_five_or_edge_v1/inputs/pattern/LONG_REPLAY_DIAGNOSTIC/trades.csv",
+  "saved_trade_entry": "2024-09-25",
+  "saved_trade_exit": "2024-10-09",
+  "selection": "该笔交易因上一研究已知利润集中而指定；全部价格均已被历史研究使用，属于收益机制诊断，不是独立验证。",
+  "price_nav_formula": "P1-P0+D = (NAV1-NAV0+D) + [(P1-NAV1)-(P0-NAV0)]；同一P0作分母，可精确加总。",
+  "open_bridge": "原买卖实际成交价之间，以入场日日终和退出前一交易日日终为桥：入场成交到当日收盘 + 两端日终净值变化 + 两端价差变化 + 最后收盘到退出成交 + 分红 - 佣金。首尾段不冒充同步净值或可识别溢价。",
+  "quotes": "日线收盘价、后来公布的同日单位净值；收盘净值不可在当日收盘前用作交易条件。原开盘成交数量仅用于解释原账本。",
+  "new_source_scope": "2024年已生效的510300基金招募说明书中申赎、报价和风险条款；仅解释机制允许与限制，不能证明某一日实际申赎通道受阻。",
+  "no_new_signal": true,
+  "no_parameter_search": true,
+  "new_accounts": 0,
+  "new_prospective_forecasts_enabled": false,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "dedup_sources": [
+    "510300_etf_discount_compensation_probe_v1",
+    "510300_historical_huijin_ownership_transmission_v1",
+    "510300_annual_five_or_edge_v1",
+    "510300_historical_equity_funding_realization_v1"
+  ]
+}

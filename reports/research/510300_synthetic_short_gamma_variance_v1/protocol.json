@@ -1,0 +1,95 @@
+{
+  "study_id": "510300_SYNTHETIC_SHORT_GAMMA_VARIANCE_V1",
+  "registered_at": "2026-09-25T09:44:36.210954+08:00",
+  "period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "objective": "完整账户压力净夏普>=1.2、年化>=10%、最大回撤<=10%；未独立验证不宣称目标实现",
+  "primary": "MACRO",
+  "primary_comparison": "MACRO_MINUS_PRICE",
+  "hypothesis": "若观察到的隐含波动定价高于条件未来实际波动与交易成本，负Gamma形状的现货库存能否获得足够补偿；宏观首先预测波动而非直接预测反弹方向。",
+  "critical_limit": "仅ETF与现金，没有交易期权、没有收到权利金。离散、风险截断的Delta形状并非真实卖期权，也不保证复制期权损益或获得期权市场溢价。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital_cny": 200000,
+  "cash_rate": 0,
+  "prices_and_information": "复用上一轮冻结市场、社融和DR007时钟；美国收益和VIX变化使用已冻结执行日09:00视图。期权IV源日i-2。期权首次发布时钟未认证，仅开发回放。",
+  "price_variance_features": [
+    "log_var1",
+    "log_var5",
+    "log_var22"
+  ],
+  "macro_additional_features": [
+    "funding_gap_pp",
+    "credit_acceleration3_pp",
+    "GSPC_z",
+    "VIX_z"
+  ],
+  "target": "未来20个开盘到开盘含分红区间的年化已实现平方对数收益均值；exit_idx=i+20，退出日期必须严格早于拟合日期",
+  "training": {
+    "lookback_calendar_years": 2,
+    "frequency": "每交易日",
+    "minimum_common_mature_rows": 252,
+    "estimator": "标准化后截断[-5,5]，带未惩罚截距Ridge(lambda=10)拟合log方差。标准化、残差均只用当时共同训练池。",
+    "mean_prediction": "exp(对数预测)乘训练残差exp的均值，避免把对数尺度中位数当均值",
+    "risk_prediction": "exp(对数预测加训练残差90%分位数)；为开发预测上侧界，不宣称正式90%置信界",
+    "persistence_control": "前一收盘20日年化平方收益均值",
+    "overlap": "20日目标重叠，不把日频行当独立事件；评价另列20个固定非重叠相位"
+  },
+  "inventory_shape": {
+    "cohort": "从2021-01-04起每20交易日固定重置一次，全部时间边界不依据结果选择。起点前一收盘的含分红财富为虚拟行权价。",
+    "initial_units": "每个账户每个固定区间起点09:00权益的50%除当时ETF参考价，作为该区间冻结最大形状份额；无入场权利金现金流。",
+    "delta": "虚拟看跌卖方Delta=N(-d1)，每个交易日更新价格、剩余20日区间期限和已知IV。无预测时保留零新增资格。",
+    "dividends": "Delta使用含分红财富相对锚点，避免除息机械跳空；真实现金账户按登记、除息、支付分账。"
+  },
+  "pricing_gate": "PRICE/MACRO使用观察IV和各自条件预测波动，在同一20日等效期限的虚拟平值看跌模型中计算价格差/现价；超过压力双边滑点佣金、双边tick与最低佣金尺度才可持有。它是信号代理，不是可成交报价、到账保费或剩余实际合约的精确定价差。",
+  "holding_gate_updates": "门槛每天更新，失去资格即请求清仓；不因看到持仓盈亏临时改变规则。",
+  "tail_budget": {
+    "five_day_ES95_equity_fraction": 0.025,
+    "maximum_inventory_fraction": 0.5,
+    "gap_stress": -0.1,
+    "gap_budget_equity_fraction": 0.05,
+    "drawdown_reserve": "同上一轮，10%压力损失至多消耗距90%权益峰值剩余空间的一半",
+    "tail_estimate": "最近两年已成熟五日实际下侧5%平均损失，与2.062713乘条件风险波动率乘sqrt(5/252)两者取较大。未满足预测时禁止增加份额。",
+    "drawdown_stop": "收盘回撤>=10%后在下一可卖开盘退出，本轮不重启；不是保证损失上限"
+  },
+  "execution": "09:00确定数量；开盘仅复核已确定风险预算和现金。100份、tick0.001、T+1、涨跌停方向拒单。目标与现仓差不足账户10个百分点时保持份额，退出和风险超限不受此带宽限制；沿用既有10个百分点带宽，不搜索。",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 252,
+  "controls": {
+    "FIXED25": "相同信息可见期及风险规则下25%库存",
+    "UNCONDITIONAL": "同一Delta形状，不使用隐含减预测波动门槛",
+    "PRICE": "价格方差预测及同一形状",
+    "BUY_HOLD": "实际现金账户买入持有，非相同风险预算"
+  },
+  "missing": "模型或当前IV不可见则不新增，已有份额最多保留五日后退出；所有缺失日计入账户，不用未来标签完整度筛选交易",
+  "evaluation": "全部账户、固定2021-2023/2024-终点、全部滚动两年；预测QLIKE和MSE、20个非重叠相位、风险上界突破率；成熟错误单独记录，不追加新的启停优化",
+  "inference": "主要配对完整账户增量；20日循环区块2000次，seed=2026092501；开发区间未校正全项目历史选择",
+  "advancement": "压力账户三项目标及宏观相对价格年化增量95%下界>0、两个固定子期均正；即使通过仍需随后数据独立检验",
+  "deduplication": [
+    "上一轮研究预测五日方向分布并承接价格回撤，本轮转为预测未来方差和预先固定的负Gamma库存形状。",
+    "旧HAR五多尺度特征、扩展训练、每五日更新未通过其相关性门；保持其拒绝，本轮不导入旧预测或称其已合格。",
+    "第109轮GARCH只调节两个旧策略的风险，不检验本轮库存形状；不复活旧组合。",
+    "原O4为25日无模型隐含方差减20日HAR的指标研究，本轮使用不同、明确有限的平值价格代理，不称O4已通过。",
+    "旧锚定分钟网格因事件资格交集为零而关闭；本轮无000300分钟锚、无该网格事件或成本参数变更。"
+  ],
+  "new_market_data_collection": false,
+  "orders_authorized": false,
+  "parameter_search": false,
+  "independent_validation": false,
+  "review_package": false
+}

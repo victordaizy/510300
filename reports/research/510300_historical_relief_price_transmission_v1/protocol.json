@@ -1,0 +1,86 @@
+{
+  "study_id": "510300_HISTORICAL_RELIEF_PRICE_TRANSMISSION_V1",
+  "recorded_at": "2026-09-30T15:25:15.546697+08:00",
+  "research_mode": "HISTORICAL_ONLY",
+  "question": "融资活动同向改善的2018年10月与2024年2月，净值、份额和固定成分贡献有何差异，等待观察后还剩多少收益？",
+  "events": [
+    {
+      "id": "M15_DRAFT",
+      "date": "2015-06-12",
+      "available_date": "2015-06-12",
+      "label": "两融展期及处置方式草案"
+    },
+    {
+      "id": "M15_FINAL",
+      "date": "2015-07-01",
+      "available_date": "2015-07-01",
+      "label": "两融展期及追保规则实施"
+    },
+    {
+      "id": "P18_JUNE",
+      "date": "2018-06-26",
+      "available_date": "2018-06-26",
+      "label": "深市质押展期支持说明"
+    },
+    {
+      "id": "P18_OCT",
+      "date": "2018-10-19",
+      "available_date": "2018-10-21",
+      "label": "质押处置与纾困资金部署"
+    },
+    {
+      "id": "P19_FINAL",
+      "date": "2019-01-18",
+      "available_date": "2019-01-18",
+      "label": "质押违约合约展期规则实施"
+    },
+    {
+      "id": "M24_CONTROL",
+      "date": "2024-02-05",
+      "available_date": "2024-02-05",
+      "label": "两融及质押缓释说明（既有对照）"
+    }
+  ],
+  "focus": [
+    "P18_OCT",
+    "M24_CONTROL"
+  ],
+  "sample_selection": "保留上一轮五节点及2024既有对照；重点两例按已知收益差异选取，只是发现性比较，不能算独立验证。",
+  "prior_returns_already_seen": true,
+  "before_new_decomposition_and_delay_returns": true,
+  "independent_validation": false,
+  "new_parameters_fitted": 0,
+  "observation": "原入场日起5个完整交易日，包含原入场日；随后再留一个完整交易日。",
+  "delay_sessions": 6,
+  "exit_sessions": 20,
+  "delay_meaning": "统一在原入场索引加6日开盘买入，原索引加20日开盘退出。这是固定日期机会成本算例，不以事后融资/净值/行业结果筛选交易，也不证明数据已在当时发布。",
+  "price_decomposition": "各段同日收盘对收盘：(P1-P0+D)/P0=(NAV1-NAV0+D)/P0+[(P1-NAV1)-(P0-NAV0)]/P0。不是盘中折价套利或因果贡献。",
+  "share_meaning": "基金份额数量及其变化，绝不等同现金净流入、全市场股票净买入或某机构成交。",
+  "constituent_universe": "每例最早信息日前一交易日固定300成分，不用事后新成分替换。",
+  "reference_weights": "锚日前最近月末权重，最多62个自然日；未认证当时发布版本，仅为固定篮子描述。没有权重则不补值。",
+  "constituent_returns": "复用已分类的股东总回报，仅使用有效交易或官方停牌状态；窗口任何日缺失即该证券窗口缺失，不补零、不重标有效权重。",
+  "industry": "按官方历史变更表的有效区间做事后归因，锁定锚日分类；记录更新时间晚于事件的数量。拒绝旧PIT表以过期行业替代未知现行行业的做法。2021代码表仅作名称展示，旧版缺失名称保留代码。",
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_event_budget_cny": 100000,
+    "illustrative_full_capital_cny": 200000
+  },
+  "new_accounts": 0,
+  "new_prospective_forecasts": 0,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "existing_failures_preserved": [
+    "510300_etf_discount_compensation_probe_v1",
+    "510300_fund_share_publication_receipts_closure_v1",
+    "510300_factor96_rapid_breadth_speed_v1"
+  ],
+  "additional_source": {
+    "url": "https://www.csrc.gov.cn/csrc/c100028/c7462111/content.shtml",
+    "date": "2024-02-06",
+    "role": "同日新增ETF增持信息的竞争解释；不是2月6日开盘前已知信息。"
+  }
+}

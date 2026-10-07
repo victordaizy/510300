@@ -1,0 +1,85 @@
+{
+  "study_id": "510300_INDUSTRIAL_REMAINING_FIVE_COMPLETE_ORIGINAL_CARRIERS_SOURCE_PROBE_V1",
+  "experiment_id": "E93",
+  "registered_at": "2026-10-03T14:29:34.077236+08:00",
+  "basis": {
+    "previous_goal_turn": "PROGRESS_DISTINCT_EARLY_ORIGINAL_CARRIERS_AND_FULL79_MULTIDIMENSIONAL_SOURCE_SUPPORT_IMPROVED_41_TO74",
+    "latest_result": "reports/research/510300_industrial_complete_original_source_followthrough_v1/result_final.json",
+    "sha256": "c8549c4de5a72cca13787134369a5dc145d47826459d7b577224242ae25f6b28",
+    "next_proposal": "reports/research/510300_industrial_complete_original_source_followthrough_v1/next_experiment.json",
+    "proposal_sha256": "ed73e4f94ca4e644ec1644d5dd90c5ee0f0ed5aa47e3f5fdc22f01679cdb7795"
+  },
+  "target_original_periods": [
+    "2018M12",
+    "2019M04",
+    "2019M07",
+    "2019M09",
+    "2020M10"
+  ],
+  "queries_fixed_before_requests": [
+    {
+      "economic_period": "2018M12",
+      "q": "2018年全国规模以上工业企业利润 国家统计局 全年 2019年1月",
+      "domains": [
+        "gov.cn",
+        "stats.gov.cn"
+      ]
+    },
+    {
+      "economic_period": "2019M04",
+      "q": "2019年1—4月份全国规模以上工业企业利润 国家统计局",
+      "domains": [
+        "gov.cn",
+        "stats.gov.cn"
+      ]
+    },
+    {
+      "economic_period": "2019M07",
+      "q": "2019年1—7月份全国规模以上工业企业利润 国家统计局",
+      "domains": [
+        "gov.cn",
+        "stats.gov.cn"
+      ]
+    },
+    {
+      "economic_period": "2019M09",
+      "q": "2019年1—9月份全国规模以上工业企业利润 国家统计局 2019年10月27日",
+      "domains": [
+        "gov.cn",
+        "stats.gov.cn"
+      ]
+    },
+    {
+      "economic_period": "2020M10",
+      "q": "2020年1—10月份全国规模以上工业企业利润 国家统计局 2020年11月27日",
+      "domains": [
+        "gov.cn",
+        "stats.gov.cn"
+      ]
+    }
+  ],
+  "budget": {
+    "official_period_queries": 5,
+    "web_original_opens_max": 5,
+    "distinct_first_raw_GETs_max": 20,
+    "each_GET_attempt_max": 1,
+    "authenticated_requests": 0,
+    "same_previous_raw_GET_retries": 0
+  },
+  "candidate_rule": "每期只选真实官方查询/已得原页列示的不同原NBS或当期完整政府报告；优先完整原HTML财务/效益表和原公开钟，图片须真实父页链接并实际读，图区别于表，至多两个不同报告载体/期。缓存旧原不重发GET。",
+  "acceptance": "全部当期原数量/财务及效益总计和完整方法/母体/范围、原公开钟齐；原官方发布日期可保守日末。成文日、取得时间、摘要/孤立后引量、已知晚版不能补早钟。原标题/经济期相符，地区/解读母体不能替代全国原报告。",
+  "same_original_parse_repair_policy": "金融前同一原错误可以单列修正，保留初错与谱系，不换后版本、补0、删池或重试失败原链接。",
+  "fixed_79_member_1711_pool_1212_preserved": true,
+  "frozen_original_maturity_indices_and_windows_preserved": true,
+  "AR_income_scope_and_first_vintage_unknown_preserved": true,
+  "multidimensional_method": "同一历史可知时点原收入/成本/利润、回款/应收、库存/周转和订单/价格/资金/已计价背景共同，保留每维与未知；不线性回归、简单加权或逐因子金融寻优。",
+  "new_stock_labels_budget": 0,
+  "new_financial_model_fits_budget": 0,
+  "new_linear_regressions_budget": 0,
+  "new_simple_weighted_scores_budget": 0,
+  "new_accounts_budget": 0,
+  "source_code_edits_budget": 0,
+  "finite_stop": "五查询/二十不同首次GET预算结束仍有未知则本路线结束，不轮询/重试；全原来源门成立后才另题唯一固定非线性条件交互。",
+  "financial_status": "NOT_REGISTERED_NOT_RUN",
+  "goal_achieved": false
+}

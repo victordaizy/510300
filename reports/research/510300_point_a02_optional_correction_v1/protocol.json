@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-02T20:36:38.758002+08:00",
+  "study": "510300_POINT_A02_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R126",
+  "result_decision": "TECH.R127",
+  "candidate_configurations": 1,
+  "fields": [
+    "breakout_three_day_retention_ratio"
+  ],
+  "hypothesis": "原A02突破后1—3完整日保留率在有字段时，能否提供原八项核心之外的周期内继续价值信息。",
+  "field": "完全复用R84：现金前向平移OHLC；Cp[e]超过前20完整Hp上沿U；冻结简单ATR20[e-1]；严格早于T的最近突破e；只在T-e为1/2/3时统计e+1..T中Lp>=U-0.5ATR且Cp>=U的日数/全部已观察日数。今日新突破从下一完整日成为锚点。",
+  "clock": "原T收盘15:05，e严格早于T；仅完整第1至3日，今日新突破从下一完整日成为锚点，不回填。下一合法开盘方可应用。",
+  "different_function": "原R84只做完整第九项原成员数量准入，0收益模型拟合；本次拟议单系数可选残差函数。旧严格拒绝与旧突破回踩/T01终态保留，不登记新入场。",
+  "original_members": "原1507状态及142月115可用27未知、全部成熟训练成员/原标签/周期总权重1；最近20/至少10周期100行、原入场锁定与核心尺度/截距保持。",
+  "fit": "唯一一个系数；已知原训练权重标准化、clip±5、再中心化；全原行和周期权重保持。设计和原目标减固定原预测的残差各在周期内中心化，beta=sum(w*Dx*Dy)/(sum(w*Dx^2)+1)，alpha1、新截距0；原八项参数和入场锁定不改。",
+  "missing": "未知、无阶段和阶段过期仍原NO_VIEW/NaN；真实保留率0是已知值。未知字段只使可选修正不活动，预测精确返回原核心，原模型未知双方未知。禁止延长、前填或删除成员。",
+  "prediction_gate": "完整原配对、周期等权原收益MSE两期均严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后另冻结20万元252日BASE/STRESS双期完整账户：净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、最大回撤<=10%、次数软目标。",
+  "no_rescue": "不改20/3/0.5、源价格/ATR/阶段重叠、方向、未知、原成员/成熟门/目标/双期门/alpha，不拼C04或其他失败分支，不挑有字段子样本评价。",
+  "old_R84_direct_ninth_field_support_gate_passed": false,
+  "complete_A02_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_return_labels": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,51 @@
+{
+  "study": "510300_POINT_BINARY_REBALANCE_DIAGNOSTIC_V1",
+  "at": "2026-10-02T00:04:04.170142+08:00",
+  "latest_user_instruction": "去除过拟合，并把我们的模型完善做得更好，夏普率更高，收益率更高",
+  "question": "原收益改善有多少依赖来源仓位大小？在完全相同再平衡引擎内，删除连续目标大小能否更简单且提高收益和夏普？",
+  "known_before_run": "原SAVED_WEIGHT对比旧POINT_BINARY同时改变目标大小和持仓中加减仓，存在归因混杂。近期压力年化3.99%、夏普1.217，较早年化1.84%、夏普0.438且pB0.611。既有反复选择和失败结论保留。",
+  "single_new_variant": "BINARY_REBALANCE：每个已知正目标统一为0.5，零仍为零，未知仍未知；0.5继承现有预算上限，没有拟合。实际份额继续接受原风险上限。",
+  "primary_comparison": "BINARY_REBALANCE减SAVED_WEIGHT；两者调用完全相同的weight_account。POINT_BINARY只作已有背景对照，不把它与新版本的差异全归因于一个因素。",
+  "fixed_common_rules": "20万元；50%仓位上限；原10个百分点调整带；5日条件ES预算2.5%；10%跳空预算5%及原回撤余量；次开盘且买入只能缩减前夜请求；T+1；股息应收和到账分开；回撤10%停止新风险；末端不强平；现金及无风险率0；252交易日年化。",
+  "costs": {
+    "BASE": {
+      "commission_each_side": 0.0002,
+      "slippage_each_side": 0.0005
+    },
+    "STRESS": {
+      "commission_each_side": 0.0004,
+      "slippage_each_side": 0.001
+    },
+    "minimum_commission_cny": 5,
+    "adverse_tick": 0.001,
+    "lot": 100
+  },
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "new_account_evaluations": 4,
+  "reused_accounts": 8,
+  "new_signal_fits": 0,
+  "new_point_replays": 0,
+  "parameter_grid": false,
+  "economic_screen": "四个时期成本场景逐一要求新版本净年化和净夏普均严格高于SAVED_WEIGHT，均为正，实际净pB>1，周期均值>0，最大回撤<=10%；不接受只赢近期。",
+  "frequency": "只报告自然完成周期和完整年度均值；加减仓订单不计新周期，无逐年次数硬下限。",
+  "uncertainty": "对主要比较同时报告20和252交易日循环配对区块各2000次的2.5%/97.5%描述分位数，随机种子20261001；不挑区块、不把描述区间当独立有效性证据。",
+  "attribution": "报告实际成交量毛损益、摩擦、平均仓位、完整周期和共同日历；相同风险上限不等于实际风险暴露完全一致。",
+  "historical_data_role": "DEVELOPMENT_AND_CALIBRATION_NOT_UNTOUCHED",
+  "complexity_limit": "只简化资金分配层；原复杂点位来源、机械状态和月度退出模型仍存在，不能宣称整条模型已经简单或去除过拟合。",
+  "stop_rule": "该固定版本不通过时记录拒绝，不追加目标仓位、调整带或风险参数搜索。",
+  "forward_protocol": "原已冻结前瞻比较不改、不根据本轮结果替换候选；本轮未创建新前瞻候选。",
+  "old_terminal_rejection_preserved": true,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "method_source": "https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf"
+}

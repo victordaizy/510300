@@ -1,0 +1,103 @@
+{
+  "study_id": "510300_LPR_JOINT_RESPONSE_V1",
+  "registered_before_new_event_return_computation": true,
+  "previous_goal_turn": "PROGRESS_FIXED_PRICE_CONTRACT_REJECTED",
+  "request": "实现夏普1.2，注重实用性，拒绝过拟合",
+  "hypothesis": "LPR定期公告后，短端国债收益率下降且股票价格上升的联合反应，可能区别于增长担忧主导的反应，并对随后510300收益有增量。",
+  "boundary": "LPR通常不变，公告日期只是事前已知观察节点；日频符号不能识别纯政策意外或因果效应。同期其他新闻、利率曲线估计与价格噪声是竞争解释。",
+  "primary": "YIELD_DOWN_EQUITY_UP",
+  "controls": [
+    "ALL_RELEASES",
+    "EQUITY_UP_ONLY",
+    "YIELD_DOWN_ONLY"
+  ],
+  "descriptive_quadrants": [
+    "YIELD_DOWN_EQUITY_UP",
+    "YIELD_DOWN_EQUITY_DOWN",
+    "YIELD_UP_EQUITY_UP",
+    "YIELD_UP_EQUITY_DOWN",
+    "ZERO_RESPONSE"
+  ],
+  "release_source": "人民银行或中国货币网2019年8月至2025年12月的实际公布日期；完整保留利率不变月份。",
+  "response_clock": "基准为公告日期之前最后一个A股交易日收盘；观察截至公告日期之后第一个A股交易日收盘。公告当日不作为完整观察日，以避开9时、9时15分、9时30分等发布时间版本差异。",
+  "response_variables": "相同两个日期的一年期中债国债收益率之差，以及510300含现金分红的财富变化。收益率变化小于0且股票财富变化大于0为主组，零变化单列。",
+  "execution_clock": "观察完成后的下一A股开盘作为收益起点；固定10个开盘间隔后结束。观察窗口内涨跌全部排除。",
+  "sample": [
+    "2019-08-20",
+    "2025-12-31"
+  ],
+  "fixed_subperiods": [
+    [
+      "2019-08-20",
+      "2022-12-31"
+    ],
+    [
+      "2023-01-01",
+      "2025-12-31"
+    ]
+  ],
+  "stage_one": "只检验固定份额事件毛收益及毛收益减0.28%比例压力成本的筛查代理；尚不生成账户夏普或CAGR。",
+  "stage_two_gate": "主组平均毛收益大于0.28%，且高于全部公告组；两个固定子期的主组平均毛收益均为正。只作为值得展开条件，不是显著性证明或夏普1.2达标。未通过则不运行账户。",
+  "if_stage_one_passes": "按原50%上限、ES和回撤预算运行20万元与2万元、BASE/STRESS完整账户及固定对照；没有新策略优化权限。",
+  "uncertainty": "按公告顺序固定4个月循环区块2000次，主组与全部公告配对比较；同时披露实际事件数和重叠标签，禁止把重叠收益当独立样本。",
+  "novelty": "旧政策信息时钟是目录重建；旧流动性数量研究使用操作量和资金利率水平/变化拟合。本轮检验固定公告节点后的利率和股票联合反应，不改变旧失败版本。",
+  "no_rescue": "不搜索观察日、期限、债券期限、阈值、公告子集或有利年份，不晋升其他象限。",
+  "source_priority": "先取得官方实际公布日期；引用已有中债来源一年期收益率；不伪造历史first_seen。",
+  "orders_authorized": false,
+  "delivery_package_required": false,
+  "parameter_searches": 0,
+  "frozen_at": "2026-09-28T20:10:43.168355+08:00",
+  "registered_code": "research/lpr_joint_response_v1.py",
+  "source_finalization": {
+    "at": "2026-09-28T20:10:41.275877+08:00",
+    "status": "PASS_77_MONTHLY_RELEASE_DATES",
+    "monthly_records": 77,
+    "first_release": "2019-08-20",
+    "last_release": "2025-12-22",
+    "date_corrections": [
+      {
+        "release_date": "2019-08-20",
+        "directory_date": "2019-08-20",
+        "original_title_date": "2019-08-21",
+        "correction_file": "lpr_2019-08-20_zh.html",
+        "title": "Announcement on Loan Prime Rate (August 21, 2019)",
+        "url": "https://www.pbc.gov.cn/en/3688229/3688335/3730276/3883798/2025080817534568749/index.html",
+        "raw_file": "lpr_2019-08-21.html",
+        "sha256": "f3af311f5cfa4b0ea070c4b6fb325029da12ba877dd2b917c605afc5cc1af80c"
+      },
+      {
+        "release_date": "2019-10-21",
+        "directory_date": "2019-10-21",
+        "original_title_date": "2019-10-20",
+        "correction_file": "lpr_2019-10-21_zh.html",
+        "title": "Announcement on Loan Prime Rate (October 20, 2019)",
+        "url": "https://www.pbc.gov.cn/en/3688229/3688335/3730276/3883798/2025080817534544386/index.html",
+        "raw_file": "lpr_2019-10-20.html",
+        "sha256": "585cc81f2a2c2282da2c69ef6dd496a7dd5114d847bf1c4fcabf6ccce21ed2eb"
+      }
+    ],
+    "unusual_title_included": [
+      {
+        "release_date": "2024-07-22",
+        "directory_date": "2024-07-22",
+        "original_title_date": "2024-07-22",
+        "correction_file": "",
+        "title": "Announcement on Loan Prime Rate and Change in Release Time (July 22, 2024)",
+        "url": "https://www.pbc.gov.cn/en/3688229/3688335/3730276/3883798/2025080817534519454/index.html",
+        "raw_file": "lpr_2024-07-22.html",
+        "sha256": "7c54faca5c7717ccffb5a63cba53bff93c354a2908b90f3c018f154aa4297457"
+      }
+    ],
+    "historical_first_seen_proven": false,
+    "source_boundary": "本次回取官方目录和原文，仅供历史重建；不声称当时实际获取。保留未变动报价月份。",
+    "public_download_limit": "中国货币网公共历史接口只返回一年查询限制，未绕过；改用央行公开公告档案。"
+  },
+  "release_clock_admission": "公告目录和原文日期；两处英文日期错误以同次中文官方原文纠正，不按交易结果选日期。",
+  "bond_source": "既有中债官方历史查询所得一年期国债收益率，按日期精确匹配；不是交易成交价。没有历史首版发布快照，作为历史重建筛查。",
+  "publication_caution": "使用观察日23:59的信息截止，下一交易日开盘入场；实际首次获取尚未证明，不宣称前向实绩。",
+  "execution_proxy": "当日开盘到方向涨停不模拟买入，该事件毛收益0且不扣交易代理费；卖出方向跌停则延后至首个允许开盘，末端未成熟保持CENSORED。",
+  "annual_metrics_before_account": "NOT_COMPUTED",
+  "account_status_before_screen": "NOT_RUN",
+  "source_scope": "2019年8月至2025年12月77次定期公告；12月末标签若未成熟不填零。",
+  "economic_boundary": "不把日频联动称为高频货币政策意外识别，不将短端估值曲线等同政策利率。"
+}

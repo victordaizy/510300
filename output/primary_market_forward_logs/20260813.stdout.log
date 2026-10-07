@@ -1,0 +1,82 @@
+已超过当日采集结束时间，连续采集正常结束
+{
+  "generated_at": "2026-08-13T21:59:31.259568+08:00",
+  "collector_id": "510300_PRIMARY_SECONDARY_FORWARD_V1",
+  "status": "COLLECTING",
+  "observed_trading_days": 1,
+  "full_coverage_days": 0,
+  "minimum_full_coverage_days": 20,
+  "recommended_full_coverage_days": 40,
+  "minimum_snapshots_per_day": 120,
+  "minimum_progress": 0.0,
+  "recommended_progress": 0.0,
+  "first_observed_trade_date": "2026-08-13",
+  "last_observed_trade_date": "2026-08-13",
+  "daily_snapshot_counts": {
+    "2026-08-13": 1
+  },
+  "eligible_for_research_evaluation": false,
+  "eligible_for_position_mapping": false,
+  "position_mapping_block_reason": "达到样本数只代表可以开始研究评估；仍须通过时序稳定性、样本外增益和成本后收益门槛",
+  "governance": {
+    "automatic_position_mapping_authorized": false,
+    "automatic_ordering_authorized": false
+  }
+}
+{
+  "generated_at": "2026-08-13T21:59:32.686334+08:00",
+  "strategy": {
+    "strategy_id": "510300_SMALL_ACCOUNT_PAPER_V1",
+    "name": "510300两万元五档库存纸面执行",
+    "instrument": "510300.SH",
+    "evidence_scope": "估值模型仅作已有慢速底仓输入；申赎与IOPV覆盖层仍处前向数据积累期"
+  },
+  "base_signal_date": "2026-08-12",
+  "quote_exchange_timestamp": "2026-08-13 16:29:06",
+  "reference_price_cny": 4.729,
+  "reference_iopv": 4.7266,
+  "premium_discount_bps": 5.077645664959274,
+  "base_model": {
+    "continuous_model_position": 0.3824227553241377,
+    "target_position": 0.30000000000000004,
+    "signal_reason": "非复核日维持"
+  },
+  "small_account_target": {
+    "raw_target_position": 0.30000000000000004,
+    "target_position_grid": 0.25,
+    "target_shares": 1000,
+    "target_notional_cny": 4729.0,
+    "effective_target_position": 0.23645,
+    "current_shares": null,
+    "paper_action": "TARGET_ONLY_NO_HOLDINGS",
+    "paper_trade_shares": null,
+    "automatic_ordering_authorized": false
+  },
+  "primary_market_overlay": {
+    "status": "DATA_COLLECTION_ONLY",
+    "maximum_position_delta": 0.25,
+    "enabled_for_position_mapping": false,
+    "readiness_status": "COLLECTING",
+    "full_coverage_days": 0,
+    "minimum_full_coverage_days": 20,
+    "position_delta": 0.0,
+    "reason": "PCF与IOPV只处于前向数据积累期，尚未通过仓位映射门槛"
+  },
+  "cost_assumptions": {
+    "minimum_commission_cny": 5.0,
+    "commission_rate": 0.0003,
+    "slippage_bps_per_leg": 5.0
+  },
+  "governance": {
+    "paper_only": true,
+    "automatic_ordering_authorized": false,
+    "requires_current_shares_before_action": true,
+    "note": "不得将纸面动作当作券商委托；须手工提供当前持仓后才能计算买卖差额。"
+  },
+  "input_hashes": {
+    "round5_latest_signal.json": "081107b9ca57f7f7c8f2bc14aec5912fbf22a265343a9f0b5496bd7adefa46e1",
+    "510300_iopv_snapshots.parquet": "3941f890163318e157e7c6a18e62494742b5f58daadd4f55a21ca2b6535bafae",
+    "small_account_20000.yaml": "bde51999b04ecbca508cb6a08b8ddcce9cec3fb00db096963095fd6e88c349e1",
+    "510300_primary_market_readiness.json": "6165279e85c9ae29ee8d323a66792657d91690f3f17f8ff0e0918e48d0f3541d"
+  }
+}

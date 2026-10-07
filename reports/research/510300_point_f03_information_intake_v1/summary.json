@@ -1,0 +1,81 @@
+{
+  "study": "510300_POINT_F03_INFORMATION_INTAKE_V1",
+  "completed_at": "2026-10-02T06:11:06.608742+08:00",
+  "status": "NOT_ADMITTED_AS_NEW_FIELD_PRIOR_OPERATIONALIZATION_EXISTS_AND_FIRST_VINTAGE_UNKNOWN",
+  "original_candidate_status": "PROPOSED_NOT_ADMITTED_NO_NEW_F03_MODEL",
+  "definition_adjudication": {
+    "prior_operationalization": "F5对同统计日510300五日含息对数收益及20日对数波动，前序最多252合格日OLS残差，整体滞后1交易日。",
+    "important_differences_retained": [
+      "旧程序限制此前两日历年、最少126行才拟合，并非原卡严格252日。",
+      "旧解释指数使用510300价格，不等于已接纳CSI300官方指数新字段。",
+      "原卡完整定义状态NOT_RUN保留；项目进度另有rapid_feasibility_screen已运行记录。"
+    ],
+    "reason_not_new": "仅将原最少126改为252、换分位/持有期或换新文件名不能使已测融资残差变成新的市场信息。"
+  },
+  "prior_results": {
+    "classification": "EXPLORATORY_SAVED_NEGATIVE_RESULT_INPUT_LIMIT_RETAINED",
+    "total_batch_accounts": 88,
+    "f03_saved_account_scenarios": 8,
+    "stress_200000_saved": [
+      {
+        "policy": "F03_HIGH",
+        "net_sharpe": -0.2342420501418791,
+        "cagr": -0.0052302898182425,
+        "max_drawdown": 0.0980808412336584,
+        "worth_followup": false
+      },
+      {
+        "policy": "F03_LOW",
+        "net_sharpe": -0.3315460687782247,
+        "cagr": -0.0082764547260889,
+        "max_drawdown": 0.0872004748363728,
+        "worth_followup": false
+      }
+    ],
+    "results_recomputed_this_turn": false,
+    "source_error_caveat": "旧F03八账户使用包含2024-08-08深市零值的版本，不能将这些点值当成纠正后结果或对整个机制的有效否定。旧失败封存、不重搜。"
+  },
+  "source": {
+    "corrected_dates_changed": 1,
+    "changed_dates": [
+      "2024-08-08"
+    ],
+    "old_szse_zero_dates": [
+      "2024-08-08"
+    ],
+    "rows": 2674,
+    "first_stat": "2015-01-05",
+    "last_stat": "2025-12-31",
+    "balance_and_buy_cny": "两市分列加总；深交所官网纠正字段亿元两位小数转元，约100万元显示步长。",
+    "repayment": "本缓存无沪深逐日直接偿还字段，F5余额变化为隐含买入减偿还的会计量；不等于真实资金身份或强平。",
+    "historical_first_publication_receipts": "NOT_ESTABLISHED",
+    "general_rule": "官方说明开市前公开上一交易日；规则和当前回取不能证明每条历史首版、迟报或改版。",
+    "strict_admitted_days": 0,
+    "stale_extension_for_2026": false
+  },
+  "coverage": [
+    {
+      "period": "2015_2019",
+      "decision_days": 1219,
+      "raw_field_days_under_one_day_assumption": 1213,
+      "supported_252_days_under_one_day_assumption": 961,
+      "strict_admitted_days": 0
+    },
+    {
+      "period": "2020_2026",
+      "decision_days": 1636,
+      "raw_field_days_under_one_day_assumption": 1456,
+      "supported_252_days_under_one_day_assumption": 1456,
+      "strict_admitted_days": 0
+    }
+  ],
+  "first_supported_assumed_decision": "2016-01-22",
+  "new_residual_regression_fits": 0,
+  "new_continuation_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "new_price_return_labels": 0,
+  "current_trade_view": "NO_VIEW_FOR_F03",
+  "next_candidate": "C06_DAILY_CLOSE_VOLUME_OVERHEAD_PROXY_PRIOR_AND_SOURCE_CHECK",
+  "historical_role": "DEVELOPMENT_CALIBRATION",
+  "goal_achieved": false
+}

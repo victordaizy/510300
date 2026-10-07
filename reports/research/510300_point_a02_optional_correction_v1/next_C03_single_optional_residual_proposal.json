@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-02T20:40:38.806936+08:00",
+  "status": "PROPOSED_NOT_IMPLEMENTED_NOT_FROZEN_NOT_RUN",
+  "proposed_study": "510300_POINT_C03_OPTIONAL_CORRECTION_V1",
+  "parent_result_decision": "TECH.R127",
+  "hypothesis": "固定十日正负经济收益/成交额效率差，在已知时能否提供原八项之外的周期内继续价值信息。",
+  "purpose_and_function_difference": "原TECH.R88只做完整直接第九项原成员支持，0收益模型拟合；下一拟议固定核心外单系数可选残差。旧支持门失败及原HIGH/LOW进入政策失败均保留。",
+  "field_definition": "r=原log((close+当日已除息现金)/previous_close)=total_log；固定[t-9,t]十个完整实际日，严格r>0与r<0归组，零日不入两组但计入日均金额。mean(amount10)*[sum(正r)/sum(正日amount)-sum(abs负r)/sum(负日amount)]固定一列。",
+  "source_clock": "原现金前向财富和log收益先核身份，首个市场点没有前一区间不补0；CNY成交额在完整收盘后可知，下一合法开盘执行，不读未来现金/行情或回溯复权。",
+  "missing_and_zero": "十日任一经济收益/金额缺口、非有限或金额<=0未知；任一正负组金额分母<=0未知，不填0/epsilon、延长/压缩窗口或删成员。两组有效但效率差真0合法，正负零边界严格按原log收益。未知时只令可选修正不活动，精确返回原核心；原核心未知双方未知。",
+  "fixed_function_to_freeze": "唯一一个系数；已知原训练行按原周期权重标准化、clip±5、再中心化；全部原行保留。设计和原目标减固定核心预测的残差分别周期内中心化；beta=sum(w*Dx*Dy)/(sum(w*Dx^2)+1)，alpha1、新截距0。原八项和入场锁定不变。",
+  "qualification_sequence": [
+    "已完成旧24来源/3488原字段/1507身份及可用性预检，未读取目标。",
+    "下一续行核对已有用途和单列设计可识别性，无可识别设计则0拟合停止。",
+    "建立隔离代码与完整十日/正负零边界/分母未知/真实零/前缀不变/原成员/标量方程测试。",
+    "任何真实收益拟合前另冻结唯一协议和必要测试，再实际运行一次。",
+    "完整原配对双期周期等权MSE及原入场年块95%改进下界均通过才另冻结完整账户。",
+    "原20万元252日BASE/STRESS两期净CAGR和净夏普高于A、净pB>1、标准期望>0、回撤<=10%；预测门失败即拒绝。"
+  ],
+  "old_R88_facts": {
+    "status": "REJECTED_FIXED_C03_NINTH_FIELD_INCOMPLETE_ORIGINAL_MEMBER_SUPPORT",
+    "raw_known_rows": 1499,
+    "raw_unknown_rows": 8,
+    "fully_supported_mature_months": 39,
+    "ready_months": 115,
+    "old_model_fits": 0
+  },
+  "saved_preflight": "reports/research/510300_point_a02_optional_correction_v1/next_C03_saved_field_preflight.json",
+  "old_source_paths": [
+    {
+      "path": "research/point_c03_information_intake_v1.py",
+      "sha256": "e460158192f7d0567a9bfdffa4ac225d9b2a572f8832ee4c5cbe9f12af4daca1"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/protocol.json",
+      "sha256": "eb208fb9ace07391ef9c53a0e0c391cf88e4eb20bea9fc587c7d5e13ce8f1541"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/freeze.json",
+      "sha256": "0f3d6106c2359292f74a87d5cea4281b368e5ceba281ce5a79e9f2b55f953b4a"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/summary.json",
+      "sha256": "f1c99a8421b9fdf55ba6e38071601e933c63f60f38f4a79718a4edeff7c9937d"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/prior_and_source_review.json",
+      "sha256": "24160cc5bf3461fd07461aebb6de1dcffe06fb57bf9011dc655a8395cf4e60b8"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/saved_output_recomputation_receipt.json",
+      "sha256": "c0c7180d0f23fbf2ad72e66b42330554a0f85f2dd54f7545384cda7107c06ad4"
+    }
+  ],
+  "targeted_definition_routing": "有限当前源码检索仅原C03字段器和旧用途；不声称全部repo代数去重完成，正式新增前须再核对函数。",
+  "no_rescue": "不重开原HIGH/LOW、不改10日/金额尺度/严格收益边界/原分母/未知或加epsilon，不改原成员/目标/alpha/成熟钟/两期门，不拼失败分支，不挑有字段子样本。",
+  "old_R88_direct_gate_passed": false,
+  "complete_C03_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_accounts": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,72 @@
+{
+  "study_id": "510300_HISTORICAL_POLICY_CONSTRAINT_EVENTS_V1",
+  "question": "普通资金成本下调与同时改变股票融资约束的政策，在首次公开前已发生的定价、公开后可成交收益和当时订单背景上有何区别？",
+  "mode": "HISTORICAL_ONLY",
+  "previous_goal_turn_classification": "PROGRESS_HISTORICAL_CAUSE_DECOMPOSITION_AND_REALIZED_EVENT_RETURNS",
+  "sample_frame": "现有7天逆回购利率变更链中，2022年1月1日至2026年7月31日全部7次已记录下调；按已有原文把2024年9月和2025年5月的首次宣布与落地合并。不是全部货币、财政或股票支持政策的全集。",
+  "expected_observed_change_dates": [
+    "2022-01-17",
+    "2022-08-15",
+    "2023-06-13",
+    "2023-08-15",
+    "2024-07-22",
+    "2024-09-29",
+    "2025-05-08"
+  ],
+  "announcement_date_repairs": {
+    "2024-09-29": {
+      "announcement_date": "2024-09-24",
+      "rate_node": "R01",
+      "equity_node": "C01",
+      "implementation_node": "R02",
+      "implementation_date": "2024-09-27",
+      "policy_type": "NEW_EQUITY_FINANCING_CHANNEL"
+    },
+    "2025-05-08": {
+      "announcement_date": "2025-05-07",
+      "rate_node": "R03",
+      "equity_node": "C07",
+      "implementation_date": "2025-05-08",
+      "policy_type": "EXISTING_EQUITY_TOOL_TERMS_OPTIMIZED"
+    }
+  },
+  "groups": {
+    "GENERAL_RATE_CUT": "公告中未按本研究定义识别到直接股票融资工具变化的5次降息，不能宣称没有其他同步政策。",
+    "EQUITY_FINANCING_LINKED": "2024年新设工具与2025年既有工具优化分别保留，汇总只用于小样本描述。"
+  },
+  "classification_basis": "依据已经公开的工具内容，先于本轮新结果计算；这两次行情此前已经见过，分组不是独立盲测。",
+  "causal_chain": [
+    "政策回应什么约束",
+    "改变何种融资条件及谁能使用",
+    "公布前后市场如何反应",
+    "真实订单与股票购买仍需主体行为",
+    "剩余历史收益"
+  ],
+  "context": "只接入首次宣布前已公布的最新制造业新订单及其上次变动；不把后来公布的当月数据前移。复用含分红价格的此前20日收益和60日回撤坐标，不搜索阈值。",
+  "entry": "首次公开当日日末确认，下一实际交易日开盘；发布会开始不视作所有细节已知。",
+  "horizons": [
+    5,
+    20
+  ],
+  "primary_horizon": 20,
+  "exit": "从入场开盘起第5或第20个后续交易日开盘；与前一历史事件研究一致。",
+  "already_reflected": "首次宣布日之前最近收盘至研究入场开盘的总回报，用于已发生反应描述，不计入可交易收益。",
+  "late_record_diagnostic": "仅对已修正时钟的两次，若沿旧操作记录日期才进入，计算至正确起点同一退出日的剩余收益；不是另一个优化账户。",
+  "costs_inherited_from": "reports/research/510300_historical_price_gap_causes_v1/protocol.json",
+  "event_account_scope": "同前轮独立10万元往返算例，压力费用、整手、报价取整与现金分红；不执行完整账户风险预算，不把各行相加为账户表现。",
+  "existing_policy_account": "reports/research/510300_equity_support_policy_event_v1/summary.json",
+  "existing_account_disposition": "旧固定20日账户已失败，不重跑、不改仓位或退出。该家族中的两次事件不是新独立样本。",
+  "known_coevents": [
+    "2024年9月26日政治局经济部署及随后政策落地",
+    "2025年5月12日中美日内瓦联合声明；不能把整段收益单独归因于5月7日政策"
+  ],
+  "expectation_gap": "没有同口径事前调查或隐含预期，不将降息幅度当意外幅度。",
+  "causal_limits": "政策分类与收益共现不等于已识别的政策因果效应；最多2个股票融资相关事件不能证明可复用优势。",
+  "new_parameter_searches": 0,
+  "new_accounts": 0,
+  "new_forecast_cards": 0,
+  "wait_for_future_data": false,
+  "historical_prices_previously_seen": true,
+  "recorded_at": "2026-09-29T16:44:16.774114+08:00",
+  "before_this_study_event_return_computation": true
+}

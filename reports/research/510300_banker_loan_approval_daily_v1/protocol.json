@@ -1,0 +1,193 @@
+{
+  "at": "2026-09-26T05:36:47.366886+08:00",
+  "study_id": "510300_BANKER_LOAN_APPROVAL_DAILY_V1",
+  "primary": "PRICE_FUNDING_SURVEY_DEMAND_AND_APPROVAL__FIXED5_NO_ADD",
+  "question": "银行家对贷款需求的判断相同或相近时，审批条件的松紧能否区别后续的价格修复分布？",
+  "source": {
+    "at": "2026-09-26T05:33:36.140033+08:00",
+    "study_id": "510300_BANKER_SURVEY_AVAILABILITY_COMPLETION_V1",
+    "status": "32_CURRENT_QUARTER_SOURCES_READY_STRATEGY_NOT_RUN",
+    "source_quarters": 32,
+    "unresolved_quarters": 0,
+    "fields": [
+      "loan_demand_index",
+      "loan_approval_index",
+      "monetary_policy_perception_index"
+    ],
+    "source_panel": "reports/research/510300_banker_survey_field_admission_v1/released_banker_survey.parquet",
+    "source_panel_sha256": "5d6c4b123d967e4a371c11f1285a264b9c74e1c96bda2cafac1418f71a3de80a",
+    "first_quarter": "2018Q1",
+    "last_quarter": "2025Q4",
+    "same_day_released_quarters": [
+      {
+        "quarter": "2023Q3",
+        "published_at": "2024-03-22 19:00:40+08:00",
+        "known_at": "2024-03-22T23:59:59+08:00"
+      },
+      {
+        "quarter": "2023Q4",
+        "published_at": "2024-03-22 19:01:26+08:00",
+        "known_at": "2024-03-22T23:59:59+08:00"
+      },
+      {
+        "quarter": "2024Q3",
+        "published_at": "2025-03-21 19:00:10+08:00",
+        "known_at": "2025-03-21T23:59:59+08:00"
+      },
+      {
+        "quarter": "2024Q4",
+        "published_at": "2025-03-21 19:00:25+08:00",
+        "known_at": "2025-03-21T23:59:59+08:00"
+      },
+      {
+        "quarter": "2025Q1",
+        "published_at": "2025-07-25 20:00:05+08:00",
+        "known_at": "2025-07-25T23:59:59+08:00"
+      },
+      {
+        "quarter": "2025Q2",
+        "published_at": "2025-07-25 20:00:20+08:00",
+        "known_at": "2025-07-25T23:59:59+08:00"
+      }
+    ],
+    "unique_effective_release_days": 29,
+    "table_field_counts": {
+      "11": 27,
+      "12": 5
+    },
+    "publication_delay_min_days": -16,
+    "publication_delay_max_days": 174,
+    "delays_over_90_days": [
+      {
+        "quarter": "2023Q3",
+        "published_at": "2024-03-22 19:00:40+08:00",
+        "publication_days_from_quarter_end": 174
+      },
+      {
+        "quarter": "2024Q3",
+        "published_at": "2025-03-21 19:00:10+08:00",
+        "publication_days_from_quarter_end": 172
+      },
+      {
+        "quarter": "2025Q1",
+        "published_at": "2025-07-25 20:00:05+08:00",
+        "publication_days_from_quarter_end": 116
+      }
+    ],
+    "evaluated_market_days": 1633,
+    "available_days_within_120": 1369,
+    "prior_two_year_distinct_quarter_states_min": 5,
+    "prior_two_year_distinct_quarter_states_max": 10,
+    "strict_prior_two_year_distinct_quarters_min": 4,
+    "strict_prior_two_year_distinct_quarters_max": 9,
+    "latest_information_asof_last_market_day": {
+      "date": "2026-09-24T00:00:00",
+      "decision_time": "2026-09-24T09:00:00+08:00",
+      "known_at": "2026-01-23T23:59:59+08:00",
+      "quarter": "2025Q4",
+      "age_days": 243.37501157407408,
+      "available_within_120_days": false,
+      "distinct_prior_two_year_quarter_states": 5,
+      "distinct_source_clock_inside_two_year_quarters": 4
+    },
+    "historical_first_vintage_verified": false,
+    "new_accounts": 0,
+    "new_strategy_returns": 0,
+    "current_market_view": "NO_VIEW",
+    "goal_status": "active",
+    "goal_achieved": false
+  },
+  "feature": "直接采用当季原报告贷款审批扩散指数，定义为放松比例加0.5乘基本不变比例；不是贷款批准率、放贷量或中性利率。",
+  "mechanism": "贷款数量同时受需求与供给影响，本轮尝试在需求判断之外加入审批条件。调查为银行家主观扩散判断，不能证明供给冲击的因果性，也不预设宽松必然利好股票。",
+  "controls": "CONTROL为价格、银行资金和调查季度sin/cos，TOTAL增加需求扩散指数，SIGNAL最后只加审批指数。政策感受指数不入模，避免再加第三项挑选。",
+  "known_at": "32份原报告产生29个不同保守公布日；同日补发取最新统计季度作为之后状态，较旧季度不回填其历史日期。最长120自然日，逾期未知。该上限只是事前选定新研究条件。",
+  "statistics": "删除宏观信心列及行业表头变化不影响本次两项目标的定义；按各原报告表头提取，编制编号不充当列号。受访机构历史构成不可变证明仍不充分。",
+  "training": "每天仅最近两日历年且五日标签已成熟的共同原点；原报告公布时间本身也不早于两年下界；至少252原点，固定126近邻，训练内标准化及截断5。季度填充日不算独立宏观事实。",
+  "funding": "复用每个当前两年窗内嵌套重建的FDR007日历残差，无新增资金回归或参数。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_FUNDING_AND_SURVEY_QUARTER": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "survey_quarter_sin",
+      "survey_quarter_cos"
+    ],
+    "PRICE_FUNDING_QUARTER_AND_LOAN_DEMAND": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "survey_quarter_sin",
+      "survey_quarter_cos",
+      "loan_demand_index"
+    ],
+    "PRICE_FUNDING_SURVEY_DEMAND_AND_APPROVAL": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "survey_quarter_sin",
+      "survey_quarter_cos",
+      "loan_demand_index",
+      "loan_approval_index"
+    ]
+  },
+  "traded_models": [
+    "PRICE_FUNDING_AND_SURVEY_QUARTER",
+    "PRICE_FUNDING_QUARTER_AND_LOAN_DEMAND",
+    "PRICE_FUNDING_SURVEY_DEMAND_AND_APPROVAL"
+  ],
+  "variants": [
+    "ROLL_NO_ADD",
+    "FIXED5_NO_ADD"
+  ],
+  "account": "三组信息、两种期限、两种成本共12新账户；20万元、只510300和现金，五日弱势时才新增，持仓不加仓。主固定第五个后续开盘到期，每日尾部约束可提前减仓。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "risk_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "主固定五日对两个信息对照、同信息滚动期限；20日循环区块及完整季度公布间隔区块各2000次，seed2026092610，固定两时期及年度、滚动两年全部披露。",
+  "development_gate": "主压力三项目标通过，两类区块下界及两个固定时期的信息增量均正；仍需独立前向，不把季度变量的日频重复当独立验证。",
+  "monitor": "每5个固定相位的成熟q05结果，60条窗口突破率>15%记录；无报警不证明优势。",
+  "common_information_days": 1793,
+  "future_source_perturbation_pass": true,
+  "new_accounts": 12,
+  "new_parameter_searches": 0,
+  "new_funding_regression_fits": 0,
+  "new_independent_forward_observations": 0,
+  "historical_first_vintage_verified": false,
+  "goal_achieved": false,
+  "current_market_view": "NO_VIEW",
+  "orders_authorized": false
+}

@@ -1,0 +1,67 @@
+{
+  "at": "2026-10-02T12:20:23.170468+08:00",
+  "candidate_id": "D03",
+  "name": "收盘位置持续性",
+  "status": "PROPOSED_D03_FINITE_PRIOR_PURPOSE_OHLC_CLOCK_AND_MEMBER_REVIEW_NOT_ADMITTED",
+  "registered_definition": "CLV=(2*C-H-L)/(H-L)，记录mean(CLV,5)及5日为正天数；H=L缺失。",
+  "reason_to_review": "C05源/成员通过但两期固定预测变差，停止该条件增量。D03描述日内收盘在高低区间的位置及跨日持续性，可能与原动量/波动不同；既有CLV组成并不新，先查旧同用途。",
+  "bounded_next_checks": [
+    "查原rapid五日CLV/正天数HIGH/LOW、simple_session_divergence、intraday_overnight_increment以及早期学习退出/原八项是否已覆盖同一继续收益条件用途；原NOT_RUN不证明未用过。",
+    "任何数量/收益检验前绑定原冻结OHLC修正身份与现金分红坐标；CLV同日加相同现金平移不变，不用未来回溯复权。高/低/收盘只在完整收盘后可用，下一开盘执行。",
+    "固定原五个完整日含当日，mean(CLV,5)及严格CLV>0的天数两列同时；真实CLV0/正天数0合法，H=L或OHLC/窗口缺失NO_VIEW，不填0或压缩合格行。",
+    "先核对1507原自然成员和115原可用月全部训练行，27未知保留；同用途已覆盖或源/数量不合格就停止，不改5日/边界/成员/成熟门营救。",
+    "只有不同条件用途及时钟/数量成立，才另冻结一个两列固定增量；原标签、周期权重、20周期/10周期100行、alpha1/clip5、入场锁定/两负确认及预测/账户门不改，无新阈值/交互。"
+  ],
+  "old_C05_and_other_failures_preserved": true,
+  "field_bound": false,
+  "field_admitted": false,
+  "new_model_registered": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_E03_forward_preserved": true,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_c05_exit_prediction_v1/prediction_summary.json",
+      "sha256": "025d6923db5453335a7fb8f7ab4c3da7f9cdaa24f505acb1010a5de17e8e4f10"
+    },
+    {
+      "path": "reports/research/510300_point_c05_exit_prediction_v1/intake/summary.json",
+      "sha256": "c64aa96b6004049ca35e4947e6b34d2f721e512a2433ee94cd1ae75b76c736f4"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "research/simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/within_cycle_exit_inputs_v1.py",
+      "sha256": "986db7742140db8bbf59794c6250f8ab3cef99d48788262de8e2bcc4964c4c37"
+    }
+  ]
+}

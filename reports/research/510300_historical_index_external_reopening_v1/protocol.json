@@ -1,0 +1,73 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_EXTERNAL_REOPENING_V1",
+  "recorded_at": "2026-10-01T16:43:55.430235+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "research_unit": "指数整体共同定价；国内活动约束与外部通胀/利率变化",
+  "mode": "HISTORICAL_ONLY",
+  "calendar_reason": "解释仍沿用原四次国内政策窗口；外部消息候选覆盖2022年1月至2023年2月全部CPI/FOMC，保留8/9月等反例，避免只在此前政策月份启用它。",
+  "source_event_period": [
+    "2022-01-01",
+    "2023-02-28"
+  ],
+  "account_period": [
+    "2022-01-01",
+    "2023-03-31"
+  ],
+  "cpi_dates": [
+    "2022-01-12",
+    "2022-02-10",
+    "2022-03-10",
+    "2022-04-12",
+    "2022-05-11",
+    "2022-06-10",
+    "2022-07-13",
+    "2022-08-10",
+    "2022-09-13",
+    "2022-10-13",
+    "2022-11-10",
+    "2022-12-13",
+    "2023-01-12",
+    "2023-02-14"
+  ],
+  "fomc_dates": [
+    "2022-01-26",
+    "2022-03-16",
+    "2022-05-04",
+    "2022-06-15",
+    "2022-07-27",
+    "2022-09-21",
+    "2022-11-02",
+    "2022-12-14",
+    "2023-02-01"
+  ],
+  "prior_fomc_for_first_step": "2021-12-15",
+  "cpi_inputs": "当次原始公告内的最新月及前月核心季调环比；与市场预期之差未知，2月季调修订单列。",
+  "mechanism": "检验公开的核心通胀放缓或加息速度减慢是否留下指数可成交收益；放慢速度与利率终点、持续时间不同。",
+  "signal_us_news": "核心CPI季调环比严格小于同一公告所列前月，或FOMC本次正加息幅度严格小于上次正加息幅度；二者满足其一即触发。没有阈值搜索，不使用美债反应作过滤。",
+  "signal_union": "原四次国内政策触发与US_NEWS触发取并集；同日去重，持仓时忽略新触发，不追加、不顺延。",
+  "new_account_candidates": [
+    "US_NEWS",
+    "DOMESTIC_US_UNION"
+  ],
+  "capitals_cny": [
+    200000,
+    20000
+  ],
+  "execution": "CPI纽约08:30、FOMC纽约14:00按America/New_York转换北京时间，之后首个中国开盘；持有20个开盘区间；复用既有风险约束/压力成本/整手/T+1/分红引擎。",
+  "risk_authority": "config/510300_existing_data_training_mandate_v1.json",
+  "costs": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001
+  },
+  "event_diagnostics": "全部23个外部公告分别给出5/20日成本后事件窗口，最接近的国内政策账户直接复用，不按结果挑消息。",
+  "curve_use": "美国2年、10年名义及10年TIPS同日变化用于事后机制；缺历史准确发布时点，不进入首个中国开盘前信号。名义减TIPS称通胀补偿，不称纯通胀预期。",
+  "source_extension": "仅为利率终点与通胀构成解释取得相邻SEP及鲍威尔公开说明，不额外增加交易触发。",
+  "no_causal_overclaim": "国内政策方向已于11月10日19:42公开，美国CPI当晚21:30；不能把11日缺口全归某一消息。",
+  "seen_data": "原四次政策、2022年8/9/10月CPI与部分股价路径已经研究；本轮不是独立验证。",
+  "new_parameters_fitted": 0,
+  "new_full_accounts_planned": 4,
+  "future_forecasts": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

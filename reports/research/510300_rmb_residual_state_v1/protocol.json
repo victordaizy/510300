@@ -1,0 +1,576 @@
+{
+  "study_id": "510300_RMB_RESIDUAL_STATE_V1",
+  "registered_at": "2026-09-28T20:59:11.986341+08:00",
+  "previous_goal_turn_classification": "PROGRESS_COPPER_GOLD_FIXED_SCREEN_COMPLETED_AND_STOPPED",
+  "hypothesis": "离岸人民币相对于广义美元变化和中美10年利差的额外走强，可能表征中国相关风险需求改善；检验其后510300是否有可交易收益。",
+  "interpretation_limit": "回归残差只是条件描述，不等于外生冲击、真实市场预期差或政策因果效应。",
+  "closest_prior_work": [
+    "T10用ASHR与中间价解释A股首日反应；本轮解释离岸汇率本身并观察后续ETF收益",
+    "旧全球股票指数/VIX预测不含本项离岸汇率残差",
+    "J02原登记为252日回归；本轮遵守现行两日历年训练、逐A股交易日更新权限"
+  ],
+  "sources": {
+    "offshore_fx": "Yahoo CNH=X原始日收盘，供应商指示性离岸人民币报价，不能称CFETS官方成交收盘",
+    "global_usd": "Yahoo DX-Y.NYB美元指数原始日收盘",
+    "us_rate": "美国财政部各年份原始日收益率XML，10年par yield",
+    "cn_rate": "现有中债10年国债估值收益率；不混同美国par yield口径；利差是观察代理",
+    "market": "现有未复权510300与分红源"
+  },
+  "required_history": "2016-08-12起输入；2019-01-01至2025-12-31研究。2019以前只估计汇率响应；完整历史曾用于其他研究，本轮不宣称独立留出。",
+  "time_rule": "同一日期各来源先取共同存在的完整日值，每条记录在来源日期后第2个日历日23:59 Asia/Shanghai才可用；7日以上陈旧为NO_VIEW。每A股交易日收盘重估，次日开盘之后才计收益。",
+  "regression": "USDCNH连续5个共同来源日期的log变化 = 截距 + DXY同区间log变化 + 中美10Y利差同区间变化；仅用当前来源端点之前且在当前A股决策日前两日历年内的已可用行估计OLS；最少252行、满秩。当前行不参与估计。",
+  "model_update": "EVERY_A_SHARE_TRADING_DAY",
+  "primary": "RESIDUAL_RMB_STRONG: 当前CNH变化减模型解释值<0",
+  "controls": [
+    "RAW_RMB_STRONG: CNH同区间log变化<0",
+    "USD_WEAK: DXY同区间log变化<0",
+    "ALL_SOURCE_ADMITTED"
+  ],
+  "primary_comparison": "RESIDUAL_RMB_STRONG minus RAW_RMB_STRONG",
+  "cohort_rule": "每ISO周第一个A股交易日收盘为唯一观察原点；固定周规则不按收益择时，后续首开盘进入。源缺失仍保留NO_VIEW。",
+  "hold_open_intervals": 5,
+  "subperiods": {
+    "EARLY": [
+      "2019-01-01",
+      "2021-12-31"
+    ],
+    "LATE": [
+      "2022-01-01",
+      "2025-12-31"
+    ]
+  },
+  "gross_screen_gate": "主组平均毛收益>0.28%、高于RAW_RMB_STRONG、两个固定子期主均值均正；缺失不填零。仅通过数值与来源门才展开完整账户。",
+  "cost_proxy": 0.0028,
+  "bootstrap": "按完整周序列8周循环区块2000次，仅描述区间，未作历史多重选择校正。",
+  "no_rescue": [
+    "不换币种",
+    "不改方向",
+    "不改5日窗口或持有期",
+    "不调整分段",
+    "不晋升对照",
+    "不从另一供应商按绩效择优拼接"
+  ],
+  "source_fail_rule": "预定CNH或DXY来源不满足品种身份和可用覆盖时，数据门不通过；不临时用中间价替代。",
+  "full_account_if_pass": "20万元主账户、2万元比较；现有50%仓位上限与ES/回撤/成本/T+1/事前订单合同全部保留。",
+  "orders_authorized": false,
+  "delivery_package_required": false,
+  "new_event_returns_computed": false,
+  "frozen_at": "2026-09-28T21:16:20.298439+08:00",
+  "source_revision": {
+    "at": "2026-09-28T21:03:48.404878+08:00",
+    "reason": "Yahoo明确不提供CNH所需历史，最大范围仅一条2026年报价；数据接入替换发生于任何新事件收益计算之前。",
+    "replacement": "Dukascopy公开USD-CNH日BID报价，全区间单一来源，不与Yahoo拼接。",
+    "price_type_fixed": "BID_CLOSE",
+    "identity": "USD-CNH；第三方客户端同名USDCNH，Dukascopy来源主体为报价发布者。",
+    "time_detail": "按供应商日柱起始时间的UTC日历日对齐；同时核对该柱结束时间<=统一可用时间。记录当日后三个市场不同日终，不声称同步撮合报价。",
+    "source_date_proxy": "沿用来源日期后第2日23:59 Asia/Shanghai；不得提前。",
+    "unchanged": [
+      "离岸人民币币种",
+      "美元指数与两国10年利差",
+      "两年OLS",
+      "5日变化与持有期",
+      "每周观察原点",
+      "主要组和对照",
+      "覆盖门槛",
+      "费用及目标"
+    ],
+    "return_based_source_selection": false,
+    "historical_first_seen_proven": false
+  },
+  "source_gate_registration": {
+    "at": "2026-09-28T20:59:47.746489+08:00",
+    "before_source_value_or_new_event_return_review": true,
+    "quote_identity_required": [
+      "CNH=X, instrumentType=CURRENCY, currency=CNH",
+      "DX-Y.NYB, instrumentType=INDEX"
+    ],
+    "required_value_rules": "日期唯一递增；正的CNH/DXY收盘；非空两国10年收益率；不做插值；仅按共同来源日期计算变化。",
+    "coverage_gate": "可建模周原点占全部注册周原点至少90%，各自然年至少85%；前后两个固定子期各至少100个有源原点。缺失周原样NO_VIEW，不填0。",
+    "historical_vintage_boundary": "供应商历史行情和现存官方收益率不是当时逐日首次获取档案；日期后两天只是保守时间代理。",
+    "source_not_predictive_validity": true
+  },
+  "source_gap_policy": {
+    "at": "2026-09-28T21:14:47.429331+08:00",
+    "before_new_etf_event_returns": true,
+    "unavailable_year": "2018",
+    "cause": "Dukascopy2018年端点在并发、串行退避及延迟单次验证后仍返回429；其余9年已取得。当前结束请求，不改URL规避限流。",
+    "calendar_scope_unchanged": "2019-01-01至2025-12-31全部周原点保留。",
+    "no_bridge_rule": "任何五个共同来源日期变化窗口穿过缺失年份时，三个变换字段均记为缺失；不把一年缺口当五日变化。",
+    "estimation_rule": "现有最少252个既往有效端点和两日历年窗口不变；不足或陈旧为NO_VIEW。",
+    "permitted_output": "允许报告明确标注的有源子样本毛收益初筛，不代表完整注册期间；来源覆盖门未通过时，完整账户必须NOT_RUN且不能认定候选通过。",
+    "no_rescue": "不改起始年份、训练长度、窗口、方向、费用或主要对照，不因子样本结果替换供应商。"
+  },
+  "source_coverage": {
+    "at": "2026-09-28T21:15:54.845064+08:00",
+    "status": "NOT_PASSED",
+    "gates": {
+      "overall_at_least_90pct": false,
+      "each_year_at_least_85pct": false,
+      "both_subperiods_at_least_100": false
+    },
+    "registered_weekly_origins": 359,
+    "available_weekly_origins": 291,
+    "coverage_fraction": 0.8105849582172702,
+    "yearly": [
+      {
+        "year": 2019,
+        "count": 52,
+        "sum": 0,
+        "mean": 0.0
+      },
+      {
+        "year": 2020,
+        "count": 51,
+        "sum": 45,
+        "mean": 0.8823529411764706
+      },
+      {
+        "year": 2021,
+        "count": 52,
+        "sum": 50,
+        "mean": 0.9615384615384616
+      },
+      {
+        "year": 2022,
+        "count": 50,
+        "sum": 48,
+        "mean": 0.96
+      },
+      {
+        "year": 2023,
+        "count": 50,
+        "sum": 48,
+        "mean": 0.96
+      },
+      {
+        "year": 2024,
+        "count": 52,
+        "sum": 50,
+        "mean": 0.9615384615384616
+      },
+      {
+        "year": 2025,
+        "count": 52,
+        "sum": 50,
+        "mean": 0.9615384615384616
+      }
+    ],
+    "subperiod_available": {
+      "EARLY": 95,
+      "LATE": 196
+    },
+    "missing": [
+      {
+        "date": "2019-01-02T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2017-12-29T00:00:00",
+        "source_age_days": 369
+      },
+      {
+        "date": "2019-01-07T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2019-01-04T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-01-14T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-01-11T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-01-21T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-01-18T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-01-28T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-01-25T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-02-11T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2019-02-01T00:00:00",
+        "source_age_days": 10
+      },
+      {
+        "date": "2019-02-18T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-02-15T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-02-25T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-02-22T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-03-04T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-03-01T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-03-11T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-03-08T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-03-18T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-03-15T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-03-25T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-03-22T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-04-01T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-03-29T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-04-08T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-04-04T00:00:00",
+        "source_age_days": 4
+      },
+      {
+        "date": "2019-04-15T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-04-12T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-04-22T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-04-18T00:00:00",
+        "source_age_days": 4
+      },
+      {
+        "date": "2019-04-29T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-04-26T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-05-06T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-04-30T00:00:00",
+        "source_age_days": 6
+      },
+      {
+        "date": "2019-05-13T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-05-10T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-05-20T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-05-17T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-05-27T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-05-24T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-06-03T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-05-31T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-06-10T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-06-06T00:00:00",
+        "source_age_days": 4
+      },
+      {
+        "date": "2019-06-17T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-06-14T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-06-24T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-06-21T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-07-01T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-06-28T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-07-08T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-07-05T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-07-15T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-07-12T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-07-22T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-07-19T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-07-29T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-07-26T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-08-05T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-08-02T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-08-12T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-08-09T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-08-19T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-08-16T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-08-26T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-08-23T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-09-02T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-08-30T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-09-09T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-09-06T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-09-16T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-09-12T00:00:00",
+        "source_age_days": 4
+      },
+      {
+        "date": "2019-09-23T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-09-20T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-09-30T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-09-27T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-10-08T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2019-09-30T00:00:00",
+        "source_age_days": 8
+      },
+      {
+        "date": "2019-10-14T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-10-11T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-10-21T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-10-18T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-10-28T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-10-25T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-11-04T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-11-01T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-11-11T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-11-08T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-11-18T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-11-15T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-11-25T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-11-22T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-12-02T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-11-29T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-12-09T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-12-06T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-12-16T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-12-13T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-12-23T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-12-20T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2019-12-30T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2019-12-27T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2020-01-06T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2020-01-03T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2020-01-13T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2020-01-10T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2020-01-20T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2020-01-17T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2020-02-03T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2020-01-23T00:00:00",
+        "source_age_days": 11
+      },
+      {
+        "date": "2020-02-10T00:00:00",
+        "model_status": "NO_VIEW_TRAINING_HISTORY",
+        "source_date": "2020-02-07T00:00:00",
+        "source_age_days": 3
+      },
+      {
+        "date": "2020-10-09T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2020-09-30T00:00:00",
+        "source_age_days": 9
+      },
+      {
+        "date": "2021-02-18T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2021-02-10T00:00:00",
+        "source_age_days": 8
+      },
+      {
+        "date": "2021-10-08T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2021-09-30T00:00:00",
+        "source_age_days": 8
+      },
+      {
+        "date": "2022-02-07T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2022-01-28T00:00:00",
+        "source_age_days": 10
+      },
+      {
+        "date": "2022-10-10T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2022-09-30T00:00:00",
+        "source_age_days": 10
+      },
+      {
+        "date": "2023-01-30T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2023-01-20T00:00:00",
+        "source_age_days": 10
+      },
+      {
+        "date": "2023-10-09T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2023-09-28T00:00:00",
+        "source_age_days": 11
+      },
+      {
+        "date": "2024-02-19T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2024-02-09T00:00:00",
+        "source_age_days": 10
+      },
+      {
+        "date": "2024-10-08T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2024-09-30T00:00:00",
+        "source_age_days": 8
+      },
+      {
+        "date": "2025-02-05T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2025-01-27T00:00:00",
+        "source_age_days": 9
+      },
+      {
+        "date": "2025-10-09T00:00:00",
+        "model_status": "NO_VIEW_STALE_OR_INVALID_SOURCE",
+        "source_date": "2025-09-30T00:00:00",
+        "source_age_days": 9
+      }
+    ]
+  },
+  "source_identity_gate_update": "CNH=X仅能验证品种、没有历史；正式输入改为Dukascopy USD-CNH BID全区间，不拼接Yahoo。",
+  "execution": "开盘涨停未成交记零收益且无费用代理；计划卖出开盘跌停顺延；末端未成熟保留censored；入场日除息不计权益、持有至退出开盘的除息计入。",
+  "target_unchanged": "完整20万元账户压力净夏普>=1.2，CAGR>=10%，既定风险合同、稳健性与独立前向仍需成立。"
+}

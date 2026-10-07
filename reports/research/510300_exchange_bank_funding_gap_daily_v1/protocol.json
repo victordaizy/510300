@@ -1,0 +1,114 @@
+{
+  "at": "2026-09-26T04:20:51.306280+08:00",
+  "study_id": "510300_EXCHANGE_BANK_FUNDING_GAP_DAILY_V1",
+  "primary": "PRICE_BANK_AND_EXCHANGE_GAP_LAG2__FIXED5_NO_ADD",
+  "question": "相同价格背景和银行资金意外下，交易所相对银行的资金价格差，能否提供新的修复或持续下跌信息？",
+  "single_new_information": "同经济日GC007定盘减FDR007定盘，百分点；GC007为全天成交量加权、FDR007为上午子样本基准，参与者、抵押品、时段和算法均不同。不能称纯非银成本、纯流动性供给冲击或中性利率差。",
+  "hypothesis": "更高的跨市场利差可能反映交易所融资压力，也可能是日历需求和交易活跃的内生结果；不预定股票收益方向，由共同成熟训练池估计。",
+  "source": {
+    "at": "2026-09-26T04:16:04.202536+08:00",
+    "study_id": "510300_EXCHANGE_REPO_FIXING_SOURCE_V1",
+    "status": "OFFICIAL_CODED_FIXING_SERIES_CLOCK_ASSUMPTION_REQUIRED",
+    "rows": 2272,
+    "first_date": "2017-05-22T00:00:00",
+    "last_date": "2026-09-23T00:00:00",
+    "missing_market_dates": [],
+    "cross_query_matching_rows": 8,
+    "old_curve_comparison_rows": 4,
+    "rate_min_percent": 1.176,
+    "rate_max_percent": 12.901,
+    "failed_windows": [],
+    "methodology_excerpts": 2,
+    "historical_first_publication_verified": false,
+    "current_market_view": "NO_VIEW",
+    "new_strategy_returns": 0,
+    "new_accounts": 0,
+    "goal_achieved": false
+  },
+  "clock_scenarios": {
+    "LAG2": "第s个交易日的定盘假设在s+1交易日末可取得，最早s+2开盘决策；这是未认证的时点重建。",
+    "LAG5": "再推迟三个交易日，在s+5开盘才使用；属于延迟敏感性，不认证逐日首版。",
+    "year_edge": "经济日期在12月24日至次年1月7日的定盘两种版本都不使用，以排除旧公布规则的跨年延迟边界；自然日条件固定，未查看收益。",
+    "common_pool": "两种延迟的输入都存在才允许比较；不向前填缺值。滞后使用截至当前已发生的A股交易日。源时间早于当前两年下界的训练原点再排除。"
+  },
+  "funding_control": "只读复用FDR007日历意外；每个当前两年窗内曾重新嵌套拟合，只用此前利率，不携两年前参数。没有新增资金回归或修改旧失败账户。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_AND_BANK_FUNDING": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation"
+    ],
+    "PRICE_BANK_AND_EXCHANGE_GAP_LAG2": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "gap_lag2_pp"
+    ],
+    "PRICE_BANK_AND_EXCHANGE_GAP_LAG5": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "gap_lag5_pp"
+    ]
+  },
+  "traded_models": [
+    "PRICE_AND_BANK_FUNDING",
+    "PRICE_BANK_AND_EXCHANGE_GAP_LAG2",
+    "PRICE_BANK_AND_EXCHANGE_GAP_LAG5"
+  ],
+  "variants": [
+    "ROLL_NO_ADD",
+    "FIXED5_NO_ADD"
+  ],
+  "training": "最近两日历年、五日标签退出严格早于当前开盘、至少252共同原点、训练内均值与样本标准差标准化和截断5、固定126近邻；每天更新。HISTORY为相同训练池。",
+  "execution": "空仓时仅价格前五日下跌允许买入，全部账户持仓期间不加仓。主方案第五个后续交易日开盘退出、每日尾部可提前减仓；ROLL_NO_ADD为原滚动均值对照。复用成熟账户引擎。",
+  "account": "20万元、510300.SH/CASH_CNY、100份、tick0.001、T+1、现金股息分账。最大仓位50%、ES95五日2.5%、-10%跳空损失预算不超过5%权益且只用一半回撤余量，调整/退出费用计入；10%回撤后本轮不恢复。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_riskfree_rate": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "两个延迟分别对同期限银行资金对照；主方案再对滚动期限比较。20日循环区块2000次seed2026092606、完整共同账户、固定2020-2023/2024-末端和全部滚动两年。",
+  "development_gate": "主压力和更迟版本均过三目标；各自相对同期限银行资金对照的增量95%下界正、两个固定时期均正。即使通过仍须补时钟来源和独立前向。",
+  "monitor": "五个交易日固定相位的成熟预测，最近60条q05跌穿率大于15%记录；不足60条不可评价。零警报不等于优势存在。",
+  "history_previously_used": true,
+  "historical_first_publication_verified": false,
+  "new_accounts": 12,
+  "new_parameter_searches": 0,
+  "new_funding_fits": 0,
+  "independent_forward_observations": 0,
+  "implementation_checks": {
+    "current_and_future_source_mutation_does_not_change_past_inputs": true,
+    "exact_prior_session_mapping_checked": [
+      2,
+      5
+    ],
+    "no_source_forward_fill": true,
+    "common_information_days": 2137
+  },
+  "current_market_view": "NO_VIEW",
+  "goal_achieved": false,
+  "orders_authorized": false
+}

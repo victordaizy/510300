@@ -1,0 +1,60 @@
+{
+  "study_id": "510300_OPTION_CREDIT_SPREAD_ROUTER_DAILY_V1",
+  "at": "2026-09-25T10:45:48.795974+08:00",
+  "primary": "ROUTER_MACRO",
+  "policies": [
+    "PUT_ONLY",
+    "CALL_ONLY",
+    "ROUTER_EMPIRICAL",
+    "ROUTER_PRICE",
+    "ROUTER_MACRO"
+  ],
+  "economic_question": "在同一标的上，按事前净收益补偿选择承担上行或下行的有限保险风险，能否优于固定方向。",
+  "research_iteration_after_parent_failure": true,
+  "unchanged_put": "复用上一冻结研究的认沽定价和五日尾部预测，不重训或改动认沽预测",
+  "new_call_structure": "卖出标准认购Delta最接近+0.30；买入同到期更高行权价、Delta最接近+0.10的认购",
+  "selection": "与认沽相同：观察日前两个交易日，30—75日到期优先45日，各腿成交>=100、持仓>=500，按Delta距离/行权价/代码稳定排序，持有10交易日且留5日到期缓冲",
+  "call_models": "逐日、过去两个日历年、最少252共同成熟十日买回成本标签；直接复用上一版历史均值/价格岭回归/宏观岭回归定义和lambda10",
+  "price_features": [
+    "credit_fraction",
+    "log_iv_rv20",
+    "spot_change_since_quote",
+    "trend20_current"
+  ],
+  "macro_features": [
+    "funding_gap_pp",
+    "credit_acceleration3_pp",
+    "GSPC_z",
+    "VIX_z"
+  ],
+  "call_tail": "五日实际压力收益/事前最大损失，过去两年252成熟样本，三个原特征下最近邻126，和认沽使用同一规则",
+  "common_coverage": "两方向的三种定价与五日尾部均可用的日期；固定方向和路由共享该覆盖，未来标签不做入场过滤",
+  "route_score": "(观察日压力信用额-预测买回成本及全部费用下限)/事前最大损失金额；仅正值可选",
+  "route": "每个模型各自比较认沽与认购，正值最高者入选，同分认沽优先；两者均不正则空仓。只用09:00已知值，禁止按随后赢家选择方向",
+  "policies_detail": {
+    "PUT_ONLY": "固定认沽，用价格买回成本模型",
+    "CALL_ONLY": "固定认购，用价格买回成本模型",
+    "ROUTER_EMPIRICAL": "两侧各自历史平均成本定价后选择",
+    "ROUTER_PRICE": "两侧价格条件成本后选择",
+    "ROUTER_MACRO": "两侧加入宏观条件后选择"
+  },
+  "while_held": "一组在仓不叠加第二组；每天更新记录选择，但持仓遵循原十日退出和逐日风险减仓，不为了当日另一侧更好就隐含换仓",
+  "risk": "20万元；初始理论最大损失含费用<=权益5%，入场ES95<=2.5%，回撤剩余空间减半预算；逐日余下最大损失检查，DD10后停止新增；实际不保证回撤上限",
+  "margin": "保护性认购改用认购义务仓公式；全程保留1.2倍max(价差宽度,单腿保证金)，并检查逐腿过渡现金",
+  "costs_and_fills": "父BASE/STRESS、每腿每侧5元与不利tick取整不变；日线多腿开盘价格代理，缺同步可成交报价",
+  "primary_increment": "ROUTER_MACRO相对ROUTER_PRICE；同时保留两方向独立PRICE和经验路由",
+  "bootstrap": {
+    "block_sessions": 20,
+    "draws": 2000,
+    "seed": 2026092504
+  },
+  "evaluation": "完整账户、固定2021—2023/2024—末端、全部滚动两年；不拼接最佳方向与时期",
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "independent_validation": false,
+  "new_market_downloads": 0,
+  "orders_authorized": false
+}

@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-02T14:17:00.289255+08:00",
+  "candidate_id": "C01",
+  "name": "下跌与上涨的价格冲击不对称",
+  "status": "PROPOSED_C01_FINITE_PRIOR_MEDIAN_ASYMMETRIC_IMPACT_SOURCE_AND_MEMBER_REVIEW_NOT_ADMITTED",
+  "registered_definition": "过去20日负收益和正收益两组分别取median(abs(r)/成交额)，取负组/正组；样本各少于5则缺失。",
+  "reason_to_review": "B06固定两列预测双期失败保持。C01原20日涨跌冲击中位数比已有T05组件和旧流动性用途，先核当前原八项自然继续价值同用途，不能把PARTIAL/NOT_RUN当首次研究或换均值/分位营救。",
+  "bounded_next_checks": [
+    "读旧C01实际中位数定义、T05使用、旧Amihud/不对称冲击及当前退出用途；同用途已有失败即结束，不只因窗口/尺度/版本不同复试。",
+    "若固定条件用途尚未覆盖，在数量/收益前绑定原经济收益坐标、成交额CNY时钟、20完整市场日含当日及正负组各至少5的原边界；未知和真实比值0区分，不改分组/计数或分母。",
+    "先核全部1507自然成员/115可用月份所有原训练成员；任何原支持不足终止，不填值/删成员/加缺失指示。C03支持失败提示单向行情可造成结构缺口，不先假设C01会通过。",
+    "只有有限不同用途、源和完整支持都通过才登记一个原卡固定条件模型；原八项/标签/训练/锁定/两负确认、双期预测及20万账户门不变。不复活旧T05或重算旧账户。"
+  ],
+  "field_bound": false,
+  "field_admitted": false,
+  "new_model_registered": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/factor_progress.json",
+      "sha256": "1adee57b4b579d444b129d33e7a98a0282d077aebb39b7efdc405edb17f960c9"
+    },
+    {
+      "path": "research/factor96_margin_repair_v1.py",
+      "sha256": "299aaae3ce803c0f4c179c80744e0aca7d448b81b58651663913f609bb1a35e2"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/summary.json",
+      "sha256": "f1c99a8421b9fdf55ba6e38071601e933c63f60f38f4a79718a4edeff7c9937d"
+    },
+    {
+      "path": "reports/research/510300_point_b06_exit_prediction_v1/prediction_summary.json",
+      "sha256": "2b60ead20cbbd1444f5da504b987381af45d2082be998cecbc10aef817548a1f"
+    }
+  ]
+}

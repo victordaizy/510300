@@ -1,0 +1,82 @@
+{
+  "study_id": "510300_COPPER_GOLD_MONTHLY_VINTAGE_V1",
+  "registered_at": "2026-09-28T20:17:35.118845+08:00",
+  "user_request": "实现夏普1.2，注重实用性，拒绝过拟合",
+  "previous_goal_turn": "PROGRESS_LPR_JOINT_RESPONSE_GROSS_SCREEN_REJECTED",
+  "hypothesis": "铜相对黄金走强可能反映增长敏感需求相对于避险需求改善；与510300自身趋势同时为正时，是否对随后可执行收益有增量。",
+  "competing_explanations": [
+    "铜的供给冲击",
+    "黄金的特有需求或实际利率变化",
+    "全球信息已经被A股价格反映",
+    "沪深300行业构成并不等同商品暴露"
+  ],
+  "primary": "CG_UP_TREND_UP",
+  "controls": [
+    "TREND_UP",
+    "CG_UP",
+    "ALL_RELEASES"
+  ],
+  "primary_increment_comparison": "CG_UP_TREND_UP minus TREND_UP",
+  "signal": "同一份当月世界银行Pink Sheet中，最新已结束月的铜/金价格比大于前月比值，并且截至信息截止前的510300含分红20日财富收益大于0；仅用符号，不搜索阈值。",
+  "time_proxy": "官方PDF表头发布日期后第2个日历日23:59（Asia/Shanghai）为信息截止；决策股价取该时刻以前最后A股收盘；随后首个A股开盘进入。该保守延迟仍是历史发布日期代理，并非实际first_seen。",
+  "source": "2017年1月至2025年12月逐月原版世界银行商品价格PDF，保存原文；不使用当前汇总修订序列倒填历史。",
+  "expected_releases": 108,
+  "hold_open_intervals": 20,
+  "subperiods": {
+    "EARLY": [
+      "2017-01-01",
+      "2020-12-31"
+    ],
+    "LATE": [
+      "2021-01-01",
+      "2025-12-31"
+    ]
+  },
+  "stage_one": "固定事件毛收益初筛，不生成账户夏普；0.28%为双边比例压力费用代理。",
+  "stage_two_gate": "主组全期平均毛收益>0.28%，且高于TREND_UP对照，两个固定子期均值都为正；符合才进行完整账户检验。",
+  "stage_two_if_pass": "按现有20万元主账户与2万元比较、BASE/STRESS费用、50%事前上限、ES与回撤预算执行，持有期重叠时不叠加账户；不能用开盘价反算事前股数。",
+  "bootstrap": "按原月序列4个月循环区块2000次，配对主组和趋势对照；只作描述，不宣称多重选择已校正。",
+  "boundary": "这是J05月度原版信息的独立用途，不是原20日铜金日频定义的精确复现；其他组只是对照，主组失败后不晋升。",
+  "no_rescue": [
+    "不调整铜金窗口",
+    "不调整股价趋势窗口",
+    "不调整持有期限",
+    "不按事后年份筛选",
+    "不改商品组合",
+    "不转向其他象限"
+  ],
+  "orders_authorized": false,
+  "delivery_package_required": false,
+  "new_account_metrics_before_screen": "NOT_COMPUTED",
+  "frozen_at": "2026-09-28T20:49:31.454534+08:00",
+  "source_status": {
+    "at": "2026-09-28T20:48:21.320112+08:00",
+    "extracted_months": 102,
+    "expected_months": 108,
+    "missing_months": [
+      "2017-09",
+      "2017-10",
+      "2017-11",
+      "2017-12",
+      "2018-07",
+      "2018-08"
+    ],
+    "all_sources_complete": false,
+    "text_extraction_unresolved_months": [],
+    "source_boundary": "缺失月份保留NO_VIEW，不能把子样本计算当成完整样本账户验证。"
+  },
+  "source_gap_policy": {
+    "registered_at": "2026-09-28T20:33:44.571887+08:00",
+    "before_event_return_computation": true,
+    "signal_or_horizon_changed": false,
+    "scope": "仍保留2017年至2025年全部108个月；没有原版文件的月份记NO_VIEW_SOURCE，不推断信号、不当成现金或零收益。",
+    "partial_screen_rule": "已取得原版的月份可以先计算固定事件毛收益以评估继续补源是否有价值，结果必须冠以来源不完整的子样本。",
+    "acceptance_rule": "初筛数值条件和来源完整性分别报告；来源不足时不能展开完整账户或声称全样本通过。若数值失败，仅否决已准入子样本，不声称缺失月份已经被检验。",
+    "source_followup": "只有找到具体的新官方文件或可核实历史来源时才补缺，不重复请求同一404链接。",
+    "reason": "102份PDF已取得，其余旧URL或官方精确目录没有可用原文，且原2010-2017归档只覆盖至2017年8月。",
+    "no_parameter_search": true
+  },
+  "cash_dividend_accounting": "入场当天除息无权益；此前已持有的结束日除息仍计应收。",
+  "execution_proxy": "开盘触及涨停不买入，事件收益零且不扣费用代理；卖出触及跌停顺延；未成熟标签不填零。",
+  "strict_primary_target": "完整账户压力净夏普>=1.2、CAGR>=10%、既定回撤与风险合同、稳健性和独立前向支持，仍不因本初筛改变。"
+}

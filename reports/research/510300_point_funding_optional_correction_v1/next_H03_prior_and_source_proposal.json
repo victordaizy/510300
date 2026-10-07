@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-02T19:32:01.843936+08:00",
+  "status": "PROPOSED_FINITE_H03_DIFFERENT_USE_AND_SOURCE_CONTRACT_REVIEW_NOT_RUN",
+  "card": {
+    "id": "H03",
+    "family": "股指期货信息",
+    "name": "价格与总持仓的四象限",
+    "role": "入场/状态",
+    "horizon_days": 5,
+    "source_grade": "G2",
+    "source_overlap_note": "IF持仓用途已有失败；本项为控制或新条件关系，需严格查重",
+    "definition": "跨全部有效IF合约sum(OI)的5日变化，与现货r5及基差变化分别保存。",
+    "mechanism": "新增仓位与价格同向/反向的不同组合可能区分调整性质。",
+    "counterexample": "OI每份都有多空双方；总持仓已做过，不能简单解释为净资金方向。",
+    "data_path_hint": "中金所实际IF/IH/IC合约日行情、成交持仓及交割日；已知分红与资金成本",
+    "source_clock_rule": "日统计发布后可用；逐合约保存，合约选择只用此前信息，不能倒用未来主力",
+    "repository_hint": "reports/research/510300_if_open_interest_increment_v1; RESEARCH_STATUS.md",
+    "source_ids": "S03,G02",
+    "source_urls": "https://www.cffex.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/RESEARCH_STATUS.md",
+    "status": "NOT_RUN",
+    "net_sharpe": null
+  },
+  "reason": "K04/K05两项固定可选残差用途都失败，转向不同信息家族；不改旧OI失败定义或因只有五日不同就准入。",
+  "old_use": {
+    "M1_additions": [
+      "IF_OI_LOG_CHANGE1_LAG1",
+      "IF_OI_LOG_CHANGE1_LAG1_X_ETF_R5_SIGN"
+    ],
+    "M0_existing_relative_return": [
+      "ETF_R1",
+      "ETF_R5",
+      "LOG_RV20",
+      "IF_REL5_LAG1",
+      "IF_EXPIRY_WEEK_LAG1",
+      "IF_ROLL_BOUNDARY_LAG1"
+    ],
+    "label": "BASE_COST_200000_CNY_STANDALONE_FIVE_DAY_OPEN_TO_OPEN_TOTAL_RETURN",
+    "model_type": "STANDARDIZED_RIDGE_UNPENALIZED_INTERCEPT",
+    "historical_availability_assumption": "SOURCE_DAY_IF_ASSUMED_AVAILABLE_BY_FOLLOWING_TRADING_DAY_CLOSE_NOT_TIMESTAMP_PROVEN"
+  },
+  "bounded_questions": [
+    "旧IF_REL5及其他原用途是否已包含该价格/基差五日信息，当前自然继续目标是否构成实质不同合同",
+    "全部实际IF合约集合、零OI到期行、缺合约与集合变化怎样保存，不能用事后主力",
+    "2016-01-04之前的价格可比限制必须保留，不把不合格价格补成有效值",
+    "每日发布时间或旧次日收盘假设的来源等级，数据末端及原全部状态/成熟训练成员如何处理",
+    "现货与基差同日期、单位、分红/到期及已知成本；不得把名义基差当完整扣成本套利",
+    "只有时钟和不同用途成立才另冻结唯一当前模型；完整字段缺失不删原成员，任何可选函数须先另登记，原首发与独立资格仍单独判断"
+  ],
+  "futures_scope": "仅信息观察，执行资产510300.SH/CASH_CNY；总OI每份具有多空双方，不解释成净多资金。",
+  "registered_model": false,
+  "field_computed": false,
+  "full_card_admitted": false,
+  "new_configs_fits_labels_accounts": 0,
+  "new_network_requests": 0,
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "exists": true,
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "config/510300_if_open_interest_increment_v1.json",
+      "exists": true,
+      "sha256": "8d78d5093d12d1b25d2f4b96796198d299d68e8435cc0ea2bd34a8632179b6c7"
+    },
+    {
+      "path": "research/if_open_interest_increment_v1.py",
+      "exists": true,
+      "sha256": "c0c186825bf113680c020d49abbc2ac4291c9821ffc8da42843d3b4e761a91a9"
+    },
+    {
+      "path": "docs/RESEARCH_DECISIONS_TECHNICAL_LINE.md",
+      "exists": true,
+      "sha256": "357b27a7bc142e452115e8ae26b07b92a87cad3f2f40208403aef29bb2ccdbee"
+    },
+    {
+      "path": "data/raw/r6/000300_daily.parquet",
+      "exists": true,
+      "sha256": "b94823b0f3abf79371da9664ce64524212e3854c46f477ba0ace0d42e68757d1"
+    },
+    {
+      "path": "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet",
+      "exists": true,
+      "sha256": "a4da6ec1b61d98cc59e9c9ae1850bebe6372a3fc6e04935cccecb094a28dc8a2"
+    },
+    {
+      "path": "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet",
+      "exists": true,
+      "sha256": "ca274f6d80616d106aa924cc401ee3cf41cfa503e8aec5c6d69a11de1f00dbb1"
+    },
+    {
+      "path": "reports/data_quality/cffex_if_true_term_structure_inputs_v1_0_1.json",
+      "exists": true,
+      "sha256": "493d07dcd3acb8a55f85f5adba86724ff11decede9e985e5faace59c0c4f1830"
+    }
+  ]
+}

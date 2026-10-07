@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-02T06:26:54.715773+08:00",
+  "status": "PROPOSED_PRIOR_DEFINITION_AND_CLOCK_SUPPORT_INTAKE_NOT_ADMITTED",
+  "candidate_id": "A04",
+  "name": "回调消耗的前段涨幅",
+  "registered_definition": "拐点用左右各2根bar确认且延迟2日可用；在已确认低点a至高点b后，(P[b]-P[t])/(P[b]-P[a])，分母<=0缺失。",
+  "grade_limit": "G1仅来源分类；本次尚未接受模型用途。",
+  "hypothesis": "已确认前段上涨幅度对应的市场回调消耗，可能区分原同幅动量/持仓回撤所省略的价格上下文。",
+  "scope": "原冻结日线及当时已完成周线，仅LONG点位优先；不扩执行资产，不使用分钟资料。",
+  "bounded_next_checks": [
+    "核对已有周线两根右侧确认、价格供给测试、突破回踩与其他结构表达，避免同定义或仅改采样频率营救。",
+    "落实已确认日线低点a先于高点b、左右各2根完整bar及b+2后才可知；不回填到b。",
+    "绑定价格坐标、同日多拐点顺序、无有效前涨幅及缺失处理，先检查原142月度及完整自然成员数量，不读新候选收益。",
+    "只有实质差异、时钟和数量通过，才另冻结一个定义及预测/共同账户门；当前未登记模型。"
+  ],
+  "previous_fixed_c06": "REJECTED_FIXED_C06_FIELD_PREDICTION_GATE_FAILED",
+  "no_rescue": "C06/F03/E05/E08以及原冻结失败保留，不以新候选改变原失败参数。",
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_c06_exit_prediction_v1/prediction_summary.json",
+      "sha256": "97aea0214e1ef3c01deea6c6a501d73db25891aad5d0c02b49b4fbf42a334334"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "new_return_labels": 0,
+  "goal_achieved": false
+}

@@ -1,0 +1,116 @@
+{
+  "study_id": "510300_MULTIDIM_PUBLIC_FUND_SHARE_SCORE_V1",
+  "frozen_at": "2026-10-02T00:57:12.834473+08:00",
+  "previous_goal_turn_classification": "PROGRESS_MSCI_INCLUSION_JOINT_STATE_DISCOVERY",
+  "question": "开放式股票及混合基金份额存量变化，能否在订单、资金、融资、指数量价状态之外，提供公开后的五日收益信息？",
+  "new_evidence": "基金业协会官方月度市场数据，覆盖股票及混合基金总体；与旧510300份额、十只ETF份额规则以及融资余额不同。股票基金仍含ETF，混合基金也非纯股票投资，不把两个字段说成独立现金流。",
+  "mechanism": "基金投资者端的份额变化可能反映申赎和发行压力，并与市场涨跌及资金条件共同影响资产配置；基金实际卖买还取决于现金缓冲、股票债券仓位、实物申赎及基金类别变化。这里研究存量状态，不声称识别被迫出售。",
+  "months": [
+    "2023-09",
+    "2023-10",
+    "2023-11",
+    "2023-12",
+    "2024-01",
+    "2024-02",
+    "2024-03",
+    "2024-04",
+    "2024-05",
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10"
+  ],
+  "source": "中国证券投资基金业协会：公募基金市场数据",
+  "index_urls": [
+    "https://www.amac.org.cn/sjtj/tjbg/gmjj/",
+    "https://www.amac.org.cn/sjtj/tjbg/gmjj/index_1.html"
+  ],
+  "sample_reason": "2023年9月及以前文件在2023-11-26集中生成；从该批次最新统计月开始。2025年11月官方表注明不再列示封闭/开放分类，固定截止2025年10月，避免跨口径拼接。",
+  "clock": "取官方目录标注日期与PDF文件名P020YYMMDD的日期中较晚者，当日23:59:59才视为可用。文件名日期只是保守版本线索，不证明首次发布时间。若多月同一可用日，只保留最新统计月作为事件，其他月份保留来源但不重复计样本。",
+  "source_vintage": "本次下载的官网历史副本，不是当年接收回执；同一PDF里的当前月和上月值用于当时口径的变化，不用未来报告回填。",
+  "features_control": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "开放式股票基金份额月变",
+    "开放式混合基金份额月变"
+  ],
+  "new_feature_definition": "分别为当前份额/同份官方月报中的上月份额-1。单位亿份。份额变化包含新发、净申赎、分红再投、转换、拆并份额及口径因素，不称为纯现金净流入。",
+  "asset_decomposition": "以资产净值A、份额Q、平均每份资产v=A/Q，精确分解ΔA=平均v×ΔQ+平均Q×Δv。第二项也含基金构成变化，不能称为纯投资收益；第一项不等于实际现金申赎。",
+  "state_time": "可用日当日或之前最后一个A股交易日16:00的纠正后八变量，资金和融资使用其原滞后时钟。",
+  "label": {
+    "entry": "可用日之后第一个A股开盘",
+    "open_intervals": 5,
+    "quantity": 10000,
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001,
+    "tick": 0.001,
+    "dividend": "登记日在入场至退出前取得的权益；不是完整账户到账现金。"
+  },
+  "model": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "label_maturity": "退出开盘不晚于本次可用日决策时刻"
+  },
+  "comparisons": "相同事件和训练池的八变量树、十变量树、十变量岭回归alpha10、历史均值。原树复杂度和原成本不变，零参数搜索。",
+  "score": "当次预测在当次训练池拟合值中的中位百分位，范围0至100，不是概率。展示五个固定20分档，包含空档。",
+  "opportunity": "分数>=80且预测净收益>0；前一机会退出前不再入场。全部机会保存，不凑年度次数。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "warmup": "来源较短，前12次成熟观察只训练；不复制月值形成每日独立事件。",
+  "account_admission": "共同主要期内，联合树MSE不高于对照、联合高分机会净均值为正且至少新增一个与对照不同的高分入场，三项同时满足才另行固定完整账户；否则封存当前表达，不更改变量、叶数、分数线或持有期。",
+  "history_is_independent_validation": false,
+  "new_prospective_forecasts": false,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "inputs": [
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/daily_inputs_corrected_20240808.parquet",
+      "sha256": "c6be6dcf35dbff5f162980115de43acc498a15c0bd116b0f003d009c7ec712e7"
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "research/multidim_money_surprise_score_v1.py",
+      "sha256": "67ed54914f0a6afe3455858a322e8528875e15169845c2f721a1d6779d1b815d"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "at": "2026-09-28T12:45:33.210181+08:00",
+  "study_id": "510300_FACTOR96_REPURCHASE_9_PLAN_CONTEXT_V1",
+  "previous_goal_turn": "PROGRESS_194_POSITIVE_BATCH_PURPOSES_REVIEWED",
+  "scope": "上一轮剩余21个正向批次、9个方案，全部纳入；本地15个方案节点及1个已关联变更，先核对原用途与审批条款。",
+  "field_separation": "保留执行公告同文档用途未知；新增prior_plan_context字段，不改写旧purpose_consensus，不称完整生效链已经建成。",
+  "time": "每份原方案和变更使用各自known_at，按原目录日期末代理；后出的变更、批准、报告书不能被早期查询看见。",
+  "approval": "原方案的董事会已通过、股东大会待批、股东大会已批分别记录；不把初始意向当已生效。",
+  "identity": "先按既有直接方案身份关联，再核对审批日、方案编号、公告编号和正文用途；同公司不同方案不串联。",
+  "same_document_absence": "执行公告未重述用途属于文档字段缺失；历史方案证据可以单列，但不能据此声称期间不存在用途变更。",
+  "bounded_missing_source_search": [
+    {
+      "symbol": "600010.SH",
+      "start": "2024-08-26",
+      "end": "2024-08-29",
+      "target": "2024年8月26日董事会通过的回购用途变更公告"
+    },
+    {
+      "symbol": "600010.SH",
+      "start": "2024-12-09",
+      "end": "2024-12-11",
+      "target": "2024年第四次临时股东大会决议及回购用途变更批准"
+    }
+  ],
+  "missing_source_policy": "仅补这两个已有明确日期的包钢原文缺件；优先复用本地目录，若无则官方巨潮或交易所来源定向查询，传输失败最多重试一次，403/429停止。",
+  "execution": "本轮不改现金差分，不运行账户，不读取新策略收益。自由流通分母缺失，T12保持未运行。",
+  "new_accounts": 0,
+  "new_returns": 0,
+  "goal_achieved": false,
+  "delivery_package_required": false,
+  "inputs": [
+    {
+      "path": "reports/research/510300_factor96_repurchase_body_purpose_v1/remaining_unknown_positive_batches.json",
+      "sha256": "4722ba1d458f3685328fd8c2976ef11c495a34db6fed77fd489aea3668941aa6"
+    },
+    {
+      "path": "reports/research/510300_factor96_repurchase_body_purpose_v1/publication_batches.json",
+      "sha256": "20321984758e9ecac3d40ec10da2c28b0f9e9c1316ef2c7fd00254ca05d4bfbb"
+    },
+    {
+      "path": "reports/research/510300_factor96_repurchase_purpose_v1/inputs/plan_nodes.json",
+      "sha256": "5e392973c6ee9272dfdfd4b9721e7603da2169ac02a91a1cb76ff62436f9969a"
+    },
+    {
+      "path": "reports/research/510300_factor96_repurchase_purpose_v1/inputs/documents.json",
+      "sha256": "156229987378cb1070962ecabf6ea0948e12684e53f3282be9146974ef983a7c"
+    },
+    {
+      "path": "reports/research/510300_factor96_repurchase_32_originals_v1/combined_change_ledger.json",
+      "sha256": "799928200fabbf70f0da37bc213a4f6456cd5063fe29e37551241f3a13fdee41"
+    }
+  ]
+}

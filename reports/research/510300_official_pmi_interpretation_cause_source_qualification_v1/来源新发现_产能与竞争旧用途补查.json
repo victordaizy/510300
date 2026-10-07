@@ -1,0 +1,34 @@
+{
+  "description": "仅对来源新发现的产能调查/竞争描述核明确旧用途，不改E38字段/模型预算。",
+  "command": [
+    "rg",
+    "-n",
+    "--max-columns",
+    "1400",
+    "--max-columns-preview",
+    "--glob",
+    "*.py",
+    "--glob",
+    "*.json",
+    "--glob",
+    "!*access*",
+    "--glob",
+    "!*provider*",
+    "--glob",
+    "!*credential*",
+    "--glob",
+    "!*local*",
+    "--glob",
+    "!*secret*",
+    "--glob",
+    "!*token*",
+    "产能利用率|capacity_util|行业竞争加剧",
+    "research",
+    "config"
+  ],
+  "matches": [
+    "research\\broad_index_driver_conclusion_v1.py:172:            \"overseas_revenue_share_pct\": 31.46, \"h1_capacity_utilization_pct\": 94.86,",
+    "research\\broad_index_driver_conclusion_v1.py:270:上半年动力电池收入增长46.02%，毛利率20.63%、下降1.78个百分点；储能收入增长87.54%，毛利率23.96%、下降1.56个百分点。产能利用率94.86%是H1数据，不是9月订单证明。现金流同比仅增2.61%，本轮未完整识别其具体回款及付款构成，不能直接称回款恶化。公司提到长协、资源布局、套期保值和价格联动管理原料成本；能转嫁多少仍取决于合同与客户议价。[宁德半年报]({CATL_URL})，PDF第15—17、29页。"
+  ],
+  "scope": "当前research/config限定文件；关键词命中或无命中不证明穷尽全部旧版本。"
+}

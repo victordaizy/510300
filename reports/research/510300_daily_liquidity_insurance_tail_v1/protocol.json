@@ -1,0 +1,103 @@
+{
+  "study_id": "510300_DAILY_LIQUIDITY_INSURANCE_TAIL_V1",
+  "frozen_at": "2026-09-24T21:06:38.056655+08:00",
+  "period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "primary": "MACRO",
+  "primary_comparison": "MACRO_MINUS_PRICE_ON_COMMON_INFORMATION",
+  "user_instruction": "研究可放宽单笔3:1，改为账户尾部风险约束；只用最近两年的数据训练，每天滚动更新。",
+  "mechanism": "只在最近五日含分红收益为负时考虑增加现货库存；检验信用变化、融资压力、保险定价代理是否区分随后价格修复与持续恶化。现货承接并不直接收取期权权利金。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital_cny": 200000,
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "price_features": [
+    "pressure5",
+    "trend20",
+    "log_rv5_rv60"
+  ],
+  "additional_features": [
+    "credit_acceleration3_pp",
+    "funding_gap_pp",
+    "log_iv_rv20"
+  ],
+  "feature_definitions": {
+    "pressure5": "负的前一收盘五日含分红对数收益 / (rv20日波动率乘sqrt(5))；有符号，不截去上涨历史。",
+    "trend20": "前一收盘二十日含分红对数收益 / (rv20日波动率乘sqrt(20))。",
+    "log_rv5_rv60": "前一收盘5日与60日均方收益波动率之比的对数。",
+    "credit_acceleration3_pp": "最后已公开社融存量同比减三个月前已公开同比；月序连续，不能称信用脉冲或银行贷款增速。",
+    "funding_gap_pp": "复用已冻结09:00可知的DR007减七日逆回购政策率；不称实际利率减中性利率。",
+    "log_iv_rv20": "两交易日前、约45日期限平值认购认沽隐含波动率均值 / 同日20日已实现年化波动率，取对数；不是已识别的方差风险溢价。"
+  },
+  "option_selection": "仅用历史官方交易代码M标准行还原行权价，30至75日到期，成交量>=100、持仓>=500，IV在0.01至3；先到期距45日、再行权价距当日ETF收盘；同到期同价认购认沽对。无结果后备选择。",
+  "availability": "执行日09:00；价格至前日收盘；期权指标额外滞后一交易日即源日i-2；社融按available_at并额外推到发布日次日00:00；资金沿用已有时钟。所有来源均为事后收集，期权首次发布时间未认证，故仅开发回放。",
+  "source_missing": {
+    "NFCI": "NO_ADMITTED_REAL_TIME_VINTAGES",
+    "CHINA_R_STAR_AND_EXPECTED_INFLATION": "NO_ADMITTED_PIT_SERIES"
+  },
+  "distribution": {
+    "training_window": "严格使用执行日向前两个日历年内的预测原点；不使用更早历史或全样本标准化",
+    "maturity": "五日持有标签的退出开盘日期严格小于本次执行日期；当天09:30退出的标签不能在09:00训练",
+    "minimum_common_mature_rows": 252,
+    "update": "每个交易日重建历史池和条件分布，包含所有可用历史原点，不依据后来是否实际交易筛选",
+    "method": "HISTORY使用全部共同成熟样本；PRICE/MACRO按仅历史均值标准差标准化、截断[-5,5]，欧氏距离最近126行的经验分布；距离并列先历史原点较早者。固定一次，不搜索k或带宽。",
+    "overlap": "标签为入场开盘至第五个后续交易日开盘加实际分红登记权益的每份收益。相邻五日标签重叠，126近邻不是126次独立机会；记录非重叠区间数，置信区间用日历区块。",
+    "risk_statistics": "条件均值、方差、5%分位数和下侧5%期望损失；尾部按最差ceil(n*0.05)个完整观察平均，包含分位点边界。"
+  },
+  "decision": "同一账户逐日枚举合法100份目标数量，最大化五日预期收益减gamma=4的半方差惩罚、这次调整成本和预留平仓成本。资金不足不融资；未来开盘只用于成交与原预算复核，不用于改变预测。",
+  "inventory": "五日收益非负时禁止增加份额；允许根据新分布减持或持有。预测缺失时最多保留旧份额五交易日，期间不得增加；随后请求退出。没有强制五日平仓或下跌加倍规则。",
+  "risk": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 252,
+  "cash_return": 0,
+  "execution": "09:00按前收盘调整已知除息额确定固定数量与风险预算；开盘上跳使原风险预算超限则缩小买入数量；100份、tick0.001、最低佣金5；T+1；涨跌停拒绝相关方向；登记、除息应收、支付分账。",
+  "controls": [
+    "HISTORY",
+    "PRICE",
+    "BUY_HOLD"
+  ],
+  "monitor": "预测原点五日结果成熟后跟踪最近126个预测的误差、5%分位覆盖与ES突破。至少63个成熟预测且下侧突破率>10%才记录观察报警；不将重叠观察当独立检验，不在本轮据报警增加新的启停参数。",
+  "comparison": "一次主要配对比较；20日循环区块2000次、seed=202609246。全期、固定2021-2023与2024-终点及全部滚动两年分别披露；不挑最好窗口。",
+  "acceptance": "压力成本全账户同时达夏普1.2、年化10%、回撤10%，宏观相对价格年化算术收益增量95%下界>0且两固定子期均正，才保留开发候选；历史已反复研究，仍不能认定独立验证。",
+  "duplicate_review": [
+    "旧ABCD检验形态后内部参与和日内隔夜；本轮不复活这些失败过滤。",
+    "旧联合14特征504日月度Ridge预测均值；本轮测试信用变化和期权保险定价信息的条件完整分布，按两日历年每日更新并限制尾部库存。",
+    "旧第83轮尾部预算对两个旧策略分配资金；本轮直接预测510300条件分布，无旧85/15及旧策略拼接。",
+    "旧第126轮逐日专家后悔组合未稳定改善；本轮没有选择历史最优专家，也不将每日更新本身当收益证据。",
+    "已有期权卖跨式研究为不同资产与目标范围；这里只复用原始期权观察数据，不导入其订单或账户。"
+  ],
+  "parameter_search": false,
+  "new_collection": false,
+  "orders_authorized": false,
+  "independent_validation": false,
+  "review_package": false,
+  "user_spreadsheet": false
+}

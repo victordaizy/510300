@@ -1,0 +1,98 @@
+{
+  "checked_at": "2026-10-02T19:48:45.314498+08:00",
+  "status": "DISTINCT_CONDITIONAL_DAILY_EIGHT_PLUS_THREE_USE_WITHIN_BOUNDED_SEARCH",
+  "scope": "有限research/config/docs关键词定位及所列实际源码/原协议/原结果，未遍历全部历史版本，不证明所有组合未试过。",
+  "old_context": "15个月背景提取非制造业活动、订单、企业预期；原CPI背景扩展已结束，无模型拟合。",
+  "old_pmi_expectation": "14个月两规则，以制造业PMI高于周报共识与制造业订单/生产贡献作条件；非制造业活动与共识偏差仅记录，没有以非制造业订单和企业预期控制原八状态。四账户失败仍封存。",
+  "distinction": "只在原八变量同一1212日/同成熟成员固定增加原非制造业订单、活动和企业问卷预期，不恢复旧规则，不称全新字段或独立验证。",
+  "model_gate_can_be_considered": true,
+  "code_receipts": [
+    {
+      "path": "research/historical_index_domestic_constraint_clock_v1.py",
+      "sha256": "39acc1d603a47fde68ee92e60b0f3a27165db652ef0754cbfe5619632293a285",
+      "hits": [
+        {
+          "line": 117,
+          "text": "        \"nonmanufacturing\": [\"nonmanufacturing_activity\", \"nonmanufacturing_orders\", \"nonmanufacturing_input_price\", \"nonmanufacturing_output_price\", \"nonmanufacturing_employment\", \"nonmanufacturing_expectation\"],"
+        },
+        {
+          "line": 143,
+          "text": "            if kind == \"nonmanufacturing\" and \"业务活动预期\" not in heading:"
+        }
+      ]
+    },
+    {
+      "path": "research/historical_index_pmi_expectation_v1.py",
+      "sha256": "6aa1b18f1d7ae41536b84b1ec0b21d1750347f31170664eb8fc63365fed78bee",
+      "hits": [
+        {
+          "line": 160,
+          "text": "        row = {**mapping, \"actual\": current[\"manufacturing_pmi\"], \"actual_nonmanufacturing\": current[\"nonmanufacturing_activity\"], \"actual_services\": current[\"services_activity\"], \"actual_url\": current[\"url\"], \"actual_path\": current[\"raw_path\"], \"prior_published_pmi\": prior_known[\"manufacturing_pmi\"], \"prior_same_release_pmi\": prior[\"manufacturing_pmi\"], \"prior_headline_revision\": prior[\"manufacturing_pmi\"] - prior_known[\"manufacturing_pmi\"], \"source_url\": source[\"url\"], \"source_path\": source.get(\"path\"), \"historical_first_vintage_verified\": False, \"expected\": None, \"expected_nonmanufacturing\": None, \"surprise\": None, \"forecast_status\": \"SOURCE_UNAVAILABLE\", \"trigger_base\": False, \"trigger_demand\": False}"
+        },
+        {
+          "line": 200,
+          "text": "        row.update(expected=expected, expected_nonmanufacturing=nonmanufacturing, surprise=round(current[\"manufacturing_pmi\"] - expected, 10), expected_change_from_prior_published=round(expected - prior_known[\"manufacturing_pmi\"], 10), nonmanufacturing_surprise=None if nonmanufacturing is None else round(current[\"nonmanufacturing_activity\"] - nonmanufacturing, 10), source_schedule_text=heading[1], source_forecast_heading_position=heading.start(), provider=\"Econoday Global Economics周报；原站共识来源说明为Econoday及MNI\", evidence_excerpt=f\"Manufacturing PMI, Consensus Forecast: {expected:.1f}\", measurement=\"周报共识偏差，非最后一刻共识；组成项仅有月度变化，没有组成项市场预期。\")"
+        }
+      ]
+    },
+    {
+      "path": "research/domestic_event_baseline_close_v1.py",
+      "sha256": "9615beb69532acaf18dcf60bbdbcaeeb6341a3049c24a89c31fe88880a13f3bb",
+      "hits": [
+        {
+          "line": 24,
+          "text": "            \"发布前保存制造业50.1及非制造业49.3公开预期，分开TE模型50.0\","
+        },
+        {
+          "line": 61,
+          "text": "事前保存制造业50.1、非制造业49.3公开预期，分开TE模型50.0；用官方分项重建7至8月PMI改善0.585点，其中订单贡献0.630点、配送加快贡献-0.090点。央行29日7890亿元操作对应6960亿元已知到期，净增930亿元；30日已知到期7065亿元。容量、续作与股票买盘分开。原F1/F2/F3仍待未来信息，官方最终DR007未取。新增账户和收益测试0；目标active且未实现，本轮PROGRESS，不是已核实的后台等待。"
+        }
+      ]
+    },
+    {
+      "path": "research/domestic_event_baseline_calculate_v1.py",
+      "sha256": "dde432615e0ac56cbe643bb2416ed6bbe95a6a38d310f766d9dad6bcce8f61ec",
+      "hits": [
+        {
+          "line": 118,
+          "text": "            \"not_replaced\": [\"F1制造业与非制造业新订单\", \"F2购进与出厂价格差\", \"F3跨季后资金利差\"]},"
+        }
+      ]
+    },
+    {
+      "path": "research/financial_driver_bridge_conclusion_v1.py",
+      "sha256": "b3ef167d6d1a105d4cac879ed63c7748cfcae25f6e7915148552a5b5761f6846",
+      "hits": [
+        {
+          "line": 185,
+          "text": "与前轮三项宏观预测的连接：若节后DR007压力缓和，只能先确认资金条件正常化；若非制造业订单仍弱，不能由制造业改善直接推出居民和全部服务需求已经修复。若后续需求改善超出这些公开基准，才有理由上调更广泛的盈利路径。既有宏观预测原样保留。"
+        }
+      ]
+    },
+    {
+      "path": "research/historical_index_credit_constraint_relief_v1.py",
+      "sha256": "8f5afb01034f2c63a8fa13dfb00cb770b3e61c04f76056d88e4924a97f943502",
+      "hits": [
+        {
+          "line": 280,
+          "text": "        \"这个区别还要放回整个经济：2019年1月制造业新订单49.6的同一份发布中，非制造业商务活动指数为54.7，服务业商务活动指数为53.6、比上月增加1.3点。因此不能把‘制造业订单偏弱’扩大成‘全部经济部门都没有改善’，更不能据此断言指数上涨完全由估值推动。这是收益计算后补充读取的竞争解释，没有新增过滤条件。[统计局2019年1月发布](https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1900229.html)。\", \"\","
+        }
+      ]
+    },
+    {
+      "path": "research/current_price_transmission_conclusion_v1.py",
+      "sha256": "f475d38ff0b56b3a34d734150cd5f2b01123eaf76a6a748e2ac27c37578be492",
+      "hits": [
+        {
+          "line": 217,
+          "text": "当前可采纳的判断是：短阶段内，应把新政策范围与客户反应放在科技相关公司的旧同比增速之前，把未来实际承接放在累计回购额之前。对510300整体，保留制造业与非制造业、资金供给与有效融资需求、科技与金融的分化，尚不足以给出有净优势的方向及仓位。"
+        }
+      ]
+    },
+    {
+      "path": "research/multidim_nonlinear_score_v1.py",
+      "sha256": "baba71bf5e3c56a9c6f173f5762ccb3ffc472c0718dcd01ad5cb003a8ad9c34b",
+      "hits": []
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "study_id": "510300_MULTIDIM_FINANCING_COMPOSITION_V1",
+  "frozen_at": "2026-10-01T23:31:04.668125+08:00",
+  "previous_goal_turn_classification": "PROGRESS_EVENT_CLOCK_AND_STATE_SEPARATION",
+  "question": "相同五日融资净收缩，借入买入和隐含偿还的不同变化，与指数价格变化共同出现时，其后净收益是否不同？",
+  "scope": "仅沪深两市汇总融资环境与510300指数ETF；两市融资不是沪深300成分专属需求，也不包含逐户动机。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "source_clock": "对齐完整ETF交易日后，将所有融资字段整体滞后一个交易日；价格和宏观背景只取判断日收盘前已知快照。保留历史回取和未逐日认证首次版本的限制。",
+  "identity": "当日隐含偿还=融资买入额-(当日余额-前日余额)。当期五日净融资=五日买入-五日隐含偿还；相对前一不重叠五日的净融资变化=买入变化-隐含偿还变化。",
+  "cause_boundary": "只识别两段等长期间的会计构成，不把隐含偿还称为卖压、强平或现金还款，也不声称知道客户动机。",
+  "cohort": "判断日已知最近五个统计交易日余额净变化<0且当前和此前五日买入、隐含偿还完整；标签必须在2025年末以前成熟。",
+  "composition": "比较最近五日与此前五日的总融资买入和总隐含偿还。严格增加为>0，未增加为<=0，形成固定四类，零值不删除。",
+  "price_condition": "510300截至判断收盘的近五日财富收益，高于此前不重叠五日财富收益，记价格变化改善；否则未改善。它是价格描述，不能直接证明新买盘承接。",
+  "groups": {
+    "composition": [
+      "买入未增、偿还未增",
+      "买入未增、偿还增加",
+      "买入增加、偿还增加",
+      "买入增加、偿还未增"
+    ],
+    "price": [
+      "价格变化改善",
+      "价格变化未改善"
+    ],
+    "total": 8
+  },
+  "nonoverlap": "从2021年开始统一按时序选择首个合格收缩观察，原五日持有退出开盘之前不再选；从统一的非重叠样本中再分八组，不在每个组内另起优选时钟。",
+  "episode": "连续的负五日融资状态属于同一收缩段；即使五日标签不重叠，也报告收缩段数量，不把每条观察当独立市场冲击。",
+  "label": "复用原固定10000份、判断后次交易日开盘买入、入场后第5个交易日开盘卖出标签，单边佣金4bp最低5元、滑点10bp及价位取整，分红按登记日权益归属。",
+  "comparisons": "全部八个组合、四种融资构成主效应、价格改善主效应、总体收缩对照；主要期和较早期分别报告，2024和2025另列。",
+  "old_five_events": "原主要期五个高分公布事件按同一构成式解释，保留原日期和收益，不当作新策略样本重新扩大次数。",
+  "closest_old_studies": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/protocol.json",
+      "boundary": "旧T03急跌修复加净收缩减速、T05高偿还加价格韧性均失败；不改其阈值、退出或时间。"
+    },
+    {
+      "path": "reports/research/510300_historical_leverage_seller_constraints_v1/protocol.json",
+      "boundary": "已有2024年1—2月固定案例分解，本轮不重复当作新发现。"
+    },
+    {
+      "path": "reports/research/510300_historical_collateral_relief_cases_v1/protocol.json",
+      "boundary": "已有2015/2018等放宽约束案例，不把放宽等同于止跌。"
+    }
+  ],
+  "substantive_difference": "此前是价格事件加融资水平或减速过滤，以及少数政策窗口。本轮对全部合格收缩日期作买入变化、偿还变化、价格变化三维固定分组，先检验构成与条件差异，不训练新高分策略。",
+  "selection_history": "既有融资及价格失败、原月度五次高分和普通日期失败已经看过，本轮是历史发现，不恢复独立性。",
+  "new_fits": 0,
+  "parameter_search": false,
+  "new_accounts": 0,
+  "promotion": "看到某格均值较高不直接选为交易规则；保留每格次数、反例、阶段差异和当前单笔集中度。",
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/data_repair/margin_complete.parquet",
+      "sha256": "6b63f48629cb5404383fa97000702c52209dd68fd434cc4a8f813ed2526ef7e1"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/historical_inputs_and_labels.parquet",
+      "sha256": "afd82d54745fcad558306eb4c665e36e85edc89a243e8089d2ec3a723a84d49f"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/逐事件联合评分.csv",
+      "sha256": "3674e59c9f01cf11298bf45e758eeae113e363ca0516d540a1dab18821278520"
+    }
+  ],
+  "official_definition": "https://www.sse.com.cn/market/othersdata/margin/detail/index.shtml",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "new_prospective_forecasts_enabled": false
+}

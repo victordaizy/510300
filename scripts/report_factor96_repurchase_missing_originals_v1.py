@@ -1,0 +1,164 @@
+"""记录七个原方案补证与剩余检验条件，保持账户结果不变。"""
+from datetime import datetime
+import csv
+import hashlib
+import json
+from pathlib import Path
+import shutil
+
+
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / "reports/research/510300_factor96_repurchase_missing_originals_v1"
+PRIOR = ROOT / "reports/research/510300_factor96_repurchase_change_chain_v1"
+DAILY = ROOT / "reports/research/510300_factor96_daily_state_shrink_v1"
+STATUS = ROOT / "reports/research/510300_factor96_program_v1/status.json"
+MANDATE = ROOT / "config/510300_existing_data_training_mandate_v1.json"
+
+
+def read(path):
+    return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def save(path, value, overwrite=False):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w" if overwrite else "x", encoding="utf-8") as stream:
+        json.dump(value, stream, ensure_ascii=False, indent=2)
+        stream.write("\n")
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main():
+    assert not (OUT / "round_status.json").exists()
+    result, roots, followups = [read(OUT / name) for name in ["result.json", "original_root_ledger.json", "followup_ledger.json"]]
+    assert read(OUT / "saved_verification_receipt.json")["status"] == "PASS_SAVED_ORIGINAL_ROOTS_AND_LIFECYCLE_CLOCKS"
+    program, mandate = read(STATUS), read(MANDATE)
+    assert program == read(OUT / "inputs/program_before.json") and mandate == read(OUT / "inputs/mandate_before.json")
+    prior_files = []
+    for name in ["result.json", "metrics.csv", "delivery_receipt.json"]:
+        source, target = DAILY / name, OUT / "prior_account_evidence" / name
+        target.parent.mkdir(exist_ok=True)
+        assert not target.exists()
+        shutil.copyfile(source, target)
+        assert sha(source) == sha(target)
+        prior_files.append({"path": target.relative_to(OUT).as_posix(), "bytes": target.stat().st_size, "sha256": sha(target),
+                            "original_path": source.relative_to(ROOT).as_posix()})
+    save(OUT / "prior_account_evidence/manifest.json", {"files": prior_files, "accounts_replayed": 0})
+    old_sources = {r["document_id"]: r for r in read(PRIOR / "inputs/documents.json")}
+    needed = {t["original_id"] for r in read(OUT / "updated_change_ledger.json") if "supplemented_original_id" in r
+              for t in r["targets"]} - {r["original_id"] for r in roots}
+    reference_sources = []
+    for key in sorted(needed):
+        old = old_sources[key]
+        source_row = {k: v for k, v in old.items() if not k.endswith("_path")}
+        for kind in ["raw", "text", "receipts"]:
+            source = PRIOR / old[kind + "_path"]
+            target = OUT / "existing_original_sources" / kind / source.name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            assert sha(source) == old[kind + "_sha256"] and not target.exists()
+            shutil.copyfile(source, target)
+            source_row[kind + "_path"] = target.relative_to(OUT).as_posix()
+        reference_sources.append(source_row)
+    save(OUT / "existing_original_sources.json", reference_sources)
+    fieldnames = ["symbol", "original_id", "root_id", "board_date", "known_at", "purpose", "floor_cny", "cap_cny", "term_months", "announcement_number", "change_document_id"]
+    with (OUT / "七个原方案与变更关联.csv").open("x", encoding="utf-8-sig", newline="") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in roots:
+            writer.writerow({k: row.get(k) for k in fieldnames})
+    clock = datetime.now().astimezone().isoformat()
+    status = {"at": clock, "study_id": result["study_id"],
+              "previous_turn_classification": "PROGRESS_EXPLICIT_CHANGE_TARGETS_AND_APPROVAL_STAGES",
+              "this_turn_classification": "PROGRESS_SEVEN_MISSING_ORIGINALS_AND_FIVE_FOLLOWUP_EVENTS",
+              "progress": "7个未查询历史窗口全部完成，13份新PDF支持7个目标原方案关联；5份后续事项与1份背景引用分开，公告与实际日期分开。",
+              "new_accounts": 0, "cumulative_admitted_account_scenarios": 432,
+              "cumulative_invalid_implementation_accounts": 152, "cumulative_executed_account_scenarios": 584,
+              "qualified_candidates": [], "new_admitted_trading_features": 0, "T12": "NOT_RUN",
+              "goal_status": "active", "goal_achieved": False, "current_market_view": "NO_VIEW",
+              "external_review": "NOT_PERFORMED", "orders_authorized": False}
+    save(OUT / "round_status.json", status)
+    report = """# 510300：七个缺失回购原方案与后续状态
+
+夏普1.2目标尚未实现。本轮对上一轮已经明确的七个目标补齐了原方案文件关联，缺口从7减到0；这只指七个既已识别对象，31份未完成对象复核的变更候选仍保留，不能据此宣称所有原方案齐全。没有新增交易因子准入、账户或收益计算，T12仍NOT_RUN。
+
+## 来源与对象
+
+七个批准日窗口原来均未查询，现已按批准日前1日至后7日完成查询。采集程序发出20次直接HTTP请求，其中7次目录、13次PDF；22条目录全部保留，13份PDF均有可读文本。网页入口另作浏览确认，不混入20次采集计数。13份选中PDF中只将7份用作本轮对应原方案，其他报告书或首次执行公告不会重复计成新方案。
+
+| 公司 | 原批准日 | 对应原方案文档ID | 初始预算（亿元） | 初始用途 |
+|---|---|---|---:|---|
+| 天山铝业 | 2022-07-06 | 1213972123 | 1—2 | 员工持股或股权激励 |
+| 公牛集团 | 2024-04-25 | 1219840335 | 2.5—3.5 | 股权激励及员工持股 |
+| 大全能源 | 2023-08-22 | 1217605023 | 2—4 | 股权激励或员工持股 |
+| 欧派家居 | 2022-10-27 | 1214939768 | 1.25—2.5 | 员工持股、股权激励及转股，保留混合用途 |
+| 海大集团 | 2023-10-31 | 1218216521 | 3—5 | 股权激励及／或员工持股 |
+| 闻泰科技 | 2023-07-31 | 1217433900 | 1—2 | 员工持股或股权激励 |
+| 爱尔眼科 | 2023-05-28 | 1216926416 | 3—5 | 股权激励或员工持股 |
+
+预算是原方案条款，不能当作已实施金额。大全能源源PDF的公告编号确实印为“2023-0XX”，渲染核对后保留编号未知，没有猜测或修复原文；方案对应以公司、批准日、预算、用途和文档ID为证据。该缺陷仍需保留。
+
+补证后，54份变更候选中有20份能对应至少一个原方案，覆盖22个不同方案，形成24条公告至方案关联。上一轮分别为17份、15个、17条；本轮新增7条关联。31份未完整复核，既有执行用途569已知、379未知的计数不变，未把方案卡与执行记录相加。
+
+## 五份后续事项不能使用同一种完成标签
+
+| 公司及文件 | 原文所支持的状态 | 发生／安排日期 | 本库保守可知日期 |
+|---|---|---|---|
+| 天山 1224908187 | 明确报告23,148,000股已办理注销完成 | 2025-12-29 | 2025-12-31收盘后 |
+| 公牛 1224921839 | 计划办理注销63,890股；其中旧方案73股、另一方案63,817股 | 2026-01-07 | 2026-01-07收盘后 |
+| 大全 1225452754 | 申请已提交、注销日期已披露；本包没有独立登记完成确认 | 2026-08-03 | 2026-08-03收盘后 |
+| 欧派 1225477932 | 申请已提交、注销日期已披露；本包没有独立登记完成确认 | 2026-08-18 | 2026-08-18收盘后 |
+| 闻泰 1225559200 | 明确报告剩余2,790,400股全部用于转股，相关库存为0 | 2026-09-10 | 2026-09-12收盘后 |
+
+天山2026年首次回购进展公告1225411010虽然回述旧计划，实际报告的是新的2026年方案。本轮将其作为背景引用排除，没有覆盖2022年旧方案状态。海大和爱尔在本轮选定集合中未补出独立后续批准或完成公告，不推断它们在现实中一定没有后续事项。
+
+上述日期分别记录。公告后来回述股东会通过或实际注销日期时，不将该信息提前放回事件日。公牛、大全、欧派即使已过所列日期，也不会自动转换为已完成。68个保存时序查询覆盖公告前一秒、公告时刻、事件日中午和固定较晚日期；查询仅回答已复核公告中的最后一条记录，不是完整当前方案状态。
+
+## 复核与仍缺的检验条件
+
+7项真实边界测试通过；142个分析冻结文件、20份HTTP收据、72条原文短语的114处页内定位及68个查询已只读核查。三页疑点已渲染查看。该核查包含冻结程序重算和另行时序检查，不是独立外部语义审阅，也不证明首次历史发布版本。
+
+新关联及后续事件均未准入交易因子。完整M01执行增量链、全体M02用途与变更链、事件前自由流通分母、可证明历史可得时钟仍未齐全。原批准日、名义公告日与2026年抓取收据分开保存，不把2026后续公告回填2021至2025主期。
+
+最近固定日更变体的主期压力成本结果沿用旧保存文件，20万元账户净夏普-0.0070148、净复合年化-0.0436123%、最大回撤5.9222241%；2万元对照净夏普-0.1876072。本轮未重跑。累计432正式账户情景加152否定实现情景仍为584，不是584种独立策略。原库7个固定问题加1个授权日更变体，合格候选0，独立前向观察0。
+
+七个固定窗口的补证已经结束，不反复查询。下一步只接纳具体可核实的分母、历史版本或完整事件关系；这些条件不满足时，T12收益检验保持NOT_RUN，不用普通流通市值或预算上限替代原因子定义。其他未完成研究方向按各自资料条件推进，不将本轮字段改进等同于提高了夏普。
+
+目标保持active。仅510300.SH与CASH_CNY研究模拟，原PCF/IOPV采集计划保持暂停；当前市场NO_VIEW，外部审阅NOT_PERFORMED，订单权限false。此前冻结原文、结果和ZIP均不改写，本轮仅新增补充快照。
+"""
+    (OUT / "研究结论.md").write_text(report, encoding="utf-8")
+    prompt = """请批判性审阅本轮510300来源补证。用户目标仍是仅510300与现金、20万元完整账户成本后净夏普至少1.2，现行年化、尾部、成本、两年训练和日更约束不变。附件96因子18策略仅为研究参考。
+
+重点检查七个原方案的公司、批准日、预算、初始用途是否确实对应变更对象；大全源文件编号2023-0XX必须保留未知；欧派混合用途不应被强制归入单一用途；公牛73股与63,817股不能混到同一原方案。检查天山2026新方案公告回述旧方案时是否被错误归属。
+
+请检查天山明确已注销、闻泰明确全部用于转股，与另外三份注销安排之间的区别，指出是否存在过度保守或误认完成。历史批准日、实际事件日、名义公告日、2026抓取收据必须分开；晚公告回述不得倒填。68个时序查询只针对本轮已复核事件，不是完整方案状态。
+
+七个明确缺口从7到0不代表全部54份候选齐全，31份仍未完整复核。原执行用途569已知、379未知计数不变。完整执行增量链、用途链、自由流通分母和历史首次发布版本仍缺，T12未运行，0新账户。累计432正式+152否定实现=584情景，不是独立策略数，最近日更变体仍失败。
+
+请输出具体错误及文件/页码、影响、最小修正、下一步优先级和停止条件。只有来源条件满足，才提出可冻结的新检验，不按既有收益救援失败。区分保存输出重算、语义证据、历史可得性、独立验证与交易效果。没有外部审阅既成事实，也没有上传、恢复采集、Paper/Shadow或订单授权。
+"""
+    (OUT / "01_GPT_REVIEW_PROMPT.txt").write_text(prompt, encoding="utf-8")
+    program.update(at=clock, latest_round=result["study_id"], latest_result=(OUT / "round_status.json").relative_to(ROOT).as_posix(),
+                   new_archived_source_http_responses_this_round=20, new_source_documents_this_round=13,
+                   new_searchable_text_documents_this_round=13, reused_repurchase_pdf_documents_this_round=13,
+                   source_field_candidates_this_round=72, source_field_candidate_kind="七个原方案及六张后续复核卡的72条原文短语，未准入交易因子",
+                   new_explicit_version_links_this_round=7, new_version_roles_this_round=0,
+                   latest_repurchase_original_source_check=(OUT / "result.json").relative_to(ROOT).as_posix(),
+                   latest_repurchase_change_source_check=(OUT / "result.json").relative_to(ROOT).as_posix(),
+                   next_candidates=["T12_FREE_FLOAT_AND_REMAINING_EXECUTION_PURPOSE_CHAIN", "T13_EVENT_IDENTITIES_AND_FREE_FLOAT", "T11_FINANCIAL_REPORT_VINTAGE_AVAILABILITY", "T04_HISTORICAL_WEIGHTS"])
+    mandate.update(current_round=result["study_id"], current_protocol=(OUT / "analysis_protocol.json").relative_to(ROOT).as_posix(),
+                   latest_progress_receipt=(OUT / "round_status.json").relative_to(ROOT).as_posix(),
+                   latest_continuation_report=(OUT / "研究结论.md").relative_to(ROOT).as_posix(),
+                   latest_continuation_classification=status["this_turn_classification"],
+                   research_execution_state="SEVEN_ORIGINALS_MATCHED_NO_TRADING_FEATURE_ADMISSION",
+                   last_source_result="七个明确缺失原方案已对应，五份后续事项分开完成与计划；31份变更未完整复核、自由流通和完整事件链仍缺，T12未运行。")
+    save(STATUS, program, True)
+    save(MANDATE, mandate, True)
+    save(OUT / "program_after.json", program)
+    save(OUT / "mandate_after.json", mandate)
+    print(json.dumps(status, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

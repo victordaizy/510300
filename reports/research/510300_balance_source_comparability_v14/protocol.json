@@ -1,0 +1,50 @@
+{
+  "at": "2026-09-29T16:55:20.888592+08:00",
+  "study_id": "510300_BALANCE_SOURCE_COMPARABILITY_V14",
+  "previous_turn_classification": "PROGRESS：V13完成三家银行原公告、利润及每股收益传导复算。",
+  "question": "旧口径余额来源分组的约2.09个百分点收益差，有多少同月份可比支持？在固定的价格、风险、信贷、订单和资金背景中，当期项与基数项的条件关联是否稳定？",
+  "scope": "原104月，按旧新M1分别处理；行情及原20日E0/E1标签不变。所有原结果已见，是知情历史诊断，不是独立验证。",
+  "calendar_support": "沿用V2两组，不改定义；分别按统计月份1至12列出所有观察。仅两个组均有样本的同月份构成共同支持；每个共同月份等权，组内同月年份等权。保存全部跨年份同月配对，但不当独立试验。",
+  "continuous_design": {
+    "main_outcome": "E0_20_return * 100",
+    "delay_check": "E1_20_return * 100",
+    "money_components": [
+      "current_component",
+      "base_component"
+    ],
+    "stages": {
+      "A_RAW": "截距与两项货币分解",
+      "B_CALENDAR": "A加统计月份固定效应",
+      "C_CONTEXT": "B加以下11项事前背景"
+    },
+    "context_controls": [
+      "pre_return20_pp",
+      "pre_return60_pp",
+      "log_rv20",
+      "down_fraction",
+      "corporate_total_yoy_percent",
+      "corporate_long_yoy_percent",
+      "household_long_yoy_percent",
+      "orders_gap50",
+      "orders_change1",
+      "funding_gap_bp",
+      "segmentation_gap_bp"
+    ],
+    "credit_normalization": "同区间同比差/由当期值减同比差得到的去年同区间值*100；去年分母必须为正，沿用原口径断点与缺失。",
+    "same_rows": "三层在同一完整行集合比较；不因为结果改变控制项或样本。",
+    "admission": "完整设计须满列秩、残差自由度至少12；新口径不足时全套不估计，不减少控制项。",
+    "interpretation": "OLS和残差相关只描述给定背景的样本内条件关联；价格、信贷等可能是传导中的变量，系数不是货币的总因果效应。",
+    "uncertainty": "按实际统计月距离计算6个月Bartlett核HAC，乘n/(n-p)，给正态近似95%描述区间；只此带宽，不筛选显著项，不声称多重比较校正。",
+    "stability": "固定完整设计逐一留出每个自然年，仅检查系数敏感性；不用于选模型，不冒称测试集预测。"
+  },
+  "limits": [
+    "同月不等于春节日期或宏观冲击相同",
+    "2018年同比来源缺失、2023年信贷口径断点继续缺失",
+    "不填历史首版认证缺口",
+    "没有新增预测模型、仓位模型或账户回测",
+    "不恢复旧冻结失败分支"
+  ],
+  "goal_achieved": false,
+  "independent_validation": false,
+  "orders_authorized": false
+}

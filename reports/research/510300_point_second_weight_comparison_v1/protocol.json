@@ -1,0 +1,55 @@
+{
+  "study": "510300_POINT_SECOND_WEIGHT_COMPARISON_V1",
+  "at": "2026-10-02T00:47:22.476688+08:00",
+  "latest_user_instruction": "请继续，提高夏普率和收益率",
+  "question": "此前B只做正/零点位账户，是否因丢失原仓位大小而低估它？保留两条固定来源各自的原目标，B能否在共同账户中提高收益和夏普？",
+  "known_background": "已知A保留仓位强弱后近期STRESS净年化3.99%、夏普1.217、pB1.073；较早年化1.84%、夏普0.438、pB0.611。B正/零点位近期表现弱于A，B完整强弱尚未按当前共同账户测量。两候选均来自既有筛选，非未见数据新发现。",
+  "source_a": "CORE_AUXILIARY_DRAWDOWN_GATE",
+  "source_b": "LAG_CONFIRMED_RUNS_AUXILIARY",
+  "primary_comparison": "B_SAVED_WEIGHT减A_SAVED_WEIGHT，两个时期和两档成本全部报告，不按近期结果切换来源或组合两者。",
+  "exact_change": "B原列逐日适配给相同weight_account入口，0、未知和每个原目标大小都保留。输出逐表标记真实signal_source；不修改原来源计算、模型、系数、条件、确认天数或原退出。",
+  "common_account": "20万元、510300与现金；原50%仓位上限、10个百分点调仓带、5日条件ES预算2.5%、10%跳空预算5%和回撤余量，10%账户回撤停止，次开盘、T+1、登记/应收/到账分开、期末不强平。现金和无风险率假设0；252交易日年化。",
+  "costs": {
+    "BASE": {
+      "commission_each_side": 0.0002,
+      "slippage_each_side": 0.0005
+    },
+    "STRESS": {
+      "commission_each_side": 0.0004,
+      "slippage_each_side": 0.001
+    },
+    "minimum_commission_cny": 5,
+    "adverse_tick": 0.001,
+    "lot": 100
+  },
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "new_account_evaluations": 4,
+  "reused_control_accounts": 4,
+  "new_model_fits": 0,
+  "parameter_search": false,
+  "signal_combinations": 0,
+  "economic_screen": "每个时期成本场景B净年化和净夏普都须严格高于A且为正，实际净pB>1、净周期均值>0、回撤<=10%。必须四个场景全通过才能称跨期历史改进；仍不是独立验证。",
+  "frequency": "完整周期及每个完整年度次数均报告，增加订单不算增加机会，无逐年五次硬门槛。",
+  "uncertainty": "主配对同时报告20日与252日循环区块各2000次、固定种子20261001的2.5%/97.5%描述分位数；不据区间选方法，不冒充整个历史家族选择校正。",
+  "stop_rule": "若B不通过，保留拒绝，不改变B权重、父规则、A/B混合比例或风险阈值救回。",
+  "historical_data_role": "DEVELOPMENT_AND_CALIBRATION",
+  "old_failures_preserved": true,
+  "existing_forward_protocol_unchanged": true,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "literature": {
+    "transaction_cost_method": "https://www.nber.org/papers/w15205",
+    "etf_units": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734754.shtml"
+  },
+  "literature_limit": "交易摩擦论文只解释执行和信号寿命的关系，不证明此次候选B对510300有效。"
+}

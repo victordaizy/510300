@@ -1,0 +1,68 @@
+{
+  "study_id": "510300_RECLAIM_PATH_DISCRIMINATION_V1",
+  "frozen_at": "2026-09-24T18:55:29.996241+08:00",
+  "user_direction": "在相同形态存在分叉的前提下，固定全部破低、收复和失败案例，只增加一项内部信息，使用真实确认后价格，并区分单笔失败与关系退化。",
+  "scope": "事件分叉与选择后果开发检验，不新增交易家族，不恢复旧失败分支。",
+  "primary_period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "mother_population": "完整复用冻结parent.detect的RECLAIM事件：含分红收盘破此前20日最低价减0.1前日ATR，原三日观察、原收复/继续下跌/到期定义和五日冷却均不变；未完成保留。",
+  "single_increment": "事件准备日固定全部成分及权重；每只股票的参照低点为事件之前20个交易日含分红收盘的最低值，必须有20日资料。确认时仍低于自身固定低点的权重占比，相对准备日减少多少。",
+  "difference_from_abcd_B": "旧B是准备日正贡献最高至多三个行业的固定核心成员三日上涨参与变化；本轮是全体固定成员相对各自事前低点的破低参与变化，不用行业赢家、每日涨跌家数或原B收益筛选。",
+  "difference_from_old_breadth": "原MACD/均线广度、滚动新低指标与本轮事件固定个股低点的变化不相同；原失败结果保持。",
+  "coverage": "快照日期严格早于准备日；沿用既有归因质量有效日。准备与确认的固定权重覆盖均>=98%；缺失不重归一化，输出占比上下界。历史快照可用性沿用原重建假设，并未认证首次发布版本。",
+  "entry_information_gate": "仅当占比收缩下界>0才判定收缩已确认；无覆盖=NO_VIEW，下界<=0则没有足够证据确认收缩。阈值不搜索。",
+  "labels": "复用原确认后次日可成交开盘，原结构失效与最多五日退出，BASE/STRESS实际费用、整手和T+1；未成交不计为收益零，未结束保留。等待确认前的涨幅单独记为机会成本，不计已赚收益。",
+  "main_selection_measure": "在相同覆盖的成熟确认事件中，收缩过滤相对保留全部事件的每事件净收益差；同时披露避开亏损及错过盈利。等额事件收益不是连续账户收益。",
+  "conditional_prediction": {
+    "baseline": [
+      "setup_trend_z",
+      "recovery_atr",
+      "confirmation_age"
+    ],
+    "increment": "contraction_point",
+    "target": "原STRESS事件净收益",
+    "minimum_prior_mature_events": 3,
+    "minimum_is_exploration_only": true,
+    "basis_for_minimum": "沿用当前V2已授权最少3条成熟历史的探索口径，不代表统计充分。",
+    "training": "扩展历史，只用退出idx严格小于当前入场idx的共同合格样本；当日09:00尚未知的09:30退出不得训练。",
+    "ridge": 10,
+    "training_standardization": true,
+    "clip": 5,
+    "parameter_grid": 0
+  },
+  "uncertainty": "按确认时间排列，三个相邻事件循环块重抽2000次，种子202609245。区间只作重复使用历史上的开发描述；不是全项目多重试验校正。没有决策差异时不把零区间作为证据。",
+  "development_gate": "主要压力选择增量95%下界>0，逐期MSE增量95%下界>0，且两个时间半段选择和预测方向均改善；至少6个成熟逐期预测。通过也仅PASS_DISCOVERY_ONLY。",
+  "drift_monitor": "每次只记录此前最多12个已成熟的逐期预测误差、亏损深度和净成本补偿；最少3条仍仅观察。先前没有已验证优势，不能将一次失败或一个观察报警解释为规律永久失效。",
+  "rr3_admission": "原RECLAIM没有冻结事前盈利目标，3:1资格为NOT_DEFINED_REWARD_TARGET。保留用户3:1门槛，不由模型预测或事后反弹补出目标。",
+  "full_account_and_shutdown_comparison": "NOT_RUN_NO_FROZEN_REWARD_TARGET；本轮事件选择不冒充满足用户3:1的可执行账户，不额外设计启停/恢复参数。",
+  "macro_funding_holiday": "只保留既有执行日09:00可知的宏观、资金和假期/计划事件/公开冲击背景，不新增过滤条件。",
+  "independent_forward_events": 0,
+  "new_market_collection": false,
+  "orders_authorized": false,
+  "review_package": false,
+  "pre_return_mechanism_checks": [
+    "固定低点与固定权重",
+    "缺失贡献区间而非填零",
+    "同口径价格尺度不影响判别"
+  ],
+  "literature": [
+    {
+      "url": "https://www.nber.org/papers/w7613",
+      "use": "形态条件分布可检验；美国股票结果不能迁移为510300有效证据。"
+    },
+    {
+      "url": "https://www.nber.org/papers/w27959",
+      "use": "流动性供给可能承担意外信息和波动风险；本轮不声称已识别真实卖方身份。"
+    },
+    {
+      "url": "https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+      "use": "保留反复试验与选择偏差；本轮不计算没有完整试验分布支持的DSR。"
+    },
+    {
+      "url": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml",
+      "use": "股票ETF T+1约束。"
+    }
+  ]
+}

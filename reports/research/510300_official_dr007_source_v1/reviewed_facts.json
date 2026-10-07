@@ -1,0 +1,92 @@
+{
+  "recorded_at": "2026-09-29T15:13:45.795878+08:00",
+  "status": "OFFICIAL_PRIOR_DAY_WEIGHTED_RATE_ADMITTED_FORWARD_CARD_PENDING",
+  "daily_observation": {
+    "observation_date": "2026-09-28",
+    "received_at": "2026-09-29T15:10:04.611436+08:00",
+    "source_response_end_date": "2026-09-28",
+    "source": "https://www.chinamoney.com.cn/chinese/mtdexdaily/?tab=2",
+    "business_response_code": "200",
+    "dr007_weighted_rate_percent": 1.3911,
+    "dr007_closing_rate_percent": 1.3883,
+    "policy_rate_percent": 1.4,
+    "dr007_policy_spread_bp": -0.89,
+    "dr001_weighted_rate_percent": 1.3569,
+    "dr014_weighted_rate_percent": 1.399,
+    "dr007_minus_dr001_bp": 3.42,
+    "dr014_minus_dr007_bp": 0.79,
+    "dr007_average_term_days": 6.8,
+    "dr014_average_term_days": 11.96,
+    "dr007_transactions": 217,
+    "dr007_volume_100m_cny": 823.8757,
+    "publication_basis": "官方质押式回购日报以publishedTime=2200查询，业务成功，日期匹配；2200是页面参数，不是对未来准时发布的保证。",
+    "revision_policy": "本次收到的官方日终版本；未来若更正，另记更正，不覆盖原始响应。",
+    "f3_input": false
+  },
+  "intraday_observation": {
+    "source_time": "2026-09-29 15:00",
+    "dr007_weighted_rate_percent": 1.3862,
+    "dr007_latest_rate_percent": 1.387,
+    "is_daily_final": false,
+    "f3_input": false
+  },
+  "official_request_recipe": {
+    "method": "POST",
+    "url": "https://www.chinamoney.com.cn/ags/ms/cm-u-dlrp/PrDlyBltn",
+    "form_fields_as_observed": {
+      "lang": "en",
+      "indexType": "markInterBankVOList",
+      "searchDate": "2026-09-28",
+      "publishedTime": "2200"
+    },
+    "date_field": "data.lastDate",
+    "instrument_field": "records[].instrmntCd == DR007",
+    "weighted_rate_field": "records[].wghtdAvgRepoRate",
+    "do_not_use_as_weighted_rate": "records[].clsngRepoRate",
+    "parameter_evidence": "sources/daily_repo_component.html及sources/official_common_script.html",
+    "automated_fetch_created": false
+  },
+  "causal_interpretation": {
+    "supported": "9月28日银行间存款类机构7天回购加权价格接近当日政策利率；当日未见该指标明显高于政策利率。",
+    "supply_hypothesis": "跨季供给安排和续作缓冲资金需求；当前观测与此相容，未识别其中因果份额。",
+    "alternatives": [
+      "融资或持仓需求偏弱也能使资金价格低，股票盈利含义可能相反。",
+      "现金、财政和其他工具改变资金净供求，已知逆回购本金不覆盖全部渠道。",
+      "期限与成交构成改变加权价格；DR007实际平均期限6.80天，并非同质精确7天合约。"
+    ],
+    "unidentified": [
+      "银行与非银资金价差",
+      "新增股票购买资金",
+      "相对于事前市场预期的意外程度",
+      "沪深300未来盈利和估值净效应"
+    ],
+    "liquidity_to_equity_bridge": "融资约束缓解须继续传到可执行的信用或投资需求、经营现金流和风险承担；资金价格平稳本身不生成指数看涨信号。"
+  },
+  "forecast_state": [
+    {
+      "id": "F1",
+      "status": "PENDING_FUTURE_RELEASE"
+    },
+    {
+      "id": "F2",
+      "status": "PENDING_FUTURE_RELEASE"
+    },
+    {
+      "id": "F3",
+      "status": "PENDING_FUTURE_OBSERVATIONS"
+    }
+  ],
+  "f3_missing_dates": [
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12"
+  ],
+  "prior_date_not_substituted": true,
+  "new_accounts": 0,
+  "new_return_tests": 0,
+  "new_forecast_cards": 0,
+  "new_fitted_parameters": 0,
+  "direct_requests": 11
+}

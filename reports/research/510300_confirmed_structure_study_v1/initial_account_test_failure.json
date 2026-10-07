@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-05T00:06:26.199530+08:00",
+  "exit_code": 1,
+  "passed": 0,
+  "new_account_tests_passed": 0,
+  "previous_input_tests_passed": 4,
+  "previous_input_receipt": "reports/research/510300_confirmed_structure_explanation_v1/tests_receipt.json",
+  "input_tests_rerun": false,
+  "output": "..F                                                                      [100%]\n================================== FAILURES ===================================\n_ test_unknown_signal_keeps_existing_inventory_without_pretending_a_new_birth _\n\n    def test_unknown_signal_keeps_existing_inventory_without_pretending_a_new_birth():\n        data = market()\n        signal_source = data.copy()\n        signal_source.loc[15, \"close\"] = np.nan\n        states, _ = structure_states(signal_source)\n        assert states.structure_status.iloc[15] == \"NO_VIEW\"\n        assert not states.rule_exit.iloc[15]\n        assert not states.structure_onset.iloc[16]\n        result = execute(data, states)\n        at_unknown = result[\"daily\"].loc[result[\"daily\"].date.eq(data.date.iloc[15])].iloc[0]\n        assert at_unknown.shares > 0\n>       assert result[\"trades\"].iloc[0].exit_date == data.date.iloc[26]\nE       AssertionError: assert NaT == Timestamp('2020-02-07 00:00:00')\nE        +  where NaT = cycle_id                                             1\\nsource                             CONFIRMED_STRUCTURE\\nevent_id...                                      NaN\\nnet_return                                         NaN\\nName: 0, dtype: object.exit_date\n\ntests\\test_confirmed_structure_account_v1.py:79: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_confirmed_structure_account_v1.py::test_unknown_signal_keeps_existing_inventory_without_pretending_a_new_birth\n1 failed, 2 passed in 3.65s\n",
+  "sources": [
+    {
+      "path": "research/confirmed_structure_inputs_v1.py",
+      "sha256": "5b4de4a6df56fee9bf9ebd37eaa7fca3c80afc59a90f5ec19416ab0a72a609d8"
+    },
+    {
+      "path": "research/confirmed_structure_account_v1.py",
+      "sha256": "d320cf4e920aef98ad6cba31d185adac76d20b6e154c4bdcde127c275ed1f875"
+    },
+    {
+      "path": "tests/test_confirmed_structure_inputs_v1.py",
+      "sha256": "ffa93771bf020457cea519f6f497a9806553f66e5b863bcdb0bb658e114b8deb"
+    },
+    {
+      "path": "tests/test_confirmed_structure_account_v1.py",
+      "sha256": "efe702026e0465a5da749f81ce76060df0e878de625f1bdc5886336562248941"
+    }
+  ]
+}

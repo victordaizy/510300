@@ -1,0 +1,84 @@
+{
+  "study_id": "510300_DIVIDEND_PAYMENT_EVENT_TRAINING_V1",
+  "user_instruction": "不用那么严格，直接进入训练；不用采集",
+  "hypothesis": "基金现金分红发放后，寻求恢复指数敞口的持有人可能再投资，从而影响其后短期回报；真实再投资流没有观察到，该机制仅为待检验假设。",
+  "distinction_from_prior": "旧cash_distribution_funding_v1是全年分红率与融资成本的连续利差规则。本轮是现金发放后的固定五日事件，不改变旧研究；旧日历研究结果同时保留。",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.5,
+  "target_max_drawdown_magnitude": 0.1,
+  "annual_days": 242,
+  "account_end": "2026-09-04",
+  "account_end_reason": "已有分红完整覆盖回执截至此日；不以较晚行情推断后续是否有新公告或分红。",
+  "decision_clock": "现金发放日收盘后形成决策；若非交易日则使用截至发放日最近收盘价格，下一交易日开盘入场。",
+  "source_clock": "沿用已核对分红表及原文；公告日取原来源URL目录日期和文件日期的较晚者，只作日期代理，必须早于决策日。没有历史首版收件证明。",
+  "horizon_sessions": 5,
+  "min_train": 6,
+  "ridge_mean_loss_penalty": 1.0,
+  "features": {
+    "price": [
+      "past5",
+      "logvol20"
+    ],
+    "distribution": [
+      "dividend_yield",
+      "ex_to_payment_total_return"
+    ]
+  },
+  "features_definition": "过去5日回报和波动使用含分红收益；分红率=当次每份分红/除息前收盘；除息前至发放日总回报=(发放日收盘+当次分红)/除息前收盘-1。",
+  "models": {
+    "A_PRICE": {
+      "groups": [
+        "price"
+      ]
+    },
+    "B_DIVIDEND": {
+      "groups": [
+        "price",
+        "distribution"
+      ]
+    },
+    "MATURE_MEAN_REFERENCE": {
+      "groups": []
+    }
+  },
+  "policies": {
+    "ERROR_BUFFER_PRIMARY": {
+      "prediction_error_multiplier": 1.0,
+      "min_mature_prequential_errors": 6
+    },
+    "NET_POSITIVE_DIAGNOSTIC": {
+      "prediction_error_multiplier": 0.0,
+      "min_mature_prequential_errors": 0
+    }
+  },
+  "additional_control": "全部现金发放事件次日入场，不使用模型预测；与学习模型相同的8次可预测事件和同一完整评价日历。",
+  "account": {
+    "vol_target_annual": 0.1,
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "slippage_per_side": {
+      "BASE": 0.0005,
+      "STRESS": 0.001
+    },
+    "lot_size": 100,
+    "prediction_error_multiplier": 1.0,
+    "min_mature_prequential_errors": 6,
+    "drawdown_brake": 0.08,
+    "force_close_on_last_day": true,
+    "cash_and_risk_free_daily_return": 0,
+    "dividend_cash_policy": "除息持有者才记权益，付款日可用现金。本事件账户发放后才买，不享有触发该事件的历史分红。",
+    "scope": "从首个可训练预测的入场日至2026-09-04所有交易日，空仓日全部计入。",
+    "exit": "固定第5个持有交易日收盘退出；收盘回撤8%后次开盘清仓并停止，不再入场。"
+  },
+  "no_parameter_grid": true,
+  "historical_prices_previously_seen": true,
+  "event_source_retrospective": true,
+  "month_field_semantics": "完整现金发放日期，不是统计月份。",
+  "executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "new_downloads": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

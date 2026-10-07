@@ -1,0 +1,113 @@
+{
+  "at": "2026-09-27T14:09:46.166520+08:00",
+  "study_id": "510300_FACTOR96_KNOWN_SUPPLY_SOURCES_V1",
+  "phase": "SOURCE_AND_EVENT_FIELDS_ONLY_BEFORE_NEW_OUTCOMES",
+  "question": "从旧公告密度推进到原文明示的上市流通日期、数量与更正版本，为T13已知供给窗口建立可复核事件源。",
+  "selection": "2015至2025年每日点时沪深300成员的历史并集；原目录内全部合格原公告和全部更正候选，不按金额、日期后收益或公告后成败筛选。并集只决定下载上集，不代表各时点都能用这些股票。",
+  "period": [
+    "2015-01-01",
+    "2025-12-31"
+  ],
+  "target_documents": 2192,
+  "companies": 526,
+  "title_counts": {
+    "ELIGIBLE_ORIGINAL_DISCLOSURE": 2160,
+    "REVISION_TITLE_RETAINED_SEPARATELY": 32
+  },
+  "reusable_targets": [
+    "1201941244"
+  ],
+  "transport": "3并发，每次请求后等待0.3秒；仅传输异常或5xx最多2次；403或429后停止新请求；失败和无文本不能填零。",
+  "source": "复用已保存完整检索目录中的巨潮公开原PDF地址；保存原目录响应、原PDF、请求时钟和逐页文本。",
+  "parse": "PDFium仅在主线程提取；日期和数量另设固定提取合同，保存每项上下文和原单位；未解析不意味着无解禁。",
+  "versions": "更正、补充和取消标题保留为版本候选；不得提前用后来修订覆盖旧公告。辅助意见不直接计为发行人新供给。",
+  "scope_boundary": "旧上市流通检索不能证明覆盖所有发行、缴款和增发配股日历，M06仍须另补；本轮不宣称完整T13数据已经准入。",
+  "T12": "自由流通市值及用途/终止版本门保留；不拿成交额归一化旧模型替代原定义。",
+  "source_clock_boundary": "原档案日期不是历史首次HTTP送达证明；经济上市日、PDF署期、档案日期、下载时钟分开保存。",
+  "new_returns_loaded": false,
+  "new_models": 0,
+  "new_accounts": 0,
+  "independent_forward_observations": 0,
+  "goal_status": "active",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "sources": [
+    {
+      "original": "data/curated/510300_unlock_announcement_daily_source_v1/all_announcement_records.parquet",
+      "snapshot": "inputs/announcement_catalogue.parquet",
+      "sha256": "3c5d357417a78930075b6e816394b215e6c33cb6b78581a3a0e55ae12d23c8c4"
+    },
+    {
+      "original": "reports/research/510300_factor96_crowding_overlay_v1/inputs/membership.parquet",
+      "snapshot": "inputs/membership.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    },
+    {
+      "original": "reports/research/510300_unlock_announcement_source_admission_v1/source_admission.json",
+      "snapshot": "source_evidence/unlock_source_admission.json",
+      "sha256": "c9b67f605d33a46fcf670610212277ddc8afb116eee21e7ce004afe921d2d342"
+    },
+    {
+      "original": "reports/research/510300_unlock_announcement_source_admission_v1/daily_source_consolidation.json",
+      "snapshot": "source_evidence/unlock_source_consolidation.json",
+      "sha256": "58b8757099eaa6d35e42c03d42e84564968e398a3ef844bff7f5951d9b3b49d1"
+    },
+    {
+      "original": "reports/research/510300_unlock_announcement_source_admission_v1/primary_case_adjudication.json",
+      "snapshot": "source_evidence/old_four_pdf_cases.json",
+      "sha256": "f311b716c5f18b6f5f1bcc60472227b582831d9c4ade60e05687d40a17954de7"
+    },
+    {
+      "original": "config/510300_unlock_announcement_increment_v1.json",
+      "snapshot": "source_evidence/old_unlock_protocol.json",
+      "sha256": "0ac432702586bf814aba925a2f30fb30cfbb484abaa4c91b5119c2eb5b736374"
+    },
+    {
+      "original": "reports/research/510300_unlock_announcement_increment_v1/result.json",
+      "snapshot": "source_evidence/old_unlock_result.json",
+      "sha256": "eeff3e5ab782163601e89d5a2c82ca0ae799d963497306b3f424d155b91b9f39"
+    },
+    {
+      "original": "reports/research/510300_unlock_announcement_increment_v1/研究结论与下一步.md",
+      "snapshot": "source_evidence/old_unlock_report.md",
+      "sha256": "ce1256c83c29ce9278af461aeece4568bb2b8e74bf097478079d211687836538"
+    },
+    {
+      "original": "reports/research/510300_corporate_repurchase_disclosed_demand_v1/protocol.json",
+      "snapshot": "source_evidence/old_repurchase_feature_protocol.json",
+      "sha256": "540afc3a2f7aaff6618e32fadaa140d61b36efa584f55ad3803bc5ec98e2b806"
+    },
+    {
+      "original": "reports/research/510300_corporate_repurchase_disclosed_demand_v1/result.json",
+      "snapshot": "source_evidence/old_repurchase_feature_result.json",
+      "sha256": "ce2ab3d221c01c5622adec4f0668b1d98727fbd450af6b6556d557cf60b9c364"
+    },
+    {
+      "original": "reports/research/510300_funding_repurchase_demand_daily_v1/protocol.json",
+      "snapshot": "source_evidence/old_repurchase_model_protocol.json",
+      "sha256": "2ba98f77f05e4346b2131ef85951515026636f745a746f4d030e1d2c3d45759a"
+    },
+    {
+      "original": "reports/research/510300_funding_repurchase_demand_daily_v1/result.json",
+      "snapshot": "source_evidence/old_repurchase_model_result.json",
+      "sha256": "bc6d52f9c25bff609d405bf19f4ce84a97ce7f005f55eddcc027ffee901cede6"
+    },
+    {
+      "original": "reports/research/510300_repurchase_fixed_maturity_account_v1/protocol.json",
+      "snapshot": "source_evidence/old_repurchase_maturity_protocol.json",
+      "sha256": "b19048c27b611612437e0346350e4254f2eaaa3ccc316247abcc855000869b71"
+    },
+    {
+      "original": "reports/research/510300_repurchase_fixed_maturity_account_v1/result.json",
+      "snapshot": "source_evidence/old_repurchase_maturity_result.json",
+      "sha256": "4e9140c89b07a453fd2da654f985ab5906e0f97e974556f6ddcbefcd4eb85b9e"
+    },
+    {
+      "original": "config/510300_existing_data_training_mandate_v1.json",
+      "snapshot": "source_evidence/current_mandate.json",
+      "sha256": "43e3c77e14d04220b5bcebe7c26c757b067ac4107aee241145c57943e86f5900"
+    }
+  ],
+  "targets_sha256": "98d6ef6ffbc1f740023e0fe922c9b6f5da75182d2f67ab528be0fa05d5605d54",
+  "code_sha256": "3874b927b7bb58f0d179dad5111aa3e5cd43f2c88035df2feb26341531c20dc4"
+}

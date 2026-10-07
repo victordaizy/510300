@@ -1,0 +1,168 @@
+{
+  "at": "2026-10-02T12:44:41.225902+08:00",
+  "status": "ADMITTED_C03_CONDITIONAL_PURPOSE_AND_RETURN_AMOUNT_CLOCK_PENDING_ORIGINAL_MEMBER_SUPPORT",
+  "conditional_purpose_and_source_clock_bound": true,
+  "full_field_admitted": false,
+  "registered_definition": "最近10日正收益总和/正日成交额合计，与负收益绝对值总和/负日成交额合计比较；各自乘同一期日均成交额归一。",
+  "old_rapid_use": "同一十日正负log收益/分组金额效率差乘日均金额已有计算；其值供此前两日历年70/30分位HIGH/LOW入场政策，非原八项继续价值第九项。当前严格十日完整源和初始区间未知不构成新信息，不能据此重试旧政策。",
+  "old_C03_saved_account_rows": [
+    {
+      "policy": "C03_HIGH",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.3022745473607876,
+      "cagr": -0.0046882611085937,
+      "max_drawdown": 0.0996279027448597,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_LOW",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.0008434884175732,
+      "cagr": -0.0004932750688247,
+      "max_drawdown": 0.0862565634937158,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_HIGH",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3589851328768193,
+      "cagr": -0.0052979936185094,
+      "max_drawdown": 0.0996045391429553,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_LOW",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.1479409095695066,
+      "cagr": -0.0046062269580724,
+      "max_drawdown": 0.089525779395524,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_HIGH",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.3873560183767637,
+      "cagr": -0.005222199315234,
+      "max_drawdown": 0.0963048936472593,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_LOW",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.3168790596754113,
+      "cagr": -0.0085716059663831,
+      "max_drawdown": 0.0963490032524932,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_HIGH",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.425712134068455,
+      "cagr": -0.0056159662079805,
+      "max_drawdown": 0.096191336598354,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "C03_LOW",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.4314079672164233,
+      "cagr": -0.0091715552057645,
+      "max_drawdown": 0.0963116464759062,
+      "joint_historical_target": false
+    }
+  ],
+  "old_price_volume_coherence_use": "20日经济log收益与log成交份额变化的相关及动量确认，不是正负日收益/分组CNY金额比。",
+  "old_signed_volume_within_use": "原八项增加signed_volume_balance20，即有符号成交份额/总份额；不按正负组金额归一收益。原基础局部改善、压力及较早失败保留，不修改或重跑。",
+  "finite_other_uses": "negative_volume_trend为缩量日累积简单收益及255日均线；volume_weighted_trend为价格份额加权均值；C02金额/推进/方向和C05金额OLS均为不同字段。有限查重不声称整个项目所有原卡从未检验。",
+  "new_purpose": "既有量价效率差的新条件继续价值用途，不是新物理数据或独立历史样本。",
+  "field_binding": "r=原log((close+当日已除息现金)/previous_close)=total_log；固定[t-9,t]十个完整实际日，严格r>0与r<0归组，零日不入两组但计入日均金额。mean(amount10)*[sum(正r)/sum(正日amount)-sum(abs负r)/sum(负日amount)]固定一列。",
+  "source_clock": "原现金前向财富和log收益先核身份，首个市场点没有前一区间不补0；CNY成交额在完整收盘后可知，下一合法开盘执行，不读未来现金/行情或回溯复权。",
+  "missing_rule": "十日任一经济收益/金额缺口、非有限或金额<=0未知；任一正负组金额分母<=0未知，不填0/epsilon、延长/压缩窗口或删成员。两组有效但效率差真0合法，正负零边界严格按原log收益。",
+  "support_gate": "全部1507原自然成员、115原可用月全部训练成员有限才接纳直接第九项；142原月中27原未知不改。",
+  "no_rescue": "不恢复原HIGH/LOW，不改10日、金额尺度/收益边界/维度、分母、缺失、成员、标签、岭/权重、入场固定版本/确认、预测/账户门、时期或成本营救；没有支持就停止，不拟合再挑窗口。",
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_registry_and_frozen_G1_preserved": true,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/C03_candidate_intake_plan.json",
+      "sha256": "be20d3e2b6698d547a52ce4c512ce2aca48ea1c97da6bafa90b0fddbdcff38dc"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv",
+      "sha256": "0fa32a2d2a2a87bf07bc0fdbf18b110a2e0a7fa19a74dcbc60107e4e139424fc"
+    },
+    {
+      "path": "research/price_volume_coherence_inputs_v1.py",
+      "sha256": "86d54acc23ae9a6367d8dab1e93f33a87f50709a62af48dafe78f4ee87b3eaa7"
+    },
+    {
+      "path": "config/510300_price_volume_coherence_v1.json",
+      "sha256": "5265c658dbc24abedd0760666eb1f0d224874aa9311797bce25a6682e2cc8190"
+    },
+    {
+      "path": "research/signed_volume_balance_inputs_v1.py",
+      "sha256": "5624ad0e1914c10159c8629ba52ae5240af59f7ed8bb5617e4b7cb6b7e344289"
+    },
+    {
+      "path": "research/signed_volume_within_inputs_v1.py",
+      "sha256": "c6f90b891ce6ceb829a1c631f13963629fb627d6c4e7b92182627fa844256741"
+    },
+    {
+      "path": "config/510300_signed_volume_within_v1.json",
+      "sha256": "b85d6a29cb16d295512c507463d7393b8fc730b4e451271a35ab91e27f641b0f"
+    },
+    {
+      "path": "research/negative_volume_trend_inputs_v1.py",
+      "sha256": "41ba4e6bae547707439172d6ee4f5b4e26535975628557942be6f29c2598f519"
+    },
+    {
+      "path": "research/volume_weighted_trend_v1.py",
+      "sha256": "bcc3b5d5bce6b38cd111a2b08442b755f575a566693e7fd5ffbe73bd74ec03d6"
+    },
+    {
+      "path": "research/point_a02_information_intake_v1.py",
+      "sha256": "77374078011b03269fd6f74d46afae7c88f35059862a2d1386d0ccaaf5cbbd4f"
+    },
+    {
+      "path": "reports/research/510300_point_d03_exit_prediction_v1/prediction_summary.json",
+      "sha256": "69d9cb721e6d3c0f1c6e529942ce531a9775d62f7a5c147e0daa02972170b528"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/admission_receipt.json",
+      "sha256": "d455b517e50050e8b4b4c0a9f5b61c4087aa3afd4149534c8996b02403172d21"
+    },
+    {
+      "path": "reports/research/510300_daily_weekly_goal_continuation_20261001/isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    }
+  ]
+}

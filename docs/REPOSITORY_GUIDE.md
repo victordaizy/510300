@@ -1,41 +1,28 @@
-# 仓库目录导航
+# 仓库目录与阅读导航
 
-| 目录或文件 | 内容 | 主要存放位置 |
-|---|---|---|
-| `config/` | 研究参数、冻结协议、权限与清单 | Git |
-| `research/` | 各项研究实现 | Git |
-| `scripts/` | 采集、分析、运行和历史交付入口 | Git |
-| `src/`、`backtest/`、`market_data/` | 公共模块与既有依赖 | Git |
-| `tests/` | 原研究测试与新增还原工具测试 | Git |
-| `docs/` | 研究说明、决策记录与仓库维护指南 | Git |
-| `reports/`、`paper/` | 历史报告、结果、回执和证据 | 可读报告在 Git；批量证据在 Release |
-| `data/` | 行情、原始来源、特征、冻结数据和账本 | Release，按原路径还原 |
-| `deliverables/`、`review_packages/` | 历史审阅 ZIP、展开材料和交付说明 | Release，按原路径还原 |
-| `catalog/` | 全部源文件、附件和研究目录索引 | Git |
-| `tools/repository/` | 标准库下载还原与摘要验证工具 | Git |
+当前版本为 `snapshot-2026-10-06`，增量基线为 `snapshot-2026-09-17`。具体文件、源字节摘要及附件位置由累计索引记录。
 
-## 阅读顺序
+## 当前研究入口
 
-1. 阅读根目录 `README.md`，确认快照版本和文件范围。
-2. 通过 `catalog/studies.csv` 找到具体研究目录及报告入口；本轮更新入口是 `docs/UPDATE_20260917.md`，近期汇总是 `reports/research/510300_sharpe_1_2_latest_research.json`；根目录 `RESEARCH_STATUS.md` 保留较早的历史状态。
-3. 按具体报告阅读协议、权限、来源、结果与反证；同一研究存在多个版本时，逐一核对编号与时间，不把旧摘要当成新结果。
-4. 如果报告引用的文件通过 Release 保存，使用还原工具按文件或目录前缀下载。
-5. 需要完整复核时，下载全部附件，再执行 `verify --all`。
+- [项目状态](PROJECT_STATE.md)：项目长期事实、已完成研究、来源限制、原冻结口径及当前受阻条件。
+- [研究决策](RESEARCH_DECISIONS.md)：重要方向的假设、方法、结果、接受或拒绝原因和再验证条件。
+- [日周线项目状态](PROJECT_STATE_TECHNICAL_LINE.md)与[日周线研究决策](RESEARCH_DECISIONS_TECHNICAL_LINE.md)：当前点位与仓位研究的具体事实。
+- [本轮更新导航](UPDATE_20261006.md)：本次有新增或修改的研究目录及报告入口。
+- [当前状态原件](../reports/research/510300_daily_weekly_goal_continuation_20261001/state.json)：保存时刻与实际金融裁决。
+- [正式目标](../config/510300_high_return_sharpe_goal_v1.json)：20万元完整账户、扣费后10%净年化、1.5净夏普、10%回撤上限及其余验收条件。
 
-## 文件索引的读法
+当前研究目标未实现，最新实际金融裁决是 TECH.R268 固定央行双文本与量价阶段账户拒绝；独立验证未成立，受阻状态按原件保存。本次上传只保存已有工作。
 
-`catalog/files-*.csv` 中的 `path` 是相对原项目根目录的路径；`storage=git` 表示原文件直接在主仓库中，`storage=release` 表示使用 `assets` 列所列附件还原。`sha256` 及 `bytes` 描述完整原文件，不是其分片；附件摘要另见 `catalog/assets.json`。
+## 文件与来源
 
-已有文档中可能包含来源电脑的绝对路径或当时的外部链接。它们属于冻结内容，因此没有批量改写。查阅时可根据路径中 `New project 8` 后的相对路径在文件索引中定位；还原工具将材料写到当前仓库根目录。
+研究代码、测试、配置、可读报告和导航在普通 Git 文件中。行情、财报、央行与券商报告原件、详细账本、逐日结果及审阅包根据索引通过 Release 附件管理。
 
-## 原始大包
+[文件索引](../catalog/README.md)、[研究目录](../catalog/studies.csv)、[逐文件变化](../catalog/changes-20261006.csv)和[纳入范围](UPLOAD_SCOPE.md)说明实际范围。多个历史 Release 由累计索引统一选择，旧标签和附件保留原版本。
 
-大于单个附件容量目标的原包被切为 `.bin` 分片。分片不是独立 ZIP，不应分别解压。还原工具按索引顺序拼接，并验证原始 ZIP 的 SHA-256，然后恢复原来的中文或英文文件名。
+## 下载和核对
 
-## 当前检查的实际范围
+[首页](../README.md)提供 Windows PowerShell 命令。使用 `tools/repository/snapshot.py restore --only <相对路径>` 按需还原，或者 `restore --all` 还原完整累计资料；已还原文件可用 `verify --all` 核对。GitHub 自动生成的代码 ZIP 只包含普通 Git 文件。
 
-CI 检查所有原始 Git 文件的大小和摘要、附件映射结构，以及还原工具的关键行为。它不下载全部历史数据、不运行研究模型，也不把结构检查称为安全审计、科学有效性结论或外部 GPT 审阅。
+[新附件回读回执](../catalog/SAVED_ASSETS_VERIFICATION.json)覆盖本轮新附件全部成员；[当前状态引用回执](../catalog/STATUS_REFERENCES_VERIFICATION.json)区分已纳入路径和原状态中尚未实际存在的前瞻路径。旧发布回执保存在 `catalog/history/`，不能替代本轮的验证范围。
 
-本次独立回读本轮新附件内的 33,403 个原文件，核对 ZIP CRC、成员集合、大小、SHA-256 和原包分片重组摘要。结果见 `catalog/SAVED_ASSETS_VERIFICATION.json`；历史附件的既有回读结果保存在 `catalog/history/snapshot-2026-09-09/`，并在发布时重新核对复用附件的远端摘要。
-
-还原后的Release材料由 `.gitignore` 中依据索引生成的规则管理。222,395条Release路径全部受到忽略规则覆盖，10,033条原始Git路径没有被误忽略。后续更新发布索引后，可运行 `python tools/repository/update_ignore_rules.py` 重新生成并用Git检查这些规则。
+冻结研究不为上传而重新拟合、回测或改参数。归档核对不构成独立策略验证，具体研究结论以各自的原协议和结果为准。

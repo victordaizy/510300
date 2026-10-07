@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-02T12:38:19.609013+08:00",
+  "candidate_id": "C03",
+  "name": "上涨效率与回调效率差",
+  "status": "PROPOSED_C03_FINITE_PRIOR_PURPOSE_RETURN_AMOUNT_CLOCK_AND_DENOMINATOR_SUPPORT_NOT_ADMITTED",
+  "registered_definition": "最近10日正收益总和/正日成交额合计，与负收益绝对值总和/负日成交额合计比较；各自乘同一期日均成交额归一。",
+  "reason_to_review": "D03早期预测小幅改善但近期退步，固定增量结束；C03描述正负日价格推进相对成交额的非对称，先核查旧同用途与真实分组分母，不据已有公式另起参数搜索。",
+  "bounded_next_checks": [
+    "查旧rapid的C03表达/高低政策、price_volume_coherence及signed_volume_within原继续收益用途；同用途已覆盖则结束，原NOT_RUN不证明没用过。",
+    "绑定原现金经济log收益与CNY成交额，固定十个实际完整日含当日；正日r>0、负日r<0分别归组，零日不放入两组。",
+    "将原卡两种效率之差固定一项：同十日日均金额乘以[sum(正r)/sum(正日金额)-sum(abs负r)/sum(负日金额)]；任何一组分母非正/缺失或窗口不全NO_VIEW，真差值0合法，不填0、延长或压缩窗口。",
+    "任何收益拟合前检查1507原自然成员及115原可用月全部训练行；不完整就停止直接固定增量，不删行或以缺失指示器救援。",
+    "仅不同条件用途、来源时钟及原成员完整成立，才另冻结单一固定第九项；原标签、模型、权重、成熟门、入场锁定、两负确认及预测/账户门保持。"
+  ],
+  "field_bound": false,
+  "field_admitted": false,
+  "new_model_registered": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_d03_exit_prediction_v1/prediction_summary.json",
+      "sha256": "69d9cb721e6d3c0f1c6e529942ce531a9775d62f7a5c147e0daa02972170b528"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "research/price_volume_coherence_inputs_v1.py",
+      "sha256": "86d54acc23ae9a6367d8dab1e93f33a87f50709a62af48dafe78f4ee87b3eaa7"
+    },
+    {
+      "path": "research/signed_volume_within_inputs_v1.py",
+      "sha256": "c6f90b891ce6ceb829a1c631f13963629fb627d6c4e7b92182627fa844256741"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "study_id": "510300_BANK_ACCEPTED_BILL_DISCOUNT_SOURCE_QUALIFICATION_V1",
+  "experiment_id": "E16",
+  "registered_at": "2026-10-02T09:53:17.526040+08:00",
+  "phase": "BOUNDED_OFFICIAL_SOURCE_QUALIFICATION_ONLY",
+  "previous_goal_turn_classification": "PROGRESS_E15_FIXED_INCREMENT_REJECTED_AND_FACTS_SAVED",
+  "question": "银行承兑汇票的六个月国股银票转贴现定价，是否提供不同于旧AAA三年债券利差的国内信用原因信息？先回答来源，不预设指数方向。",
+  "research_unit": "510300指数整体国内信用定价原因；不是个股研究",
+  "target_instrument": "国有与股份制银行承兑的电子银行承兑汇票；六个月剩余期限转贴现收益率",
+  "target_tenor": "六个月剩余期限；不事后改期限",
+  "target_rate": "国有与股份制银行承兑的电子银行承兑汇票转贴现收益率；先核官方字段名称、年化口径与单位",
+  "not_substitutable_sources": [
+    "AAA三年中短期票据债券曲线",
+    "商业承兑汇票",
+    "非同期限报价",
+    "搜索摘要或未认证的仿站",
+    "事后年报中的全年曲线"
+  ],
+  "why_different": "旧信用价差实验是三年AAA二级债券与同期限国债的63日变化，候选13节点负均值且结束。本候选是银行承兑汇票的短期转贴现价格；不得把旧失败字段换名、改期限或反号。",
+  "information_role": "与原订单、资金价格、贷款及融资状态共同区分实际资金成本、银行票据配置和有效融资需求；利率本身不证明冲量、信用改善或纯需求冲击。",
+  "historical_scope": [
+    "2022-01-01",
+    "2025-12-31"
+  ],
+  "entry_domains_to_authenticate": [
+    "shcpe.com.cn",
+    "shcpe.com"
+  ],
+  "entry_urls": [
+    "https://www.shcpe.com.cn/",
+    "http://www.shcpe.com.cn/",
+    "https://www.shcpe.com/",
+    "http://www.shcpe.com/"
+  ],
+  "entry_probe_budget": 4,
+  "additional_official_requests_budget": 12,
+  "official_catalog_search_budget": 4,
+  "request_attempts_each": 1,
+  "request_timeout_seconds": {
+    "connect": 10,
+    "read": 25
+  },
+  "maximum_network_workers": 3,
+  "source_identity": "需要官方主体页和监管/官方基础设施链接互证；机构名称相似或搜索自称官网不算认证。未认证仿站不进入历史输入。",
+  "source_route": "先原入口与目录/方法说明，再仅沿页内发现的正式历史查询/数据接口；不猜年份镜像、不下载全市场文件、不接收费账户、不读取今天利率形成观点。",
+  "publication_clock": "核原正式发布规则与历史记录公布日期/时刻；只有原规则支持的保守上界才能连接历史决定。统计日期或今天HTTP时间不自动替代历史首次公布。历史首版未证实时明确保留。",
+  "coverage_gate": "必须有目标同期限同承兑类型的2022—2025连续历史及合法可知时钟才准入模型；未知不补零、不用事后年图。仅入口/样例通过不足以称历史全覆盖。",
+  "first_probe_success_stop": "若不存在可认证官方入口或原历史路径，结束此有限来源问题；不以第三方报价或更换品种营救。",
+  "model_registration": "来源合格后另登记一个字段的同事件同成熟池固定比较；本协议不登记模型、不读取新股票分组收益。",
+  "search_selection_disclosure": "此前搜索摘要/未认证域名线索已看到，均未准入；官方.cn首页web读取失败。本轮在正式取得原件前登记，未基于银票曲线对应股票收益选字段。",
+  "new_equity_labels": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_repository_source_code_edits": 0,
+  "independent_validation": false,
+  "execution_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false
+}

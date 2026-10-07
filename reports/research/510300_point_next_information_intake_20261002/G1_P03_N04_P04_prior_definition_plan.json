@@ -1,0 +1,157 @@
+{
+  "at": "2026-10-02T17:27:08.336077+08:00",
+  "status": "PROPOSED_FINITE_LOCAL_DAILY_PATH_CALENDAR_AND_WAITING_TARGET_DEFINITION_ROUTING_NOT_ADMITTED",
+  "reason": "十一期货/盈利用途本线没有合格新源；按尽快优先本地日线可提供的路径时间及已知日历信息。先查重复与完整定义，不为源门失败反复摘录或追加账户。",
+  "registered_cards": [
+    {
+      "id": "N04",
+      "family": "持有人结构与可知日历",
+      "name": "季末位置与交易方向交互",
+      "role": "入场/状态",
+      "horizon_days": 5,
+      "source_grade": "G1",
+      "source_overlap_note": "旧日历家族；只作为预注册条件对照",
+      "definition": "季末最后3日指示变量，与季内已实现涨跌及机构重仓代理分别交互。",
+      "mechanism": "日历效应可能取决于此前市场与风险预算，而非固定月份。",
+      "counterexample": "季节性旧研究已做；不能在看到某年后选3日窗口。",
+      "data_path_hint": "已有价格与分红缓存优先；原始开高低收、成交额和成交量交叉核验",
+      "source_clock_rule": "收盘数据在收盘后形成；默认下一交易日开盘执行；调整价格只用于信号，成交与现金分红分开",
+      "repository_hint": "reports/research/510300_original_quarterly_flow_policy_v1; reports/research/510300_calendar_liquidity_timing_v1",
+      "source_ids": "S01,S05,G01",
+      "source_urls": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml\nhttps://etf.sse.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/catalog/studies.csv",
+      "status": "NOT_RUN",
+      "net_sharpe": null,
+      "current_status": "NOT_RUN",
+      "strategy_dependencies": "",
+      "current_note": "保留原假设；尚未完成该项独立定义、数据可得性和收益检验。",
+      "standalone_net_sharpe": null,
+      "path_hint_check": "[{\"path\": \"reports/research/510300_original_quarterly_flow_policy_v1\", \"exists\": true}, {\"path\": \"reports/research/510300_calendar_liquidity_timing_v1\", \"exists\": true}]",
+      "data_grade_is_attachment_classification": true
+    },
+    {
+      "id": "P03",
+      "family": "风险预算与退出状态",
+      "name": "相同回撤的时间消耗",
+      "role": "退出",
+      "horizon_days": 5,
+      "source_grade": "G1",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "实际持有以来的回撤/入场前ATR与已持有天数、距最近高点天数共同记录。",
+      "mechanism": "快速回踩与长期停滞的继续持有价值可能不同。",
+      "counterexample": "持仓日样本高度重叠；账户状态不能用未来完成周期补截距。",
+      "data_path_hint": "已有价格与分红缓存优先；原始开高低收、成交额和成交量交叉核验",
+      "source_clock_rule": "收盘数据在收盘后形成；默认下一交易日开盘执行；调整价格只用于信号，成交与现金分红分开",
+      "repository_hint": "reports/research/510300_account_volatility_exposure_v1; reports/research/510300_probability_payoff_exit_v1",
+      "source_ids": "S01,S05,G01",
+      "source_urls": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml\nhttps://etf.sse.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/catalog/studies.csv",
+      "status": "NOT_RUN",
+      "net_sharpe": null,
+      "current_status": "NOT_RUN",
+      "strategy_dependencies": "",
+      "current_note": "保留原假设；尚未完成该项独立定义、数据可得性和收益检验。",
+      "standalone_net_sharpe": null,
+      "path_hint_check": "[{\"path\": \"reports/research/510300_account_volatility_exposure_v1\", \"exists\": true}, {\"path\": \"reports/research/510300_probability_payoff_exit_v1\", \"exists\": true}]",
+      "data_grade_is_attachment_classification": true
+    },
+    {
+      "id": "P04",
+      "family": "风险预算与退出状态",
+      "name": "等待一段时间的增量价值",
+      "role": "持有/退出",
+      "horizon_days": 5,
+      "source_grade": "G1",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "固定成熟历史中，下一合法卖出点与再持有H日的净价值差；用当下已知信息预测该差。",
+      "mechanism": "新买入与继续持有的交易成本不同，可建立不对称无交易区。",
+      "counterexample": "已有亏损不是继续持有理由；禁用未来最优卖点作标签。",
+      "data_path_hint": "已有价格与分红缓存优先；原始开高低收、成交额和成交量交叉核验",
+      "source_clock_rule": "收盘数据在收盘后形成；默认下一交易日开盘执行；调整价格只用于信号，成交与现金分红分开",
+      "repository_hint": "reports/research/510300_account_volatility_exposure_v1; reports/research/510300_probability_payoff_exit_v1",
+      "source_ids": "S01,S05,G01",
+      "source_urls": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml\nhttps://etf.sse.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/catalog/studies.csv",
+      "status": "NOT_RUN",
+      "net_sharpe": null,
+      "current_status": "NOT_RUN",
+      "strategy_dependencies": "",
+      "current_note": "保留原假设；尚未完成该项独立定义、数据可得性和收益检验。",
+      "standalone_net_sharpe": null,
+      "path_hint_check": "[{\"path\": \"reports/research/510300_account_volatility_exposure_v1\", \"exists\": true}, {\"path\": \"reports/research/510300_probability_payoff_exit_v1\", \"exists\": true}]",
+      "data_grade_is_attachment_classification": true
+    }
+  ],
+  "finite_locators": [
+    "research/holding_market_coupling_exit_inputs_v1.py",
+    "research/profit_drawdown_interaction_inputs_v1.py",
+    "research/remaining_holding_value_transfer_v1.py",
+    "research/point_p02_exit_prediction_v1.py",
+    "research/calendar_liquidity_timing_v1.py",
+    "research/calendar_monthly_activation_v1.py",
+    "research/calendar_learned_equal_blend_v1.py"
+  ],
+  "bounded_checks": [
+    "P03核入场前ATR、真实持仓高点以来天数与既有log_holding_days/cycle_drawdown及旧交互是否同信息用途；未冻结新公式，不先读取新表现。",
+    "N04核季末最后3个实际交易日的事前已知日历、季内已实现收益与旧日历用途重复；机构重仓代理不能因G1标签而假定可得。日历组件和原完整卡区分。",
+    "P04与现有提前合法卖出至自然退出的等待净价值目标及E09实际剩余期限关系核对；不挑H、换标签、删原成熟成员或重开冻结失败。",
+    "只有实质不同用途、3488日/1507状态与原115可用模型全部训练成员资格成立，才另立唯一固定字段/模型比较；保持27原无模型状态、原8项/目标/成熟钟、双期预测门及20万元经济门。"
+  ],
+  "field_bound": false,
+  "field_admitted": false,
+  "new_model_registered": false,
+  "new_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_predictions": 0,
+  "new_accounts": 0,
+  "network_requests": 0,
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "research/holding_market_coupling_exit_inputs_v1.py",
+      "sha256": "8ce273636fd11fe5f042c62ad58e788adda53a9480f6c3e005dfa815335e3e5e"
+    },
+    {
+      "path": "research/profit_drawdown_interaction_inputs_v1.py",
+      "sha256": "2e0ca218386399532fe21e939e40b870b96cf789567c38a7dbd1ab765cf68823"
+    },
+    {
+      "path": "research/remaining_holding_value_transfer_v1.py",
+      "sha256": "fe63293754d5d8be8df5800c8c038179b6c178e527c1cde73f6588a8085804d4"
+    },
+    {
+      "path": "research/point_p02_exit_prediction_v1.py",
+      "sha256": "21ec3ad1e14799cbb0535273b8256abf330faa9d037d9e7152fa942d1342d8dc"
+    },
+    {
+      "path": "research/calendar_liquidity_timing_v1.py",
+      "sha256": "86f081db0c919c1322e2796d8e8229015c7ebfb4c3f410ec407f4e4f49314e21"
+    },
+    {
+      "path": "research/calendar_monthly_activation_v1.py",
+      "sha256": "2d9791b03154adcb991719b2ae42b1217ca745a035a8b9765902f1ff2e61b04d"
+    },
+    {
+      "path": "research/calendar_learned_equal_blend_v1.py",
+      "sha256": "d3db4011172f3373a66c627b05a7e10f7a4ec07297bd1a54eba79d28c104a41b"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_features.parquet",
+      "sha256": "4e72f225a7551b34936553088eba81333f237e2ec2e32aa9a615a3b8297e9720"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/within_models.json",
+      "sha256": "3514e3fba76ac4b0e3e4adf261440392ce10852608f3dc2bef3d9c5d88fae917"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_if_earnings_prior_routes_v1/summary.json",
+      "sha256": "61731785dc6fed0d0030dec561a83a9907740275d17125b392d548577ee0a42f"
+    },
+    {
+      "path": "reports/research/510300_daily_weekly_goal_continuation_20261001/isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    }
+  ]
+}

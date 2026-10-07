@@ -1,0 +1,43 @@
+{
+  "at": "2026-09-26T05:47:22.199159+08:00",
+  "study_id": "510300_ENTREPRENEUR_CASH_SOURCE_V1",
+  "purpose": "与银行审批供给条件区分，核对企业经营现金回笼与周转状况的原文；目前只取得来源，不计算股票收益。",
+  "selected_measurements": [
+    "销货款回笼指数",
+    "资金周转指数"
+  ],
+  "semantic_limit": "两者是企业家对状况的扩散判断，不是财务现金流、应收账款真实周转天数或股市流量。资金周转仅作为分解解释候选，不默认再加入模型。",
+  "duplicate_check": "已有PMI新订单、银行贷款需求及审批、贷款构成和住户存贷结果保留；本次是企业自身的收款状况，不改变旧策略。",
+  "catalogue_reuse": [
+    {
+      "receipt": "reports/research/510300_banker_survey_source_probe_v1/requests/catalogue_1.json",
+      "sha256": "e94dd785d0b274aca8a253ade619b134b5b1abe969a113bd8009d7d54a1d7812"
+    },
+    {
+      "receipt": "reports/research/510300_banker_survey_source_probe_v1/requests/catalogue_2.json",
+      "sha256": "48e07a28e85886686b1b154a75ff5e4b6a4ac01a16df9a1bcb2f6093c3ed14cb"
+    },
+    {
+      "receipt": "reports/research/510300_banker_survey_source_probe_v1/requests/catalogue_3.json",
+      "sha256": "be639a800bec3941f4f5117204baaefc9d239425236ec158919b10e57536b710"
+    },
+    {
+      "receipt": "reports/research/510300_banker_survey_source_probe_v1/requests/catalogue_4.json",
+      "sha256": "4b413a598c4b434825d758ab7f08c8980d25ef3c9247d4dde54d7455e46808eb"
+    },
+    {
+      "receipt": "reports/research/510300_banker_survey_source_probe_v1/requests/catalogue_5.json",
+      "sha256": "db187bd23736d057790586e5bbd39417550e25a128aa2dfc9769105fee47b7c8"
+    }
+  ],
+  "catalogued_quarters": 32,
+  "request_limit": 68,
+  "acquisition": "只请求原目录实际链接的央行页面和PDF。25秒超时，403/429停止；一次传输失败最多额外普通重试一次，不关闭TLS验证。",
+  "vintage": "每份原季度报告仅以后提取其当季值，后来附表中的旧值不回填。实际最早送达仍未认证。",
+  "clock": "保存页面所载公布时间，保守采用公布日末，不能按季度末回填；同时补发的旧季不得反写此前决策。",
+  "parser": "PDF同位置重复字形在1点坐标容差内去重；不按相邻字符删除数字。表头必须对齐，文本标题未识别保留待核。",
+  "new_accounts": 0,
+  "new_strategy_returns": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

@@ -1,0 +1,186 @@
+{
+  "study_id": "510300_DAILY_SCORE_FINANCING_INPUT_CORRECTION_V1",
+  "experiment_id": "E21",
+  "recorded_at": "2026-10-02T12:54:43.632860+08:00",
+  "status": "REGISTERED_EXACT_ORIGINAL_CONTRACT_INPUT_CORRECTION",
+  "question": "深交所2024-08-08全零融资行的已证实来源纠错，是否改变原八、十变量日频联合评分的结论？",
+  "not_a_new_economic_candidate": true,
+  "allowed_input_change": {
+    "columns": [
+      "融资五日净变化",
+      "融资买入活跃度"
+    ],
+    "expected_changed_cells": 62,
+    "expected_changed_dates": 60,
+    "replacement": "已经保存并绑定官方原件的daily_inputs_corrected_20240808.parquet两列；十变量只同步这两列",
+    "all_other_fields_and_labels": "必须完全相同，否则停在输入门，不拟合"
+  },
+  "original_failures": "保留原协议、输入、模型、结果和拒绝状态；本纠错版本单独归档，不调参营救。",
+  "features8": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度"
+  ],
+  "features10_added": [
+    "已观察逆回购利率二十日变化",
+    "资金利差二十日变化"
+  ],
+  "model": {
+    "max_depth": 3,
+    "min_samples_leaf": 60,
+    "random_state": 20261001,
+    "maximum_leaves": 8
+  },
+  "linear": {
+    "alpha": 10,
+    "standard_deviation_ddof": 1,
+    "clip": [
+      -5,
+      5
+    ],
+    "center_after_clip": true,
+    "constant_scale_below": 1e-12
+  },
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_rows": 252,
+    "label_availability": "exit_idx<=decision_idx，与原程序完全一致",
+    "date_pool": "原保存1212个评分日，2021—2025；必须重新导出资格并匹配原idx/n_train/max_label_exit_idx"
+  },
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "label": "只复用原10000股、五交易日、次日开盘、手续费万四/最低5元、单边滑点千一/价位0.001及原股息权益标签；不生成新收益标签。",
+  "score": "训练拟合值中的平值中位百分位；五个原固定档全部保留，分数不是上涨概率。",
+  "nonoverlap": "score>=80且预测净收益>0；signal_idx+1开盘入、signal_idx+6开盘出；退出日收盘方可再次判断。",
+  "comparisons": "原8/10保存预测与其纠错版本分别配对；纠错十变量只能与纠错八变量比，均值/岭回归/树同日同成熟池。",
+  "account_admission": "依原十变量准入：主期固定高分不重叠均值非正时直接NOT_RUN；本评分阶段不执行完整账户，正值亦不等于目标达成，需另行固定账户口径。",
+  "planned_refits": {
+    "families": [
+      "纠错八变量树",
+      "纠错八变量岭回归",
+      "纠错十变量树",
+      "纠错十变量岭回归"
+    ],
+    "per_family": 1212,
+    "total": 4848,
+    "parameter_grids": 0
+  },
+  "source_limitation": "深交所原件为后来取得的历史重建且以亿元两位小数披露；first_vintage=false；不能将本纠错研究称作独立验证。",
+  "new_sources": 0,
+  "new_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "parents": [
+    {
+      "path": "reports/research/510300_safe_client_fx_cause_source_qualification_v1/result.json",
+      "bytes": 2809,
+      "sha256": "ad2a799c1b03ad335ece8f40656d0da64f1fd47532d0bd998689156a3d65f867"
+    },
+    {
+      "path": "reports/research/510300_safe_client_fx_cause_source_qualification_v1/next_experiment.json",
+      "bytes": 3064,
+      "sha256": "1cb236c6c8485411b80c4b558821641fee694c74e2c7b45029abcbaf56585dbd"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/correction_receipt.json",
+      "bytes": 2966,
+      "sha256": "d7479f1e435cbde47b4dd1bcd2af4ba8c98510593d39ce2ab7e634551ce8886c"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/sources/szse_20240808.json",
+      "bytes": 8376,
+      "sha256": "ef910c69c8603b3d2e83646a535ac9d7723545e419454d1dc101f95cea2a3a5f"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/data_repair/margin_complete.parquet",
+      "bytes": 445255,
+      "sha256": "6b63f48629cb5404383fa97000702c52209dd68fd434cc4a8f813ed2526ef7e1"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/margin_corrected_20240808.parquet",
+      "bytes": 445347,
+      "sha256": "37b16c8bf60dcc224bac7109d747bbf62c3402527ccfe27196cf3dea9163976b"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/historical_inputs_and_labels.parquet",
+      "bytes": 1874361,
+      "sha256": "afd82d54745fcad558306eb4c665e36e85edc89a243e8089d2ec3a723a84d49f"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/daily_inputs_corrected_20240808.parquet",
+      "bytes": 1874361,
+      "sha256": "c6be6dcf35dbff5f162980115de43acc498a15c0bd116b0f003d009c7ec712e7"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/十变量历史输入及原标签.parquet",
+      "bytes": 1904058,
+      "sha256": "aa96a97eec054b59207a662e499a6d1ff9d6830e6e25fc3d5f3f464760a22923"
+    },
+    {
+      "path": "research/multidim_nonlinear_score_v1.py",
+      "bytes": 26073,
+      "sha256": "baba71bf5e3c56a9c6f173f5762ccb3ffc472c0718dcd01ad5cb003a8ad9c34b"
+    },
+    {
+      "path": "research/multidim_policy_transmission_score_v1.py",
+      "bytes": 34787,
+      "sha256": "114f1e2966936bedd0c87ccf031a2c016c4eb6e8198f1338add425cbce514f48"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/protocol.json",
+      "bytes": 3885,
+      "sha256": "520c79e6b3cc985b23142a88416ba1a323569586420ceb4ac7e02f56e84add7a"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/protocol.json",
+      "bytes": 5983,
+      "sha256": "28198a25fffa2a386fbdb13d0773c25b5b3b014896e927b8eb16f28ed3a5f66c"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/result.json",
+      "bytes": 5764,
+      "sha256": "58b7bc03bc6067185917e16986b6d92d82b719db40089eb1d641364df25ed2ae"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/result.json",
+      "bytes": 13456,
+      "sha256": "580be9689b77bc369d2dcf9fb2a2b429fd74cac317d074dda5f7b7cc0b17804e"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/每日历史联合评分.csv",
+      "bytes": 182574,
+      "sha256": "865a892d23667360b167d8ff3d83951b20f6615e702fd4f2a4c6d513fbda45d2"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/十变量每日联合评分.csv",
+      "bytes": 415379,
+      "sha256": "410b1b7a7decb25c5c62399bc3b93d62ff495e8002c0f75a9d0598561d5ba987"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/saved_models.json",
+      "bytes": 2534442,
+      "sha256": "2492f9231b4e8c4fbeb608562b8c4571eb945b586cedf251bcdaa47716cdb705"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/saved_models.json",
+      "bytes": 3180407,
+      "sha256": "748f7ec5ae1b8d617ded8a7f31eda21515de56841c72643a92a8fa431fcf1fb8"
+    }
+  ]
+}

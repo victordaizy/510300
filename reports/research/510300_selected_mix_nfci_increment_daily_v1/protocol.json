@@ -1,0 +1,196 @@
+{
+  "study_id": "510300_SELECTED_MIX_NFCI_INCREMENT_DAILY_V1",
+  "at": "2026-09-25T21:28:09.911974+08:00",
+  "primary": "NFCI_COMPOSITION",
+  "question": "在相同价格持仓状态及总体金融条件下，信用相对风险的变化能否改善继续持有与退出的判断。",
+  "economic_hypothesis": "市场风险急升而信用条件较稳定，可能对应暂时风险厌恶；信用也持续收紧可能对应更持久压力。美国指标对510300的跨市场含义仍待检验，不等同国内信贷。",
+  "new_evidence": {
+    "at": "2026-09-25T21:24:45.082228+08:00",
+    "status": "COMPLETE_OFFICIAL_ARCHIVAL_VINTAGE_FEATURES",
+    "snapshot": "data/raw/macro/510300_nfci_graph_vintages_source_v1_3/20260925T212423_490053_0800",
+    "series": [
+      "NFCI",
+      "NFCICREDIT",
+      "NFCIRISK"
+    ],
+    "requested_vintages": 739,
+    "version_rows": 2217,
+    "first_vintage": "2012-07-05",
+    "last_vintage": "2026-09-23",
+    "latest_observation_date": "2026-09-18",
+    "reused_successful_requests": 244,
+    "supplementary_requests": 3,
+    "failed_batches": [],
+    "missing_series_vintage_pairs": 0,
+    "new_model_fits": 0,
+    "new_accounts": 0,
+    "independent_market_observations": 0,
+    "saved_raw_recomputation": "PASS_ALL_ADMITTED_VERSION_COLUMNS",
+    "goal_achieved": false
+  },
+  "features": {
+    "BASELINE": [
+      "log_holding_days",
+      "cycle_return",
+      "cycle_drawdown",
+      "entry_mode",
+      "mom5",
+      "mom20",
+      "sma120",
+      "vol20"
+    ],
+    "NFCI_AGGREGATE": [
+      "log_holding_days",
+      "cycle_return",
+      "cycle_drawdown",
+      "entry_mode",
+      "mom5",
+      "mom20",
+      "sma120",
+      "vol20",
+      "nfci_level",
+      "nfci_change4"
+    ],
+    "NFCI_COMPOSITION": [
+      "log_holding_days",
+      "cycle_return",
+      "cycle_drawdown",
+      "entry_mode",
+      "mom5",
+      "mom20",
+      "sma120",
+      "vol20",
+      "nfci_level",
+      "nfci_change4",
+      "nfci_credit_minus_risk_change4"
+    ]
+  },
+  "new_feature_definitions": {
+    "nfci_level": "当时已可见NFCI版本的最新周值",
+    "nfci_change4": "该版本最新周值减同一版本严格四周前值",
+    "nfci_credit_minus_risk_change4": "信用分项的同版四周变化减风险分项的同版四周变化；两者均为标准化指数，不能解释为货币金额"
+  },
+  "timing": "原点T收盘15:05；版本日芝加哥午夜加一自然日后可用，T+1开盘执行；逐原点保留版本日、观察日和可用时刻。",
+  "new_design": "总指标对照只加两项；预指定主方案在其上只加一项信用与风险差异。",
+  "baseline": "原两年每日共享退出+风险目标先行+固定10个百分点调仓带；基础、压力账户逐列复现。",
+  "training": {
+    "window": "最近两个日历年，完整周期入场>=窗口起点且退出索引<决策索引。",
+    "minimum_total_cycles": 10,
+    "minimum_cycles_each_signal": 3,
+    "minimum_rows": 100,
+    "state_features": [
+      "log_holding_days",
+      "cycle_return",
+      "cycle_drawdown",
+      "entry_mode",
+      "mom5",
+      "mom20",
+      "sma120",
+      "vol20"
+    ],
+    "ridge_alpha": 1.0,
+    "feature_clip": 5.0,
+    "weights": "三类过程各占相同总权重，每类内每周期等权、周期内每状态等权；总权重仍为周期数。",
+    "ridge_model": "共同八项斜率，三类过程各有未惩罚截距；实际D60预测采用D60截距。",
+    "within_model": "共同八项周期内斜率，每周期有未惩罚截距；实际预测只取成熟D60周期截距等权均值。",
+    "refresh": "每交易日重新检查并拟合；资格失败不延续过期系数，按原价格退出。",
+    "sample_dependence": "三类过程可重叠且共享510300价格；周期数量不解释为独立样本，单独披露重叠组。"
+  },
+  "training_change": "只增加明确特征，不改成熟周期、样本权重、岭罚1、裁剪5、两年窗口和日更频率；新特征覆盖所有原有样本，否则不运行。",
+  "missing_macro_policy": "最新观察超过21自然日时，新增宏观信息为NO_VIEW，该决策原点使用同一天原价格模型；不删除交易日、不放宽新鲜度、不补造数据。所有原训练样本仍须具备当时有效宏观信息。",
+  "macro_unavailable_origins": [
+    {
+      "origin_index": 2580,
+      "date": "2023-01-03T00:00:00",
+      "decision_time": "2023-01-03T15:05:00+08:00",
+      "macro_vintage_date": "2022-12-14T00:00:00",
+      "nfci_level": -0.21479,
+      "nfci_change4": -0.059130000000000016,
+      "nfci_credit_minus_risk_change4": -0.06139999999999998,
+      "macro_available_at": "2022-12-15T14:00:00+08:00",
+      "macro_observation_date": "2022-12-09T00:00:00",
+      "macro_age_days": 25.0,
+      "macro_known": false
+    },
+    {
+      "origin_index": 2581,
+      "date": "2023-01-04T00:00:00",
+      "decision_time": "2023-01-04T15:05:00+08:00",
+      "macro_vintage_date": "2022-12-14T00:00:00",
+      "nfci_level": -0.21479,
+      "nfci_change4": -0.059130000000000016,
+      "nfci_credit_minus_risk_change4": -0.06139999999999998,
+      "macro_available_at": "2022-12-15T14:00:00+08:00",
+      "macro_observation_date": "2022-12-09T00:00:00",
+      "macro_age_days": 26.0,
+      "macro_known": false
+    },
+    {
+      "origin_index": 2582,
+      "date": "2023-01-05T00:00:00",
+      "decision_time": "2023-01-05T15:05:00+08:00",
+      "macro_vintage_date": "2022-12-14T00:00:00",
+      "nfci_level": -0.21479,
+      "nfci_change4": -0.059130000000000016,
+      "nfci_credit_minus_risk_change4": -0.06139999999999998,
+      "macro_available_at": "2022-12-15T14:00:00+08:00",
+      "macro_observation_date": "2022-12-09T00:00:00",
+      "macro_age_days": 27.0,
+      "macro_known": false
+    }
+  ],
+  "prefreeze_input_correction": "首次输入检查发现三个原点的官方档案过期，直接档案补查仍为旧值；在新策略拟合及账户收益计算前明确原价格模型回退。原失败记录保留。",
+  "preserved": [
+    "价格入场与价格失效边界",
+    "两日负预测退出确认",
+    "三类训练来源及依赖图",
+    "每日风险分配及账户尾部预算",
+    "账户费用、T+1、整手、现金与分红"
+  ],
+  "period": [
+    "2020-01-02",
+    "2026-09-16"
+  ],
+  "capital": 200000,
+  "annual_days": 242,
+  "target": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "tail_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "statistics": "所有共同日收益差20日区块2000次，种子20260928；所有年份及滚动两年，不挑日期。区间未校正整个项目历史选择。",
+  "continuation_gate": "预指定主方案压力成本相对总指标和原对照的完整账户算术收益差95%区间下界均>0，且至少两个完整年增量为正；达标仍需后续独立验证。",
+  "planned_new_final_accounts": 4,
+  "baseline_reproduction_accounts": 2,
+  "new_parameter_search": 0,
+  "goal_achieved": false,
+  "evidence_class": "新取得的历史宏观版本配合已研究过的价格样本，只属于开发增量检验。",
+  "checks": {
+    "availability_boundary": true,
+    "later_vintage_perturbation_does_not_change_past": true,
+    "additional_feature_enters_prediction": true
+  },
+  "orders_authorized": false
+}

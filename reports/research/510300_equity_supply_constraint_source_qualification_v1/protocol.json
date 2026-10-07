@@ -1,0 +1,167 @@
+{
+  "study_id": "510300_EQUITY_SUPPLY_CONSTRAINT_SOURCE_QUALIFICATION_V1",
+  "experiment_id": "E3",
+  "registered_at": "2026-10-02T03:51:08.446011+08:00",
+  "phase": "SOURCE_QUALIFICATION_BEFORE_NEW_SCORE",
+  "previous_goal_turn_classification": "PROGRESS_E2_FIXED_INCREMENT_COMPLETED_AND_REJECTED",
+  "question": "全市场IPO/再融资约束是否能产生当时可知、不同于原融资净变化的股票供给或支付占用状态？",
+  "authority": "继续当前历史指数原因goal；仍遵守先不要修改代码。仅项目Python标准输入和JSON程序回执。",
+  "fixed_source_route": [
+    {
+      "id": "subscription_reform_announcement",
+      "date": "2015-11-06",
+      "family": "CONTEXT_PAYMENT_MECHANISM",
+      "stage": "征求意见和过渡安排",
+      "url": "https://www.csrc.gov.cn/csrc/c100028/c1001838/content.shtml",
+      "checks": [
+        "2015-11-06",
+        "取消现行的新股申购预先缴款制度"
+      ],
+      "model_role": "机制背景，不将改革建议当实施"
+    },
+    {
+      "id": "subscription_settlement_qa",
+      "date": null,
+      "family": "CONTEXT_PAYMENT_MECHANISM",
+      "stage": "流程问答",
+      "url": "https://www.sse.com.cn/ipo/rules/others/c/c_20210514_5463626.shtml",
+      "checks": [
+        "T+2",
+        "原T+1日申购资金验资环节取消"
+      ],
+      "model_role": "仅校核支付环节；迁站路径不认证首次发布时间"
+    },
+    {
+      "id": "registration_transition",
+      "date": "2023-02-01",
+      "family": "REGISTRATION_REFORM",
+      "stage": "公开启动与过渡通知",
+      "url": "https://www.csrc.gov.cn/csrc/c100028/c7047622/content.shtml",
+      "checks": [
+        "2023-02-01",
+        "过渡期安排"
+      ],
+      "model_role": "同一改革前置信息"
+    },
+    {
+      "id": "registration_implementation",
+      "date": "2023-02-17",
+      "family": "REGISTRATION_REFORM",
+      "stage": "制度正式实施",
+      "url": "https://www.csrc.gov.cn/shanghai/c105566/c7155731/content.shtml",
+      "checks": [
+        "2023-02-17",
+        "发布实施"
+      ],
+      "model_role": "同一改革后续实施，不当新独立政策"
+    },
+    {
+      "id": "supply_tightening",
+      "date": "2023-08-27",
+      "family": "COUNTERCYCLICAL_TIGHTENING",
+      "stage": "政策安排",
+      "url": "https://www.csrc.gov.cn/csrc/c100028/c7428481/content.shtml",
+      "checks": [
+        "2023-08-27",
+        "阶段性收紧IPO节奏"
+      ],
+      "model_role": "来源资格，不预设净股票需求方向"
+    },
+    {
+      "id": "not_closed_clarification",
+      "date": "2023-09-15",
+      "family": "COUNTERCYCLICAL_TIGHTENING",
+      "stage": "官方澄清",
+      "url": "https://www.csrc.gov.cn/csrc/c100028/c7432482/content.shtml",
+      "checks": [
+        "2023-09-15",
+        "关闸"
+      ],
+      "model_role": "约束范围解释，不按日复制新事件"
+    },
+    {
+      "id": "sse_refinancing_details",
+      "date": "2023-11-08",
+      "family": "COUNTERCYCLICAL_TIGHTENING",
+      "stage": "具体执行说明",
+      "url": "https://www.sse.com.cn/listing/announcement/notification/c/c_20231108_10764652.shtml",
+      "checks": [
+        "2023-11-08",
+        "前期已受理"
+      ],
+      "model_role": "上海市场适用范围与例外"
+    },
+    {
+      "id": "szse_refinancing_details",
+      "date": "2023-11-08",
+      "family": "COUNTERCYCLICAL_TIGHTENING",
+      "stage": "具体执行说明",
+      "url": "https://www.szse.cn/aboutus/trends/news/t20231108_604521.html",
+      "checks": [
+        "2023-11-08",
+        "前期已受理"
+      ],
+      "model_role": "深圳市场适用范围与例外；同日同根不重复计数"
+    },
+    {
+      "id": "quality_framework",
+      "date": "2024-03-15",
+      "family": "LISTING_QUALITY_FRAMEWORK",
+      "stage": "意见试行",
+      "url": "https://www.csrc.gov.cn/csrc/c100028/c7467846/content.shtml",
+      "checks": [
+        "2024-03-15",
+        "逆周期调节"
+      ],
+      "model_role": "质量与发行监管同时调整，非确定吸收金额"
+    },
+    {
+      "id": "quality_draft_details",
+      "date": "2024-04-12",
+      "family": "LISTING_QUALITY_FRAMEWORK",
+      "stage": "新闻发布及规则草案征求意见",
+      "url": "https://www.csrc.gov.cn/csrc/c100029/c7473708/content.shtml",
+      "checks": [
+        "2024-04-12",
+        "公开征求意见"
+      ],
+      "model_role": "明确草案与实施时点区别"
+    },
+    {
+      "id": "quality_issuance_guidance",
+      "date": "2024-05-15",
+      "family": "LISTING_QUALITY_FRAMEWORK",
+      "stage": "指引发布实施",
+      "url": "https://www.csrc.gov.cn/csrc/c100028/c7480506/content.shtml",
+      "checks": [
+        "2024-05-15",
+        "即日起实施"
+      ],
+      "model_role": "同一框架的信息披露实施，不等于确定募资量"
+    }
+  ],
+  "source_route_budget": "11个已定位官方HTML，3并发、每URL最多2次；403/429不重试，保留失败。不采集全证券发行全文或增大发行公告范围。",
+  "cached_catalogue_check": "读取原74129个历史成员发行目录与检索任务状态，确认覆盖、角色及同一发行程序的多份公告；不是建立新经济事件日历。",
+  "candidate_field_admission": [
+    "明确描述股票供给/支付占用约束，不能只把政策后标为0/1或把宣传方向当现金金额",
+    "原文可知日、适用项目状态/例外、公告到执行再到缴款/资金到账有可用字段",
+    "全市场连续覆盖或明确一致的指数总体测量单位；后纳入历史成员的IPO不能冒充当时全市场发行",
+    "重复解释、同日两所同步、同政策实施不当独立冲击；每日填充不生成新政策事实",
+    "若只有少量政策根、事后总额或目录标题，来源门不通过，保留NOT_RUN并结束本路线"
+  ],
+  "data_time_rules": "有明确原文公开日则保守取23:59:59；不把文件迁站URL日期当最早公布日；实施与公布分开。订阅流程问答为机制背景，首次时点未知则不入历史输入。",
+  "causal_boundaries": "发行减少既可能伴随现金需求减少，也可能反映市场疲弱或发行需求下降；融资批文/申报/计划不是实际资金交收。规则包同时改变需求与供给，不把其后指数涨跌归因IPO单条。",
+  "price_scope": "仅使用既有68月的时点元数据检查连接可能性，不加载或计算新事件收益，不拟合，不新跑账户。",
+  "old_directions_retained": "旧M06/T13来源缺口、减持政策、融资保证金、印花税与所有宏观评分失败不重开；本来源资格不撤销它们。",
+  "completion_boundary": "交付来源和关键适用事实、覆盖计数、能否定义连续字段的裁决。不以没有计算策略夏普等同机制失败或全目标完成。",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_repository_code_edits": 0,
+  "new_market_downloads": 0,
+  "new_official_source_pages_max": 11,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "new_prospective_forecasts_enabled": false
+}

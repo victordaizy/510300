@@ -1,0 +1,137 @@
+{
+  "at": "2026-10-02T08:02:40.370405+08:00",
+  "status": "ADMITTED_SINGLE_C02_INFORMATION_BLOCK_FOR_DEVELOPMENT_PREDICTION",
+  "candidate_id": "C02",
+  "registered_definition": "relative_amount=成交额/过去20日成交额中位数；progress=abs(r)/rv20；保存两维及方向。",
+  "binding": "此前20日金额中位数不含当日；经济log收益，含当日20日样本std(ddof1)，不年化；严格sign方向，三列线性加入原八项，无交互/压分/阈值。",
+  "increment_scope": "相对原八项的固定信息块应用，不宣称新的物理市场来源或全项目从未出现其组成量。",
+  "nearest_contracts": [
+    {
+      "path": "research/liquidity_increment_exit_inputs_v1.py",
+      "sha256": "16568c13c3b6d086f0513ad4d20d7b4e8ac3c0cb919b337bdfca25b02644e84c",
+      "difference": "旧第九项为20日abs经济简单收益/金额均值的对数，压成汇总单值；本轮保留当日相对额、推进和方向三列，不改旧窗口/模型营救。"
+    },
+    {
+      "path": "research/signed_volume_balance_inputs_v1.py",
+      "sha256": "5624ad0e1914c10159c8629ba52ae5240af59f7ed8bb5617e4b7cb6b7e344289",
+      "difference": "旧20日涨跌签名的份额总和/总份额，不是当日强度与波动标准化幅度的原始块。"
+    },
+    {
+      "path": "research/signed_volume_within_inputs_v1.py",
+      "sha256": "c6f90b891ce6ceb829a1c631f13963629fb627d6c4e7b92182627fa844256741",
+      "difference": "旧签名量第九项失败保留，不使用该旧字段。"
+    },
+    {
+      "path": "research/price_volume_coherence_inputs_v1.py",
+      "sha256": "86d54acc23ae9a6367d8dab1e93f33a87f50709a62af48dafe78f4ee87b3eaa7",
+      "difference": "旧20日价格/份额变化Pearson相关及固定确认/波动预算，不是本11维块。"
+    },
+    {
+      "path": "research/directional_turnover_recovery_inputs_v1.py",
+      "sha256": "267efaa94ac6c84847719e13530dd6b34571a8faa695fb1c48e5c772d636014e",
+      "difference": "旧14日典型价方向金额比例及20到50恢复事件，完整旧进入退出规则不重开。"
+    },
+    {
+      "path": "research/force_pullback_inputs_v1.py",
+      "sha256": "0fc4a8a236020bcc8963f7e45161909aee8dc437b8d1570ffcd0495b8c19b750",
+      "difference": "旧经济价差乘成交份额，再2/13期EMA，压成力度与规则；本轮无乘积、均线或进入门。"
+    },
+    {
+      "path": "research/directional_continuation_inputs_v1.py",
+      "sha256": "1d553ae622a7aeb3246d55ef39a20f78058d292e72ef7581429702ee36feabca",
+      "difference": "旧逻辑概率模型只用原八项并改标签为严格占优正类；本轮保留原连续收益目标及周期内岭。"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db",
+      "difference": "旧B05内部已有此前20日金额中位数相对量，用于负日推进冲击；C05残差也已有。本轮不是新物理数据来源，只检验原模型未表达的当日三列联合信息块，不把完整库NOT_RUN当未试。"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378",
+      "difference": "旧十卡HIGH/LOW阈值及242日/旧资金口径不重跑。"
+    },
+    {
+      "path": "reports/research/510300_point_c04_information_intake_v1/summary.json",
+      "sha256": "6d1121ca9926b1046531e264c620b545c954a0c552ec67d4e62dc5a6a0d3f519",
+      "difference": "阶段字段直接第九项支持不足的终态保留，本次没有用其比值或改未知赋值。"
+    }
+  ],
+  "search_scope": "有限关键词定位及所列实际合同核对，不是全仓算法等价完备证明。",
+  "support": {
+    "daily_rows": 3488,
+    "finite_three_column_daily_rows": 3468,
+    "natural_rows": 1507,
+    "supported_natural_rows": 1507,
+    "original_monthly_records": 142,
+    "original_mature_months": 115,
+    "fully_supported_mature_months": 115,
+    "minimum_distinct_by_field": {
+      "relative_amount20_median": 438,
+      "normalized_abs_log_return20": 430,
+      "daily_log_return_direction": 3
+    }
+  },
+  "raw_field_range": {
+    "relative_amount20_median": {
+      "min": 0.12828384035253243,
+      "max": 9.247235986733354
+    },
+    "normalized_abs_log_return20": {
+      "min": 0.0,
+      "max": 4.04878664952979
+    },
+    "daily_log_return_direction": {
+      "min": -1.0,
+      "max": 1.0
+    }
+  },
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "research/liquidity_increment_exit_inputs_v1.py",
+      "sha256": "16568c13c3b6d086f0513ad4d20d7b4e8ac3c0cb919b337bdfca25b02644e84c"
+    },
+    {
+      "path": "research/signed_volume_balance_inputs_v1.py",
+      "sha256": "5624ad0e1914c10159c8629ba52ae5240af59f7ed8bb5617e4b7cb6b7e344289"
+    },
+    {
+      "path": "research/signed_volume_within_inputs_v1.py",
+      "sha256": "c6f90b891ce6ceb829a1c631f13963629fb627d6c4e7b92182627fa844256741"
+    },
+    {
+      "path": "research/price_volume_coherence_inputs_v1.py",
+      "sha256": "86d54acc23ae9a6367d8dab1e93f33a87f50709a62af48dafe78f4ee87b3eaa7"
+    },
+    {
+      "path": "research/directional_turnover_recovery_inputs_v1.py",
+      "sha256": "267efaa94ac6c84847719e13530dd6b34571a8faa695fb1c48e5c772d636014e"
+    },
+    {
+      "path": "research/force_pullback_inputs_v1.py",
+      "sha256": "0fc4a8a236020bcc8963f7e45161909aee8dc437b8d1570ffcd0495b8c19b750"
+    },
+    {
+      "path": "research/directional_continuation_inputs_v1.py",
+      "sha256": "1d553ae622a7aeb3246d55ef39a20f78058d292e72ef7581429702ee36feabca"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "reports/research/510300_point_c04_information_intake_v1/summary.json",
+      "sha256": "6d1121ca9926b1046531e264c620b545c954a0c552ec67d4e62dc5a6a0d3f519"
+    }
+  ],
+  "registration_metadata_repair": "首次登记在预测开始前缺direct_sources，补齐为已经列出的10直接合同；代码、字段定义、数量支持及模型门槛不变。"
+}

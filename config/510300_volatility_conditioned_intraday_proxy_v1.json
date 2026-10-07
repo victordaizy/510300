@@ -1,0 +1,80 @@
+{
+  "study_id": "510300_VOLATILITY_CONDITIONED_INTRADAY_PROXY_V1",
+  "purpose": "依据用户允许按近期波动切换且不要求每日交易的指示，固定一次价格代理对照；不替代原M1/M2成交检验。",
+  "data_mode": "EXISTING_LOCAL_ONLY",
+  "execution_assets": ["510300.SH", "CASH_CNY"],
+  "actual_orders": false,
+  "parent_protocol_changed": false,
+  "old_rejected_volatility_router_reopened": false,
+  "minute_file": "data/raw/510300_free_channels_v1/20261001/neigezhu/data/etf_1m/SH/510300.parquet",
+  "calendar_file": "data/raw/510300_free_channels_v1/20261001/neigezhu/metadata/market_calendar.csv",
+  "dividend_file": "data/reference/510300_dividends.csv",
+  "dividend_coverage_file": "data/reference/510300_dividends_coverage.json",
+  "annual_trading_days": 242,
+  "volatility": {
+    "recent_days": 20,
+    "reference_days": 252,
+    "measurement": "固定连续时段内相邻一分钟收盘对数收益平方和；剔除隔夜、午休及14:57以后的价格变化。",
+    "known_at": "当日开盘前；最近一天输入为上一交易日。",
+    "rank": "当日已知RV20，与此前252个已知RV20比较，取小于等于当前值的比例；参考集不含当前RV20。",
+    "low_rank_at_most": 0.3,
+    "medium_rank_at_most": 0.7,
+    "high_rank_at_most": 0.95,
+    "missing_history": "WARMUP_NO_VIEW"
+  },
+  "signals": {
+    "price_only": true,
+    "shock_minutes": 5,
+    "same_clock_sigma_days": 20,
+    "sigma_multiple": 2.0,
+    "minimum_shock_bps": 5.0,
+    "observation_minutes": 5,
+    "reset_quiet_minutes": 10,
+    "recovery": "五分钟下跌幅度达到max(5bp,过去20日同刻五分钟收益标准差的2倍)，五分钟后价格回升但仍低于冲击前价格。",
+    "continuation": "五分钟上涨幅度达到同一阈值，五分钟后价格进一步上涨。",
+    "no_basket_or_order_flow_claim": true,
+    "retain_unconfirmed_episodes": true
+  },
+  "policies": {
+    "SWITCH": {"LOW": "CASH", "MEDIUM": "RECOVERY", "HIGH": "CONTINUATION", "EXTREME": "CASH"},
+    "FIXED_RECOVERY": "RECOVERY_ALL_QUALIFIED_REGIMES",
+    "FIXED_CONTINUATION": "CONTINUATION_ALL_QUALIFIED_REGIMES",
+    "CASH": "NO_ENTRY"
+  },
+  "hypothetical_account": {
+    "initial_cash_cny": [200000, 20000],
+    "lot_size": 100,
+    "maximum_new_entries_per_day": 1,
+    "candidate_selection": "该政策允许的首个完成确认的事件；不得根据随后收益挑事件。",
+    "entry_price": "确认结束的下一分钟close，要求仍在同一固定连续时段；明确假设全量成交。",
+    "entry_not_before": "09:36",
+    "exit": "下一交易日09:36 close价格代理；不允许当日退出，不寻找最优卖点。",
+    "allocation": "不借款，按当时现金扣佣金后可购的最大100份整数倍；仅用于统一比较，不是实际仓位建议。",
+    "terminal_day": "固定数据区间最后一日不新开仓，已有仓位按原下一日09:36合同退出。",
+    "cash_interest_rate": 0.0,
+    "dividends": "登记日收盘持仓确定权益，除息日确认应收，发放日开盘前假设入账；分红不参与信号。",
+    "entry_exit_minute_semantics_verified": false,
+    "full_fill_and_price_limit_model_verified": false
+  },
+  "cost_scenarios": {
+    "BASE": {"commission_rate": 0.0002, "minimum_commission_cny": 5.0, "friction_bps_each_side": 5.0},
+    "STRESS": {"commission_rate": 0.0004, "minimum_commission_cny": 5.0, "friction_bps_each_side": 10.0}
+  },
+  "reporting": {
+    "cash_days_included": true,
+    "common_evaluation_start": "首个波动状态完全可计算的交易日；所有政策相同。",
+    "subperiods": [["2015-01-01", "2019-12-31"], ["2020-01-01", "2023-12-31"], ["2024-01-01", "2026-08-20"]],
+    "primary_account_cny": 200000,
+    "primary_cost": "BASE",
+    "block_bootstrap_days": 20,
+    "block_bootstrap_draws": 2000,
+    "random_seed": 510300,
+    "independent_validation": "NOT_ESTABLISHED_PREVIOUSLY_EXPOSED_LOCAL_HISTORY",
+    "original_m1_m2_net_expectancy": "NOT_COMPUTED",
+    "original_m1_m2_sharpe": "NOT_COMPUTED",
+    "target_sharpe_for_original_research": 1.2,
+    "tune_after_results": false,
+    "new_result_storage_limit_bytes": 20971520,
+    "stop_condition": "只完成这次固定对照。若切换优势不稳定或净收益不足，不改阈值、方向、退出或仓位挽救；若代理表现较好，也不越过成交与独立验证缺口。"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "at": "2026-09-26T01:48:34.383920+08:00",
+  "study_id": "510300_CORPORATE_REPURCHASE_SOURCE_PROBE_V1",
+  "window": [
+    "2024-09-01",
+    "2026-09-24"
+  ],
+  "question": "政策支持、回购计划、融资授信与实际股票买入能否按公告时点分开，还原为指数内可观察的真实需求信息？",
+  "universe_rule": "研究起点前最近一份已保存指数权重的前两名，用于验证来源与解析流程；不按此后的涨跌、回购金额或方案成败选公司。",
+  "weight_date": "2024-08-30T00:00:00",
+  "companies": [
+    {
+      "con_code": "600519.SH",
+      "weight": 5.32
+    },
+    {
+      "con_code": "300750.SZ",
+      "weight": 2.855
+    }
+  ],
+  "weights_limit": "历史供应商权重为样本选择依据，不宣称当时首发权重时间已认证；两家公司不代表全部指数。",
+  "collection": "两交易所按公司、日期及回购标题查询公开目录，最多每家5页、每页100条；仅下载命中目录的发行人PDF。",
+  "catalogue_completeness": "按接口返回total及唯一文件数量检验分页；失败、过滤不符或缺页不得宣称完整。",
+  "fact_rules": [
+    "计划、授信、实际执行和注销分别记录，不相加",
+    "限制性股票回购注销不视为二级市场买入",
+    "同一方案的累计执行额不跨公告求和",
+    "多方案及A/H股份分开",
+    "经济截止日期不能当信息发布日期",
+    "只有日期时保守按该日末已知，下一交易日才可研究使用"
+  ],
+  "provider_transport": "本次核对已有Tushare代理凭据过期，没有向该接口发请求；改用公开交易所来源，不保存凭据。",
+  "no_new_account_before_source_resolution": true,
+  "new_market_returns_loaded": false,
+  "new_accounts": 0,
+  "new_fits": 0,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "review_package_created": false,
+  "weights_sha256": "043f6187c29a7c5e7917193ad73d1f1db355c9658d7c224dcc1da78382002559",
+  "code_sha256": "a695955d84b51dfc693e08380b79845d5604d69cc163eba563d19e96c585a200"
+}

@@ -1,0 +1,51 @@
+{
+  "study_id": "510300_HISTORICAL_FOMC_TRANSMISSION_V1",
+  "frozen_at": "2026-09-30T13:11:37+08:00",
+  "previous_goal_turn_classification": "PROGRESS_HISTORICAL_DISCLOSURE_NOVELTY_AND_FACTOR_SEMANTICS",
+  "question": "FOMC改变预期利率路径时，不同的股票同步反应和政策原因，能否区分510300在下一可交易开盘之后的净收益？",
+  "sample": "2022-01-01至2025-12-31所有预定FOMC会议的声明加记者会完整窗口；不按A股收益选择日期。",
+  "source_page": "https://www.frbsf.org/research-and-insights/data-and-indicators/us-monetary-policy-event-study-database/",
+  "source_workbook": "https://www.frbsf.org/wp-content/uploads/USMPD.xlsx?2026-09-29",
+  "no_full_sample_fitted_shock_series": true,
+  "grouping": {
+    "rate": "完整事件窗口的1年OIS利率变动；无该原始字段则保留缺口，不根据收益换变量。",
+    "stock": "同窗S&P500现货指数收益",
+    "rule": "按两者正负组合为四组；任一恰为零或缺失单列。",
+    "economic_meaning": "四组仅表示与折现压力缓和、收紧或增长及风险信息变化一致的市场组合，不宣称已隔离纯货币或纯信息冲击。",
+    "baseline": "同时报告只按OIS利率上升/下降分组，以判断引入原因线索是否有实际区分。"
+  },
+  "case_selection": "每个非空正负组合，取OIS绝对变动最大的一次，按原声明及记者会追查原因；并列取较早日期，不使用510300收益。",
+  "additional_components": "有数据则保留同窗10年名义、实际收益率及两者差额、美元指数；差额是通胀补偿，不是纯通胀预期，不估计违约或期限溢价。",
+  "timing": "按数据库的美国东部事件时刻及对应窗口终点转换上海时间。仅取终点之后首个A股开盘；声明和记者会分别留存以检查会中方向变化。",
+  "returns": {
+    "primary_holding_sessions": 5,
+    "context_holding_sessions": 20,
+    "entry": "完整事件窗口结束后首个可用510300开盘",
+    "exit": "入场之后第h个交易日开盘",
+    "already_reflected": "入场前一交易日收盘到入场开盘的含分红价格缺口，与入场后收益分列",
+    "no_horizon_selection": true,
+    "no_gap_capture_claim": true
+  },
+  "calendar_context": "固定列出2022-2023及2024-2025两段，不按行情划分牛熊；不要求跨五年十年同方向有效。",
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_event_budget_cny": 100000,
+    "illustrative_full_capital_cny": 200000
+  },
+  "sample_history_already_seen": true,
+  "current_workbook_is_historical_first_vintage": false,
+  "historical_source_publication_after_some_events": true,
+  "raw_intraday_feed_access_for_live_reproduction_proven": false,
+  "event_study_is_full_account": false,
+  "overlapping_events_not_independent": true,
+  "independent_validation": false,
+  "new_accounts": 0,
+  "new_fitted_parameters": 0,
+  "new_forecasts": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

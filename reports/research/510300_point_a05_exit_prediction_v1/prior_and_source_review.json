@@ -1,0 +1,230 @@
+{
+  "at": "2026-10-02T13:55:39.142796+08:00",
+  "status": "ADMITTED_A05_FIXED_ORIGINAL_D60_EVENT_ANCHOR_PURPOSE_AND_CASH_VOLUME_CLOCK_PENDING_MEMBER_SUPPORT",
+  "conditional_purpose_and_source_clock_bound": true,
+  "full_field_admitted": false,
+  "registered_definition": "事件e由固定公告或价格触发定义；AVWAP代理=sum(P[j]*Q[j],j=e..t)/sum(Q[j])；记录P/AVWAP-1及首次转正。",
+  "current_parent_identity": "当前自然参考来自point_monthly_model_inputs.reference_samples→simple_intraday_protection.make_rules[D60_INTRA]，不是旧S1_TREND_REBOUND。原八项代码包含旧S1用途不能把它当当前父策略。未绑定其他父触发或运行其他锚版本。",
+  "old_daily_VWAP_use": "Close/(Amount/Volume)同表达旧ETF_CLOSE_VWAP主20日REJECTED、5日INCONCLUSIVE、NOT_ELIGIBLE，保持；本多日收盘份额加权代理不是当日成交均价。",
+  "old_rolling_VWMA_use": "volume_weighted_trend已有含现金前向财富的20/60实际日份额加权价格与均价进入/退出；不是固定事前事件后累计[e,t]，不营救原策略。",
+  "old_low_anchor_use": "low_anchored_price/reclaim已有252窗口严格新低为锚、(high+low+close)/3映射财富价格后份额加权、穿越进入及实际入场锁定起点的退出；广义多日事件锚定量价用途已存在。当前原D60首次入场条件事件/收盘财富价/原八项条件预测两列不冒充首次研究整个家族，也不将旧新低锚改窗/改价救回。",
+  "old_context_use": "entry_context_intercept以原入场前mom20/sma120/vol20估计新周期截距，不是累计锚定量价距离/首次收复事件；旧失败保持。",
+  "old_saved_account_metrics": [
+    {
+      "study": "510300_volume_weighted_trend_v1",
+      "period": "main",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "VWMA_20_60",
+      "cost": "BASE",
+      "net_sharpe": -0.5302000670756847,
+      "annualized_return": -0.0553736196801378,
+      "max_drawdown": -0.417098579307387,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_volume_weighted_trend_v1",
+      "period": "main",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "VWMA_20_60",
+      "cost": "STRESS",
+      "net_sharpe": -0.6513919927099826,
+      "annualized_return": -0.0667147016757406,
+      "max_drawdown": -0.4497746126614104,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_volume_weighted_trend_v1",
+      "period": "earlier",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "VWMA_20_60",
+      "cost": "BASE",
+      "net_sharpe": 0.3669494640618752,
+      "annualized_return": 0.0386840075632508,
+      "max_drawdown": -0.1756064486361193,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_volume_weighted_trend_v1",
+      "period": "earlier",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "VWMA_20_60",
+      "cost": "STRESS",
+      "net_sharpe": 0.2772635883708506,
+      "annualized_return": 0.027116698499693,
+      "max_drawdown": -0.1871038594508271,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_low_anchored_reclaim_v1",
+      "period": "main",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "LOW_ANCHORED_RECLAIM",
+      "cost": "BASE",
+      "net_sharpe": 0.5187503522719455,
+      "annualized_return": 0.0460268036298303,
+      "max_drawdown": -0.1708826902570641,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_low_anchored_reclaim_v1",
+      "period": "main",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "LOW_ANCHORED_RECLAIM",
+      "cost": "STRESS",
+      "net_sharpe": 0.4623046948093714,
+      "annualized_return": 0.0403983732952157,
+      "max_drawdown": -0.1937559815542008,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_low_anchored_reclaim_v1",
+      "period": "earlier",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "LOW_ANCHORED_RECLAIM",
+      "cost": "BASE",
+      "net_sharpe": 0.0862840447569114,
+      "annualized_return": 0.002769764979902,
+      "max_drawdown": -0.2800977313541602,
+      "meets_point_target": false
+    },
+    {
+      "study": "510300_low_anchored_reclaim_v1",
+      "period": "earlier",
+      "annual_days": 242,
+      "capital": 200000,
+      "role": "SAVED_OLD_ACCOUNT_METRICS_ONLY_NOT_CURRENT_252_ACCOUNT",
+      "model": "LOW_ANCHORED_RECLAIM",
+      "cost": "STRESS",
+      "net_sharpe": 0.0352440932937727,
+      "annualized_return": -0.0038005046250394,
+      "max_drawdown": -0.3004407512774638,
+      "meets_point_target": false
+    }
+  ],
+  "new_purpose": "既有收盘价格/成交份额信息的固定事前D60价格事件锚条件继续价值用途；不改变原实际入场、价格父规则/风险预算，不是新物理来源或独立历史。",
+  "event_binding_before_quantity": "复用原D60 make_rule固定window60/direction1，d=(intraday_log−overnight_log)，factor=sum60(d)/(std60(d,ddof1)*sqrt60)；entry=(factor>1且前一日factor>1)且原feature_valid。唯一锚事件是entry_t为真且entry_(t−1)为假。原首次可计算成立按此前无成立初始化，原温启动未知不补因子。每个新事件收盘重置锚，即使原账户当时已持仓；其他日延续，原账户结束不使该市场锚失效。事件不等于成交/入场请求，不依据翌日填单成功或自然周期完成筛选。",
+  "field_binding": "P=原已发生raw收盘与当日已除息现金前向wealth、Q=volume份额share；锚e是上述当日已知唯一事件。VWAP代理=sum(P_j*Q_j,e..t)/sum(Q_j,e..t)，第一列P_t/代理−1；第二列仅本锚之后首次严格转正当日为1，之前和之后均0，锚日真实距离0/事件0。首次发生索引只在发生后记元数据，不用未来首次日期回填此前。含当日；不设最长锚龄、截断或压单分。",
+  "numerical_binding": "以锚价中心化累计sum((P_j−P_e)*Q_j)，计算代理P_e+sum偏移/累计Q及距离，数学同原公式，避免锚日P*Q再除Q制造伪正；不设收益epsilon或按结果选四舍五入边界。",
+  "source_clock": "原close/previous_close/dividend/total_simple/total_log/wealth恒等式，开盘现金rCO及日内rOC原分解与父因子一致；首个隔夜/全天区间未知，首日日内开收盘区间可知。源volume_unit=share，原CNY amount不替代份额。本信号累计wealth价格仅是日收盘成交份额代理，不能称真实VWAP/投资者成本/库存；完整收盘后可知，下一合法开盘执行。",
+  "missing_rule": "原快照价格/现金/分解身份异常拒绝，不填值；纯字段中锚缺失或[e,t]任一财富/成交份额NaN/无穷/非正即两列未知，整段保持未知至新合法已知事件重置，不能跳过缺失行或压缩累计窗口。有效段真0/首次事件0合法，严格正距离才首次事件1；不截断负值。",
+  "support_rule": "全部1507原自然成员及115原可用月份全部原训练成员两列有限才接纳；142原月的27原无模型月份保持。数量阶段只读样本元数据，不读target。",
+  "no_rescue": "不按支持/预测/账户结果改D60父因子/60/1/原feature_valid、事件定义/锚重置/价格/份额/首次脉冲维度/缺失、原目标/成员/岭/权重/入场锁定/两负确认、预测/经济门或时期成本；旧VWAP/VWMA/新低锚/上下文失败保持，不以换锚救原失败。",
+  "finite_search_scope": "读原多日量加权/新低锚/入场上下文及当前参考父链，精确weighted_price/relative_to_weighted_price/VWMA/AVWAP在exit/within源有限查重未找到本固定两列用途；不声称全仓数学等价已穷尽。",
+  "field_regression_accounting": "累计乘加和首次已发生事件状态，字段OLS/新经济标签为0；合成测试不计实际策略拟合。",
+  "new_market_information": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_registry_and_frozen_G1_preserved": true,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "config/510300_low_anchored_reclaim_v1.json",
+      "sha256": "87a44bb7f2a3d5d33d27500c61c5a80da20f5cce3b3ece80d0a36b8ff3d3bcc3"
+    },
+    {
+      "path": "config/510300_volume_weighted_trend_v1.json",
+      "sha256": "95c1a1258c45c1a149a8dc880068b9125e27fa2bc8fb1798412aeaebcb1d2b85"
+    },
+    {
+      "path": "reports/research/510300_daily_weekly_goal_continuation_20261001/isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_low_anchored_reclaim_v1/earlier_diagnostics.csv",
+      "sha256": "8b8a5c113edd19cb27b753b791b3d1144a42afc7af60e1c49ad3bd2ecccca235"
+    },
+    {
+      "path": "reports/research/510300_low_anchored_reclaim_v1/metrics.csv",
+      "sha256": "ea2f1993b6dca0865efc9ca859beb19d3238a6a1a928b9f3340441245d9b1dab"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/admission_receipt.json",
+      "sha256": "d455b517e50050e8b4b4c0a9f5b61c4087aa3afd4149534c8996b02403172d21"
+    },
+    {
+      "path": "reports/research/510300_point_d02_information_intake_v1/summary.json",
+      "sha256": "8acedfbdf5492e5f6a4b95ea9b05ec9c169195101d4ec3a0ce7532168e0269fa"
+    },
+    {
+      "path": "reports/research/510300_point_method_intake_20261002/prior_direction_review.json",
+      "sha256": "e6f6e68632a21d29a1ff9cc5e8f866a5003b4db2d4a2c440304fed57c2ea9595"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/A05_candidate_intake_plan.json",
+      "sha256": "eda86ac6d5d96b958d35330fce345013cd1508c4a7520f05e7785a9be61df786"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_volume_weighted_trend_v1/earlier_diagnostics.csv",
+      "sha256": "1601b05d65c34da0d8e272cb0366f55205cf6984c0fc042ae287a3f0b4518e4f"
+    },
+    {
+      "path": "reports/research/510300_volume_weighted_trend_v1/metrics.csv",
+      "sha256": "1f5e9e92baa7ef6d2b81aeedb752a8a27ce8b23c80b7401bb4f6a4553ca44a0b"
+    },
+    {
+      "path": "research/entry_context_intercept_inputs_v1.py",
+      "sha256": "ead8306f0ed9a3d8df314df3ee620370cd4fd7125cc82b353a15811367a9b16d"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/low_anchored_price_v1.py",
+      "sha256": "2b3fcd01dad4a6fa6703539120fb8d366ddfd524dda62a3b1f4944decae99fc8"
+    },
+    {
+      "path": "research/low_anchored_reclaim_v1.py",
+      "sha256": "4af34331e27726342ed5286a3e8620f2a9ff7e97f51f149be45bc002365261a2"
+    },
+    {
+      "path": "research/point_core_observation_inputs_v1.py",
+      "sha256": "46e75a6a48e1951c510f3140f0bf862fada3fc375d597ef36b9b2b059ed2e64f"
+    },
+    {
+      "path": "research/point_monthly_model_inputs_v1.py",
+      "sha256": "685fcad63a7b4f3b69a5c8d935baf0e57d9508b3fa9c70f2a51b87882a4f46d2"
+    },
+    {
+      "path": "research/registered_factors.py",
+      "sha256": "13508b33134f15f14d1d981b1ce6ef4a3fb8892c4ed992c4af1f1711c954e8b2"
+    },
+    {
+      "path": "research/simple_intraday_protection_v1.py",
+      "sha256": "ac6bdee0269638142c19a68c4562e927adce6a0bedadbe3e0e220d310f6b993b"
+    },
+    {
+      "path": "research/simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research/volume_weighted_trend_v1.py",
+      "sha256": "bcc3b5d5bce6b38cd111a2b08442b755f575a566693e7fd5ffbe73bd74ec03d6"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "study": "510300_POINT_WEIGHT_PATH_BOTTLENECK_V1",
+  "at": "2026-10-02T01:07:12.149855+08:00",
+  "objective": "为提高净收益和夏普定位现有主候选实际仓位的损益来源，不新增参数搜索。",
+  "question": "在实际加减仓、分红和费用下，损失主要来自入场未形成浮盈、已得浮盈回吐、持有中的日内/隔夜收益，还是退出决定至成交？",
+  "known_prior": "A保留仓位强弱后的近期压力净年化3.99%、夏普1.217，较早1.84%、0.438；B替换A未跨期改善。旧固定份额点位路径已有诊断，但未还原当前四个A权重账户的实际现金流路径。",
+  "accounts": "保存的A两个时期、两档费用，共四个账户；只读实际订单，不修改任何进入、退出、加減仓、风险或时间。",
+  "full_calendar_identity": "真实旧库存乘隔夜原价差，加真实开盘后库存乘日内原价差，加按登记资格确认的股息，减佣金和滑点，逐日等于权益变动。",
+  "cycle_path": "逐周期真实买卖现金流累积加收盘库存价值及已除息股息，形成当时的净损益；支付不重复计算收益。",
+  "close_mark": "观察日收盘再扣一次全部剩余库存的假设卖出摩擦，只作标记，不假定能见到收盘后按收盘成交，不改变T+1规则。",
+  "path_categories": "每个完整周期固定分盈利、平手、最终亏损但持有期间曾有正净清算标记、最终亏损且未见正净清算标记；全部纳入，无利润大小筛选。",
+  "phases": "入场日、入场与退出之间、实际退出日、必要时退出后股息确认。阶段损益可加总，不能只取盈利阶段作为策略。",
+  "execution_bridge": "最终实际净损益减最后持有收盘假设清算标记；另列首次清仓决定至成交的标记差及交易日数。这是描述，不是执行改善收益的保证。",
+  "peak_limit": "峰值和峰值至最终差只在结果后计算；不可用为信号、可执行策略、可得利润上界或候选验收。",
+  "right_censoring": "末端开放周期只报告已观察路径和市值损益，胜率与完整周期分组排除，账户权益仍包含。",
+  "sources_not_reopened": [
+    "510300_POINT_SECOND_WEIGHT_COMPARISON_V1",
+    "510300_POINT_BINARY_REBALANCE_DIAGNOSTIC_V1",
+    "SELECTED_MIX_BAND10_SIMPLE2"
+  ],
+  "new_accounts": 0,
+  "new_model_fits": 0,
+  "new_parameters": 0,
+  "historical_data_role": "DEVELOPMENT_DIAGNOSTIC_NOT_INDEPENDENT_VALIDATION",
+  "data_cutoff": "2026-09-30",
+  "selection_after_result": "不按亏损路径标签新增过滤、追踪止盈阈值或持有天数，不把峰值归因变成事后最优账户。",
+  "literature": {
+    "trading_costs": "https://www.nber.org/papers/w15205",
+    "backtest_overfitting": "https://www.davidhbailey.com/dhbpapers/overfitting.pdf"
+  },
+  "literature_role": "只支持研究方法及样本选择风险，不证明510300存在新增优势。",
+  "goal_achieved": false,
+  "orders_authorized": false
+}

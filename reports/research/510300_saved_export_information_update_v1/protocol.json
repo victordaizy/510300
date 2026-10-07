@@ -1,0 +1,149 @@
+{
+  "study_id": "510300_SAVED_EXPORT_INFORMATION_UPDATE_V1",
+  "experiment_id": "E28",
+  "registered_at": "2026-10-02T14:30:37.151741+08:00",
+  "previous_goal_turn_classification": "PROGRESS_E25_PRIOR_USE_CLOSED_E26_FIXED_COMPARE_AND_E27_TARGET_GAP_COMPLETED",
+  "status": "REGISTERED_SAVED_INPUT_MODEL_AND_MATURE_LABEL_UPDATE_EXPLANATION",
+  "question": "E28仅解释原新增高分的信息来源：冻结外需32/原八变量35个自然机会及两模型1,212原评分日，复用保存树、真实原输入和成熟池；对相邻保存日期做旧/新输入与旧/新树四格函数值分解，并核原叶训练标签/月与新成熟成员。区分外需原文发生更新、其他状态改变、与后来收益标签进入模型；不将外需相同但训练变化叫作新外需消息。四格含事后反事实，不是经济因果份额/可执行新预测；不重训、删样本、改规则或运行账户。当前仅提案，未登记/计算。",
+  "hypotheses": [
+    "同一外需原文/数值条件下，原正评分可能因新成熟收益标签及树重新分组而变化。",
+    "新增外需分组确实可能改变条件响应；必须区分输入更新、模型更新和二者交互，不能由某条分支变量名直接称因果。"
+  ],
+  "scope": {
+    "models": [
+      "外需十变量",
+      "原纠错八变量"
+    ],
+    "dates_per_model": 1212,
+    "adjacent_saved_pairs_per_model": 1211,
+    "natural_events": {
+      "外需十变量": 32,
+      "原纠错八变量": 35
+    },
+    "natural_population": "全部固定80分/正预测自然不重叠事件，原主/早期不变，不筛赢家"
+  },
+  "source_clock": "原输入中的出口来源可知时间、出口统计月、数值与原订单时钟；新原文与数值更新分别记录。训练退出边界不晚于原决策日。",
+  "four_cells": [
+    "旧保存树(旧原输入)",
+    "旧保存树(当前原输入)",
+    "当前保存树(旧原输入)",
+    "当前保存树(当前原输入)"
+  ],
+  "formula": {
+    "input_at_old_model": "B-A",
+    "model_at_old_input": "C-A",
+    "nonlinear_interaction": "D-B-C+A",
+    "total": "D-A"
+  },
+  "score_function": "每棵保存树的叶均值及叶成员数还原原训练预测百分位；分数改变还包含原训练分布更新，不是上涨概率。",
+  "comparison_tolerance": "保存预测/原叶均值/分数和算术恒等式绝对误差1e-12；只判数值变化，不是交易阈值。",
+  "float32_rule": "输入按原sklearn float32分支比较，保留保存阈值/均值/样本数。",
+  "mature_pool": "原共同成熟训练池逐日training_indices直接复用；不增删、重权或产生新标签。",
+  "leaf_flow": "原当前输入下新/旧树实际叶成员；模型在当前输入的均值差分为新成熟、滚出、保留成员分组/均值权重变化的算术贡献，成员变化不是已识别重训练因果。",
+  "existing_control_leaf_reuse": "原35控制事件实际叶成员用E23八变量成员表复用，并核对原保存树/均值；不重做其已完成月份结论。",
+  "interpretation_limits": [
+    "当前树(旧输入)是事后解释，不能回填旧决策；不把算术分解视作独立经济因果，非线性交互不存在天然唯一经济归属。",
+    "当前树(旧输入)事后才存在，不能回填原旧决策。",
+    "没有重新拟合删除新增标签的树，因此成员算术贡献不能单独证明该标签导致某次树结构变化。",
+    "政策窗口与标签重合不等于政策收益因果份额；历史首版/最早公开仍未认证。",
+    "已见历史不是独立验证，不恢复E26失败、不把四格变成新的交易规则。"
+  ],
+  "parents": [
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/protocol.json",
+      "bytes": 8002,
+      "sha256": "fcc75387fc75dc085968ff085359a86bdb5e407cac0ae1536099548e4ddf4347"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/result.json",
+      "bytes": 4626,
+      "sha256": "b88bd076864ebb35dc73fa77820c97ce618e4bf9ede22272bd06e441e33bdfff"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/每日外需条件评分.csv",
+      "bytes": 328302,
+      "sha256": "9bcab1feb43ee6b6323e8aed36e34bdcf4e2b22a9a16608c1e55ac9b12081f3b"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/保存外需十变量模型.json",
+      "bytes": 3564504,
+      "sha256": "fe5beaf96e0f08a9419f1558bb68c24756322c806a77a8750ee50adb85ceaaaa"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/原八变量与外需两列_原标签不变.parquet",
+      "bytes": 1880876,
+      "sha256": "980619a847f9767844ae75749a1a89c91ba4aa0dc81c168923a9b4458f7eefb9"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/两模型全部自然高分机会.csv",
+      "bytes": 11066,
+      "sha256": "494c452a81009b130e3c29c39fa3c83ee87013612d5a65adc00ff188db726c2b"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/全部132月外需原文绑定.json",
+      "bytes": 231167,
+      "sha256": "e82e52fbaf9d4337bf2c8b32b9f7d40c60cb599bc3d0dd904d28d1f65e1f01fe"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量保存模型.json",
+      "bytes": 2930015,
+      "sha256": "aa7969d4b8ed15b8e5e6c931b2174bdcb4b2182166f77cf4c285e653cee93bd7"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量每日联合评分.csv",
+      "bytes": 182577,
+      "sha256": "554a2ec51bd1844409fe396167f4dd8ee381796912253481478c3dcec6ce9a68"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/共同成熟训练池.json",
+      "bytes": 8002821,
+      "sha256": "2edb4d5dc05c51cc64ca2c53be66af971af33ce44c88aa67cd2ddf702734eb32"
+    },
+    {
+      "path": "reports/research/510300_saved_high_score_leaf_contribution_v1/result.json",
+      "bytes": 22405,
+      "sha256": "8f054458e13c3887481861919f40d604d4b18252d03e733c2d541c9e9977f9d2"
+    },
+    {
+      "path": "reports/research/510300_export_score_target_gap_diagnostic_v1/result.json",
+      "bytes": 2907,
+      "sha256": "ee95f437a190f4934e69e4022709072ae344fb2e384ef84d949f77c5997958a2"
+    },
+    {
+      "path": "reports/research/510300_export_score_target_gap_diagnostic_v1/next_experiment.json",
+      "bytes": 5701,
+      "sha256": "6caea1cc50fdf1fc832ece066db03e65a2fe118c65058805efdb80aa2d84c865"
+    },
+    {
+      "path": "reports/research/510300_export_score_target_gap_diagnostic_v1/本轮目标接续归属.json",
+      "bytes": 549,
+      "sha256": "693cc28511acbcfb916fb448312037735b638ed892937b1a8d67674d4b306199"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/protocol.json",
+      "bytes": 7791,
+      "sha256": "e7ac9363d11abc118d07b444536e23e4602c33e6e445d6442dae23868c5de523"
+    },
+    {
+      "path": "reports/research/510300_saved_high_score_leaf_contribution_v1/全部70事件保存叶分布.csv",
+      "bytes": 19894,
+      "sha256": "df1a56acc689f583d4122e279ba4891e03c46668d51f2b35115f4da3c065550f"
+    },
+    {
+      "path": "reports/research/510300_saved_high_score_leaf_contribution_v1/全部原叶训练成员.csv",
+      "bytes": 673133,
+      "sha256": "14ab371ac9ff38767fe6e79a86ad5aae1df25d0ce7a2d0f89f57580822beb286"
+    }
+  ],
+  "new_source_requests": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "parameter_grids": 0,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "goal_achieved": false
+}

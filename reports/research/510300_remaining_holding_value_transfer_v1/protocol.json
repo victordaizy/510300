@@ -1,0 +1,98 @@
+{
+  "study_id": "510300_REMAINING_HOLDING_VALUE_TRANSFER_V1",
+  "frozen_at": "2026-09-24T14:32:51.666577+08:00",
+  "periods": {
+    "PRIMARY": [
+      "2021-01-04",
+      "2026-08-14"
+    ],
+    "RECENT_DIAGNOSTIC": [
+      "2024-08-20",
+      "2026-08-14"
+    ]
+  },
+  "question": "固定三形态内，已持有份额的剩余清算价值是否比重新买入五日净收益更适合作为退出判断；宏观资金能否在真实逐期误差上提供增量。",
+  "novelty_boundary": "继续价值及期限对齐是旧44、52、118、121轮已研究方法，不声称新方法。本轮是新三形态、普通日训练池、09:00信息时钟、按原五日期限自然缩短的有限迁移。旧D60研究和85/15策略不恢复。",
+  "capacity_preflight": "共同资料齐备后才启动额外退出的压力上限8.745%，已排除该架构；技术基线拥有更早价格支持，完整原入场的提前退出事后上限11.391%。上限均使用未来信息，不是策略。",
+  "policies": [
+    "A",
+    "FIVE_DAY_REENTRY_VALUE",
+    "REMAINING_PRICE",
+    "REMAINING_MEAN_CORRECTION",
+    "REMAINING_MACRO_CORRECTION"
+  ],
+  "entry": "原形态及优先级全部沿用，不新增预测入场门；原失效和五日退出保持。",
+  "decision_clock": "已有持仓在执行日09:00读取预测，当日09:30尝试卖出；买入次日可卖，受阻请求保留。",
+  "RAW5": "原普通日期的新买入五日压力净收益，用作期限/现金流尚未对齐的退出对照。",
+  "remaining_target": "第一个可卖开盘与h个交易日后的第一个可卖开盘的净卖出每份所得之差，加仅因继续持有新增的股息权益，除以立即可卖开盘原价。买入成本为双方共同历史成本，不重复扣。",
+  "remaining_horizons": "h=1,2,3,4对应原第五日期限剩余交易日数；非择优窗口，不能替换或延长。",
+  "training_cost": "STRESS比例卖出佣金及原报价滑点取整；标签是每份经济差，实际20万元账户仍计最低5元佣金及整手。",
+  "training": {
+    "lookback_sessions": 504,
+    "min_price_rows": 252,
+    "min_correction_rows": 252,
+    "refit_every_sessions": 21,
+    "ridge_alpha": 10.0,
+    "clip_standard_deviations": 5.0,
+    "common_label_maturity": "四个剩余标签与原五日标签全部成熟且退出索引严格早于当前09:00拟合日。"
+  },
+  "technical_features": [
+    "technical_trend",
+    "technical_relative_volatility",
+    "technical_trend_change3",
+    "technical_log_volume"
+  ],
+  "correction_features": [
+    "pmi_level",
+    "pmi_change3",
+    "funding_gap_pp",
+    "funding_change5_pp",
+    "flow5",
+    "flow_breadth5",
+    "if_basis_rank",
+    "if_oi_rank",
+    "GSPC_z",
+    "VIX_z"
+  ],
+  "residual_target": "实际剩余清算差减该普通日期原本实际生成的价格预测。禁止以当前模型回拟合过去形成虚假的小残差。",
+  "mean_control": "相同残差样本的平均误差修正；与有宏观资金特征的误差修正使用同一训练日期及同一可用时点。",
+  "fallback": "宏观资金缺失或成熟残差不够时，两修正版本均完整沿用价格基线，不填零因子，不跳过本金损益。",
+  "exit": "本策略相应预测<=0时额外请求退出；没有预测则不新增退出请求。未关闭原失效和期限规则，不重新买回旧信号。",
+  "primary_increment": "REMAINING_MACRO_CORRECTION相对REMAINING_MEAN_CORRECTION",
+  "secondary_mechanism": "REMAINING_PRICE相对FIVE_DAY_REENTRY_VALUE",
+  "inference": "主压力账户20日共同循环区块2000次；两项预定比较用单侧.05/2；四期限预测误差仅描述，不将重复日期当四倍独立样本。",
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "capital_cny": 200000,
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ]
+  },
+  "annual_days": 252,
+  "parameters_searched": 0,
+  "new_collection": false,
+  "review_package": false,
+  "independent_validation": false,
+  "orders": false,
+  "current_view": "NO_VIEW",
+  "derived_engine_exact_replacements": {
+    "def simulate(p, d, dividends, signals, views, start, end, policy, cost):": "def simulate(p, d, dividends, signals, views, start, end, policy, cost, extra_exit=None):",
+    "risk = bool(v[policy]) if policy in CANDIDATES else False": "risk = bool(extra_exit(i, active)) if extra_exit is not None and active is not None else False",
+    "missing = policy != \"A\" and not bool(v.common_known)": "missing = False"
+  },
+  "pre_freeze_mechanism_checks": [
+    "BASE母账户与原引擎逐日相同",
+    "STRESS母账户与原引擎逐日相同",
+    "新买当日不卖，首个可卖日只读剩余四日期限",
+    "清算目标不重复扣买入费用并计新增应得股息"
+  ]
+}

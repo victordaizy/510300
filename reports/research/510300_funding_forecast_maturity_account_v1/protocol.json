@@ -1,0 +1,77 @@
+{
+  "at": "2026-09-26T00:54:40.527660+08:00",
+  "study_id": "510300_FUNDING_FORECAST_MATURITY_ACCOUNT_V1",
+  "primary": "PRICE_FUNDING_AND_AFTERNOON__FIXED5_NO_ADD",
+  "question": "已有模型预测五日收益，滚动更新却能无限延长同一笔仓位；匹配固定五日到期是否改善账户？",
+  "motivation": "保存账户隔夜含息损益为负，五日预测和实际持有路径不同；这是事后提出的新开发检验，不是确认性证据。",
+  "models": [
+    "PRICE",
+    "PRICE_AND_FUNDING",
+    "PRICE_AND_AFTERNOON",
+    "PRICE_FUNDING_AND_AFTERNOON"
+  ],
+  "variants": [
+    "ROLL_NO_ADD",
+    "FIXED5_NO_ADD"
+  ],
+  "forecast_reuse": "原四种每日两日历年训练预测逐值复用；不重新拟合、不增特征、不改近邻、入场均值或成本门槛。",
+  "entry": "空仓时沿用原效用、弱势入场及风险上限；所有新账户在持仓周期内禁止加仓，避免混合不同期限的预测。",
+  "ROLL_NO_ADD": "原每日五日前景决定持有或退出，唯一变化为周期内不加仓；用于识别加仓变化。",
+  "FIXED5_NO_ADD": "首笔实际买入的第五个后续交易日开盘必须卖出；中途只因当日尾部预算或10%回撤止损减仓，不因新五日均值续期。到期当天只卖，下一交易日才可再入。",
+  "daily_risk": "有每日预测时，最大可保留份额受原压力费用后尾部预算约束，不能加仓。缺预测时仍执行已固定到期；ROLL沿用缺信息满五日退出。",
+  "maturity_is_not_guaranteed_fill": "到期未成交继续要求退出；T+1、涨跌停、现金与100份整手照常。未到期末端计清算储备，不偷看数据终点退出。",
+  "account_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital_cny": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "targets": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "new_full_accounts": 16,
+  "reused_original_accounts": 8,
+  "primary_comparisons": [
+    "联合FIXED5相对联合ROLL_NO_ADD",
+    "联合FIXED5相对相同期限的下午价格对照"
+  ],
+  "additional_comparisons": "四种信息分别比较FIXED5与ROLL_NO_ADD；ROLL_NO_ADD与原有可加仓账户；联合FIXED5与另外两个同期限信息对照。全部披露，不事后换主候选。",
+  "intervals": "20交易日循环区块2000次，seed2026092603；固定2020—2023/2024—末端；所有滚动两年。",
+  "development_gate": "主压力三目标同时通过，两个主增量区间下界为正，且两个固定时期增量均正；之后仍需独立验证。",
+  "duplicate_boundary": "旧固定五日剩余价值研究改变训练标签、使用旧形态退出；本轮复用新资金意外预测，只检验实际库存期限。旧期限扫描不恢复，不搜索1/3/10/20日。",
+  "new_fits": 0,
+  "new_market_downloads": 0,
+  "new_parameter_grid": 0,
+  "independent_forward_observations": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

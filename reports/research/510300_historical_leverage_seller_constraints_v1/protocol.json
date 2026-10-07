@@ -1,0 +1,48 @@
+{
+  "study_id": "510300_HISTORICAL_LEVERAGE_SELLER_CONSTRAINTS_V1",
+  "previous_goal_turn_classification": "PROGRESS_HISTORICAL_OWNERSHIP_AND_BUYING_PRICE_TIMING",
+  "research_mode": "HISTORICAL_TESTING_AND_DISCOVERY_ONLY",
+  "question": "2024年初融资余额下降如何由买入和偿还构成，实际强平、质押预警与DMA降杠杆有何区别，缓释信息公开后还剩多少费用后收益？",
+  "historical_selection": "延续上一轮已登记的2024年初卖方约束问题。历史行情已被多次研究，四个时点是同一轮压力中的信息更新，不是独立样本；不按本轮收益删改节点。",
+  "observation_period": ["2023-12-01", "2024-03-29"],
+  "fixed_phases": [
+    ["2023年12月基线", "2023-12-01", "2023-12-29"],
+    ["2024年1月", "2024-01-02", "2024-01-31"],
+    ["2月初至缓释说明", "2024-02-01", "2024-02-05"],
+    ["说明后春节前", "2024-02-06", "2024-02-08"],
+    ["春节后至DMA说明", "2024-02-19", "2024-02-28"],
+    ["DMA说明后至3月末", "2024-02-29", "2024-03-29"]
+  ],
+  "fixed_information_dates": ["2024-01-24", "2024-02-05", "2024-02-06", "2024-02-28"],
+  "date_roles": "1月24日降准发布会为一般流动性背景，采用新华社同日现场报道的日末时钟并以已存政府网央行通知核对政策内容；2月5日融资与质押两份说明合并；2月6日融券措施与汇金公告同日并列；2月28日DMA说明。若同日时钟不能核对，则保留不可计算，不改为更有利日期。",
+  "balance_identity": "融资余额变化=融资买入-融资偿还。偿还由余额和买入反推，是含直接还款、卖券还款、强平和权益调整的统计量，不当作已观测卖出额或强平额。",
+  "comparison": "各段完整交易日平均买入、反推偿还与净变化；相邻段净变化之差拆为买入变化减偿还变化。分段只用于描述，不能证明特定政策因果效果。",
+  "source_statistics": "保留两融平仓约9亿元、股票质押违约强平2740.32万元、DMA春节后日均成交占比约3%的各自统计对象与截止时点，不互相相加或与融资余额下降计算因果贡献率。",
+  "event_return": {
+    "entry": "保守取每个来源日期日末后的第一个510300开盘，不把公告当日收盘前收益计入。",
+    "holding_sessions": [5, 20],
+    "primary_horizon": 5,
+    "overlap": "保留重叠时点，不计算独立胜率、显著性或拼成账户。",
+    "costs": {
+      "commission_rate": 0.0004,
+      "minimum_commission_cny": 5.0,
+      "slippage_fraction_each_side": 0.001,
+      "tick": 0.001,
+      "lot_size": 100,
+      "illustrative_event_budget_cny": 100000,
+      "illustrative_full_capital_cny": 200000
+    },
+    "meaning": "复用已有独立事件往返计算，仅报告参考10万元交易的费用后持有收益；按开盘预算换算份额，没有完整风险预算、预提交订单或现金账户，不能以此计算目标夏普。"
+  },
+  "old_work": [
+    "旧融资级联规则按旧20个百分点超额目标开发失败，不反号或改阈值重试。",
+    "旧IF强制资金流模型未通过独立事件门，收益未运行，保留原状态。",
+    "旧逐日流动性修复账户未达标，保留原风险和交易结果。"
+  ],
+  "new_fitted_models": 0,
+  "new_parameter_searches": 0,
+  "new_full_accounts": 0,
+  "new_prospective_forecasts": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

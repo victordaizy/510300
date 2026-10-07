@@ -1,0 +1,75 @@
+{
+  "recorded_at": "2026-10-02T05:54:08.206091+08:00",
+  "status": "PROPOSED_SOURCE_AND_PRIOR_CONTRACT_INTAKE_NOT_ADMITTED",
+  "candidate_id": "F03",
+  "name": "价格无法解释的融资变化",
+  "registered_definition": "用此前252个合格日拟合F5对同期指数收益和波动，使用当天样本外残差。",
+  "source_grade": "G2",
+  "grade_limit": "库中G2附件分类不是来源已通过或已有绩效。",
+  "registered_record": {
+    "id": "F03",
+    "family": "融资与杠杆活动",
+    "name": "价格无法解释的融资变化",
+    "role": "入场/状态",
+    "horizon_days": 5,
+    "source_grade": "G2",
+    "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+    "definition": "用此前252个合格日拟合F5对同期指数收益和波动，使用当天样本外残差。",
+    "mechanism": "控制涨了才追买的机械关系后，额外融资活动可能提供新信息。",
+    "counterexample": "拟合需严格前序；残差不直接证明因果。",
+    "data_path_hint": "沪深交易所融资买入、偿还、余额与标的名单；逐条核实历史时钟",
+    "source_clock_rule": "以最新已公开统计日s取值；s未必等于决策日；基金/股票与调出标的范围必须匹配",
+    "repository_hint": "catalog/studies.csv; reports/research/510300_saved_return_information_review_v1",
+    "source_ids": "S02",
+    "source_urls": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+    "status": "NOT_RUN",
+    "net_sharpe": null
+  },
+  "current_progress_record": {
+    "id": "F03",
+    "family": "融资与杠杆活动",
+    "name": "价格无法解释的融资变化",
+    "role": "入场/状态",
+    "horizon_days": 5,
+    "source_grade": "G2",
+    "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+    "definition": "用此前252个合格日拟合F5对同期指数收益和波动，使用当天样本外残差。",
+    "mechanism": "控制涨了才追买的机械关系后，额外融资活动可能提供新信息。",
+    "counterexample": "拟合需严格前序；残差不直接证明因果。",
+    "data_path_hint": "沪深交易所融资买入、偿还、余额与标的名单；逐条核实历史时钟",
+    "source_clock_rule": "以最新已公开统计日s取值；s未必等于决策日；基金/股票与调出标的范围必须匹配",
+    "repository_hint": "catalog/studies.csv; reports/research/510300_saved_return_information_review_v1",
+    "source_ids": "S02",
+    "source_urls": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+    "status": "NOT_RUN",
+    "net_sharpe": null,
+    "current_status": "NOT_RUN",
+    "strategy_dependencies": "",
+    "current_note": "保留原假设；尚未完成该项独立定义、数据可得性和收益检验。",
+    "standalone_net_sharpe": null,
+    "path_hint_check": "[{\"path\": \"catalog/studies.csv\", \"exists\": false}, {\"path\": \"reports/research/510300_saved_return_information_review_v1\", \"exists\": true}]",
+    "data_grade_is_attachment_classification": true
+  },
+  "scope": "观察融资统计及CSI300价格，不扩展510300.SH/CASH_CNY执行资产，不使用分钟数据。",
+  "next_bounded_checks": [
+    "查旧F01/F02/F06等实际表达与冻结失败范围；F03不得只是已有融资规则换名。",
+    "核对官方原字段、单位、净扩张起点余额、融资交易组成及缺失/修订。",
+    "以来源首次可知时间对齐原日线收盘与下一开盘，未建立时钟合同保持NO_VIEW。",
+    "核对固定252个先前合格日的训练支持；价格与波动定义尚待绑定，不读新策略收益。",
+    "通过实质差异/来源/支持后，另冻结最多一个单字段模型及共同账户门；当前未登记。"
+  ],
+  "sources": [
+    {
+      "path": "reports\\research\\510300_factor96_mechanism_batch_v1\\factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports\\research\\510300_factor96_mechanism_batch_v1\\factor_progress.json",
+      "sha256": "8ba9bf98b30ae45e10051ef66b54435a31ef24a6425574ade2f878945c86427b"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "new_market_information_admitted": false,
+  "goal_achieved": false
+}

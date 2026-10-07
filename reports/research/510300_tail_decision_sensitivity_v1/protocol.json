@@ -1,0 +1,21 @@
+{
+  "at": "2026-09-25T22:21:23.620411+08:00",
+  "study_id": "510300_TAIL_DECISION_SENSITIVITY_V1",
+  "question": "当前账户中五日ES预测是否经常决定仓位，还是其他不变风险预算限制了预测改善的账户传导。",
+  "method": "逐个保存决策日固定当时现金权益、持仓、峰值、原信号、成本、调仓带，仅替换五日ES输入。基准逐值复现。",
+  "cases": [
+    "BASELINE",
+    "VOL20_FILTERED",
+    "FIXED_HALF",
+    "ADAPTIVE_TWO_YEAR",
+    "ZERO_ES_DIAGNOSTIC_ONLY"
+  ],
+  "zero_es_scope": "ES=0只用于删除市场尾部损失项后的同状态决策敏感度，仍保留调仓平仓费用、50%上限及10%跳空和回撤余量。它不是合法风险预测，不是候选，也不是可执行收益上界。",
+  "path_limit": "每一天都使用原保存账户状态，不让反事实份额传播到后一天。不得把这些局部选择连起来计算收益或夏普。",
+  "failure_preserved": "上一项自适应风险预测未通过门槛。本诊断不解除失败，不计算被门槛禁止的新账户。",
+  "comparison": "两档既定费用全部决策日，另计原目标非零日，逐项披露份额与下单申请是否改变。",
+  "new_accounts": 0,
+  "new_model_fits": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

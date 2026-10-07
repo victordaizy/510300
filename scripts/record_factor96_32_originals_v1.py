@@ -1,0 +1,105 @@
+"""登记32个原方案缺口的处理结果，保留账户数、外部凭据阻碍和不打包偏好。"""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import sys
+
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from research.factor96_repurchase_32_originals_v1 import OUT, digest, now, read, save
+from scripts.record_factor96_remaining_changes_v1 import update
+
+
+def main():
+    assert not (OUT / "program_update_receipt.json").exists(), "本轮已经登记"
+    result = read(OUT / "result.json")
+    assert result["reviewed_original_plans"] == 32 and result["remaining_unmatched_original_reference_targets"] == 0
+    assert result["new_accounts"] == 0 and result["source_conflicts"] == 2
+    assert result["status"] == "ALL_32_ORIGINAL_REFERENCES_DOCUMENTED_TWO_SOURCE_CONFLICTS_PRESERVED"
+    program = ROOT / "reports/research/510300_factor96_program_v1"
+    files = [program / f for f in ("status.json", "strategy_progress.json", "factor_progress.json")]
+    files.append(ROOT / "config/510300_existing_data_training_mandate_v1.json")
+    values = [read(p) for p in files]
+    status, strategies, factors, mandate = values
+    assert not status["delivery_package_required"] and not mandate["delivery_package_required"]
+    assert not mandate["orders_authorized"] and mandate["scheduled_pcf_iopv_collection"] == "PAUSED_BY_USER"
+    protected = {k: status[k] for k in ("cumulative_admitted_account_scenarios", "cumulative_executed_account_scenarios",
+                                      "completed_total_fixed_questions", "independent_forward_observations",
+                                      "last_completed_account_experiment", "last_completed_account_result")}
+    before = [{"path": p.relative_to(ROOT).as_posix(), "sha256": digest(p)} for p in files]
+    relative = OUT.relative_to(ROOT).as_posix()
+    note = ("32个明确原方案缺口均取得方案或后续报告书并核对条款，新增34条公告关联，其中28条明确目标、6条合并来源不分配数量。"
+            "29项有现金预算区间；定额、估算现金区间、只有现金上限及股数区间各1项。初始方案3项仍待股东会。"
+            "科伦原方案7月28日与后述7月29日冲突保留、身份按明确公告编号确认；豪威2023方案原用途与后述用途冲突，现行用途未知。"
+            "54份可读PDF、90次来源请求，无新账户；自由流通凭据仍过期，T12完整执行和用途时钟仍未齐，目标未完成。")
+    for row in strategies:
+        if row["id"] == "T12":
+            row.update(current_status="NOT_RUN_FREE_FLOAT_AND_PURPOSE_CLOCK_SOURCE_GATE", current_evidence=note,
+                       source_gate_path=relative + "/result.json", original_reference_targets_remaining=0,
+                       current_purpose_conflicts_unresolved=1)
+    for row in factors:
+        if row["id"] == "M02":
+            row.update(current_status="ORIGINAL_TERMS_LINKED_FULL_EXECUTION_LIFECYCLE_PENDING_NOT_RUN",
+                       current_note=note, current_evidence_path=relative + "/result.json")
+    for key in list(status):
+        if key.endswith("_this_round") and (key.startswith("new_") or key.startswith("source_field_candidates") or key.startswith("reused_")):
+            status[key] = 0
+    status.update(at=now(), latest_round=result["study_id"], latest_result=relative + "/result.json",
+                  latest_progress_receipt=relative + "/result.json", last_source_result=note,
+                  latest_continuation_classification="PROGRESS_32_ORIGINAL_TERMS_AND_SOURCE_CONFLICTS_DOCUMENTED",
+                  current_research_phase="ORIGINAL_REFERENCE_GAPS_FILLED_FREE_FLOAT_AND_EXECUTION_LIFECYCLE_PENDING",
+                  admitted_account_scenarios_this_round=0, invalid_implementation_accounts_this_round=0,
+                  new_source_documents_this_round=result["saved_pdf_text_documents"],
+                  new_searchable_text_documents_this_round=result["saved_pdf_text_documents"],
+                  new_archived_source_http_responses_this_round=sum("http_status" in read(p) for p in (OUT / "receipts").glob("*.json")),
+                  new_reviewed_original_plans_this_round=32, new_explicit_version_links_this_round=28,
+                  new_pooled_origin_references_this_round=6, new_source_conflicts_this_round=2,
+                  source_field_candidate_kind="32个原方案的初始用途、金额类别、期限与审批；没有新的股本分母或收益。",
+                  repurchase_remaining_original_targets=0, repurchase_current_purpose_conflicts_unresolved=1,
+                  latest_repurchase_change_ledger=relative + "/combined_change_ledger.json",
+                  latest_repurchase_original_terms=relative + "/original_roots.json",
+                  next_candidates=["T12_FREE_FLOAT_AND_EXECUTION_LIFECYCLE", "T13_EVENT_IDENTITIES_AND_FREE_FLOAT", "T04_HISTORICAL_WEIGHTS"],
+                  goal_status="active", goal_achieved=False, delivery_package_required=False,
+                  latest_user_delivery_instruction="不需要交付包")
+    for key, value in protected.items():
+        assert status[key] == value
+    assert status["qualified_candidates"] == []
+    mandate.update(current_round=result["study_id"], current_protocol=relative + "/protocol.json",
+                   latest_progress_receipt=relative + "/result.json", last_research_result=note, last_source_result=note,
+                   latest_continuation_report=relative + "/研究进展.md",
+                   latest_continuation_classification=status["latest_continuation_classification"],
+                   research_execution_state=status["current_research_phase"], goal_status="active",
+                   goal_achieved=False, delivery_package_required=False)
+    report = [
+        "本轮补齐32个原方案对象的文件与主要条款，但尚未实现只交易510300的成本后净夏普1.2。本轮没有新回测，没有制作交付包。",
+        "32个固定日期窗口全部查完，保存54份可读PDF；其中选定32份方案或报告书，逐项核对批准日期、初始用途、资金条款、期限和审批要求。补成34条原方案到变更公告的关系：28条明确对象，6条只确定合并库存来源，逐方案股数保持未知。",
+        "金额不是统一的现金区间：29项明确给出上下限；长春高新为6亿元定额；广发证券2.03亿至4.06亿元是由股数和价格估算，未当作承诺现金下限；今世缘规定660万至770万股及5.18亿元现金上限，同样没有制造现金下限。",
+        "3份初始方案仍需股东会批准。期限起点保持股东会批准日待取得，不能用董事会日期提前启动。其他29份原文明确属于董事会权限；这不意味着后来的注销或用途变更也免于股东会批准。",
+        "科伦药业第二份2021方案：原方案及报告书均写董事会2021-07-28，后续变更公告回述2021-07-29。后续公告明确引用2021-136，方案身份可以确认，两个日期分别保留，未改写任何原文。",
+        "豪威集团2023-08-16方案：当时报告书写员工持股或股权激励，2026-03-31公告回述为维护公司价值及股东权益。同公司、批准日和5亿至10亿元预算相符，但中间用途变更未证明。原初始用途按当时文件保留；后述冲突公开后，现行用途未知，不能把维护价值倒填到2023年。",
+        "原海通证券2023年方案公告PDF两次传输失败，已取得2023-09-05报告书。使用报告书本身的公开日，不因更早目录日期而提前使用其正文。原海通600837与承接方601211的库存关系单列，合并承接不是新的市场买盘。",
+        "广发证券原方案没有明示董事会日期，后续报告书明确2022-03-30，因此本轮确认采用报告书2022-04-02的时钟。盐湖股份原文标题用股票而非股份，补取了原固定窗口中的唯一遗漏文件，最初筛选记录保留。",
+        "保存的历史查询分别检查原方案公开前、公开时、变更前后以及日期经过：待批不会自动生效，拟注销不会自动完成，天齐锂业后来拟注销不会抹掉较早已经批准的限制性激励用途。名义公告日期仍是日末代理，尚未证明历史首次发布版本。",
+        "当前32个具体原方案缺件已处理完；所有948条执行披露的可比增量、完整用途/减额/终止链以及自由流通股本分母仍未完成。数据服务40101凭据过期的阻碍未变化，不重复请求。T12仍为NOT_RUN；552个有效研究账户情景、152个无效实现情景、合格候选0、独立前向观测0均未改变。",
+        "可直接查看original_roots.json、origin_to_change_edges.json、source_conflicts.json、asof_reviewed_history.json、combined_change_ledger.json和32个原方案条款.csv；原PDF、提取文本、目录及请求结果在本研究目录下保留。",
+    ]
+    (OUT / "研究进展.md").write_text("\n\n".join(report) + "\n", encoding="utf-8")
+    for path, value in zip(files, values):
+        update(path, value)
+    pd.DataFrame(strategies).to_csv(program / "18策略当前进度.csv", index=False, encoding="utf-8-sig")
+    pd.DataFrame(factors).to_csv(program / "96因子当前进度.csv", index=False, encoding="utf-8-sig")
+    save(OUT / "program_update_receipt.json", {
+        "at": now(), "before": before,
+        "after": [{"path": p.relative_to(ROOT).as_posix(), "sha256": digest(p)} for p in files],
+        "account_counts_unchanged": protected, "original_reference_targets_remaining": 0,
+        "unresolved_current_purpose_conflicts": 1, "new_accounts": 0, "goal_achieved": False,
+        "delivery_package_created": False, "current_credential_blocker_unchanged": True,
+    })
+    print("32个原方案补件与冲突已登记，账户统计未变，夏普目标未完成；没有制作交付包。")
+
+
+if __name__ == "__main__":
+    main()

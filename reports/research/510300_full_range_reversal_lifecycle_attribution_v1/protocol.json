@@ -1,0 +1,205 @@
+{
+  "at": "2026-10-05T04:45:21.365901+08:00",
+  "study": "510300_FULL_RANGE_REVERSAL_SAVED_LIFECYCLE_ATTRIBUTION_V1",
+  "technical_decision": "TECH.R182",
+  "hypothesis": "具体上涨可能包含较早修复、反复失效和较晚追入；全部保存整日反转及实际库存的出生/抬线/失效/次开时钟可解释R181为何次数增加却完整收益夏普不足。",
+  "population": "98出生、196资格、四保存主账户和142真实周期（140完成/2开放），所有取消/已有持仓/失败/开放及原61/49段保留。",
+  "known_clock": "按真实周期逐个已知原点还原出生当日低点线、新同向整日反转只抬事件低点和收盘线失效或相反形态，逐项匹配原decisions的事件低点线/库存/失效及原orders；不是新账户或替代退出。",
+  "retrospective_alignment": "每个出生与所有原bottom_idx至peak_idx相交的分段逐条对齐，无相交保留未知；只报告距底/峰的日数和位置比例，不按后验阶段形成过滤，不选最有利分段。",
+  "coverage": "全61原分段/49正式上涨，同时报告原底至峰及原确认至峰两个已冻结区间的形态数量；此前样本范围外不补零。确认至峰数量须精确还原R179保存值，不用未来底峰产生交易门。",
+  "concentration": "四场景全部完成真实净利润、全部正利润、最大正利润及其占比；净利润非正时最大赢家/净利润占比未知，不删除最大赢家重跑，也不选择有利年份。",
+  "cycle_wealth": "真实BUY支出、逐次SELL净现金、登记日真实份额的已发生除息应收和当前真实剩余份额乘日收盘共同还原周期账面损益。持有期间最高收盘账面损益是事后诊断，不是可执行卖价/收益反事实或决策字段。",
+  "exit_identity": "实际完成净利润减最终卖出前原点的周期账面损益=原点剩余份额乘(真实卖出日原开盘−原点收盘)+其后该周期股息应收−最终卖出佣金−滑点。逐笔身份核对，不赋未成交收益。",
+  "all_outcome_groups": "固定完整周期组：持有期间最高收盘账面损益>0或<=0，交叉最终实际净利润正/零/负，六组×两时期×两费用全报告；空组质量未知，开放另列。分组全部为事后解释，不能做交易门。",
+  "charts": "原四案例全部相交STRESS周期，图窗包含原案例窗及这些周期自身入出/观察末日；显示真实持仓/事件低点线、收盘线失效或相反形态及实际买卖、当时量/日MACD/上一完整周，不修改原案例或经济样本。",
+  "no_rescue": "R181及所有旧终态保持，不改整日反转大小/失效/退出/量/MACD/RV过滤/费用/预算/时期、不混A或拼接R173；新金融候选0。",
+  "necessary_new_tests": 0,
+  "new_accounts": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_market_requests": 0,
+  "historical_sample_role": "DEVELOPMENT_CALIBRATION",
+  "source_first_vintage": "NOT_CERTIFIED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "overfitting_removed": false,
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "research/full_range_reversal_lifecycle_attribution_v1.py",
+      "sha256": "972ae7392f08cdad7a2fb7c06a07e2c96ff0a82ae42c341f8b5193a0a34193ce"
+    },
+    {
+      "path": "research/full_range_reversal_account_v1.py",
+      "sha256": "24806a78b6366ac027fc04aa588dd757a84cfebc9770a8d4a7508f4343f9fd37"
+    },
+    {
+      "path": "research/full_range_reversal_inputs_v1.py",
+      "sha256": "e76ce923d85762b107e5bf87dafe39993f75701873411b6b99ed82319c068066"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/protocol.json",
+      "sha256": "0895b4b898fd28dc4b8fba457d976b2b8ac0c56f6e5c4bc9d38def24f4165267"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/summary.json",
+      "sha256": "b90a1c93490dd69b3f5dd302cd39f377701a6695be3eecee6ea5a6c52a93dd64"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/delivery_receipt.json",
+      "sha256": "3e783914f35a4c122e31f6996da8337fa2df6b3bdb732dce747a40ec64f20e87"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/saved_result_verification.json",
+      "sha256": "dc1a1b33a8dd811c314039465086130d0aa5e199c7c152da360568f4c7f237a8"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/next_all_reversal_lifecycle_diagnostic_proposal.json",
+      "sha256": "359b8604232d6a1256cf14adde57b74becb4e38d9e5993c8ae44173dfff53381"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/完整账户共同口径比较.parquet",
+      "sha256": "850e3dde387b830b6bac54aa724a5e90ad6bf729e8738c71ea439a614fb21378"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/全部整日反转资格_当时量价及真实执行状态.parquet",
+      "sha256": "fc020de9f91fa49f93873fe564509bd07141114ead3ae79731e18fc2d2cc2e06"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/全部实际进出点位_已知整日反转量价及真实资金.parquet",
+      "sha256": "538176cbdd94d85a597ed3ce21de196406afe5f896c79a9e3d1b1192cbe00549"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/protocol.json",
+      "sha256": "1752f408bb9b84c9180c680bad35aa9b84073838de17e24e07ebec2d9fd568df"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/summary.json",
+      "sha256": "6f7f7e556a8bd7466ab410a7f47c76ce831d6fc3f34fd036c91fe75d2b16a3d1"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/results/全部3488已知反转与量价_前2015A未知保留.parquet",
+      "sha256": "2811e0b5b19638a18028e42bd2af931488a01d1de6c486fceaadae3a634c427a"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/results/全部同向出生至收盘失效或相反事件_仅路径.parquet",
+      "sha256": "1d107060a6edb9783bdd11e5df2878d75da1796e9a9a2af61f954d14d38c2e97"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/results/原61分段及49正式波段_整日反转覆盖.parquet",
+      "sha256": "6289264be6984e607a19b298c35275a9a941f1e5a7ebf411bba89866047760a9"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/results/四案例逐日完整量价及整日反转.parquet",
+      "sha256": "60db296a6b7e96eb7364b823780b6394cbeb81d44545365139a7c1e10568b8f7"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/BASE/FULL_RANGE_REVERSAL/daily.parquet",
+      "sha256": "bf97e63914438ba53c58e100ee1ff30ab71222c65e8f46d6f0ace3345efddf3b"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/BASE/FULL_RANGE_REVERSAL/orders.parquet",
+      "sha256": "086574b2e981ac3a75250dee472230261ea8edc77171fb207ae9190ebdde66c0"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/BASE/FULL_RANGE_REVERSAL/trades.parquet",
+      "sha256": "b1fa4db29cb0718cb13f91ec4b06845946079f32e4fe025620c8b918d29f3800"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/BASE/FULL_RANGE_REVERSAL/decisions.parquet",
+      "sha256": "256213e2c6716b68769d2239348816f1237499593761c336afab7bce5743cb83"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/BASE/FULL_RANGE_REVERSAL/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/BASE/FULL_RANGE_REVERSAL/terminal.json",
+      "sha256": "ab98c0bd74e0672a55b29df8eb9aaa2c0511542403e8663daf6786ec08137262"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/STRESS/FULL_RANGE_REVERSAL/daily.parquet",
+      "sha256": "6bab1c31df128915ffdf56aeb5884787bdab44d91e3801b488695851b518c798"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/STRESS/FULL_RANGE_REVERSAL/orders.parquet",
+      "sha256": "9bcdb0207fd5fe13ef49a05d10dbf163885fe1072bc77f2a0e8acf5c824d37e7"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/STRESS/FULL_RANGE_REVERSAL/trades.parquet",
+      "sha256": "b0ecf8027c8e3dc84f01e7f4f2b25d56d87a0286e795b5fca7a4b0d00b6c345f"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/STRESS/FULL_RANGE_REVERSAL/decisions.parquet",
+      "sha256": "1e6d401644c6148b0605c4ab3280801ca73359b07203cf86bad438d3336e465b"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/STRESS/FULL_RANGE_REVERSAL/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2015_2019/STRESS/FULL_RANGE_REVERSAL/terminal.json",
+      "sha256": "bead53146c9ee0faedf1f7d693de71d1109b5b74d396fdb72f3f50644a262c10"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/BASE/FULL_RANGE_REVERSAL/daily.parquet",
+      "sha256": "fb0eb4fc1d99c35b9ea13f277ceaea6a5692bdd91ed665d69f64eec46e3d667b"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/BASE/FULL_RANGE_REVERSAL/orders.parquet",
+      "sha256": "8547f48767449f1dfdf5404f706c5635cc9cf4981a1f47e91d1ebdf862dcd104"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/BASE/FULL_RANGE_REVERSAL/trades.parquet",
+      "sha256": "3f215f2404d7db07ca8d79154b8b69d9a1d00fefa57000e8660327cda68f75df"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/BASE/FULL_RANGE_REVERSAL/decisions.parquet",
+      "sha256": "16e5be26a750cfbaed76374067c4b16b0b82ada0a17ff1ef0be2b2ac710bf009"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/BASE/FULL_RANGE_REVERSAL/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/BASE/FULL_RANGE_REVERSAL/terminal.json",
+      "sha256": "79544096111eced468eafcc6642f3d4811c462c096963ccfe9a7640fccc8c1ce"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/STRESS/FULL_RANGE_REVERSAL/daily.parquet",
+      "sha256": "81bc903b7d73bad046d482a301f6fec7aaa1bc2f626291d7593d2a10cab28e04"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/STRESS/FULL_RANGE_REVERSAL/orders.parquet",
+      "sha256": "b638a28fb53dd821671bb97c8a87692d837116d56e212c4fac8cc8c7a53cb835"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/STRESS/FULL_RANGE_REVERSAL/trades.parquet",
+      "sha256": "1f7299b68498d2c852884c086a1c08281ff05060686cb2203421a48bff3d9f2d"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/STRESS/FULL_RANGE_REVERSAL/decisions.parquet",
+      "sha256": "2a7fac0eff30a180ad91ca0c442bd79237a3f39f3da479b6ffd6f465a5334306"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/STRESS/FULL_RANGE_REVERSAL/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_study_v1/results/accounts/2020_2026/STRESS/FULL_RANGE_REVERSAL/terminal.json",
+      "sha256": "79544096111eced468eafcc6642f3d4811c462c096963ccfe9a7640fccc8c1ce"
+    }
+  ]
+}

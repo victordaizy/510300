@@ -1,0 +1,119 @@
+{
+  "study_id": "510300_DR007_AMOUNT_SHARED_LOCAL_SOURCE_PROBE_V1",
+  "experiment_id": "E58",
+  "status": "COMPLETED_BOUNDED_NEW_SHARED_POINTERS_TO_OLD_WEIGHT_ONLY_SOURCE_NO_AMOUNT",
+  "completed_at": "2026-10-02T20:38:26.590067+08:00",
+  "finding": "TECH.R118/119新用途指向2026-09-02既有利率源，并非新成交额收件；主parquet无amount，全部12原请求只要ts_code/trade_date/repo_maturity/weight，原2015/2024/2026三响应schema均无amount。",
+  "root_source_date_span": [
+    "2015-01-05",
+    "2026-08-14"
+  ],
+  "root_rows": 2905,
+  "same_rate_source_verified": true,
+  "new_amount_source_established": false,
+  "direct_schema_inspections": 4,
+  "original_requested_chunks": 12,
+  "selected_response_schemas_inspected": 3,
+  "original_source_get_at": "2026-09-02",
+  "new_technical_use_at": "2026-10-02",
+  "root_reuse_not_new_provider_acquisition": true,
+  "raw_response_schema_receipts": [
+    {
+      "path": "data/raw/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2/repo_daily/repo_daily_DR007_IB_20150105_20151231.json",
+      "sha256": "a841167e0446e02e4984ec14855fdbd8f3e7b8660b72260ce0cea42ff591e310",
+      "matches_original_receipt_hash": true,
+      "root_keys": [
+        "request_id",
+        "code",
+        "data",
+        "msg",
+        "detail"
+      ],
+      "actual_response_field_schemas": [
+        {
+          "location": "root.data.fields",
+          "fields": [
+            "ts_code",
+            "trade_date",
+            "repo_maturity",
+            "weight"
+          ]
+        }
+      ],
+      "actual_amount_column_present": false,
+      "values_not_output": true
+    },
+    {
+      "path": "data/raw/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2/repo_daily/repo_daily_DR007_IB_20240101_20241231.json",
+      "sha256": "c1585b245f841989fa97d4bae9909538147fcac3802763a5e31231b517377edf",
+      "matches_original_receipt_hash": true,
+      "root_keys": [
+        "request_id",
+        "code",
+        "data",
+        "msg",
+        "detail"
+      ],
+      "actual_response_field_schemas": [
+        {
+          "location": "root.data.fields",
+          "fields": [
+            "ts_code",
+            "trade_date",
+            "repo_maturity",
+            "weight"
+          ]
+        }
+      ],
+      "actual_amount_column_present": false,
+      "values_not_output": true
+    },
+    {
+      "path": "data/raw/510300_asymmetric_stress_hazard_v1_dr007_tushare_v1_0_2/repo_daily/repo_daily_DR007_IB_20260101_20260814.json",
+      "sha256": "00f0785af20c782fa872e745db02d06f9068795db07d623be390519da4b95486",
+      "matches_original_receipt_hash": true,
+      "root_keys": [
+        "request_id",
+        "code",
+        "data",
+        "msg",
+        "detail"
+      ],
+      "actual_response_field_schemas": [
+        {
+          "location": "root.data.fields",
+          "fields": [
+            "ts_code",
+            "trade_date",
+            "repo_maturity",
+            "weight"
+          ]
+        }
+      ],
+      "actual_amount_column_present": false,
+      "values_not_output": true
+    }
+  ],
+  "amount_values_read": 0,
+  "network_requests": 0,
+  "credential_reads": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "frozen_E33_failure_preserved": true,
+  "user_has_valid_access": false,
+  "amount_hypothesis_tested": false,
+  "amount_hypothesis_rejected": false,
+  "model_admission": "NOT_ADMITTED",
+  "amount_full_original_members_support": "NOT_ESTABLISHED",
+  "amount_publication_clock": "UNKNOWN",
+  "first_vintage_verified": false,
+  "net_sharpe": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "stop_condition": "当前这条新本地线索已结束；无真正新历史金额收件或用户更新有效访问时不再查同一权重利率源，不发到期凭据请求。",
+  "next": "已有本地行业订单固定失败仍冻结；保留全部自然成员做独立历史原因信息研究，不再改这些树的字段/权重/阈值救结果。"
+}

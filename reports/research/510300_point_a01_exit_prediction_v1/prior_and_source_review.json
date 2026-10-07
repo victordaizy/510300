@@ -1,0 +1,139 @@
+{
+  "at": "2026-10-02T09:39:36.671930+08:00",
+  "status": "ADMITTED_EXISTING_A01_FIELD_FOR_NEW_CONDITIONAL_EXIT_INCREMENT_DEVELOPMENT",
+  "scope": "既有信息相对原八项的固定条件退出用途；不声称全项目新字段/新源、不重试旧完整策略。",
+  "hypothesis": "有向路径效率可能补充原净动量、波动和实际持仓状态对原继续收益的条件解释。",
+  "original_card_status": "NOT_RUN_PRESERVED_NOT_PROJECT_WIDE_NEVER_IMPLEMENTED",
+  "related_old_exact_expression": {
+    "source": "research/factor96_daily_state_shrink_v1.py",
+    "function": "build_features",
+    "formula": "(wealth-wealth.shift(20))/wealth.diff().abs().rolling(20).sum()，正分母才可用。",
+    "old_clock": "A01取当前收盘；E01/F01统计资料主方案滞后一完整交易日，对照多等一日；下一开盘执行",
+    "old_target_and_training": "每天仅原点日期>=当前日减2日历年，且j+6<当前索引，三个特征及5日开盘含分红标签完整；至少252行",
+    "old_models": "三个单变量岭回归，训练内标准化ddof0，lambda=1，截距等于训练标签均值；同一当前有效样本、等权组合，不筛选专家",
+    "old_primary": "FULL",
+    "old_policies": [
+      "BUY_HOLD_50",
+      "CALIBRATED",
+      "CASH",
+      "DISAGREEMENT",
+      "FULL",
+      "MONITORED",
+      "NO_STATE",
+      "STATIC_EQUAL"
+    ],
+    "old_terminal": "FIXED_DAILY_VARIANT_TARGET_FAILED",
+    "old_stop_condition": "固定经济规则失败后不改窗口、lambda、监测阈值或仓位映射救援；实现错误另留原版并修正版",
+    "old_source_limit": "2026回取历史及保守一/二日时钟，没有逐日首次发布版本；历史曾被研究，不能称独立样本外",
+    "scope_of_old_failure": "三家族及校准/监测/仓位的固定共同用途失败；保存政策没有A01单独策略，不据共同失败宣称所有条件退出用途失败。"
+  },
+  "current_use_distinction": "本次只在原自然持仓八项模型补第九项，原继续收益经济标签/成熟成员/周期等权/拟合及入场锁定不改；旧日更普通日五日目标、外部E01/F01、旧模型/校准/CUSUM和仓位政策均不运行。不是旧策略参数或窗口救回。",
+  "other_related_expressions": [
+    {
+      "source": "research/adaptive_allocation_v1.py",
+      "meaning": "既有绝对财富效率20，旧暖启动缺失填0；本次采用有向及真零分母未知。完整窗口abs新值与保存效率最大差<1e-12。"
+    },
+    {
+      "source": "research/adaptive_speed_trend_v1.py",
+      "meaning": "绝对效率10控制自适应速度，真零路径旧值0，旧方法不重跑；并非本原八项条件第九项。"
+    },
+    {
+      "source": "research/choppiness_state_entry_inputs_v1.py",
+      "meaning": "14日真波幅路径/高低区间及状态阈值，另一个量；不改变旧研究。"
+    }
+  ],
+  "bounded_review_limit": "有限关键词与列明直接合同，没有证明全仓算法等价完备性。未在列明原退出合同中发现同有向ER20条件第九项；不是全项目新颖性证明。",
+  "price_coordinate": "原当日close/previous_close及已除息现金的前向wealth，初始1，逐行经济收益及全财富重建一致。",
+  "formula": "净财富变化/20个绝对财富差分之和，21完整点且正路径，包含当日；不按效果改变坐标或方向。",
+  "zero_missing": "净零/正路径为真实0；真零路径或窗口缺口NO_VIEW。旧absolute效率暖启动0不沿用。",
+  "original_natural_rows_supported": 1507,
+  "original_mature_months_supported": 115,
+  "original_mature_months": 115,
+  "original_monthly_records": 142,
+  "finite_daily_rows": 3468,
+  "daily_rows": 3488,
+  "minimum_unique_values_per_ready_month": 437,
+  "raw_field_range": [
+    -0.7255574614065152,
+    0.888501742160279
+  ],
+  "max_saved_absolute_component_error": 0.0,
+  "information_already_computed_in_project": true,
+  "new_physical_source": false,
+  "target_new_definition": false,
+  "all_current_history_role": "DEVELOPMENT_CALIBRATION",
+  "new_empirical_model_fits_before_admission": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "old_T01_and_daily_variant_failures_preserved": true,
+  "direct_sources": [
+    {
+      "path": "research/factor96_daily_state_shrink_v1.py",
+      "sha256": "0ace8a08921ae1d20d93b08caa5f103bfa9235b9aff0db8ac8e56ddf91942ddc"
+    },
+    {
+      "path": "reports/research/510300_factor96_daily_state_shrink_v1/protocol.json",
+      "sha256": "387b3b730481960215fff01bc175cda66ca923c1327baf91f3c74e6da62cde6d"
+    },
+    {
+      "path": "reports/research/510300_factor96_daily_state_shrink_v1/result.json",
+      "sha256": "60fbd306b4f60f7ebb0c2952d4ece021ecb0b82df408afcf3dab283a59f3e7a2"
+    },
+    {
+      "path": "reports/research/510300_factor96_daily_state_shrink_v1/metrics.csv",
+      "sha256": "2bec1b059e537ec2e7046d1c0dfd414ba9c13cc50e375f62be0f26d701650afb"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/adaptive_speed_trend_v1.py",
+      "sha256": "df73f6a53469fc98a0531d224a9d0e64a8011b952c06ff27a2bcc2e1a8d43373"
+    },
+    {
+      "path": "config/510300_adaptive_speed_trend_v1.json",
+      "sha256": "40db6ace0099591c278acadb07738ccfbe4de2ec4d668da5c3e9dcb5301bfa8c"
+    },
+    {
+      "path": "research/choppiness_state_entry_inputs_v1.py",
+      "sha256": "1c14660d12a92057c16690aa4b7c54af7558833b75d3c82c899eb818ef1d75b6"
+    },
+    {
+      "path": "research/within_cycle_exit_inputs_v1.py",
+      "sha256": "986db7742140db8bbf59794c6250f8ab3cef99d48788262de8e2bcc4964c4c37"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/A01_candidate_intake_plan.json",
+      "sha256": "a1315d6d6c9fea11f3c7fb7df7ad7b00c7ecffd12724b2a35244d67c37e300a7"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/factor_progress.json",
+      "sha256": "1adee57b4b579d444b129d33e7a98a0282d077aebb39b7efdc405edb17f960c9"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/strategy_progress.json",
+      "sha256": "fdb8b8895562554546737217d7b3b59c542acb9a5cfb2e86ed66f4f3595167b3"
+    },
+    {
+      "path": "reports/research/510300_point_e09_label_objective_review_v1/summary.json",
+      "sha256": "9ed515e3b146e88dece002bd47e7cd7f80bd58c37ecb71529f083c06618454f3"
+    },
+    {
+      "path": "reports/research/510300_point_a01_exit_prediction_v1/原训练成员第九项数量支持.csv",
+      "sha256": "edafa99bdcbf7194c3ce4a54c7058aff1f7235120ccbfd5f6d03009d47d03780"
+    },
+    {
+      "path": "reports/research/510300_point_a01_exit_prediction_v1/implementation_setup_notes.json",
+      "sha256": "b4d5e0b4c0d4388814a0fceae14eef395d41fe5d25106cbbce8c2b6606f82173"
+    }
+  ]
+}

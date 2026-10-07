@@ -1,0 +1,93 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_RRR_FULL_ACCOUNT_V1",
+  "recorded_at": "2026-10-01T15:42:42.687903+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "mode": "HISTORICAL_FIXED_RULE_ACCOUNT_DIAGNOSTIC",
+  "question": "原六次降准公告的固定20日入场，在连续完整账户和既定风险预算下是否达到目标？不足来自毛收益、费用还是仓位/退出？",
+  "events": [
+    {
+      "id": "RRR_20180417",
+      "date": "2018-04-17"
+    },
+    {
+      "id": "RRR_20180624",
+      "date": "2018-06-24"
+    },
+    {
+      "id": "RRR_20181007",
+      "date": "2018-10-07"
+    },
+    {
+      "id": "RRR_20190104",
+      "date": "2019-01-04"
+    },
+    {
+      "id": "RRR_20190506",
+      "date": "2019-05-06"
+    },
+    {
+      "id": "RRR_20190906",
+      "date": "2019-09-06"
+    }
+  ],
+  "event_source": "reports/research/510300_historical_index_liquidity_transmission_v1/event_returns_and_breadth.json",
+  "event_scope_unchanged": true,
+  "account_calendar": [
+    "2018-01-01",
+    "2019-12-31"
+  ],
+  "primary_holding_open_intervals": 20,
+  "alternative_horizons_run": 0,
+  "rule": "全部六次公告日结束后下一ETF开盘尝试入场；持仓20个开盘间隔后于开盘退出；相同机制在所有事件一致。实施日不重复触发。已有持仓不加仓、不延长到期；入场拒单不换日期补入。",
+  "availability": "每次用公告日期23:59:59为信息上界，必须早于对应入场09:30；周末公告允许周一进入，前收盘只是价格和风险估计基准，不冒充公告已在前收盘公开。",
+  "primary_capital": 200000,
+  "reference_capital": 20000,
+  "executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "cost": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001,
+    "tick": 0.001,
+    "lot": 100
+  },
+  "risk": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "risk_estimate": "复用原冻结条件五日ES95：此前两年、五日结果已经成熟的126个相似价格状态；入场和每日减仓只用前一收盘估计。本轮不训练收益模型。",
+  "position_scope": "50%为每次目标决策的上限；价格变动可造成盘中和收盘漂移，全部报告，不能宣称连续无偏离保证。",
+  "execution": "复用既有T+1、整手、报价取整、限价与现金引擎；开盘仅减量至前价与开盘预算较小者，禁止借款。",
+  "dividends": "登记日记录持有权益；除息日计应收，支付日到账，不重复计入。",
+  "annual_days": 242,
+  "cash_daily_return": 0.0,
+  "risk_free_daily_return": 0.0,
+  "account_scenarios": [
+    "RRR_200000_STRESS",
+    "RRR_20000_STRESS",
+    "BUY_HOLD50_200000_REFERENCE",
+    "CASH_200000_REFERENCE"
+  ],
+  "benchmark_role": "半仓买入持有仅为连续市场暴露参考，持有期间可漂移，不作为符合全部风控的候选。现金夏普因零波动为空。",
+  "diagnostic_only": "另对两份RRR账本返还已付佣金与滑点、不再投资且持仓不变，单独标为费用解释，绝不作为零成本策略。",
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "maximum_drawdown": 0.1
+  },
+  "known_results": "六个事件的5/20日收益已经见过，2018-2019也被旧模型使用过；本轮只是补齐未做的完整账户，不是独立验证。",
+  "no_parameter_search": true,
+  "new_signal_filters": 0,
+  "no_forecasts": true,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "stop_rule": "若完整账户不达标，结束降准公告直接买入这一表达；不据六次收益删事件、选年份、反号或改持有期。新的机制需有不同且当时可得的信息。"
+}

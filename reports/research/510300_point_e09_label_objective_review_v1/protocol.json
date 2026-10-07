@@ -1,0 +1,46 @@
+{
+  "study": "510300_POINT_E09_LABEL_OBJECTIVE_REVIEW_V1",
+  "frozen_at": "2026-10-02T08:56:38.959454+08:00",
+  "purpose": "原目标及旧定义的只读准入复核；元数据不使用target或任何新目标收益。",
+  "scope": "510300.SH日线与此前完成周线，多头优先；原策略及所有冻结失败保留。",
+  "metadata_columns": [
+    "cycle_id",
+    "origin_index",
+    "origin",
+    "early_exit_index",
+    "early_exit_date",
+    "exit_index",
+    "mature_date",
+    "reference_quantity"
+  ],
+  "forbidden_columns": [
+    "target",
+    "net_profit_cny",
+    "net_return"
+  ],
+  "original_endpoint": "NEXT_RAW_OPEN_VS_NATURAL_EXIT_RAW_OPEN_BASE_FRICTION_AND_INCREMENTAL_RIGHTS",
+  "clock": "原标签整周期自然退出成熟；模型仍用最近20完整周期、至少10周期100行。",
+  "quantiles": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    0.95,
+    1.0
+  ],
+  "metadata_groups": "按原点日期：全体、2015至2019、2020至2026-09-30；仅描述，不是新预测比较。",
+  "checks": [
+    "日期和市场索引一致",
+    "T+1及严格不同退出原点",
+    "原状态覆盖和明确排除原因",
+    "新增权益除息不晚于原成熟日期",
+    "全部原月度成员及成熟时钟一致"
+  ],
+  "old_contract_roles": "只抽取旧合同和保存终态/主指标，原242日账户不混入当前252日比较。",
+  "next_target_admission": "只有不同经济问题及完整因果样本成立才另冻结；本诊断不选择新时域。",
+  "new_labels": 0,
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

@@ -1,0 +1,97 @@
+{
+  "study_id": "510300_INDUSTRIAL_INDEX_AGGREGATE_HISTORICAL_SECTOR_POPULATION_EXPOSURE_BRIDGE_SOURCE_V1",
+  "experiment_id": "E103",
+  "registered_at": "2026-10-04T17:27:56.353793+08:00",
+  "status": "REGISTERED_THREE_FIXED_HISTORICAL_INDEX_AGGREGATE_SOURCE_BRIDGE_BEFORE_QUERIES",
+  "previous_goal_turn_classification": "PROGRESS_THREE_PRIMARY_CAUSE_EXPLANATIONS_JOINT_STATES_AND_LONG_TERM_FACTS_UPDATED",
+  "hypothesis": "工业利润的采矿/电力/装备等相反原因只有在对应当时沪深300整体行业母体及权重后才能讨论指数影响；全国工业不含许多金融/服务业，不直接等于指数。指数整体行业权重只有当时公开的原载体可做历史原因桥。",
+  "parents": [
+    {
+      "path": "reports/research/510300_industrial_official_cause_explanations_v1/next_experiment.json",
+      "sha256": "504830b9d86349a6b449f375376e9c1f2e39574c4ac0b4e0c27c059031545638"
+    },
+    {
+      "path": "reports/research/510300_industrial_official_cause_explanations_v1/result.json",
+      "sha256": "160cdab3b55a5d00d80f8425c67297ebbe943310be15a29d194a92fa917be414"
+    },
+    {
+      "path": "reports/research/510300_industrial_official_cause_explanations_v1/三个固定原期_原量原因与资金订单回款库存同钟共同状态.json",
+      "sha256": "76e8d87c3d8d55ff246617b494b6967d21b2bdeee5f80a37ec15273330f9465f"
+    }
+  ],
+  "fixed_periods": [
+    "2020M10",
+    "2021M07",
+    "2024M04"
+  ],
+  "same_clock_cutoffs": {
+    "2020M10": "2020-11-30T16:00:00+08:00",
+    "2021M07": "2021-08-27T16:00:00+08:00",
+    "2024M04": "2024-05-27T16:00:00+08:00"
+  },
+  "query_targets_fixed_before_request": [
+    {
+      "economic_period": "2020M10",
+      "query": {
+        "q": "沪深300 指数单张 行业分布 2020年10月",
+        "domains": [
+          "csindex.com.cn"
+        ]
+      }
+    },
+    {
+      "economic_period": "2021M07",
+      "query": {
+        "q": "沪深300 指数单张 行业分布 2021年7月",
+        "domains": [
+          "csindex.com.cn"
+        ]
+      }
+    },
+    {
+      "economic_period": "2024M04",
+      "query": {
+        "q": "沪深300 指数单张 行业分布 2024年4月",
+        "domains": [
+          "csindex.com.cn"
+        ]
+      }
+    }
+  ],
+  "weight_observation_policy": "固定原经济月月末或该月最后交易日的沪深300整体行业权重；权重公布钟须不晚于对应共同决策截止。其他年月/当前事实表仅线索，不代目标，不按结果放宽日期。",
+  "acceptance": "真实官方原历史整体载体，权重数量和母体、权重观察日、本载体自己的公布钟、行业分类/映射均可解释。只截止前已公开的目标月整体桥合格；文件名/数据日/当前取得时间不证明过去已公开。非工业/金融部分保留，不算行业权重加权总分，不选个股。",
+  "budget": {
+    "official_queries": 3,
+    "real_different_original_aggregate_carrier_first_GETs_max": 3,
+    "each_target_attempt_max": 1,
+    "authenticated_requests": 0,
+    "raw_request_retries": 0
+  },
+  "local_cache_policy": "可查既有reference/config索引名及其原引用，不重复旧失败路径/盲扫全仓；当前数据或历史回引不充当当时原载体。",
+  "new_financial_candidates_budget": 0,
+  "new_model_fits_budget": 0,
+  "new_linear_regressions_budget": 0,
+  "new_simple_weighted_scores_budget": 0,
+  "new_stock_labels_budget": 0,
+  "new_accounts_budget": 0,
+  "source_code_edits_budget": 0,
+  "no_original_members_deleted": true,
+  "original79_1711_1212_preserved": true,
+  "old_E100_fixed_rejection_preserved": true,
+  "full_account_target_unchanged": {
+    "main_account_CNY": 200000,
+    "sensitivity_account_CNY": 20000,
+    "net_sharpe_minimum": 1.2,
+    "net_CAGR_minimum": 0.1,
+    "max_drawdown_maximum": 0.1,
+    "natural_completed_cycles_per_full_year_minimum": 5
+  },
+  "finite_stop": "三个固定官方查询和最多三个真实不同原整体载体各一次后结束；缺时间/权重/分类桥留UNKNOWN，不换月/链接/现版权重/来源钟营救。",
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts": false,
+  "historical_first_vintage_authenticated": false,
+  "independent_validation": false,
+  "goal_achieved": false
+}

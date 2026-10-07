@@ -1,0 +1,180 @@
+{
+  "at": "2026-10-02T13:43:00.713502+08:00",
+  "status": "ADMITTED_D02_CONDITIONAL_PURPOSE_AND_RAW_CASH_LOG_CLOCK_PENDING_ORIGINAL_MEMBER_SUPPORT",
+  "conditional_purpose_and_source_clock_bound": true,
+  "full_field_admitted": false,
+  "registered_definition": "gap=rCO；当gap<0时abs负缺口中被当日正rOC抵消的比例=max(rOC,0)/abs(gap)，同时保留gap规模。",
+  "old_rapid_use": "原D02已计算max(日内log,0)/abs(隔夜log)，旧边界隔夜<−1e−12；用于HIGH/LOW分位入场，缺口另存未联合进入当前原八项。旧结果/边界保持，不重跑。",
+  "old_D02_saved_account_rows": [
+    {
+      "policy": "D02_HIGH",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.0814523688633741,
+      "cagr": -0.0024082830505939,
+      "max_drawdown": 0.0949092270694018,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_LOW",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.23265804705293,
+      "cagr": -0.0079979597739895,
+      "max_drawdown": 0.0981124332847518,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_HIGH",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.1941005248698701,
+      "cagr": -0.0046686820748542,
+      "max_drawdown": 0.0973742967837214,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_LOW",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3536701361781265,
+      "cagr": -0.0092753129356438,
+      "max_drawdown": 0.0995573317499881,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_HIGH",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.2724329777349047,
+      "cagr": -0.0056738936755026,
+      "max_drawdown": 0.0966539392412046,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_LOW",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.4772145599739403,
+      "cagr": -0.0094137875975023,
+      "max_drawdown": 0.0959569104730384,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_HIGH",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3141512199340834,
+      "cagr": -0.0061278239330119,
+      "max_drawdown": 0.0959748475755439,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "D02_LOW",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.6020144379375477,
+      "cagr": -0.0099572574527818,
+      "max_drawdown": 0.0965709906301763,
+      "joint_historical_target": false
+    }
+  ],
+  "old_gap_recovery_use": "原raw开收盘/前收盘/当日除息现金按0.001整数单位；低开且收盘严格收复前收盘进入，日内<=0退出，不是本固定吸收比/缺口大小两列。",
+  "old_daily01_use": "简单收益现金分解的五日(日内贡献−隔夜贡献)/(二十日简单收益std*sqrt5)，252日事前分位及阶段入场；不是当日负缺口比率，也不是本原自然继续价值两列。",
+  "old_session_related_use": "simple_session_divergence已有固定累计日内/隔夜相位或差值政策；intraday_overnight_increment用M20/logRV20/D20固定期限目标；session_strength_within给原八项加六十日d60_factor，session_signed_rank为差值有符号排序。已有广义条件日内/隔夜用途，不声称本类用途从未研究。有限核对未发现当前固定当日负缺口吸收及缺口联合两列完整原成员用途。",
+  "homonym_correction": "absorption_local_inputs_v1及absorption_available_members_training_v1属于沪深300成分股协方差特征值吸收率；available members是证券成分可用性，不是本自然周期训练成员删样本，也不是负缺口修复。原D02提案措辞保留为历史提案并由本条纠正；不把PCA来源/失败移植给D02。",
+  "new_purpose": "既有负缺口吸收信息块对当前完整原自然继续价值的直接两列条件用途；既有物理开收盘信息重表达，不是新来源、独立历史或复试旧入场方向。",
+  "field_binding": "0.001整数报价/现金单位严格核验，deltaCO=open_units+cash_units−prev_units；rCO=log1p(deltaCO/prev_units)，rOC=log1p((close_units−open_units)/(open_units+cash_units))。固定negative_gap_absorption=max(rOC,0)/abs(rCO)仅deltaCO<0，signed_overnight_gap=rCO。保留大于1，真0有效，不压单分。",
+  "boundary_binding_before_quantity": "按原卡严格负缺口，无−1e−12或其他收益epsilon；以既有整数报价现金契约区分物理零与浮点伪负，0.001单位容差1e−7只核验源表示，不是收益阶段阈值。旧rapid边界冻结不改；不把边界严格化本身当新信息或营救依据。",
+  "source_clock": "原raw开收盘及当日已除息现金，前收盘等于上一实际收盘；rCO+rOC=原total_log，total_simple与前向wealth身份一致，首个市场点区间未知。完整收盘后可知，下一合法开盘执行；未使用未来现金/行情或回溯复权。",
+  "missing_rule": "源NaN/非有限/非正价格或负现金在纯字段中NO_VIEW；实际原快照闸门拒绝此类异常，不补值。有限有效报价/现金不在0.001网格直接拒绝，不四舍五入修复。严格负隔夜内平/负日内的吸收真0保留；正/零隔夜阶段外吸收NO_VIEW，缺口列仍已知，但两列联合不完整，不填0/epsilon、延续前值或删成员。",
+  "support_gate": "全部1507原自然成员及115原可用月的全部原训练成员两列有限才接纳；142月中27原未知保留。不读取原未来收益target，不建立条件负缺口子样本。",
+  "no_rescue": "不恢复旧HIGH/LOW、DAILY_01、gap_recovery或PCA失败，不按结果更改负缺口边界、现金分解、整数单位、吸收截断、字段维度、缺失/成员/标签/岭/权重/入场锁定/确认、预测/账户门或时期成本；支持未过即结束固定直接增量。",
+  "finite_search_scope": "精确D02/negative_gap/gap_absorption/overnight_absorption在point/within源未发现其他命中，另读原卡指向和相关日内隔夜/缺口/PCA上述8源。只作有限已知用途核对，不宣称全仓数学等价或所有研究穷尽。",
+  "new_market_information": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_registry_and_frozen_G1_preserved": true,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "config/daily_01_overnight_absorption_v1.yaml",
+      "sha256": "e4fbf0da628967b66216f8a838cc3b68217a3b458563db827da74605bc5d48cc"
+    },
+    {
+      "path": "reports/research/510300_daily_weekly_goal_continuation_20261001/isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    },
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv",
+      "sha256": "0fa32a2d2a2a87bf07bc0fdbf18b110a2e0a7fa19a74dcbc60107e4e139424fc"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/admission_receipt.json",
+      "sha256": "d455b517e50050e8b4b4c0a9f5b61c4087aa3afd4149534c8996b02403172d21"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/D02_candidate_intake_plan.json",
+      "sha256": "b86fc70a997b45a85cd83954654e6307c990fe43a6a5c9f3f7164b1e6e514bbe"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_p01_exit_prediction_v1/prediction_summary.json",
+      "sha256": "f10b7e712d9f7a3a7565bb70322609bdcb152f948965015c5b9e77e642dee396"
+    },
+    {
+      "path": "research/absorption_available_members_training_v1.py",
+      "sha256": "29eeaf3e1edc2b1a10abc66ce0103150304d7e400ed01951ad24a9f4282c5a4b"
+    },
+    {
+      "path": "research/absorption_local_inputs_v1.py",
+      "sha256": "01482d3d0ed216671adbdc3ad9cde2c1f11bcda34fe6a89d8dd7d57d44cf5cd6"
+    },
+    {
+      "path": "research/daily_01_overnight_absorption_v1.py",
+      "sha256": "db6acfd4a61970c32381363ec9a517e875ea087f6dde4fd2a4f9e79012fe2c65"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "research/gap_recovery_inputs_v1.py",
+      "sha256": "27c2a3ff267a70172202950e4f7fa1a7edb56d4e54607b36a365ab67ba553dd5"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/session_signed_rank_inputs_v1.py",
+      "sha256": "c808695f8a48fec98478d979a5dc3cab6bf08346893a22eb6fa38bf4f133e244"
+    },
+    {
+      "path": "research/session_strength_within_inputs_v1.py",
+      "sha256": "4e233ef41c05858c1a781d94348ba6114ae2ce8181677cbd5ff1ed9b74d73fef"
+    },
+    {
+      "path": "research/simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "study_id": "510300_SMC_SWEEP_FVG_HISTORICAL_V1",
+  "created_at": "2026-10-01T15:48:50.388006+08:00",
+  "user_request": "请继续，直到出研究成果；可以叠加MACD波动率量一起分析",
+  "research_question": "事前前日低点被日内跌破后收回、再突破首次试探柱高点时，已形成FVG与随后回踩是否增加T+1可卖时点的净收益？",
+  "mechanism_status": "待检验的价格过程假设；没有逐笔订单流，不能声称识别吸收、机构、止损单或操纵。",
+  "relation_to_legacy": "属于既有价格形态和FVG相关家族的新条件检验。旧15分钟无条件FVG、日线RECLAIM及锚定网格结论保留；不称独立新家族，不用其结果挑新参数。",
+  "bar_definition": "原一分钟09:31至11:30、13:01至15:00分别聚合连续五条为5分钟柱；不跨午休。09:30集合竞价不参与三柱形态。",
+  "bar_choice_reason": "五分钟用于描述日内位置测试、收复和再次确认的顺序；本轮只检验这一分辨率，没有分钟窗口网格。",
+  "reference": "前一交易日完整日线最低价减当日现金除息；开盘已低于该参考价另记OPEN_BELOW_REFERENCE，本轮不作为从上方跌破事件。",
+  "mother_event": "全样本每交易日首个5分钟最低价低于参考价至少0.001元；每日最多一次，不因失败再启动。所有交易日及无事件状态保留。",
+  "reclaim": "从首次跌破柱起至其后第6根柱，首次收盘不低于参考价；同一上午或下午内，最多等待30分钟。",
+  "structure_low": "首次试探至收回确认时已经发生的最低价，之后固定。",
+  "range_break": "收回后的后续第1至第6根柱，首次收盘超过首次试探柱最高价至少0.001；先发生收盘跌破固定结构低点至少0.001则失败。",
+  "fvg": "三根柱同一时段且第一根不早于首次试探，第三根low>=第一根high+0.001，中间柱close>open；须在区间突破确认时已经形成，形成后没有收盘低于缺口下沿。",
+  "retest": "只使用区间突破时最近一个已形成且活跃的FVG；之后第1至第6根柱low触及上沿、close回到上沿以上；先收盘跌破下沿或结构低点则作废。",
+  "policies": {
+    "P0_RECLAIM": "破低收回",
+    "P1_RANGE_BREAK": "再突破试探区间",
+    "P2_FVG": "再要求已形成FVG",
+    "P3_RETEST": "再等待FVG回踩收回",
+    "P4_CONTEXT": "FVG叠加MACD回升低波动相对放量"
+  },
+  "context": {
+    "macd": "五分钟12/26/9 EMA，柱值2*(DIF-DEA)，以已发生现金分红向前累计的价格计算；柱值大于上一根定义动能回升，不要求柱值已为正；至少260根预热。",
+    "volatility": "此前20个完整交易日含息对数收益标准差乘sqrt(242)；不高于此前252个可得RV20中位数为相对低波动，基准至少126日。",
+    "volume": "当前已完成五分钟柱成交量/此前20个交易日同上午或下午同槽位成交量中位数；>=1为相对放量。不用当日最终量作为输入。",
+    "fixed_joint": "P4=P2且MACD回升且相对低波动且相对放量；三个背景全可用才可评价。",
+    "joint_hypothesis": "在较稳定的日波动背景中，日内卖压试探后的动能回升和较充分成交可能支持反转延续；这只是事前假设，不能解释为观察到了订单流。",
+    "all_cells": "对P0/P1/P2完整列出2*2*2八格和三项单独条件；仅描述，无事后择优晋升。",
+    "missing_context": "保留原形态事件，背景记NO_VIEW，不把背景未知当成已确认不满足条件或零收益。"
+  },
+  "hypothesis_count": {
+    "primary": 1,
+    "nested_controls": 4,
+    "context_cells_per_parent": 8,
+    "context_parent_sets": 3,
+    "single_context_comparisons": 9,
+    "reported_horizons": 7,
+    "cost_scenarios": 2
+  },
+  "entry_clock": "信号标签t保守记为t+1分钟可得；采用原始标签t+3分钟open作为延迟成交代理，使两种标签语义下均晚于信息形成。拒绝跨午休、标签>=14:57、该分钟无成交、入场价已破固定结构低点、涨停价买入。",
+  "fill_limit": "分钟open加不利滑点与最小价位取整仅为历史成交模型，不证明个人可成交、盘口容量或真实排队。",
+  "outcomes": {
+    "primary": "T1_OPEN",
+    "legal_secondary": [
+      "T1_CLOSE",
+      "T2_CLOSE",
+      "T5_CLOSE"
+    ],
+    "nontradable_path_diagnostics": [
+      "M5",
+      "M30",
+      "T0_CLOSE"
+    ]
+  },
+  "label_endpoint": "下一交易日及后续第2/5日由独立日线交易日历确定，日内端点不得跨午休；次日开盘跌停不假设完成卖出，保留无可成交标签。",
+  "costs": {
+    "BASE": {
+      "commission_per_side": 0.0002,
+      "slippage_per_side": 0.0005
+    },
+    "STRESS": {
+      "commission_per_side": 0.0004,
+      "slippage_per_side": 0.001
+    },
+    "minimum_commission": 5,
+    "lot": 100,
+    "tick": 0.001,
+    "event_allocation_cny": 100000.0,
+    "account_capital_reference_cny": 200000,
+    "stamp_duty": 0
+  },
+  "dividends": "按登记日持有条件和除息日在收益端确认应收权益，到账前不充当可投资现金。孤立事件收益不是连续账户。",
+  "primary_comparison": "主比较为共同背景覆盖的P4减P2，在同一入场时点检验叠加MACD/波动/量的整体贡献；另保存P2减P1、P1减P0、P3减P2。不交易为零；背景或未来价格缺失不能记零。",
+  "uncertainty": "完整交易日日历五日循环块抽样2000次，随机种子20261001；少于10条成熟事件不报告区间。",
+  "fixed_halves": [
+    "2021-08-12至2023-12-29",
+    "2024-01-02至2026-08-12"
+  ],
+  "evidence_scope": "全部属于已使用的回溯历史；日期分段仅用于描述，不称留出、未见OOS或前瞻。",
+  "portfolio_gate": "唯一主方案P4压力T1_OPEN净均值及95%下界>0，P4减P2贡献差95%下界>0，两个固定半段净均值均>0，才可进入新冻结完整账户阶段。其他期限、单一条件或八格中最好者不能替代P4。",
+  "stop": "主门失败则停止本次定义，完整账户NOT_RUN；不改方向、时间窗、参考位置、成本或等待长度补救。数据失败独立记NO_VIEW。",
+  "real_order_flow_status": "NOT_RUN_NO_ADMITTED_TRADE_AND_ORDER_EVENTS",
+  "execution_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "new_collection": false,
+  "orders_authorized": false,
+  "sources": [
+    {
+      "title": "ICT 2022 Mentorship Episode 6",
+      "url": "https://www.youtube.com/watch?v=Bkt8B3kLATQ",
+      "read_scope": "原视频元数据和简介，未取得完整字幕"
+    },
+    {
+      "title": "Axia 假突破案例原文",
+      "url": "https://axiafutures.com/blog/elite-trader-trades-false-break-setup-with-200-lots/",
+      "read_scope": "作者配套全文，非收益认证"
+    },
+    {
+      "title": "FVG工具定义",
+      "url": "https://docs.luxalgo.com/platform/algos/price-action-concepts/imbalances",
+      "read_scope": "三柱价格定义，不将供需叙事视为已证因果"
+    },
+    {
+      "title": "上交所股票ETF T+1",
+      "url": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml",
+      "read_scope": "交易约束"
+    }
+  ]
+}

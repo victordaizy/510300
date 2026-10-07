@@ -1,0 +1,37 @@
+{
+  "study": "510300_POINT_A01_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T09:40:59.178683+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "既有有向路径效率相对原八项是否提供原持仓继续收益的条件增量。",
+  "information_role": "EXISTING_SIGNED_ER20_NEW_CONDITIONAL_EXIT_USE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加入含分红前向财富有向ER20一项，不运行旧三家族策略或T01。",
+  "field": "signed_path_efficiency20",
+  "price_coordinate": "原close和当日现金收益前向累乘的wealth，起点1，不使用未来回溯复权。",
+  "formula": "(W[t]-W[t-20])/sum(abs(W[j]-W[j-1]),j=t-19..t)，包括当日20差分，21点完整。",
+  "zero_missing": "真实零净变化/正路径为0；真零路径或不足完整窗口为NO_VIEW，不填零或删原成员。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、原周期截距和入场固定版本、两负确认。",
+  "ninth_model": "原加权标准化及周期内岭；新周期截距为成熟周期截距均值，单字段线性加入，不新增交互或入场规则。",
+  "source_clock": "各日完整收盘后可知；仍是截至9月30日的开发材料，无新行情。",
+  "prediction_gate": "同自然原点原收益单位、周期等权MSE；两时期原预测全部配对且MSE严格改善，入场整年块5000次/seed51030080的改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "原完整有序训练输入及9项、标签、周期权重与设置相同则复用；失败缓存，不重复尝试。",
+  "economic_gate_if_prediction_passes": "另冻结应用阶段；原20万元/252日全日历/BASE及STRESS、两时期，净CAGR与净夏普均高于A，实际净pB>1、平均周期收益>0、回撤<=10%；频率软目标。",
+  "old_failures": "旧日更三家族及T01失败保留；其共同或有限用途不冒充该原八项条件增量的独立字段失败，也不据本次结论覆盖旧策略。",
+  "no_rescue": "不因失败改20窗口、财富坐标、方向、未知赋值、成员、模型、标签、正则、确认或时期；不恢复旧策略/系数/仓位映射。",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

@@ -1,0 +1,20 @@
+{
+  "at": "2026-09-27T23:51:36.215739+08:00",
+  "stage": "BEFORE_REAL_O02_AND_ACCOUNT_RETURNS",
+  "finding": "既有market覆盖2012-05-28至2026-09-24；既有price_features和风险标签只到2025-12-31。",
+  "resolution": "依照已经冻结的每日两年成熟风险算法补算至2026-08-14；使用同一代码、状态、252最少训练样本、126近邻、5%尾部均值。核对旧区间全部已知ES及风险记录；新增范围不能沿用旧值或将缺口冒充安全现金信号。",
+  "feature_scope": [
+    "wealth",
+    "high_w",
+    "low_w",
+    "pressure5",
+    "trend20",
+    "log_rv5_rv60",
+    "es95"
+  ],
+  "maturity": "每个风险原点 j 的退出索引 j+6 必须 <= 决策索引 t；每次决策训练原点 >= t前2日历年。",
+  "economic_rule_changed": false,
+  "new_parameter_search": false,
+  "new_O02_computed": false,
+  "new_accounts": 0
+}

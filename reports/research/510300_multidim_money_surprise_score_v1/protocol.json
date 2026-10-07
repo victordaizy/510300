@@ -1,0 +1,94 @@
+{
+  "study_id": "510300_MULTIDIM_MONEY_SURPRISE_SCORE_V1",
+  "frozen_at": "2026-10-01T22:46:16.693224+08:00",
+  "previous_goal_turn_classification": "PROGRESS_MULTIDIM_POLICY_TRANSMISSION_SCORE",
+  "user_priority": "多维一起看待、一起打分、快速看到结果、研究非线性关系",
+  "hypothesis": "M2公布值相对同一期事前预期的偏差，在不同订单需求、资金价格、融资与指数量价状态下可能对应不同剩余收益；不预设正偏差必然利好。",
+  "scope": "仅历史指数整体研究，510300为价格与可交易观察，执行资产仍只有510300和现金。",
+  "event_universe": "原104个月货币公布台账；本轮截至2025年12月31日已公布且有合格预期的事件。缺失月份完整保留，不填零，不向后复制同一消息生成额外训练样本。",
+  "features_state": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期"
+  ],
+  "surprise_definition": "当月M2公布增速减去原冻结来源选择表中的事前预期，单位百分点。原固定来源优先序不变，称为报告中的事前预期代理，不宣称完整市场共识。",
+  "definition_boundary": "不使用M1或M1-M2差，避免2025年M1定义变化直接进入本轮；M2原口径版本作为元数据保留。数字人民币纳入的官方说明指出M1、M2增速无明显变化，不据此补造任何预期。",
+  "clock": "公布日期23:59:59为本次研究判断截止；指数状态使用该截止前最近一个交易日16点的已保存八变量。预期报告日期必须早于公布日期。买入在严格晚于公布日期的第一个交易日开盘；退出在入场后第5个交易日开盘。",
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "update": "每次合格月度公布",
+    "sample_unit": "每次公布一行",
+    "label_availability": "退出开盘时点已不晚于当前判断截止"
+  },
+  "model": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "complexity_reason": "月度样本不可与前轮每日样本等量计算；最多两层、每叶至少六次公布，为首次固定的事件交互表达。",
+  "comparisons": [
+    "相同事件、训练池和复杂度的八项指数状态树",
+    "增加M2预期偏差的九变量树",
+    "同九变量标准化岭回归alpha10",
+    "同池成熟事件净收益平均"
+  ],
+  "label": {
+    "horizon_sessions": 5,
+    "entry": "信号后次日开盘",
+    "exit": "入场后第5个交易日开盘",
+    "fixed_quantity": 10000,
+    "commission_each_side": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_each_side": 0.001,
+    "tick": 0.001,
+    "dividend": "按权益登记日归属；标签包括权益，但不冒充到账现金账户。"
+  },
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "score": "当日模型预测在同训练池拟合预测内的中位百分位秩，0至100，不是上涨概率。",
+  "evaluation": "固定五档0至20、20至40、40至60、60至80、80至100，空档保留；同事件比较误差和全部高分机会。",
+  "entry_diagnostic": "分数>=80且预测净收益>0；退出前不增加新事件，固定10000份成本标签，仅机会诊断，不冒充账户。",
+  "full_account_admission": "若主要期高分机会平均净收益非正或没有机会，不进入账户；为正亦不自动达标，须另行完整账户核对。",
+  "closest_old_study": "reports/research/510300_money_consensus_increment_v2/protocol.json",
+  "substantive_difference": "旧研究用三项价格状态加M1-M2预期差的扩展窗岭回归。本轮是需求、资金、融资和量价八项状态与单独M2预期偏差的两层事件树，并作删除预期偏差的同模型对照。原旧口径失败、缺失和账户NOT_RUN保留。",
+  "selection_history": "既有预期源、所有原宏观结果与两轮日频非线性失败已被看过；本轮是历史开发，不恢复独立性，不搜索新参数或择优组合旧模型。",
+  "not_comparable_directly": "本轮按月度事件重新训练；误差不可直接和前两轮1212个日频评分的误差大小比较。",
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_money_consensus_increment_v2/inputs/104个月共识选择.csv",
+      "sha256": "a54366fe043f66ebc0d365a1f8125d238e21670546816efc301a6fdbae296d79"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/historical_inputs_and_labels.parquet",
+      "sha256": "afd82d54745fcad558306eb4c665e36e85edc89a243e8089d2ec3a723a84d49f"
+    }
+  ],
+  "new_downloads_required": false,
+  "minute_data": false,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false
+}

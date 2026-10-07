@@ -1,0 +1,46 @@
+{
+  "created_at": "2026-10-06T14:06:28.827977+08:00",
+  "purpose": "完成已保存共同评分与实际账户失误归因，决定下一不同信息用途；不调模型。",
+  "candidate_and_all_controls": [
+    "TECH_COMMON",
+    "TECH_MACRO_COMMON",
+    "TECH_EARNINGS_COMMON",
+    "TECH_MACRO_EARNINGS_JOINT"
+  ],
+  "calendar": "原3488日期、两原时期两费用全部保留",
+  "sources": [
+    {
+      "path": "reports/research/510300_all_factor_macro_earnings_account_v1/summary.json",
+      "sha256": "c6d4221f63d48b06d323de8213066c69406d40d9995180ca6df9a10c2ffd69c5"
+    },
+    {
+      "path": "reports/research/510300_all_factor_macro_earnings_account_v1/results/全部20账户_四场景同口径比较.parquet",
+      "sha256": "e260f6a8c15b2de6f8b0e79c33289aa2409a2411cf9c7f7d948f654a9b111bfd"
+    },
+    {
+      "path": "reports/research/510300_all_factor_macro_earnings_joint_v1/results/全部四模型_共同原点评分及未知.parquet",
+      "sha256": "33d95eaa6631139f5487f36f241181c1e761e70d672e6126c813fe294772374d"
+    }
+  ],
+  "method": [
+    "全部共同评分原点对应不同进入请求；不选盈利例调整阈值",
+    "分别保存真实新增/遗漏周期与已持仓、现金/风险、实际执行原因",
+    "毛损益、手续费/滑点和净财富差精确闭合；路径差不称单一因果",
+    "将新增公开催化和旧统计背景是否被模型表达列为不同待证解释，不据已知上涨反推参数"
+  ],
+  "not_allowed": [
+    "重新拟合",
+    "重跑账户",
+    "新收益标签",
+    "选择更好去组对照替代主候选",
+    "零费用/理想数量策略",
+    "反向做空",
+    "旧深度/叶子/时窗/覆盖门营救"
+  ],
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_labels": 0,
+  "financial_admission": "NOT_ADMITTED_DIAGNOSTIC_ONLY",
+  "stop_condition": "保存账户及全部评分路径分解闭合后结束；后续完整用途需要不同依据，不因旧失败换参数。",
+  "goal_achieved": false
+}

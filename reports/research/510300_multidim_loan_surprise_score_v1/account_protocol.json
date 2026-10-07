@@ -1,0 +1,112 @@
+{
+  "registered_at": "2026-10-02T00:16:54.134494+08:00",
+  "study_id": "510300_MULTIDIM_LOAN_SURPRISE_SCORE_V1",
+  "reason": "新增字段已改变6次主要期预测，联合高分均值为正，按已固定条件进行账户换算；主要期五个入场日未改变，不能据此声称新增机会。",
+  "prior_seen": "评分结果全部已见；新增2023年2月13日机会亏损，主要期预测误差变差。账户阶段只换算既定信号，不改模型、分数阈值、持有期或风险预算。",
+  "calendar": [
+    "2021-01-04",
+    "2025-12-31"
+  ],
+  "primary_subperiod": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "cases": [
+    {
+      "id": "control_200000",
+      "model": "state",
+      "capital": 200000
+    },
+    {
+      "id": "control_20000",
+      "model": "state",
+      "capital": 20000
+    },
+    {
+      "id": "joint_200000",
+      "model": "joint",
+      "capital": 200000
+    },
+    {
+      "id": "joint_20000",
+      "model": "joint",
+      "capital": 20000
+    }
+  ],
+  "capital_rule": "20万元主账户与2万元成本比较账户分别计算。",
+  "candidate_signals": "只使用评分阶段保存的score>=80且预测净收益>0事件；已有仓位不加仓；只对预定下一开盘有效；退出计划为入场后第5个交易日开盘。",
+  "order_quantity_clock": "开盘前已决定整数份额。以已知前收盘除息参考价及当日10%上限价规划最差买价，按上限价检验现金与风险后提交固定份额，实际开盘只决定限价内成交与否，不重新计算较有利的数量。",
+  "liquidity_approximation": "日线开盘压力价为成交代理；方向涨跌停或压力价越限均不成交；无逐笔队列保证。买单当日失效，必要卖单顺延下一可卖开盘。",
+  "risk_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "risk_estimate": "复用既有每日成熟五日收益ES：过去两年、三项价格状态、至少252成熟原点、126近邻的最差7项均值；只读前一交易日ES。",
+  "sizing": "在已知账户参考净值下，以预先可计算的价格上限估计持仓市值，并把调整和退出压力费用一并纳入50%仓位、2.5%ES、5%缺口与半回撤剩余空间限制。持仓仅减不加。",
+  "drawdown": "收盘回撤>=10%后下一可卖开盘退出并永久停止该账户；不保证实际最大回撤始终小于10%。",
+  "dividends": "登记日收盘确定权益，除息日记应收，支付日收盘转现金；应收不用于支付买单。",
+  "terminal": "期末按收盘估值并扣未平仓压力退出准备，不强平制造完整周期。",
+  "benchmarks": "同日历旧现金及期初50%预算买入持有仅复用其描述结果，不重算两个重复账户，也不宣称为风险合规候选。",
+  "cost": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001
+  },
+  "lot": 100,
+  "tick": 0.001,
+  "annual_days": 242,
+  "cash_rate": 0.0,
+  "risk_free_rate": 0.0,
+  "evaluation": "全部现金日纳入夏普和年化；列原连续账户完整期、较早期、主要期，不重置资金择优分段。逐年自然完成周期保留零次年份。",
+  "account_targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "minimum_cycles_each_full_year": 5
+  },
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/daily_inputs_corrected_20240808.parquet",
+      "sha256": "c6be6dcf35dbff5f162980115de43acc498a15c0bd116b0f003d009c7ec712e7"
+    },
+    {
+      "path": "reports/research/510300_factor96_t11_date_proxy_account_v1/inputs/price_features.parquet",
+      "sha256": "8bdd6025c4c01e7d60b6bfc92f5642db26b64d5435db74b6172d7dff09fcb192"
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_factor96_t11_date_proxy_account_v1/code/account_engine.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/逐事件贷款预期联合评分.csv",
+      "sha256": "81014a29cb00a01068fc3f22daa4d52e271aa3e7f8e1134033dabf5a4dd73b5d"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/全部固定高分机会.csv",
+      "sha256": "67a81f52921c498b25e0d5854fe5c97252cf727c550c9ec23fb07e04d6a9a0e6"
+    },
+    {
+      "path": "research/multidim_money_surprise_account_v1.py",
+      "sha256": "4449f80dd1cc025da9ede0893469e90fd3838a4572420bbaf57cec8f1493c7d2"
+    }
+  ],
+  "parameter_search": false,
+  "new_forecast": false,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "model_label_mapping": {
+    "state": "同事件九变量M2与指数状态对照",
+    "joint": "十变量贷款偏差联合评分"
+  },
+  "daily_source": "reports/research/510300_multidim_financing_composition_v1/data_correction/daily_inputs_corrected_20240808.parquet"
+}

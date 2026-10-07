@@ -1,0 +1,46 @@
+{
+  "study": "510300_POINT_B02_INFORMATION_INTAKE_V1",
+  "frozen_at": "2026-10-02T15:13:44.401212+08:00",
+  "purpose": "拟合前检验固定B02五列直接追加原八项的完整成员支持，不读取未来收益标签。",
+  "registered_definition": "首次低点a按2日延迟确认；后续10日内低价距a低点<0.5ATR，比较本次与a前后已知区段成交额、日跌幅和CLV。",
+  "field_binding": {
+    "fields": [
+      "second_test_amount_ratio",
+      "first_test_log_return",
+      "second_test_log_return",
+      "first_test_clv",
+      "second_test_clv"
+    ],
+    "coordinate": "r为原现金经济log收益；W[0]=1、W[t]=W[t-1]*(C[t]+cash[t])/C[t-1]，H/L=W*(raw_H/L+cash)/(raw_C+cash)。首点收益未知，不填0。",
+    "first_test": "a为严格低于前20日最低L的日线低；a+1、a+2的L均严格高于L[a]才在a+2当前收盘确认。第一可能a=20；不提前确认或未来挑底。",
+    "second_test": "当前b严格低于前20日最低L，a+3<=b<=a+10、a为b前20日精确最低且未认领、abs(L[b]-L[a])<0.5ATR[a-1]。多个合法a用最新一个，已认领a不复用；旧等待事件从b到b+10未收复不重叠、过期释放。",
+    "atr": "与旧T02相同经济财富TR=max(H-L,abs(H-W_prev),abs(L-W_prev))，ATR20为此前20日简单均值，二测边界冻结a-1的ATR。第0点已知日内H-L按旧max可计算，初始隔夜收益不填；实际缺源后首点TR未知，不跨源断裂计算。最早源max(0,a-21)，量窗另为a-2..a+2。",
+    "amount_ratio": "b当日成交额/首次低点a前后各2日共5日成交额算术均值；这5日最迟a+2已结束。CNY原金额，组内/当日均有限且>0，否则联合未知。没有后续成交额/未来成交量或中位数替代。",
+    "return_pair": "直接分别保留r[a]和r[b]，不另加衰减大小/符号筛选或只保留负收益。真0收益有限。",
+    "clv_pair": "分别保留(W-L)/(H-L)，代入现金映射严格化简为(raw_C-raw_L)/(raw_H-raw_L)。日内范围0则未知，不填0.5；合法0和1保持。",
+    "stage": "五列只在当日被认领的二测b定义；a首次低/确认日及非二测日未知，不携带上一事件五值。价格等待及首次收复只控制之后事件是否重叠，不把未来成功条件加进本日五列。",
+    "exact_boundaries": "原C/H/L/cash按0.001合法单位核验（scaled误差<=1e-7、范围<=1e15），离格拒绝不修复；Fraction前向财富/高低/ATR严格判断相等/0.5ATR边界，没有信号epsilon。旧float1e-12实现仍保留，不构成新信息或恢复旧失败理由。"
+  },
+  "source_clock": "五项当日b收盘全部可知，首次低点a+2才确认、a±2金额组已结束；最新源b、最早max(0,a-21)。实际OHLC/现金/收益/财富身份校验，不读未来退出/修复结果。",
+  "missing_rule": [
+    "非二测日期未知不填0、不携带/延长阶段；真r0/CLV0/比值1保留。",
+    "量窗/当日额缺项或非正、任一测试日r缺失、H=L范围0则五列联合未知；合法价格二测仍记录/认领，不能按信息质量重挑事件。",
+    "任一当日OHLC/cash源缺失清事件/首次确认/认领记忆，等20连续同段低点及前序ATR后再判断，不压缩日历或跨未知比较。",
+    "原冻结实际源收益/财富/OHLC身份不合格终止，不改原数据；未知语义测试不是实际源修复。"
+  ],
+  "support_gate": "全部1507原自然持仓状态五列有限，115原可用模型月全部原成熟成员完整；142月含27无模型状态照存。支持失败不登记/拟合收益模型。",
+  "no_rescue": [
+    "不改两日确认、3..10二测、前20日低、0.5ATR[a-1]、最新a/一次认领/旧等待非重叠、五原列/金额均值或原未知规则。",
+    "不加卖压衰减阈值、按未来收复过滤、沿用成功事件/填零/延长阶段或删原成员营救。",
+    "原目标/八项/全成熟成员/模型/岭/入场锁定/两負确认/双期预测及账户门保持。",
+    "旧T02失败与原B02 NOT_RUN/PARTIAL不反写；T13完整NOT_RUN来源门保持，不能误称已测失败。"
+  ],
+  "fixed_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

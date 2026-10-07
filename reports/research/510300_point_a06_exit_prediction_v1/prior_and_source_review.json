@@ -1,0 +1,197 @@
+{
+  "at": "2026-10-02T13:19:29.409729+08:00",
+  "status": "ADMITTED_A06_NEW_CONDITIONAL_TWO_DIMENSION_PURPOSE_AND_LOG_VOL_CLOCK_PENDING_ORIGINAL_MEMBER_SUPPORT",
+  "conditional_purpose_and_source_clock_bound": true,
+  "full_field_admitted": false,
+  "registered_definition": "记录log(P/MA60)/(rv20*sqrt(60))与过去5日收益/(rv20*sqrt(5))两维；不先压成单分。",
+  "old_rapid_use": "旧rapid已算原现金前向财富的五日log速度/二十日log样本std及六十日log均价距离归一两列，仅速度进入此前两日历年70/30分位HIGH/LOW政策。完整两列作为原八项条件继续价值增量未建立，不恢复旧政策。",
+  "old_A06_saved_account_rows": [
+    {
+      "policy": "A06_HIGH",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.1656819004439955,
+      "cagr": -0.0031642149617316,
+      "max_drawdown": 0.0978133533621814,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_LOW",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.2309099634781588,
+      "cagr": -0.0051148996361007,
+      "max_drawdown": 0.0979165516325039,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_HIGH",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.2604027779694571,
+      "cagr": -0.0045656177481219,
+      "max_drawdown": 0.0990997869029292,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_LOW",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3260906498566042,
+      "cagr": -0.006236805055594,
+      "max_drawdown": 0.0992081229595401,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_HIGH",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.2954963741430775,
+      "cagr": -0.0046640549021822,
+      "max_drawdown": 0.0960225558237779,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_LOW",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.406154916134775,
+      "cagr": -0.0064994036162046,
+      "max_drawdown": 0.0963852534827208,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_HIGH",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3488177226947764,
+      "cagr": -0.0053562054432468,
+      "max_drawdown": 0.0964836988737399,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "A06_LOW",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.4511301569571516,
+      "cagr": -0.0068083490799285,
+      "max_drawdown": 0.0960873766338651,
+      "joint_historical_target": false
+    }
+  ],
+  "old_saved_rows_role": "只抽取8条保存指标，没有账户重算；旧242日口径与当前252日账户分开。",
+  "finite_prior_use_review": [
+    {
+      "source": "research/adaptive_speed_trend_v1.py",
+      "finding": "十日绝对方向效率决定递推均线速度，两收盘上下线入退；不是原八项加速度/六十距离两维。"
+    },
+    {
+      "source": "research/simple_price_entry_exit_v1.py",
+      "finding": "已有sma60上下1%与冲击/趋势规则，不能称六十均价距离从未使用；未见该标准化两维的原八项继续价值用途。"
+    },
+    {
+      "source": "research/daily_liquidity_insurance_tail_v1.py;research/factor96_margin_repair_v1.py",
+      "finding": "五日收益/rv20压力及二十日趋势等已用作尾部承接分布或融资修复价格对照；速度分量已有用途，原两维自然周期继续价值不是这些目标。"
+    },
+    {
+      "source": "research/point_b01_exit_prediction_v1.py",
+      "finding": "原八项加五日均价偏离原比例/rv20归一两列已拒绝，不与五日区间速度/六十均价距离两维混同，也不重试其窗口/派生。"
+    },
+    {
+      "source": "research/learned_cycle_exit_v1.py;research/adaptive_allocation_v1.py",
+      "finding": "原mom5/mom20为经济log收益和，sma120为财富/120均值减1，vol20为简单收益样本std乘sqrt242；速度与mom5/vol20有强重叠，重新归一本身不是新信息。六十均价距离可在相同近端动量/波动/120均价条件下不同，合成测试验证表达可区别而非预测优势。"
+    }
+  ],
+  "review_limit": "有限源码和用途核对，不声称穷尽全库同义算法；原卡NOT_RUN不代表未尝试。已存在速度字段与不同rv尺度不构成新物理来源，只有固定联合条件用途成立。",
+  "scale_decision": "在本轮数量/收益检验前固定原卡对应旧rapid定义：rv20为含当日20个真实经济log收益的样本标准差ddof1，不年化；过去五日收益为经济log收益和。原简单收益年化vol20保持原八项输入，不把它替换为log或242/252新尺度。不平行试尺度、窗口或按结果删列。",
+  "field_binding": "P为原始收盘及当天已除息现金累乘的前向财富；MA60为当前及此前59完整实际财富点的算术均值。r为同一前向财富的经济log收益，首点没有区间。rv20=std(r[t-19..t],ddof1)，速度=sum(r[t-4..t])/(rv20*sqrt5)，距离=log(P[t]/MA60[t])/(rv20*sqrt60)。两列共同使用完整60财富点/20真实log区间，当前收盘后可知。原八项共十项固定线性加入，无压分/交互或新进入。",
+  "missing_rule": "财富缺失/非正/非有限打断真实60点，未知收益打断真实20收益，不压缩合格历史；首区间未知，不填零。rv20非正/非有限或任一必要量未知时两列NO_VIEW，不加epsilon、不删成员。rv20正时真零速度/真零距离是有效数值。实际原数据另核raw close/previous close/已除息现金/simple/log/wealth恒等式。",
+  "support_rule": "先只读原日线源和1507自然成员/142月成熟元数据，不读取收益标签或拟合；1507全部原自然点、115原可用月全部训练成员两列有限才能注册，27原未知月保持。",
+  "field_regression_accounting": "固定完整滚动均值、收益和、std及比值，技术字段回归0；候选/控制收益拟合及保存复算分别计数，合成测试/bootstrap不是独立策略。",
+  "no_rescue": "不恢复速度HIGH/LOW或旧均线政策，不变5/20/60、财富坐标/log收益/std/年化尺度、两列维度/交互、未知/epsilon、原标签/成员/权重/岭/截距/锁定/两负确认、门/时期/成本营救；先完整支持后一个固定联合模型。",
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_registry_and_frozen_G1_preserved": true,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/A06_candidate_intake_plan.json",
+      "sha256": "d0c35ba60c81594a097bc9775d0524b7f966b7044f2da484fb46717a85f7aae4"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv",
+      "sha256": "0fa32a2d2a2a87bf07bc0fdbf18b110a2e0a7fa19a74dcbc60107e4e139424fc"
+    },
+    {
+      "path": "research/adaptive_speed_trend_v1.py",
+      "sha256": "df73f6a53469fc98a0531d224a9d0e64a8011b952c06ff27a2bcc2e1a8d43373"
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/daily_liquidity_insurance_tail_v1.py",
+      "sha256": "e11f5ae833b3f3ab9d96fcfc3b974cb0de922227a4e6e0923094122b1de89c96"
+    },
+    {
+      "path": "research/factor96_margin_repair_v1.py",
+      "sha256": "299aaae3ce803c0f4c179c80744e0aca7d448b81b58651663913f609bb1a35e2"
+    },
+    {
+      "path": "research/point_b01_exit_prediction_v1.py",
+      "sha256": "c9a00bc07f0a711f823ec639008e5788545e104bfb44f8a815c0529ddcbd7ea9"
+    },
+    {
+      "path": "reports/research/510300_point_b01_exit_prediction_v1/prediction_summary.json",
+      "sha256": "e86709d270ef348e1153c823fe168828b112a35a6a614ebcfffd6957c0d58a27"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/within_cycle_exit_inputs_v1.py",
+      "sha256": "986db7742140db8bbf59794c6250f8ab3cef99d48788262de8e2bcc4964c4c37"
+    },
+    {
+      "path": "research/point_a03_exit_prediction_v1.py",
+      "sha256": "4581dc87cd419d79a644ac09a53d73a16fb8bf66519c2428f5cad9e647f8732e"
+    },
+    {
+      "path": "reports/research/510300_point_b05_exit_prediction_v1/prediction_summary.json",
+      "sha256": "87a4fa5c6a2ee23819d95a4401b8ea8eb5de5fcee83ccb32f4299cd607a59d83"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/admission_receipt.json",
+      "sha256": "d455b517e50050e8b4b4c0a9f5b61c4087aa3afd4149534c8996b02403172d21"
+    },
+    {
+      "path": "reports/research/510300_daily_weekly_goal_continuation_20261001/isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    }
+  ]
+}

@@ -1,15 +1,15 @@
 # 文件与附件索引
 
-本目录是 `snapshot-2026-09-17` 的完整累计索引，覆盖 232,428 个原文件。附件可来自多个 Release；以每条附件的 URL 为准。
+本目录是 `snapshot-2026-10-06` 的完整累计索引，覆盖 363,126 个原文件。附件可来自多个 Release；以每条附件的 URL 为准。
 
 - [快照摘要](snapshot.json)：累计数量、增量数量、版本和盘点范围。
 - [全部附件映射](assets.json)：每个附件的实际下载地址、大小、类型和 SHA-256。
-- [本轮逐文件变化](changes-20260917.csv)：新增或修改、旧新摘要及最终存储位置。
+- [本轮逐文件变化](changes-20261006.csv)：新增或修改、旧新摘要及最终存储位置。
 - [增量比较回执](INCREMENTAL_COMPARISON.json)：当前纳入文件与历史索引的全量 SHA-256 比较。
 - [研究目录](studies.csv)及[目录规模](directory_summary.json)。
 - [排除范围](exclusions.json)及[保留历史缺失路径](RETAINED_HISTORICAL_PATHS.json)。
-- [本轮附件全量回读](SAVED_ASSETS_VERIFICATION.json)：只针对新生成附件的全部原文件；[旧发布验证](history/snapshot-2026-09-09/SAVED_ASSETS_VERIFICATION.json)保留原版本范围。
-- [忽略规则验证](IGNORE_RULES_VERIFICATION.json)和[最新汇总引用验证](STATUS_REFERENCES_VERIFICATION.json)；后者覆盖 418 个直接本地文件或目录引用。
+- [本轮附件全量回读](SAVED_ASSETS_VERIFICATION.json)：只针对新生成附件的全部原文件；[旧发布验证](history/snapshot-2026-09-17/SAVED_ASSETS_VERIFICATION.json)保留原版本范围。
+- [忽略规则验证](IGNORE_RULES_VERIFICATION.json)和[最新汇总引用验证](STATUS_REFERENCES_VERIFICATION.json)；后者覆盖 350 个直接本地文件或目录引用。
 - [本机环境快照](runtime.json)和[来源 Git 规则原件](source-control/README.md)。
 
 ## 原始文件清单
@@ -39,7 +39,20 @@
 - [files-021.csv](files-021.csv)：10,000 个原文件。
 - [files-022.csv](files-022.csv)：10,000 个原文件。
 - [files-023.csv](files-023.csv)：10,000 个原文件。
-- [files-024.csv](files-024.csv)：2,428 个原文件。
+- [files-024.csv](files-024.csv)：10,000 个原文件。
+- [files-025.csv](files-025.csv)：10,000 个原文件。
+- [files-026.csv](files-026.csv)：10,000 个原文件。
+- [files-027.csv](files-027.csv)：10,000 个原文件。
+- [files-028.csv](files-028.csv)：10,000 个原文件。
+- [files-029.csv](files-029.csv)：10,000 个原文件。
+- [files-030.csv](files-030.csv)：10,000 个原文件。
+- [files-031.csv](files-031.csv)：10,000 个原文件。
+- [files-032.csv](files-032.csv)：10,000 个原文件。
+- [files-033.csv](files-033.csv)：10,000 个原文件。
+- [files-034.csv](files-034.csv)：10,000 个原文件。
+- [files-035.csv](files-035.csv)：10,000 个原文件。
+- [files-036.csv](files-036.csv)：10,000 个原文件。
+- [files-037.csv](files-037.csv)：3,126 个原文件。
 
 ## 字段
 

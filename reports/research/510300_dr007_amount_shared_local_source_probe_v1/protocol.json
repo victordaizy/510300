@@ -1,0 +1,41 @@
+{
+  "study_id": "510300_DR007_AMOUNT_SHARED_LOCAL_SOURCE_PROBE_V1",
+  "experiment_id": "E58",
+  "registered_at": "2026-10-02T20:36:55.014259+08:00",
+  "hypothesis": "共享研究线2026-10-02新保存的DR007来源可能保留同证券同品种的原成交额；金额若实际存在，才有新的数量信息源可供单独登记，不把新利率处理当成交额。",
+  "already_observed_metadata": "TECH.R118协议及source_summary只有DR007.IB/DR007/weight、2905原行、2015-01-05至2026-08-14和原2823股票日历；尚未读其实际数据源schema或原金额值。",
+  "bounded_inspection": {
+    "root": "reports/research/510300_point_funding_optional_correction_v1",
+    "root_files": [
+      "verification.json",
+      "研究结果与下一步.md"
+    ],
+    "root_file_names": true,
+    "metadata_parent_hops_max": 2,
+    "direct_schema_inspections_max": 4,
+    "network_requests": 0,
+    "credential_config_reads": 0,
+    "secret_output": false
+  },
+  "target_identity": {
+    "ts_code": "DR007.IB",
+    "repo_maturity": "DR007",
+    "field": "amount",
+    "provider_documented_unit": "万元",
+    "other_official_field": "trdVol为另一原源亿元，不混同不同日期金额"
+  },
+  "no_inference": "weight及其变换不能推出amount；不从另一券种、R007或成交比例代替；不得推测父文件、开新网络、申请账户、使用到期凭据或重试旧E33。",
+  "decision": "只有实际原对象明确保存amount、日期、同品种身份及计量单位才报告金额存在；只有新源完整原成员支持与金额公开时钟另登记后才可能模型准入。仅schema发现不准入模型。",
+  "if_missing": "保留E33无有效访问事实；报告新的本地线索已穷尽，此单项仍未检验，不把金额经济假设判为无效。",
+  "economic_result_reads": 0,
+  "new_fits": 0,
+  "new_labels": 0,
+  "full_accounts": 0,
+  "source_code_edits": 0,
+  "first_vintage_verified": false,
+  "net_sharpe": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET"
+}

@@ -1,0 +1,388 @@
+{
+  "at": "2026-10-06T01:12:04.114143+08:00",
+  "study": "510300_INDUSTRY_LEADER_FAILURE_V1",
+  "registration": "TECH.R223",
+  "decision": "TECH.R224",
+  "primary": "FIXED_INDUSTRY_LEADERS_FAILED_ETF_POSITIVE",
+  "policies": [
+    "FIXED_INDUSTRY_LEADERS_FAILED_ETF_POSITIVE",
+    "ETF_POSITIVE_SAME_LEADER_COVERAGE",
+    "ETF_POSITIVE_ALL_DAYS"
+  ],
+  "controls": [
+    "A_SAVED_WEIGHT",
+    "R212_CONTROL",
+    "ETF_POSITIVE_SAME_LEADER_COVERAGE",
+    "ETF_POSITIVE_ALL_DAYS"
+  ],
+  "rule_card": "docs/510300_INDUSTRY_LEADER_FAILURE_V1.md",
+  "known_before_freeze": "R212/R216账户失败和R222全部历史描述已知，五日与方向是开发假设；不把原8亏损上下文当盲测。",
+  "anchor": "实际进入前一源日成员/分类/20报价，分类公布钟不晚于进入日09:30，固定前三行业不重选。",
+  "coverage": "原294/300、至少5成员/98%20报价和4行业形成锚；退出只测三领先行业，各98%后锚完整及当前市场VIEW_ALLOWED/300成员；跟随缺口另存不参与资格。",
+  "check_clock": "仅实际进入索引加5收盘一次，用进入日到进入后第4日五收益，未知不重试；额外退出次开，原风险退出优先。",
+  "primary_condition": "ETF同期含息累计>1e-12且原三领先行业等权累计均值<=1e-12。",
+  "controls_condition": "同领先可观察门仅ETF正退出、全日历仅ETF正退出；原进入/持有/费用/资金风险完全一致。",
+  "account": "每时期20万元，510300.SH/CASH_CNY；不补买，只允许风险减仓；最大50%、成熟ES5预算2.5%、10%跳空预算5%和半数剩余回撤余量；账户DD10%触发次可卖开盘清仓且永久停止新买入。下一开盘只减原计划可买数量，涨跌停、T+1、100份、.001报价、股息登记/应收/到账、252年化及全部现金日、终点自然持仓保持。",
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ],
+    "minimum_commission": 5
+  },
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "new_policy_accounts": 12,
+  "original_R212_exact_replays": 4,
+  "original_A_new_replays": 0,
+  "necessary_tests": 9,
+  "new_fits": 0,
+  "new_labels": 0,
+  "new_market_requests": 0,
+  "parameter_grid": false,
+  "economic_gate": "四场景主政策净CAGR/全日历净Sharpe正且严格高于原A/阶段/同覆盖价格/全价格；DD<=10%，实际完成pB>1且标准净期望正。次数软目标。",
+  "stability": "四场景对四对照，全部20/252日循环块各2000次、种子510300154；CAGR/Sharpe增量95%下界均正。",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "first_vintage": "NOT_CERTIFIED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "search_selection_correction": "NOT_COMPUTED",
+  "no_rescue": "唯一配置一次完整运行，不按收益改五日/方向/覆盖/源钟/风险/费用/时期。",
+  "sources": [
+    {
+      "path": "research/industry_leader_failure_study_v1.py",
+      "sha256": "8128126c249d9c33520fa31edf6ff6d3cac3cc6e0f0283a9045670b6da78277a"
+    },
+    {
+      "path": "research/industry_leader_failure_inputs_v1.py",
+      "sha256": "7f2dc172d18444728a9a2c42091fe8a01ae1fbfac2bf4911dd6c1896fa07beb4"
+    },
+    {
+      "path": "tests/test_industry_leader_failure_v1.py",
+      "sha256": "a6cebedc72e85a2327df6eccb7ce8b087bc3034eb55626d1fdc03a33c52bb5eb"
+    },
+    {
+      "path": "docs/510300_INDUSTRY_LEADER_FAILURE_V1.md",
+      "sha256": "254f160e96897e6ca7960a244328bd10cba0e962947efcaf766c11eac636bae7"
+    },
+    {
+      "path": "research/broker_cohort_failure_study_v1.py",
+      "sha256": "742d1f67ecea36f196d57de276e8191964d38425a95b0fbfdfc0076c0e236379"
+    },
+    {
+      "path": "research/broker_stage_policy_study_v1.py",
+      "sha256": "e499afbe707a7ee114cf2ff3fdf69de934516560842db472fc4120a4bd3c53d5"
+    },
+    {
+      "path": "research/broker_stage_policy_inputs_v1.py",
+      "sha256": "f6a1c40ba78f9493a180c4bf9e6e68c0bb98c26e1dd426906b0ccfab2f986104"
+    },
+    {
+      "path": "research/point_first_passage_study_v1.py",
+      "sha256": "dd1dc78d81200aadde09cc64e0e08acfd5bf92b11eecbf0167b86b0e98eee9ad"
+    },
+    {
+      "path": "research/point_first_passage_account_v1.py",
+      "sha256": "aa02f183c9bf21434906370be4f47e6a29c4bee83896b0c0e447bc71fd341edf"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/point_account_nr7_complement_v1.py",
+      "sha256": "fa2585dd4101578668d3a17eb911085659c1273fc40a1598ddded9253457803b"
+    },
+    {
+      "path": "research/point_directional_confirmation_study_v1.py",
+      "sha256": "1d2941f19edd61a08da2eaaa13c04b9cbe4af8b74a0819c8affd32fc8f9e221a"
+    },
+    {
+      "path": "tests/test_broker_stage_policy_v1.py",
+      "sha256": "6dfe3adf7327f5a0aebb83cdd85986c673fdd5d3dff922148bf7466bff9c7594"
+    },
+    {
+      "path": "docs/510300_BROKER_STAGE_POLICY_V1.md",
+      "sha256": "5ec0723e7ea580277232868a2476aef88176bd2763fcc3473a72ace5f20a9070"
+    },
+    {
+      "path": "reports/research/510300_cnh_macro_first_passage_v1/results/全部3488当时已知技术宏观与定盘偏离_未知保留.parquet",
+      "sha256": "36d2ac3feac4b01ee575ea7db75aff7c89144ec6c8976da2d77f846956c4b314"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_broker_cycle_inspiration_v1/phase_observation_summary.json",
+      "sha256": "faf4dfbc5e0543cea811aa535feb17a66357eee42ae50f0fca23068971aa8265"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    },
+    {
+      "path": "research/industry_structure_description_study_v1.py",
+      "sha256": "a8630da8f92f8fd0c9af46fa4fbd98204a99e19142f41cb81c4dac9b670436d5"
+    },
+    {
+      "path": "research/industry_structure_description_inputs_v1.py",
+      "sha256": "5f0373fb9fd68dcbf5eb9f0c20bf9c935d98c4f8ab049787acfce2d0cb3e5e22"
+    },
+    {
+      "path": "research/broker_fixed_cohort_inputs_v1.py",
+      "sha256": "cf87368c3fb6a4fcf8bb699dafbf9c3a6caa1caf5d16c3580af627bd36faf711"
+    },
+    {
+      "path": "tests/test_industry_structure_description_v1.py",
+      "sha256": "fb4e59a66df7ae928a7d5f7c2d1d17b33dadd847f9752c122f5580e727b334b4"
+    },
+    {
+      "path": "docs/510300_INDUSTRY_STRUCTURE_DESCRIPTION_V1.md",
+      "sha256": "d7f0aa0917e0ad7382308339c5f1c706a2e8c624a9396c59e1f3aeda74243781"
+    },
+    {
+      "path": "reports/research/510300_official_industry_full_sequence_v1/implementation_v1_0_1/results/全部实际源成员逐行分类_未知与出处保留.parquet",
+      "sha256": "e4efdba0cde1db6275b729a517d5bd0127f09efb9c7f1c156ba8ff03ef4538d0"
+    },
+    {
+      "path": "reports/research/510300_official_industry_full_sequence_v1/implementation_v1_0_1/results/全部3488日官方发布钟_成员覆盖_源龄与未知.parquet",
+      "sha256": "d3ff6bee196bbc5d85cfcc070a6579f6adba045279d3695eb3ce028915e40db5"
+    },
+    {
+      "path": "reports/research/510300_official_industry_full_sequence_v1/implementation_v1_0_1/summary.json",
+      "sha256": "e821ac50f7641f721bef2b3be612cf5ea220d6763ec77851dd78c08a691489c1"
+    },
+    {
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/classified_constituent_returns_remediated.parquet",
+      "sha256": "2007ecbc926f11186c9e51d33ab4722731d5f9584300d9d510bdd91c4652faf7"
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+      "sha256": "cc2cc50ba51a31c1f19bb2bc3edfc4fed41a3933afde48527e0dc10c09e2370b"
+    },
+    {
+      "path": "data/curated/510300_stress_transmission_hazard_v2_g1_historical_remediation_v1/four_state_daily_coverage.parquet",
+      "sha256": "030f6aac3852656b86c6a01b4931d8e1b671d80061fb4691aad6e2621291451e"
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/source_remediation_admission_manifest.json",
+      "sha256": "fca9177a7543176de6de19a68626f90e2a49947a8d77b70b6975a2f731964bb7"
+    },
+    {
+      "path": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/official_2015_extension_admission_manifest.json",
+      "sha256": "4bf2f455ae71b77b158042729ce8a5c8f4d9db0b2b1c87480f90fd952fdbf550"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/results/全部3488事前阶段资格与上一完整周结构位.parquet",
+      "sha256": "3736348ae8ddc8a9dd86e38e07c4c16d632c023f71fb3e949d894a7517670749"
+    },
+    {
+      "path": "reports/research/510300_volume_lead_price_confirm_explanation_v1/results/四原案例逐日全部量价及量先恢复状态.parquet",
+      "sha256": "11c7f7d5bed4351d2c2c341fcebeb4c7479ae00f68fc5c5e1ab214ff83ba69c1"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/STRESS/STAGE_ENTRY_AND_EXIT/trades.parquet",
+      "sha256": "006f61e00b17efae0837e97f03c159a843d25fdd622dd33f453286b07b3d49b6"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/STRESS/STAGE_ENTRY_AND_EXIT/trades.parquet",
+      "sha256": "3288a2d411a2523a27f2da0bc67e8926c7b89f84a5d31ff8697c35f5b4e1769c"
+    },
+    {
+      "path": "reports/research/510300_broker_cohort_failure_v1/post_run_diagnosis.json",
+      "sha256": "da7f0285842a93bec9d2a04d50474e5125e01a4ae25e1de336a1ba6cadda463c"
+    },
+    {
+      "path": "reports/research/510300_industry_structure_description_v1/protocol.json",
+      "sha256": "370886e5db19fe1951ae090e4987228110de7aec28285ab98c0ed4053df82e6e"
+    },
+    {
+      "path": "reports/research/510300_industry_structure_description_v1/summary.json",
+      "sha256": "f75100a2efb584a7e84975a134ef14dbdb02699c7f57354d8f7bd8c67f232157"
+    },
+    {
+      "path": "reports/research/510300_industry_structure_description_v1/post_run_diagnosis.json",
+      "sha256": "ed6f4886a6c1f2bde51bb1c5ec642a4a6cb7145bb6c0ae9e05587d9694ee364a"
+    },
+    {
+      "path": "reports/research/510300_industry_structure_description_v1/行业结构_具体上涨与失败反例.md",
+      "sha256": "d3a6cb0e28d4eafd2de2ca7d2904dd0acc618af340ab8415ad45a48368d0e2a7"
+    },
+    {
+      "path": "reports/research/510300_broker_cohort_failure_v1/summary.json",
+      "sha256": "212cb4984f3606307ae4316f6d945c2993f5c6f42bf231256179302f85460c48"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/BASE/STAGE_ENTRY_AND_EXIT/daily.parquet",
+      "sha256": "a234fbbb21fa0ade59a70db8aeb383944b46ccf7685955ed528e6a0c2decef0f"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/BASE/STAGE_ENTRY_AND_EXIT/orders.parquet",
+      "sha256": "4938bd39203ce8b158eccd871570aa1eb35a1565d31fef38ed9c04e7f2b24ee0"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/BASE/STAGE_ENTRY_AND_EXIT/trades.parquet",
+      "sha256": "f92dee40275a4bbd750049e89b05c7dd7e24ba745790a19d274e6b8a36484f42"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/BASE/STAGE_ENTRY_AND_EXIT/decisions.parquet",
+      "sha256": "d892d055780492909fde9d4d464b1869b0a19beca0ea0d5e263726cf8465719e"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/BASE/STAGE_ENTRY_AND_EXIT/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/BASE/STAGE_ENTRY_AND_EXIT/terminal.json",
+      "sha256": "1201d6e01cc71bd405e645ad0d2ed71c6589cdfcc3128e836e8fe3b1b79e628d"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/STRESS/STAGE_ENTRY_AND_EXIT/daily.parquet",
+      "sha256": "ed2c367064e13c25ff5b3622dd7f332302317318aa03734eb2a95fd05797b142"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/STRESS/STAGE_ENTRY_AND_EXIT/orders.parquet",
+      "sha256": "b7b2c24ca0937118b14fa1de75ed04274be982c95c048e897d445db82f2c3d23"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/STRESS/STAGE_ENTRY_AND_EXIT/decisions.parquet",
+      "sha256": "3c7f43ba2ee0568d6420354d051ad1eaf0a9f3fb8a01940c1613f771fae930d6"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/STRESS/STAGE_ENTRY_AND_EXIT/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2015_2019/STRESS/STAGE_ENTRY_AND_EXIT/terminal.json",
+      "sha256": "cfade95a9d4d36e78a1b5ffdb8f43c34336ea72197e695b43ffe04e9460f87c9"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/BASE/STAGE_ENTRY_AND_EXIT/daily.parquet",
+      "sha256": "d4441dbc199c8e9696714adc1907c5c35c514c9b17c94a9211ae427d0079115a"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/BASE/STAGE_ENTRY_AND_EXIT/orders.parquet",
+      "sha256": "eb4891ec6474ed8786970a231fbf65bbc0915a2b0afbca28a7d665559df6cd23"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/BASE/STAGE_ENTRY_AND_EXIT/trades.parquet",
+      "sha256": "9c6a6d1846141f68ed2a0610d828aea7eca1f31769442a411a768b29e2d3a8ef"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/BASE/STAGE_ENTRY_AND_EXIT/decisions.parquet",
+      "sha256": "f0bb532f49dd57808ed6664f8c0fe5d29d3277bdebc1ba21e9fe9f8f8936ddaa"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/BASE/STAGE_ENTRY_AND_EXIT/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/BASE/STAGE_ENTRY_AND_EXIT/terminal.json",
+      "sha256": "af0ab4c15c937143b93d17fe2caf82709851e3a4a636a926c5975c70ad0d1cd1"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/STRESS/STAGE_ENTRY_AND_EXIT/daily.parquet",
+      "sha256": "1e9e0d3cf8e675ddbed570875f39a15fb1b37a43f3679c962d5217e9870c554f"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/STRESS/STAGE_ENTRY_AND_EXIT/orders.parquet",
+      "sha256": "98a97fbed1ff84b8044eb8129adac3e6f4ecd7945316f65e10264cb7db919c85"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/STRESS/STAGE_ENTRY_AND_EXIT/decisions.parquet",
+      "sha256": "42a07f97545f31da06ae34c7cd148b3b70027c8442bbfc955268247a80ce1293"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/STRESS/STAGE_ENTRY_AND_EXIT/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_broker_stage_policy_v1/accounts/2020_2026/STRESS/STAGE_ENTRY_AND_EXIT/terminal.json",
+      "sha256": "af0ab4c15c937143b93d17fe2caf82709851e3a4a636a926c5975c70ad0d1cd1"
+    },
+    {
+      "path": "reports/research/510300_industry_leader_failure_v1/tests_receipt.json",
+      "sha256": "d5c9964b428b126a8450f24adab2516d63befbb9da705a1e8bf5dbf7c4e30e6a"
+    },
+    {
+      "path": "reports/research/510300_industry_leader_failure_v1/control_preflight.json",
+      "sha256": "d1ebdafb591dae6b7cc47dfec41051646008e5a29c8506779ef020695c95b177"
+    }
+  ]
+}

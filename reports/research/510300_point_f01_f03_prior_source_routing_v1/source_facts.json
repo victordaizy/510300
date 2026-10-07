@@ -1,0 +1,127 @@
+{
+  "saved_tables": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/completed_run/inputs/margin.parquet",
+      "rows": 2674,
+      "columns": [
+        "date",
+        "market_financing_balance_identity_residual",
+        "market_rqmcl",
+        "market_rqye",
+        "market_rqyl",
+        "market_rzmre",
+        "market_rzrqye",
+        "market_rzye",
+        "market_rzye_change",
+        "publication_rule",
+        "rqmcl_sse",
+        "rqmcl_szse",
+        "rqye_sse",
+        "rqye_szse",
+        "rqyl_sse",
+        "rqyl_szse",
+        "rzmre_sse",
+        "rzmre_szse",
+        "rzrqye_sse",
+        "rzrqye_szse",
+        "rzye_sse",
+        "rzye_szse",
+        "source"
+      ],
+      "date_start": "2015-01-05",
+      "date_end": "2025-12-31",
+      "dates_unique": true,
+      "dates_sorted": true,
+      "direct_reported_repayment_present": false,
+      "source_values": [
+        "SSE_LOCAL_OFFICIAL_PLUS_SZSE_OFFICIAL_11_DAY_REPAIR",
+        "sse_official_plus_jin10_szse_crosschecked"
+      ],
+      "publication_rule_values": [
+        "交易日T汇总于T+1交易日上午发布；T日收盘决策只能使用严格早于T的记录"
+      ]
+    },
+    {
+      "path": "reports/research/510300_factor96_crowding_overlay_v1_0_1/inputs/margin.parquet",
+      "rows": 2674,
+      "columns": [
+        "date",
+        "market_financing_balance_identity_residual",
+        "market_rqmcl",
+        "market_rqye",
+        "market_rqyl",
+        "market_rzmre",
+        "market_rzrqye",
+        "market_rzye",
+        "market_rzye_change",
+        "publication_rule",
+        "rqmcl_sse",
+        "rqmcl_szse",
+        "rqye_sse",
+        "rqye_szse",
+        "rqyl_sse",
+        "rqyl_szse",
+        "rzmre_sse",
+        "rzmre_szse",
+        "rzrqye_sse",
+        "rzrqye_szse",
+        "rzye_sse",
+        "rzye_szse",
+        "source"
+      ],
+      "date_start": "2015-01-05",
+      "date_end": "2025-12-31",
+      "dates_unique": true,
+      "dates_sorted": true,
+      "direct_reported_repayment_present": false,
+      "source_values": [
+        "SSE_LOCAL_OFFICIAL_PLUS_SZSE_OFFICIAL_11_DAY_REPAIR",
+        "sse_official_plus_jin10_szse_crosschecked"
+      ],
+      "publication_rule_values": [
+        "交易日T汇总于T+1交易日上午发布；T日收盘决策只能使用严格早于T的记录"
+      ]
+    }
+  ],
+  "original_admission": {
+    "market_start": "2012-05-28T00:00:00",
+    "market_end": "2025-12-31T00:00:00",
+    "margin_rows": 2674,
+    "margin_start": "2015-01-05T00:00:00",
+    "margin_end": "2025-12-31T00:00:00",
+    "margin_calendar_complete": true,
+    "historic_first_publication_receipts": "NOT_ESTABLISHED",
+    "dividend_event_count_to_cutoff": 13,
+    "official_balance_identity_source": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+    "repayment_negative_observations": 1
+  },
+  "old_repair": {
+    "missing_dates": [
+      "2017-03-10",
+      "2017-03-13",
+      "2017-03-17",
+      "2017-03-24",
+      "2018-08-01",
+      "2018-08-02",
+      "2018-08-03",
+      "2018-08-06",
+      "2018-08-07",
+      "2018-08-08",
+      "2018-08-09"
+    ],
+    "records_added": 11,
+    "unchanged_existing_balance_and_buy_rows": 2663,
+    "complete_days": 2674,
+    "strategy_or_parameter_changes": 0,
+    "new_strategy_results_seen_before_repair": 0
+  },
+  "repair_role": "原11深市统计日补缺发生于收益评估前，不是本轮新采集或营救失败策略。",
+  "amount_unit": "CNY；深市官方旧修复为亿元两位小数，约100万元精度。",
+  "population": "两交易所融资汇总，不等同CSI300成员或股票专属资金流；细项与汇总的调出标的范围不同。",
+  "implied_repayment": "买入额减余额变化；不是直接报告偿还、强平或净主力资金。",
+  "misleading_column_note": "market_financing_balance_identity_residual保存的是余额变化减买入，即负隐含偿还；未独立使用直报偿还，不能当三字段恒等审计。",
+  "physical_first_publication": "NOT_ESTABLISHED",
+  "current_1507_natural_support": "NOT_COMPUTED",
+  "current_115_mature_month_support": "NOT_COMPUTED",
+  "support_boundary": "2015—2025两市表不自动支持2014成熟训练和2026当前全部成员；不缩样本或以沪市2026单月代替两市完整源。"
+}

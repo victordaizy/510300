@@ -1,0 +1,188 @@
+{
+  "at": "2026-10-05T04:23:51.919116+08:00",
+  "study": "510300_FULL_RANGE_REVERSAL_EXPLANATION_V1",
+  "technical_decision": "TECH.R179",
+  "definition": "整数现金平移LOW<上一完整日LOW且CLOSE>上一完整日HIGH为同向出生；HIGH>上一HIGH且CLOSE<上一LOW为相反事件，只用于观察及多头失效。严格相等不算。",
+  "numeric_clock": "原OHLC及当时已发生分红用.001整数tick；非刻度/不一致/未知报价NO_VIEW，未知分红坐标不回填。收盘才知道形态，不知道日内HIGH/LOW先后或主动买卖流。",
+  "future_complete_policy_intent_fixed_before_any_new_outcome_join": "空仓当日LOW严格低于上一日LOW且CLOSE严格高于上一日HIGH，收盘后确认，次真实开一次尝试。开盘整数现金平移价<=事件当日LOW或坐标未知取消，不延迟追入。初始失效线是该事件当日LOW。持有中新的同向整日反转只将线抬至max(旧线,新事件当日LOW)；已知CLOSE<=线或当日HIGH>上一HIGH且CLOSE<上一LOW的反向整日反转，次合法开退出；两者同时发生时记收盘线失败。未知自身不退出、原风险只减；无加仓、混A、2R、20日、期末清仓或量/MACD/RV过滤。",
+  "purpose_distinction": "完整上一日区间两端共同跨越及对称反转管理；不单纯缩短旧收复低点窗口，不营救R177缺口、旧分钟FVG或原退出预测。",
+  "old_review": [
+    {
+      "source": "research/simple_volume_reversal_v1.py",
+      "result": "reports/research/510300_simple_volume_reversal_v1/acceptance_outcome.json",
+      "actual_status": "COMPLETED_TARGET_NOT_MET",
+      "distinction": "V5跌破原二十日收盘低点后收回该低点、收盘位置过滤、均线退出；不要求收盘跨上一完整日HIGH，也不含对称HIGH越过/CLOSE跨昨LOW的完整退出。不是只把20改1。"
+    },
+    {
+      "source": "research/daily_supply_test_v1.py",
+      "result": "reports/research/510300_daily_supply_test_v1/result.json",
+      "actual_status": "REJECTED_FROZEN_NO_PARAMETER_RESCUE",
+      "distinction": "此前二十日低点收复与回测/缩量测试、ATR失效和2R/20日退出；原固定失败保持，本次不用这些端点或过滤。"
+    },
+    {
+      "source": "research/smc_sweep_fvg_historical_v1.py",
+      "result": "reports/research/510300_smc_sweep_fvg_historical_v1/result.json",
+      "actual_status": "REJECTED_FROZEN_NO_PARAMETER_RESCUE",
+      "distinction": "分钟扫昨低、收复、突破、三柱FVG及回测，原主事件拒绝、组合NOT_RUN；本次只读整日OHLC，不解释分钟主动订单或极值先后。"
+    },
+    {
+      "source": "research/sequential_patterns_regime_v1.py",
+      "actual_status": "CODE_DEFINITION_CHECK_ONLY_NO_RESULT_STATUS_INFERRED",
+      "distinction": "BREAKOUT事前低点已试探/此前十日上沿，RECLAIM此前二十日低点，REPAIR冲击区间；完整定义核对未见同日跨昨低且收盘跨昨高并对称退出。未因猜测结果路径缺失判其NOT_RUN。"
+    },
+    {
+      "source": "research/full_daily_gap_account_v1.py",
+      "result": "reports/research/510300_full_daily_gap_study_v1/summary.json",
+      "actual_status": "REJECTED_FIXED_FULL_DAILY_GAP_FULL_ACCOUNT_GATE_FAILED",
+      "distinction": "R177要求相邻整日区间完全分离、LOW触及缺口下沿退出；新事件整日区间跨越/重叠，收盘越过相反边界及对称反转管理，不是加过滤或改R177回补参数。"
+    }
+  ],
+  "dedup_limit": "有限代码及完整用途核对，不声称全项目或所有历史形态全球新颖。",
+  "population": "3488全日线、2015起全部同向/相反出生及失败/开放，原61分段/49正式上涨和四固定案例全部保留。量、MACD、上一完整周、RV只是当时观察。",
+  "outcomes": "原2846标签/2826成熟/20删失/9尾部保留，只旧结果解释，不建新训练标签、不据标签选规则。路径失效不是实际完成收益。",
+  "necessary_tests": 4,
+  "new_accounts": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_market_requests": 0,
+  "pre_result_test_fixture_repair": "首次除息相等测试例9.978+.033实际10.011，并非预期10.010；只将测试CLOSE改9.977，原输入源码不变，首次失败及测试源码保留。修正时新事件结果连接、金融账户及金融结果读取均0。",
+  "historical_sample_role": "DEVELOPMENT_CALIBRATION",
+  "source_first_vintage": "NOT_CERTIFIED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "overfitting_removed": false,
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "research/full_range_reversal_explanation_v1.py",
+      "sha256": "4fbe11e74da2584f2dba95b5f0819afc3d161c9167ffad7409a6edb504fae532"
+    },
+    {
+      "path": "research/full_range_reversal_inputs_v1.py",
+      "sha256": "e76ce923d85762b107e5bf87dafe39993f75701873411b6b99ed82319c068066"
+    },
+    {
+      "path": "research/full_daily_gap_inputs_v1.py",
+      "sha256": "f2d042ed4e55441f714018d9cbd1c9f1db3f936aff47f09087eb06672678f8e9"
+    },
+    {
+      "path": "tests/test_full_range_reversal_inputs_v1.py",
+      "sha256": "e50d6d423c782f95b830430a35372fd5f6908cb5882eb72c601355b134847052"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/tests_receipt.json",
+      "sha256": "32a827685cd6bcaae4c850cd76248645edb20e8278d934f1cb3f982ea9419913"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/initial_input_tests_failure.json",
+      "sha256": "3e488bd8eb7b418941e638fe28498f6e40dc45ca56f2f13bbafe203931743656"
+    },
+    {
+      "path": "reports/research/510300_full_range_reversal_explanation_v1/initial_input_tests_before_fixture_repair.py",
+      "sha256": "a7f01ebddb1245f03fe98bf3576627f38f145a5f6dc6bfcb784288c764faf975"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/上涨段全集.parquet",
+      "sha256": "7f2e8b91cae86c364eaa4105c382c894cb4dcc76c4f8c3b53a3e91416dfffdb6"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/全部原点结果标签.parquet",
+      "sha256": "605bc67d6ec4b5450a9bed536150c61f67d84d6a145903c479a9ab309a78d7a0"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/results/全部3488已知缺口与量价_前2015A未知保留.parquet",
+      "sha256": "43d995ac5b23f1942ce4aef5e2bb11198e6af0f158daeeba695669363dfe71ac"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/summary.json",
+      "sha256": "83631372d4a1c890c378e170054223282618c6945cd8e9826d51e6ec4debf23d"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_lifecycle_attribution_v1/summary.json",
+      "sha256": "dd3056eedbb79544f772dfdec1eb1b0621d13b6c306cba0d2076d43067ce784a"
+    },
+    {
+      "path": "research/point_fresh_repair_order_study_v1.py",
+      "sha256": "b84f7db8b6df9a44916faa321c52abe66401106f60886a653e9b0d57eaedd4b0"
+    },
+    {
+      "path": "research/point_first_passage_study_v1.py",
+      "sha256": "dd1dc78d81200aadde09cc64e0e08acfd5bf92b11eecbf0167b86b0e98eee9ad"
+    },
+    {
+      "path": "research/post_repair_path_inputs_v1.py",
+      "sha256": "df14e018e25355ed0b7c31276d5eb4699cd5acc6546bf90838e76bfab5de0712"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/weekly_daily_technical_v1.py",
+      "sha256": "289ffb2f49c49a4fe409322bd7ee5f5660130a03766b32a6671cffdad871b5fc"
+    },
+    {
+      "path": "research/directional_entry_timing_v1.py",
+      "sha256": "2f96233d417054e2a0602c8d92377feb77c0544425a0f96bdb24fc4c42ae305d"
+    },
+    {
+      "path": "research/sequential_patterns_regime_v1.py",
+      "sha256": "af3d5f66cf88769c94adf74eca95462a70a095c09138608ecadf8ab7f5cea93b"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/simple_volume_reversal_v1.py",
+      "sha256": "4493408dac14eaaea56978a08daaaca6c37a6a0a0a9ce024dbb065a101047c3b"
+    },
+    {
+      "path": "reports/research/510300_simple_volume_reversal_v1/acceptance_outcome.json",
+      "sha256": "656b3bcc6de911aa6062be1c52c88862087f590eeafac6700515e5e5f63c01e7"
+    },
+    {
+      "path": "reports/research/510300_daily_supply_test_v1/result.json",
+      "sha256": "f79df47aea7f9e30f223fc866797eb2819ee3aded61c293aa3c70ea6f6e5af71"
+    },
+    {
+      "path": "research/smc_sweep_fvg_historical_v1.py",
+      "sha256": "5558cf2256d45702d1215fb113166285fe1c5ea5aaff6d1611a1008e923837d5"
+    },
+    {
+      "path": "reports/research/510300_smc_sweep_fvg_historical_v1/result.json",
+      "sha256": "b342838a9b30cbd70b0562017e082edeff684dd1a23e7f4f6347492098eea7f6"
+    },
+    {
+      "path": "research/full_daily_gap_account_v1.py",
+      "sha256": "c7e6243e9dd2723aa00bb4d08ac01109fc2a7a44b20616f41fbee6c4e26c1a66"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/summary.json",
+      "sha256": "bca420c27e0dddcd64029708ffdb80fe0dc9f57ea73cd82eb0bfdfb348d337d5"
+    }
+  ]
+}

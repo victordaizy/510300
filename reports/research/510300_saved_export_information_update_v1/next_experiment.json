@@ -1,0 +1,75 @@
+{
+  "experiment_id": "E29",
+  "proposed_study_id": "510300_BANK_INDUSTRY_CONSTRAINT_SOURCE_PROBE_V1",
+  "proposed_at": "2026-10-02T14:47:29.042283+08:00",
+  "status": "PROPOSED_PRIOR_USE_AND_REGULATORY_INDUSTRY_DEFINITION_PROBE_NOT_REGISTERED",
+  "question": "E29先核商业银行法人口径的净息差、资本充足率、不良贷款率之旧用途与官方季度来源定义，询问相同订单/资金状态下银行整体盈利及资本约束是否提供不同上游信息。拟研究2018Q1—2025Q3；当前只提案、未登记或采集。先做有限目录/方法/实际发布样例初探，不在初探内强求完整季度面板；初探支持后另注册完整来源阶段。不得将行业总体等同沪深300金融权重或个股盈利，不从累计净息差推单季冲击；2024资本规则/分类变化、实际发布与数值版本必须单列。没有实质新用途或定义/时钟不支持则结束，不改E26模型、窗口、阈值、标签营救；尚无新特征或模型准入。",
+  "hypothesis": "制造业订单、资金价格相近时，全行业银行利润缓冲、资本约束与资产风险可能改变信用供给/风险承担；需要真正不同的公开历史信息，不能将旧公司传导复述作为新增因子。",
+  "competing_explanations": [
+    "行业汇总口径与上市金融权重不一致，未必代表指数盈利。",
+    "该状态可能只是贷款/利率现有列的重复，季度频率可能不提供新日频信息。",
+    "字段虽同名但制度、累计口径或版本不同，可能制造虚假变化。"
+  ],
+  "proposed_source_scope": "官方商业银行法人口径季度监管统计，2018Q1—2025Q3；范围拟议，不是已获得完整面板。",
+  "proposed_raw_fields": [
+    "净息差",
+    "资本充足率",
+    "不良贷款率"
+  ],
+  "field_definitions_and_derived_features": "NOT_FROZEN_NOT_ADMITTED",
+  "prior_use_review": "有限62个相关research脚本的关键词定位，命中旧个股净息差传导；已读下列旧协议/结果。尚未完成全用途排重，不宣称全repo从未使用行业监管字段。",
+  "initial_probe_only": {
+    "directory_queries_max": 2,
+    "new_unique_direct_source_urls_max": 8,
+    "parallel_workers_max": 2,
+    "connect_timeout_seconds": 10,
+    "read_timeout_seconds": 25,
+    "total_download_bytes_max": 16777216,
+    "retry_known_failures": false,
+    "purpose": "只核旧用途、官方定义、表的载体和少量发布样例；不是31季度完整面板取得预算。"
+  },
+  "gates_before_any_model": [
+    "旧用途确有实质区别。",
+    "总体/制度/累计口径可明确，不把不可比列直接连成同比/环比。",
+    "完整来源阶段另注册，随后原全部评分日期与成熟成员的历史可知支持成立。",
+    "只有来源支持后才注册固定新输入用途及模型比较，不恢复E26失败。"
+  ],
+  "preliminary_references": [
+    {
+      "path": "reports/research/510300_bank_profit_credit_bridge_v13/protocol.json",
+      "sha256": "ab3edc48d476c959aa6c914e0f27cfd47bdf65852b2bfc3cfb7087656629ad78",
+      "role": "提案定位依据，非下一实验正式冻结父文件"
+    },
+    {
+      "path": "reports/research/510300_company_credit_realization_v24/protocol.json",
+      "sha256": "5ab713a4a3131fdd0929c310ae0d390244a2331bc212351076263550f238774f",
+      "role": "提案定位依据，非下一实验正式冻结父文件"
+    },
+    {
+      "path": "reports/research/510300_financial_driver_bridge_v1/result.json",
+      "sha256": "f1a5366e6702addaf3181bc335fc6d8a634eded62b02765d137043b3d9ed3ab9",
+      "role": "提案定位依据，非下一实验正式冻结父文件"
+    },
+    {
+      "path": "reports/research/510300_saved_export_information_update_v1/protocol.json",
+      "sha256": "5e6d48be089f5201150e46f1a6da5146452372e0147e0f22f5c5a9b66030ae33",
+      "role": "提案定位依据，非下一实验正式冻结父文件"
+    },
+    {
+      "path": "reports/research/510300_saved_export_information_update_v1/result.json",
+      "sha256": "9d916ef1d6935db68786290fd6efdc82a8b374a2c74c6f69a8ef7ccd858b5805",
+      "role": "提案定位依据，非下一实验正式冻结父文件"
+    }
+  ],
+  "new_source_requests": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "new_feature_definitions": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET"
+}

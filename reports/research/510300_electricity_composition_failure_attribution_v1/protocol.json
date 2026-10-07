@@ -1,0 +1,59 @@
+{
+  "study_id": "510300_ELECTRICITY_COMPOSITION_FAILURE_ATTRIBUTION_V1",
+  "experiment_id": "E46",
+  "registered_at": "2026-10-02T19:14:27.148983+08:00",
+  "status": "REGISTERED_SAVED_FAILURE_DIAGNOSIS_NO_RETRAINING",
+  "hypothesis": "E45失效可能是原固定信号条件和稀少叶组极端标签主导，而非全由交易费用/账户仓位约束。只归因既有失败，不改模型或经济含义。",
+  "scope": "E45全部39保存评分/模型、全部17两树自然机会及22主要期；预热51事件保留，按既有主要/早期两个区间，不能择个案替代整体。",
+  "method": [
+    "从保存树结构逐行重走训练和当前路径，复算保存预测身份、叶组标签均值/所有成员及最大绝对标签的绝对贡献占比；不重新拟合。",
+    "原标签固定10000份、佣金/滑点/价格tick/权益日期全部原样复算只作身份核对；同期零费用原开盘总回报仅解释费用上界，不是可执行新策略。",
+    "比较两树全部机会的净/毛均值及主期实际路径，保存全部叶成员/极端成员，不以剔除极端者生成替代预测。",
+    "完整账户未运行，不能宣称仓位风险限制或成交账户已导致失败。原每年机会数显示仅可提供频率证据。"
+  ],
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_electricity_composition_joint_score_v1/protocol.json",
+      "sha256": "cc19e5debe407a9677d14c986e445a5f2cdfdd980114fcb98f47f6b0114a79c4"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_joint_score_v1/result.json",
+      "sha256": "8581ba461c1f9fec8b4a79136af215014af9947177fa91223f45ac4d7f3d30fa"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_joint_score_v1/全部39次保存模型与实际决策路径.json",
+      "sha256": "dcd5d25ddf2fa275409fa81b32680151dcbaf78370f216723fe8e59f160d4baf"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_joint_score_v1/全部51原公告_标签复用与预热保留.parquet",
+      "sha256": "6f596701e0959234bec11fa1830614eb24e56e427e587a404bccc1ea6a5538d7"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_joint_score_v1/逐原公告联合评分.parquet",
+      "sha256": "2f91a9aa7ce13540f0f40ff2f8c0120f94abf96da27e37c1e035783800200d15"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_joint_score_v1/全部固定高分自然机会.csv",
+      "sha256": "6b9b3ce3591aa640d81d37e80a52b67b9f3bc91eaa0fd0e6fc68ce1ce45e5f0b"
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed"
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  ],
+  "parameters_changed": 0,
+  "new_fits": 0,
+  "new_labels": 0,
+  "new_account_runs": 0,
+  "new_downloads": 0,
+  "source_code_edits": 0,
+  "stop": "描述/身份核对完成即结束，不倒过来交易、不调80线/叶/窗口、不删极端标签、不以毛收益代替费用后目标。",
+  "net_sharpe": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET"
+}

@@ -1,0 +1,51 @@
+{
+  "study_id": "510300_REVERSAL_PATH_EXPLANATION_V1",
+  "created_at": "2026-09-22T14:08:26.852537+08:00",
+  "classification": "POST_HOC_DESCRIPTIVE_EXTENSION_ALREADY_OBSERVED_HISTORY",
+  "user_request": "A股均值回归、反转多于动量；结合此前涨幅较大后按回撤退出与政策动态更新要求，用真实路径澄清。",
+  "monthly_sample": "继承前轮全部170个月末原点及固定20交易日标签，不换期限、样本或涨跌幅档位。",
+  "policy_sample": "继承手工验证的24个政策来源节点；同一复核日只计算一条价格路径。不是独立政策事件全集，不统计政策胜率。",
+  "horizon": 20,
+  "wealth": "第0点为次日实际开盘价归一为1；随后20个收盘点加持有期现金分红权益，入场除息日不享有分红，不再投资；无费用、无账户。",
+  "pullback": "只要此前出现高于入场价的收盘现金权益高点、之后任一收盘低于该已出现高点，即记有途中回撤。浮点容差1e-12，不设经济阈值；一次很小波动也会计入，绝不当成可获利卖点。",
+  "reversal": "此前20日回报与未来20日最终回报符号相反；原轮分类保持原样。",
+  "statistics": [
+    "全部路径与最终回报",
+    "各此前方向的途中回撤/期末方向交叉计数",
+    "收盘最大回撤分布"
+  ],
+  "illustration": "此前上涨且途中回撤的期末仍涨、期末转跌两组中，各取日期最早的一条；机械选择用于说明形态，不作代表性推断。",
+  "policy_illustration": "R01宣布降息与R02实施确认两节点，并展示所有其余节点的映射和路径；只解释可成交起点差异，不比较哪天交易最优。",
+  "new_models": 0,
+  "account_runs": 0,
+  "exit_strategy_runs": 0,
+  "bootstrap_draws": 0,
+  "acceptance": "只检查路径、分红、时间与保存期末回报一致；不能以此放行任何入场或退出策略。",
+  "inputs": [
+    {
+      "path": "inputs/market.parquet",
+      "origin": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_reversal_monthly_diagnostic_v1\\inputs\\market.parquet",
+      "sha256": "d2fc3d36f28806ee98c4cd54a752fcc25066e8b544e9d8c93caa2de9e2b86b68"
+    },
+    {
+      "path": "inputs/monthly_origins.csv",
+      "origin": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_reversal_monthly_diagnostic_v1\\全部月末原点与二十日收益.csv",
+      "sha256": "e16eaedeae4f742fd5d88e1e91a0b79cd090f052bf1140d96b41a66ff6a1fd55"
+    },
+    {
+      "path": "inputs/prior_reversal_summary.json",
+      "origin": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_reversal_monthly_diagnostic_v1\\summary.json",
+      "sha256": "c9bce80616288c72a800e1d16b9ba15f781b6ffea1230cf2d533fa02b9963c87"
+    },
+    {
+      "path": "inputs/prior_reversal_protocol.json",
+      "origin": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_reversal_monthly_diagnostic_v1\\protocol.json",
+      "sha256": "234e6ffde09725cd9871fff00b149f0f897a7e23588ecff96b65d517bc218cf1"
+    },
+    {
+      "path": "inputs/policy_nodes.csv",
+      "origin": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_policy_information_clock_v1\\results\\跨通道政策链_完整事实与时钟.csv",
+      "sha256": "98cfeea2a2429d5c62008470ff2307843b54ac465b5bcc3fa0744e581b0d9e46"
+    }
+  ]
+}

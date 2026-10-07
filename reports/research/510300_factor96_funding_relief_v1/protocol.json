@@ -1,0 +1,81 @@
+{
+  "study_id": "510300_FACTOR96_FUNDING_RELIEF_V1",
+  "registered_at": "2026-09-27T12:21:15.391622+08:00",
+  "primary": "FULL",
+  "new_candidate_definitions": 1,
+  "seed_source": "用户18策略中的T14/K05/B04",
+  "periods": {
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "capital_cny": [
+    200000,
+    20000
+  ],
+  "annual_days": 242,
+  "cash_rate": 0.0,
+  "rf": 0.0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "primary_source_lag": 1,
+  "sensitivity_extra_session_lag": 2,
+  "rate_clock": "DR007统计日结束后至少下一A股交易日09:30可用；收盘16:00取最近可得的一条，保留银行周末工作日；不使用本日DR007。",
+  "policy_clock": "DR007日结束时已公开的最新7天操作利率或实施事实；宣布中的未来目标单列不用作生效利率；缺失不是0。",
+  "K05": "最近5个A股决策日已可见的DR007减相应已公开操作利率的均值；单位百分点。源年龄超过10自然日缺失。",
+  "quantiles": "前252个A股决策日K05、至少120有效值；当前值排除；额外延迟时整体位移1交易日。",
+  "fund_relief": "前5个决策日曾严格高于各自当时90分位，当前严格低于当时50分位。",
+  "price_event": "对数总回报<-2倍此前20日波动，冲击起点10日去重；之后第1至10日首次收涨，不另加不创新低要求。",
+  "entry": "价格确认与资金缓和在同一收盘成立，下一开盘申请。",
+  "exit": "收盘失守冻结冲击日低点、资金压力重返90分位、五个开盘间隔到期或公共风险退出；次开盘卖。",
+  "factorial": {
+    "PRICE_ONLY": [
+      false,
+      false
+    ],
+    "ENTRY_ONLY": [
+      true,
+      false
+    ],
+    "EXIT_ONLY": [
+      false,
+      true
+    ],
+    "FULL": [
+      true,
+      true
+    ]
+  },
+  "factorial_meaning": "固定进入开关×退出开关；FULL为唯一主方案，其他三项仅分解作用，失败后不晋升最好对照。",
+  "funding_missing": "FULL/EXIT_ONLY既有持仓遇资金数据失效退出；缺失不伪装缓和。",
+  "risk": "完全复用前轮已冻结的两年成熟状态五日ES95、最大目标50%、2.5%ES预算、5%跳空损失预算和10%回撤停止；无新风险拟合或参数搜索。",
+  "execution": "原始开盘价、100份、0.001价位、T+1、最低费、方向涨跌停保守不成交；末日持仓扣压力退出成本准备但不假造成交。",
+  "comparisons": "FULL减PRICE_ONLY是主要增量；进入和退出拆分仅描述。主期20万元压力日收益差，20日区块4000次；随机种子20260928。",
+  "outer_selection": "本轮1项，加前轮2项，候选库累计3项；家族统计不能清除96候选及旧研究选择偏差。",
+  "acceptance": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "both_capitals_stress_required": true,
+    "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY"
+  },
+  "stop": "固定主方案未达标则保留；不调分位、观察窗、退出或移用较好的对照。",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "goal_status": "active"
+}

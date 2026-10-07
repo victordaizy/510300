@@ -1,0 +1,326 @@
+{
+  "checked_at": "2026-10-02T05:08:15.655786+08:00",
+  "status": "COMPLETED_BOUNDED_PRIOR_CONTRACT_REVIEW_NO_NEW_ADMISSION",
+  "review_role": "旧原件复核，非重新登记的旧试验结果",
+  "studies": [
+    {
+      "old_study": "510300_DIRECTIONAL_CONTINUATION_EXIT_V1",
+      "round": 79,
+      "name": "概率分类退出",
+      "acceptance_status": "COMPLETED_DIRECTIONAL_PROBABILITY_TARGET_NOT_MET",
+      "old_decision": "概率退出两段夏普及四终值均低于原平均收益退出，结束本项，不调门槛或正则救回。",
+      "current_review_decision": "已经以原继续收益>0为正类拟合逻辑分类，旧79终态保留。",
+      "metrics": [
+        {
+          "period": "evaluation",
+          "cost": "BASE",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "annualized_return": 0.02398826172544532,
+          "net_sharpe": 0.4870124659424284,
+          "max_drawdown": -0.08436526236190317
+        },
+        {
+          "period": "evaluation",
+          "cost": "STRESS",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "annualized_return": 0.01737090777853058,
+          "net_sharpe": 0.36024121455305447,
+          "max_drawdown": -0.08839598812017828
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "BASE",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "annualized_return": 0.06524012776757876,
+          "net_sharpe": 0.6203197574591511,
+          "max_drawdown": -0.1379164435416316
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "STRESS",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "annualized_return": 0.062254969790997636,
+          "net_sharpe": 0.5952854873976675,
+          "max_drawdown": -0.1391665613986051
+        }
+      ],
+      "sources": [
+        {
+          "path": "config\\510300_directional_continuation_v1.json",
+          "sha256": "52394692a9a1e2b87dd82ed5f6c38f0d26c12b84141c24d3b93d789e4e289211"
+        },
+        {
+          "path": "reports\\research\\510300_directional_continuation_v1\\result.json",
+          "sha256": "8f98b32bdadcd00df293d8b26aeb86675e6299f23d50047186bccb45c7dc1cbe"
+        },
+        {
+          "path": "reports\\research\\510300_directional_continuation_v1\\acceptance_outcome.json",
+          "sha256": "cdd20f9f97e125fc81e3b137649f078fcd78ba1664721744ae9566a4a8a57058"
+        },
+        {
+          "path": "research\\directional_continuation_v1.py",
+          "sha256": "01c08e82034a025faf0c5be5fdafe01cb321d579098d361cdebc4e726e4f5ef7"
+        }
+      ]
+    },
+    {
+      "old_study": "510300_PROBABILITY_PAYOFF_EXIT_V1",
+      "round": 158,
+      "name": "概率与盈亏幅度分离",
+      "acceptance_status": "CLOSED_PROBABILITY_PAYOFF_EXIT_FULL_GOAL_NOT_MET",
+      "old_decision": "第158轮概率与盈亏幅度分离的退出方法完成。主基础／压力净夏普0.116／0.019，较早0.716／0.692；年化收益主0.50%／−0.05%、较早7.84%／7.54%。四项夏普均低于1.2、128及143，关闭这套固定方法，完整目标未实现。",
+      "current_review_decision": "旧158两类高斯概率和类别幅度方法关闭，不换分类器或阈值营救。",
+      "metrics": [
+        {
+          "period": "evaluation",
+          "cost": "BASE",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "annualized_return": 0.004964437296736229,
+          "net_sharpe": 0.11596730906455104,
+          "max_drawdown": -0.15457078940580937
+        },
+        {
+          "period": "evaluation",
+          "cost": "STRESS",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "annualized_return": -0.0005230841063236859,
+          "net_sharpe": 0.018925430839720658,
+          "max_drawdown": -0.1715399583957617
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "BASE",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "annualized_return": 0.0784232269193349,
+          "net_sharpe": 0.7159838316602426,
+          "max_drawdown": -0.1379164435416316
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "STRESS",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "annualized_return": 0.0754084065080667,
+          "net_sharpe": 0.6916014071977953,
+          "max_drawdown": -0.1391665613986051
+        }
+      ],
+      "sources": [
+        {
+          "path": "config\\510300_probability_payoff_exit_v1.json",
+          "sha256": "63508bab350d935de62e60fe6a1570146a1333e603f29fa47182baf7aaadc320"
+        },
+        {
+          "path": "reports\\research\\510300_probability_payoff_exit_v1\\result.json",
+          "sha256": "e686eb6912e973d8126de6aaa024214a139ae5162512b80edd6e32ad14abaf4c"
+        },
+        {
+          "path": "reports\\research\\510300_probability_payoff_exit_v1\\acceptance_outcome.json",
+          "sha256": "72b165bde53a8dd29b632c0dc603de5f0621c16dcd9d667eadf67b7d5f999fb5"
+        },
+        {
+          "path": "research\\probability_payoff_exit_v1.py",
+          "sha256": "cde6f7fdec6852337e1fb50646d5f727ea8d465a9a5c6606dc7155f5e8dce2e8"
+        }
+      ]
+    },
+    {
+      "old_study": "510300_ENTRY_CONTEXT_INTERCEPT_V1",
+      "round": 115,
+      "name": "入场上下文预测周期截距",
+      "acceptance_status": "COMPLETED_ENTRY_CONTEXT_INTERCEPT_NO_SHARPE_GAIN_NOT_TARGET",
+      "old_decision": "第115轮进入上下文截距改动结束，不保留。主基础／压力净夏普0.389／0.341，低于114的0.884／0.831；主基础年化从6.97%降至2.99%，最大回撤从11.44%升至17.00%。较早夏普0.750／0.727，也略低于114的0.752／0.728；较早基础年化8.55%，比114的8.52%略高，但不能抵消主历史明显退步。保留114原固定方法及其局部改善，完整目标未达到。",
+      "current_review_decision": "旧115状态预测周期截距已失败，不因本次共同偏差大而恢复。",
+      "metrics": [
+        {
+          "period": "evaluation",
+          "cost": "BASE",
+          "model": "ENTRY_CONTEXT_INTERCEPT",
+          "annualized_return": 0.029931195933491223,
+          "net_sharpe": 0.38909739737413446,
+          "max_drawdown": -0.17000174846780072
+        },
+        {
+          "period": "evaluation",
+          "cost": "STRESS",
+          "model": "ENTRY_CONTEXT_INTERCEPT",
+          "annualized_return": 0.025741264965709762,
+          "net_sharpe": 0.34130726642538173,
+          "max_drawdown": -0.17523628765038793
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "BASE",
+          "model": "ENTRY_CONTEXT_INTERCEPT",
+          "annualized_return": 0.08548328673142634,
+          "net_sharpe": 0.7500872689121731,
+          "max_drawdown": -0.1379164435416316
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "STRESS",
+          "model": "ENTRY_CONTEXT_INTERCEPT",
+          "annualized_return": 0.08243339734490578,
+          "net_sharpe": 0.7266034439588236,
+          "max_drawdown": -0.1391665613986051
+        }
+      ],
+      "sources": [
+        {
+          "path": "config\\510300_entry_context_intercept_v1.json",
+          "sha256": "621f228657a24e8c0dec5a3de68c740ac7b60f30b3c82e01fc55269a257152fb"
+        },
+        {
+          "path": "reports\\research\\510300_entry_context_intercept_v1\\result.json",
+          "sha256": "7ff7802d1b195bdac48356851a73926f20e37ebe519425bdf8061dc581b09b39"
+        },
+        {
+          "path": "reports\\research\\510300_entry_context_intercept_v1\\acceptance_outcome.json",
+          "sha256": "e3cb157cb2f10900e817a1e6a882cec21603b0a5a5dd9cd79a50d3e573c54c49"
+        },
+        {
+          "path": "research\\entry_context_intercept_v1.py",
+          "sha256": "2ebaa91e1f55f6ea8d12b18358ac143167ff3f18b3c51128554387029b612fe9"
+        }
+      ]
+    },
+    {
+      "old_study": "510300_SIGNED_VOLUME_WITHIN_V1",
+      "round": 116,
+      "name": "二十日有符号成交份额",
+      "acceptance_status": "COMPLETED_BASE_ONLY_GAIN_COST_SENSITIVE_NO_PROMOTION_NOT_TARGET",
+      "old_decision": "第116轮新增成交份额仅有主基础成本小幅改善，不提升为稳定候选，结束本次新增信息。主基础净夏普0.896、年化7.08%，原114为0.884、6.97%；压力净夏普却从0.831降至0.700，最大回撤从11.68%增至17.24%。较早基础／压力净夏普0.736／0.713，均低于114的0.752／0.728。不能用基础单点提升忽略成本与较早退步。保留114原固定方法，完整目标未达到。",
+      "current_review_decision": "旧116九因子退出只有主BASE小幅好，压力及较早退步；原窗口等不营救。",
+      "metrics": [
+        {
+          "period": "evaluation",
+          "cost": "BASE",
+          "model": "SIGNED_VOLUME_WITHIN",
+          "annualized_return": 0.0708422570428192,
+          "net_sharpe": 0.8964782459664362,
+          "max_drawdown": -0.11444223426810142
+        },
+        {
+          "period": "evaluation",
+          "cost": "STRESS",
+          "model": "SIGNED_VOLUME_WITHIN",
+          "annualized_return": 0.05591713619963493,
+          "net_sharpe": 0.6999028973009972,
+          "max_drawdown": -0.17244829760917535
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "BASE",
+          "model": "SIGNED_VOLUME_WITHIN",
+          "annualized_return": 0.08320528629129283,
+          "net_sharpe": 0.7362855120356119,
+          "max_drawdown": -0.1379164435416316
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "STRESS",
+          "model": "SIGNED_VOLUME_WITHIN",
+          "annualized_return": 0.08017774395397936,
+          "net_sharpe": 0.7126848969998328,
+          "max_drawdown": -0.1391665613986051
+        }
+      ],
+      "sources": [
+        {
+          "path": "config\\510300_signed_volume_within_v1.json",
+          "sha256": "b85d6a29cb16d295512c507463d7393b8fc730b4e451271a35ab91e27f641b0f"
+        },
+        {
+          "path": "reports\\research\\510300_signed_volume_within_v1\\result.json",
+          "sha256": "891f38044c60471689cff1d07e0b6f6433172753a0f658dc44c8115a8c33be88"
+        },
+        {
+          "path": "reports\\research\\510300_signed_volume_within_v1\\acceptance_outcome.json",
+          "sha256": "347b9e08687851c4232fb8f1ba4c739e20257341dee7c6aa688529a8f59ffddf"
+        },
+        {
+          "path": "research\\signed_volume_within_v1.py",
+          "sha256": "b66594cbe66b43bf24a329b7f9c0d07ab5fff6efaecc0e718dfc3e80925ca9e0"
+        }
+      ]
+    },
+    {
+      "old_study": "510300_LOW_ANCHORED_RECLAIM_V1",
+      "round": 61,
+      "name": "低点起算累计量价收复",
+      "acceptance_status": "COMPLETED_NO_STABLE_IMPROVEMENT_PROFIT_CONCENTRATION",
+      "old_decision": "主评价有正收益但低于原学习退出，较早收益接近零且压力费用复合收益为负；收益集中在少数行情，保存净收益的事后固定组合诊断未显示接近1.2的稳定互补。结束固定低点量价设置及邻近参数搜索。",
+      "current_review_decision": "旧61完整账户及邻近搜索已关闭；A05自身NOT_RUN另行保留。",
+      "metrics": [
+        {
+          "period": "evaluation",
+          "cost": "BASE",
+          "model": "LOW_ANCHORED_RECLAIM",
+          "annualized_return": 0.04602680362983033,
+          "net_sharpe": 0.5187503522719455,
+          "max_drawdown": -0.17088269025706412
+        },
+        {
+          "period": "evaluation",
+          "cost": "STRESS",
+          "model": "LOW_ANCHORED_RECLAIM",
+          "annualized_return": 0.0403983732952157,
+          "net_sharpe": 0.4623046948093714,
+          "max_drawdown": -0.19375598155420087
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "BASE",
+          "model": "LOW_ANCHORED_RECLAIM",
+          "annualized_return": 0.002769764979902028,
+          "net_sharpe": 0.08628404475691147,
+          "max_drawdown": -0.2800977313541602
+        },
+        {
+          "period": "earlier_diagnostic",
+          "cost": "STRESS",
+          "model": "LOW_ANCHORED_RECLAIM",
+          "annualized_return": -0.003800504625039434,
+          "net_sharpe": 0.03524409329377274,
+          "max_drawdown": -0.3004407512774638
+        }
+      ],
+      "sources": [
+        {
+          "path": "config\\510300_low_anchored_reclaim_v1.json",
+          "sha256": "87a44bb7f2a3d5d33d27500c61c5a80da20f5cce3b3ece80d0a36b8ff3d3bcc3"
+        },
+        {
+          "path": "reports\\research\\510300_low_anchored_reclaim_v1\\result.json",
+          "sha256": "63141fd5ae2b43d3fbaad99700d9017934a6efb37b8bb63245c40b8494385442"
+        },
+        {
+          "path": "reports\\research\\510300_low_anchored_reclaim_v1\\acceptance_outcome.json",
+          "sha256": "01640cdf0755c5acae3f9d320e32b4efc3a3e9508520a1e58140b1717c9003a1"
+        },
+        {
+          "path": "research\\low_anchored_reclaim_v1.py",
+          "sha256": "4af34331e27726342ed5286a3e8620f2a9ff7e97f51f149be45bc002365261a2"
+        }
+      ]
+    }
+  ],
+  "A05": {
+    "registry_status": "NOT_RUN",
+    "current_status": "NOT_RUN",
+    "definition": "事件e由固定公告或价格触发定义；AVWAP代理=sum(P[j]*Q[j],j=e..t)/sum(Q[j])；记录P/AVWAP-1及首次转正。",
+    "boundary": "A05自身NOT_RUN不改写，相关旧锚定量价家族不当作未试；注册G1不是数据已合格或已有策略优势。",
+    "sources": [
+      {
+        "path": "reports\\research\\510300_factor96_mechanism_batch_v1\\factor_registry.json",
+        "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+      },
+      {
+        "path": "reports\\research\\510300_factor96_mechanism_batch_v1\\factor_progress.json",
+        "sha256": "8ba9bf98b30ae45e10051ef66b54435a31ef24a6425574ade2f878945c86427b"
+      }
+    ]
+  },
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "new_market_information_admitted": false
+}

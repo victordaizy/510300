@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-02T07:31:18.477451+08:00",
+  "status": "PROPOSED_PRIOR_DEFINITION_AND_CLOCK_SUPPORT_INTAKE_NOT_ADMITTED",
+  "candidate_id": "C02",
+  "name": "成交很多但价格不再推进",
+  "registered_definition": "relative_amount=成交额/过去20日成交额中位数；progress=abs(r)/rv20；保存两维及方向。",
+  "original_card_status": "NOT_RUN",
+  "program_current_status": "NOT_RUN",
+  "hypothesis": "高成交、低下跌推进可能吸收；高成交、低上涨推进可能承压。",
+  "counterexample": "多空方向要分别注册；高成交本身没有固定预测方向。",
+  "reason_for_next_intake": "成交活动大而价格推进小的两维状态，关注成交与价格推进的关系；尚未证明区别旧流动性/量价表达或对净收益有用。不是以容易通过数量门选择。",
+  "scope": "510300.SH日线及已完成周线，多头点位优先，只准入候选，不恢复旧规则。",
+  "bounded_next_checks": [
+    "先查旧Amihud第九项、签名量、价量相关、力度、C05残差与已有成交额相对量/波动标准化表达；同表达或失败参数救回则停止。",
+    "绑定经济收益r、rv20口径、成交额CNY以及20日中位数是否排除当前日；在读新结果前决定，不据数量或收益换窗口。",
+    "保留原卡relative_amount、progress与方向的两维含义；不能事后压成一分或新增未登记交互、阈值。须另明确模型信息块及应用阶段，不能冒充一个标量第九项。",
+    "只先查完整原自然与成熟成员支持、缺失和事前时钟；任何用途变更须先冻结实质差异和共同预测/经济门，不按年份拼接。"
+  ],
+  "operational_bindings_status": "NOT_BOUND",
+  "candidate_model_registered": false,
+  "prediction_protocol_frozen": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_c04_information_intake_v1/summary.json",
+      "sha256": "6d1121ca9926b1046531e264c620b545c954a0c552ec67d4e62dc5a6a0d3f519"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "new_return_labels": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

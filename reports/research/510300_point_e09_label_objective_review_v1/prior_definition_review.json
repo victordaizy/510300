@@ -1,0 +1,315 @@
+{
+  "status": "COMPLETED_BOUNDED_PRIOR_LABEL_AND_CLOCK_REVIEW_NO_DISTINCT_TARGET_ADMITTED",
+  "studies": [
+    {
+      "old_study": "510300_SHORT_HORIZON_CYCLE_EXIT_V1",
+      "round": 44,
+      "expression": "至多五区间标签；保留原自然周期成熟。",
+      "contract": {
+        "initial_capital": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "data_cutoff": "2026-08-14",
+        "earlier_start": "2015-01-05",
+        "earlier_terminal": "2019-12-31",
+        "label_max_intervals": 5
+      },
+      "old_terminal": "COMPLETED_NO_ROBUST_IMPROVEMENT",
+      "old_decision": "主评价夏普微升但最大回撤扩大，较早收益和夏普更弱，未形成稳定改善；停止相邻预测期限和模型参数搜索。",
+      "review_disposition": "旧44已失败并停止相邻期限搜索。",
+      "saved_primary_metrics_not_recomputed": [
+        {
+          "saved_group": "all_metrics",
+          "model": "SHORT_HORIZON_RIDGE",
+          "cost": "BASE",
+          "annualized_return": 0.06243177318259256,
+          "net_sharpe": 0.7116805769018877,
+          "max_drawdown": -0.15978931923581047,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "all_metrics",
+          "model": "SHORT_HORIZON_RIDGE",
+          "cost": "STRESS",
+          "annualized_return": 0.05779618964532627,
+          "net_sharpe": 0.6634513507731127,
+          "max_drawdown": -0.1717142736296878,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "SHORT_HORIZON_RIDGE",
+          "cost": "BASE",
+          "annualized_return": 0.07660079809683636,
+          "net_sharpe": 0.6937860740355266,
+          "max_drawdown": -0.1379164435416316,
+          "trading_days": 1219
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "SHORT_HORIZON_RIDGE",
+          "cost": "STRESS",
+          "annualized_return": 0.07358984578213144,
+          "net_sharpe": 0.6696956116247031,
+          "max_drawdown": -0.1391665613986051,
+          "trading_days": 1219
+        }
+      ]
+    },
+    {
+      "old_study": "510300_DIRECTIONAL_CONTINUATION_EXIT_V1",
+      "round": 79,
+      "expression": "原继续收益严格大于零的方向分类。",
+      "contract": {
+        "initial_capital": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "data_cutoff": "2026-08-14",
+        "earlier_start": "2015-01-05",
+        "earlier_terminal": "2019-12-31",
+        "model_loss": "CYCLE_EQUAL_WEIGHTED_BINARY_LOG_LOSS_L2"
+      },
+      "old_terminal": "COMPLETED_DIRECTIONAL_PROBABILITY_TARGET_NOT_MET",
+      "old_decision": "概率退出两段夏普及四终值均低于原平均收益退出，结束本项，不调门槛或正则救回。",
+      "review_disposition": "旧79已关闭，不改概率门或正则营救。",
+      "saved_primary_metrics_not_recomputed": [
+        {
+          "saved_group": "all_metrics",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.02398826172544532,
+          "net_sharpe": 0.4870124659424284,
+          "max_drawdown": -0.08436526236190317,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "all_metrics",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.01737090777853058,
+          "net_sharpe": 0.36024121455305447,
+          "max_drawdown": -0.08839598812017828,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.06524012776757876,
+          "net_sharpe": 0.6203197574591511,
+          "max_drawdown": -0.1379164435416316,
+          "trading_days": 1219
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "DIRECTIONAL_CONTINUATION_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.062254969790997636,
+          "net_sharpe": 0.5952854873976675,
+          "max_drawdown": -0.1391665613986051,
+          "trading_days": 1219
+        }
+      ]
+    },
+    {
+      "old_study": "510300_FINITE_HORIZON_EXIT_V1",
+      "round": 118,
+      "expression": "同持仓年龄倒推未来退出价值及自然目标配对。",
+      "contract": {
+        "initial_capital": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "data_cutoff": "2026-08-14",
+        "earlier_start": "2015-01-05",
+        "earlier_terminal": "2019-12-31",
+        "model_loss": "EQUAL_CYCLE_PAIRED_RIDGE_UNPENALIZED_INTERCEPT",
+        "maximum_age": 59
+      },
+      "old_terminal": "COMPLETED_BACKWARD_BETTER_THAN_AGE_CONTROL_BUT_WORSE_THAN_LOCAL_CANDIDATE_NOT_TARGET",
+      "old_decision": "第118轮倒推退出优于同持仓日固定自然目标，但两种设置均不如第114轮局部候选。倒推主基础／压力净夏普0.480／0.428，固定目标为负0.064／负0.149；较早两者逐日成交、份额及净值相同，净夏普0.672／0.648。倒推主基础年化4.12%、最大回撤11.81%，仍低于114的年化6.97%及净夏普0.884。结束本次有限比较，不改持仓年龄分组、支持、目标、确认或惩罚继续搜索。目标未达到。",
+      "review_disposition": "旧118已完成；不改年龄、支持、目标或惩罚营救。",
+      "saved_primary_metrics_not_recomputed": [
+        {
+          "saved_group": "all_metrics",
+          "model": "AGE_BACKWARD_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.04120739900810777,
+          "net_sharpe": 0.4800722173779814,
+          "max_drawdown": -0.11811543813207923,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "all_metrics",
+          "model": "AGE_BACKWARD_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.036176058070221846,
+          "net_sharpe": 0.42819752366329433,
+          "max_drawdown": -0.13182830041090052,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "AGE_BACKWARD_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.07546567070966943,
+          "net_sharpe": 0.6718472626769697,
+          "max_drawdown": -0.1379164435416316,
+          "trading_days": 1219
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "AGE_BACKWARD_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.07245334189345902,
+          "net_sharpe": 0.6484178623232807,
+          "max_drawdown": -0.1391665613986051,
+          "trading_days": 1219
+        }
+      ]
+    },
+    {
+      "old_study": "510300_PROBABILITY_PAYOFF_EXIT_V1",
+      "round": 158,
+      "expression": "原目标的条件方向概率与正负收益幅度分离。",
+      "contract": {
+        "initial_capital": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "data_cutoff": "2026-08-14",
+        "earlier_start": "2015-01-05",
+        "earlier_terminal": "2019-12-31",
+        "model_loss": "CYCLE_EQUAL_WEIGHTED_GAUSSIAN_CLASS_MOMENTS_AND_CLASS_MEAN_NET_PAYOFFS"
+      },
+      "old_terminal": "CLOSED_PROBABILITY_PAYOFF_EXIT_FULL_GOAL_NOT_MET",
+      "old_decision": "第158轮概率与盈亏幅度分离的退出方法完成。主基础／压力净夏普0.116／0.019，较早0.716／0.692；年化收益主0.50%／−0.05%、较早7.84%／7.54%。四项夏普均低于1.2、128及143，关闭这套固定方法，完整目标未实现。",
+      "review_disposition": "旧158已关闭，不作为新目标表达重试。",
+      "saved_primary_metrics_not_recomputed": [
+        {
+          "saved_group": "all_metrics",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.004964437296736229,
+          "net_sharpe": 0.11596730906455104,
+          "max_drawdown": -0.15457078940580937,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "all_metrics",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "cost": "STRESS",
+          "annualized_return": -0.0005230841063236859,
+          "net_sharpe": 0.018925430839720658,
+          "max_drawdown": -0.1715399583957617,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.0784232269193349,
+          "net_sharpe": 0.7159838316602426,
+          "max_drawdown": -0.1379164435416316,
+          "trading_days": 1219
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "PROBABILITY_PAYOFF_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.0754084065080667,
+          "net_sharpe": 0.6916014071977953,
+          "max_drawdown": -0.1391665613986051,
+          "trading_days": 1219
+        }
+      ]
+    },
+    {
+      "old_study": "510300_ENTRY_PAYOFF_GATE_V1",
+      "round": 95,
+      "expression": "完整单次进入收益；新增权益延后确认时延后成熟。",
+      "contract": {
+        "initial_capital": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "data_cutoff": "2026-08-14",
+        "earlier_start": "2015-01-05",
+        "earlier_terminal": "2019-12-31"
+      },
+      "old_terminal": "COMPLETED_ENTRY_PAYOFF_GATE_PORTFOLIO_WORSE_LOCAL_RANKING_SIGNAL_ONLY",
+      "old_decision": "九因子完整交易收益筛选进入未达到目标。主基础／压力夏普0.177／0.153，较早0.192／0.170。相同模型可用时间的对照证明，符号筛选本身主基础少赚31079.65元、较早少赚5593.05元。主历史同组局部排序有10/12组正向线索，但不能替代实际交易结果。结束这一固定模型与符号筛选规则，不调因子、正负阈值、训练组数或无模型行为救回。",
+      "review_disposition": "旧95进入筛选失败；不是当前调整库存账户的标签。",
+      "saved_primary_metrics_not_recomputed": [
+        {
+          "saved_group": "all_metrics",
+          "model": "ENTRY_PAYOFF_RIDGE_NATURAL_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.013748357843600598,
+          "net_sharpe": 0.1765332240346644,
+          "max_drawdown": -0.23039099788573014,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "all_metrics",
+          "model": "ENTRY_PAYOFF_RIDGE_NATURAL_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.01103526063250186,
+          "net_sharpe": 0.1530214563038284,
+          "max_drawdown": -0.23350180980904178,
+          "trading_days": 1604
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "ENTRY_PAYOFF_RIDGE_NATURAL_EXIT",
+          "cost": "BASE",
+          "annualized_return": 0.010710684770398934,
+          "net_sharpe": 0.1923704145460872,
+          "max_drawdown": -0.1459160492763794,
+          "trading_days": 1219
+        },
+        {
+          "saved_group": "earlier_diagnostics",
+          "model": "ENTRY_PAYOFF_RIDGE_NATURAL_EXIT",
+          "cost": "STRESS",
+          "annualized_return": 0.009167264388109806,
+          "net_sharpe": 0.16953649477603605,
+          "max_drawdown": -0.14987501620917432,
+          "trading_days": 1219
+        }
+      ]
+    }
+  ],
+  "original_expression": "[q*(late_fill-early_fill)-late_commission+early_commission+q*新增权益]/(q*early_raw_open)",
+  "rights_expression": "record_date>=early_exit_date 且 record_date<natural_exit_date；早已取得的权益两边抵消。",
+  "unit_limit": "参考份额的单位继续收益；不等于完整20万元调整库存、现金再部署和核心/辅助混合账户收益。",
+  "other_related_contracts": [
+    {
+      "name": "通用5/20日Target",
+      "source": "research/registered_factors.py",
+      "meaning": "t+1开盘至t+h收盘；不同于原两个开盘退出，代码存在不是策略通过。"
+    },
+    {
+      "name": "20日方向/实现波动",
+      "source": "research/short_horizon_direction_volatility.py",
+      "meaning": "方向来自注册净收益；实现波动不同于方向，不据此提升策略。"
+    },
+    {
+      "name": "五日普通日收益均值V3",
+      "source": "reports/research/510300_pattern_daily_state_learning_v3/protocol.json",
+      "meaning": "另一训练池/执行合同；已运行且FROZEN_V3_NUMERICAL_FAILURE，不重试。"
+    },
+    {
+      "name": "BAD20/TAIL20与60日",
+      "source": "config/return_tail_hypothesis_registry.yaml",
+      "meaning": "原尾部注册合同，1.5%现金与242日；只核对表达，不认证来源通过或变更原分支状态。"
+    }
+  ],
+  "P04_routing": "原完整卡未绑定H且NOT_RUN保留；至多五区间及按年龄倒推已有旧表达，不推断所有H都已完整检验。",
+  "alternative_maturity": "原未完成周期不能直接从只含完成周期的samples构造；异步短期标签会改变训练单位和用途，本轮未接纳。",
+  "original_target_error_established": false,
+  "new_horizon_chosen": false,
+  "new_target_definition_frozen": false,
+  "new_candidate_model_registered": false,
+  "source_clock_limit": "本次核对缓存/重建时钟，未建立每条历史来源的真实首版或当年部署存档。",
+  "new_return_labels": 0,
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0
+}

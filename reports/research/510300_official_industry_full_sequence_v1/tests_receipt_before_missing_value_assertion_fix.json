@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-05T23:40:41.210744+08:00",
+  "exit_code": 1,
+  "passed": 0,
+  "stdout": "F..                                                                      [100%]\n================================== FAILURES ===================================\n_ test_known_security_row_is_usable_while_other_unknown_row_and_original_snapshot_failure_remain _\n\n    def test_known_security_row_is_usable_while_other_unknown_row_and_original_snapshot_failure_remain():\n        node = metadata()\n        assert not node[\"complete_snapshot_passed\"] and node[\"row_source_snapshot_eligible\"]\n        rows = source.qualified_rows(two_rows(), node)\n        assert rows.row_source_known.tolist() == [True, False]\n        members = pd.DataFrame({\"symbol\": [\"000001.SZ\", \"300736.SZ\", \"600000.SH\"]})\n        joined = members.merge(rows, on=\"symbol\", how=\"left\", validate=\"one_to_one\")\n        assert len(joined) == 3 and joined.row_source_known.eq(True).tolist() == [True, False, False]\n>       assert joined.loc[1, \"section_code\"] is None and pd.isna(joined.loc[2, \"industry_key\"])\nE       assert (nan is None)\n\ntests\\test_official_industry_full_sequence_v1.py:30: AssertionError\n=========================== short test summary info ===========================\nFAILED tests/test_official_industry_full_sequence_v1.py::test_known_security_row_is_usable_while_other_unknown_row_and_original_snapshot_failure_remain\n1 failed, 2 passed in 4.16s\n",
+  "stderr": "",
+  "inputs_sha256": "2dde04bacc79e1360d9942fc1e317d50b63f2441b4ee3329dff32434bd2595e5",
+  "test_sha256": "b3788f6521e49f0fb3743018040a23117e21aff0c3960187e0e03415ae8e8133"
+}

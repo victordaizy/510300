@@ -1,0 +1,16 @@
+{
+  "at": "2026-09-27T23:07:44.095055+08:00",
+  "study_id": "510300_FACTOR96_LEGACY_TOKEN_BOUNDARY_V1",
+  "known_before_freeze": "已经查看V2.0.1财务诊断极值及旧字段定位；亨通光电2019FY资产疑似千分组截断；已在33143项未修复旧字段中扫描同类定位跨度，得到5项候选，尚未取得这5份原文或观察市场收益。",
+  "question": "旧字段数值跨度是否提前截断千分组，或粘连下一列数字？",
+  "selection": "仅旧字段，source_locator的value_span与source_raw_value逐字一致且其后紧接逗号加3位数字；列粘连只作候选，不能凭该模式自动修值。",
+  "scope": "5字段、5文档；只取原记录的URL和完全相同SHA256，缺失、版本不一致与解析未知保持未知。每文档至多一次逻辑HTTP，不重试，不搜索替代年份。",
+  "maximum_new_logical_http_requests": 5,
+  "parser": "冻结现有V2通用表格解析器，仅作原文核对；不改解析器、原字段版本、财务公式或旧失败。",
+  "admission": "任何确认旧金额错误都使V2.0.1混合来源测量不能接入T11；需新来源版本统一处理完整候选范围并重新固定公式复算。",
+  "limits": "该扫描只覆盖存有精确定位跨度的这一模式，不证明余下字段完全正确。当前原文不证明历史首次公开版本。",
+  "new_accounts": 0,
+  "returns_read": false,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

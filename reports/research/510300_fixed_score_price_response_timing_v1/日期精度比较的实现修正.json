@@ -1,0 +1,13 @@
+{
+  "status": "IMPLEMENTATION_DATE_DTYPE_COMPARISON_CORRECTED_BEFORE_ANALYSIS_OUTPUTS",
+  "failed_record": "01_固定时段分析执行记录.json",
+  "failed_source_line": 36,
+  "reason": "CSV日期为datetime64[us]、Parquet为datetime64[ms]；1212实际日期逐值相同，Series.equals额外要求dtype相同。",
+  "change": "两处日期相等检查统一至datetime64[ns]后逐值比较；不改变日期、模型、分组或任何数值。",
+  "original_failure_preserved": true,
+  "failed_attempt_created_analysis_outputs": 0,
+  "new_labels": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "source_code_edits": 0
+}

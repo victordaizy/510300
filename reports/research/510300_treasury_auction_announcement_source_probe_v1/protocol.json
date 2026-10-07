@@ -1,0 +1,47 @@
+{
+  "study_id": "510300_TREASURY_AUCTION_ANNOUNCEMENT_SOURCE_PROBE_V1",
+  "experiment_id": "E4_SOURCE_PROBE",
+  "registered_at": "2026-10-02T04:04:47.737641+08:00",
+  "phase": "BOUNDED_SOURCE_PROBE_NOT_MODEL_REGISTRATION",
+  "question": "美国国债供给公告能否提供收益率变动之前的已知供给规模与发行支付日？",
+  "old_expression_reuse_check": "V19/V20和后续FOMC、就业、汇率研究已做名义/TIPS/通胀补偿；不把单纯复用两条收益率作为新字段。当前DKW后验模型仍不准历史交易输入。",
+  "new_information_candidate": "官方拍卖之前公布的offering amount和公告、拍卖、发行日期；不是美债收益率或拍卖结果。公告量不是市场意外或净流动性抽离。",
+  "source_probe_bound": "只请求一个固定2024-01月份的官方API前5条，若第一接口不能提供结构再试TreasuryDirect公告查询；最多2个接口，每个一次。只验证结构，不选收益。",
+  "official_docs": [
+    "https://www.treasurydirect.gov/auctions/how-auctions-work/",
+    "https://www.treasurydirect.gov/auctions/auction-query/",
+    "https://fiscaldata.treasury.gov/datasets/treasury-securities-auctions-data/"
+  ],
+  "allowlist_concept": [
+    "announcement_date",
+    "offering_amount",
+    "security_type",
+    "security_term",
+    "cusip",
+    "auction_date",
+    "issue_date",
+    "maturity_date",
+    "announcement_original_file"
+  ],
+  "future_result_blacklist": [
+    "high_yield",
+    "bid_to_cover_ratio",
+    "indirect_accepted",
+    "primary_dealer_accepted",
+    "total_accepted",
+    "total_tendered",
+    "auction_price",
+    "soma_accepted",
+    "fima_accepted"
+  ],
+  "causal_limits": "季度再融资安排可能早于逐次拍卖公告；公告量不自动等于预期差。总发行不是净融资或净吸收，滚续、SOMA/FIMA及同一到期桶不能重复计量。",
+  "admission_boundary": "探针有字段不等于全历史准入；之后必须确认原公告与时钟、连续覆盖、到期桶/新发续发定义并在查看新收益前独立冻结。",
+  "new_model_fits": 0,
+  "new_accounts": 0,
+  "new_repository_code_edits": 0,
+  "new_price_or_stock_returns_loaded": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW",
+  "new_prospective_forecasts_enabled": false
+}

@@ -1,0 +1,72 @@
+{
+  "study": "510300_WEEKLY_DAILY_ENTRY_LOCATIONS_V1",
+  "frozen_at": "2026-10-01T16:47:06.956990+08:00",
+  "user_request": "不用分钟线，我们只用日线，周线观察，找到进场胜率盈亏比大的点位",
+  "data_resolution": [
+    "DAILY",
+    "COMPLETED_WEEKLY"
+  ],
+  "minute_data_reads": 0,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "evaluation_start": "2015-01-01",
+  "evidence": "既有已使用历史上的发现；不是独立样本",
+  "price_adjustment": "原始OHLC加截至当日已除息的累计现金分红；只向前累计，非可成交复权价格；成交使用原始价。",
+  "weekly_clock": "以W-FRI聚合；每个日线决策仅用上一自然交易周及更早周线，包括本周五也不提前使用当前周。周MACD至少130周预热。",
+  "pivot": "周线严格低于或高于左右各2周；右侧2周结束后确认，下一周才用于日线。不得把后确认的低点回填到形成周。",
+  "support": "最新已确认周低点，最多52周；每个锚点只取确认后首次由上方接近支撑0.5个前日ATR20以内的日线测试。",
+  "resistance": "准备时已知最近52周确认高点中，高于准备日收盘的最低一个；无已知上方阻力则保存但不构造目标价。",
+  "confirmation": "准备日或之后最多5日，收盘在支撑之上、超过前日最高且为阳线；先收盘低于支撑2个准备ATR则失败；未确认超时。",
+  "invalidation": "准备至确认的已发生最低价减0.5个准备时ATR20，确认后固定。",
+  "entry": "确认次日开盘代理，只在结构失效线与阻力目标之间，涨停开盘不假设买到；P1及其子集另限价于信号日已算出的计划压力净空间风险比至少2的最高价，除息时平移报价；不追当日后续回落。",
+  "policies": {
+    "P0_CONFIRM": "周线支撑日线确认",
+    "P1_SPACE": "再要求计划净空间风险比至少2",
+    "P2_WEEKLY": "再要求周MACD回升",
+    "P3_CONTEXT": "再加日MACD低波动相对放量"
+  },
+  "primary_policy": "P1_SPACE",
+  "context": {
+    "weekly": "上一完整周MACD12/26/9柱值比再前一周回升",
+    "daily": "确认日MACD12/26/9柱值较前日回升",
+    "volatility": "前日RV20不高于过去252日RV20中位数，至少126日",
+    "volume": "确认日成交量不低于之前20日成交量中位数",
+    "P3": "P1加周MACD回升、日MACD回升、相对低波动、相对放量；不调整参数"
+  },
+  "exit": "买入后仅用日线收盘判断：到目标、跌破结构线或持有满20交易日，下一可卖开盘退出；入场当天收盘失效最早也次日开盘卖。跌停开盘顺延。无日内止盈止损假设。",
+  "reward_risk": "事前目标净盈利/结构位净亏损不是胜率估计，非保证止损；事后盈亏比为平均正净收益/平均负净收益绝对值。",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "slippage": 0.001
+    }
+  },
+  "minimum_commission": 5,
+  "lot": 100,
+  "tick": 0.001,
+  "event_budget": 100000.0,
+  "account_reference_capital": 200000,
+  "joint_screen": "为解释用户所指较高，事先采用压力净胜率>=55%、实际盈亏比>=2、净均值>0的研究筛选线；是本轮操作定义，不是用户指定阈值或保证。全部失败与样本数均披露，不设年度次数。",
+  "statistical_scope": "20交易日循环块2000次，种子20261001；不足10条不报均值/盈亏比区间。胜率Wilson区间为描述性，未校正全项目多次检验。",
+  "overlap": "全部事件与按时间顺序单仓不重叠周期同时保存，后者同日退出不假设再次入场。未成熟不作零收益。",
+  "periods": [
+    "2015-2019",
+    "2020-2023",
+    "2024-2026"
+  ],
+  "stop": "四项固定表达均完整报告；主方案未满足联合条件则不以最好子组代替，不改参数或止盈止损补救。通过也仅为待进一步账户检验的候选。",
+  "existing_failed_studies": [
+    "weekly_daily_technical_v1",
+    "sequential_patterns_regime_v1",
+    "510300_smc_sweep_fvg_historical_v1"
+  ],
+  "independent_new_alpha_family": false,
+  "new_collection": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,159 @@
+{
+  "at": "2026-10-02T12:48:15.325076+08:00",
+  "status": "NOT_ADMITTED_D01_REPEATED_SESSION_STRENGTH_WITH_ONLY_WINDOW_OR_SCALE_CHANGE",
+  "candidate_id": "D01",
+  "registered_definition": "用同口径公司行为调整后的开收盘计算rOC、rCO，S20=sum(rOC-rCO)/[sd(rOC-rCO)*sqrt(20)]。",
+  "finite_review_complete": true,
+  "original_library_NOT_RUN_and_frozen_G1_preserved": true,
+  "old_exact_expression_use": "旧rapid已计算20日差值和/20日差值std/sqrt20并作HIGH/LOW分位政策；原intraday_overnight_increment有累积D20进入预测；simple_session_divergence已有20/60日强弱规则，但其20日规则用60日std，不冒充原完整S20等同。",
+  "old_conditional_purpose": "旧第127轮原八项加当前d60_factor，经济日内减隔夜差值60日总和/(同60日样本std*sqrt60)，标签同一自然继续价值类别、成熟周期等权/周期内岭，加入当前强弱的用途已检验。",
+  "old_current_implementation_difference": "旧127模型按每日最新可得月份更新、242年化、较早截止和原参考成员；当前入场固定版本、252年化、更新至9/30。不能把旧账户当当前账户，也不能据版本/窗口20vs60不同自动恢复旧失败。完整原S20在当前条件用途未建立。",
+  "old_saved_account_rows_without_recomputation": [
+    {
+      "period": "old_main",
+      "cost": "BASE",
+      "model": "SESSION_STRENGTH_WITHIN",
+      "annualized_return": 0.0622549302127963,
+      "net_sharpe": 0.7694855589067079,
+      "max_drawdown": -0.1702084606800815,
+      "trade_count": 40
+    },
+    {
+      "period": "old_main",
+      "cost": "BASE",
+      "model": "WITHIN_CYCLE_EXIT",
+      "annualized_return": 0.0696786886442539,
+      "net_sharpe": 0.883877592355659,
+      "max_drawdown": -0.1144422342681014,
+      "trade_count": 40
+    },
+    {
+      "period": "old_main",
+      "cost": "STRESS",
+      "model": "SESSION_STRENGTH_WITHIN",
+      "annualized_return": 0.0577705121230461,
+      "net_sharpe": 0.7187097912225476,
+      "max_drawdown": -0.1724482976091753,
+      "trade_count": 40
+    },
+    {
+      "period": "old_main",
+      "cost": "STRESS",
+      "model": "WITHIN_CYCLE_EXIT",
+      "annualized_return": 0.0651927521481877,
+      "net_sharpe": 0.8314812504844292,
+      "max_drawdown": -0.1168268025081845,
+      "trade_count": 40
+    },
+    {
+      "period": "old_early",
+      "cost": "BASE",
+      "model": "SESSION_STRENGTH_WITHIN",
+      "annualized_return": 0.0869226923715722,
+      "net_sharpe": 0.7638782534257627,
+      "max_drawdown": -0.1379164435416316,
+      "trade_count": 18
+    },
+    {
+      "period": "old_early",
+      "cost": "BASE",
+      "model": "WITHIN_CYCLE_EXIT",
+      "annualized_return": 0.0852038060036554,
+      "net_sharpe": 0.7515865902286322,
+      "max_drawdown": -0.1379164435416316,
+      "trade_count": 18
+    },
+    {
+      "period": "old_early",
+      "cost": "STRESS",
+      "model": "SESSION_STRENGTH_WITHIN",
+      "annualized_return": 0.0838884113122596,
+      "net_sharpe": 0.7403586933225159,
+      "max_drawdown": -0.1391665613986051,
+      "trade_count": 18
+    },
+    {
+      "period": "old_early",
+      "cost": "STRESS",
+      "model": "WITHIN_CYCLE_EXIT",
+      "annualized_return": 0.0821580153296775,
+      "net_sharpe": 0.7279296506003042,
+      "max_drawdown": -0.1391665613986051,
+      "trade_count": 18
+    }
+  ],
+  "old_primary_evaluation": "旧主期BASE与STRESS均比WITHIN_CYCLE_EXIT更低收益/夏普且更大回撤；较早局部小幅改善但完整联合门失败。只是旧自身对照，不与当前252日账户混排。",
+  "old_no_rescue_instruction": "若没有局部改善，关闭本次加入当前强弱值的设置，不改六十日窗口、衍生变化项、输入交互、系数惩罚、标签、退出阈值或原组合权重挽救。",
+  "accept_or_reject_reason": "接受旧机制及失败的有限用途对应；没有新的经济信息或实质不同问题，20/60窗口、标准差尺度或模型版本改变本身不足以重试该当前强弱条件家族，拒绝这项重述提案。并非证明全部日内/隔夜机制无效或所有完整D01已测试。",
+  "revalidation": "只有实质不同信息/用途或独立新证据可另立研究；不重启旧规则、拟合或账户，不变更旧窗口/正则化来寻优。",
+  "new_field_bound": false,
+  "new_field_admitted": false,
+  "full_S20_current_purpose_tested": false,
+  "new_model_registered": false,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "saved_account_rows_extracted": 8,
+  "account_recomputation_fits": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "research/simple_session_divergence_v1.py",
+      "sha256": "724beaf78514f5b351ce303a75a2b922e6fdb49d3a44725df38d5d71ba39d77d"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "research/session_strength_within_inputs_v1.py",
+      "sha256": "4e233ef41c05858c1a781d94348ba6114ae2ce8181677cbd5ff1ed9b74d73fef"
+    },
+    {
+      "path": "research/session_strength_within_v1.py",
+      "sha256": "3f0f262ed6cb9459b50e3204545bd60567fb6afbb337649bcf9871e32670468e"
+    },
+    {
+      "path": "config/510300_session_strength_within_v1.json",
+      "sha256": "447d03c30d18ea919187fea484cec5116269e304ec7bfdc5908e7baae2d06350"
+    },
+    {
+      "path": "docs/510300_SESSION_STRENGTH_WITHIN_V1.md",
+      "sha256": "2a9de776cc5ee3e87208415724ab6d6ee101b6194ab94188098fedbf030db51e"
+    },
+    {
+      "path": "reports/research/510300_session_strength_within_v1/result.json",
+      "sha256": "d230e44a929a88d88b81cf8fd2de6472f33e8965869c5f924ee07e6bdcd35a5a"
+    },
+    {
+      "path": "reports/research/510300_session_strength_within_v1/metrics.csv",
+      "sha256": "d8ddb87f808c7e9f54b7f40e1226ec7798d45b4c87d0760fd8c3a38e063914d5"
+    },
+    {
+      "path": "reports/research/510300_session_strength_within_v1/earlier_diagnostics.csv",
+      "sha256": "25e7d349bf21b364c3592687dd81e3a05de93636bffea058328ef3f61dbcfb78"
+    },
+    {
+      "path": "research/session_window_neighborhood_v1.py",
+      "sha256": "6b09991f120b21314fd73cad4773e8932e596008e4d67dd112ffc8761546ce97"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/summary.json",
+      "sha256": "f1c99a8421b9fdf55ba6e38071601e933c63f60f38f4a79718a4edeff7c9937d"
+    }
+  ]
+}

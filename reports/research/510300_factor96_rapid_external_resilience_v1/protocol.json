@@ -1,0 +1,75 @@
+{
+  "at": "2026-09-28T18:16:38.565380+08:00",
+  "study_id": "510300_FACTOR96_RAPID_EXTERNAL_RESILIENCE_V1",
+  "classification": "EXPLORATORY_RAPID_SCREEN_NOT_ACCEPTANCE",
+  "previous_turn_classification": "PROGRESS_32_ORDERS_INVENTORY_ACCOUNTS_AND_NEGATIVE_CORRELATION_STABILITY_EVIDENCE",
+  "question": "美国大盘预先定义的负向冲击后，510300的完整首日比正常联动预测更强，能否改善随后五日的账户收益。相对抗跌不自动代表绝对获利。",
+  "source": "只使用现存GSPC价格指数原始收盘，不把adj_close或总收益指数混入。美国资产仅用于信息，执行始终510300/人民币现金。",
+  "source_clock": "纽约当日17:00后保守视作日线已完成，按America/New_York转换夏令时。中国当日09:20只能读取此前已结束美国时段；无新增美国时段则未知，不填零。历史供应商实际首次交付未证实。",
+  "interval": "相邻A股开盘前09:20之间新增的所有已完成美国交易日对数收益求和；最新源记录及基准记录各距对应A股日最多7自然日。",
+  "shock": "本次美国区间对数收益 <= -1.5 * 区间开始前已知最近20个美国日收益标准差 * sqrt(本次美国时段数)。波动不包含本次冲击。",
+  "normal_response_model": "每天开盘前以此前两日历年、至少252个合格A股日OLS，因变量为A股当日含分红对数收益，自变量为截距、本次美国区间对数收益、此前一日A股收益。训练严格早于当日。",
+  "resilience": "完整首日A股实际含分红对数收益减开盘前模型预测；另除以训练残差标准差存储z值。入场不再做残差分位或幅度搜索。",
+  "candidates": {
+    "SHOCK_RELATIVE": "负向冲击且完整首日残差>0。",
+    "SHOCK_ABSOLUTE": "负向冲击且完整首日A股收益>=0。",
+    "SHOCK_BOTH": "同时满足相对抗跌和绝对不跌；预先指定的联合问题。"
+  },
+  "controls": {
+    "SHOCK_WEAK_CONTROL": "负向冲击且残差<=0，竞争解释对照，不能在主问题失败后晋升。",
+    "SHOCK_ALL": "合格负向冲击后不按A股反应筛选。",
+    "PRICE_CONTROL": "相同模型覆盖下，只有A股首日收益>=0的价格对照。",
+    "BUY_HOLD_50": "初始半仓买入持有背景，未使用候选风险停止。",
+    "CASH": "零利息现金。"
+  },
+  "execution": "完整首日收盘后确认，次开盘入场，固定5个开盘间隔后退出；持有中忽略新信号。复用既有50%最大仓位、ES预算、回撤储备与10%永久停止、整手/T+1/涨跌停/现金分红/期末退出准备。",
+  "capital": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "sample": [
+    "2017-01-03",
+    "2025-12-31"
+  ],
+  "period_diagnostics": [
+    [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    [
+      "2021-01-01",
+      "2025-12-31"
+    ]
+  ],
+  "planned_accounts": 32,
+  "candidate_rules": 3,
+  "fixed_event_rules_including_weak_control": 4,
+  "followup_filter": "20万STRESS夏普>=0.8、CAGR>=5%、回撤<=10%、入场>=20、前后两段收益正，且夏普和CAGR均高于SHOCK_ALL。仅决定是否深入，不能代替最终夏普1.2/CAGR10%及独立验证。",
+  "correlation_diagnostic": "仅在合格负向冲击中，残差z与下一开盘起五个开盘间隔的含分红固定份额收益计算Spearman，全期及前后两段；另按时间顺序保留相隔至少5交易日事件。重叠样本不作为独立显著性证据。",
+  "novelty": {
+    "T10": "旧ASHR正信息反应不足在首日正涨幅后入场；本次用美国大盘负向冲击及本地抗跌，不重跑旧T10或改变其方向。",
+    "US_CHINA_BINARY": "旧四只中国ETF隔夜负值/尾部/相对SPY的开盘前二元规则，没有观察本地完整首日的预期响应残差。",
+    "OVERNIGHT_GLOBAL": "旧65变量全球分类模型在当日开盘前配置；本次是单一全球冲击后的有无本地响应筛选对照。",
+    "scope": "只说明本次核对的三个旧实验有何不同，不宣称该经济主题在全部历史研究中从未出现。"
+  },
+  "no_rescue": "固定冲击阈值、模型、窗口、条件、持有期、费用和时期；保留全表及全部旧失败。",
+  "official_references": [
+    "https://www.nyse.com/markets/hours-calendars",
+    "https://www.spglobal.com/spdji/en/indices/equity/sp-500/"
+  ],
+  "orders_authorized": false,
+  "delivery_package_required": false
+}

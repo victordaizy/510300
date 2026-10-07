@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-06T08:07:18.902775+08:00",
+  "home_total_scale": {
+    "field": "SCALE",
+    "unit": "亿元",
+    "scope": "基金市场总览FUND_TYPE=fund00",
+    "publication_statement": "当前页面总规模每交易日23:00更新",
+    "html_receipt": "sources/FUND_HOME/receipt.json",
+    "implementation": "sources/FUND_HOME_JS/text.txt与sources/FUND_API_JS/text.txt"
+  },
+  "single_etf_units": {
+    "field": "TOT_VOL",
+    "unit": "万份",
+    "scope": "指定SEC_CODE统计日基金总份额",
+    "publication_statement": "当前ETF规模页面称清算后数据；没有认证该字段全历史首次公开钟",
+    "raw_field_identity_confirmed": true,
+    "seed_response": "seed_snapshot/response.body"
+  },
+  "clock_adjudication": "总规模23:00不能直接移接到单ETF总份额；观察器选择23:05是采集窗口，available_at仅实际收到并保存时刻。",
+  "old_history": {
+    "closure_retained": "CLOSED_NO_HISTORICAL_PUBLICATION_TIME_IN_DIRECTLY_LINKED_RECEIPTS",
+    "closed_responses_not_rescanned": 2220,
+    "historical_first_publication": "NOT_ESTABLISHED",
+    "old_eight_rules": "REJECTED_FROZEN_NOT_REPLAYED"
+  },
+  "new_version": "来源直接query.sse.com.cn；取得时刻及原数值明确，但不是历史首次公开认证。",
+  "split_and_flow": "尚未建立拆分处理合同；原份额变化仅原单位观察，不等于净申购、人民币现金流或投资者身份。"
+}

@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-02T19:57:07.343694+08:00",
+  "status": "PROPOSED_BOUNDED_J01_JOINT_EQUITY_BOND_PRIOR_SOURCE_REVIEW_NOT_RUN",
+  "card": {
+    "id": "J01",
+    "family": "跨市场与信息传导",
+    "name": "股债共同状态",
+    "role": "入场/状态",
+    "horizon_days": 20,
+    "source_grade": "G2",
+    "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+    "definition": "固定中国国债收益率变动与510300过去20日收益两维；债券价格收益与收益率方向分开。",
+    "mechanism": "利率下行在股价稳住与股价加速下跌时可能含义不同。",
+    "counterexample": "不默认降息利好；不是交易债券的轮动策略。",
+    "data_path_hint": "公开市场日价、汇率、债券收益率、历史行业指数；不同来源口径分别验证",
+    "source_clock_rule": "严格按亚洲/欧洲/美国交易时区和发布日期对齐；未收盘市场不能读取当日最终价",
+    "repository_hint": "reports/research/510300_overnight_global_information_v1; reports/research/510300_ah_premium_increment_v1",
+    "source_ids": "S06,S10,R04",
+    "source_urls": "https://www.chinamoney.com.cn/chinese/bkccpr/\nhttps://alfred.stlouisfed.org/help/downloaddata\nhttps://www.sciencedirect.com/science/article/pii/S0304405X19302156",
+    "status": "NOT_RUN",
+    "net_sharpe": null
+  },
+  "reason": "R117订单库存、R119短端资金、R121期货总持仓的三项固定可选修正都未过双期预测门；下一观察不同期限风险背景，先核J01实际旧用途和原源，不继续增加期货类别或相邻窗口。",
+  "candidate_information": "中国国债同一收益率品种的过去20原交易日收益率变化，与510300同20日已发生含分红收益分别保存。拟优先10年国债，到期品种、单位及源定义必须在读取新模型结果前固定；债券价格收益与收益率变化方向严格分开。",
+  "bounded_questions": [
+    "只核已有J01、股债共同状态、长端利率及旧宏观预测源码/终态；若同一用途已失败或没有实质不同当前继续价值合同，不重命名重试。",
+    "查现有中国国债收益率原表、观察/公布时刻、同一固定期限与报价含义、缺日、修订、原统计范围；现成表存在不证明真实首发。",
+    "以原股票日历固定20区间，不把国债价格收益替代收益率、不把事后曲线或末值前填；保存原1507状态及全部成熟训练成员，完整函数缺源须精确原模型回退。",
+    "只有实质不同用途与可声明的历史源合同成立，才另冻结唯一当前模型；旧MSE门失败保持，不重跑R117/R119/R121，不按近期结果挑期限、方向或年代。",
+    "未来模型的预测与经济门分别登记：完整20万元BASE/STRESS双期账户净CAGR/净夏普改善、实际净pB>1、标准净期望>0及回撤要求不能由MSE或四象限解释替代。"
+  ],
+  "scope": "日线及已完成周线；国债只作信息观察，执行510300.SH/CASH_CNY，多头优先，次数软目标。",
+  "registered_model": false,
+  "field_computed": false,
+  "source_admitted": false,
+  "financial_fits": 0,
+  "new_return_labels": 0,
+  "new_accounts": 0,
+  "network_requests_for_this_proposal": 0,
+  "old_failed_versions_preserved": true,
+  "original_forward_protocol_preserved": true,
+  "goal_achieved": false
+}

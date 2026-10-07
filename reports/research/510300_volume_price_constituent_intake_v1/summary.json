@@ -1,0 +1,121 @@
+{
+  "at": "2026-10-05T12:12:24.858657+08:00",
+  "technical_decision": "TECH.R190",
+  "status": "NOT_ADMITTED_UNREGISTERED_CONSTITUENT_PARTICIPATION_PROPOSAL_PRIOR_USES_AND_UNCHANGED_INCOMPLETE_RAW_SOURCE",
+  "current_raw_source_facts": [
+    {
+      "path": "data/raw/constituents/000300_constituent_daily.parquet",
+      "rows": 484200,
+      "date_start": "2019-12-23",
+      "date_end": "2026-08-19",
+      "distinct_dates": 1614,
+      "columns": [
+        "date",
+        "con_code",
+        "raw_open",
+        "raw_high",
+        "raw_low",
+        "raw_close",
+        "total_return_open",
+        "total_return_high",
+        "total_return_low",
+        "total_return_close",
+        "volume",
+        "amount",
+        "adj_factor",
+        "price_source",
+        "adjustment_source",
+        "retrieved_at",
+        "is_index_member",
+        "is_suspended",
+        "outstanding_share",
+        "total_market_cap_cny",
+        "market_cap_asof_date"
+      ],
+      "industry_history_or_first_publication_contract_established": false,
+      "current_bytes_same_as_R110": true,
+      "current_terminal_date_column_read_confirmed": true,
+      "metadata_evidence": "本轮终端已实际读取date/trade_date两列，确认行数、起止及日期数；原清单哈希完全相同，不重读或补样本。"
+    },
+    {
+      "path": "data/raw/constituents/000300_historical_weights.parquet",
+      "rows": 36000,
+      "date_start": "2016-08-31",
+      "date_end": "2026-07-31",
+      "distinct_dates": 120,
+      "columns": [
+        "index_code",
+        "con_code",
+        "trade_date",
+        "weight",
+        "source",
+        "retrieved_at"
+      ],
+      "industry_history_or_first_publication_contract_established": false,
+      "current_bytes_same_as_R110": true,
+      "current_terminal_date_column_read_confirmed": true,
+      "metadata_evidence": "本轮终端已实际读取date/trade_date两列，确认行数、起止及日期数；原清单哈希完全相同，不重读或补样本。"
+    }
+  ],
+  "old_six_routes": [
+    {
+      "id": "E01",
+      "name": "旧广度的水平与变化",
+      "old_actual_routing_status": "OLD_BREADTH_USES_TESTED_ALL_MEMBER_SOURCE_BOUND_FAILED",
+      "old_result_description": "旧多数上涨与MA20主方案压力CAGR−2.627534%、夏普−0.237576，好于去广度价格对照−5.290186%/−0.409612但目标失败；旧E01水平/变化HIGH及日更组件已有用途。原广度日期上界1051/1507、0/115，最少缺10原训练行。",
+      "old_complete_use_only_not_new_financial_result": true
+    },
+    {
+      "id": "E02",
+      "name": "指数创新低但成分新低收缩",
+      "old_actual_routing_status": "OLD_FIXED_T02_FAILED_DIFFERENT_CURRENT_INFORMATION_NOT_ADMITTED",
+      "old_result_description": "旧T02同成员、同分母日内财富低价新低收缩已测，主期CAGR−0.690841%、夏普−0.616675、11周期；相对同源价格增量95%区间跨0。原18:00统计可知假设不能当本线15:05首版资格，零新增E02字段/支持检验。",
+      "old_complete_use_only_not_new_financial_result": true
+    },
+    {
+      "id": "E03",
+      "name": "参与恢复速度",
+      "old_actual_routing_status": "OLD_FOUR_CLOSE_BASED_DIRECTIONS_NOT_ACCEPTED_ALL_MEMBER_SOURCE_BOUND_FAILED",
+      "old_result_description": "旧四方向已初筛；MA20_CHANGE5_HIGH整体CAGR0.022214%、夏普0.021824且优于对照，但后期负，另三方向负，全部无继续资格。新高/新低是财富收盘而非日内极值；旧滞后四输入源上界755/1507、0/115，最少缺134原行。",
+      "old_complete_use_only_not_new_financial_result": true
+    },
+    {
+      "id": "E04",
+      "name": "固定领先组向其余成员传播",
+      "old_actual_routing_status": "T04_PIT_WEIGHT_AND_INDUSTRY_SOURCE_GATE_RETAINED",
+      "old_result_description": "原T04 NOT_RUN_PIT_WEIGHT_SOURCE_GATE保持；现有月度权重/价格元数据不提供历史行业及首次发布合同，不改等权完成原策略，不事后挑行业。",
+      "old_complete_use_only_not_new_financial_result": true
+    },
+    {
+      "id": "E05",
+      "name": "指数与中位成分的分歧",
+      "old_actual_routing_status": "OLD_MEDIAN_COMPONENT_FAILED_ALL_MEMBER_SOURCE_BOUND_FAILED",
+      "old_result_description": "旧T06同成员中位收益变化联合减仓已测，FULL主CAGR−1.188573%、夏普−0.636625，三个相对增量区间都跨0；ETF减中位差仅描述。旧滞后四字段源上界775/1507、0/115，最少缺122原行，不把组合失败当单字段无效。",
+      "old_complete_use_only_not_new_financial_result": true
+    },
+    {
+      "id": "E06",
+      "name": "上涨贡献集中度的变化",
+      "old_actual_routing_status": "INDUSTRY_POSITIVE_CONTRIBUTION_NOT_BOUND_WEIGHTED_SOURCE_BOUND_FAILED",
+      "old_result_description": "原行业正贡献HHI未验证；股票权重HHI/IF持仓HHI均非该定义。官方权重广度日期上界521/1507、0/115，最少缺284原行；原95%权重质量PASS不证明本用途历史行业/发布/全部成员资格。",
+      "old_complete_use_only_not_new_financial_result": true
+    }
+  ],
+  "actual_old_statuses": {
+    "majority": "COMPLETED_LOCAL_IMPROVEMENT_OVER_WEAK_PRICE_CONTROL_NO_STABLE_HIGH_SHARPE",
+    "learned_gate": "COMPLETED_REJECTED_BREADTH_ENTRY_GATE_BOTH_PERIODS_AND_COSTS_WORSE"
+  },
+  "current_new_complete_policy_defined": false,
+  "new_admitted_unrun_candidates": 0,
+  "legacy_115_model_gate_applied_to_new_rule": false,
+  "new_accounts": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_market_requests": 0,
+  "goal_achieved": false,
+  "goal_turn_classification": "progress",
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "next_action": "当前无已准入待跑金融实验。后续金融须先有实质不同的可知信息和完整用途，或真正新样本/真实来源实现错误；旧失败和泛成分提案不重开。原A/POINT前瞻按既定来源回执和真实日期推进，最早尚未发生合格收盘2026-10-08T15:05:00+08:00；现在不得回填或制造观察。既有样本无独立验证，不能宣称已提高完整收益夏普或去除过拟合，目标保持active。",
+  "conclusion": "R189未登记泛成分参与提案不进入金融：六种既有广度/传播用途已经在R110有限核对，旧多数广度仅局部优于弱价格对照、未达目标，旧学习进入广度过滤在两时期两费用均更差；不能重新包装为新候选。当前原成分OHLC/量/额仍484200行，2019-12-23至2026-08-19，未覆盖原2015—2019研究主体；权重36000行/120月、2016-08-31至2026-07-31，首次公布证据和行业历史合同未建立。两文件与R110字节完全相同，未新增合格资料。旧2015起breadth20缓存不等于未存在的同期成员原始量额，不能由比例还原成交额参与、用今天成员倒填、拼原A补未知或选近期缩样本。本提案未提供经旧用途核对的不同完整规则，故NOT_ADMITTED，不重算旧回测。原R110的115模型完整支持上界仅适用于原预测用途；本次不把该门套给无拟合规则，不断言所有成分机制或外部资料无效。"
+}

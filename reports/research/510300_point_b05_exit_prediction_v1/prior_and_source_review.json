@@ -1,0 +1,217 @@
+{
+  "at": "2026-10-02T13:10:55.164891+08:00",
+  "status": "ADMITTED_B05_NEW_CONDITIONAL_PURPOSE_AND_SIX_EVENT_CLOCK_PENDING_ORIGINAL_MEMBER_SUPPORT",
+  "conditional_purpose_and_source_clock_bound": true,
+  "full_field_admitted": false,
+  "registered_definition": "在负收益日计算abs(r)/相对成交额；比较最近3个负收益日与之前3个；与当前回撤同看。",
+  "old_rapid_use": "旧rapid已算单位相对金额的负日冲击，最近20交易日需至少6个负日才取最后6个，后三均值/前三均值进入此前两日历年70/30分位HIGH/LOW入场政策。不是原八项继续价值条件第九项；保留旧20日政策和全部失败。",
+  "old_B05_saved_account_rows": [
+    {
+      "policy": "B05_HIGH",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.276229569645172,
+      "cagr": -0.0074843033353273,
+      "max_drawdown": 0.095607379131148,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_LOW",
+      "capital": 200000,
+      "cost": "BASE",
+      "net_sharpe": -0.1337024581658398,
+      "cagr": -0.0042747670919508,
+      "max_drawdown": 0.0922794685832834,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_HIGH",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3930846125544612,
+      "cagr": -0.0088505063646106,
+      "max_drawdown": 0.0982827695217061,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_LOW",
+      "capital": 200000,
+      "cost": "STRESS",
+      "net_sharpe": -0.2403176175497654,
+      "cagr": -0.0061479806397735,
+      "max_drawdown": 0.0964151456715557,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_HIGH",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.5400199490771515,
+      "cagr": -0.0087906743769141,
+      "max_drawdown": 0.0961725838119441,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_LOW",
+      "capital": 20000,
+      "cost": "BASE",
+      "net_sharpe": -0.3174049948089139,
+      "cagr": -0.0067843767323421,
+      "max_drawdown": 0.0960707930553552,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_HIGH",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.6311106220545964,
+      "cagr": -0.0093618405881654,
+      "max_drawdown": 0.0965516223898657,
+      "joint_historical_target": false
+    },
+    {
+      "policy": "B05_LOW",
+      "capital": 20000,
+      "cost": "STRESS",
+      "net_sharpe": -0.3907936065593329,
+      "cagr": -0.007294645254453,
+      "max_drawdown": 0.0961931200965598,
+      "joint_historical_target": false
+    }
+  ],
+  "old_saved_rows_role": "只抽取8条保存账户指标，没有账户重算、收益标签生成或策略重试。旧242日口径不与当前252日混排。",
+  "event_scope_decision": "在本轮任何字段数量或收益检验前，按原卡最近六个真实负收益事件固定发生序列，不限定日历20日；20仅用于各事件日严格此前金额中位数基线。旧rapid的20日内至少6个事件HIGH/LOW政策及失败原样保留。当前不同条件继续价值用途是开展研究的理由，取消日历范围本身不是新信息或营救理由；不平行试20日、不按结果换范围。",
+  "finite_prior_use_review": [
+    {
+      "source": "research/synthetic_fear_recovery_inputs_v1.py",
+      "finding": "22日最高财富收盘与当日低点的VIXFix恐慌距离、20日波动带回落入场；没有负日金额冲击六事件条件字段。"
+    },
+    {
+      "source": "research/price_volume_coherence_inputs_v1.py",
+      "finding": "20日价格收益与成交份额变化的相关/动量，不是六负事件冲击比。"
+    },
+    {
+      "source": "research/signed_volume_within_inputs_v1.py",
+      "finding": "原八项加signed_volume_balance20，虽是继续价值用途，但信息为有符号成交份额，不是负日单位金额衰减。"
+    },
+    {
+      "source": "research/point_c02_exit_prediction_v1.py",
+      "finding": "相对成交额、绝对收益归一与方向固定信息块，旧拒绝保留；不是六事件推进比。"
+    },
+    {
+      "source": "research/point_c03_information_intake_v1.py",
+      "finding": "固定十日正负金额效率差、无负组结构缺口终态保留，不同事件运算。"
+    },
+    {
+      "source": "research/stress_transmission_and_exhaustion_atlas_v1.py",
+      "finding": "三日负向价格推进/截断多来源传导分数及事件前后阶段描述，包含前后三日比较但不是负日金额六事件字段或原八项继续价值模型。"
+    },
+    {
+      "source": "research/core_auxiliary_drawdown_gate_v1.py;research/drawdown_gate_recovery_v1.py;research/early_selected_regime_mapping_v1.py",
+      "finding": "有限全文检索中的negative相关名称/市场回撤门，不是同一六事件金额冲击表达。"
+    }
+  ],
+  "review_limit": "有限源码与已记录用途裁决，不声称穷尽全库所有同义算法；原注册NOT_RUN不证明从未研究，也不是接受依据。",
+  "field_binding": "原raw close及当日已除息现金生成经济log收益r；amount为CNY。事件j严格r[j]<0且已知，当日相对金额a[j]=amount[j]/median(amount[j-20..j-1])，严格20个实际完整正金额；冲击h[j]=abs(r[j])/a[j]。t收盘按真实发生顺序选最近6个负事件，字段=mean(h[后三个])/mean(h[前三个])；含当日负事件，正日保留最近6个，不按日历时间裁剪。原cycle_drawdown继续保留，无交互或新入场规则。",
+  "missing_rule": "首市场点没有收益区间，强制未知且不登记。六负事件不足、任何被选事件冲击未知、此前20金额缺口/非正、前三均值非正均NO_VIEW，不填零/epsilon、不删除未知负事件换更早合格事件。非初始未知收益符号清空事件记忆，待六个新真实事件重建。未被选作负事件的当前正日金额缺口不改已知六事件比值，但仍会影响后续事件的20日基线；事件不足不是真0。",
+  "support_rule": "先只读原日线源和1507自然成员/142月成员成熟元数据，不读取收益标签或拟合。1507全部原自然状态及115可用月全部原训练成员有限才能注册模型，27原未知月保持；不删除原成员营救。",
+  "field_regression_accounting": "真实事件顺序、严格20金额中位数和固定3比3算术，技术字段回归0；收益候选拟合、对照复算与保存输出复算分别计数，合成测试及bootstrap不是新增策略配置。",
+  "no_rescue": "不恢复旧HIGH/LOW政策、不变六事件/3比3/20金额基线、事件范围或收益边界、金额单位/财富坐标、分母/epsilon/未知、维度/交互、原标签/成员/周期权重/岭/锁定/两负确认、门/时期/成本营救。先完整支持再一个固定条件模型，结果失败后结束该配置。",
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_registry_and_frozen_G1_preserved": true,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "direct_sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/B05_candidate_intake_plan.json",
+      "sha256": "ee227ef4b374af1941e790dea19695907bc4e734fecf8eae145f41236c103d2d"
+    },
+    {
+      "path": "research/factor96_rapid_feasibility_v1.py",
+      "sha256": "fa8565d3b66a9241ec4624008447fb2c17ab5306989b0fcd778069265c4141db"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/protocol.json",
+      "sha256": "dae1955e1fb57c4a6de9911f7601526a2a59603c27cb18607d56c1c20a697378"
+    },
+    {
+      "path": "reports/research/510300_factor96_rapid_feasibility_v1/all_account_metrics.csv",
+      "sha256": "0fa32a2d2a2a87bf07bc0fdbf18b110a2e0a7fa19a74dcbc60107e4e139424fc"
+    },
+    {
+      "path": "research/synthetic_fear_recovery_v1.py",
+      "sha256": "949c93f76f53b50ea6035946c2bf27239bdf95fe01fc1c008beeee3f82c6ca4b"
+    },
+    {
+      "path": "research/synthetic_fear_recovery_inputs_v1.py",
+      "sha256": "84529663fa2cc0a69e716b5bab4ca6999690866a03454ae27ef60ede28860c29"
+    },
+    {
+      "path": "docs/510300_SYNTHETIC_FEAR_RECOVERY_V1.md",
+      "sha256": "f368273adc06653bea08df69afd8807e3636a80cf667e0297c2240c20cdb6f75"
+    },
+    {
+      "path": "research/price_volume_coherence_inputs_v1.py",
+      "sha256": "86d54acc23ae9a6367d8dab1e93f33a87f50709a62af48dafe78f4ee87b3eaa7"
+    },
+    {
+      "path": "research/signed_volume_within_inputs_v1.py",
+      "sha256": "c6f90b891ce6ceb829a1c631f13963629fb627d6c4e7b92182627fa844256741"
+    },
+    {
+      "path": "research/point_c02_exit_prediction_v1.py",
+      "sha256": "8899b32919df994ae13d588e8370a21bf9eb6606e875f52c34e9b174319165f8"
+    },
+    {
+      "path": "reports/research/510300_point_c02_exit_prediction_v1/prediction_summary.json",
+      "sha256": "8dc2aa3adfdea7ad44406a20beaea45041e48e5663fee0c9755e17c8bf8e0a93"
+    },
+    {
+      "path": "research/point_c03_information_intake_v1.py",
+      "sha256": "e460158192f7d0567a9bfdffa4ac225d9b2a572f8832ee4c5cbe9f12af4daca1"
+    },
+    {
+      "path": "reports/research/510300_point_c03_information_intake_v1/summary.json",
+      "sha256": "f1c99a8421b9fdf55ba6e38071601e933c63f60f38f4a79718a4edeff7c9937d"
+    },
+    {
+      "path": "research/stress_transmission_and_exhaustion_atlas_v1.py",
+      "sha256": "669a4eac65be2010ac0d3928309c45671e476d40da195b0b10a6e96db305e149"
+    },
+    {
+      "path": "research/core_auxiliary_drawdown_gate_v1.py",
+      "sha256": "8607d2298318eedc33c30baddeeed01457a8811f0a5d4f5079c578eb7af85867"
+    },
+    {
+      "path": "research/drawdown_gate_recovery_v1.py",
+      "sha256": "2a472c8a091acdaa5aad33de76fae03febc19daf496733d46ea8bc3d62d7f6dc"
+    },
+    {
+      "path": "research/early_selected_regime_mapping_v1.py",
+      "sha256": "03c89414884565fe50cc006098341c7442c8667e4f51ebb147b95b641aa477fe"
+    },
+    {
+      "path": "reports/research/510300_point_a03_exit_prediction_v1/prediction_summary.json",
+      "sha256": "998b39795cdddf97c1a970fc83285579358d92ed3f010ca4691395acf78b5154"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/admission_receipt.json",
+      "sha256": "d455b517e50050e8b4b4c0a9f5b61c4087aa3afd4149534c8996b02403172d21"
+    },
+    {
+      "path": "reports/research/510300_daily_weekly_goal_continuation_20261001/isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    }
+  ]
+}

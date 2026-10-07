@@ -1,0 +1,100 @@
+{
+  "study_id": "510300_MULTIDIM_ANNOUNCED_TREASURY_QT_CAP_PATH_V1",
+  "experiment_id": "E15",
+  "registered_at": "2026-10-02T09:11:38.242717+08:00",
+  "phase": "SINGLE_FIXED_UPSTREAM_ANNOUNCED_CAP_PATH_INCREMENT",
+  "hypothesis": "相同国内状态下，已公开的美国国债兑付政策约束路径可能具有不同信息；不预设股市符号，不把上限当现金流或市场意外。",
+  "why_different": "E6是财政部发行长端gross增幅；E12是季度借款更新现金及扣现金修订。此题是Fed先公开的政策上限路径状态，事件可用时点可能早数周；不改旧字段、源年龄、符号或失败模型。并非将借款更新重新标成政策意外。",
+  "source_gate_status": "SOURCE_QUALIFIED_FORMAL_ANNOUNCED_TREASURY_CAP_PATH_WITH_IMPLEMENTATION_DAY_END_PROXY",
+  "fields": [
+    "美国已公布未来三整月国债兑付上限合计"
+  ],
+  "feature_definition": "只依decision_at之前正式公布的政策路径，对其纽约日期所属月之后三个完整自然月已知国债兑付上限求和，十亿美元；月末/阶段切换按公告生效月，未公布的未来更改不使用。没有精确到期量时只称上限状态，不称预计现金兑付。",
+  "feature_units": "十亿美元原路径上限之和；不按收益取正负、差分、除数或阈值。",
+  "source_join": "沿68原事件来源对齐；38合格/30明确路径前未准入。政策根available_at<=decision_at，目标三个整月仅按当时已公开生效路径。源有效性按明示政策及32原声明核续行，非延长旧季度预估年龄。",
+  "source_root_dependence": "四上限政策根、2022预告台阶非新增根；记录各训练池、预测及高分的根复用。",
+  "event_universe": "原纠正后M2的68准入事件；只在本字段已知且合格的共同事件池评分；全部68事件的未准入原因保存，不制造月度新宏观事件。",
+  "features_control": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦",
+    "美国已公布未来三整月国债兑付上限合计"
+  ],
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "sample_unit": "每次合格公布一行",
+    "label_availability": "exit_at<=decision_at",
+    "update": "每次公布",
+    "no_future_releases": true
+  },
+  "tree": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "label": "原保存actual_net5：固定10000份、下一开盘到5个持有间隔后的开盘、现金分红权益、4bp佣金且最低5元、10bp滑点、0.001报价单位；不是完整账户收益。",
+  "score": "模型预测在同训练池拟合预测的中位百分位秩，0到100，不是上涨概率。",
+  "evaluation": "原固定五档全部保留；按时间顺序选score>=80且预测净收益>0、持有结束前不增加事件；所有年份、反例、实际路径和训练叶成员保存。",
+  "comparisons": [
+    "同事件/同成熟池11字段控制树",
+    "同池12字段单原因联合树",
+    "同12字段alpha10标准化岭回归仅参考",
+    "同成熟池标签平均"
+  ],
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2022-01-01",
+    "2023-12-31"
+  ],
+  "increment_gate": {
+    "primary_joint_mse_not_worse_than_matched_control": true,
+    "primary_joint_high_mean_net5_positive": true,
+    "primary_joint_high_mean_not_worse_than_matched_control_when_nonempty": true,
+    "at_least_one_primary_joint_high_window_not_in_control_or_parent_M2": true,
+    "at_least_one_primary_new_high_path_actually_uses_cap_field": true
+  },
+  "account_admission": "全部固定增量条件通过后另登记20万/2万元完整连续账户；不把高分事件收益当完整账户夏普，不以线性参考/早期点值营救。账户原目标及风险合同保留。",
+  "account_targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "minimum_cycles_each_full_year": 5
+  },
+  "selection_disclosure": "E1—E14及旧M2历史已经观察。新字段源状态已看过，尚未读取本E15股票分组收益或拟合；仍是历史开发，非独立验证。",
+  "single_fixed_run": true,
+  "parameter_searches": 0,
+  "E6_E9_E12_rejections_preserved": true,
+  "E11_original_gate_failure_preserved": true,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "new_repository_source_code_edits": 0,
+  "independent_validation": false,
+  "goal_achieved": false
+}

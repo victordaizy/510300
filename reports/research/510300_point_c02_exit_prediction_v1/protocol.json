@@ -1,0 +1,52 @@
+{
+  "study": "510300_POINT_C02_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T08:06:43.613714+08:00",
+  "linked_question": "E02-C02当日成交与价格推进三列信息块",
+  "single_change": "原八项加入一个预先登记的C02三列信息块，共11项；非一个标量第九项。目标、成员、拟合方法不变。",
+  "hypothesis": "原持仓回撤及5/20日动量摘要之外，当日成交强度、推进幅度和方向可能补充继续收益预测；只检验固定线性块，不宣称完整吸收/承压机制。",
+  "feature_definition": {
+    "fields": [
+      "relative_amount20_median",
+      "normalized_abs_log_return20",
+      "daily_log_return_direction"
+    ],
+    "economic_return": "log((原收盘+当日已除息现金)/原前收盘)",
+    "relative_amount": "当日成交额CNY/此前20个完整市场日成交额中位数；基准不含当日。",
+    "progress": "abs(当日经济对数收益)/包括当日的最近完整20日该收益样本标准差，ddof=1，不年化。",
+    "direction": "当日经济对数收益的真实sign；严格0收益方向为0，不设涨跌容差或事后方向选择。",
+    "missing": "金额、前20日中位数、收益或标准差不完整/非正标准差时块NO_VIEW；不填零或删除原成员。真实0额可得相对量0，不等于填补未知。",
+    "application": "三列各自标准化后线性进入原周期内岭回归，无阈值、压分、相乘、方向交互或新增入场规则。",
+    "limitation": "日线量价摘要，不是真实主动买卖、订单簿冲击或机构身份。"
+  },
+  "fixed_training": {
+    "last_mature_cycles": 20,
+    "minimum_cycles": 10,
+    "minimum_rows": 100,
+    "each_cycle_total_weight": 1.0,
+    "ridge_alpha": 1.0,
+    "feature_clip": 5.0
+  },
+  "model_clock": "保留原142月首和自然周期成熟日；实际买入首次收盘固定版本；两次负预测确认。",
+  "source_admission": "只复用原经过价格/分红核对的冻结日线，历史仍是开发材料，不增新行情。",
+  "prediction_gate": "同自然原点原收益单位、周期等权MSE；两时期原预测全部配对且MSE严格改善，入场整年块重抽5000次/seed51030078的改进95%下界都>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "原完整有序训练输入及11项、标签、周期权重相同则复用；失败也缓存，不重复尝试。",
+  "economic_gate_if_prediction_passes": "单独冻结应用阶段后，按原20万元/252日全日历/BASE与STRESS、两个时期，净CAGR和净夏普均高于A，实际净pB>1、平均周期收益>0、回撤<=10%；频率是软目标。",
+  "no_rescue": "不因失败换20日窗口、中位数/均值、收益或波动口径、字段/方向编码、交互、维度、正则化、确认次数、标签或跨期门。",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

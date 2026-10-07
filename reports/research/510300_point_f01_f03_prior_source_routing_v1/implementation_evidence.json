@@ -1,0 +1,32 @@
+{
+  "path": "research/factor96_rapid_feasibility_v1.py",
+  "prior_residual_first_line": 88,
+  "prior_residual_source": "def prior_residual(x, y, dates):\n    output = np.full(len(y), np.nan)\n    for i in range(len(y)):\n        if not np.isfinite(x[i]).all() or not np.isfinite(y[i]):\n            continue\n        lower = dates[i] - pd.DateOffset(years=2)\n        eligible = np.flatnonzero((np.arange(i) >= dates.searchsorted(lower)) &\n                                 np.isfinite(x[:i]).all(axis=1) & np.isfinite(y[:i]))[-252:]\n        if len(eligible) < 126:\n            continue\n        beta = np.linalg.lstsq(x[eligible], y[eligible], rcond=None)[0]\n        output[i] = y[i] - x[i] @ beta\n    return output",
+  "financing_lines": [
+    {
+      "line": 139,
+      "text": "    f[\"P01\"] = r.clip(upper=0).pow(2).rolling(20).sum() / r.pow(2).rolling(20).sum().replace(0, np.nan)"
+    },
+    {
+      "line": 140,
+      "text": "    bal = m[[\"date\"]].merge(margin[[\"date\", \"market_rzye\"]], on=\"date\", how=\"left\", validate=\"one_to_one\").market_rzye"
+    },
+    {
+      "line": 141,
+      "text": "    change = (bal / bal.shift(5) - 1).where(bal.rolling(6).count().eq(6))"
+    },
+    {
+      "line": 142,
+      "text": "    financing_x = np.column_stack([np.ones(len(m)), r.rolling(5).sum(), rv])"
+    },
+    {
+      "line": 143,
+      "text": "    f[\"F03\"] = pd.Series(prior_residual(financing_x, change.to_numpy(), dates)).shift(1)"
+    }
+  ],
+  "actual_fit_clock": "仅当前日前、先前两日历年、最近至多252个合格日；最少126，不是严格满252。",
+  "original_card_clock": "此前252个合格日。",
+  "difference_role": "初筛实现与原卡完整定义有差异，保留原NOT_RUN/完整验证false；不修改最少126、两年或方向重试。",
+  "lag": "先计算完整统计日同期收益/波动与余额残差，再整体后移1交易日。",
+  "high_low_direction": "HIGH/LOW均为旧做多入场值域筛选，未回测空头。"
+}

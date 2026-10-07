@@ -1,0 +1,121 @@
+{
+  "study_id": "510300_HISTORICAL_COLLATERAL_RELIEF_CASES_V1",
+  "recorded_at": "2026-09-30T15:01:35.602657+08:00",
+  "research_mode": "HISTORICAL_ONLY",
+  "previous_goal_turn_classification": "PROGRESS_HISTORICAL_BORROWING_REPAYMENT_AND_SELLER_CONSTRAINTS",
+  "question": "不同债务类型的展期、追保与处置规则改变后，融资活动如何变化，公开后可成交的510300收益能否重复？",
+  "sample_selection": "从上一轮明确的2015和2018年问题出发，按原始规则内容确定5个节点。2018年纾困的超过3年展期细则实际于2019年1月发布，作为同一政策链后续节点纳入，先于本轮收益计算。不是全部纾困政策的穷尽事件库。",
+  "events": [
+    {
+      "id": "M15_DRAFT",
+      "date": "2015-06-12",
+      "available_date": "2015-06-12",
+      "label": "两融展期及处置方式草案",
+      "cluster": "2015年两融规则变化",
+      "source_keys": [
+        "draft_20150612",
+        "offshore_20150612"
+      ],
+      "stage": "征求意见，尚未实施",
+      "changed_constraint": "拟允许合约展期并调整违约处置；同日加强场外配资外部接入监管",
+      "not_established": "不是全渠道放松；不能认定场外杠杆全部清理或草案已经生效"
+    },
+    {
+      "id": "M15_FINAL",
+      "date": "2015-07-01",
+      "available_date": "2015-07-01",
+      "label": "两融展期及追保规则实施",
+      "cluster": "2015年两融规则变化",
+      "source_keys": [
+        "final_20150701",
+        "sse_rule_20150701"
+      ],
+      "stage": "正式发布并实施",
+      "changed_constraint": "允许协商展期，放宽补充担保物期限和比例安排，处置方式更灵活",
+      "not_established": "6月12日已公开主要方向；不是取消债务、所有担保要求或全部强平"
+    },
+    {
+      "id": "P18_JUNE",
+      "date": "2018-06-26",
+      "available_date": "2018-06-26",
+      "label": "深市质押展期支持说明",
+      "cluster": "2018年至2019年股票质押纾困",
+      "source_keys": [
+        "szse_20180626"
+      ],
+      "stage": "存量处置说明及继续支持",
+      "changed_constraint": "对经营正常但临时资金困难的融资人提供必要展期；披露协商及补担保做法",
+      "not_established": "限深市口径；不是全国统一停平仓或新增现金已到账"
+    },
+    {
+      "id": "P18_OCT",
+      "date": "2018-10-19",
+      "available_date": "2018-10-21",
+      "label": "质押处置与纾困资金部署",
+      "cluster": "2018年至2019年股票质押纾困",
+      "source_keys": [
+        "cbirc_20181019",
+        "sse_20181021"
+      ],
+      "stage": "监管要求及工作部署",
+      "changed_constraint": "质权人综合评估后稳妥处置，允许保险专项产品，部署完善质押处置及融资工具",
+      "not_established": "没有统一禁止平仓；同日多项政策及周末信息合并，不能单独归因"
+    },
+    {
+      "id": "P19_FINAL",
+      "date": "2019-01-18",
+      "available_date": "2019-01-18",
+      "label": "质押违约合约展期规则实施",
+      "cluster": "2018年至2019年股票质押纾困",
+      "source_keys": [
+        "pledge_rule_20190118"
+      ],
+      "stage": "正式发布并实施",
+      "changed_constraint": "符合条件的违约合约经双方协商可超过3年；全部用于偿还旧违约债务的新融资适用部分规则豁免",
+      "not_established": "借新还旧并非等额新增股票购买；不能提前写成2018年已实施规则"
+    }
+  ],
+  "historical_market_previously_seen": true,
+  "independent_validation": false,
+  "before_this_study_returns": true,
+  "observation_windows": [
+    [
+      "2015-05-04",
+      "2015-08-31"
+    ],
+    [
+      "2018-05-02",
+      "2019-03-29"
+    ]
+  ],
+  "holding_sessions": [
+    5,
+    20
+  ],
+  "primary_horizon": 5,
+  "entry": "各节点可得日期日末后的下一实际交易日开盘；2018年10月19至21日合并后仍为10月22日。",
+  "exit": "入场后第5或第20个交易日开盘，不搜索更有利期限。",
+  "pre_post_financing": "以入场前5个和入场起5个完整交易日比较买入、反推偿还与净变化；后5日是事后机制观察，绝不作为同次入场信息。两融不代替质押或场外杠杆。",
+  "drawdown_description": "期间收盘财富相对入场开盘的最低回报，含截至该收盘的除息现金；不是可保证成交止损或完整账户回撤。",
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_event_budget_cny": 100000,
+    "illustrative_full_capital_cny": 200000
+  },
+  "execution_limit": "10万元参考往返按开盘预算换算数量，未模拟预提交订单、盘口、风险预算及全账户；不计算策略夏普。",
+  "comparisons": "保留草案和实施、说明和实施各自结果；同一政策链不计为独立重复成功。复用2024年2月5日参考结果作已见对照，不重新筛选。",
+  "source_role": "2019年1月年度质押报告仅供2018年事后解释，不能回填2018年信号；2019年8月两融说明只核对规则区别，不增加收益事件。",
+  "old_studies": [
+    "reports/research/510300_historical_policy_constraint_events_v1/result.json",
+    "reports/research/510300_historical_leverage_seller_constraints_v1/result.json"
+  ],
+  "new_parameters_fitted": 0,
+  "new_accounts": 0,
+  "new_prospective_forecasts": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,51 @@
+{
+  "study": "510300_POINT_A04_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T06:47:50.341655+08:00",
+  "linked_question": "E02单市场字段增量的A04固定实现",
+  "single_change": "原八项固定周期截距岭回归增加confirmed_up_swing_retracement一项；目标与训练成员不变。",
+  "hypothesis": "相同动量或持仓回撤下，已确认市场上涨段被消耗的比例可能补充继续收益的事前上下文。",
+  "feature_definition": {
+    "left_bars": 2,
+    "right_bars": 2,
+    "pivot_price": "DAILY_CLOSE",
+    "price_coordinate": "原日收盘加截至各自当日已除息现金累计量；只向前平移，不用未来分红。",
+    "pivot": "严格低于或高于左右各2根完整日收盘；等值不确认。center=t-2，只在t首次可知。",
+    "pair": "确认高点b时选此前最新已确认低点a；a<b且P[b]-P[a]>0才更新为最新合法上涨段。",
+    "persistence": "后续低点确认或非正新幅度不擦除上一个合法已知段；只有新的合法确认高点更新配对。无过期或最低幅度阈值。",
+    "same_day_order": "一个严格日收盘拐点不能同时是高低点；不用日内高低价构造未辨识的路径顺序。",
+    "fraction": "(P[b]-P[t])/(P[b]-P[a])；创新高可小于0，跌破a可大于1，原始比例不裁为零到一。",
+    "missing": "初始无合法已确认上涨段则NO_VIEW，非正分母不更新；不以0、未来拐点或回填替代。",
+    "meaning": "已确认历史市场波段比例，不是实际持仓回撤，也不是可卖出的事后顶点。"
+  },
+  "fixed_training": {
+    "last_mature_cycles": 20,
+    "minimum_cycles": 10,
+    "minimum_rows": 100,
+    "each_cycle_total_weight": 1.0,
+    "ridge_alpha": 1.0,
+    "feature_clip": 5.0
+  },
+  "model_clock": "保留原142月首和自然周期成熟日；实际买入首次收盘固定版本；两次负预测确认。",
+  "source_admission": "只复用原经过价格/分红核对的冻结日线，历史仍是开发材料，不增新行情。",
+  "prediction_gate": "同自然原点原收益单位、周期等权MSE；两时期原预测全部配对且MSE严格改善，入场整年块重抽5000次/seed51030076的改进95%下界都>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "原完整有序训练输入及9项、标签、周期权重相同则复用；失败也缓存，不重复尝试。",
+  "economic_gate_if_prediction_passes": "单独冻结应用阶段后，按原20万元/252日全日历/BASE与STRESS、两个时期，净CAGR和净夏普均高于A，实际净pB>1、平均周期收益>0、回撤<=10%；频率是软目标。",
+  "no_rescue": "不因失败换拐点左右2根、配对/保留方式、价格坐标、幅度过滤、方向、正则化、确认次数、标签或跨期门。",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

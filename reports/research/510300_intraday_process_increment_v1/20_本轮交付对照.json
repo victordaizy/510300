@@ -1,0 +1,132 @@
+{
+  "completed_at": "2026-10-02T13:37:02.851936+08:00",
+  "study_id": "510300_INTRADAY_PROCESS_INCREMENT_V1",
+  "research_delivery_status": "COMPLETED_WITH_NEGATIVE_INCREMENT_RESULTS",
+  "positive_strategy_or_sharpe_goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "required_research_deliverables_completed": true,
+  "requirements": [
+    {
+      "项目": "用户新目标与主线调整",
+      "状态": "完成",
+      "证据": "goal_objective.md",
+      "边界": "盘口/IOPV/队列只作储备；不移用旧blocked"
+    },
+    {
+      "项目": "实际来源清单",
+      "状态": "完成",
+      "证据": "01_实际数据清单.csv",
+      "边界": "24项，完整主分钟与相关缓存实际读取"
+    },
+    {
+      "项目": "异常原值与逐日覆盖",
+      "状态": "完成",
+      "证据": "02_逐日质量.csv",
+      "边界": "03异常原值保留；金额代理一档容许不是全面修复"
+    },
+    {
+      "项目": "独立严格金额验证",
+      "状态": "未建立",
+      "证据": "source_quality.json",
+      "边界": "严格全日合格45日，不足504日训练"
+    },
+    {
+      "项目": "全日与事件过程表",
+      "状态": "完成",
+      "证据": "04_逐日盘中过程.parquet",
+      "边界": "1211日、05表1574事件，未修复和再次失守保留"
+    },
+    {
+      "项目": "同日线对照的三个增量",
+      "状态": "完成但全部未通过",
+      "证据": "predictive_comparison.json",
+      "边界": "共同364日、固定模型/标签/成本，非独立验证"
+    },
+    {
+      "项目": "持续性超出已反弹对照",
+      "状态": "完成但未通过",
+      "证据": "predictive_comparison.json",
+      "边界": "A_CONTROL只检验新增持续性，未据结果筛样本"
+    },
+    {
+      "项目": "较短及较长收益路径",
+      "状态": "完成诊断",
+      "证据": "15_持续时间诊断.csv",
+      "边界": "固定1/2/5日，第1日不能作为T+1新份额合法退出"
+    },
+    {
+      "项目": "2万元与20万元完整账户",
+      "状态": "完成条件模拟",
+      "证据": "12_全部账户指标.csv",
+      "边界": "16账户；现金/分红/跳空/容量/未成交/库存/费用保留"
+    },
+    {
+      "项目": "收益及现金持仓恒等式",
+      "状态": "完成保存复算",
+      "证据": "saved_output_verification.json",
+      "边界": "7536逐日账本、2024请求；实际成交验证0"
+    },
+    {
+      "项目": "同一退出规则净期望与费用",
+      "状态": "完成归因",
+      "证据": "11_完成持有周期.csv",
+      "边界": "1004是合并情景周期数，不能当独立机会"
+    },
+    {
+      "项目": "集中度与按月对照",
+      "状态": "完成保存结果解释",
+      "证据": "16_全账户收益集中度.csv",
+      "边界": "17表300配对月度记录，无新模型或账户"
+    },
+    {
+      "项目": "缺失和制度变化分开",
+      "状态": "完成并保留未知",
+      "证据": "summary.json",
+      "边界": "108账户日NO_VIEW；新制度28日不足基线与训练"
+    },
+    {
+      "项目": "旧重叠及拒绝保留",
+      "状态": "完成",
+      "证据": "goal_objective.md",
+      "边界": "旧RV20和尾盘拒绝不变；C为新的条件用途"
+    },
+    {
+      "项目": "长期状态及重要决策",
+      "状态": "完成",
+      "证据": "../../../docs/PROJECT_STATE.md",
+      "边界": "第15A节及RESEARCH_DECISIONS PR21至25"
+    },
+    {
+      "项目": "正的可靠增量和夏普1.2",
+      "状态": "未达到",
+      "证据": "summary.json",
+      "边界": "研究交付完成不等于金融目标成功"
+    },
+    {
+      "项目": "独立样本与真实成交",
+      "状态": "未建立",
+      "证据": "summary.json",
+      "边界": "历史已暴露、无完整历史接收证明，真实成交0"
+    },
+    {
+      "项目": "免费与存储",
+      "状态": "完成",
+      "证据": "file_index.json",
+      "边界": "新行情下载0、数据费用0；不复制大体积原始历史"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "C:\\Users\\戴周阳\\Documents\\New project 8\\docs\\PROJECT_STATE.md",
+      "sha256": "1625a1c71a52a7e55aa4c2851eb3df865c71c8bed1a80ee7c8ba4ed9b144fda6"
+    },
+    {
+      "path": "C:\\Users\\戴周阳\\Documents\\New project 8\\docs\\RESEARCH_DECISIONS.md",
+      "sha256": "212687466d8f7867ac543c86468eb41be61792997b96db2cf9ba3cdefa7e3efe"
+    }
+  ],
+  "freeze_and_saved_core_unchanged": true,
+  "followup_strategy_experiment": "NONE_ADMITTED_NO_RESCUE",
+  "fees_for_data": 0,
+  "actual_orders": 0
+}

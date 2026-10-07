@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-02T19:51:05.298547+08:00",
+  "study": "510300_POINT_H03_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R120",
+  "result_decision": "TECH.R121",
+  "candidate_configurations": 1,
+  "hypothesis": "同日OI和现货五日方向的四象限及同合约基差变化，是否增加当前原继续价值的条件信息。",
+  "raw_fields": [
+    "OI_LOG_CHANGE5",
+    "SPOT_LOG_RETURN5",
+    "SAME_CONTRACT_BASIS_LOG_CHANGE5"
+  ],
+  "model_features": [
+    "Q_OI_UP_PRICE_UP",
+    "Q_OI_UP_PRICE_DOWN",
+    "Q_OI_DOWN_PRICE_UP",
+    "Q_OI_DOWN_PRICE_DOWN",
+    "Q_OBSERVED_FLAT",
+    "SAME_CONTRACT_BASIS_LOG_CHANGE5"
+  ],
+  "encoding": "源日log(sumOI_s/sumOI_s-5)与log(spot_s/spot_s-5)按严格正负固定四类；任何一个确知为0是第五FLAT类；未知不是FLAT。五类one-hot及同合约基差变化共六项设计。原三个连续字段分别保存。",
+  "basis": "当前OI>0且过去原六日均实际出现的全部同一IF合约等权平均log(F_s/F_s-5)，减同期现货log收益；不读取未来主力、最后出现日或到期表来选择。这是名义基差变化，不是扣分红/融资成本套利。",
+  "source": "复用15860真实日合约记录/3965日期/199代码，每源日四行，零OI到期行保留总量。现货000300.SH缓存为观察；价格比较仍从2016-01-04起，六原日历窗缺源则未知。",
+  "clock": "原源日s的数据假设到下一原交易日t的15:05可用，t15:05形成状态后下一合法开盘才可应用；同原旧一日延迟研究假设，非逐日物理发布时间或首版证明。只用t-1的应有源行，不拖8/12末值补后续日。",
+  "different_use": "原普通岭M0/M1五日独立往返、OI单日加方向交互失败保持；原IF_REL5已含本基差变化，不称新信息源。本次唯一固定四象限类别对原自然继续目标做周期内残差，不因仅五日窗口不同准入。",
+  "core_and_members": "原八项/截距/尺度、1507状态、142月115可用27未知、全部成熟成员/目标/周期总权重1、最近20/最少10周期100行、入场锁定全保留。",
+  "fit": "六项已知设计按原训练权重标准化、clip±5并中心化；未知修正分支0但原未知字段仍NULL。全部原训练行的设计及原预测残差周期内中心化，alpha1、全局新截距0，六辅助系数一次估计。原模型不重新拟合。",
+  "missing": "合约母集不完整/价格不可比/原六日缺源/现货缺失等保持原值未知；完整输入不成立直接返回原预测，原模型未知双方未知。完整函数不等于完整H03卡字段或经济认证。",
+  "prediction_gate": "两原固定时期完整配对、周期等权原收益MSE严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后才另冻结原20万元252日BASE/STRESS双期账户；净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、回撤<=10%、次数软目标。",
+  "no_rescue": "不变五日/六源日、类别/平手规则、方向、alpha/clip、合约集合、缺失、目标、成员、成本或样本起止；不挑基差/到期或类目子样本营救，不事后拼接R117/R119。",
+  "market_network_requests": 0,
+  "new_return_labels": 0,
+  "physical_first_vintage_verified": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "orders_authorized": false,
+  "futures_trading_authorized": false,
+  "goal_achieved": false
+}

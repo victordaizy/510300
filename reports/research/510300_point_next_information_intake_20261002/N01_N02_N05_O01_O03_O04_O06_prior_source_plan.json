@@ -1,0 +1,203 @@
+{
+  "at": "2026-10-02T17:55:19.883846+08:00",
+  "status": "PROPOSED_FINITE_SEVEN_HOLDER_EXTERNAL_NEWS_SOURCE_ROUTES_NOT_ADMITTED",
+  "reason": "八公告/机械完整卡均未准入；不同持有人、休市外部信息及新颖度/预期差用途合并查重，不重扫已关闭同源响应或再次引用旧金额为新进展。",
+  "registered_cards": [
+    {
+      "id": "N01",
+      "family": "持有人结构与可知日历",
+      "name": "主动基金资产端与负债端背离",
+      "role": "入场/状态",
+      "horizon_days": 20,
+      "source_grade": "G2",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "同历史主动权益基金池，季度净申赎/期初份额，与同期净值收益并列；实际披露后使用。",
+      "mechanism": "基金赚钱但仍赎回，可能改变反弹的卖压背景。",
+      "counterexample": "季度滞后、份额拆分与样本口径；旧季度申赎用途失败保留。",
+      "data_path_hint": "基金管理人季报、净值与份额原始披露、中基协月报",
+      "source_clock_rule": "季报在实际披露后进入；规模变化不能直接替代净申赎；历史版本分别保存",
+      "repository_hint": "reports/research/510300_original_quarterly_flow_policy_v1; reports/research/510300_calendar_liquidity_timing_v1",
+      "source_ids": "S04,S09,L01",
+      "source_urls": "https://www.cninfo.com.cn/new/index\nhttps://www.amac.org.cn/index.html\n本次对话附件：510300_一凌与晨明_99条研究索引与方法地图_20260926.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    },
+    {
+      "id": "N02",
+      "family": "持有人结构与可知日历",
+      "name": "持有人回本压力代理",
+      "role": "入场/状态",
+      "horizon_days": 20,
+      "source_grade": "G2",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "以已公布的净申购批次和当时NAV建立简化存量成本分布，赎回按事先规则分配；记录距当期NAV近的代理份额。",
+      "mechanism": "接近推测成本密集区时，反弹可能面临不同赎回弹性。",
+      "counterexample": "成本分布不是实际持有人数据；FIFO/比例规则属于重要模型自由度。",
+      "data_path_hint": "基金管理人季报、净值与份额原始披露、中基协月报",
+      "source_clock_rule": "季报在实际披露后进入；规模变化不能直接替代净申赎；历史版本分别保存",
+      "repository_hint": "reports/research/510300_original_quarterly_flow_policy_v1; reports/research/510300_calendar_liquidity_timing_v1",
+      "source_ids": "S04,S09,L01",
+      "source_urls": "https://www.cninfo.com.cn/new/index\nhttps://www.amac.org.cn/index.html\n本次对话附件：510300_一凌与晨明_99条研究索引与方法地图_20260926.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    },
+    {
+      "id": "N05",
+      "family": "持有人结构与可知日历",
+      "name": "A股休市期间的外部累计信息",
+      "role": "入场/状态",
+      "horizon_days": 3,
+      "source_grade": "G2",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "按当时已知假日表，聚合A股上次收盘后且本次开盘前已结束的海外收益和汇率变化。",
+      "mechanism": "休市累积信息可能改变复市后延续/修复，须从首轮反应之后测试。",
+      "counterexample": "节后跳空已完成；不能计算成可免费获得的收益。",
+      "data_path_hint": "公开市场日价、汇率、债券收益率、历史行业指数；不同来源口径分别验证",
+      "source_clock_rule": "严格按亚洲/欧洲/美国交易时区和发布日期对齐；未收盘市场不能读取当日最终价",
+      "repository_hint": "reports/research/510300_original_quarterly_flow_policy_v1; reports/research/510300_calendar_liquidity_timing_v1",
+      "source_ids": "S06,S10,R04",
+      "source_urls": "https://www.chinamoney.com.cn/chinese/bkccpr/\nhttps://alfred.stlouisfed.org/help/downloaddata\nhttps://www.sciencedirect.com/science/article/pii/S0304405X19302156",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    },
+    {
+      "id": "O01",
+      "family": "信息新颖性与价格吸收",
+      "name": "公告或新闻的新颖度",
+      "role": "入场/状态",
+      "horizon_days": 10,
+      "source_grade": "G3",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "与同主体过去90日已见文本做固定词组相似度，1-max_similarity；事件类型和方向另列。",
+      "mechanism": "新增事实比重复报道可能更有价格影响。",
+      "counterexample": "转载去重和首发时间不全；相似度低不等于重大利好。",
+      "data_path_hint": "官方公告与可以合法保存的新闻首发全文；冻结词典或固定文本模型",
+      "source_clock_rule": "去重转载；保存first_seen；历史浏览/评论数不回填；无法排除模型记忆时只做前瞻",
+      "repository_hint": "reports/research/510300_mechanism_event_dossiers_v1; reports/research/510300_overnight_global_information_v1",
+      "source_ids": "S04,S07,S08,L01",
+      "source_urls": "https://www.cninfo.com.cn/new/index\nhttps://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html\nhttps://www.stats.gov.cn/sj/\n本次对话附件：510300_一凌与晨明_99条研究索引与方法地图_20260926.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    },
+    {
+      "id": "O03",
+      "family": "信息新颖性与价格吸收",
+      "name": "重复利好下的响应衰减",
+      "role": "退出/状态",
+      "horizon_days": 5,
+      "source_grade": "G3",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "固定类型的连续事件，记录经市场波动标准化的首轮反应下降，与消息新颖度并列。",
+      "mechanism": "同类催化越来越难推动价格，可能提示持有价值变化。",
+      "counterexample": "公告质量改变、其他新闻抵消；不能事后解释每次下跌。",
+      "data_path_hint": "官方公告与可以合法保存的新闻首发全文；冻结词典或固定文本模型",
+      "source_clock_rule": "去重转载；保存first_seen；历史浏览/评论数不回填；无法排除模型记忆时只做前瞻",
+      "repository_hint": "reports/research/510300_mechanism_event_dossiers_v1; reports/research/510300_overnight_global_information_v1",
+      "source_ids": "S04,S07,S08,L01",
+      "source_urls": "https://www.cninfo.com.cn/new/index\nhttps://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html\nhttps://www.stats.gov.cn/sj/\n本次对话附件：510300_一凌与晨明_99条研究索引与方法地图_20260926.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    },
+    {
+      "id": "O04",
+      "family": "信息新颖性与价格吸收",
+      "name": "当时可见观点分歧",
+      "role": "风险/状态",
+      "horizon_days": 10,
+      "source_grade": "G3",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "对固定来源集、固定文本模型，按当日已公开内容计算方向标签分散度；所有观点等权或预注册权重。",
+      "mechanism": "高分歧环境可能改变突破与反转的适用性。",
+      "counterexample": "禁止后取阅读点赞数；历史语言模型可能记忆后续事实。",
+      "data_path_hint": "官方公告与可以合法保存的新闻首发全文；冻结词典或固定文本模型",
+      "source_clock_rule": "去重转载；保存first_seen；历史浏览/评论数不回填；无法排除模型记忆时只做前瞻",
+      "repository_hint": "reports/research/510300_mechanism_event_dossiers_v1; reports/research/510300_overnight_global_information_v1",
+      "source_ids": "S04,S07,S08,L01",
+      "source_urls": "https://www.cninfo.com.cn/new/index\nhttps://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html\nhttps://www.stats.gov.cn/sj/\n本次对话附件：510300_一凌与晨明_99条研究索引与方法地图_20260926.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    },
+    {
+      "id": "O06",
+      "family": "信息新颖性与价格吸收",
+      "name": "预期、传闻与正式确认的时间差",
+      "role": "入场/状态",
+      "horizon_days": 5,
+      "source_grade": "G3",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "仅对可核实首发和官方确认的事件，保存传闻日、确认日、内容增量以及确认前价格变化。",
+      "mechanism": "正式落地时的剩余信息量可能决定延续或兑现。",
+      "counterexample": "缺少原始时间与全部失败传闻则选择偏差严重；仅合格前瞻样本。",
+      "data_path_hint": "官方公告与可以合法保存的新闻首发全文；冻结词典或固定文本模型",
+      "source_clock_rule": "去重转载；保存first_seen；历史浏览/评论数不回填；无法排除模型记忆时只做前瞻",
+      "repository_hint": "reports/research/510300_mechanism_event_dossiers_v1; reports/research/510300_overnight_global_information_v1",
+      "source_ids": "S04,S07,S08,L01",
+      "source_urls": "https://www.cninfo.com.cn/new/index\nhttps://www.pbc.gov.cn/diaochatongjisi/116219/116225/index.html\nhttps://www.stats.gov.cn/sj/\n本次对话附件：510300_一凌与晨明_99条研究索引与方法地图_20260926.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null
+    }
+  ],
+  "finite_locators": [
+    "research/original_fund_quarterly_facts_v1_1.py",
+    "research/original_quarterly_flow_policy_v1.py",
+    "research/overnight_global_information_v1.py",
+    "research/expectations_news_price_response_chain_pit_preflight_v1.py",
+    "research/expectations_news_price_response_engine_v1.py",
+    "research/fund_share_publication_receipts_closure_v1.py"
+  ],
+  "bounded_checks": [
+    "基金股数变化、持仓和市值增长分开；负债端净申赎与资产端必须同钟，不用估值上涨替代新资金。",
+    "成本/回本代理不把所有成交都当新增持有人，首版份额时钟关闭项不重扫。",
+    "休市外部累计信息必须在A股复市决策前可得；不能用复市当日尚未收盘的海外资料；核旧普通隔夜吸收是否已同目的失败。",
+    "新颖度、观点分歧、传闻及正式公告分开；七例或事后案例不构成连续历史事件全集；已测EPS分歧失败保持。",
+    "不同用途与完整当前原成员合同先成立；无数据不做窗口/阈值/时期营救。"
+  ],
+  "field_bound": false,
+  "field_admitted": false,
+  "new_model_registered": false,
+  "new_configs_fits_labels_predictions_accounts": 0,
+  "network_requests": 0,
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/factor_registry.json",
+      "sha256": "574cb9c94d9555647439885c47054d62b8161192280437547e974085b740396b"
+    },
+    {
+      "path": "reports/research/510300_factor96_program_v1/factor_progress.json",
+      "sha256": "1adee57b4b579d444b129d33e7a98a0282d077aebb39b7efdc405edb17f960c9"
+    },
+    {
+      "path": "research/original_fund_quarterly_facts_v1_1.py",
+      "sha256": "039d4dc96bc3c1e44e18c3f27aeae5cdabffee6890eb83337d8cc883f1100933"
+    },
+    {
+      "path": "research/original_quarterly_flow_policy_v1.py",
+      "sha256": "fbfc09e0471f1430717f66f958bdc059b3aa6d4c93072c71e5c5092257ae0a03"
+    },
+    {
+      "path": "research/overnight_global_information_v1.py",
+      "sha256": "6920f7d324da76641bfced499210a053e500e690eb8be1989a93f728c4b0385f"
+    },
+    {
+      "path": "research/expectations_news_price_response_chain_pit_preflight_v1.py",
+      "sha256": "64cf45a88a64b24266c4bcd432cb1444d31cdc0633f2909d43d469f2c3b0cb62"
+    },
+    {
+      "path": "research/expectations_news_price_response_engine_v1.py",
+      "sha256": "ddf8e1e1f2aed96cda1cacf6ea0322cb2620a660509f1e247f15b2c1c7de0c00"
+    },
+    {
+      "path": "research/fund_share_publication_receipts_closure_v1.py",
+      "sha256": "5d900cf34d9cb8f1e2736417d8252394960b4e51bc2f16de91043c4c649fce99"
+    },
+    {
+      "path": "reports\\research\\510300_point_disclosure_mechanical_prior_routes_v1\\summary.json",
+      "sha256": "c01e7848480cd64d1e9b1171a65d28836f2200ce71a34f09c14ea9291ca572f3"
+    },
+    {
+      "path": "reports\\research\\510300_point_disclosure_mechanical_prior_routes_v1\\source_and_old_purpose_facts.json",
+      "sha256": "1164df0a874f8241642d184f95922ff9d60bd7f48d8b755acb53cf79ab69b219"
+    }
+  ]
+}

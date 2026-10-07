@@ -1,0 +1,50 @@
+{
+  "experiment_id": "E30",
+  "proposed_study_id": "510300_BANK_CURRENT_VINTAGE_RATIO_CAUSE_IDENTITY_V1",
+  "proposed_at": "2026-10-02T14:57:43.118394+08:00",
+  "status": "PROPOSED_FIXED_SAME_VINTAGE_BANK_RATIO_COMPONENT_IDENTITY_NOT_REGISTERED",
+  "question": "E30复用当前2025同一年度原表，只分解2025Q1→Q2及Q2→Q3资本充足率/不良贷款率变动：资本净额与风险加权资产、以及不良余额与正常+关注+不良贷款总额。先核同表分子/分母和报告比率的舍入残差，再按固定先分子后分母的两步恒等式解释，不把比率下降全部叫新增损失或信贷宽松；两个完整相邻季度均保留。当前来源版本为2026-02-12，本实验只是现版本历史会计结构，不准入原公布时点/评分/账户。净息差期间未知不差分，Q4不计算；不抓新源、不拟合或重开E26。当前仅提案未注册/计算。",
+  "primary_pairs": [
+    "2025Q1→Q2",
+    "2025Q2→Q3"
+  ],
+  "numerators": [
+    "资本净额",
+    "不良贷款余额"
+  ],
+  "denominators": [
+    "应用资本底线后的风险加权资产合计",
+    "正常类贷款+关注类贷款+不良贷款余额"
+  ],
+  "fixed_identity_order": "先以旧分母计算新旧分子之差，再以新分子计算新旧分母之差；加总为两端同表派生比率差。顺序只是算术约定，不是唯一经济因果归属。",
+  "reported_ratio_rounding_residual": "原比率、由金额派生比率和差均保存；金额/比率舍入误差在结果之前冻结按显示精度判断，失败则停止而非改公式。",
+  "limits": [
+    "同表金额构成不是资本发行/利润留存/贷款核销等经营因果分解。",
+    "当前版本结构不等于原季度可知值，不构建历史预测。",
+    "全年行业不是指数金融权重，不能推出510300方向。"
+  ],
+  "references": [
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/protocol.json",
+      "sha256": "563cef6ec8045597afdcef3d3898448230f445f606271c6c706404a133bf9705"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/result.json",
+      "sha256": "92eb9edaca2338879687777ecefd36fa66daf8031e8162f3887188afa0e51530"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/9a20b3d34d24444bbdd77a210675a95c.xls",
+      "sha256": "207e58f1e78a59c2452391966e974121691c959bc90347aebbb62e4a61f3254e"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/发布正文与年度滚动表时钟.json",
+      "sha256": "d3151e35c65bd4dea4371eec784a2e9b09ed52cb74c06660ac1c81fce19f36f0"
+    }
+  ],
+  "new_source_requests": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "goal_achieved": false
+}

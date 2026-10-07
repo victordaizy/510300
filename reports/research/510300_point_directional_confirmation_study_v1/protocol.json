@@ -1,0 +1,187 @@
+{
+  "study": "510300_POINT_DIRECTIONAL_CONFIRMATION_FULL_ACCOUNT_V1",
+  "at": "2026-10-04T18:29:23.358291+08:00",
+  "registration_decision": "TECH.R153",
+  "financial_decision": "TECH.R154",
+  "question": "原5%上涨确认之后到反向确认之间是否仍有可执行净收益，能否补原A空仓并提高完整账户净收益与夏普？",
+  "known_before_registration": "所有历史已用于开发，原49上涨图谱与九状态附加门失败已知；原A两期指标及R150失败已知。5%是原图谱已有定义，不从本轮收益选择阈值。",
+  "mechanism": "价格从事前运行低点反弹5%后趋势可能延续；从运行高点回落5%时这一延续假说失效。只有当前确认日可触发，不把极值日当入场/退出日。",
+  "signal": "逐日含现金分红收盘总回报指数；仅第一向上确认日为入场事件。全历史自2012-05-28顺序维护方向、运行极值和确认日期；原两时期账户从现金开始，只响应账户开始后实际发生的确认，不补入已过去事件。",
+  "threshold": 0.05,
+  "chosen_numeric_signal_parameters": 1,
+  "threshold_grid": false,
+  "entry": "确认收盘决定，下一开盘尝试一次；事前原风险和数量锁定，开盘仅缩减。受阻/持仓时忽略该事件，不择日重试；无计划2R、均线/MACD/量/波动过滤。",
+  "exit": "新来源持仓在事前可知方向转为向下时，下一可卖开盘退出；受阻退出锁定。无固定收益目标或最长持有期，不按未来峰值退出。原风险减仓和账户回撤停止保留，新来源不加仓。",
+  "combination": "原A目标强弱、10个百分点调整带及执行保持。只在空仓、原A明确为0时采用当日新向上确认；A未知不当0。各持仓按入场来源退出，不转换身份，清仓同日不再买入。",
+  "distinction": "原方向变化5%/动态波动版本用于回顾标签和解释，不是这次账户策略；原三个确认族使用MACD/EMA20/20日突破、固定目标/失效/20日上限。旧供给、C04方向确认、NR7、普通趋势及原HMM/BOCPD均保留其失败。本次研究直接确认到反向确认的自然持有净现金流，不重跑或修改它们。",
+  "capital": 200000,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "long_only": true,
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ]
+  },
+  "annual_days": 252,
+  "cash_annual_rate": 0.0,
+  "fee_lot_tick": {
+    "minimum_fee_cny": 5,
+    "lot": 100,
+    "tick": 0.001
+  },
+  "risk": "原50%仓位上限、ES5预算2.5%、负10%跳空预算5%与半数剩余回撤余量、10%收盘回撤停止新入场；复用保存成熟风险，不重拟合。",
+  "clock_and_dividends": "收盘决定、下一开盘成交，T+1；登记权益、除息应收、支付现金分开；终点保留真实持仓不人工清仓。现金日全部纳入夏普。",
+  "primary": "A_PLUS_DIRECTIONAL_MINUS_A_SAVED_WEIGHT",
+  "diagnostic": "DIRECTIONAL_ONLY用于解释组件，不设每个组件单独达到系统夏普或pB目标的通用门。",
+  "economic_gate": "两时期两费用四场景全部：组合净CAGR和全日历净Sharpe严格高于原A且为正，回撤<=10%，实际净pB>1、标准净期望>0。频率完整逐年列为软目标。",
+  "uncertainty": "固定20/252日循环配对区块，各2000次、种子510300154；同时报告两增量95%区间，双尺度双期双费用下界均正才称历史稳定性支持。点值通过但区间失败仍不晋升。不是全项目选择校正或独立证据。",
+  "new_candidate_accounts_planned": 8,
+  "original_control_replays": 4,
+  "new_model_fits": 0,
+  "new_training_labels": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "first_vintage_limit": "沿用原日线/现金分红历史代理；物理首版未认证，不因前缀正确称独立PIT认证。",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "no_rescue": "不改5%、确认时钟、入场等待、退出、目标、费用、风险、时期或组合营救；原前瞻不变。",
+  "literature": "https://repository.essex.ac.uk/33750/1/s10462-022-10307-0.pdf",
+  "literature_limit": "方向变化的事件时钟及确认与极值区别；论文的10分钟外汇、多阈值/优化算法与本次日线510300不同，不提供本策略收益证明。",
+  "sources": [
+    {
+      "path": "research/point_directional_confirmation_account_v1.py",
+      "sha256": "1042f8f58a4b4099e3f0532f559402a4f9620d8d0fe152243b5aafb82661dae0"
+    },
+    {
+      "path": "research/point_directional_confirmation_study_v1.py",
+      "sha256": "1d2941f19edd61a08da2eaaa13c04b9cbe4af8b74a0819c8affd32fc8f9e221a"
+    },
+    {
+      "path": "tests/test_point_directional_confirmation_account_v1.py",
+      "sha256": "3048050032a17ae47ca9ac5a25994bd1a115a07520eff855110365be62249a91"
+    },
+    {
+      "path": "reports/research/510300_point_directional_confirmation_study_v1/tests_receipt.json",
+      "sha256": "3f12aa96504c81ae72103b08acb75751e644f5926666fbb42e9635aa56c63d5d"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/upward_episode_anatomy_v1.py",
+      "sha256": "d2409657f026a50948c5dd15afc4172d7e0ce68ec06caea156abfcda40b0e90b"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/point_account_nr7_complement_v1.py",
+      "sha256": "fa2585dd4101578668d3a17eb911085659c1273fc40a1598ddded9253457803b"
+    },
+    {
+      "path": "research/point_account_cashflow_state_v1.py",
+      "sha256": "cce026c51148c2bdc835f7be55ac621d00213eb664a391e1f606febf40ba24b0"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_point_directional_confirmation_study_v1/prior_and_purpose_review.json",
+      "sha256": "b59c6b594f780bd498fe8948ca2a7194c9964d5656446cf7c4f545aa00505d12"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports/research/510300_point_directional_confirmation_study_v1/control_preflight.json",
+      "sha256": "28d637db37446fb12216934c5bfd0450f686d89f703e64bcdb76b3a54e7fb502"
+    }
+  ]
+}

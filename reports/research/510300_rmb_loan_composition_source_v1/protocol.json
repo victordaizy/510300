@@ -1,0 +1,34 @@
+{
+  "at": "2026-09-26T04:47:15.496939+08:00",
+  "study_id": "510300_RMB_LOAN_COMPOSITION_SOURCE_V1",
+  "source_months": 104,
+  "source_interval": [
+    "2018-01",
+    "2026-08"
+  ],
+  "source": "reports/research/510300_m1_m2_monthly_increment_v1/admitted_releases.csv",
+  "extraction": [
+    "rmb_total",
+    "household_total",
+    "household_short",
+    "household_long",
+    "corporate_total",
+    "corporate_short",
+    "corporate_long",
+    "bills",
+    "nonbank_total"
+  ],
+  "unit": "统一亿元，减少保留负号；同时保存每个字段原文字面量。",
+  "interval": "以分部门看之前最近的人民币贷款增减句明确统计区间；当月直接，季度/半年/全年/前N个月累计，不根据数值大小猜测。",
+  "canonical_ytd": "当月披露加此前同年已公布累计；若本次公布年初累计，直接采用本次值覆盖当前累计状态，但不回改此前发布的行。每年1月重新起算。",
+  "monthly_differences": "累计披露减上次已知累计只作公布数之差，可能含修订和舍入，不认证为真实当月新增。",
+  "components": "公开部门子项可能不是完整分类；子项和与部门总额的差保留，不强制凑平。",
+  "precision": "显示位数的半单位仅为字面舍入幅度；末尾零是否省略未知，不把它当官方误差分布。",
+  "known_at": "采用原文所载公布日结束，最早后续交易日使用；不回填至统计月末。历史不可变初版仍未认证。",
+  "definition": "2018-2022与2023起扩展金融统计范围分开标记，不用后来回溯数字改前期。企事业贷款不是纯民企投资，居民中长贷不是全部真实住房需求。",
+  "primary_measurement_candidate": "企业加居民中长期贷款年初累计新增 / 同口径人民币贷款年初累计新增；这是净增比率，不保证位于0至1，也不直接识别投资或股票买盘。",
+  "new_market_downloads": 0,
+  "new_accounts": 0,
+  "new_strategy_returns": 0,
+  "goal_achieved": false
+}

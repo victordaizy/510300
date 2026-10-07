@@ -1,0 +1,32 @@
+{
+  "study": "510300_POINT_J01_LOCAL_YIELD_INTAKE_V1",
+  "at": "2026-10-02T15:44:48.300544+08:00",
+  "purpose": "来源及原成员准入，不拟合/回测；算法历史数值不能冒充真实首版。",
+  "binding": {
+    "primary_source": "data/raw/regime_transition_router_v1/cgb_curve/cgb_1y_10y_daily_2012_2026.parquet",
+    "curve": "中债国债收益率曲线",
+    "tenor_years": 10,
+    "source_unit": "百分数",
+    "delta_unit": "bp，100×(yield_recent−yield_base)",
+    "stock_clock": "当前冻结510300实际日历，T15:05",
+    "yield_clock": "原官网日终17:30；沿旧股债研究更保守观测日23:59:59算法上界。T只取T−1观察日，不把同日最终曲线放入15:05。",
+    "window": "两个固定实际股票日期T−1与T−21，恰20股票交易区间；任一精确日期缺源则未知，不asof/ffill或借补班债券日。",
+    "fields": [
+      "J01_yield20_change_bp = 100*(cgb_10y[T−1]−cgb_10y[T−21])",
+      "J01_stock_yield20_interaction = J01_yield20_change_bp*原已冻结mom20[T]"
+    ],
+    "price_state": "复用原八项mom20，不重算或再加同一列；不选收益符号/象限/阈值。",
+    "historical_purpose": "只检验不同原自然继续经济目标的来源适用性；源未准入则不登记收益模型。20窗口不是对旧失败的重新验证或独立信息证明。",
+    "first_publication": "历史回取retrieved_at与17:30一般发布说明、下一交易日衍生available_at分开；旧材料没有逐日首版版本证据，所有first_publication_evidence_proved=False。",
+    "missing_rule": "初始21日/精确债券日期或原mom20不足均NaN，真实0差值保留；不删除原自然或成熟成员。"
+  },
+  "support_gate": "完整1507原状态、115可用成熟月全部原成员支持，并需历史首次发布/版本证据；算法字段可用不等于物理准入。",
+  "no_rescue": "不改固定来源/期限/20窗口/延迟/单位/交互，不改原标签/8项/成员/成熟训练/岭/锁定/双期门；不缩时期、补值/切旧source或复活旧LPR失败；0采集/拟合/账户。",
+  "fixed_source_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "goal_achieved": false
+}

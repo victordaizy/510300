@@ -1,0 +1,7 @@
+{
+  "key": "e10_pdf_read_program",
+  "source": "from pathlib import Path\nimport pdfplumber,subprocess,shutil,json\nout=Path('reports/research/510300_treasury_borrowing_revision_source_qualification_v1')\np=out/'sources/20230731_资金来源与用途原表.pdf'\nrender=out/'source_render';render.mkdir(exist_ok=True)\ntexts=[];tables=[]\nwith pdfplumber.open(p) as pdf:\n print('原PDF页数：',len(pdf.pages))\n for i,page in enumerate(pdf.pages,1):\n  text=page.extract_text(layout=False) or '';texts.append({'page':i,'text':text})\n  tables.append({'page':i,'tables':page.extract_tables()})\n  print('第',i,'页原文：',text[:14000])\n(out/'PDF全部页文字与表格.json').write_text(json.dumps({'texts':texts,'tables':tables},ensure_ascii=False,indent=2)+'\\n',encoding='utf-8',newline='\\n')\nr=subprocess.run([shutil.which('pdftoppm'),'-r','140','-png',str(p),str(render/'资金来源与用途原页')],capture_output=True,encoding='utf-8',errors='replace')\nassert r.returncode==0,r.stderr\nprint('已渲染：',[str(p.resolve()) for p in render.glob('*.png')])\n",
+  "execution_mode": "项目Python标准输入；无仓库源码新增或修改",
+  "status": "EXECUTED_COMPLETED",
+  "executed_source_sha256": "d266dffbb8bdc2e7a446a38ddcb599c5bc8dd8cfb7711c6a7c65d1d321159362"
+}

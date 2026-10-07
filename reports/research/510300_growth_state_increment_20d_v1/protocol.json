@@ -1,0 +1,94 @@
+{
+  "study_id": "510300_GROWTH_STATE_INCREMENT_20D_V1",
+  "frozen_at": "2026-09-22T00:22:13.721122+08:00",
+  "hypothesis": "已公布新订单的水平和月度改善，分别是否在价格信息之外改善未来20日收益均值或下行波动预测。不是PMI预期差，也不代表全部宏观政策。",
+  "parent_scope": "510300_MACRO_DYNAMIC_REFRAME_V1",
+  "evidence_class": "FROZEN_NEW_COMPARISON_ON_PREVIOUSLY_OBSERVED_HISTORY",
+  "prior_selection": "PMI历史已用于旧宏观压力门；价格、风险模型及20日持有期也有大量既往研究。本轮不是独立未见样本，不改变旧失败或NBS固定五分钟家族裁决。",
+  "data_end": "2026-09-11",
+  "last_macro_month": "2026-07",
+  "last_decision_date": "2026-07-31",
+  "horizon": 20,
+  "lookback": 20,
+  "minimum_train_months": 36,
+  "minimum_evaluation_months": 24,
+  "monthly_origin": "每份当次新订单完整可用后的第一个交易日收盘；从下一交易日开盘到第20个交易日收盘。",
+  "training": "仅以月度公布后观察时点为训练原点，扩展训练；标签终点严格早于当前收盘。同一训练集合只拟合一次，按周及新公告时点更新预测输入。",
+  "decision_grid": "官方交易日历每周最后交易日收盘，加新订单完整可用后的第一个收盘；同日去重。两类模型使用共同日历。",
+  "primary_evaluation": "每月新订单公布后原点各一次；周度预测只作路径及逐期诊断，不扩大宏观有效样本量。",
+  "features": {
+    "P0": [
+      "price_m20",
+      "price_log_sigma20"
+    ],
+    "P1": [
+      "price_m20",
+      "price_log_sigma20",
+      "growth_level",
+      "growth_change"
+    ],
+    "R0": [
+      "price_m20",
+      "price_log_down20"
+    ],
+    "R1": [
+      "price_m20",
+      "price_log_down20",
+      "growth_level",
+      "growth_change"
+    ]
+  },
+  "growth_features": "当次新订单减50；本月减上月。首次月份缺差值时不填零。",
+  "price_features": "过去20个含分红日收益的复合回报；样本标准差对数；过去20日负收益平方均值的对数。均截至判断收盘。",
+  "ridge_penalty": 1.0,
+  "ridge_definition": "训练内总体标准差标准化；平均平方误差加1倍斜率平方和，截距不惩罚；不搜索系数惩罚、窗口或方向。",
+  "return_target": "固定一份510300从次日开盘持有20日，获得入场之后除息产生的现金权利，不再投资；退出价格加累计分红除以入场价减1。",
+  "risk_target": "同一持有区间每日含累计分红权益的财富变化，首日以开盘为起点；20个单日负收益平方的均值。无入场前跳空。",
+  "risk_floor": 1e-08,
+  "risk_model": "以log(max(目标下行方差,1e-8))作训练目标；预测指数乘训练残差指数均值作算术均值修正，保证正值。",
+  "risk_loss": "QLIKE = log(预测下行方差) + 实际下行方差/预测下行方差；差值才有比较意义。另报告平方误差、实际/预测均值及低估频率。",
+  "return_baselines": [
+    "P0价格模型",
+    "当时成熟月度标签均值",
+    "恒定零收益"
+  ],
+  "risk_baselines": [
+    "R0价格风险模型",
+    "当时成熟月度下行方差均值",
+    "过去20日下行方差"
+  ],
+  "gates": "收益、风险分别判定；新增模型相对各自三基准的损失改善均值和95%单侧下界均>0，相对价格模型前后两半改善均>0。至少24个月评价。任一通道失败不自动否决另一个。",
+  "bootstrap": {
+    "draws": 10000,
+    "month_block": 6,
+    "seed": 20260922,
+    "lower_quantile": 0.05,
+    "method": "按连续月度评价原点，不循环移动块抽样；所有比较共用索引。两个独立主目标各用5%单侧门；不声称修正了整个仓库上游试验。"
+  },
+  "refresh_diagnostic": "仅在非周度复核日的新订单原点，固定同一组当时已成熟训练系数和当前价格输入，对比最新增长值与上一个周度复核时已知增长值；两者预测同一未来20日。诊断只衡量输入刷新，不等同真实连续账户。",
+  "decision_diagnostic": "P0/P1预测是否超过按观察收盘、整手及最低佣金估算的满预算压力往返成本；R0/R1的10%风险预算参考仓位差。只是规则差异，不是实际成交或已实现账户收益。",
+  "account_gate": "仅对通过自己预测门的模块开展独立账户阶段；收益失败不能用风险得分包装成功。20万元主账户、2万元成本对照。若有通道通过，下一账户执行合同须固定现金、分红到账、T+1、下一开盘及逐笔费用。",
+  "account_mapping_if_admitted": "收益模块采用预测超过压力往返成本才持有，仓位上限为10%目标波动率/当时20日年化波动且不超过1；风险模块独立采用min(1,10%/sqrt(2*242*预测下行方差))，因子2是固定对称参照，不是假定分布已证实对称。共同周期及公告更新分别比较。",
+  "cost": {
+    "commission": 0.0002,
+    "minimum": 5,
+    "base_slippage": 0.0005,
+    "stress_slippage": 0.001,
+    "lot": 100,
+    "annual_days": 242,
+    "cash_rate": 0,
+    "risk_free_rate": 0
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "full_account_targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1
+  },
+  "stop": "一轮固定历史检验，失败不改窗口、差分、方向、起点、惩罚或判据；不得从两个目标挑一个新名称救另一项失败。各宏观政策通道继续按自己的独立假设推进。",
+  "new_20d_labels_before_freeze": 0,
+  "independent_forward_events": 0,
+  "new_accounts": 0
+}

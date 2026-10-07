@@ -1,0 +1,79 @@
+{
+  "at": "2026-09-28T22:22:22.464022+08:00",
+  "study_id": "510300_SHAREHOLDER_DISCLOSURE_BREADTH_V1",
+  "prior_goal_turn": "PROGRESS_DIVIDEND_CALENDAR_GROSS_PASS_FULL_ACCOUNT_REJECTED",
+  "objective": "完整账户成本后夏普至少1.2、CAGR至少10%，原风险合同及资产范围不变。",
+  "hypothesis": "实际股东增持的公告覆盖超过减持覆盖，可能表明所有者对价格的认同更广，随后仍有重定价。",
+  "counterexamples": [
+    "普通机构调仓不代表内部信息",
+    "公告滞后且已买入不是未来买盘",
+    "增持可能持续买早，减持可能为个人资金需求",
+    "监管与披露习惯变化影响覆盖差"
+  ],
+  "novelty": "不同于已失败的公司回购/发行数量代理；M03旁支的全类股东方向覆盖代理，原内部人金额/自由流通市值定义仍NOT_RUN。",
+  "sources": [
+    "https://data.eastmoney.com/executive/gdzjc.html",
+    "https://raw.githubusercontent.com/akfamily/akshare/main/akshare/stock_feature/stock_gdzjc_em.py"
+  ],
+  "source_contract": {
+    "reportName": "RPT_SHARE_HOLDER_INCREASE",
+    "notice_min": "2016-11-01",
+    "notice_max": "2025-12-31",
+    "universe": "既有官方重建历史CSI300成员所有证券；每日仅按该日成员筛选。",
+    "collection": "证券代码排序后每50个一批，pageSize=5000，最多40次公开请求；无重试，无凭据。",
+    "known_at": "供应商NOTICE_DATE日末23:59:59（北京时间），当日16时不可用；EITIME仅保存诊断，不宣称历史first_seen。",
+    "event": "正数CHANGE_NUM且DIRECTION为增持/减持、END_DATE<=NOTICE_DATE、MARKET含二级市场或大宗交易；排除单纯协议/非交易过户、激励、增发等。",
+    "dedup": "同证券、同股东、同开始/结束/公告日、同方向及变动数量去重；方向集合内同发行人计一次，不累加累计金额。",
+    "missing": "任一代码批次未完整取得即源门失败；无法解释的记录保留为排除/未知，不能默认为零事实。",
+    "historical_first_vintage_verified": false
+  },
+  "signal": {
+    "decision_at": "每ISO周第一个A股交易日16:00；输入每日可更新。",
+    "window": "截至决策时已知、首次按NOTICE_DATE日末进入的此前20个A股交易日公告；在(第i-20日16:00,第i日16:00]内。",
+    "formula": "当日300成员中有增持公告的公司数减有减持公告的公司数，再除300；两边均出现的公司互相抵消。",
+    "primary": "覆盖差>0；无价格、估值、阈值排名、方向反转或期限搜索。",
+    "model_fits": 0,
+    "training_window": "无拟合模型，无额外训练参数。"
+  },
+  "execution": {
+    "entry": "决策后下一个A股开盘",
+    "hold_open_intervals": 20,
+    "overlap": "主检验只接受空仓时信号，不加仓、不重置期限；持有期内的信号保留为被忽略。",
+    "unfilled": "方向涨停不买，收益及成本为零；跌停卖出顺延；末端未成熟不填零。",
+    "dividend": "复用原始ETF价格及现金分红标签，买入除息日不享权，卖出除息日仍享权。"
+  },
+  "evaluation": {
+    "periods": {
+      "FULL": [
+        "2017-01-01",
+        "2025-12-31"
+      ],
+      "EARLY": [
+        "2017-01-01",
+        "2020-12-31"
+      ],
+      "LATE": [
+        "2021-01-01",
+        "2025-12-31"
+      ]
+    },
+    "primary": "无重叠入场机会的20开盘毛收益（仍不是账户夏普）。",
+    "controls": [
+      "同年同月全部可评估周原点均值，按主机会月份数量加权",
+      "全周无重叠机械持有",
+      "全部周信号重叠事件仅诊断"
+    ],
+    "screen_gates": [
+      "全部代码批次/分页完整",
+      "主可评估机会至少20次且前后段各至少5次",
+      "主毛均值>0.28%",
+      "主毛均值>同年同月周对照",
+      "前后两段主均值均>0"
+    ],
+    "uncertainty": "按用户减少繁琐检验的新指令，本轮仅做固定规则与前后段、收益集中度筛查；区块重采样留待有用候选。",
+    "concentration": "最大机会对毛收益算术和贡献及去除后均值，仅诊断；不删交易救策略。"
+  },
+  "stop": "初筛任一门失败即固定版本停止，不改方向/窗口/阈值；通过才准许同规则完整账户，仍不能达成目标声明。",
+  "orders_authorized": false,
+  "new_returns_computed_before_registration": false
+}

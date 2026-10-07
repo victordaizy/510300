@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-02T19:15:23.130249+08:00",
+  "status": "PROPOSED_FIXED_K05_OPTIONAL_RESIDUAL_SOURCE_REVIEW_NOT_RUN",
+  "reason": "K04唯一可选残差模型失败后转向不同信息。旧资金T14组合单闭合周期失败保持，不调旧阈值、费用或窗口。",
+  "fields": [
+    "过去五个原交易日DR007减当时可知七天政策利率的均值",
+    "上述五日均值减五个原交易日前的五日均值"
+  ],
+  "clock": "DR007源明确NEXT_TRADING_DAY_OPEN_AFTER_RATE_DATE；按冻结510300原日历映射下一交易日开盘，当前15:05状态只使用此前可用观测。政策公告时刻和当日有效利率另做合同核对。",
+  "missing": "每个应有原日历观测或政策版本缺失则原字段NULL、可选修正不活动，精确返回原预测；不延续2026-08-14末值到后续日期，不回溯补后发政策。",
+  "calendar": "季末等只记录已知日历，不加入临时选择的过滤特征。",
+  "model_if_admitted": "另行冻结唯一可选残差模型；原全部成员、八项系数、目标、权重、最近20/最少10周期100行、alpha1/clip5、入场锁定及双期预测门全部不变。",
+  "first_vintage_and_independent_validation": "NOT_ESTABLISHED",
+  "registered_prediction_model": false,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "sources": [
+    {
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_daily_20150105_20260814.parquet",
+      "sha256": "710268140f0ea4dae28520c9497e1b0f98877a4af7f27191aa85e8e8b3354957"
+    },
+    {
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_rate_changes_anchor_20150105_20260814.parquet",
+      "sha256": "bde5a3ecfac237b15a15f8c208ba38060bf2ff86171f6b07461208534229b5af"
+    },
+    {
+      "path": "research/factor96_funding_relief_v1.py",
+      "sha256": "42cc3eff4b009a94357674e6ceb45c89132945841bb20069c41e128679386849"
+    }
+  ],
+  "goal_achieved": false
+}

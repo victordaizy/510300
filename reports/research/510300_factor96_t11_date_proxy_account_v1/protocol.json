@@ -1,0 +1,98 @@
+{
+  "at": "2026-09-27T23:46:08.086314+08:00",
+  "study_id": "510300_FACTOR96_T11_DATE_PROXY_ACCOUNT_V1",
+  "stage": "ECONOMIC_PROTOCOL_FROZEN_BEFORE_O02_AND_FORWARD_ACCOUNT_RETURNS",
+  "previous_goal_turn_classification": "PROGRESS_FINANCIAL_SOURCE_REPAIRED_COHORTS_MEASURED_AND_DELIVERED",
+  "known_before_freeze": "已知775个披露日、207个完整篮子、23个正向财务日，其中15日仅单公司；已知原文错误、日期与更正链局限。未计算本轮O02首轮反应或T11未来收益。市场历史已在旧研究中见过，全部结果属于历史发现，不是独立前向。",
+  "authority": "仅510300.SH与CASH_CNY研究模拟；保持PCF/IOPV任务暂停，无订单或Paper/Shadow/live权限。",
+  "original_T11": "NOT_RUN_STRICT_CLOCK_AND_CORRECTION_CHAIN_NOT_ADMITTED；本轮为明确区分的日期代理账户变体，不宣称补齐原严格定义。",
+  "hypotheses": "财务更新较强而首轮反应较小可能有后续吸收；竞争机制为市场不认可该更新。较大反应对照保留，不能看结果后选择更优方向改称主策略。",
+  "features": "完全继承冻结行业披露篮子与O02定义；不因单公司占比较大事后新增公司数门槛，不改变正向阈值、行业标准化或缺失处理。",
+  "policies": [
+    "FULL",
+    "FINANCIAL_ALL",
+    "FINANCIAL_COMMON",
+    "ABOVE_MEDIAN"
+  ],
+  "policy_definitions": {
+    "FULL": "完整正向财务篮子且首轮反应及至少2条前序参考已知，首轮反应<=两年前序同类中位。",
+    "FINANCIAL_ALL": "所有完整正向财务篮子，不要求前序反应样本，作来源范围对照。",
+    "FINANCIAL_COMMON": "与FULL相同财务和O02可算范围，但不要求反应小于中位；这是首轮过滤的主增量对照。",
+    "ABOVE_MEDIAN": "与FULL相同共同可算范围，首轮反应>前序同类中位，作竞争机制对照。"
+  },
+  "clock": "观察日收盘后才形成O02；主时钟在下一交易日开盘请求，延迟对照再等一完整交易日。所有财务更新退出同样延迟1或2个交易日使用。没有未来信息填缺。",
+  "entry": "每信号只请求规定开盘一次；仅空仓且未停机时进入；持仓期间新信号不加仓、不延长原期限、不重设价格边界。退出当日不重入。无成交不追单，不将NO_VIEW当买入。",
+  "price_invalidation": "冻结信号观察日的含分红财富低点；之后已知收盘财富低于该低点则下一合法开盘退出。延迟进入前若已知收盘低于该低点，信号失效；不根据未来最高最低价设置止盈。",
+  "time_exit": "首次实际买入开盘索引j，最迟于j+20开盘发出卖出请求，即20个开盘间隔。T+1、跌停或未成交可能延迟；退出请求一经形成持续到清仓。",
+  "new_fact_exit": "记录入场篮子全部非金融公司的报告期。以后同公司出现更晚报告期时，如该公司最新行业财务测量未知，或已知L02<=0、现金质量同比变化<0、行业现金质量z<0之一，则下一允许时点退出。退出只覆盖后续财报，不冒充已建立完整更正、取消和临时公告事实链。",
+  "position": "期初最多50%目标，使用既有固定风险函数按压力成本限制；持仓只允许减仓，不能恢复削减的份额。每个交易日以当时已成熟的两年风险样本更新预算。",
+  "risk_model": "沿用既有冻结price_features.es95及风险训练记录：状态pressure5、trend20、log_rv5_rv60；当前日前2日历年、j+6<=t的成熟5日开盘总回报原点至少252条，训练内标准化及截断规则不变，取126近邻最差5%均值估ES95。不得把T11未来标签加入模型选择。",
+  "risk_limits": {
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_stop": 0.1,
+    "remaining_drawdown_reserve_fraction": 0.5
+  },
+  "account_stop": "收盘权益回撤>=10%后下一合法开盘持续清仓，本账户区间不重启。压力预算含建减仓摩擦和潜在退出成本，不保证实际尾部损失或最大回撤。",
+  "periods": {
+    "FULL": [
+      "2017-01-03",
+      "2026-08-14"
+    ],
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "primary_period": "FULL；EARLY和MAIN为预定分期诊断，不选表现最佳区间替代全期。FULL账户不中途重置权益峰值和停机状态。",
+  "capital_cny": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "execution": "复用冻结账户引擎：T+1、100份整手、0.001价位、涨跌停限制、现金约束、每单最低佣金、滑点向不利价位取整；分红按登记日权益、除息应收和付款日现金分别记账。开盘成交仍是日线模拟假设，非真实成交证明。",
+  "terminal": "保留全部现金日、未平仓市值及分红应收；期末持仓扣压力退出成本准备，不伪造已完成平仓。现金收益明确为0。",
+  "benchmarks": [
+    "BUY_HOLD_50",
+    "CASH"
+  ],
+  "benchmark_rule": "期初50%目标买入持有与零息现金；基准不套用候选退出，费用和期末准备同口径。",
+  "planned_accounts": 120,
+  "account_counting": "4信号规则*2时钟*2资金*2成本*3区间=96；2基准*2资金*2成本*3区间=24，共120。不是120次参数搜索。",
+  "annual_days": 242,
+  "annual_252": "仅换算诊断，不改变通过判定。",
+  "point_targets": {
+    "primary": "FULL区间、主时钟、压力成本、20万元FULL策略",
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1,
+    "comparison": "2万元、延迟时钟、分期和完整基准必须同时披露；无年度次数配额。"
+  },
+  "statistics": "全期20万元压力主时钟FULL对FINANCIAL_COMMON及ABOVE_MEDIAN的配对日收益；固定20日循环区块4000次，随机种子20260927，报告双侧区间和全部对照。不能声称这已校正历史全部家族搜索。",
+  "validation": "先执行合成账户规则测试，冻结实现与输入后只运行一次；保存全部信号、历史参考、决策、订单、净值、逐年与周期表，核对账户恒等式、T+1、成本、时序与成熟风险边界。",
+  "failure_rule": "经济结果失败不改方向、阈值、公司数、窗口、价格边界或成本救援；实现错误保留原版并另存修复版本。历史点估计通过也不构成目标完成，须独立验证。",
+  "parameter_search": false,
+  "O02_real_measurement": "NOT_COMPUTED",
+  "new_accounts_so_far": 0,
+  "independent_forward_observations": 0,
+  "external_review": "NOT_PERFORMED",
+  "goal_achieved": false,
+  "orders_authorized": false
+}

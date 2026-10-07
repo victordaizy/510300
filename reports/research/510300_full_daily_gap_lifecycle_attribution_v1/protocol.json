@@ -1,0 +1,203 @@
+{
+  "at": "2026-10-05T03:42:30.557920+08:00",
+  "study": "510300_FULL_DAILY_GAP_SAVED_LIFECYCLE_ATTRIBUTION_V1",
+  "technical_decision": "TECH.R178",
+  "hypothesis": "具体上涨可能包含较早修复、反复回补和较晚追入；全部保存缺口及实际库存的出生/抬线/回补/次开时钟可解释R177为何次数增加却完整收益夏普不足。",
+  "population": "97出生、194资格、四保存主账户和130真实周期（128完成/2开放），所有取消/已有持仓/失败/开放及原61/49段保留。",
+  "known_clock": "按真实周期逐个已知原点还原初始下沿、新完整缺口只抬线和日低点回补，逐项匹配原decisions的下沿/库存/失效及原orders；不是新账户或替代退出。",
+  "retrospective_alignment": "每个出生与所有原bottom_idx至peak_idx相交的分段逐条对齐，无相交保留未知；只报告距底/峰的日数和位置比例，不按后验阶段形成过滤，不选最有利分段。",
+  "cycle_wealth": "真实BUY支出、逐次SELL净现金、登记日真实份额的已发生除息应收和当前真实剩余份额乘日收盘共同还原周期账面损益。持有期间最高收盘账面损益是事后诊断，不是可执行卖价/收益反事实或决策字段。",
+  "exit_identity": "实际完成净利润减最终卖出前原点的周期账面损益=原点剩余份额乘(真实卖出日原开盘−原点收盘)+其后该周期股息应收−最终卖出佣金−滑点。逐笔身份核对，不赋未成交收益。",
+  "all_outcome_groups": "固定完整周期组：持有期间最高收盘账面损益>0或<=0，交叉最终实际净利润正/零/负，六组×两时期×两费用全报告；空组质量未知，开放另列。分组全部为事后解释，不能做交易门。",
+  "charts": "原四案例全部相交STRESS周期，图窗包含原案例窗及这些周期自身入出/观察末日；显示真实持仓/下沿、日低点回补及实际买卖、当时量/日MACD/上一完整周，不修改原案例或经济样本。",
+  "no_rescue": "R177及所有旧终态保持，不改缺口大小/回补/退出/量/MACD/RV过滤/费用/预算/时期、不混A或拼接R173；新金融候选0。",
+  "necessary_new_tests": 0,
+  "new_accounts": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_market_requests": 0,
+  "historical_sample_role": "DEVELOPMENT_CALIBRATION",
+  "source_first_vintage": "NOT_CERTIFIED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "overfitting_removed": false,
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "research/full_daily_gap_lifecycle_attribution_v1.py",
+      "sha256": "d6000c6ffd21fcf1d0f63d629830d05a06035d1f0a259063a43e116b4b19ac57"
+    },
+    {
+      "path": "research/full_daily_gap_account_v1.py",
+      "sha256": "c7e6243e9dd2723aa00bb4d08ac01109fc2a7a44b20616f41fbee6c4e26c1a66"
+    },
+    {
+      "path": "research/full_daily_gap_inputs_v1.py",
+      "sha256": "f2d042ed4e55441f714018d9cbd1c9f1db3f936aff47f09087eb06672678f8e9"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/intraday_overnight_increment_v1.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/protocol.json",
+      "sha256": "3e141dad146436dba16ef887316c7174ed332e5a2053cc797c27a8d4a82d0934"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/summary.json",
+      "sha256": "bca420c27e0dddcd64029708ffdb80fe0dc9f57ea73cd82eb0bfdfb348d337d5"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/delivery_receipt.json",
+      "sha256": "37c9bacdd9d347e9a9af341b3b3d5b949f4ebc539ce4ed2044c134ddb6427453"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/saved_result_verification.json",
+      "sha256": "eee794d0bf8e0fa802887bd5a24f354a57fb7909ed48634b9ae3271b1ae37b54"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/next_all_gap_lifecycle_diagnostic_proposal.json",
+      "sha256": "8787bf567964ee2a3fd89c1a7f0bf4b4c33507fa04be48c4a998128d7f479383"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/完整账户共同口径比较.parquet",
+      "sha256": "db861dbda20083a689dcfb5fa641c9d5c440d3e7c9179a0b4e35f95f9629aa94"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/全部完整缺口资格_原点量价A覆盖及真实执行状态.parquet",
+      "sha256": "a51e0fc81c4cd14eba1ff3b2b0b3c3b3b8b746afe403d5bdbd3acf192f48bf8b"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/全部实际进出点位_已知缺口量价及真实资金.parquet",
+      "sha256": "7dc8929850de9114e4739fadbae935e0413b048a3a9b6034e6c4ce7aa7aca781"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/protocol.json",
+      "sha256": "7db635accefe4300f4e587a42a224fe51e371848cf7f6f1e7fb2596cf6b1fd4e"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/summary.json",
+      "sha256": "83631372d4a1c890c378e170054223282618c6945cd8e9826d51e6ec4debf23d"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/results/全部3488已知缺口与量价_前2015A未知保留.parquet",
+      "sha256": "43d995ac5b23f1942ce4aef5e2bb11198e6af0f158daeeba695669363dfe71ac"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/results/全部向上缺口至只上移回补_仅路径.parquet",
+      "sha256": "a4d031f268ecc3f626b5f79005e555298d0c6a64c4ee013c4a7cc4ec674eeb8f"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/results/原61分段及49正式波段_完整日线缺口覆盖.parquet",
+      "sha256": "6c6aba4c0eb58d348fde3aba899a6d00e073211f3ff0bc13609e0ba59b1337ed"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_explanation_v1/results/四案例逐日完整量价及整日缺口.parquet",
+      "sha256": "968ceea22e289deb86a399ee24bc637ac008298a0f20542cbded6775b90fdfb7"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/BASE/FULL_DAILY_UP_GAP/daily.parquet",
+      "sha256": "5f7848d063ca17072e9b82bafd5b46aae1502729d8e4523e789ec92aa85a07a3"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/BASE/FULL_DAILY_UP_GAP/orders.parquet",
+      "sha256": "1839b6200a2c929b998e5c6a7341c1390887873c1793fd945e576dd09c3b4d49"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/BASE/FULL_DAILY_UP_GAP/trades.parquet",
+      "sha256": "407caefea974ff8b0943feead3bac0556d0ab8da191a65d3cbf3389149609999"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/BASE/FULL_DAILY_UP_GAP/decisions.parquet",
+      "sha256": "5c55110cfa79501a337efb884c139e172f255702375633f2165ab89d4afc2d44"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/BASE/FULL_DAILY_UP_GAP/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/BASE/FULL_DAILY_UP_GAP/terminal.json",
+      "sha256": "c22fc6f6507b2b82e40d0f48e14d98f1757e4a09d8eebb9198a36fc99969e345"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/STRESS/FULL_DAILY_UP_GAP/daily.parquet",
+      "sha256": "c9fb2018fbd03e7ff7c787e72a2d6f9ae1d5b9d797f96d9e24e4bc1bb1a4fb40"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/STRESS/FULL_DAILY_UP_GAP/orders.parquet",
+      "sha256": "4918f692c1c0c65ce7b906b75ce0be3c8997938380285cc251ca663037473c1f"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/STRESS/FULL_DAILY_UP_GAP/trades.parquet",
+      "sha256": "faa2d0c183fcaa9800289a228a52da316f10ad1e2d424defb5ddf3416bc778dd"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/STRESS/FULL_DAILY_UP_GAP/decisions.parquet",
+      "sha256": "d1cb82ac9e978aabff1419ed4d115633ea02cfa6e5330ffd3620484bb9d821bd"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/STRESS/FULL_DAILY_UP_GAP/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2015_2019/STRESS/FULL_DAILY_UP_GAP/terminal.json",
+      "sha256": "37b670ab78bb1aa4cc17c965dcd63cf3ff8344e0c939e8063644e21e8c147e4b"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/BASE/FULL_DAILY_UP_GAP/daily.parquet",
+      "sha256": "fd43ebaaf2f56632a244d3ba16ea7f6e68e90bdae919a04673e303141a1f1fa5"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/BASE/FULL_DAILY_UP_GAP/orders.parquet",
+      "sha256": "e0b6286928b9e4a9464c4bcb77b318a46a3d476366f71ca680ae0238d9b09c29"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/BASE/FULL_DAILY_UP_GAP/trades.parquet",
+      "sha256": "a1c2b8531669802167a6a291652bfe117dc430f007c1ec6c3cdfae907d564295"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/BASE/FULL_DAILY_UP_GAP/decisions.parquet",
+      "sha256": "7c7a0b5d1dc19a5470399f21646f5125d644a0b169331a9809bd8028871ec033"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/BASE/FULL_DAILY_UP_GAP/rejections.parquet",
+      "sha256": "e1ad04fa397de4749afb954e56ed2a8af934d54226851e031ea7541b014ff05b"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/BASE/FULL_DAILY_UP_GAP/terminal.json",
+      "sha256": "363e30b6bfbbd2f9256ad9cf3e45efa215f0309d4523f145f591e45ec7313cf6"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/STRESS/FULL_DAILY_UP_GAP/daily.parquet",
+      "sha256": "091cc19fae5417896c7237960fcd9754f8b532b9e69a0349d3523211e13a7a07"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/STRESS/FULL_DAILY_UP_GAP/orders.parquet",
+      "sha256": "4c1059aafe1e95aea8ba92c8c0eaa37f79305212ef553cf319556fad62739be5"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/STRESS/FULL_DAILY_UP_GAP/trades.parquet",
+      "sha256": "481e073cb7c1bc207c5b0b8202386e6873f51f435ff8db7fe0f5bf009e3e9948"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/STRESS/FULL_DAILY_UP_GAP/decisions.parquet",
+      "sha256": "e1add82adbb140b53e99631dc73e2867bc5b078f890c5014157b495afa1eade8"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/STRESS/FULL_DAILY_UP_GAP/rejections.parquet",
+      "sha256": "e1ad04fa397de4749afb954e56ed2a8af934d54226851e031ea7541b014ff05b"
+    },
+    {
+      "path": "reports/research/510300_full_daily_gap_study_v1/results/accounts/2020_2026/STRESS/FULL_DAILY_UP_GAP/terminal.json",
+      "sha256": "363e30b6bfbbd2f9256ad9cf3e45efa215f0309d4523f145f591e45ec7313cf6"
+    }
+  ]
+}

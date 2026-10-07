@@ -1,0 +1,98 @@
+{
+  "study_id": "510300_MULTIDIM_TREASURY_CASH_REVISION_CAUSE_SCORE_V1",
+  "experiment_id": "E12",
+  "registered_at": "2026-10-02T07:45:26.714714+08:00",
+  "phase": "SINGLE_FIXED_TWO_CHANNEL_JOINT_INCREMENT",
+  "hypothesis": "现金假设落差/目标调整与扣现金后净借款需要代表不同约束，在相同国内需求、资金、融资和量价状态下可能对应不同剩余收益；不预设方向。",
+  "source_gate_status": "SOURCE_QUALIFIED_TWO_OBSERVABLE_CHANNELS_BODY_DAY_PROXY_ONLY",
+  "source_quarter_roots": 16,
+  "fields": [
+    "美国借款修订现金贡献",
+    "美国扣现金后借款修订"
+  ],
+  "known_history": "E1—E11及原M2/E6/E9历史结果已看过；E12原字段已在E11看过，当前E12收益比较尚未读取，不是独立历史验证。",
+  "event_universe": "原纠正后M2的68准入事件；只在本字段已知且合格的共同事件池评分；全部68事件的未准入原因保存，不制造月度新宏观事件。",
+  "features_control": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦",
+    "美国借款修订现金贡献",
+    "美国扣现金后借款修订"
+  ],
+  "comparison_reason": "与E6同国内事件及月份控制，只检验两新观察渠道增量；不重开单项长端供给或准备金周度失败模型。",
+  "source_join": "available_at<=原decision_at的最近原季度；事件年份2022—2025、来源年龄<=120天。全68原事件逐条保存未准入原因，不将季度值复制为新事件。",
+  "source_root_dependence": "训练/评分的季度根及每根复用次数保存；事件多于16不代表宏观独立根增加。",
+  "feature_units": "两项均直接用十亿美元；不按收益选择除数/正负符号/现金占比；线性参考只依训练池标准化。",
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "sample_unit": "每次合格公布一行",
+    "label_availability": "exit_at<=decision_at",
+    "update": "每次公布",
+    "no_future_releases": true
+  },
+  "tree": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "comparisons": [
+    "同事件/同池11变量国内控制树",
+    "同事件/同池13变量两渠道联合树",
+    "同13变量标准化岭回归alpha10仅参考",
+    "同成熟池标签平均"
+  ],
+  "label": "原保存actual_net5：固定10000份、下一开盘到5个持有间隔后的开盘、现金分红权益、4bp佣金且最低5元、10bp滑点、0.001报价单位；不是完整账户收益。",
+  "score": "模型预测在同训练池拟合预测的中位百分位秩，0到100，不是上涨概率。",
+  "evaluation": "原固定五档全部保留；按时间顺序选score>=80且预测净收益>0、持有结束前不增加事件；所有年份、反例、实际路径和训练叶成员保存。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2022-01-01",
+    "2023-12-31"
+  ],
+  "increment_gate": {
+    "primary_joint_mse_not_worse_than_matched_control": true,
+    "primary_joint_high_mean_net5_positive": true,
+    "primary_joint_high_mean_not_worse_than_matched_control_when_nonempty": true,
+    "at_least_one_primary_joint_high_window_not_in_control_or_parent_M2": true,
+    "at_least_one_primary_new_high_path_actually_uses_cash_or_remainder": true
+  },
+  "account_admission": "全部固定增量条件通过后另登记20万/2万元完整连续账户；不把高分事件收益当完整账户夏普，不以线性参考/早期点值营救。账户原目标及风险合同保留。",
+  "account_targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "minimum_cycles_each_full_year": 5
+  },
+  "parameter_searches": 0,
+  "source_code_edits": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET"
+}

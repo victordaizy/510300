@@ -1,0 +1,49 @@
+{
+  "study_id": "510300_QUOTE_STATE_ENVELOPE_V1",
+  "mode": "LOCAL_CONDITIONAL_MEASUREMENT_ONLY",
+  "purpose": "在秒级快照字段与10毫秒逐笔字段解释成立的条件下，计算报价状态外包络，检查原17个描述的稳定性。",
+  "source_dates": ["20260709", "20260812", "20260904"],
+  "conditions_not_independently_proven": [
+    "导出快照time对应最新订单时间的截断整秒，真实源行情状态位于该秒内。",
+    "逐笔time对应截断到10毫秒的同一市场时钟。",
+    "累计成交量与盘口来自同一快照状态。",
+    "已存三流无影响本次状态范围的隐藏转换或遗漏。"
+  ],
+  "clock_intervals": {
+    "quote_resolution_ms": 1000,
+    "tick_resolution_ms": 10,
+    "lower": "max(名义快照秒起点，累计量所含最后一笔正成交的标注时刻)",
+    "upper_exclusive": "min(名义快照秒终点，下一笔未包含正成交的标注时刻+10毫秒)",
+    "empty_interval": "保留不一致，不平移时间修补。",
+    "received_at_upper_bound": null
+  },
+  "inventory_envelope": {
+    "remainder_model": "沿用已登记的上海剩余新增委托口径，连续成交只扣被动订单；集合竞价扣双侧。",
+    "within_timestamp_batch": "对每个价位，数量下界=max(0,批前数量-本批减少量)，上界=批前数量+本批增加量；再包含批后状态。",
+    "across_batches": "取全部候选批次状态及批内界的逐价位最小/最大，不挑特定偏移。",
+    "joint_state_guaranteed": false,
+    "description": "各价位独立的外包络，允许不能同时实现的组合；包住来源不等于重建出唯一盘口。"
+  },
+  "features": {
+    "raw_price_divisor": 10000,
+    "minimum_tick_raw_units": 10,
+    "depth_band_bps": 10,
+    "mid": "由保证存在与可能存在的最佳买卖价计算外界。",
+    "bid_depth_lower": "在所有可能中间价的10bp价格带交集中累加保证存在的数量。",
+    "bid_depth_upper": "在这些价格带并集中累加可能存在的最大数量。",
+    "zero_denominator": "上界未知，不填0。"
+  },
+  "events": {
+    "set": "原17个事件，固定冲击与观察终点，不新增或删除。",
+    "new_strategy_labels": false,
+    "return_definition": "观察期间价格变化外界，不是成交后收益。",
+    "same_price_depth_replenishment_proven": false
+  },
+  "reporting": {
+    "new_network_requests": 0,
+    "actual_orders": 0,
+    "full_account_sharpe": "NOT_COMPUTED",
+    "new_result_storage_limit_bytes": 5242880,
+    "do_not_promote_conditional_bounds_to_pit_admission": true
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "study_id": "510300_INTEGRATED_MACRO_MICRO_PREDICTION_V1",
+  "frozen_at": "2026-09-24T14:08:01.984456+08:00",
+  "periods": {
+    "PRIMARY": [
+      "2021-01-04",
+      "2026-08-14"
+    ],
+    "RECENT_DIAGNOSTIC": [
+      "2024-08-20",
+      "2026-08-14"
+    ]
+  },
+  "hypothesis": "在同一批已成熟普通日样本上，联合信息比仅技术信息更能预测原五日持有期的压力净收益，并改善原形态账户。",
+  "models": {
+    "TECH": [
+      "technical_trend",
+      "technical_relative_volatility",
+      "technical_trend_change3",
+      "technical_log_volume"
+    ],
+    "INTEGRATED": [
+      "technical_trend",
+      "technical_relative_volatility",
+      "technical_trend_change3",
+      "technical_log_volume",
+      "pmi_level",
+      "pmi_change3",
+      "funding_gap_pp",
+      "funding_change5_pp",
+      "flow5",
+      "flow_breadth5",
+      "if_basis_rank",
+      "if_oi_rank",
+      "GSPC_z",
+      "VIX_z"
+    ]
+  },
+  "primary_increment": "INTEGRATED_MINUS_TECH",
+  "technical_source": "前一交易日收盘；不读取执行日开高低收。",
+  "macro_source": "已发布PMI新订单水平减50及跨连续三个月变化、已知DR007政策利差与五日利率变化；PMI不是预期差。",
+  "micro_source": "已知沪深300成分大单成交分类强度和正强度占比、已知IF基差残差及持仓变化的因果分位；不是机构身份流向。",
+  "external_source": "九点之前已经完成的美股与VIX变化相对各自此前20日波动。",
+  "clock": "执行日北京时间09:00；所有外部来源available_at不晚于此。利率和成交分类保留前轮较保守的次开盘可知约束，IF用归档if_feature_available_at。",
+  "event_calendar": "只用原固定节日前窗、提前已知统计局日程分层诊断预测；不纳入本轮拟合，也不反转刚失败的节日避险。",
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_common_mature_rows": 252,
+    "refit_every_sessions": 21,
+    "ridge_alpha": 10.0,
+    "feature_clip_standard_deviations": 5.0,
+    "models_share_exact_training_rows": true,
+    "label": "原普通日固定五日压力成本后持有净收益，作为预测标签；真实账户另计20万元完整权益。",
+    "label_maturity": "exit_idx必须严格小于当前执行日索引；当前09:30尚未发生的退出不能进入09:00训练。",
+    "scaling": "仅本次训练集均值与样本标准差；截距不惩罚。"
+  },
+  "decision": "两模型分别以预测压力净收益>0允许原形态入场；持有时预测<=0，在同日可卖开盘退出。原失效和五日退出仍在；缺值不产生额外卖出，新入场无观点。",
+  "controls": "A原形态，以及具有相同数据和模型可用日但不看预测符号的A_COVERAGE；不得把数据缺失带来的变化当新增信息优势。",
+  "missing": "不以0填补资料；全部新增字段齐备才预测，两模型一致；样本不够的再拟合日撤销旧模型有效性。",
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ]
+  },
+  "capital_cny": 200000,
+  "target": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "statistics": "主要检验联合模型相对技术模型的预测MSE与账户日均收益；2000次20日共同循环区块，单侧.05。日历分层仅描述，不据其选择规则。",
+  "non_independent_history": true,
+  "historical_source_first_versions_authenticated": false,
+  "older_failure_semantics": "旧PMI20日、IF和资金单项失败保留；本轮不是恢复旧策略或待运行V3。其技术表示只作为新共同样本的对照。",
+  "parameter_grids": 0,
+  "threshold_search": 0,
+  "new_collection": false,
+  "review_package": false,
+  "orders": false,
+  "current_view": "NO_VIEW",
+  "current_local_joint_source_days": 907
+}

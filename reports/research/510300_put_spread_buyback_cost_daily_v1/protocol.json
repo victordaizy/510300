@@ -1,0 +1,86 @@
+{
+  "study_id": "510300_PUT_SPREAD_BUYBACK_COST_DAILY_V1",
+  "at": "2026-09-25T10:35:03.647339+08:00",
+  "primary": "MACRO",
+  "policies": [
+    "MATCHED_VARIANCE",
+    "EMPIRICAL",
+    "PRICE",
+    "MACRO"
+  ],
+  "parent_rejection_preserved": true,
+  "new_assets_or_capital_revision": false,
+  "economic_question": "固定十日退出时，预测未来买回价差的现金成本能否改善已收保险费与后续赔付的比较。",
+  "difference_from_parent": "父研究用20日方差作较长期到期赔付定价代理；本研究直接学同一合约十日买回成本，不改Delta、期限、费用和风险规则。",
+  "target": "第10个后续交易日开盘的压力买回价差成本，不含固定手续费，除以原观察日价差宽度金额；分红按逐日合约单位还原",
+  "target_maturity": "退出日期严格早于预测日09:00；当前尚未成熟标签不能影响参数",
+  "window": "过去两个日历年的原点；每日更新；至少252个共同成熟标签",
+  "models": {
+    "EMPIRICAL": [],
+    "PRICE": [
+      "credit_fraction",
+      "log_iv_rv20",
+      "spot_change_since_quote",
+      "trend20_current"
+    ],
+    "MACRO": [
+      "credit_fraction",
+      "log_iv_rv20",
+      "spot_change_since_quote",
+      "trend20_current",
+      "funding_gap_pp",
+      "credit_acceleration3_pp",
+      "GSPC_z",
+      "VIX_z"
+    ]
+  },
+  "price_feature_definitions": {
+    "credit_fraction": "观察日压力净权利金/价差宽度金额",
+    "log_iv_rv20": "观察日两腿平均隐波/20日实现波动率的对数",
+    "spot_change_since_quote": "报价观察日之后、截至昨日收盘的含已发生分红对数总收益/观察日隐波日尺度；使报价陈旧期的已知价格变化进入价格对照",
+    "trend20_current": "已保存当日09:00可知的20日价格趋势表征"
+  },
+  "macro_features": "资金利差、社融同比三月变化、美股及VIX既有可知表征；不把资金政策利差称为中性利率差",
+  "fit": {
+    "EMPIRICAL": "相同历史池均值",
+    "PRICE_and_MACRO": "岭回归lambda10，不惩罚截距；训练均值和样本标准差标准化并截断[-5,5]",
+    "prediction": "预测买回成本下限截断为零，上界不截断；边界次数披露，无参数搜索"
+  },
+  "minimum_entry_credit": "max(预测买回成本+四次每张5元费用, 四次费用+观察日退出滑点储备)；在09:00冻结，开盘按该信用下限验证",
+  "gate": "观察日压力净权利金高于上述下限；开盘实际压力可得信用仍需满足同一下限",
+  "matched_variance": "父研究PRICE定价门，只限制为本研究共同资料可用日；不是父账户的重写",
+  "unchanged": [
+    "Delta-0.30/-0.10两腿及到期选择",
+    "原10个交易日退出",
+    "原尾部风险预测",
+    "初始最坏损失5%、ES2.5%及回撤余量",
+    "原逐日减仓和现金保证金逻辑",
+    "20万元、252日年化与零现金利息"
+  ],
+  "costs": [
+    "BASE",
+    "STRESS"
+  ],
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "primary_prediction_increment": "MACRO相对PRICE的真实买回成本归一化MSE及同日配对损失",
+  "primary_account_increment": "MACRO-STRESS相对PRICE-STRESS完整账户的日收益",
+  "bootstrap": {
+    "block_sessions": 20,
+    "draws": 2000,
+    "seed": 2026092503
+  },
+  "fixed_periods": [
+    "2021-2023",
+    "2024-END"
+  ],
+  "all_rolling_two_years": true,
+  "post_selection_limit": "本研究源于父研究后识别的预测期限问题，属于开发迭代；不能视为独立确认",
+  "raw_sync_quotes_available": false,
+  "historical_prices_previously_seen": true,
+  "new_market_downloads": 0,
+  "orders_authorized": false
+}

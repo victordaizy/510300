@@ -1,0 +1,21 @@
+{
+  "study": "510300_POINT_A02_INFORMATION_INTAKE_V1",
+  "frozen_at": "2026-10-02T11:30:13.398985+08:00",
+  "purpose": "只检验原八项条件退出模型的直接新增第九项数量准入，不登记新入场或复活T01；不同用途不等于新物理来源。",
+  "registered_definition": "突破日e满足C[e]>max(H[e-20:e-1])；冻结U和ATR20[e-1]。确认后第1至3个完整交易日内，L>=U-0.5ATR且C>=U的日数/已观察日数。",
+  "price_clock": "每根原未复权C/H/L分别加截至当日已生效现金分红累计；不重画过去，成交价格和权益账分离。本次沿用原冻结日线合同，不建立历史原PDF首版或独立验证。",
+  "ATR_clock": "TR[j]=max(Hp[j]-Lp[j],abs(Hp[j]-Cp[j-1]),abs(Lp[j]-Cp[j-1]))；20个完整TR简单均值；e使用ATR[e-1]，冻结U为前20完整Hp最大值，不含e。",
+  "phase_binding": "t收盘使用严格早于t的最近一次满足Cp[e]>U[e]的突破；只在t-e属于1/2/3时计算e+1..t的保留日数/已观察日数。今日新突破可同时完成旧阶段当日观察，但只能从下一完整日成为新锚点；不回填早日。",
+  "passing_rule": "每一观察日Lp>=U-0.5ATR[e-1]且Cp>=U，等号计通过；真实全失败比为0，失败日仍在分母；不等三日结果倒回e入场。",
+  "missing_rule": "无先前突破、第一日尚未完成、ATR不完整或阶段过期为NO_VIEW；不填0、延长、删原样本或更改成熟门。",
+  "support_gate": "全部1507原自然成员和115原可用月全部原训练成员有限，原27未知月保留；否则停止这一固定直接第九项用途。",
+  "fixed_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "source_scope": "仅原冻结日线和原成员元数据，历史全部DEVELOPMENT_CALIBRATION。",
+  "no_rescue": "不改20/3/0.5、重叠更新、价格、缺失赋值、原成员或成熟门营救；原T01及旧回踩终态保留。",
+  "orders_authorized": false,
+  "goal_achieved": false
+}

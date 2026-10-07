@@ -1,0 +1,177 @@
+{
+  "study_id": "510300_TREASURY_SOMA_ALL_REVISION_PRIOR_POLICY_SOURCES_V1",
+  "experiment_id": "E14",
+  "registered_at": "2026-10-02T08:28:09.432398+08:00",
+  "status": "REGISTERED_SOURCE_ONLY_BEFORE_NEW_FED_PAGE_READ",
+  "question": "全部原表可见非零SOMA预估修订中，哪些上游政策安排在当前借款更新前已公开、哪些量差仍未解释？",
+  "case_selection": "从原完整16季度来源集合的15个可见SOMA字段中机械选择非零修订；不按股票收益选择",
+  "fixed_cases": [
+    {
+      "quarter": "2022Q3",
+      "soma_memo_revision_reported": -120,
+      "actual_release_date": "2022-08-01",
+      "prior_actual_release_date": "2022-05-02"
+    },
+    {
+      "quarter": "2024Q2",
+      "soma_memo_revision_reported": 12,
+      "actual_release_date": "2024-04-29",
+      "prior_actual_release_date": "2024-01-29"
+    },
+    {
+      "quarter": "2024Q3",
+      "soma_memo_revision_reported": 86,
+      "actual_release_date": "2024-07-29",
+      "prior_actual_release_date": "2024-04-29"
+    },
+    {
+      "quarter": "2025Q2",
+      "soma_memo_revision_reported": 60,
+      "actual_release_date": "2025-04-28",
+      "prior_actual_release_date": "2025-02-03"
+    },
+    {
+      "quarter": "2025Q4",
+      "soma_memo_revision_reported": 5,
+      "actual_release_date": "2025-11-03",
+      "prior_actual_release_date": "2025-07-28"
+    }
+  ],
+  "unknown_soma_quarters_preserved": [
+    "2023Q2"
+  ],
+  "all_16_quarter_source_coverage": [
+    {
+      "quarter": "2022Q1",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2022Q2",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2022Q3",
+      "soma_memo_revision_reported": -120
+    },
+    {
+      "quarter": "2022Q4",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2023Q1",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2023Q2",
+      "soma_memo_revision_reported": null
+    },
+    {
+      "quarter": "2023Q3",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2023Q4",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2024Q1",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2024Q2",
+      "soma_memo_revision_reported": 12
+    },
+    {
+      "quarter": "2024Q3",
+      "soma_memo_revision_reported": 86
+    },
+    {
+      "quarter": "2024Q4",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2025Q1",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2025Q2",
+      "soma_memo_revision_reported": 60
+    },
+    {
+      "quarter": "2025Q3",
+      "soma_memo_revision_reported": 0
+    },
+    {
+      "quarter": "2025Q4",
+      "soma_memo_revision_reported": 5
+    }
+  ],
+  "new_source_budget": {
+    "maximum_new_html_objects": 3,
+    "treasury_new_downloads": 0,
+    "request_attempts_per_object": 2,
+    "retry_http_403_429": false,
+    "request_timeout_seconds": [
+      15,
+      35
+    ]
+  },
+  "candidate_new_fed_pages": [
+    {
+      "id": "fed20220504_statement",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220504a.htm",
+      "role": "首次缩表声明及原计划直接链接"
+    },
+    {
+      "id": "fed20220504_balance_sheet_plan",
+      "candidate_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220504b.htm",
+      "role": "须由同日原声明直接链接核实，不能凭猜测认证"
+    },
+    {
+      "id": "fed20250319_statement",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250319a.htm",
+      "role": "2025Q2之前的安排变化"
+    }
+  ],
+  "reused_fed_pages": [
+    "2024-05-01",
+    "2025-10-29"
+  ],
+  "required_fact_fields": [
+    "政策原公布日期及正式时间",
+    "生效月或日期",
+    "国债兑付上限前后或停止日期",
+    "前次与当前同季度SOMA预估",
+    "原报告修订和显示量差",
+    "政策是否在前次后当前前公开",
+    "简单上限算术是否吻合",
+    "未解释量差及来源缺口"
+  ],
+  "source_gate": "全部固定病例原同季度两预估和报告修订保存；新原件身份/直接链接/政策时钟有据。病例上游原因无法定位仍可作未知事实，不补0或扩大路线。",
+  "quantity_rule": "上限路径只作数值相容性诊断；不等同实际兑付、完整金额预期或市场共识；跨季结算/到期量未知保留",
+  "known_at_rule": "Fed使用原文正式公布时间；Treasury仅实际正文日期的纽约日末保守代理，非真实接收回执",
+  "first_vintage_and_historic_receipt_verified": false,
+  "no_equity_labels_or_models_or_accounts_in_this_phase": true,
+  "new_equity_labels": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_repository_source_code_edits": 0,
+  "historical_only": true,
+  "independent_validation": false,
+  "E6_E9_E12_rejections_preserved": true,
+  "E11_original_source_gate_failure_preserved": true,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "complete_account_targets_unchanged": {
+    "capital_cny": 200000,
+    "net_sharpe_min": 1.2,
+    "net_cagr_min": 0.1,
+    "max_drawdown_max": 0.1,
+    "position_cap": 0.5,
+    "each_complete_calendar_year_natural_cycles_min": 5
+  },
+  "previous_goal_turn_classification": "NO_PROGRESS_STATUS_RECHECK_ONLY",
+  "continuation_action": "按已保存提案完成一个固定范围来源实验，不重新拟合旧失败表达"
+}

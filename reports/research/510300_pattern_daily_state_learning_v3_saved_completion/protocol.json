@@ -1,0 +1,54 @@
+{
+  "study_id": "510300_PATTERN_DAILY_STATE_LEARNING_V3",
+  "frozen_at": "2026-09-24T12:39:46.067467+08:00",
+  "hypothesis": "稀少形态案例无法及时估计优势；从全部普通日已成熟样本学习背景状态与转变信息，再用于固定三形态的确认日。",
+  "period": [
+    "2021-01-04",
+    "2026-09-16"
+  ],
+  "capital_cny": 200000,
+  "models": {
+    "MATURE_MEAN": "同训练池净收益均值",
+    "BACKGROUND": [
+      "trend_z",
+      "relative_log_volatility"
+    ],
+    "PHASE_VOLUME": [
+      "trend_z",
+      "relative_log_volatility",
+      "trend_z_change3",
+      "log_volume_ratio"
+    ]
+  },
+  "training_pool": "此前504个交易日普通日固定五日持有的已成熟压力净收益；不以形态是否成功筛样。",
+  "label_availability": "普通日模拟在下一开盘入场，持有五日后可执行开盘退出；退出发生后才允许使用。",
+  "min_train": 252,
+  "refit_every_sessions": 21,
+  "ridge_alpha": 10.0,
+  "scaling": "仅训练样本均值/样本标准差，标准化后截断到±5；截距不惩罚。",
+  "decision": "每个确认日用对应日预测压力净收益>0启用，之后每日预测<=0则下一可卖开盘退出；形态失效和原5日期限仍执行。",
+  "important_change": "这是新训练表示，不再使用每形态6/4或3/2数量门和固定状态映射，也不把不适用于新表示的旧置信下界移植为门槛。",
+  "evidence_grade": "探索性模型，正预测不是高置信度；须比较预测误差、完整账户和独立前向证据。",
+  "preserved": [
+    "三种形态",
+    "仅510300与现金",
+    "原两档成本",
+    "T+1",
+    "完整账户",
+    "年度次数下限取消"
+  ],
+  "acceptance": {
+    "net_cagr": 0.1,
+    "net_sharpe": 1.2,
+    "max_drawdown": 0.1,
+    "phase_information": "PHASE_VOLUME对BACKGROUND预测误差与净账户增量须分别检验，不以复杂度本身作为优势。"
+  },
+  "uncertainty": "对成熟预测损失及固定账户收益用相同20日移动区块、2000次、种子20260924；保存抽样，不据结果选择模型。",
+  "one_predeclared_candidate_family": true,
+  "parameter_grids": 0,
+  "no_rescue_after_result": true,
+  "independence": "本版本创建于2026-09-24，数据结束更早且被反复使用，全部为历史顺序重放。",
+  "new_market_collection": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW"
+}

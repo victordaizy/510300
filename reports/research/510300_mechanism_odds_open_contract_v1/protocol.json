@@ -1,0 +1,147 @@
+{
+  "study_id": "510300_MECHANISM_ODDS_OPEN_CONTRACT_V1",
+  "registered_before_new_labels_predictions_and_accounts": true,
+  "user_request": "/goal 实现夏普1.2，注重实用性，拒绝过拟合",
+  "purpose": "把附件的事前最高买价、实际剩余价值和唯一账户落实成一项有限实验，先检验是否有经济收益。",
+  "primary": "LIMIT_VALUE",
+  "controls": [
+    "OPEN_VALUE",
+    "LIMIT_FIXED",
+    "BUY_HOLD_50",
+    "CASH"
+  ],
+  "information": [
+    "五日标准化收益",
+    "二十日标准化趋势",
+    "五日与六十日波动比的对数"
+  ],
+  "forecast": "每天最近两日历年、至少252个已经成熟的共同原点；训练内标准化并截断5，固定126近邻，同距按原点先后；同时保存1至5个剩余开盘间隔的分布。",
+  "horizon": 5,
+  "clock": "收盘后确定下一开盘的股数、最高买价或退出请求；开盘只根据事前订单及撮合近似执行，不重新选择风险股数，不根据低开撤销已经提交的买单。",
+  "label": "原点收盘持有一份的未来开盘价格加中间已获得分红，相对原点收盘价；共同训练池要求最长标签已经成熟。新买入扣去次日除息中不属于买方的分红。",
+  "holding": "主方案只比较剩余合同期限的预期清算价值和立即清算的参考价值；不重复扣已经支付的买入费用。最迟原买入后第五个开盘请求退出，无法成交则请求保留。",
+  "price_contract": "用压力成本下的未来清算价值期望反解最高买价；按0.001元向下取整并预留一档；开盘加不利滑点超过该价即不成交。没有盘口数据，不声称限价触及保证成交。",
+  "comparison": "OPEN_VALUE沿用同一模型和持有规则，以前收盘参考价满足净优势才事前承诺下一开盘买入；LIMIT_FIXED沿用同一限价入场，但只在原期限或账户风险退出。对照不晋升。",
+  "capital_cny": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "risk": "沿用50%事前仓位上限、五日ES95账户预算2.5%、10%标的冲击预算5%及回撤余量一半、10%收盘回撤触发下个可卖开盘永久退出；不能保证实际回撤封顶。",
+  "sample": [
+    "2017-01-03",
+    "2025-12-31"
+  ],
+  "diagnostic_periods": [
+    [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  ],
+  "annualization": "主夏普242交易日，252仅作并列换算；CAGR同时报告旧242交易日和真实日历跨度。",
+  "target": {
+    "net_sharpe": 1.2,
+    "calendar_cagr": 0.1,
+    "maximum_drawdown": 0.1
+  },
+  "trial_budget": "一个新的决策版本、两个必要对照；零参数搜索，失败后不调整本版本。",
+  "difference_from_old": "126近邻和价格状态不是新信息；区别是以已知收盘财富为锚的绝对清算场景、事前提交的价格合同及剩余期限比较。旧剩余持有模型与日更分布失败保留，联合改动不得冒充单一新增因子的贡献。",
+  "mechanism_boundary": "这些输入只是价格状态代理，不证明强制卖出、政策传导或估值错误；R/L是待检验解释，V缺少充分情景与催化证据，本轮不启用。",
+  "independence": "全部历史已被研究，不是独立验证。通过历史数字也不能宣称拒绝过拟合已获证实。",
+  "orders_authorized": false,
+  "delivery_package_required": false,
+  "frozen_at": "2026-09-28T19:41:42.591797+08:00",
+  "account_scenarios": 20,
+  "implementation": {
+    "entry_quantity": "在收盘计划中按压力费用、参考价与限价较高者和冻结风险约束决定整手股数；开盘不重算模型或风险股数。",
+    "limit_boundary": "先对126个未来清算场景逐个扣压力卖出滑点、价位及佣金，再反解买入佣金后的最高价格，向下取整后再保留一档。",
+    "value_exit": "剩余期限场景的期望清算现金小于或等于下一开盘立即清算的前收盘参考现金时退出；共同的次日分红从两边扣去。",
+    "tail_estimate": "126个已成熟五日场景最差ceil(5%*126)个的平均负收益，最低0；重叠标签不是独立126次机会。",
+    "buy_gap": "事前限价不能在看到低开后按新的失效解释撤销，符合限价且方向未封板的低开接受模拟成交。",
+    "auction_proxy": "仅模拟下一次开盘集合竞价，未成交当日到期；不利用全日高低或成交量。无盘口、排队及开盘容量证据，属于日线成交近似。",
+    "unknown": "缺少分布不新买；已有持仓仅按风险和原期限管理，不把缺失当作负收益预测。",
+    "terminal": "末日按市值估值，同时扣本账户对应成本的清算准备；不是实际末日成交。",
+    "forward_status": "NO_VIEW_HISTORICAL_EXPERIMENT_ONLY",
+    "cost_scenarios": "所有计划均用STRESS估价；BASE/STRESS只改变实际模拟成交成本，不选择有利信号。",
+    "source_boundary": "历史回取数据；分红公告日期从已保存官方来源链接提取并检查早于登记日。不声称首见快照或真实成交。",
+    "uncertainty": "固定种子20260928，20日循环区块2000次；给定策略历史收益的不确定性，不校正项目全部选择偏差。"
+  },
+  "prior_trials": "本项目已做多轮价格、近邻分布、五日持有与剩余价值研究。本轮非全新信息，不重置试验次数。",
+  "source_copies": [
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_factor96_t11_date_proxy_account_v1\\inputs\\market.parquet",
+      "copy": "inputs/market.parquet",
+      "sha256": "c9ed3118ca4273b5a4e2895edc4679175c48610381bf4485b31b80ea9bac0df3"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_factor96_t11_date_proxy_account_v1\\inputs\\dividends.csv",
+      "copy": "inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_factor96_t11_date_proxy_account_v1\\inputs\\dividend_coverage.json",
+      "copy": "inputs/dividend_coverage.json",
+      "sha256": "e82c2e414b29f1105a29b17eb8c50217dcfe764da5d9b27fac4cf61376c542c8"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\config\\510300_existing_data_training_mandate_v1.json",
+      "copy": "inputs/authority_snapshot.json",
+      "sha256": "6d2a1b3a3fb2ea46f45bc2abd45ff7c8b1650a717f15b0ef97bb26da99cca8d6"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_factor96_t11_date_proxy_account_v1\\code\\account_engine.py",
+      "copy": "code/account_engine.py",
+      "sha256": "66fb37dee606c4392ceb652c37ca83b367d76b486d488eccfe0d1a6e50d62884"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\research\\mechanism_odds_open_contract_v1.py",
+      "copy": "code/mechanism_odds_open_contract_v1.py",
+      "sha256": "d4702d84a78cd22e5b778dd0a489fbd48cdda13298a5852a0ad8a9eb8a3f747f"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\tests\\test_mechanism_odds_open_contract_v1.py",
+      "copy": "code/test_mechanism_odds_open_contract_v1.py",
+      "sha256": "0779ff15840e60e225fd1297449a992553bed10120c83193e6ffd1d04b0d6199"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Downloads\\510300_机制与赔率交易框架_V1_20260928.md",
+      "copy": "references/用户框架.md",
+      "sha256": "6eda95b05fd7c876a92af1eaabc6e6d1786e05c4ab9c97488dab117817d87dec"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Downloads\\510300_机制与赔率交易框架_V1_20260928 (1).html",
+      "copy": "references/用户框架.html",
+      "sha256": "6bfafdd4b400a6219e91ece307d2c7e815bb95326c2fc6d88cc7023a188756df"
+    },
+    {
+      "source": "E:\\CodexData\\.codex\\attachments\\b4169768-6acd-4684-af9a-525edaed831b\\pasted-text-1.txt",
+      "copy": "references/用户粘贴框架.txt",
+      "sha256": "17d37885ca2c7c256eb9b896b8a3fa186c2389febfa462350582463818455ded"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_factor96_bottleneck_diagnostic_v1\\瓶颈诊断结论.md",
+      "copy": "references/旧瓶颈结论.md",
+      "sha256": "08eb0c0255c0810205659bb395f8c8874981ab3b87a8508a14e2703ab49ff251"
+    },
+    {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_factor96_daily_state_shrink_v1\\研究结论.md",
+      "copy": "references/旧日更结论.md",
+      "sha256": "f55ae3ffeb88220ef78c55b065bea5fd19bad4cdf69061ac6ab073b5529e9102"
+    }
+  ]
+}

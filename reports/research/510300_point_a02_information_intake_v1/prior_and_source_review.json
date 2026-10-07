@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-02T11:25:49.133515+08:00",
+  "status": "COMPLETED_FINITE_A02_PRIOR_USE_AND_PRICE_PHASE_BINDING_BEFORE_SUPPORT",
+  "registered_card": {
+    "id": "A02",
+    "family": "趋势与结构",
+    "name": "突破后回踩保留率",
+    "role": "入场/状态",
+    "horizon_days": 10,
+    "source_grade": "G1",
+    "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+    "definition": "突破日e满足C[e]>max(H[e-20:e-1])；冻结U和ATR20[e-1]。确认后第1至3个完整交易日内，L>=U-0.5ATR且C>=U的日数/已观察日数。",
+    "mechanism": "被突破位置在回踩中保留，可能区分持续上涨与假突破。",
+    "counterexample": "不回踩的强趋势会漏掉；不能等观察完后倒回e日买入。",
+    "data_path_hint": "已有价格与分红缓存优先；原始开高低收、成交额和成交量交叉核验",
+    "source_clock_rule": "收盘数据在收盘后形成；默认下一交易日开盘执行；调整价格只用于信号，成交与现金分红分开",
+    "repository_hint": "docs/510300_SIMPLE_PRICE_ENTRY_EXIT_V1.md; reports/research/510300_breakout_retest_entry_v1",
+    "source_ids": "S01,S05,G01",
+    "source_urls": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml\nhttps://etf.sse.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/catalog/studies.csv",
+    "status": "NOT_RUN",
+    "net_sharpe": null
+  },
+  "old_breakout_retest": {
+    "terminal": "BREAKOUT_RETEST_ENTRY_COMPLETE",
+    "goal_achieved": false,
+    "definition": "前向含现金财富收盘超过此前20日收盘最大值，仅连续突破首日创建；同尺度最低价回踩U、收盘守住且较昨日涨，e后1—10日最多发一次信号；现有机会不由后来新高覆盖，跌破/到期/确认后结束。",
+    "account_contract": {
+      "capital_cny": 200000.0,
+      "annual_days": 242,
+      "cutoff": "2026-08-14"
+    },
+    "saved_primary_metrics": [
+      {
+        "cost": "BASE",
+        "net_sharpe": -0.38294779262899975,
+        "annualized_return": -0.02259976965833326,
+        "meets_point_target": false
+      },
+      {
+        "cost": "STRESS",
+        "net_sharpe": -0.43514875727602564,
+        "annualized_return": -0.025469663680152372,
+        "meets_point_target": false
+      }
+    ]
+  },
+  "simple_price_prior": "T2财富收盘20日通道突破/10日低位退出，不是OHLC上沿冻结后1—3完整日累计保留比。",
+  "T01_frozen_status": "NOT_RUN_REJECTED_NEAR_DUPLICATE_NO_PARAMETER_RESCUE",
+  "T01_frozen_reason": "旧突破回踩已停止窗口、容忍区间、确认与退出细调；ER和保留率草案未构成可区分新机制，不再次试参数。",
+  "related_A04_C04": "A04为确认低高点段幅回撤，C04为合法确认段内成交额收缩；均不等于本次短阶段OHLC比。旧失败不重跑。",
+  "purpose": "只检验原八项条件退出模型的直接新增第九项数量准入，不登记新入场或复活T01；不同用途不等于新物理来源。",
+  "price_clock": "每根原未复权C/H/L分别加截至当日已生效现金分红累计；不重画过去，成交价格和权益账分离。本次沿用原冻结日线合同，不建立历史原PDF首版或独立验证。",
+  "ATR_clock": "TR[j]=max(Hp[j]-Lp[j],abs(Hp[j]-Cp[j-1]),abs(Lp[j]-Cp[j-1]))；20个完整TR简单均值；e使用ATR[e-1]，冻结U为前20完整Hp最大值，不含e。",
+  "phase_binding": "t收盘使用严格早于t的最近一次满足Cp[e]>U[e]的突破；只在t-e属于1/2/3时计算e+1..t的保留日数/已观察日数。今日新突破可同时完成旧阶段当日观察，但只能从下一完整日成为新锚点；不回填早日。",
+  "passing_rule": "每一观察日Lp>=U-0.5ATR[e-1]且Cp>=U，等号计通过；真实全失败比为0，失败日仍在分母；不等三日结果倒回e入场。",
+  "missing_rule": "无先前突破、第一日尚未完成、ATR不完整或阶段过期为NO_VIEW；不填0、延长、删原样本或更改成熟门。",
+  "support_gate": "全部1507原自然成员和115原可用月全部原训练成员有限，原27未知月保留；否则停止这一固定直接第九项用途。",
+  "source_identity_checks": [
+    {
+      "path": "research/breakout_retest_entry_v1.py",
+      "matches_old_freeze": true
+    },
+    {
+      "path": "research/simple_price_entry_exit_v1.py",
+      "matches_old_freeze": true
+    }
+  ],
+  "new_model_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "original_failures_preserved": true,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

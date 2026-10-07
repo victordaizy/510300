@@ -1,0 +1,66 @@
+{
+  "at": "2026-09-28T18:04:02.251451+08:00",
+  "study_id": "510300_FACTOR96_RAPID_ORDERS_INVENTORY_V1",
+  "classification": "EXPLORATORY_RAPID_SCREEN_NOT_ACCEPTANCE",
+  "previous_goal_turn": "PROGRESS_32_STRUCTURE_ACCOUNTS_COMPLETED_NO_PROMISING_CANDIDATE",
+  "user_priority": "只交易510300及现金；先简单检验可行性，有效果再展开；不需要交付包。",
+  "economic_question": "制造业需求相对成品库存的扩散差，以及其三个月变化，是否提供未来约一月的ETF方向信息。扩散指数差不是订单实际数量减库存，也不等于市场预期差。",
+  "source_scope": "132份已存2015至2025年当月PMI原文；仅取当月行，不使用后续月报中的旧月份行补值。与已存新订单字段逐月交叉核对；不新增网络采集。",
+  "parser": "制造业新订单由含生产/原材料库存/从业人员的表头及当月行匹配；产成品库存由同名唯一表头匹配；保留原表行和重复桌面/移动表格的一致性。",
+  "vintage_limit": "本地保存的是后来取得的当期报告页面，不能证明不可变的历史首次版本；不使用latest_revised_value字段。",
+  "formulas": {
+    "ORDERS_INVENTORY_GAP": "制造业新订单扩散指数减产成品库存扩散指数，百分点，保留一位小数。",
+    "GAP_CHANGE3": "当月扩散差减三个月前扩散差；三个间隔内分类标准及样本口径须相同。"
+  },
+  "thresholds": "每个变量仅HIGH>=此前两日历年70%分位、LOW<=30%分位；仅用同分类版本/行业数/样本企业数的已公布月份，至少12个先前月报。当前月不进入阈值。两变量均满足资料门才进入全部候选和公布日对照。",
+  "clock": "沿用已核实原文公布时钟，统一公布日末形成判断；非交易日公布的资料保守映射到随后首个交易日收盘，再下一开盘交易。严禁按统计月提前使用。",
+  "decision_frequency": "每份新月报最多一次入场请求；持仓内忽略新信号，不把月度观测填成多次独立新闻。",
+  "execution": "次开盘入场，持有20个开盘间隔；复用既有50%最大仓位、ES、回撤储备、10%收盘回撤后永久退出、100份整手、T+1、涨跌停、分红现金与应收及成本账本。",
+  "controls": {
+    "RELEASE_ALL": "同样可用的每份月报均产生入场请求。",
+    "PRICE_CONTROL": "仅当同月报可用日ETF过去5日总收益为正时入场。",
+    "BUY_HOLD_50": "初始半仓买入持有背景，不使用候选的风险停止。",
+    "CASH": "零利息现金。"
+  },
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "annual_days": 242,
+  "sample": [
+    "2017-01-03",
+    "2025-12-31"
+  ],
+  "periods": [
+    [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    [
+      "2021-01-01",
+      "2025-12-31"
+    ]
+  ],
+  "planned_accounts": 32,
+  "new_directions": 4,
+  "correlation_diagnostic": "两个变量各与下一合法开盘至20开盘间隔后的含分红固定份额收益计算Spearman，全期及两个固定子期均列出。少量相邻月标签可能重叠；不报独立日显著性，不称独立验证。",
+  "followup_filter": "20万STRESS夏普>=0.8、CAGR>=5%、回撤<=10%、入场>=20、两子期收益正，且夏普/CAGR均高于RELEASE_ALL。只用于决定是否深化。",
+  "final_target": "完整账户成本后夏普>=1.2，并联合检验CAGR>=10%、回撤<=10%；独立验证未完成不得正式达标。",
+  "legacy_boundary": "新变量包含此前未进入账户的产成品库存差；不是重新优化旧新订单水平、货币数量、宏观意外或购进出厂价格传导规则，全部旧失败保留。",
+  "no_rescue": "不在看本轮绩效后更换方向、阈值、持有期、成本、年份或训练窗口。",
+  "official_reference": "https://www.stats.gov.cn/sj/zxfb/202501/t20250127_1958493.html",
+  "orders_authorized": false,
+  "delivery_package_required": false
+}

@@ -1,0 +1,32 @@
+{
+  "at": "2026-09-25T21:45:19.434205+08:00",
+  "study_id": "510300_INDEX_VOLATILITY_SCALED_TAIL_V1",
+  "primary": "VOL20_FILTERED",
+  "question": "原五日损失预测对市场波动变化反应不足，是否可由同一风险样本的事前波动尺度调整改善。",
+  "economic_mechanism": "当前风险变化时，不直接把两年内高低波动场景的原幅度等同于今天的幅度。仍保留非正态的历史场景，跳空压力预算另行保留。",
+  "formula": "r5_scenario_at_t = exp(log(1+r5_at_s) * vol20_at_t / vol20_at_s) - 1；s为历史决策原点，历史和当前vol20均只使用相应原点之前及当日已收盘数据。",
+  "method_scope": "受过滤历史模拟启发的固定五日尺度近似，不声称精确估计未来五日波动路径。对数变换保持收益>-100%。",
+  "old_related_work": "simple_core_window_diagnostic_v1曾测试按20日波动直接缩放账户仓位；dense_probability_payoff_nodes_v1曾测试十日幅度均值。此处只评价同一五日风险分布的VaR/ES，不重跑这些旧仓位或均值用途。",
+  "fixed": [
+    "最近两个日历年每日更新",
+    "原动量条件和60行最低数",
+    "同一标签和成熟时点",
+    "同一5%分位数与尾部均值公式",
+    "20日波动窗口固定，不扫描替代窗口"
+  ],
+  "source": "https://www.bankofengland.co.uk/working-paper/2015/filtered-historical-simulation-value-at-risk-models-and-their-competitors",
+  "evaluation": "与刚保存的BASELINE逐原点配对；2015-2019与2020-2026-09-16分别评价；固定五交易日相位，不选最有利相位；全部日期预测保留。",
+  "gate": "两个区间FZ0联合风险评分差的95%区间上界均<0，平均分位数损失均不增加，且实际VaR跌破率均<=10%；通过后才另立账户检验，失败不运行账户。",
+  "statistics": "4个非重叠观察的区块自助法，2000次，种子20260925；未校正项目级反复选择。",
+  "selection_history": "本问题是在看到原风险模型前期校准偏差后提出，属于开发研究，不能改称独立确认。",
+  "parameter_search": 0,
+  "new_regression_fits": 0,
+  "new_accounts_before_gate": 0,
+  "checks": {
+    "excluded_labels_cannot_change_prediction": true,
+    "future_volatility_cannot_change_prediction": true,
+    "constant_volatility_reproduces_unscaled_distribution": true
+  },
+  "goal_achieved": false,
+  "orders_authorized": false
+}

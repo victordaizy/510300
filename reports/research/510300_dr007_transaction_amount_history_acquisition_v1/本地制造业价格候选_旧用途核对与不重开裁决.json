@@ -1,0 +1,96 @@
+{
+  "checked_at": "2026-10-02T16:07:14.521274+08:00",
+  "status": "COMPLETED_LIMITED_OLD_MANUFACTURING_PRICE_USE_REVIEW_NO_NEW_MODEL_REGISTERED",
+  "parents": [
+    {
+      "path": "research/manufacturing_price_transmission_daily_v1.py",
+      "sha256": "34d325fc9d5cb9a704006a036f9eb643a7760e6eea15b4dc46fef378cd744580"
+    },
+    {
+      "path": "reports/research/510300_manufacturing_price_transmission_daily_v1/protocol.json",
+      "sha256": "149e2ed57b6a06e80b615be3c56170db0affa0f4bb5268a1efd6ec44da9995db"
+    },
+    {
+      "path": "reports/research/510300_manufacturing_price_transmission_daily_v1/result.json",
+      "sha256": "c5703abfd76d92961971263bc592d289582e20c987b8a767f9e9ce0b53c29fa9"
+    },
+    {
+      "path": "reports/research/510300_manufacturing_price_transmission_source_v1/protocol.json",
+      "sha256": "60c6fb90844ca5ee45357540abf30635256a21680f94ba9e946b0083ceb97994"
+    },
+    {
+      "path": "reports/research/510300_historical_price_gap_causes_v1/protocol.json",
+      "sha256": "7c4d1fe832f83c090ebad71d19bdcf8cc9a8ca3371b0be75887d69d872cef957"
+    },
+    {
+      "path": "reports/research/510300_historical_price_gap_causes_v1/result.json",
+      "sha256": "f2afba00a4a27b31358ef304bd546ade6d9739f176e0b0c8c225fc1cfda4b611"
+    },
+    {
+      "path": "research/macro_transmission_context_v4.py",
+      "sha256": "a4e561a7a9347127ecdabc12f814fb4937f092778d82444c6fc144b8cda4a673"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/result.json",
+      "sha256": "355b2b53c040c37e808ed8180b4f7184b0d4ee86dda6fa934f72d3fc92fc47ed"
+    },
+    {
+      "path": "reports/research/510300_export_order_cause_increment_v1/result.json",
+      "sha256": "b88bd076864ebb35dc73fa77820c97ce618e4bf9ede22272bd06e441e33bdfff"
+    }
+  ],
+  "proposed_local_fallback": "采购与出厂价格分项配合订单背景，能否成为不同的日频联合条件信息。",
+  "old_daily_use": {
+    "feature": "output_minus_input_diffusion_pp",
+    "models": {
+      "HISTORY": [],
+      "PRICE_AND_FUNDING": [
+        "pressure5",
+        "trend20",
+        "log_rv5_rv60",
+        "funding_innovation"
+      ],
+      "PRICE_FUNDING_AND_PRICE_TRANSMISSION": [
+        "pressure5",
+        "trend20",
+        "log_rv5_rv60",
+        "funding_innovation",
+        "output_minus_input_diffusion_pp"
+      ]
+    },
+    "training": "最近两日历年，来源公布也在两年内；20日退出开盘严格早于决策日。5日/20日共用同一成熟池，252行最低，126近邻，训练内标准化clip5；不搜参数。",
+    "primary_status": "FROZEN_NO_QUALIFIED_MANUFACTURING_PRICE_TRANSMISSION_STRATEGY",
+    "primary_saved_sharpe": 0.15783532740583292,
+    "primary_saved_cagr": 0.0049444368072546485,
+    "new_result": false
+  },
+  "old_component_cause_use": {
+    "question": "相同的出厂减购进价差改善，来自售价走强、成本下降或两者同降时，510300公布后可成交收益是否不同；订单状态能否区分？",
+    "new_information_relative_to_old_study": "旧实验使用价差水平与价格资金近邻。本轮拆解价差月度变化，并用同月新订单及其变化区分经济含义；不重跑或改动旧账户。",
+    "order_confirmation": "新订单指数>=50且月度变化>0；未满足只能称未获该订单条件确认，不能一律称需求衰退。",
+    "status": "HISTORICAL_EVENT_DIAGNOSTIC_NO_STANDALONE_EDGE_ESTABLISHED",
+    "events": 51,
+    "primary_events": 31,
+    "key_findings": [
+      "价差变化可来自出厂改善或购进更快回落，构成不是利润率。",
+      "主段同降组9次均值2.05%，中位数-0.80%，去最好一次后-0.98%。",
+      "最大的2024年8月案例在9月24日政策前仍跌2.90%，后半段涨30.52%；不能把整笔收益单独归因于月初PMI。",
+      "订单确认条件没有在该组建立单独可用优势；不反号挑选。"
+    ]
+  },
+  "other_descriptive_use": "macro_transmission_context_v4已经联接input_price_diffusion、output_price_diffusion、output_minus_input_diffusion_pp；其观察状态不自动成为获准的新交易模型。",
+  "decision": "本轮未建立足以新增经济候选的实质不同原因信息；不因DR访问缺口将旧分项/订单解释换成日频或非线性模型重开。没有宣称所有价格分项组合已经被穷尽，也不把旧特定表达失败概括为制造业信息永久无效。",
+  "new_absolute_level_candidate": "未登记、未准入、未拟合；本次没有为其建立不同用途合同或新的上游原因证据。",
+  "does_not_reject_unobserved_dr007_amount_hypothesis": true,
+  "new_study_registered": false,
+  "new_source_requests": 0,
+  "new_labels": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "source_code_edits": 0,
+  "net_sharpe": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "bounded_review_not_whole_repository_exhaustion_proof": true
+}

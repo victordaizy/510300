@@ -1,0 +1,30 @@
+[
+  {
+    "path": "research/learned_cycle_exit_v1.py",
+    "function": "continuation_label",
+    "start_line": 33,
+    "end_line": 40,
+    "source": "def continuation_label(data, dividends, quantity, first_exit, later_exit, cost, tick):\n    \"\"\"标签按股权登记日比较新增权益，早已取得而尚未到账的权益在两边抵消。\"\"\"\n    early = fill_price(float(data.open.iloc[first_exit]), -1, cost, tick)\n    late = fill_price(float(data.open.iloc[later_exit]), -1, cost, tick)\n    eligible = dividends[(dividends.record_date >= data.date.iloc[first_exit]) & (dividends.record_date < data.date.iloc[later_exit])]\n    extra_dividend = quantity * float(eligible.cash_dividend_per_share.sum())\n    difference = quantity * (late - early) - commission(quantity, late, cost) + commission(quantity, early, cost) + extra_dividend\n    return difference / (quantity * float(data.open.iloc[first_exit])), extra_dividend"
+  },
+  {
+    "path": "research/learned_cycle_exit_v1.py",
+    "function": "state_values",
+    "start_line": 27,
+    "end_line": 30,
+    "source": "def state_values(data, t, cycle, current_value, peak_value):\n    return np.array([np.log1p(t - cycle[\"entry_index\"] + 1), current_value / cycle[\"entry_cost_cny\"] - 1,\n                     current_value / peak_value - 1, cycle[\"mode\"], data.mom5.iloc[t], data.mom20.iloc[t],\n                     data.sma120.iloc[t], data.vol20.iloc[t]], dtype=float)"
+  },
+  {
+    "path": "research/intraday_overnight_increment_v1.py",
+    "function": "choose_order",
+    "start_line": 283,
+    "end_line": 312,
+    "source": "def choose_order(account: Account, close: float, mu: float, variance5: float, cost: dict, config: dict) -> dict:\n    \"\"\"只使用收盘时的账户和特征；结果是次日固定份额请求。\"\"\"\n    nav = account.value(close)\n    require(nav > 0 and np.isfinite([close, mu, variance5]).all(), \"决策输入非法\")\n    candidates = [(\"HOLD\", account.shares)]\n    buy_price = fill_price(close, 1, cost, config[\"tick\"])\n    max_buy = affordable_quantity(account.cash, buy_price, cost, config[\"lot\"])\n    for weight in config[\"weights\"]:\n        target = int(math.floor(weight * nav / close / config[\"lot\"])) * config[\"lot\"]\n        target = min(target, account.shares + max_buy)\n        candidates.append((f\"TARGET_{int(weight * 100)}\", target))\n    best = None\n    seen = set()\n    for action, target in candidates:\n        if target in seen:\n            continue\n        seen.add(target)\n        quantity = target - account.shares\n        side = 1 if quantity > 0 else -1\n        px = fill_price(close, side, cost, config[\"tick\"])\n        friction = abs(quantity) * abs(px - close) + commission(quantity, px, cost)\n        weight = target * close / nav\n        score = weight * mu - config[\"gamma\"] / 2 * weight * weight * variance5 - friction / nav\n        item = {\"action\": action, \"requested_quantity\": quantity, \"reference_weight\": weight,\n                \"score\": score, \"estimated_cost\": friction, \"reference_close\": close,\n                \"mu5\": mu, \"variance5\": variance5, \"nav_at_decision\": nav}\n        if best is None or score > best[\"score\"] + 1e-12:\n            best = item\n    require(best is not None, \"缺少有效候选动作\")\n    return best"
+  },
+  {
+    "path": "research/point_weight_information_inputs_v1.py",
+    "function": "decide",
+    "start_line": 24,
+    "end_line": 54,
+    "source": "    def decide(i):\n        nonlocal locked_exit\n        raw = float(d.close.iloc[i])\n        target = float(parent.get(d.date.iloc[i], np.nan))\n        nav = cash + receivable + q * raw\n        es = risk.get(i, np.nan)\n        reason = \"KEEP_WITHIN_ORIGINAL_TEN_POINT_BAND\"\n        if stopped or locked_exit or target == 0:\n            desired = 0\n            reason = \"ACCOUNT_DRAWDOWN_STOP\" if stopped else \"LOCKED_EXIT\" if locked_exit else \"PARENT_ZERO\"\n        elif not np.isfinite(target) or not np.isfinite(es):\n            desired, reason = q, \"UNKNOWN_KEEP_EXISTING\"\n        else:\n            if not 0 <= target <= 1:\n                raise ValueError(\"来源目标超出0至1。\")\n            target = min(.5, target)\n            if q == 0 or abs(target - q * raw / nav) >= .1:\n                desired = int(target * nav / raw // 100) * 100\n                reason = \"SAVED_WEIGHT_REBALANCE\"\n            else:\n                desired = q\n            cap = risk_base.cap_quantity(raw, risk_base.limits(nav, peak, es), desired, existing=q)\n            if cap < desired:\n                desired, reason = cap, \"PRIOR_CLOSE_RISK_CAP\"\n        if q and desired == 0:\n            locked_exit = True\n        row = {\"origin\": d.date.iloc[i], \"execution_date\": d.date.iloc[i + 1] if i + 1 < len(d) else pd.NaT,\n               \"source_weight\": target, \"shares_before\": q, \"desired_shares\": desired,\n               \"known_es95\": es, \"reason\": reason}\n        decisions.append(row)\n        return row"
+  }
+]

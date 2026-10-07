@@ -1,0 +1,124 @@
+{
+  "at": "2026-09-26T06:28:25.066267+08:00",
+  "study_id": "510300_INDUSTRIAL_COLLECTION_DELAY_DAILY_V1",
+  "primary": "PRICE_FUNDING_AND_RECEIVABLE_DELAY__FIXED5_NO_ADD",
+  "question": "企业财务汇总的收款期限同比变化，能否帮助区分同样价格压力与银行资金条件下的后续修复？",
+  "source": {
+    "at": "2026-09-26T06:27:22.964307+08:00",
+    "study_id": "510300_INDUSTRIAL_RECEIVABLE_LEGACY_COMPLETION_V1",
+    "status": "COMPLETE_SAME_DEFINITION_MONTHLY_RECEIVABLE_SOURCES_READY",
+    "expected_months": 72,
+    "admitted_months": 72,
+    "missing_months": [],
+    "unresolved_fields": 0,
+    "legacy_page_only_clocks": 18,
+    "latest_source": {
+      "stat_month": "2026-07",
+      "title": "2026年1—7月份全国规模以上工业企业利润增长17.6%",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202608/t20260827_1965126.html",
+      "catalogue_publication_date": "2026-08-27",
+      "catalogue_raw_path": "reports/research/510300_industrial_receivable_source_probe_v1/raw/release_catalogue.html",
+      "published_at": "2026-08-27T09:30:00+08:00",
+      "known_at": "2026-08-27T23:59:59+08:00",
+      "receivable_collection_days": 71.9,
+      "receivable_days_published_yoy_change": 0.9,
+      "reported_reference": "同比",
+      "formula": "应收账款平均回收期=360×平均应收账款÷营业收入×累计月数÷12",
+      "body_and_total_table_agree": true,
+      "raw_path": "reports/research/510300_industrial_receivable_monthly_source_v1/raw/month_2026-07_transport_retry.html",
+      "raw_sha256": "28388ca9b78a83ea1fe39c0b3d943ad982d34c7dd4e26fee96d78a18b7a7f986",
+      "method_group": "RECEIVABLE_EXCLUDING_NOTES_OPERATING_REVENUE_2020_ONWARD",
+      "historical_first_vintage_verified": false
+    },
+    "new_accounts": 0,
+    "new_strategy_returns": 0,
+    "historical_first_vintage_verified": false,
+    "current_market_view": "NO_VIEW",
+    "goal_status": "active",
+    "goal_achieved": false,
+    "orders_authorized": false
+  },
+  "feature": "仅用当期原报告直接公布的应收账款平均回收期同比增减天数，不用两份不同年份原值相减代替可比同比。",
+  "mechanism": "营业活动占用的收款资金与问卷信心不同，回收期拉长可能体现更持久的经营现金压力。该指标同时受收入分母、债权余额和样本构成影响，不能单独识别违约或流动性冲击；对股票方向不预设。",
+  "universe": "全国规模以上工业企业财务汇总，不是全部宏观部门，也不是沪深300成分股财务的加权合计。",
+  "method": "只纳入2020年后的应收账款/营业收入口径；不拼2018主营业务收入或2019含应收票据口径。调查单位及比较基数调整仍可能影响同比，不把同名公式当恒定样本。",
+  "information_clock": "54个月的原页与目录公布日核对，18份旧档案只能据原页时间，统一保守当日日末可用。公布年龄上限70自然日，以容纳1月免报的年度间隔；此上限事前固定，不按收益搜索。",
+  "training": "每天最近两日历年、五日退出开盘严格早于当前日的共同原点；月报公布时间也在两年内、口径一致，至少252行、固定126近邻、训练内均值标准差并截断5。",
+  "calendar_control": "双方都包括所用统计月份的sin/cos，减少年初累计口径季节差异；唯一新增财务变量是原文公布回收期同比变化。",
+  "funding": "只读复用每个当前两年窗内嵌套重建的FDR007日历残差，不新增资金回归。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_FUNDING_AND_INDUSTRIAL_MONTH": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "industrial_month_sin",
+      "industrial_month_cos"
+    ],
+    "PRICE_FUNDING_AND_RECEIVABLE_DELAY": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "industrial_month_sin",
+      "industrial_month_cos",
+      "receivable_days_published_yoy_change"
+    ]
+  },
+  "traded_models": [
+    "PRICE_FUNDING_AND_INDUSTRIAL_MONTH",
+    "PRICE_FUNDING_AND_RECEIVABLE_DELAY"
+  ],
+  "variants": [
+    "ROLL_NO_ADD",
+    "FIXED5_NO_ADD"
+  ],
+  "account": "2信息模型、2期限、2费用共8个新完整账户。因资料覆盖与旧模型不同，同池基准重新计算，不直接借用旧账户。20万元、只510300与现金，弱势时允许新增、持仓不加仓；主固定第五个后续开盘到期。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "risk_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "主固定五日相对同期限价格资金对照与同信息滚动期限；20日循环及完整月报公布间隔区块各2000次，seed2026092612，固定两时期及全部年度和滚动两年保留。",
+  "development_gate": "主压力三目标同时通过，信息增量在两类区块的95%下界及两个固定时期均正；仍需独立前向验证。",
+  "monitor": "固定每5个原点的成熟q05结果，60条窗口跌穿率超过15%记录警报；没有警报不证明优势。",
+  "common_information_days": 1569,
+  "future_source_perturbation_pass": true,
+  "new_accounts": 8,
+  "new_parameter_searches": 0,
+  "new_funding_regression_fits": 0,
+  "historical_first_vintage_verified": false,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "current_market_view": "NO_VIEW",
+  "orders_authorized": false
+}

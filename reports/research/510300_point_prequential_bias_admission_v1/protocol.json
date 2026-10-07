@@ -1,0 +1,47 @@
+{
+  "study": "510300_POINT_PREQUENTIAL_BIAS_ADMISSION_V1",
+  "frozen_at": "2026-10-02T05:25:59.262806+08:00",
+  "linked_question": "E07_仅成熟历史原预测误差能否支持偏差估计",
+  "hypothesis": "预测固定于历史参考入场首次收盘，误差只在自然周期结束之后才可读；这样的历史预测周期能否在两时期达到原数量支持。",
+  "clock": "复用原142个月首收盘及原training_rows；mature_date映射到真实价格索引，exit_index<=fit_index；不使用当前未结束周期。",
+  "eligibility": "原预测非缺失的全部自然状态；不补未知，最近20个已自然成熟周期，至少10周期/100原点。原周期总权重一。",
+  "failure_exit": "较早或近期全期间没有支持则拒绝作为跨期改善唯一改动；不降低数量、换窗口、用拟合残差补过去预测。",
+  "history_role": "POINT_IN_TIME_RECONSTRUCTION_ON_REUSED_DEVELOPMENT_DATA_NOT_HISTORICAL_DEPLOYMENT_RECEIPTS",
+  "error_values_read": false,
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "sources": [
+    {
+      "path": "research\\point_prequential_bias_admission_v1.py",
+      "sha256": "43945274b2f5bb591b5e22940f300ae404f0e4bac378af0bf51538990ba8cd19"
+    },
+    {
+      "path": "research\\learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research\\point_account_cashflow_state_v1.py",
+      "sha256": "cce026c51148c2bdc835f7be55ac621d00213eb664a391e1f606febf40ba24b0"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\within_models.json",
+      "sha256": "3514e3fba76ac4b0e3e4adf261440392ce10852608f3dc2bef3d9c5d88fae917"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\candidate_features.parquet",
+      "sha256": "4e72f225a7551b34936553088eba81333f237e2ec2e32aa9a615a3b8297e9720"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\config\\within_cycle_exit.json",
+      "sha256": "9fa814fcea42b92f62f9c19eef25d78061702c847c3b0c1f206f7099cf2656d6"
+    },
+    {
+      "path": "reports\\research\\510300_point_exit_sign_calibration_v1\\results\\自然参考原预测与标签.parquet",
+      "sha256": "17e4716a377622ecb7d8f7c73f46b07a979ed11da8d6f0e1035ad14a322b2dde"
+    },
+    {
+      "path": "reports\\research\\510300_point_exit_sign_calibration_v1\\protocol.json",
+      "sha256": "2fe1ac3ffbe827466bfacd7c953e6130f7bb404a6ccba2b5dcb9f01f07b76061"
+    }
+  ]
+}

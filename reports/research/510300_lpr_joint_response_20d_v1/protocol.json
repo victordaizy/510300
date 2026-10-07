@@ -1,0 +1,161 @@
+{
+  "study_id": "510300_LPR_JOINT_RESPONSE_20D_V1",
+  "frozen_at": "2026-09-22T14:43:43.002782+08:00",
+  "hypotheses": {
+    "LPR": "贷款定价的实际月度变化是否在价格和复核时钟之外提供增量；1年与5年以上分别表达，不施加系数相反约束。",
+    "JOINT": "在同样贷款定价背景下，当前股价与10年国债收益率的联合变化是否改变下一阶段收益或风险判断。",
+    "causal_limit": "日终曲线与日收益受多种消息影响，不是高频结构性货币政策意外识别，不把联合符号直接贴经济状态标签。"
+  },
+  "sources": {
+    "lpr.parquet": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_lpr_joint_response_20d_v1\\lpr_observations_precise.parquet",
+    "market.parquet": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_macro_dynamic_reframe_v1\\inputs\\market.parquet",
+    "calendar.parquet": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_growth_state_increment_20d_v1\\inputs\\calendar_extended.parquet",
+    "bond.parquet": "C:\\Users\\戴周阳\\Documents\\New project 8\\data\\raw\\macro\\china_government_bond_yields_daily.parquet",
+    "bond_prior_release_ledger.parquet": "C:\\Users\\戴周阳\\Documents\\New project 8\\data\\curated\\510300_stress_transmission_hazard_v2_mft_feature_execution_v1\\china_10y_yield_release_ledger.parquet"
+  },
+  "asset": "510300.SH",
+  "cash": "CASH_CNY",
+  "capital_main": 200000,
+  "capital_comparison": 20000,
+  "annual_days": 242,
+  "cash_rate": 0,
+  "risk_free_rate": 0,
+  "anchor_start": "2019-10-01",
+  "anchor_end": "2026-07-31",
+  "horizon": 20,
+  "start_reason": "2019年8月新LPR作为初始值，9月建立第一笔同口径变化；10月是有完整先前变化值的首个完整自然月。",
+  "review_clock": "每周最后股票交易日，以及每份LPR公告上界之后第一个完整股市交易日，合并同日。开盘必须严格晚于公告上界。",
+  "decision_clock": "复核日之后下一股票交易日09:00形成判断，09:30开盘作为收益起点；此时已取得复核日全部股价及日终中债曲线。",
+  "lpr_clock": "只用复核日开盘前已公布的LPR，保留9:30/9:15/9:00历史原文时间；同日开盘恰与公告重合时保守顺延。",
+  "bond_clock": "原日曲线定义为工作日日终17:30发布；本轮另用观测日23:59:59保守上界。原09:30下一股票日衍生账簿仅作数值交叉核对，不改写旧研究时钟。",
+  "bond_same_interval": "收益率变化为复核日与前一股票交易日10年曲线差，单位bp；两日均须有原值，不前向填充或插值。不是可交易债券收益。",
+  "features": {
+    "P0": [
+      "past20",
+      "logvol20",
+      "return1",
+      "lpr_age20"
+    ],
+    "P_LPR": [
+      "past20",
+      "logvol20",
+      "return1",
+      "lpr_age20",
+      "lpr_delta1_pp",
+      "lpr_delta5_pp"
+    ],
+    "P_JOINT": [
+      "past20",
+      "logvol20",
+      "return1",
+      "lpr_age20",
+      "lpr_delta1_pp",
+      "lpr_delta5_pp",
+      "yield_change_bp",
+      "stock_yield_interaction"
+    ],
+    "R0": [
+      "past20",
+      "logdown20",
+      "return1",
+      "lpr_age20"
+    ],
+    "R_LPR": [
+      "past20",
+      "logdown20",
+      "return1",
+      "lpr_age20",
+      "lpr_delta1_pp",
+      "lpr_delta5_pp"
+    ],
+    "R_JOINT": [
+      "past20",
+      "logdown20",
+      "return1",
+      "lpr_age20",
+      "lpr_delta1_pp",
+      "lpr_delta5_pp",
+      "yield_change_bp",
+      "stock_yield_interaction"
+    ],
+    "P_REV": [
+      "past20"
+    ],
+    "P_MOM": [
+      "past20"
+    ]
+  },
+  "feature_definition": "过去20日含分红回报、当日含分红收益、20日对数标准差/对数下行方差；公告首个完整交易日以来股票交易日数/20控制信息年龄；两个LPR最近月度变化分别以百分点表示；唯一联合项=当前股票日回报乘同区间10年收益率bp变化。",
+  "announcement_change_hold": "LPR月度变化与最近公告状态持续到下一次已公布月度报价；未变报价明确为0变化，未知预期仍为空。信息年龄进入共同基准，周内变化由实际新价格/债券和新公告更新。",
+  "labels": "从下一开盘起20个收盘点加现金分红权益；不享有入场除息日分红、不再投资。下行风险为该权益路径20个日收益负部平方的均值。",
+  "risk_floor": 1e-08,
+  "training": "扩展窗口，只训练完整自然月的全部有效复核原点，且该月所有20日标签已于决策09:00前成熟。各月总权重相等，月内各原点等权。完整36个月后开始。训练集合不变时复用参数。",
+  "minimum_train_months": 36,
+  "minimum_eval_months": 24,
+  "ridge_lambda": 1.0,
+  "standardization": "仅当前成熟训练集按月等权均值和总体标准差；截距不惩罚；无裁剪、网格或窗口选择。",
+  "risk_model": "对数下行方差为训练目标，按相同权重的训练残差指数均值作smearing回转；预测下限1e-8。",
+  "sign_baselines": "P_REV单一past20斜率<=0，P_MOM>=0；边界归零时等于成熟月度等权均值，不称为方向策略胜出。",
+  "primary_evaluation": "仅保留当月全部计划复核原点都有共同有效输入和预测的完整评价月；先在月内平均损失，再给各月相等权重。初始不完整评价月保留为诊断但不混入主要统计。",
+  "bootstrap": {
+    "draws": 10000,
+    "block_months": 6,
+    "seed": 20260922,
+    "lower_quantile": 0.0125,
+    "rule": "沿时间排序的连续六个有效评价月非循环区块；若存在缺月保留，区块实际跨度可超过六个自然月，不补零。"
+  },
+  "references": {
+    "P_LPR": [
+      "P0",
+      "MEAN",
+      "ZERO",
+      "P_REV",
+      "P_MOM"
+    ],
+    "P_JOINT": [
+      "P_LPR",
+      "P0",
+      "MEAN",
+      "ZERO",
+      "P_REV",
+      "P_MOM"
+    ],
+    "R_LPR": [
+      "R0",
+      "RMEAN",
+      "DOWN20"
+    ],
+    "R_JOINT": [
+      "R_LPR",
+      "R0",
+      "RMEAN",
+      "DOWN20"
+    ]
+  },
+  "gate": "收益用MSE，风险用QLIKE；相对每一预定基准平均改善>0，单侧98.75%区块下界>0；对首列直接基准前后半段也都改善。四候选Bonferroni局部控制，不覆盖上游历史搜索。",
+  "update_diagnostic": "非周度LPR复核日，在相同价格、债券、年龄、训练模型与未来标签下，仅将两个LPR变化值替换为上一周度复核时已知值，比较新旧报价内容；这是固定的保留旧内容对照，不是连续账户。",
+  "account_gate": "未通过自身目标门的候选保持NOT_RUN；通过的候选必须继续比较周度与周度加公告更新的完整账户，收益候选固定入场后再进行一项涨后回撤退出比较。此预测结果本身不宣称账户达标。",
+  "account_predefinition": {
+    "commission_rate_per_side": 0.0002,
+    "minimum_commission": 5,
+    "slippage_base_per_side": 0.0005,
+    "slippage_stress_per_side": 0.001,
+    "lot_size": 100,
+    "t_plus_one": true,
+    "return_candidate_entry": "正的预期20日收益须超过按当时价格、整手与本金测得的往返费用；同一简单10%目标波动上限、仓位0至1。",
+    "risk_candidate_budget": "恒定持有动机下，10%/sqrt(2)年化下行风险预算除以sqrt(242*预测下行方差)，仓位0至1，与R0同预算比较。",
+    "exit_candidate": "沿用既有单一设定：入场前20日日波动σ，收盘浮盈达到2σ启动，从持有收盘高点回撤σ后次开盘退出；同次入场不重新启动，最迟固定20交易日收盘。"
+  },
+  "prior_families_preserved": [
+    "MONEY_CONSENSUS_INCREMENT_V2",
+    "GROWTH_STATE_INCREMENT_20D_V1",
+    "FISCAL_EXECUTION_STATE_20D_V1",
+    "POLICY_LIQUIDITY_QUANTITY_V1",
+    "SELECTED_MIX_BAND10_SIMPLE2",
+    "NBS_FIXED_5MIN_FAMILY"
+  ],
+  "historical_prices_previously_observed": true,
+  "historical_source_first_versions_authenticated": false,
+  "strict_forward_events": 0,
+  "whole_macro_objective_complete": false
+}

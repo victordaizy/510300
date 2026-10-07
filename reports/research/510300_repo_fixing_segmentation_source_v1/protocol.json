@@ -1,0 +1,17 @@
+{
+  "at": "2026-09-25T23:08:40.837543+08:00",
+  "study_id": "510300_REPO_FIXING_SEGMENTATION_SOURCE_V1",
+  "fields": [
+    "FR007",
+    "FDR007"
+  ],
+  "definition": "同日frValueMap中的FR007减FDR007，单位百分点。两者为上午成交定盘，不是R007减DR007全天加权差，也不是纯非银利率。",
+  "archive_rule": "沿用已保存官方JSON，缺失---保留未知，FDR推出以前不回填。",
+  "availability": "官方现行方法11:30起发布；历史重建使用当日12:00的保守计划时点，研究下单只在下一个A股开盘。历史首次实际送达未经认证。",
+  "network": "仅普通官方HTTP请求：方法页面GET和2026-08-26至2026-09-24的FrrHis只读POST；15秒超时，无自动重试。失败保留且不填值。",
+  "planned_requests": 2,
+  "existing_research_unchanged": true,
+  "returns_read": false,
+  "accounts": 0,
+  "orders_authorized": false
+}

@@ -1,0 +1,74 @@
+{
+  "study_id": "510300_historical_index_employment_surprise_v1",
+  "registered_at": "2026-10-01T20:40:00+08:00",
+  "mode": "HISTORICAL_CAUSE_DISCOVERY_ONLY",
+  "research_unit": "美国就业信息的增长与工资构成，经全球利率和美元传至沪深300整体的历史差异",
+  "prior_knowledge": "2023-02-03的517000初值、185000周前共识和利率反应已在上一研究看到；本段价格在旧研究中使用过。此次是公开历史发现，不是独立验证。",
+  "fixed_release_dates": [
+    "2022-01-07",
+    "2022-02-04",
+    "2022-03-04",
+    "2022-04-01",
+    "2022-05-06",
+    "2022-06-03",
+    "2022-07-08",
+    "2022-08-05",
+    "2022-09-02",
+    "2022-10-07",
+    "2022-11-04",
+    "2022-12-02",
+    "2023-01-06",
+    "2023-02-03"
+  ],
+  "date_selection": "沿用已有美国CPI与FOMC研究的2022年1月至2023年2月完整日历段，取全部14次月度就业发布，不以沪深300结果筛日期。",
+  "source_rules": {
+    "actual": "BLS各发布日期归档初值，保留该报告内前两月修订，不用现行修订序列倒填",
+    "expectation": "Econoday周报最新的发布日前文章；最多间隔10日；正文、标题、索引日期较晚者的纽约日终必须早于BLS公布。缺失保留。",
+    "expectation_measure": "相对周前共识的偏差，不代表公告前最后一分钟共识",
+    "rate_and_dollar": "复用美国财政部2022-2023日曲线及既有DXY；前美国交易日到发布当日收盘属于共同反应，非干净因果冲击"
+  },
+  "pre_return_descriptive_groups": [
+    "新增就业高于周报共识且工资环比高于共识",
+    "新增就业高于共识且工资环比不高于共识",
+    "新增就业不高于共识且工资环比高于共识",
+    "新增就业不高于共识且工资环比不高于共识",
+    "共识或初值缺失"
+  ],
+  "upstream_explanations": [
+    "人数与工资是否同向",
+    "前两月修订是否改变增长信息",
+    "失业率变化是否伴随参与率变化",
+    "复工和年度基准调整是否改变直观解释"
+  ],
+  "hypotheses": [
+    "人数和工资同时超预期更可能增加紧缩预期；人数超预期但工资不超预期可同时含增长改善与通胀缓和信息，不能预设为相同股市方向。",
+    "若利率反应可解释而510300下一可成交开盘后的收益仍反复异号，该信息只完成上游解释，不构成指数交易优势。"
+  ],
+  "outcome_windows": [
+    5,
+    20
+  ],
+  "entry_clock": "BLS纽约08:30公布后增加5分钟处理，使用其后首个A股交易日09:30开盘。率汇日变化仅作事后描述，未核准财政部曲线历史首次发布时间，不进入开盘信号。",
+  "event_cost": {
+    "commission_one_way": 0.0004,
+    "minimum_commission_cny": 5,
+    "slippage_one_way": 0.001,
+    "nominal_budget_cny": 100000,
+    "lot": 100
+  },
+  "event_measurement_boundary": "事件窗口为统一名义资金的描述性测量，含T+1及分红，但不是完整账户；重叠窗口不能串接计算夏普。",
+  "no_parameter_grid": true,
+  "retain_all_counterexamples": true,
+  "old_failed_rules_unchanged": true,
+  "new_prospective_forecasts": 0,
+  "orders_authorized": false,
+  "target_reference": "config/510300_existing_data_training_mandate_v1.json",
+  "registered_at_literal_note": "原文件写入时给定的分钟标记，不当作独立历史运行证据；精确整理时间另记。",
+  "sources_resolved_before_outcomes_at": "2026-10-01T20:44:50.047803+08:00",
+  "source_resolution_notes": [
+    "2022-11-04共识：原索引把econoday_562097列为11月3日，正文11月4日、标题11月7日，晚于发布；按同一规则回退到10月28日econoday_561378。",
+    "2022-01-07、2022-12-02、2023-01-06最新存档距离发布21、14、21日，保留周前共识缺失，不借用事后文章补齐。",
+    "固定分组使用新增就业及工资环比；多数周报未提供美国失业率共识，该项仅有则记，不用加拿大失业率替换。"
+  ],
+  "publication_clock_correction": "原文关于当日率汇均已可用的表达撤回；本轮始终只按BLS初值与周前共识分组，未用率汇反应生成信号，收益与分组不变。"
+}

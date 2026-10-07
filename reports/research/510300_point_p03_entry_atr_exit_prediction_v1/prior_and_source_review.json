@@ -1,0 +1,248 @@
+{
+  "at": "2026-10-02T17:36:33.873846+08:00",
+  "technical_decision": "TECH.R112",
+  "scope": "P03的入场前ATR尺度回撤单组件、单字段新条件用途；原卡时间与高点信息未重新检验，不认证完整P03。",
+  "conditional_purpose_and_source_clock_bound": true,
+  "formula": "沿旧wilder_atr(raw_high,raw_low,raw_close,14)：TR=max(H-L,abs(H-prevClose),abs(L-prevClose))；首完整14值均值初始化，递推(13*ATR_prev+TR)/14。a_entry=ATR14[entry_index-1]/raw_open[entry_index]；f_t=原cycle_drawdown_t/a_entry。a固定到退出。",
+  "clock": "ATR只有入场前一收盘；开盘价格是已经发生的实际入场开盘，最早入场首收盘字段可用；当前回撤是当时已知实际持仓价值/既有峰值-1，没有未来高点、未来自然退出或标签进入字段。",
+  "price_basis_limit": "原未复权OHLC使用既有冻结三处修正；ATR包含原除息机械价差，不称纯经济波动或更换总回报ATR救援。原回撤含当时已知持仓成本与分红权益，量纲为百分比后按事前ATR/入场价归一。",
+  "missing_rule": "ATR不足14、无前一日、ATR<=0、非法或缺OHLC、回撤缺失保持NO_VIEW，不加epsilon、不补0、不删行。",
+  "support_rule": "全部1507自然状态、115有模型月的全部原成熟训练成员完整；142月27原无模型保持。",
+  "no_rescue": "不变14日/单组件公式/符号/周期/目标/八项/成熟/成员/窗口/正则化/费用/子期，不再拟合旧高点时间或选择H。",
+  "prior_routes": [
+    {
+      "id": "P03",
+      "hypothesis": "同百分比回撤在不同入场前波幅环境是否具有不同继续价值。",
+      "method": "实际旧高点时间、持仓×市场与浮盈×回撤用途、ATR保护用途及当前原字段/标签比对。",
+      "result": "旧高点时间普通九项模型已失败，STRESS年化3.950215%、夏普0.528669、回撤12.448880%；十二交互与浮盈回撤各失败。ATR14旧用于保护止损/分层距离；本次只检验固定入场前ATR尺度的当前回撤是否在当前8项固定周期截距模型中增加原继续目标信息，未检验该精确条件用途。",
+      "decision": "BOUND_ENTRY_ATR_DRAWDOWN_COMPONENT_PENDING_COMPLETE_MEMBER_INTAKE",
+      "full_card_validated": false,
+      "old_failures_reopened": false
+    },
+    {
+      "id": "N04",
+      "hypothesis": "季末最后三交易日与季度收益及机构重仓代理的交互是否有效。",
+      "method": "三类旧日历最终账户、原日历定义与该原完整卡比对。",
+      "result": "月初/日历组合/启停旧用途目标未达，不能写成季末交互完整卡已否定。机构重仓代理与历史年历公布时钟未建立共同合同；现成观察日期表不是当时已公布的未来日历。",
+      "decision": "ORIGINAL_CALENDAR_INTERACTION_NOT_BOUND_SOURCE_DEPENDENCIES_NOT_ADMITTED",
+      "accepted": false
+    },
+    {
+      "id": "P04",
+      "hypothesis": "当前合法提前卖出与再等待的净价值能否预测。",
+      "method": "原自然继续目标、E09剩余期限边界与固定H1—4剩余持有价值迁移检验比较。",
+      "result": "现有原等待净价值目标已是该经济问题的一种精确定义；另有H1—4迁移失败，两配对增量区间跨0。当前未登记另一个H，不能择期限/换标签营救，不新增这个重复方向。",
+      "decision": "EXISTING_WAITING_VALUE_TARGET_AND_REJECTED_FIXED_HORIZON_TRANSFER_PRESERVED",
+      "accepted": false
+    }
+  ],
+  "saved_old_primary_quotes": [
+    {
+      "source": "reports/research/510300_peak_age_exit_v1/result.json",
+      "annual_days": 242,
+      "saved_row": {
+        "cost": "STRESS",
+        "model": "PEAK_AGE_EXIT",
+        "name": "九项持仓高点时间继续收益退出",
+        "cumulative_return": 0.29276734500000046,
+        "annualized_return": 0.039502152571540064,
+        "annualized_arithmetic_mean": 0.041838533998146125,
+        "annualized_volatility": 0.07913936929588454,
+        "net_sharpe": 0.5286690350250471,
+        "max_drawdown": -0.12448880307658608,
+        "trading_days": 1604,
+        "mean_exposure": 0.15246901071792326,
+        "trade_count": 48,
+        "commission": 4590.231,
+        "slippage_cost": 12512.400000000049,
+        "terminal_unliquidated": false,
+        "max_accounting_error": 8.174083632184193e-11,
+        "annualized_return_excess_vs_buy_hold": 0.0034172080577974176,
+        "meets_point_target": false
+      }
+    },
+    {
+      "source": "reports/research/510300_holding_market_coupling_exit_v1/result.json",
+      "annual_days": 242,
+      "saved_row": {
+        "cost": "STRESS",
+        "model": "HOLDING_MARKET_COUPLING_EXIT",
+        "name": "市场状态调节持仓退出",
+        "cumulative_return": 0.4632359137999981,
+        "annualized_return": 0.05911091088003521,
+        "annualized_arithmetic_mean": 0.0610559738282577,
+        "annualized_volatility": 0.08552688152821457,
+        "net_sharpe": 0.7138805102827919,
+        "max_drawdown": -0.1724443927182584,
+        "trading_days": 1604,
+        "mean_exposure": 0.20503469103524646,
+        "trade_count": 40,
+        "commission": 4098.81724,
+        "slippage_cost": 11160.400000000067,
+        "terminal_unliquidated": false,
+        "max_accounting_error": 5.701394911739044e-11,
+        "annualized_return_excess_vs_buy_hold": 0.02302596636629256,
+        "meets_point_target": false
+      }
+    },
+    {
+      "source": "reports/research/510300_profit_drawdown_interaction_v1/result.json",
+      "annual_days": 242,
+      "saved_row": {
+        "cost": "STRESS",
+        "model": "PROFIT_DRAWDOWN_INTERACTION_EXIT",
+        "name": "九项浮盈回撤交互继续收益退出",
+        "cumulative_return": 0.2816040617999994,
+        "annualized_return": 0.03814288250839472,
+        "annualized_arithmetic_mean": 0.04054631617520563,
+        "annualized_volatility": 0.07934275794947199,
+        "net_sharpe": 0.5110273101550972,
+        "max_drawdown": -0.11010739189022936,
+        "trading_days": 1604,
+        "mean_exposure": 0.15868498318539234,
+        "trade_count": 48,
+        "commission": 4631.2876400000005,
+        "slippage_cost": 12718.300000000087,
+        "terminal_unliquidated": false,
+        "max_accounting_error": 6.821210263296962e-11,
+        "annualized_return_excess_vs_buy_hold": 0.0020579379946520718,
+        "meets_point_target": false
+      }
+    },
+    {
+      "source": "reports/research/510300_calendar_liquidity_timing_v1/result.json",
+      "annual_days": 242,
+      "saved_row": {
+        "cost": "STRESS",
+        "model": "K1_PRIMARY_MONTH_START3",
+        "cumulative_return": -0.01446865600000033,
+        "annualized_return": -0.002196457160317741,
+        "annualized_arithmetic_mean": 0.00037467836541310253,
+        "annualized_volatility": 0.07162367987335391,
+        "net_sharpe": 0.005231207975848414,
+        "max_drawdown": -0.31839311726049563,
+        "trading_days": 1604,
+        "mean_exposure": 0.1486142856792396,
+        "trade_count": 160,
+        "commission": 15019.531200000001,
+        "slippage_cost": 41489.80000000018,
+        "terminal_unliquidated": false,
+        "max_accounting_error": 6.588152245967649e-11,
+        "annualized_return_excess_vs_buy_hold": -0.03828140167406039,
+        "meets_point_target": false
+      }
+    },
+    {
+      "source": "reports/research/510300_calendar_monthly_activation_v1/result.json",
+      "annual_days": 242,
+      "saved_row": {
+        "cost": "STRESS",
+        "model": "CALENDAR_MONTHLY_ACTIVATION",
+        "name": "按过去一年净收益每月启停日历预算",
+        "cumulative_return": 0.2568216891999982,
+        "annualized_return": 0.035089010823910576,
+        "annualized_arithmetic_mean": 0.03714701904542199,
+        "annualized_volatility": 0.07318483720484013,
+        "net_sharpe": 0.5075780785225993,
+        "max_drawdown": -0.17383041302798938,
+        "trading_days": 1604,
+        "mean_exposure": 0.19547246117026076,
+        "trade_count": 150,
+        "commission": 8353.66216,
+        "slippage_cost": 23185.500000000076,
+        "terminal_unliquidated": false,
+        "max_accounting_error": 7.997869033715688e-11,
+        "annualized_return_excess_vs_buy_hold": -0.0009959336898320709,
+        "meets_point_target": false
+      }
+    },
+    {
+      "source": "reports/research/510300_calendar_learned_equal_blend_v1/result.json",
+      "annual_days": 242,
+      "saved_row": {
+        "cost": "STRESS",
+        "model": "CALENDAR_LEARNED_HALF",
+        "name": "月内两端与原学习退出各半",
+        "cumulative_return": 0.33073945679999983,
+        "annualized_return": 0.04405232713504996,
+        "annualized_arithmetic_mean": 0.04632464501814856,
+        "annualized_volatility": 0.08049478866514928,
+        "net_sharpe": 0.5754986849006425,
+        "max_drawdown": -0.15492468224253902,
+        "trading_days": 1604,
+        "mean_exposure": 0.23776231524270972,
+        "trade_count": 207,
+        "commission": 10456.908640000001,
+        "slippage_cost": 28894.60000000005,
+        "terminal_unliquidated": false,
+        "max_accounting_error": 1.0203393685515039e-10,
+        "annualized_return_excess_vs_buy_hold": 0.007967382621307313,
+        "meets_point_target": false
+      }
+    }
+  ],
+  "direct_sources": [
+    {
+      "path": "reports/research/510300_peak_age_exit_v1/result.json",
+      "sha256": "5181f60be7c5cd55b6a462028fbac9e33a6016dbec3954a9121e964f3ac238e6"
+    },
+    {
+      "path": "research/peak_age_exit_inputs_v1.py",
+      "sha256": "40e9021c938034ef684c661db908ef8b86bffe2036a581341b7b15bb87a7cb9f"
+    },
+    {
+      "path": "reports/research/510300_holding_market_coupling_exit_v1/result.json",
+      "sha256": "74c3cd86e55b23b9ddfd5bcd642a0aaa011d90cca2ab026d94f8f5f318422446"
+    },
+    {
+      "path": "research/holding_market_coupling_exit_inputs_v1.py",
+      "sha256": "8ce273636fd11fe5f042c62ad58e788adda53a9480f6c3e005dfa815335e3e5e"
+    },
+    {
+      "path": "reports/research/510300_profit_drawdown_interaction_v1/result.json",
+      "sha256": "e43f573ebd82f35d3f202da89eaccebac71d81dc7c89709fb1f45e8db17f04b7"
+    },
+    {
+      "path": "research/profit_drawdown_interaction_inputs_v1.py",
+      "sha256": "2e0ca218386399532fe21e939e40b870b96cf789567c38a7dbd1ab765cf68823"
+    },
+    {
+      "path": "reports/research/510300_calendar_liquidity_timing_v1/result.json",
+      "sha256": "7262759a02e48c74ee868389d67e57124dee67a6c11de8b9d99e091379a4bb0d"
+    },
+    {
+      "path": "research/calendar_liquidity_timing_v1.py",
+      "sha256": "86f081db0c919c1322e2796d8e8229015c7ebfb4c3f410ec407f4e4f49314e21"
+    },
+    {
+      "path": "reports/research/510300_calendar_monthly_activation_v1/result.json",
+      "sha256": "9be55535d17413c6654b06277154a83e7a2f962f85aed17ee9a16d221adabb7d"
+    },
+    {
+      "path": "reports/research/510300_calendar_learned_equal_blend_v1/result.json",
+      "sha256": "6d2353e1643f208d440ec89451f3b6db3e3484384d3fd0aaf123746f4f3f9f3d"
+    },
+    {
+      "path": "research/remaining_holding_value_transfer_v1.py",
+      "sha256": "fe63293754d5d8be8df5800c8c038179b6c178e527c1cde73f6588a8085804d4"
+    },
+    {
+      "path": "reports/research/510300_remaining_holding_value_transfer_v1/result.json",
+      "sha256": "57757aac261020fec0bead595e77411ae0a49864e7181fbbf7851a0c03f5fb97"
+    },
+    {
+      "path": "research/weekly_daily_technical_v1.py",
+      "sha256": "289ffb2f49c49a4fe409322bd7ee5f5660130a03766b32a6671cffdad871b5fc"
+    },
+    {
+      "path": "research/extreme_two_level_martin_v1.py",
+      "sha256": "50b3a525434fa2c760be56fcaf34b78d0152f13c5a8e6cd0264b38209e3e7aa4"
+    }
+  ],
+  "field_bound": true,
+  "field_admitted": false,
+  "new_physical_source": false,
+  "new_return_labels_model_fits_predictions_accounts": 0,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

@@ -1,0 +1,40 @@
+{
+  "study": "510300_POINT_P02_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T14:36:18.236455+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "原事前EWMA方差的实现冲击比及前序90分位超越是否增加原八项持仓继续价值信息。",
+  "information_role": "EXISTING_CAUSAL_VARIANCE_SURPRISE_AND_PREVIOUS_RATIO_TAIL_CONDITIONAL_PURPOSE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定事前方差惊喜比与前序90分位超越两列共十项，不恢复旧T16覆盖层或改实际入场/仓位预算。",
+  "fields": [
+    "variance_surprise_ratio",
+    "variance_tail_exceedance_event"
+  ],
+  "formula": "r_t为原现金经济simple total_simple=(raw_close_t+cash_t)/previous_close_t−1，与旧T16一致，不改log版本。v_t以前序60完整r平方均值初始化；已有合法v_(t-1)及r_(t-1)则v_t=.94*v_(t-1)+(1−.94)*r_(t-1)^2。第一列R_t=r_t^2/v_t，v须正；第二列1[R_t>Q_t]，Q_t是R_(t-252)..R_(t-1)窗口内至少120有效原比值的90分位、linear插值。只这两列；不加入q70恢复/连续日门/新阈值/交互，未知共同掩码。",
+  "zero_missing": "首点r未知；需要60真实此前区间，首个可能v索引61。收益/会话源NaN/无穷/不合法未知，下一预测从60个完整此前实际区间重新种子，不压缩窗口或携带跨缺口旧方差；v=0则ratio未知，不加epsilon。阈值按旧252实际日/120有效比值规则不补未知比值，当前ratio或阈值未知则两列都未知，不把tail unknown填0。v>0且r=0时ratio真0合法，严格等于Q尾部事件真0，ratio不截断；平方/比值溢出或非零平方下溢拒绝不修补。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、周期截距、入场固定版本、两负确认。",
+  "model": "两列各自沿原加权标准化/clip5线性加入，不新增交互、阈值或入场规则。",
+  "source_clock": "r为原现金经济simple收益；v_t用此前60完整平方均值初始化并以0.94*v_(t-1)+0.06*r_(t-1)^2递推；r_t平方/v_t及严格超此前252日至少120有效比值的90分位，分母/阈值均不含当日，收盘后可知、下一合法开盘。",
+  "prediction_gate": "同自然原点原收益单位周期等权MSE，两时期原可用预测全部配对且MSE严格改善，入场年份块5000次/seed51030099改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序十项/标签/成员/权重/设置完全相同才复用，失败不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历BASE/STRESS两时期，净CAGR与净夏普均高于A、实际净pB>1、平均周期收益>0、回撤<=10%；次数软目标。",
+  "old_failures": "旧T16单项/联合风险覆盖层及其他风险份额固定失败保持，不更改0.94/60/252/120/90/70或两日恢复营救。",
+  "no_rescue": "不按数量/预测/账户改.94/60 seed/252/120/90分位、simple坐标/严格>、阈值插值/两列/未知、原标签/八项/成熟成员/权重/alpha1/clip5/周期截距/入场锁定/两负确认、预测与经济门/时期费用。旧T16与风险份额失败保持，不营救旧覆盖政策或按结果加q70/恢复门。",
+  "feature_regression_estimation_calls": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

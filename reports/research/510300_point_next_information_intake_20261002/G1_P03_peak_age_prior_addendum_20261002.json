@@ -1,0 +1,150 @@
+{
+  "at": "2026-10-02T09:57:08.600674+08:00",
+  "status": "COMPLETED_P03_FINITE_PRIOR_COMPONENT_REVIEW_NO_NEW_EXPERIMENT_ADMITTED",
+  "candidate_id": "P03",
+  "original_card": "实际持有以来回撤/入场前ATR、已持有天数、距最近高点天数共同记录。",
+  "original_library_status_preserved": "NOT_RUN",
+  "original_fields_overlap": [
+    "log_holding_days",
+    "cycle_drawdown"
+  ],
+  "existing_added_field": "log_days_since_peak",
+  "known_clock": "原逐日含分红自身持仓价值达到或并列峰值即重置；逐日连续且峰值历史完整才可知，缺口保留NO_VIEW，不追溯未来高点。",
+  "old_model": "原八项加log1p峰值年龄，原经济继续收益、周期等权岭与成熟20周期/10周期100行；旧控制器每个持仓日选择当时最近月模型，当前点位版本为入场锁定，未冒充两者完全相同。",
+  "old_code_identities_match_frozen_config": [
+    "research/peak_age_exit_inputs_v1.py",
+    "research/peak_age_exit_v1.py"
+  ],
+  "old_terminal": "COMPLETED_PEAK_AGE_INFORMATION_NO_IMPROVEMENT_NOT_TARGET",
+  "old_acceptance_reason": "第113轮未达标。高点时间主历史基础／压力净夏普0.591／0.529，低于原八项模型0.705／0.641；主基础年化由5.38%降至4.47%，最大回撤由10.59%增至11.04%。较早基础／压力净夏普0.748／0.725，完整账户与原模型相同。新增信息没有改善实际结果，本项关闭。",
+  "old_metric_extracts": [
+    {
+      "period": "2020_20260814",
+      "cost": "BASE",
+      "model": "PEAK_AGE_EXIT",
+      "annualized_return": 0.0446868506513749,
+      "net_sharpe": 0.5914337493013545,
+      "max_drawdown": -0.1104140633211969,
+      "trading_days": 1604,
+      "trade_count": 48
+    },
+    {
+      "period": "2020_20260814",
+      "cost": "BASE",
+      "model": "REARM_RIDGE",
+      "annualized_return": 0.053843129510896016,
+      "net_sharpe": 0.7048682574353758,
+      "max_drawdown": -0.10591213630792773,
+      "trading_days": 1604,
+      "trade_count": 48
+    },
+    {
+      "period": "2020_20260814",
+      "cost": "STRESS",
+      "model": "PEAK_AGE_EXIT",
+      "annualized_return": 0.039502152571540064,
+      "net_sharpe": 0.5286690350250471,
+      "max_drawdown": -0.12448880307658608,
+      "trading_days": 1604,
+      "trade_count": 48
+    },
+    {
+      "period": "2020_20260814",
+      "cost": "STRESS",
+      "model": "REARM_RIDGE",
+      "annualized_return": 0.048544598201058685,
+      "net_sharpe": 0.6411361272639541,
+      "max_drawdown": -0.11010739189022936,
+      "trading_days": 1604,
+      "trade_count": 48
+    },
+    {
+      "period": "2015_2019",
+      "cost": "BASE",
+      "model": "PEAK_AGE_EXIT",
+      "annualized_return": 0.08636595201207783,
+      "net_sharpe": 0.747697665787205,
+      "max_drawdown": -0.1379164435416316,
+      "trading_days": 1219,
+      "trade_count": 18
+    },
+    {
+      "period": "2015_2019",
+      "cost": "BASE",
+      "model": "REARM_RIDGE",
+      "annualized_return": 0.08636595201207783,
+      "net_sharpe": 0.747697665787205,
+      "max_drawdown": -0.1379164435416316,
+      "trading_days": 1219,
+      "trade_count": 18
+    },
+    {
+      "period": "2015_2019",
+      "cost": "STRESS",
+      "model": "PEAK_AGE_EXIT",
+      "annualized_return": 0.08333708256256431,
+      "net_sharpe": 0.724697402620827,
+      "max_drawdown": -0.1391665613986051,
+      "trading_days": 1219,
+      "trade_count": 18
+    },
+    {
+      "period": "2015_2019",
+      "cost": "STRESS",
+      "model": "REARM_RIDGE",
+      "annualized_return": 0.08333708256256431,
+      "net_sharpe": 0.724697402620827,
+      "max_drawdown": -0.1391665613986051,
+      "trading_days": 1219,
+      "trade_count": 18
+    }
+  ],
+  "old_metric_contract": {
+    "capital_cny": 200000.0,
+    "annual_days": 242,
+    "main_cutoff": "2026-08-14",
+    "role": "只抽取旧保存结果；不是当前252日共同账户重算。"
+  },
+  "partial_card_not_full_equivalence": "旧log峰值年龄及原回撤/持有年龄已存在；未证明完整入场前ATR缩放及联合交互表达已测试，也未准许重开旧年龄参数。",
+  "decision": "不把距高点时间重新命名成新第九项；单凭G1 NOT_RUN不足以接纳。完整P03原卡仍未运行，旧有限用途失败保留。",
+  "sources": [
+    {
+      "path": "reports/research/510300_point_next_information_intake_20261002/G1_prior_definition_routing_20261002.json",
+      "sha256": "cad7dab3596d6af5b286c12145b8a06c3e20f9d1e145e7c914f3ccd3559ca0ea"
+    },
+    {
+      "path": "research/learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research/peak_age_exit_inputs_v1.py",
+      "sha256": "40e9021c938034ef684c661db908ef8b86bffe2036a581341b7b15bb87a7cb9f"
+    },
+    {
+      "path": "research/peak_age_exit_v1.py",
+      "sha256": "1409206e235abed646f41d75f2a5a5d43c8d8258ee679824b51e395c27f6e19a"
+    },
+    {
+      "path": "config/510300_peak_age_exit_v1.json",
+      "sha256": "7500c191bc3a9340fce3c3b3e7cf029554d47946ab9905c16421c601cc8d9d08"
+    },
+    {
+      "path": "reports/research/510300_peak_age_exit_v1/result.json",
+      "sha256": "5181f60be7c5cd55b6a462028fbac9e33a6016dbec3954a9121e964f3ac238e6"
+    },
+    {
+      "path": "reports/research/510300_peak_age_exit_v1/acceptance_outcome.json",
+      "sha256": "17746aad164d28294e7f83899a094283bca898b9f3bfc0568f9bc824ffac4e79"
+    },
+    {
+      "path": "reports/research/510300_peak_age_exit_v1/saved_verification_receipt.json",
+      "sha256": "ef2641941dcae639c3c135c9bb20c7a75c1e47438977fabaa1f23dd01d5dced2"
+    }
+  ],
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "old_returns_recomputed": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

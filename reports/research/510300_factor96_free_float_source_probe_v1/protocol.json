@@ -1,0 +1,58 @@
+{
+  "at": "2026-09-28T00:12:59.571976+08:00",
+  "study_id": "510300_FACTOR96_FREE_FLOAT_SOURCE_PROBE_V1",
+  "previous_turn_classification": "PROGRESS_FIXED_T11_DATE_PROXY_REJECTED",
+  "lead": "旧daily_basic下载FIELDS未请求free_share，缺列不证明供应商接口没有此字段。",
+  "purpose": "仅检查回购事件前自由流通分母字段可得性及数量级；不以流通股本替代自由流通。",
+  "targets": [
+    {
+      "rank": 0,
+      "document_id": "1221114715",
+      "symbol": "000425.SZ",
+      "catalogue_date": "2024-09-03",
+      "trade_date": "20240902"
+    },
+    {
+      "rank": 474,
+      "document_id": "1224630948",
+      "symbol": "600690.SH",
+      "catalogue_date": "2025-09-02",
+      "trade_date": "20250901"
+    },
+    {
+      "rank": 947,
+      "document_id": "1225580939",
+      "symbol": "300223.SZ",
+      "catalogue_date": "2026-09-24",
+      "trade_date": "20260923"
+    }
+  ],
+  "selection": "948执行公告按目录日、公司、ID排序取首、中、末三条；使用严格前一交易日。",
+  "api_name": "daily_basic",
+  "fields": "ts_code,trade_date,close,total_share,float_share,free_share,total_mv,circ_mv,turnover_rate,turnover_rate_f",
+  "documentation_url": "https://tushare.pro/document/2?doc_id=32",
+  "max_api_requests": 3,
+  "attempts_per_target": 1,
+  "transport": "只用项目当前已配置HTTPS端点与已有凭据；不归档或打印凭据，不购买或扩展权限。",
+  "stop": "认证/额度/限流失败停止本组后续请求；空值、无该列、非正值与不一致值不准入。",
+  "unit_checks": "普通流通市值应等于close*float_share；总市值应等于close*total_share；free_share不超过float_share；单位需官方文档确认。",
+  "history_boundary": "当前回取历史值不能证明历史首次可得或无后修订；只改善字段证据，不自动准入原严格T12。",
+  "input_identities": [
+    {
+      "path": "reports/research/510300_factor96_repurchase_purpose_v1/inputs/execution_events.json",
+      "sha256": "298a279fae59d37cb4a3d4428f3a62d8931338397f3e26b59a444eb0af2de26c"
+    },
+    {
+      "path": "reports/research/510300_factor96_t11_date_proxy_account_v1/inputs/market.parquet",
+      "sha256": "c9ed3118ca4273b5a4e2895edc4679175c48610381bf4485b31b80ea9bac0df3"
+    },
+    {
+      "path": "research/factor96_free_float_source_probe_v1.py",
+      "sha256": "2e93e7807470785d3085696c47411cfcde9eefdcd0552b470316bda2628531f5"
+    }
+  ],
+  "new_strategy_returns": 0,
+  "new_accounts": 0,
+  "delivery_package_required": false,
+  "orders_authorized": false
+}

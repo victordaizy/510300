@@ -1,0 +1,132 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_US_RATES_POLICY_V1",
+  "recorded_at": "2026-10-01T14:45:28.655078+08:00",
+  "question": "2018Q4与2019Q1同为美债收益率下降时，下降构成、政策回应和指数已发生定价有何差异？",
+  "research_unit": "沪深300整体与510300，不扩展公司案例",
+  "mode": "HISTORICAL_DISCOVERY_ONLY",
+  "period": [
+    "2018-10-01",
+    "2019-03-31"
+  ],
+  "baseline_month": "2018-09",
+  "events": [
+    {
+      "id": "2018-11-08",
+      "decision": "维持2.00%—2.25%，仍预计逐步加息",
+      "path": "CONTINUED_GRADUAL_INCREASES"
+    },
+    {
+      "id": "2018-12-19",
+      "decision": "上调至2.25%—2.50%，仍预计部分进一步加息",
+      "path": "SOME_FURTHER_GRADUAL_INCREASES"
+    },
+    {
+      "id": "2019-01-30",
+      "decision": "维持2.25%—2.50%，转为耐心判断调整",
+      "path": "PATIENT"
+    },
+    {
+      "id": "2019-03-20",
+      "decision": "维持2.25%—2.50%，延续耐心并公布缩表调整计划",
+      "path": "PATIENT"
+    }
+  ],
+  "selection": "固定两个日历季度内全部四次FOMC会议；阶段行情已在旧研究见过，不称盲测或独立验证。",
+  "horizons": [
+    5,
+    20
+  ],
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_event_budget_cny": 100000,
+    "illustrative_full_capital_cny": 200000
+  },
+  "input_paths": {
+    "market": "reports/research/510300_macro_dynamic_reframe_v1/inputs/market.parquet",
+    "price": "reports/research/510300_macro_earnings_pricing_bridge_v5/inputs/index_price.parquet",
+    "pe": "reports/research/510300_macro_earnings_pricing_bridge_v5/inputs/pe.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "nominal2018": "reports/research/510300_rmb_residual_state_v1/sources/treasury_2018.xml",
+    "nominal2019": "reports/research/510300_rmb_residual_state_v1/sources/treasury_2019.xml",
+    "dkw": "reports/research/510300_real_yield_company_exposure_v19/sources/DKW_canonical.csv"
+  },
+  "source_plan": [
+    {
+      "id": "fed_20181108",
+      "name": "fed_20181108.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20181108a.htm",
+      "reuse": null
+    },
+    {
+      "id": "fed_20181219",
+      "name": "fed_20181219.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20181219a.htm",
+      "reuse": null
+    },
+    {
+      "id": "fed_20190130",
+      "name": "fed_20190130.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190130a.htm",
+      "reuse": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_historical_index_credit_flow_composition_v1\\sources\\fed_jan30.html"
+    },
+    {
+      "id": "fed_20190320",
+      "name": "fed_20190320.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190320a.htm",
+      "reuse": null
+    },
+    {
+      "id": "balance_20190130",
+      "name": "balance_20190130.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190130c.htm",
+      "reuse": null
+    },
+    {
+      "id": "balance_20190320",
+      "name": "balance_20190320.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190320c.htm",
+      "reuse": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_historical_index_credit_flow_composition_v1\\sources\\fed_mar20_balance.html"
+    },
+    {
+      "id": "press_20190130",
+      "name": "press_20190130.pdf",
+      "url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20190130.pdf",
+      "reuse": null
+    },
+    {
+      "id": "tips_2018",
+      "name": "tips_2018.xml",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_real_yield_curve&field_tdr_date_value=2018",
+      "reuse": null
+    },
+    {
+      "id": "tips_2019",
+      "name": "tips_2019.xml",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_real_yield_curve&field_tdr_date_value=2019",
+      "reuse": null
+    }
+  ],
+  "event_clock": "官方声明美国东部14:00转换北京时间，随后第一个中国交易日09:30开盘买入；入场后5/20交易日开盘卖出。",
+  "curve_clock": "沿V19采用美国观测日23:59:59转北京时间的保守假设；另保留延迟一条美国观测记录的状态对照。不是已验证的原始发布时间。",
+  "curve_admission": "名义与TIPS必须同一美国观测日；声明同日美债日值只作事后反应，不当成声明后首个中国开盘前的已知输入。",
+  "snapshot": "每个中国月末21:00取最后一条按假设已知的美债记录，展示实际美国日期；中国收盘价是当日事实，PE遵循原available_at，季度PE用同日数据作事后描述。",
+  "dkw": "仅用已有2025-11-12重估版解释历史构成，绝不进入历史交易信息；DKW零息收益率与Treasury固定期限票息曲线分开，显式保留拟合残差。",
+  "expectation_gap": "政策文字相对上次声明的变化不等于相对市场预期的意外；缺当时期货/调查则市场意外保持空值。",
+  "upstream": "重点查全球增长、金融条件、通胀压力及资产负债表回应；原话可观察，跨市场传导是待区分解释。",
+  "causal_limit": "四个事件窗口含中国信用政策及其他消息，事件后收益不等于美联储因果贡献；不交叠不等于独立。",
+  "anti_overfit": [
+    "不按结果新增会议",
+    "不搜索利率阈值",
+    "不改方向或持有期限",
+    "不拼接旧失败策略",
+    "保留全部收益及亏损"
+  ],
+  "full_account_runs": 0,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "previous_result": "reports/research/510300_historical_index_credit_regime_compare_v1/result.json"
+}

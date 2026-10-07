@@ -1,0 +1,49 @@
+{
+  "study_id": "510300_SELECTED_MIX_EXIT_USAGE_FACTORIAL_V1",
+  "at": "2026-09-25T14:09:44.602112+08:00",
+  "primary": "W0_R0",
+  "question": "同一两年日更系统内，两种学习退出分别以及共同是否有账户增量。",
+  "motivation": "限制明显外推使压力夏普0.954变为1.048，但未能分辨支持限制与少用学习退出。",
+  "cells": {
+    "W1_R1": "保留周期内模型及普通岭模型的学习退出，直接复用风险先行父账户。",
+    "W0_R1": "关闭周期内模型学习退出，保留普通岭模型学习退出。",
+    "W1_R0": "保留周期内模型学习退出，关闭普通岭模型学习退出。",
+    "W0_R0": "关闭两种学习退出，原价格/止损/期限退出全部继续执行。"
+  },
+  "fixed_boundary": "仅控制器是否请求学习退出发生变化。原入场、再入场、价格边界、每日风险估计、支持路由、全部后续组合层和末端尾部规则保持。",
+  "support_router": "即使关闭学习退出，仍复用原每日成熟资格作为原支持路由输入；避免把路由变化混进退出作用。该资格不读取未来标签。",
+  "training": "复用父共享模型全部两年每日记录和原系数，无新拟合；每日参考风险协方差仍在两年窗口重算。",
+  "comparison": "全部日更四格在完整同日账户上比较；两个主效应与交互，20日区块2000次seed20261004，不以最优格替代预先指定的W0_R0。",
+  "duplicate_boundary": "此前四格比较旧月度学习与新日更学习，以及旧/新风险分配。本轮的零表示完全不采用该学习退出，而非改用旧月度模型；也不是同时删除多个其他策略模块的简单核心。",
+  "period": [
+    "2020-01-02",
+    "2026-09-16"
+  ],
+  "capital": 200000,
+  "annual_days": 242,
+  "targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "tail_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "new_full_accounts": 6,
+  "reused_full_accounts": 2,
+  "new_internal_dependency_accounts": 66,
+  "new_reference_accounts": 0,
+  "new_coefficient_fits": 0,
+  "new_parameter_grid": 0,
+  "new_market_collection": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "evidence_limit": "全部为重复使用历史上的固定开发比较，不是独立验证。"
+}

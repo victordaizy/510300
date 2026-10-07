@@ -1,0 +1,700 @@
+{
+  "bounded_saved_schemas": [
+    {
+      "path": "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_daily.parquet",
+      "rows": 15860,
+      "columns": [
+        "symbol",
+        "date",
+        "open",
+        "high",
+        "low",
+        "volume",
+        "turnover",
+        "open_interest",
+        "close",
+        "settle",
+        "pre_settle",
+        "archive_yyyymm",
+        "archive_sha256",
+        "archive_member",
+        "source_url",
+        "retrieved_at"
+      ]
+    },
+    {
+      "path": "data/raw/futures/cffex_if_contract_history_v1_0_1/cffex_if_contract_expiry.parquet",
+      "rows": 199,
+      "columns": [
+        "symbol",
+        "first_date",
+        "last_history_date",
+        "expiry_date",
+        "expiry_source",
+        "active_at_ceiling"
+      ]
+    },
+    {
+      "path": "reports/research/510300_factor96_earnings_cashflow_measurement_v1/daily_coverage.parquet",
+      "rows": 2823,
+      "columns": [
+        "date",
+        "member_count",
+        "industry_known_count",
+        "nonfinancial_count",
+        "fresh_report_count",
+        "L02_known_count",
+        "L04_known_count",
+        "joint_known_count",
+        "joint_positive_count",
+        "joint_coverage_nonfinancial",
+        "measurement_only_no_entry_signal"
+      ]
+    },
+    {
+      "path": "reports/research/510300_factor96_t11_financial_cohorts_v1_0_1/daily_financial_cohorts.parquet",
+      "rows": 775,
+      "columns": [
+        "date",
+        "all_member_reports",
+        "nonfinancial_reports",
+        "industry_unknown_reports",
+        "industry_count",
+        "cohort_known",
+        "L02_cohort",
+        "L04_industry_cohort",
+        "L04_raw_change_cohort",
+        "positive_financial_measurement",
+        "announcement_ids",
+        "measurement_only_no_entry_signal",
+        "status"
+      ]
+    },
+    {
+      "path": "reports/research/510300_factor96_t11_financial_cohorts_v1_0_1/inputs/repaired_member_report_measurements.parquet",
+      "rows": 25203,
+      "columns": [
+        "announcement_id",
+        "ts_code",
+        "report_period",
+        "quarter_ordinal",
+        "event_publication_date",
+        "available_date",
+        "delayed_available_date",
+        "industry_l1_code",
+        "industry_match_count",
+        "is_financial",
+        "member_at_available",
+        "quarter_profit",
+        "previous_quarter_assets",
+        "quarter_roa",
+        "prior_same_quarter_roa",
+        "prior2_same_quarter_roa",
+        "seasonal_mean",
+        "seasonal_sd",
+        "L02",
+        "ttm_profit",
+        "ttm_cashflow",
+        "assets",
+        "cash_quality",
+        "prior_ttm_profit",
+        "prior_ttm_cashflow",
+        "prior_assets",
+        "prior_cash_quality",
+        "L04_change",
+        "L02_known",
+        "L04_known",
+        "joint_known",
+        "measurement_status"
+      ]
+    },
+    {
+      "path": "reports/research/510300_original_earnings_breadth_v1/daily_earnings_breadth.parquet",
+      "rows": 2823,
+      "columns": [
+        "date",
+        "member_count",
+        "valid_company_count",
+        "latest_publication_date",
+        "latest_available_date",
+        "profit_growth_median",
+        "core_growth_median",
+        "revenue_growth_median",
+        "cashflow_growth_median",
+        "profit_improve_share",
+        "core_improve_share",
+        "revenue_improve_share",
+        "cashflow_improve_share",
+        "positive_profit_share",
+        "profit_cash_joint_improve_share",
+        "profit_assets_annual_median",
+        "cash_profit_assets_annual_median",
+        "cash_profit_assets_change_median",
+        "report_age_scaled",
+        "recent_disclosure_share",
+        "fundamental_coverage",
+        "fundamental_valid"
+      ]
+    },
+    {
+      "path": "reports/research/510300_constituent_dividend_calendar_v1/inputs/payment_schedules.parquet",
+      "rows": 6153,
+      "columns": [
+        "ts_code",
+        "imp_ann_date",
+        "record_date",
+        "ex_date",
+        "pay_date",
+        "available_at"
+      ]
+    }
+  ],
+  "IF_raw_date_coverage": {
+    "if_rows": 15860,
+    "if_contracts": 199,
+    "if_days": 3965,
+    "if_first": "2010-04-16T00:00:00",
+    "if_last": "2026-08-12T00:00:00",
+    "same_day_publication_timestamp_proven": false,
+    "historical_lag_is_assumption": true
+  },
+  "old_IF_paired_increment": {
+    "status": "REJECTED_FROZEN_NO_INCREMENT_UNDER_REGISTERED_TEST",
+    "evaluation": {
+      "primary_gate_pass": false,
+      "gates": {
+        "positive_paired_95pct_lower_bound": false,
+        "at_least_two_positive_eras": false,
+        "era_sample_coverage": true,
+        "complete_mature_origin_coverage": true
+      },
+      "overall": {
+        "group": "ALL",
+        "calendar_origins": 1599,
+        "paired_origins": 1599,
+        "M0_mse": 0.0008334445113272927,
+        "M0_mae": 0.01936560315950821,
+        "M0_positive_prediction_fraction": 0.5378361475922452,
+        "M0_positive_prediction_realized_mean": 0.00044097428441861096,
+        "M0_positive_prediction_realized_loss_fraction": 0.5069767441860465,
+        "M0_positive_prediction_min_marked_mean": -0.013865281749186059,
+        "M1_mse": 0.0008339917418272209,
+        "M1_mae": 0.019371463354596045,
+        "M1_positive_prediction_fraction": 0.5378361475922452,
+        "M1_positive_prediction_realized_mean": 0.0003904862009302387,
+        "M1_positive_prediction_realized_loss_fraction": 0.5069767441860465,
+        "M1_positive_prediction_min_marked_mean": -0.013831970110116292,
+        "mse_improvement": -5.472304999282196e-07,
+        "relative_mse_improvement": -0.0006565890020161436,
+        "mean_entry_gap_total_return": -0.00030996238999010043
+      },
+      "paired_mse_improvement_95pct_ci": [
+        -2.0944756090801716e-06,
+        9.214710070228723e-07
+      ],
+      "positive_eras": 1,
+      "mature_evaluation_origins": 1599,
+      "paired_origins": 1599,
+      "censored_origins": 5,
+      "bootstrap": {
+        "replicates": 2000,
+        "block_trading_days": 20,
+        "seed": 20260913,
+        "preserved_full_calendar_before_resampling": true,
+        "project_level_research_selection_corrected": false
+      }
+    },
+    "account_stage": "NOT_RUN_PRIMARY_INCREMENT_GATE_FAILED",
+    "net_sharpe": "NOT_COMPUTED",
+    "availability_timestamp_proven": false,
+    "availability_assumption": "SOURCE_DAY_IF_ASSUMED_AVAILABLE_BY_FOLLOWING_TRADING_DAY_CLOSE_NOT_TIMESTAMP_PROVEN"
+  },
+  "nominal_basis_formula": "log(IF close/spot close)*365/calendar_days_to_expiry；旧实际代码未扣融资成本和成分待分红。",
+  "old_eight_nominal_rules": {
+    "status": "REJECTED_FIXED_IF_TRUE_TERM_STRUCTURE_BINARY_FAMILY_NO_RESCUE",
+    "scope": {
+      "execution_asset": "510300.SH",
+      "information_asset": "CFFEX IF all listed contracts",
+      "allowed_states": [
+        0,
+        1
+      ],
+      "benchmark": "H00300 total return",
+      "signal_time": "T_CFFEX_CLOSE",
+      "execution_time": "T_PLUS_1_510300_OPEN",
+      "evidence_label": "HISTORICALLY_CONTAMINATED_DISCOVERY_ONLY"
+    },
+    "candidate_count": 8,
+    "result_rows": 400,
+    "passing_candidates": [],
+    "decision": "八个预先固定的真实期限结构上下尾规则均未过双20门槛；禁止改方向、分位、到期筛选或期限选择营救。"
+  },
+  "H01_H02_source_gate": [
+    {
+      "id": "H01",
+      "family": "股指期货信息",
+      "name": "扣除持有成本后的基差",
+      "role": "入场/状态",
+      "horizon_days": 5,
+      "source_grade": "G2",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "basis=(F-(S-PV[已知待分红])*exp(r*T))/S；只用当时已宣布分红和已知融资成本。",
+      "mechanism": "异常贴水缓和配合现货承接，可能描述风险定价改善。",
+      "counterexample": "未宣布分红预测有模型风险；现货收盘与期货结算不能混用。",
+      "data_path_hint": "中金所实际IF/IH/IC合约日行情、成交持仓及交割日；已知分红与资金成本",
+      "source_clock_rule": "日统计发布后可用；逐合约保存，合约选择只用此前信息，不能倒用未来主力",
+      "repository_hint": "reports/research/510300_if_open_interest_increment_v1; RESEARCH_STATUS.md",
+      "source_ids": "S03,G02",
+      "source_urls": "https://www.cffex.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/RESEARCH_STATUS.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null,
+      "current_status": "NOT_RUN_CARRY_ADJUSTMENT_SOURCE_GATE",
+      "strategy_dependencies": "T09",
+      "current_note": "实际合约行情已找到，分红指数点数/历史权重版本未齐，不计算替代基差策略。",
+      "standalone_net_sharpe": null,
+      "path_hint_check": "[{\"path\": \"reports/research/510300_if_open_interest_increment_v1\", \"exists\": true}, {\"path\": \"RESEARCH_STATUS.md\", \"exists\": true}]",
+      "data_grade_is_attachment_classification": true
+    },
+    {
+      "id": "H02",
+      "family": "股指期货信息",
+      "name": "期限间压力迁移",
+      "role": "入场/状态",
+      "horizon_days": 5,
+      "source_grade": "G2",
+      "source_overlap_note": "相关旧家族；具体定义待逐项查重",
+      "definition": "同日近月与次月各自H01之差及5日变化；固定最短剩余天数和换月规则。",
+      "mechanism": "近端异常压力解除与远端恶化可能具有不同含义。",
+      "counterexample": "临近交割、不同分红暴露和市场收盘时点制造假信号。",
+      "data_path_hint": "中金所实际IF/IH/IC合约日行情、成交持仓及交割日；已知分红与资金成本",
+      "source_clock_rule": "日统计发布后可用；逐合约保存，合约选择只用此前信息，不能倒用未来主力",
+      "repository_hint": "reports/research/510300_if_open_interest_increment_v1; RESEARCH_STATUS.md",
+      "source_ids": "S03,G02",
+      "source_urls": "https://www.cffex.com.cn/\nhttps://github.com/victordaizy/510300/blob/main/RESEARCH_STATUS.md",
+      "status": "NOT_RUN",
+      "net_sharpe": null,
+      "current_status": "NOT_RUN_CARRY_ADJUSTMENT_SOURCE_GATE",
+      "strategy_dependencies": "T09",
+      "current_note": "实际合约行情已找到，分红指数点数/历史权重版本未齐，不计算替代基差策略。",
+      "standalone_net_sharpe": null,
+      "path_hint_check": "[{\"path\": \"reports/research/510300_if_open_interest_increment_v1\", \"exists\": true}, {\"path\": \"RESEARCH_STATUS.md\", \"exists\": true}]",
+      "data_grade_is_attachment_classification": true
+    }
+  ],
+  "H05_actual_protocol": {
+    "hypotheses": {
+      "IF_HHI": "各当日在市IF合约OI占比平方和。按近月名义到期剩余日数分5日桶，只与此前两日历年同桶比较，至少40日，检验HIGH>=70%和LOW<=30%两个方向。另存近月份额，未预设集中一定是多头或空头。",
+      "ETF_MIGRATION_PROXY": "固定三只现成上海沪深300ETF：510300周度份额增幅，减去三只份额差按当周原始收盘价估值后的资金量/前周份额按当周价估值的规模。仅为部分产品周度迁移代理；不冒充完整同指数日频NAV体系。此前两日历年至少52个周观测，HIGH>=70%与LOW<=30%。"
+    },
+    "expiry_rule": "仅由合约代码年月按第三个周五计算名义到期日，不使用未来最后出现日期。若当日在市任一合约名义到期已过，或非4只合约，则本日缺失。名义日仅用于季节性分组，遇假期不猜实际顺延日期。",
+    "source_clock": "无法证明历史逐条首次发布时刻；统一假设T统计在T+1收盘可用，T+2开盘执行。该保守时滞是探索假设，不证明历史真实可得。ETF仅在新周观测的可用日产生一次信号，不前填成每日申赎。",
+    "next_stage_filter": "20万STRESS夏普>=0.8、CAGR>=5%、回撤<=10%、入场>=20、两固定子期收益为正，且夏普和CAGR都高于匹配PRICE_CONTROL。只筛选值得深化者，不是最终验收。"
+  },
+  "EPS_growth_definition_disagreement": {
+    "status": "REJECTED_FROZEN_NO_RELIABLE_GROWTH_DISAGREEMENT_INCREMENT",
+    "evaluation": {
+      "overall": {
+        "group": "ALL",
+        "n": 33,
+        "M0_mse": 0.011860193575543123,
+        "M0_mae": 0.08995423897236847,
+        "M0_direction_accuracy": 0.48484848484848486,
+        "M0_true_up": 14,
+        "M0_false_up": 13,
+        "M0_true_nonup": 2,
+        "M0_false_nonup": 4,
+        "M1_mse": 0.012568621024342655,
+        "M1_mae": 0.09347316547765509,
+        "M1_direction_accuracy": 0.48484848484848486,
+        "M1_true_up": 14,
+        "M1_false_up": 13,
+        "M1_true_nonup": 2,
+        "M1_false_nonup": 4,
+        "actual_up_count": 18,
+        "actual_down_count": 15,
+        "mse_improvement": -0.0007084274487995316,
+        "relative_mse_improvement": -0.059731524977836625
+      },
+      "mature_paired_origins": 33,
+      "first_origin": "2023-07-31",
+      "last_origin": "2026-04-30",
+      "calendar_months_in_bootstrap": 34,
+      "missing_calendar_months_preserved": 1,
+      "paired_mse_improvement_95_interval": [
+        -0.001496456857212447,
+        4.460351783908747e-05
+      ],
+      "required_year_checks": [
+        {
+          "year": 2024,
+          "n": 12,
+          "mse_improvement": -0.0008984388385789716,
+          "passed": false
+        },
+        {
+          "year": 2025,
+          "n": 12,
+          "mse_improvement": 9.013398802628497e-06,
+          "passed": true
+        }
+      ],
+      "conditions": {
+        "minimum_mature_pairs": true,
+        "positive_95_interval_lower": false,
+        "positive_both_complete_years": false
+      },
+      "prediction_increment_gate_pass": false,
+      "groups_are_diagnostics_not_alternative_selection_rules": true
+    },
+    "account_stage": {
+      "status": "NOT_RUN_PREDICTION_GATE",
+      "new_accounts_generated": 0,
+      "metrics": null,
+      "reason": {
+        "minimum_mature_pairs": true,
+        "positive_95_interval_lower": false,
+        "positive_both_complete_years": false
+      },
+      "stress_M1_joint_point_target": null
+    }
+  },
+  "EPS_label_limit": "两机构报告年度EPS增长定义之差，非纯同分析师预测不确定性或真实修正。",
+  "explicit_revision_two_event_limits": {
+    "status": "TWO_NARRATIVES_REUSE_EXISTING_NUMBERS_TIMING_AND_ALIAS_GAPS_RETAINED",
+    "census_reports": 7,
+    "diagnostic_events": 2,
+    "new_original_numeric_forecast_values": 0,
+    "all_possible_report_text_features_rejected": false,
+    "timing_alternative_tested": false,
+    "label_alias_admitted": false
+  },
+  "initial_measurement_known_invalidations": {
+    "confirmed_wrong_fields": 7,
+    "confirmed_documents": 6,
+    "error_kinds": [
+      "脚注编号当金额",
+      "跨行取错指标",
+      "跨页单位遗漏",
+      "金额截断"
+    ],
+    "affected_formula_dependency_occurrences": 36,
+    "affected_historical_union_reports": 17,
+    "affected_member_report_events": 17,
+    "affected_mechanically_joint_reports_in_union": 16,
+    "affected_mechanically_joint_member_report_events": 16,
+    "affected_daily_joint_member_rows": 979,
+    "affected_calendar_sessions": 778,
+    "affected_issuers": [
+      "002371.SZ",
+      "600196.SH",
+      "601808.SH"
+    ],
+    "exhaustiveness": "只计算已确认七个字段的直接依赖，是已知影响下界；未被这些字段命中的行不等于正确。",
+    "current_dataset_admission": "BLOCKED_CONFIRMED_SEMANTIC_EXTRACTION_ERRORS",
+    "T11": "NOT_RUN",
+    "new_accounts": 0,
+    "new_returns": 0,
+    "goal_status": "active",
+    "goal_achieved": false,
+    "old_frozen_files_modified": false,
+    "corrected_feature_values_computed": false,
+    "next_step": "冻结新版本摘要表取数规则，修复跨页单位、脚注、金额截断和列行身份；以七条原页作回归反例，再按同类来源规则评估全档案影响，不按收益筛修补对象。"
+  },
+  "later_repaired_cohort_contract": {
+    "at": "2026-09-27T23:20:06.555137+08:00",
+    "study_id": "510300_FACTOR96_T11_FINANCIAL_COHORTS_V1_0_1",
+    "phase": "FINANCIAL_MEASUREMENT_ONLY_NO_PRICES_OR_ACCOUNTS",
+    "known_before_freeze": "原V1篮子算法已在财报原文批次完成前冻结。本次只修改来源接入到V2.0.2，已知各版财务值、覆盖和错误，尚未执行篮子聚合或T11收益。全市场历史已在其他研究中观察，不能称独立前向样本。",
+    "source": "只接入财报V2.0.2的repaired_member_report_measurements.parquet，须先有成功交付只读重算回执，输入哈希在执行前记录。原V1接入器因依赖失败的V2而未运行，保留。",
+    "adapter_only": "原V1财务篮子算法和9项测试字节哈希必须保持相同；改变来源路径与验收版本，不改变阈值、行业参考、完整性、报告前沿或聚合方式。",
+    "cohort": "每个名义可用日，纳入该日历史成员新公开的最新报告。迟到旧期报告不形成新事件，同公司同日仅取最新报告期；金融行业排除，行业身份未知使整篮子未知。",
+    "prior_formula_unchanged": "继承已冻结L02与L04_change及200日报告年龄，不改变财报单季拆分、TTM、两年前同季意外或历史依赖。",
+    "industry_reference": "对当前公司按当时行业、同季度选参考报告：可用日位于当前日减两日历年至当前日之前，报告期严格早于当前报告期；参考公司在其公告可用日为成员、非金融、报告年龄有效且L04_change已知。",
+    "industry_normalization": "z=(当前L04_change-参考均值)/参考样本标准差(ddof=1)。少于2条、零波动或非有限值均未知，不加epsilon、不缩尾。两条只是数学可算下限，不代表推断证据充分。",
+    "aggregation": "在各行业内分别对L02、现金质量z和原始L04_change取公司中位数，再对行业中位数取中位数。每行业一票，不是沪深300市值权重或指数EPS。",
+    "completeness": "当天全部新披露非金融公司的当前字段及行业参考都须可算，才形成已知篮子。任一缺项保留NO_VIEW，不将未知改成零或退回旧报告。没有新非金融披露的日期不形成事件。",
+    "positive_financial_measurement": "L02篮子>1、行业标准化现金质量篮子>=0、原始现金质量同比变化篮子>=0；只标记财务条件，不是入场。",
+    "old_overlap": "旧240家公司每日存量广度模型及其失败保持；本轮是新披露事件篮子，不能称已补齐全指数覆盖或复活旧模型。",
+    "point_in_time_limit": "名义日期代理、供应商行业时钟、原档案标题样本选择及历史首次版本局限全部保留。",
+    "remaining_before_returns": "O02观察窗、同类首轮反应校准、入场、失效退出和完整账户规则尚须单独冻结。当前不计算任何市场收益。",
+    "tests_passed_before_freeze": 9,
+    "new_accounts": 0,
+    "new_returns": 0,
+    "new_network_requests": 0,
+    "T11": "NOT_RUN",
+    "O02": "NOT_COMPUTED",
+    "goal_achieved": false
+  },
+  "later_repaired_cohort_measurement": {
+    "at": "2026-09-27T23:30:04.633513+08:00",
+    "status": "COMPLETED_FINANCIAL_COHORT_MEASUREMENT_ONLY",
+    "disclosure_days": 775,
+    "known_cohort_days": 207,
+    "positive_financial_days": 23,
+    "company_rows": 9335,
+    "reference_dependency_rows": 91411,
+    "cohort_status_counts": {
+      "NO_VIEW_INCOMPLETE_DISCLOSURE_COHORT": 482,
+      "MEASURABLE_FINANCIAL_COHORT": 207,
+      "NO_VIEW_INDUSTRY_IDENTITY": 58,
+      "NO_NONFINANCIAL_DISCLOSURE": 28
+    },
+    "annual_measurement": [
+      {
+        "year": 2016,
+        "disclosure_days": 77,
+        "known_cohort_days": 0,
+        "positive_financial_days": 0,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2017,
+        "disclosure_days": 82,
+        "known_cohort_days": 0,
+        "positive_financial_days": 0,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2018,
+        "disclosure_days": 70,
+        "known_cohort_days": 0,
+        "positive_financial_days": 0,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2019,
+        "disclosure_days": 75,
+        "known_cohort_days": 22,
+        "positive_financial_days": 4,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2020,
+        "disclosure_days": 70,
+        "known_cohort_days": 19,
+        "positive_financial_days": 3,
+        "median_new_nonfinancial_reports": 3.5
+      },
+      {
+        "year": 2021,
+        "disclosure_days": 73,
+        "known_cohort_days": 19,
+        "positive_financial_days": 2,
+        "median_new_nonfinancial_reports": 3.0
+      },
+      {
+        "year": 2022,
+        "disclosure_days": 70,
+        "known_cohort_days": 21,
+        "positive_financial_days": 1,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2023,
+        "disclosure_days": 72,
+        "known_cohort_days": 24,
+        "positive_financial_days": 2,
+        "median_new_nonfinancial_reports": 3.0
+      },
+      {
+        "year": 2024,
+        "disclosure_days": 71,
+        "known_cohort_days": 34,
+        "positive_financial_days": 5,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2025,
+        "disclosure_days": 72,
+        "known_cohort_days": 44,
+        "positive_financial_days": 6,
+        "median_new_nonfinancial_reports": 4.0
+      },
+      {
+        "year": 2026,
+        "disclosure_days": 43,
+        "known_cohort_days": 24,
+        "positive_financial_days": 0,
+        "median_new_nonfinancial_reports": 3.0
+      }
+    ],
+    "O02": "NOT_COMPUTED",
+    "T11": "NOT_RUN",
+    "new_accounts": 0,
+    "new_returns": 0,
+    "new_network_requests": 0,
+    "independent_forward_observations": 0,
+    "goal_achieved": false
+  },
+  "final_T11_not_early_measurement": {
+    "status": "FIXED_DATE_PROXY_TARGET_FAILED",
+    "accounts": 120,
+    "signals": {
+      "FULL": 7,
+      "FINANCIAL_ALL": 23,
+      "FINANCIAL_COMMON": 20,
+      "ABOVE_MEDIAN": 13
+    },
+    "original_T11": "NOT_RUN_STRICT_CLOCK_AND_CORRECTION_CHAIN_NOT_ADMITTED",
+    "scope": "固定历史日期代理变体，不是严格first_seen或完整更正链验证。",
+    "source_limits": [
+      "公告时刻多数为零点日期代理，历史更正/取消链不完整。",
+      "财务修复范围外旧字段未全部逐页验证。",
+      "23个正向财务日中15日仅一家披露公司，不等于整个沪深300盈利更新。",
+      "50%为成交前目标限制，持仓价格变动可使收盘权重超过50%。",
+      "日线开盘成交为模拟，非真实成交证据。"
+    ]
+  },
+  "final_T11_clock": "名义公告日期代理；完整更正链和历史first_seen未建立。",
+  "T11_supersession_limit": "引用后续独立修复版本及最终日期代理检验；原错误测量保留，未声称所有修复范围外字段或历史首版已验证。",
+  "normalization_family": {
+    "project_id": "NORMALIZED_VALUATION_5Y_PREDICTIVE_SCREEN_V1",
+    "version": "1.0.0",
+    "generated_at": "2026-08-19T03:30:35.459688+08:00",
+    "status": "ALL_REGISTERED_MODELS_REJECTED",
+    "holm_bonferroni": {
+      "family_alpha": 0.1,
+      "ordered_tests": [
+        {
+          "rank": 1,
+          "model_id": "VAL02_NORM_EY_SPREAD_5Y_V1",
+          "raw_p_value": 4.182767195420499e-07,
+          "holm_multiplier": 2,
+          "holm_adjusted_p_value": 8.365534390840998e-07
+        },
+        {
+          "rank": 2,
+          "model_id": "VAL01_NORM_EY_5Y_V1",
+          "raw_p_value": 0.00024096271551768482,
+          "holm_multiplier": 1,
+          "holm_adjusted_p_value": 0.00024096271551768482
+        }
+      ],
+      "adjusted_p_values": {
+        "VAL02_NORM_EY_SPREAD_5Y_V1": 8.365534390840998e-07,
+        "VAL01_NORM_EY_5Y_V1": 0.00024096271551768482
+      }
+    },
+    "model_status": {
+      "VAL01_NORM_EY_5Y_V1": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST",
+      "VAL02_NORM_EY_SPREAD_5Y_V1": "REJECT_PREDICTIVE_SCREEN_STOP_NO_STRATEGY_BACKTEST"
+    },
+    "passed_models": [],
+    "rejected_models": [
+      "VAL01_NORM_EY_5Y_V1",
+      "VAL02_NORM_EY_SPREAD_5Y_V1"
+    ],
+    "strategy_evaluation_authorized_models": [],
+    "governance": {
+      "model_results_reported_together": true,
+      "strategy_returns_calculated": false,
+      "positions_generated": false,
+      "orders_generated": false,
+      "broker_connection_performed": false
+    }
+  },
+  "VAL01_gate": {
+    "horizon_trading_days": 242,
+    "target": "etf_total_return",
+    "raw_hac_one_sided_p_value": 0.00024096271551768482,
+    "holm_adjusted_p_value": 0.00024096271551768482,
+    "checks": {
+      "minimum_matured_observations": true,
+      "minimum_observations_per_bucket": false,
+      "etf_spearman_ic_strictly_positive": true,
+      "holm_adjusted_hac_p_at_most_family_alpha": true,
+      "both_chronological_half_ics_strictly_positive": false,
+      "etf_bucket_mean_returns_nondecreasing": false,
+      "etf_cheapest_minus_expensive_mean_positive": true,
+      "etf_cheapest_minus_expensive_median_positive": true,
+      "h00300_spearman_confirmation_positive": true,
+      "h00300_cheapest_minus_expensive_mean_positive": true
+    },
+    "passed": false,
+    "failed_checks": [
+      "minimum_observations_per_bucket",
+      "both_chronological_half_ics_strictly_positive",
+      "etf_bucket_mean_returns_nondecreasing"
+    ],
+    "stop_reason": "PRIMARY_PREDICTIVE_GATE_FAILED"
+  },
+  "VAL02_gate": {
+    "horizon_trading_days": 242,
+    "target": "etf_total_return",
+    "raw_hac_one_sided_p_value": 4.182767195420499e-07,
+    "holm_adjusted_p_value": 8.365534390840998e-07,
+    "checks": {
+      "minimum_matured_observations": true,
+      "minimum_observations_per_bucket": false,
+      "etf_spearman_ic_strictly_positive": true,
+      "holm_adjusted_hac_p_at_most_family_alpha": true,
+      "both_chronological_half_ics_strictly_positive": true,
+      "etf_bucket_mean_returns_nondecreasing": false,
+      "etf_cheapest_minus_expensive_mean_positive": false,
+      "etf_cheapest_minus_expensive_median_positive": false,
+      "h00300_spearman_confirmation_positive": true,
+      "h00300_cheapest_minus_expensive_mean_positive": false
+    },
+    "passed": false,
+    "failed_checks": [
+      "minimum_observations_per_bucket",
+      "etf_bucket_mean_returns_nondecreasing",
+      "etf_cheapest_minus_expensive_mean_positive",
+      "etf_cheapest_minus_expensive_median_positive",
+      "h00300_cheapest_minus_expensive_mean_positive"
+    ],
+    "stop_reason": "PRIMARY_PREDICTIVE_GATE_FAILED"
+  },
+  "dividend_calendar_original_gross_stage": {
+    "status": "PASS_GROSS_SCREEN_ACCOUNT_REQUIRED",
+    "source_gate": {
+      "all_origins_coverage_at_least_90pct": true,
+      "each_year_coverage_at_least_85pct": true
+    },
+    "numeric_gate": {
+      "mean_above_cost_proxy": true,
+      "mean_above_matched_calendar_control": true,
+      "early_positive": true,
+      "late_positive": true
+    },
+    "primary": {
+      "group": "ABOVE_SAME_MONTH_PRIOR_MEDIAN",
+      "n": 207,
+      "filled": 206,
+      "mean_gross_return": 0.00843303841422059,
+      "median_gross_return": 0.002617801047120505,
+      "mean_stress_proportional_proxy_return": 0.0056465649842689,
+      "matched_month_mean": 0.007395328077431963,
+      "matched_increment": 0.0010377103367886274,
+      "positive_fraction": 0.5217391304347826,
+      "minimum": -0.10157480314960632,
+      "maximum": 0.24514338575393158
+    },
+    "account_status": "REQUIRED_NEXT_STAGE"
+  },
+  "dividend_calendar_final_account_status": "REJECTED_ACCOUNT_TARGET_FAILED_NO_PARAMETER_RESCUE",
+  "dividend_calendar_source_contract": {
+    "at": "2026-09-28T21:50:48.210025+08:00",
+    "status": "PASS_LOCAL_PAYMENT_CALENDAR_PROXY_FIELDS",
+    "source_files": 645,
+    "raw_rows": 40192,
+    "positive_implemented_relevant_rows": 6353,
+    "distinct_payment_schedules": 6153,
+    "collapsed_same_schedule_rows": 200,
+    "cash_amounts_summed": false,
+    "membership_rows": 846900,
+    "source_documentation": "https://tushare.pro/document/2?doc_id=103",
+    "retrieved_at_range": [
+      "2026-09-03T12:39:54.903075+08:00",
+      "2026-09-03T12:46:51.268317+08:00"
+    ],
+    "historical_first_vintage_verified": false,
+    "missing_files_are_not_zero_payments": true,
+    "boundary": "实施日期是供应商历史字段；无完整原公告版本和股本金额，不等于严格点时M05现金流。",
+    "new_data_api_requests": 0,
+    "new_return_reads": 0
+  },
+  "current_1507_member_support": "NOT_COMPUTED_NO_COMPLETE_PURPOSE_SOURCE_ADMITTED",
+  "current_115_mature_month_support": "NOT_COMPUTED_NO_COMPLETE_PURPOSE_SOURCE_ADMITTED",
+  "limits": "原注册NOT_RUN、旧组件失败、部分代理已测及毛筛到最终账户分别保留；未重新拟合或回测，未认定因果，也未宣称其他数据不存在。"
+}

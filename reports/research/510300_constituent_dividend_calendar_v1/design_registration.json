@@ -1,0 +1,63 @@
+{
+  "study_id": "510300_CONSTITUENT_DIVIDEND_CALENDAR_V1",
+  "registered_at": "2026-09-28T21:45:51.925446+08:00",
+  "previous_goal_turn": "PROGRESS_INDUSTRIAL_PROFIT_FIXED_SCREEN_REJECTED_AND_RMB_ACCESS_ROUTE_CLARIFIED",
+  "user_objective": "实现夏普1.2，注重实用性，拒绝过拟合",
+  "classification": "FIXED_EXPLORATORY_VENDOR_DATE_PROXY_NOT_STRICT_M05",
+  "hypothesis": "已公告、近期将支付现金分红的历史指数成员覆盖面高于往年同月时，潜在再配置活动可能支持随后510300收益；先检验固定方向是否有费用前优势。",
+  "competing_explanations": [
+    "分红是公司价值转移，不能把除息前现金当额外利润",
+    "持有人可能消费或撤资而非再投资",
+    "成员数量不代表现金金额或指数权重",
+    "季节性、股息政策和指数成员构成变化可能造成伪关系",
+    "后来取得的供应商记录不保证历史不可变首版"
+  ],
+  "primary": "ABOVE_SAME_MONTH_PRIOR_MEDIAN",
+  "source_scope": "本地645份个股分红缓存，原始40192行；复用官方重建的2015起每日300成员表。无新数据接口请求。",
+  "field_semantics_url": "https://tushare.pro/document/2?doc_id=103",
+  "admission": "仅正的税前每股现金分红且div_proc去首尾空格后为实施；必须有实施公告、登记、除息、支付四日期，实施公告<登记<除息<=支付。",
+  "clock": "使用imp_ann_date而非预案ann_date；实施公告日23:59:59为历史可用代理，不能用于当日16:00决策。供应商实际retrieved_at在2026年，不伪装成历史首次获取。",
+  "calendar_feature": "每日16:00对当时300成员中有本地缓存者，统计已通过实施公告日末、派息日在该日之后20个A股交易日内的不同发行人数量，除以本地有缓存成员数量；同一公司多个事件只计一次。",
+  "missing": "每日至少285/300成员有本地缓存才形成代理；无缓存成员不算零事件，并披露日覆盖、缺失名单、不同成员构成。缓存存在不证明完整公告版本覆盖。",
+  "normalization": "每交易日更新；当前覆盖面减此前2个日历年内相同自然月份的有效日覆盖面中位数，至少20个先前有效日。当前日不进入阈值，无参数拟合或方向搜索。",
+  "entry": "每ISO周第一个A股交易日16:00最多观察一次，标准化差严格大于0才入场请求；下一开盘入场。",
+  "hold_open_intervals": 20,
+  "evaluation_range": [
+    "2017-01-01",
+    "2025-12-31"
+  ],
+  "subperiods": {
+    "EARLY": [
+      "2017-01-01",
+      "2020-12-31"
+    ],
+    "LATE": [
+      "2021-01-01",
+      "2025-12-31"
+    ]
+  },
+  "controls": "同样资料可用的所有周原点；主要增量对照按主组事件所在同一日历年-月，使用该月所有可评估周原点毛收益均值，按主组事件数加权，降低普通月份季节性影响。对照只作比较，不晋升。",
+  "source_gate": "全期至少90%周原点有足够来源与同月阈值；各自然年至少85%。字段缺失或日期矛盾不得强行补造。",
+  "numeric_gate": "主组毛均值>0.28%，高于同年同月匹配对照，两个固定日历子期均值都为正；空子期不通过。",
+  "execution_proxy": "涨停不买则收益和费用均0；卖出方向跌停顺延，未成熟保持缺失；持有期享有的510300现金分红计入，入场除息日无权享有。费用只是双边比例压力代理0.28%。",
+  "bootstrap": "完整原点序列8周循环区块，2000次，seed20260928；同时重算同年同月对照。标签可能重叠，不假装独立。未校正跨研究选择偏差。",
+  "if_pass": "只有来源与数值初筛全通过才进入现有20万元/2万元完整账户；固定持有20开盘间隔，持有内忽略新信号不叠加、不延长期限，沿用50%事前上限及现有ES/冲击/回撤风险合同。",
+  "no_rescue": [
+    "不缩年份",
+    "不调整20日期限",
+    "不改同月中位数或2年窗口",
+    "不换信号方向",
+    "不加价格过滤器",
+    "不把对照升级",
+    "不将等权覆盖称M05现金金额/市值原定义"
+  ],
+  "prior_distinction": "旧510300_dividend_payment_event_training_v1只用ETF自身14次派息；旧cash_distribution_funding_v1用ETF过去分红收益率与资金利率，本轮使用历史成员已公告未来支付覆盖面。",
+  "account_status_before_screen": "NOT_RUN",
+  "net_sharpe": null,
+  "new_accounts": 0,
+  "independent_forward_observations": 0,
+  "historical_first_vintage_verified": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "delivery_package_required": false
+}

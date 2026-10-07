@@ -1,0 +1,105 @@
+{
+  "study_id": "510300_IF_NODE_JOINT_PAYOFF_TRAINING_V1",
+  "user_instruction": "少数节点、高盈亏比、变盘信号、高胜率、高夏普、拒绝过拟合；请继续；不用采集。",
+  "relation_to_parent": "旧20事件门失败保留；本次以已有10个耗竭事件做同一家族探索，不称独立证据。此前一般IF持仓增量失败也保留。",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.3,
+  "target_max_drawdown_magnitude": 0.1,
+  "annual_days": 242,
+  "signal_end": "2026-08-12",
+  "account_end": "2026-08-18",
+  "account_end_reason": "末次8月4日已知信号的十日持有在8月18日结束；信号截止后仅完成已有交易，不推断缺失IF日的新信号。",
+  "event": "完全继承原pressure_exhaustion_event；IF数据滞后一交易日，信号15:01已知，次开盘入场。",
+  "horizon_sessions": 10,
+  "min_train": 24,
+  "training_sample": "全部固定日历月末、data_eligible为真、十日标签在预测前成熟；非仅事件样本。",
+  "ridge_mean_loss_penalty": 1.0,
+  "features": {
+    "price": [
+      "etf_past_5d_total_return",
+      "etf_realized_volatility_20d",
+      "etf_same_day_total_return",
+      "etf_log_amount_vs_trailing_60d_median"
+    ],
+    "if_joint": [
+      "basis_residual_percentile",
+      "open_interest_shock_percentile",
+      "basis_oi_interaction"
+    ]
+  },
+  "models": {
+    "A_PRICE_JOINT": {
+      "groups": [
+        "price"
+      ]
+    },
+    "B_IF_JOINT": {
+      "groups": [
+        "price",
+        "if_joint"
+      ]
+    },
+    "MATURE_EMPIRICAL": {
+      "groups": []
+    }
+  },
+  "policies": {
+    "JOINT_PRIMARY": {
+      "rule": "预计净收益为正，获利概率>0.5，预计盈利幅度>预计亏损幅度。"
+    },
+    "EXPECTANCY_CONTROL": {
+      "rule": "仅要求预计收益覆盖账户估计压力费用，检验联合约束的影响。"
+    }
+  },
+  "additional_control": "EVENT_ONLY：全部耗竭事件进入，不计算或冒充模型预测；相同仓位、期限、成本和回撤停止。",
+  "account": {
+    "vol_target_annual": 0.1,
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "slippage_per_side": {
+      "BASE": 0.0005,
+      "STRESS": 0.001
+    },
+    "lot_size": 100,
+    "prediction_error_multiplier": 0,
+    "min_mature_prequential_errors": 0,
+    "drawdown_brake": 0.08,
+    "force_close_on_last_day": true,
+    "cash_and_risk_free_daily_return": 0,
+    "dividend_cash_policy": "除息记应收，付款日现金可用。",
+    "scope": "首个月末逐期预测完成预热的次开盘开始，所有空仓交易日计入；信号结束后尾部仅退出。",
+    "exit": "第10个持有交易日收盘退出；收盘回撤8%后次开盘清仓并停止，不再进入。"
+  },
+  "historical_prices_seen": true,
+  "event_dates_seen": true,
+  "no_parameter_grid": true,
+  "new_downloads": 0,
+  "executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "model_change": "固定原节点、特征和10日期限，将单一收益回归改为盈利概率和正负条件幅度三个部分。",
+  "joint_model": {
+    "mean_loss_penalty": 1.0,
+    "standardized_feature_clip": 3.0,
+    "net_label_cost_proxy": 0.0024,
+    "probability": "无类别加权的逻辑回归，平均对数损失加L2惩罚，截距不惩罚。",
+    "magnitudes": "按正负净代理收益分组，对绝对幅度的对数做岭回归，再以训练残差指数均值校正。",
+    "missing_class": "若训练集缺少任一方向，条件幅度未知，保留预测记录但不入场。",
+    "empirical": "成熟训练样本的实际获利频率、条件盈利均值和条件亏损均值，不拟合特征。"
+  },
+  "probability_target": "十日毛收益减24bp名义往返压力成本是否大于0；是固定期限的净收益代理，不等于含最低佣金和账户提前退出的实际周期胜率。",
+  "entry_threshold_meaning": "0.5和盈亏幅度比1为本轮未经搜索的方向性分界，不是用户指定的高胜率/高盈亏比验收数字。",
+  "account_prediction": "预计净代理收益加回24bp后传入原引擎，与当时仓位估计的压力费用比较；成交仍逐笔实际扣费。",
+  "training_distribution_limit": "124个月末样本用于估计条件关系，节点本身只有10个；分别报告两类预测，不声称事件概率已校准。",
+  "selection_history": "IF节点在上一轮已看见历史表现；本轮是同一家族、改变预测表示的探索，不重置此前试验次数。",
+  "historical_results_already_seen": true,
+  "score_segments": [
+    "ALL",
+    "FIRST_HALF",
+    "SECOND_HALF"
+  ],
+  "stop_condition": "一次固定训练和账户后如无增量或未达目标，关闭这一表示，不在本批结果上换窗口/阈值/止盈止损。"
+}

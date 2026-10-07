@@ -1,0 +1,196 @@
+[
+  {
+    "id": "NO_IPO_SWITCH_OFF",
+    "source": "not_closed_clarification",
+    "phrases": [
+      "IPO受理、审核、注册等相关工作没有暂停",
+      "不存在IPO关闸的情况",
+      "再融资也不存在关闸情况"
+    ],
+    "finding": "收紧是节奏安排；不等同停止所有IPO或再融资。",
+    "field_consequence": "不能以停止发行=1或政策后融资额=0构造状态。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.csrc.gov.cn/csrc/c100028/c7432482/content.shtml",
+    "source_sha256": "05af21834e41612609c01a4bf91b913d25e29892ad7020d23c6dec46c8cdb037",
+    "original_body_date": "2023-09-15",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "PROJECT_GRANDFATHERING_SSE",
+    "source": "sse_refinancing_details",
+    "phrases": [
+      "适用于实施后新受理的项目",
+      "前期已受理、目前处于审核阶段的项目,不适用"
+    ],
+    "finding": "新受理与已受理在审项目有不同适用安排。",
+    "field_consequence": "需项目受理状态和时点，不能按同一日对全部发行金额减计。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.sse.com.cn/listing/announcement/notification/c/c_20231108_10764652.shtml",
+    "source_sha256": "3e13441f2864eaa264567c1bf7a0cbe90c3ede798825e61bf160361f0f846787",
+    "original_body_date": "2023-11-08",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "PROJECT_GRANDFATHERING_SZSE",
+    "source": "szse_refinancing_details",
+    "phrases": [
+      "适用于实施后新受理的项目",
+      "前期已受理、目前处于审核阶段的项目,不适用"
+    ],
+    "finding": "深圳同样区分新受理和已受理项目。",
+    "field_consequence": "与上海同日同根解释，不是新增独立市场冲击。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.szse.cn/aboutus/trends/news/t20231108_604521.html",
+    "source_sha256": "bd3b5a82f7e6181279a7baf60b20172c4704ea2e76d2ae8370f5e6dff8f6d1c2",
+    "original_body_date": "2023-11-08",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "SIMPLIFIED_EXCEPTION",
+    "source": "sse_refinancing_details",
+    "phrases": [
+      "不超过3亿元且不超过净资产的20%",
+      "采用简易程序的再融资不适用破发、破净、经营业绩持续亏损"
+    ],
+    "finding": "小规模简易程序存在相关限制例外。",
+    "field_consequence": "需融资规模、净资产、程序信息，目录标题不足。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.sse.com.cn/listing/announcement/notification/c/c_20231108_10764652.shtml",
+    "source_sha256": "3e13441f2864eaa264567c1bf7a0cbe90c3ede798825e61bf160361f0f846787",
+    "original_body_date": "2023-11-08",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "TARGETED_AND_STRATEGIC_EXCEPTIONS",
+    "source": "sse_refinancing_details",
+    "phrases": [
+      "符合国家重大战略方向的再融资不适用",
+      "董事会确定全部发行对象的再融资不适用"
+    ],
+    "finding": "战略项目和确定发行对象存在不同适用要求；不是全部再融资同幅收缩。",
+    "field_consequence": "需发行对象、用途及适用安排，不能机械推算全市场资金节省。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.sse.com.cn/listing/announcement/notification/c/c_20231108_10764652.shtml",
+    "source_sha256": "3e13441f2864eaa264567c1bf7a0cbe90c3ede798825e61bf160361f0f846787",
+    "original_body_date": "2023-11-08",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "LOSS_SPACING",
+    "source": "sse_refinancing_details",
+    "phrases": [
+      "最近两个会计年度",
+      "不得低于十八个月"
+    ],
+    "finding": "连续亏损相关融资间隔要求不同于所有公司统一暂停。",
+    "field_consequence": "需当时财务、前次到位和本次董事会日期；审批、预案、缴款不同。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.sse.com.cn/listing/announcement/notification/c/c_20231108_10764652.shtml",
+    "source_sha256": "3e13441f2864eaa264567c1bf7a0cbe90c3ede798825e61bf160361f0f846787",
+    "original_body_date": "2023-11-08",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "REAL_ESTATE_EXCEPTION",
+    "source": "supply_tightening",
+    "phrases": [
+      "房地产上市公司再融资不受破发、破净和亏损限制"
+    ],
+    "finding": "原安排明确房地产例外。",
+    "field_consequence": "不能由全部破净比例直接估算被限制融资额。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.csrc.gov.cn/csrc/c100028/c7428481/content.shtml",
+    "source_sha256": "7c0a86dd840e078fe73ec3f445084dfa87a38ccc82916510ec6617918747e581",
+    "original_body_date": "2023-08-27",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "PAYMENT_AFTER_ALLOCATION",
+    "source": "subscription_reform_announcement",
+    "phrases": [
+      "将申购时预先缴款改为确定配售数量后再进行缴款",
+      "相关规则修订和技术系统改造工作均需要一定的准备时间"
+    ],
+    "finding": "宣布取消预缴与正式过渡不同；申购数量不等同获配缴款数量。",
+    "field_consequence": "预缴改革公告仅作历史机制背景，不当2015-11-06即时全实施。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.csrc.gov.cn/csrc/c100028/c1001838/content.shtml",
+    "source_sha256": "04b406709215d12688728c1a9122ff1d594a1d49f92783c0c281b134c2969d18",
+    "original_body_date": "2015-11-06",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "PAYMENT_CLOCK",
+    "source": "subscription_settlement_qa",
+    "phrases": [
+      "原T+1日申购资金验资环节取消",
+      "T+2日日终有足额的新股认购资金",
+      "T+3日",
+      "扣除承销费用后划给发行人"
+    ],
+    "finding": "申购、确定获配、缴款、交收及发行人到账是不同环节。",
+    "field_consequence": "资金占用需数量价格与支付日，不能用IPO日或目录发布日期代替。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.sse.com.cn/ipo/rules/others/c/c_20210514_5463626.shtml",
+    "source_sha256": "8061d9bd2371ec1fb00fecf6268fcc815bc946cfcb4c516658629f0668b0e06f",
+    "original_body_date": null,
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "REGISTRATION_ANTICIPATION",
+    "source": "registration_transition",
+    "phrases": [
+      "2023年2月1日,全面实行股票发行注册制改革正式启动",
+      "已向社会公开征求意见"
+    ],
+    "finding": "2月17日正式实施前已有改革公开信息。",
+    "field_consequence": "不能把2月17日当作完全意外的新供给冲击。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.csrc.gov.cn/csrc/c100028/c7047622/content.shtml",
+    "source_sha256": "7428a5b98dc240c2f491ef6a1ea279c2891b941e1649ff95ad1bd6e422959478",
+    "original_body_date": "2023-02-01",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "QUALITY_DRAFT_NOT_FINAL",
+    "source": "quality_draft_details",
+    "phrases": [
+      "规则草案公开征求意见",
+      "履行程序后发布实施"
+    ],
+    "finding": "部分规则先草案再实施；同日也含退市、减持、券商与交易监管。",
+    "field_consequence": "不以4月12日将所有拟议标准视为已生效，不单独归因IPO。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.csrc.gov.cn/csrc/c100029/c7473708/content.shtml",
+    "source_sha256": "42009a1a3e9e13e1d28a37fced442265df24885e87faccd7cde805368fcbbcfe",
+    "original_body_date": "2024-04-12",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  },
+  {
+    "id": "GUIDANCE_NOT_FUNDS",
+    "source": "quality_issuance_guidance",
+    "phrases": [
+      "即日起实施",
+      "融资必要性"
+    ],
+    "finding": "指引改善披露和行为要求，没有给出全市场实际资金占用减量。",
+    "field_consequence": "不能把披露规则更新当确定的现金流入股市。",
+    "status": "CONFIRMED_SOURCE_SCOPE_FACT",
+    "source_url": "https://www.csrc.gov.cn/csrc/c100028/c7480506/content.shtml",
+    "source_sha256": "7ab03a52de374a652e3d8076bab2f2198f14f20409c7fa044ae2f3fe0a24408a",
+    "original_body_date": "2024-05-15",
+    "model_field_admitted": false,
+    "historical_first_vintage_verified": false
+  }
+]

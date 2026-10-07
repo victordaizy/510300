@@ -1,0 +1,22 @@
+{
+  "at": "2026-09-27T20:31:21.311646+08:00",
+  "study_id": "510300_FACTOR96_FINANCIAL_PARSER_REPAIR_V1",
+  "scope_rule": "三项T11字段中source_locator.section=MAIN_FINANCIAL_HIGHLIGHTS的全部行，含文本与表格两种摘要路径。",
+  "target_fields": 2529,
+  "target_documents": 2112,
+  "reuse_documents": 6,
+  "new_logical_http_requests_maximum": 2106,
+  "expected_original_pdf_bytes": 6381409545,
+  "download": "4个并发请求；每个冻结URL至多请求一次，无自动重试；连接10秒、读取35秒超时；PDF头/字节/原SHA-256必须一致才解析。失败或不同版本保留未知。",
+  "storage": "PDF位于现有data目录映射的E盘；完整响应与哈希保留；不覆盖旧文件。",
+  "parser": "独立表格单元格解析器，标签、完整金额、实际列头、合并口径、当期/累计时段和沿表延续的单位共同确定；不设金额大小阈值。",
+  "precision": "不同原页的显示精度容许半个末位单位误差，优先精确合并表；超出显示误差的冲突置未知。",
+  "page_scope": "先查前三页及原九字段来源页的相邻页，全文文字用于顺序识别标题单位；任一目标字段未取得即执行一次全文表格路径，不按结果改变阈值。",
+  "concurrency": "PDF解析采用4个隔离进程，避免PDFium线程共享；下载与解析流水处理。",
+  "replacement": "只替换冻结2529个目标字段；没有原文同一身份、缺明确列头或出现冲突的目标字段在新版本中置未知。旧档案不变；未命中路径的字段标记沿用旧值，不能声称全部独立重核。",
+  "new_strategy_accounts": 0,
+  "forward_returns_read": false,
+  "goal_achieved": false,
+  "external_review": "NOT_PERFORMED",
+  "stop": "源字段修复结束后重算原固定测量覆盖，经济公式不改；修复成功和单元测试通过都不能代替T11绩效。"
+}

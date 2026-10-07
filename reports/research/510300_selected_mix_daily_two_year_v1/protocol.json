@@ -1,0 +1,94 @@
+{
+  "study_id": "510300_SELECTED_MIX_DAILY_TWO_YEAR_V1",
+  "at": "2026-09-25T12:35:58.690525+08:00",
+  "latest_user_instruction": "请继续，直到一切完成",
+  "primary": "DAILY_TWO_YEAR_MIN5_TAIL",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-16"
+  ],
+  "annual_days": 242,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "question": "原已选信号图迁移到两年每日学习和当前尾部预算后，是否仍具有完整账户优势。",
+  "pre_outcome_feasibility": "仅核对已有参考样本日期与数量：两年窗口最多8个成熟周期，旧10周期门槛不能训练。该检查未比较账户收益或标签值。",
+  "policies": {
+    "ORIGINAL_TAIL": "原保存模型与信号目标，仅接同一尾部预算；属于旧规则研究对照，不符合新训练合同。",
+    "DAILY_TWO_YEAR_MIN10_TAIL": "最近两个日历年、逐日更新，保留10周期100行门槛；不合格时按原价格退出与固定预算回退。",
+    "DAILY_TWO_YEAR_MIN5_TAIL": "相同两年每日规则，预先固定最低5个完整周期、100行状态；是探索门槛而非可靠优势证明。"
+  },
+  "unchanged": [
+    "原60日结构评分及技术价格规则",
+    "两来源85/15权重与外层10个百分点带宽",
+    "原岭惩罚1、八项特征及标准化裁剪5",
+    "原内部1.15倍率、加仓条件与退出确认",
+    "次日开盘、100份、T+1、现金、分红、两档成本"
+  ],
+  "training": {
+    "window": "[决策日减两个日历年, 决策日)，只用入场和全部状态均在窗口内、且退出日严格早于决策日的自然结束周期。",
+    "reference": "原D60_INTRA价格退出账户；完整重建标签但逐日先筛成熟周期，无终点强平标签。",
+    "minimum_rows": 100,
+    "minimum_cycles": {
+      "STRICT10": 10,
+      "EXPLORATORY5": 5
+    },
+    "maximum_recent_cycles": null,
+    "equal_cycle_weight": true,
+    "daily_model_application": "两种学习退出均使用当日合格记录；取消入场日锁住旧系数。",
+    "missing": "当天不合格就停止学习退出，保留原价格退出；不携带已经过期的旧模型。",
+    "state_memory": "真实账户现金、持仓和风险峰值连续保留；训练观察窗口不重置账户。价格特征保留各自短窗口预热。"
+  },
+  "reference_risk_budgets": "原月度协方差与联合下行预算改为每天、最近两日历年，至少242个完整收盘观察；失败当日回到预定等权，不续用过期估计。",
+  "tail": {
+    "position_target_cap": 0.5,
+    "five_day_ES95_budget_fraction": 0.025,
+    "gap_stress_return": -0.1,
+    "gap_budget_fraction": 0.05,
+    "drawdown_headroom_share": 0.5,
+    "stop_drawdown": 0.1,
+    "distribution": "两年内已成熟的次开盘至第六开盘含分红五日收益；匹配当时20日动量正负状态，至少60条，否则使用同窗全部成熟样本；不足60不新增风险。",
+    "fees": "新增调仓及未来退出的佣金和不利价格单位滑点计入事前预算。",
+    "band": "风险上限优先于10个百分点调仓带；资料未知不能新增买入，仍可按已知风险减仓。",
+    "gap_execution": "预算按决策收盘检查；次开盘成交仍受现金、T+1和涨跌停约束。收盘仓位可因价格变化偏离目标，风险预算不保证最大回撤。",
+    "stop": "收盘回撤达到10%后下一可卖开盘申请清仓，本轮不重新开启。"
+  },
+  "tail_monitor": "每隔5个交易日固定相位记录预测，成熟后才更新。60个非重叠五日结果中超过15%跌破事前5%分位数则报警；本轮只监控，不据结果另调策略。",
+  "comparison": "主候选对严格10周期及原模型尾部对照，比较完整同日账户；固定20日区块、2000次、种子20260925计算算术年化收益差区间。",
+  "counts": {
+    "signal_graph_reproductions": 2,
+    "internal_dependency_accounts": 44,
+    "new_external_accounts": 6,
+    "reference_account_reconstruction": 1,
+    "new_original_baseline_accounts": 0,
+    "parameter_grid": 0
+  },
+  "limits": [
+    "所有历史已被反复研究，迁移结果仍是开发证据。",
+    "5周期门槛是原先已授权的样本放宽探索，不能把状态行数当独立周期。",
+    "不增加宏观或期权资料，不重新优化60日、权重、成本或门槛。",
+    "内部参考账户可有高于50%的仓位，只有末端6个完整账户受当前尾部约束；内部绩效不能晋升为本轮主候选。"
+  ],
+  "new_data_collection": false,
+  "orders_authorized": false,
+  "goal_achieved": false
+}
