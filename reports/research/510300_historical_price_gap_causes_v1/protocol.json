@@ -1,0 +1,83 @@
+{
+  "study_id": "510300_HISTORICAL_PRICE_GAP_CAUSES_V1",
+  "question": "相同的出厂减购进价差改善，来自售价走强、成本下降或两者同降时，510300公布后可成交收益是否不同；订单状态能否区分？",
+  "new_information_relative_to_old_study": "旧实验使用价差水平与价格资金近邻。本轮拆解价差月度变化，并用同月新订单及其变化区分经济含义；不重跑或改动旧账户。",
+  "sample_stat_months": [
+    "2022-05",
+    "2026-07"
+  ],
+  "primary_stat_months": [
+    "2024-01",
+    "2026-07"
+  ],
+  "earlier_context_stat_months": [
+    "2022-05",
+    "2023-12"
+  ],
+  "sample_rationale": "2022年4月起制造业样本扩展至3200家，5月起可计算同口径月度变化；所复用行情截至2026年9月11日，7月是具有完整20日结果的最新统计月。主段为2024年以来，之前相邻阶段作对照。",
+  "annual_splits": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "price_gap": "出厂价格扩散指数－购进价格扩散指数",
+  "change_identity": "价差变化＝出厂指数变化－购进指数变化",
+  "groups": {
+    "SELLING_STRENGTH": "价差变化>0，购进变化>=0；此时出厂变化必然>购进变化，售价扩散改善更强。",
+    "COST_DOWN_OUTPUT_NOT_DOWN": "价差变化>0，购进变化<0且出厂变化>=0；成本扩散回落，售价扩散不降。",
+    "BOTH_DOWN": "价差变化>0，购进变化<0且出厂变化<0；两者同降，采购扩散下降更快。",
+    "NO_GAP_IMPROVEMENT": "价差变化<=0；作为完整对照保留，并不预设它不利于股票。"
+  },
+  "order_confirmation": "新订单指数>=50且月度变化>0；未满足只能称未获该订单条件确认，不能一律称需求衰退。",
+  "hypothesis": "价差改善不是同质信息；售价与订单支持下的改善，应与成本售价同降且未获订单确认分开理解。是否有收益区分力由本轮完整结果决定。",
+  "source_clock": "统一原公布日日末可用，下一实际交易日开盘开始衡量；仅用当期报告本月行及上期当时报告本月行。",
+  "entry": "原公布日之后首个可用交易日开盘，不含读数公布当日或此前的价格反应。",
+  "horizons_trading_days": [
+    5,
+    20
+  ],
+  "primary_horizon": 20,
+  "horizon_rationale": "5日观察即时反应，20日观察一个月传导；沿用现有研究期限，不寻优。",
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_capital_cny": 200000,
+    "illustrative_event_budget_cny": 100000
+  },
+  "cost_scope": "每个事件独立计算一次往返、100份整手和不利方向报价取整；含持有登记日取得的现金分红权利。这是事件收益算例，未执行账户五日ES或仓位路径，不能称完整账户策略。",
+  "comparisons": [
+    "全部月份",
+    "四个完整构成组",
+    "构成组与订单确认交叉",
+    "主段与相邻较早阶段",
+    "按年结果",
+    "去除各组最好一次后的描述均值"
+  ],
+  "case_selection_before_new_returns": [
+    "主段价差改善最大的三个统计月：2024-06、2026-06、2024-08",
+    "主段价差恶化最大的2026-03作对照"
+  ],
+  "case_selection_basis": "只按本次已读取的分项变化选择说明案例，没有按本轮新计算收益选择；全部其他月份仍保留。",
+  "economic_limits": [
+    "扩散指数差不是利润率",
+    "构成分解不单独识别供应与需求冲击",
+    "缺少同口径事前共识时不计算伪精确预期差",
+    "同期其他政策与消息可影响指数收益"
+  ],
+  "history_limits": [
+    "这些历史行情曾被既有研究使用，不称独立留出样本",
+    "保存的当期原网页不证明不可变首版",
+    "20日事件可能重叠，不按独立日样本夸大有效数量"
+  ],
+  "parameter_searches": 0,
+  "new_forecast_cards": 0,
+  "new_accounts_planned_this_stage": 0,
+  "wait_for_future_data": false,
+  "recorded_at": "2026-09-29T15:48:16.880997+08:00",
+  "new_event_returns_not_yet_computed": true
+}

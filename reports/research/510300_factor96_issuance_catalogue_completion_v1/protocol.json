@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-27T16:25:18.218785+08:00",
+  "study_id": "510300_FACTOR96_ISSUANCE_CATALOGUE_COMPLETION_V1",
+  "phase": "SOURCE_CATALOGUE_CORRECTION_AND_GAP_COMPLETION_ONLY",
+  "base_result_sha256": "1989d9df16f278101b6c7146a6227f71c96328d1c31edf9ed9636b8e8cc6e788",
+  "base_freeze_sha256": "d26668d404db148a96b03c8658072ce40ab1d60619ceb842029cd45d294b7ebb",
+  "targets": 34,
+  "period": [
+    "2015-01-01",
+    "2025-12-31"
+  ],
+  "selection": "首版987个固定查询中全部未完成查询；已完成查询只从已存响应重建清洗字段，不重采。",
+  "title_correction": "只移除明确em高亮标签并还原HTML实体；保留中文引用文件名使用的尖括号。",
+  "issuer_identity": "查询组织ID须完全匹配；原证券代码另存。同组织债券代码和历史代码不自动成为当时A股代码，保留OTHER_CODE_SAME_ORGANIZATION_UNRESOLVED。",
+  "single_response_rule": "只请求第一页，容量1500。实际返回数量须等于声明总量且组织证券文档键无重复才算完整；服务端截断则按不交叠日期中点分割，单日仍不齐保留缺口。",
+  "transport": "2并发、每请求后0.35秒、连接10秒读取25秒，单请求最多2次且仅传输或5xx重试；最多512次HTTP请求，403/429停止。",
+  "partial_window_count_note": "首版received是最后完整解析页累计量，遇重复的当页可能已保存部分新行；同时保留真实保存行数，不覆盖原状态。",
+  "historical_membership_boundary": "658个代码是已存成员表取值并集；组织ID仅用于收集，历史证券代码有效期和更名不因当前目录自动获得证明。",
+  "new_accounts": 0,
+  "new_returns": 0,
+  "full_M06_calendar_established": false,
+  "external_review": "NOT_PERFORMED",
+  "orders_authorized": false
+}

@@ -1,0 +1,261 @@
+{
+  "at": "2026-10-05T13:14:07.837415+08:00",
+  "study": "510300_MACRO_TECHNICAL_FIRST_PASSAGE_V1",
+  "decision": "TECH.R191",
+  "authority": "用户明确加入不同信息源、多因子打分和原宏观分析；允许隔离实验，原策略及原前瞻不改。",
+  "complete_purpose": "docs/510300_MACRO_TECHNICAL_FIRST_PASSAGE_V1.md",
+  "technical_features": [
+    "daily_hist_atr",
+    "weekly_hist_atr",
+    "ema_distance_atr",
+    "momentum5_scaled",
+    "log_relative_volume",
+    "up_volume_balance5",
+    "log_rv_ratio",
+    "body_efficiency"
+  ],
+  "macro_features": [
+    "pmi_orders_level",
+    "pmi_orders_change",
+    "funding_gap_pp",
+    "funding_gap_change5",
+    "financing_net_change5",
+    "financing_buy_activity"
+  ],
+  "candidate_configuration": 1,
+  "new_model_family": "固定三分类树，深度3/每叶60/种子510300191",
+  "paired_control": "同日期、同共同成熟训练池、同唯一性权重的纯技术树",
+  "schedule": "原142个月度更新时间，756日窗口，至少252共同成熟、每类至少10",
+  "label": "复用原3488条首次边界标签；不新增标签，不改变2ATR/1ATR/20收盘退出",
+  "score": "100乘估计净胜率，不是已校准概率；进场沿用估计pB>1且估计净期望>0",
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "costs": [
+    "BASE",
+    "STRESS"
+  ],
+  "new_candidate_accounts_planned": 4,
+  "new_matched_technical_accounts_planned": 4,
+  "original_A_replays_planned": 4,
+  "bootstrap": {
+    "blocks": [
+      20,
+      252
+    ],
+    "resamples_each": 2000,
+    "seed": 510300154,
+    "all_comparisons_retained": true
+  },
+  "old_uses_finite_review": [
+    {
+      "path": "reports/research/510300_conditional_score_policy_v1/result.json",
+      "status": "REJECTED_FROZEN_CONDITIONAL_SCORE_POLICY_V1",
+      "distinction": "旧综合账户评分用途，不是本次共同池首次边界三分类；原账户失败保持。"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/result.json",
+      "status": "COMPLETED_FIXED_NONLINEAR_SCORE_NO_RANKING_EDGE",
+      "distinction": "旧八变量树预测固定五日净收益，本次直接复用首次边界三类标签及原完整退出。"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/result.json",
+      "status": "COMPLETED_FIXED_TEN_FEATURE_SCORE_NO_PRIMARY_INCREMENT",
+      "distinction": "旧十变量五日回报用途不重跑或改阈值。"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/result.json",
+      "status": "COMPLETED_JOINT_EVENT_SCORE_ACCOUNT_POINT_SHARPE_ONLY",
+      "distinction": "旧月度货币公布事件，与本次每个已知日收盘的首次边界用途不同。"
+    },
+    {
+      "path": "reports/research/510300_integrated_macro_micro_prediction_v1/result.json",
+      "status": "FROZEN_NO_RELIABLE_INTEGRATED_INCREMENT",
+      "distinction": "旧82模型预测五日回报，本次标签、技术母集及退出保持原首次边界用途。"
+    }
+  ],
+  "finite_review_not_global_novelty": true,
+  "evidence_role": "DEVELOPMENT_CALIBRATION",
+  "first_vintage": "NOT_CERTIFIED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "overfitting_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "sources": [
+    {
+      "path": "research/macro_technical_first_passage_study_v1.py",
+      "sha256": "9508821cd79b48595eac7acb56945f571662d043fbf3dc4e37faf41cba0c7082"
+    },
+    {
+      "path": "research/macro_technical_first_passage_inputs_v1.py",
+      "sha256": "4074c13708c4b4e494e7b9cf0e74cba1d6f06eb9e994894becb53dad4cc10902"
+    },
+    {
+      "path": "docs/510300_MACRO_TECHNICAL_FIRST_PASSAGE_V1.md",
+      "sha256": "705faf030f55338d59836b26a680ad08bdd20bfe2014734e2f6639c058831c12"
+    },
+    {
+      "path": "tests/test_macro_technical_first_passage_v1.py",
+      "sha256": "e94f0a58cb3c6876ab7624ebe9282cdd59e0c945db40aa93d61486675368430d"
+    },
+    {
+      "path": "reports/research/510300_macro_technical_first_passage_v1/tests_receipt.json",
+      "sha256": "8ccc351c7358d75062d712ff86b8f0ffcec5c2b1be4d993988f3c3da509bf2ef"
+    },
+    {
+      "path": "reports/research/510300_macro_dynamic_reframe_v1/inputs/pmi_new_orders.parquet",
+      "sha256": "442ab2ec5f0f5a4f89f91b61e896d9bb1a79a79a8d48a6923b301d866aeb9be4"
+    },
+    {
+      "path": "reports/research/510300_factor96_funding_relief_v1/daily_features_lag1.parquet",
+      "sha256": "623ae2b155e5733c7146a93da9c85aecf70330bd6109ffdf8794a4222a0817c3"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/margin_corrected_20240808.parquet",
+      "sha256": "37b16c8bf60dcc224bac7109d747bbf62c3402527ccfe27196cf3dea9163976b"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/correction_receipt.json",
+      "sha256": "d7479f1e435cbde47b4dd1bcd2af4ba8c98510593d39ce2ab7e634551ce8886c"
+    },
+    {
+      "path": "reports/research/510300_volume_lead_price_confirm_explanation_v1/results/四原案例逐日全部量价及量先恢复状态.parquet",
+      "sha256": "11c7f7d5bed4351d2c2c341fcebeb4c7479ae00f68fc5c5e1ab214ff83ba69c1"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/上涨段全集.parquet",
+      "sha256": "7f2e8b91cae86c364eaa4105c382c894cb4dcc76c4f8c3b53a3e91416dfffdb6"
+    },
+    {
+      "path": "reports/research/510300_point_first_passage_study_v1/results/原点全部技术特征.parquet",
+      "sha256": "2bf622b8f1a83d17a58b91ea0ae94cd84c190329ab7b784d9cc9c53393a5de81"
+    },
+    {
+      "path": "reports/research/510300_point_first_passage_study_v1/results/原点首次边界参考结果.parquet",
+      "sha256": "7d80296f98caf910e453fda2de4571ed3b1b028e723d2ea94bc39e59faf79790"
+    },
+    {
+      "path": "research/point_first_passage_inputs_v1.py",
+      "sha256": "3fd2417f15181c0f6e8aebccf01d3ddac80e678a99d543e90a7727a3312309fb"
+    },
+    {
+      "path": "research/point_first_passage_account_v1.py",
+      "sha256": "aa02f183c9bf21434906370be4f47e6a29c4bee83896b0c0e447bc71fd341edf"
+    },
+    {
+      "path": "research/point_first_passage_study_v1.py",
+      "sha256": "dd1dc78d81200aadde09cc64e0e08acfd5bf92b11eecbf0167b86b0e98eee9ad"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/point_account_nr7_complement_v1.py",
+      "sha256": "fa2585dd4101578668d3a17eb911085659c1273fc40a1598ddded9253457803b"
+    },
+    {
+      "path": "research/point_directional_confirmation_study_v1.py",
+      "sha256": "1d2941f19edd61a08da2eaaa13c04b9cbe4af8b74a0819c8affd32fc8f9e221a"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_conditional_score_policy_v1/result.json",
+      "sha256": "75d300b5cb359d096871c8811e41b4ccfa31bd79e4692a1b1a9e5eb6381df155"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/result.json",
+      "sha256": "58b7bc03bc6067185917e16986b6d92d82b719db40089eb1d641364df25ed2ae"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/result.json",
+      "sha256": "580be9689b77bc369d2dcf9fb2a2b429fd74cac317d074dda5f7b7cc0b17804e"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/result.json",
+      "sha256": "9a3f4d099cb0f86e27e0d723bc990e53a1a09853f347b486ce989fb35b24302c"
+    },
+    {
+      "path": "reports/research/510300_integrated_macro_micro_prediction_v1/result.json",
+      "sha256": "07b2463b2816ca50157046bc763d4b145e633113f45e7b42335caba0f8601f0c"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    }
+  ]
+}

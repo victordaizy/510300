@@ -1,0 +1,131 @@
+{
+  "study_id": "510300_OPTION_VOLATILITY_ACCOUNT_RISK_V1",
+  "frozen_at": "2026-09-24T11:09:14.878769+08:00",
+  "mandate": {
+    "recorded_date": "2026-09-24",
+    "user_request": "继续，我要一年从期权10万做到二十万",
+    "drawdown_clarification": "先看不同回撤下的结果",
+    "executable_research_assets": [
+      "SSE_510300_ETF_OPTIONS",
+      "CASH_CNY"
+    ],
+    "initial_capital_cny": 100000,
+    "one_year_target_equity_cny": 200000,
+    "one_year_target_net_return": 1.0,
+    "target_net_sharpe": 1.3,
+    "minimum_complete_cycles_each_full_calendar_year": 5,
+    "drawdown_budget_status": "比较情景，尚未选择实盘可接受档位",
+    "risk_scenarios": [
+      {
+        "id": "R1_D10",
+        "risk_fraction_per_position": 0.01,
+        "drawdown_exit_line": 0.1
+      },
+      {
+        "id": "R2_D20",
+        "risk_fraction_per_position": 0.02,
+        "drawdown_exit_line": 0.2
+      },
+      {
+        "id": "R4_D30",
+        "risk_fraction_per_position": 0.04,
+        "drawdown_exit_line": 0.3
+      }
+    ],
+    "new_market_data_collection": false,
+    "orders_authorized": false,
+    "broker_connection_authorized": false,
+    "return_guarantee": false,
+    "supersedes": "此前20万元本金；10%回撤改为包含10%、20%、30%退出线的固定研究比较，非实盘风险承诺",
+    "old_results": "原有结果和协议完整保留，新的目标不能改写旧研究结论"
+  },
+  "scope": "现有预测到资金账户的固定映射；不重新训练、不改变翼宽、期限、特征或预测参数",
+  "policies": {
+    "MODEL_POSITIVE_EXPECTANCY": "每个决策日从波动率模型的两结构中选择单位事前风险净期望最高且大于0者；无正期望则空仓",
+    "EMPIRICAL_POSITIVE_EXPECTANCY": "完全相同规则，但使用已保存的成熟样本经验预测",
+    "ALWAYS_PROTECTED_SHORT_REFERENCE": "有事前可选合约便使用保护性卖出跨式；仅用于成本和保证金对照，非推荐方案"
+  },
+  "selection_clock": "原决策日收盘后选择，下一交易日开盘代理价格入场，沿用原第10持有交易日退出；一套组合在仓时不新增另一组合",
+  "selection_fields": [
+    "decision_date",
+    "observed_date",
+    "entry_date",
+    "label_end_date",
+    "structure",
+    "model",
+    "known_risk_scale_cny",
+    "expected_net_risk_unit",
+    "p_win",
+    "conditional_gain",
+    "conditional_loss",
+    "fit_date"
+  ],
+  "leg_fields": [
+    "decision_date",
+    "structure",
+    "leg_number",
+    "contract_code",
+    "option_type",
+    "strike",
+    "side",
+    "historical_unit",
+    "prior_close"
+  ],
+  "future_label_fields_never_used": [
+    "label_status",
+    "target_profit",
+    "target_BASE",
+    "target_STRESS",
+    "pnl_BASE_cny",
+    "pnl_STRESS_cny",
+    "entry_open",
+    "exit_close"
+  ],
+  "risk_profiles": [
+    {
+      "id": "R1_D10",
+      "risk_fraction": 0.01,
+      "drawdown_exit_line": 0.1
+    },
+    {
+      "id": "R2_D20",
+      "risk_fraction": 0.02,
+      "drawdown_exit_line": 0.2
+    },
+    {
+      "id": "R4_D30",
+      "risk_fraction": 0.04,
+      "drawdown_exit_line": 0.3
+    }
+  ],
+  "position_sizing": "决策时按当时净值×风险预算/已知风险尺度向下取整；另限制为前一观察日每腿成交量与持仓量最小值的1%，不因次日价格变好而扩大数量",
+  "entry_limits": "次日开盘组合的最大到期损失加双边费用不得超决策预算；现金需覆盖开仓费用、借助逐腿裸空保证金计算的过渡准备金；否则整组不成交",
+  "risk_bound": "最大到期损失用于仓位，不保证盘中或提前平仓时损失不会因价差、跳空、手续费而超出",
+  "margin": "保护性卖跨式拆成认购熊市价差与认沽牛市价差，保守相加两侧宽度×单位，再乘1.2；开仓另保留两条短腿逐腿裸空保证金的1.2倍过渡准备金；经纪商规则未实测",
+  "cash_accounting": "权利金收支计入现金，同时期权资产/负债逐日盯市；收取权利金不等于利润；保证金冻结但不重复作为费用扣减",
+  "mark_to_market": "当日收盘价乘当日有效合约单位逐腿相加；均为日线价格代理，不是同步买卖报价",
+  "dividends": "从M标准单位与行权价开始；在除息日按原单位×前收盘/(前收盘−现金红利)四舍五入取整数，再按原行权价×原单位/新单位保留3位；只读取当日及此前事件",
+  "adjustment_checks": "每日官方合约简称中的调整后行权价与重建条款交叉核对，不用最终合约快照反填早期选择",
+  "unknown_prior_labels": "不依据原标签是否未知拒绝交易；账户独立沿当时所持合约路径估值和退出",
+  "missing_quotes": "入场缺乏有效开盘印记时不成交；持仓估值缺失则只为维持账簿沿用上一有效标记并标为不完整，待可观察组合开盘退出，不将缺失记零收益；有此问题的账户不能宣称有效达标",
+  "cost_scenarios": {
+    "BASE": "每腿每侧5元，加max(2个最小报价单位,0.5%权利金)不利滑点",
+    "STRESS": "每腿每侧5元，加max(5个最小报价单位,1%权利金)不利滑点"
+  },
+  "drawdown_action": "收盘净值从累计峰值回撤达到该档退出线，次日开盘清仓并全期停止新开仓；不按年重置失败账户",
+  "annual_days": 242,
+  "cash_and_risk_free_return": 0,
+  "calendar": "从首个已保存预测日开始至原日线2026-08-14；缺预测时持现金或延续既有持仓，空仓日全部计入",
+  "year_reports": "完整自然年与部分年份分开；滚动一年使用日历周年日之后第一个交易日，记录实际天数；滚动净值片段不等同于每个起点重新投入10万元",
+  "doubling_interpretation": "自然年或滚动一年净收益100%是历史描述，不将事后找到的最佳窗口当作未来翻倍概率或稳定证明",
+  "historical_data_previously_seen": true,
+  "independent_holdout": false,
+  "no_new_fits": true,
+  "no_new_downloads": true,
+  "orders_authorized": false,
+  "references": [
+    "https://www.sse.com.cn/lawandrules/sselawsrules2025/option/c/c_20250610_10781452.shtml",
+    "https://star.sse.com.cn/assortment/options/guide/c/c_20161121_4201435.shtml",
+    "https://www.sse.com.cn/assortment/options/disclo/update/c/c_20260116_10805396.shtml"
+  ]
+}

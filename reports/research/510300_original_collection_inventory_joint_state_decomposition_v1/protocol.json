@@ -1,0 +1,200 @@
+{
+  "experiment_id": "E112",
+  "study_id": "510300_ORIGINAL_COLLECTION_INVENTORY_JOINT_STATE_DECOMPOSITION_V1",
+  "registered_at": "2026-10-04T20:52:08.153101+08:00",
+  "status": "REGISTERED_BEFORE_SINGLE_LOCAL_JOINT_STATE_RUN",
+  "question": "在原79完整联合状态中，回款量和时间、库存量和周转的不同组合怎样同时出现和转换？原复合条件False究竟来自哪种组合，并存利润改善是否仍带回款或库存约束？",
+  "hypothesis": "量的同比与周转时间可能背离；利润改善与现金或库存约束可能并存，单一布尔False不足以代表整体修复",
+  "unit_of_analysis": "同一原共同钟的融资价/量、订单、收入利润、回款量/时间、库存量/时间、合格实际价格和有年龄基金状态；保留未知，不合成为线性总分",
+  "fixed_original_population": {
+    "industrial_periods": 79,
+    "original_member_union": 1711,
+    "original_score_dates": 1212,
+    "next_same_scope_relations": 76
+  },
+  "fixed_state_codes": [
+    {
+      "code": "C11",
+      "label": "应收增速高于收入且回收延长",
+      "quantity_condition": ">",
+      "time_condition": ">0"
+    },
+    {
+      "code": "C10",
+      "label": "应收增速高于收入但回收未延长",
+      "quantity_condition": ">",
+      "time_condition": "<=0"
+    },
+    {
+      "code": "C01",
+      "label": "应收增速未高于收入但回收延长",
+      "quantity_condition": "<=",
+      "time_condition": ">0"
+    },
+    {
+      "code": "C00",
+      "label": "应收增速未高于收入且回收未延长",
+      "quantity_condition": "<=",
+      "time_condition": "<=0"
+    },
+    {
+      "code": "I11",
+      "label": "库存增速高于收入且周转延长",
+      "quantity_condition": ">",
+      "time_condition": ">0"
+    },
+    {
+      "code": "I10",
+      "label": "库存增速高于收入但周转未延长",
+      "quantity_condition": ">",
+      "time_condition": "<=0"
+    },
+    {
+      "code": "I01",
+      "label": "库存增速未高于收入但周转延长",
+      "quantity_condition": "<=",
+      "time_condition": ">0"
+    },
+    {
+      "code": "I00",
+      "label": "库存增速未高于收入且周转未延长",
+      "quantity_condition": "<=",
+      "time_condition": "<=0"
+    }
+  ],
+  "complete_joint_cells": [
+    "C11_I11",
+    "C11_I10",
+    "C11_I01",
+    "C11_I00",
+    "C10_I11",
+    "C10_I10",
+    "C10_I01",
+    "C10_I00",
+    "C01_I11",
+    "C01_I10",
+    "C01_I01",
+    "C01_I00",
+    "C00_I11",
+    "C00_I10",
+    "C00_I01",
+    "C00_I00"
+  ],
+  "native_comparison_rule": "量以原应收/库存同比与原同范围收入同比比较，时间以原同比天数差和0比较；>与<=原语义固定，不调交易阈值。缺失/非有限值UNKNOWN，不进入<=。",
+  "same_clock_rule": "只复制原E110当前量和E109同钟全部共同背景；原下一公布量和原因仅作历史结果，不进当前状态。",
+  "transition_rule": "沿原E110全部76同范围/自己的公开时间在当前截止之后的下一原公布；跨年累计重置及缺1月照原样保留并标注，不删或跳期。其他3原身份UNKNOWN。",
+  "complete_transition_matrix": "全部16当前格×16下一格，保存256单元，包括0与未知计数，不按结果选格。",
+  "old_outcomes_and_baselines": "复制原E110三个经营布尔结果/A—H/四基准及分母，不以新16格替代；表中每个结果列完整真例和反例、原个体身份。",
+  "coexistence_rule": "原利润同比>0只作当前并存事实，与回款/库存状态同时展示，不据结果再细分或挑金融样本。",
+  "observed_run_rule": "同格相邻且原实际日历月份相隔1、三原范围相同才可见连续；缺1月/范围切换/末端是观察边界，不声称独立事件或独立新样本。",
+  "unknown_and_empty_rule": "空格COUNT0，结果比例NOT_COMPUTED；字段/范围/下一公布未知单独保留。原价格缺自身钟的数值不升格为当前可知输入。",
+  "financial_budget": {
+    "local_descriptive_joint_state_experiments": 1,
+    "source_queries": 0,
+    "raw_GETs": 0,
+    "new_financial_candidates": 0,
+    "new_model_fits": 0,
+    "new_stock_labels_generated": 0,
+    "stock_labels_read": false,
+    "new_full_accounts": 0,
+    "source_code_edits": 0
+  },
+  "price_financial_gate_unchanged": {
+    "completed_at": "2026-10-04T19:45:52.842866+08:00",
+    "status": "LIMITED_ORIGINAL_NBS_PRICE_ROUTE_ENDED_NO_FINANCIAL_ADMISSION",
+    "original_period_count": 79,
+    "full_price_quantity_table_pass_count": 53,
+    "own_quantity_and_clock_pass_count": 44,
+    "original_member_count": 1711,
+    "own_price_source_member_pass_count": 938,
+    "original_score_date_count": 1212,
+    "own_price_score_date_pass_count": 744,
+    "fully_supported_original_mature_pool_count": 0,
+    "all_79_periods_joint_gate_pass": false,
+    "all_1711_members_joint_gate_pass": false,
+    "all_1212_scores_and_original_training_pools_gate_pass": false,
+    "all_original_identities_preserved": true,
+    "missing_not_zero_or_deleted": true,
+    "original_pool_parent_hash_unchanged": true,
+    "financial_admission": false,
+    "no_requeries_or_raw_retries_or_alternate_carriers": true,
+    "E108_2020_price_cause_unknown_preserved": true,
+    "historical_first_vintage_authenticated": false,
+    "independent_validation": false
+  },
+  "parents": [
+    {
+      "path": "reports\\research\\510300_original_operating_counterexample_causes_v1\\protocol.json",
+      "sha256": "5b8eb8910af2db2eadcee6ecfe8d596077f69fa19d57615e921ded6eadfb4af6"
+    },
+    {
+      "path": "reports\\research\\510300_original_operating_counterexample_causes_v1\\source_gate.json",
+      "sha256": "2fa5a77c5fa2832483e4e88724ec7a793f5167efdfad0bf42a3461a0e8afdd99"
+    },
+    {
+      "path": "reports\\research\\510300_original_operating_counterexample_causes_v1\\三原反例_完整同钟多维状态与主要及竞争原因_E111.json",
+      "sha256": "3d7a8ca5cad22b3d959175a12cc72f5f496c80e96c85c4b5370ae62aef58b958"
+    },
+    {
+      "path": "reports\\research\\510300_original_operating_counterexample_causes_v1\\研究裁决_经营原因与现金因果边界_E111.json",
+      "sha256": "8388444b1e26593b0cbe443e3546b9fdd0cfa8718522c4bb294da412a094b2a5"
+    },
+    {
+      "path": "reports\\research\\510300_joint_operating_state_continuity_counterexamples_v1\\result.json",
+      "sha256": "37fb9863ccb2321712d439897b92ed5437cd5f2b3f30aba558a30f3ee83dbdbc"
+    },
+    {
+      "path": "reports/research/510300_original_operating_counterexample_causes_v1/next_experiment.json",
+      "sha256": "6f46397615e3fb5760e875a702e70d35d91dec5ddfa197ebae7924b93d1ff995"
+    },
+    {
+      "path": "reports/research/510300_original_operating_counterexample_causes_v1/result.json",
+      "sha256": "c0911edf619e60b365a089ee0e296f7f24dba07cca4338473c060bb5a0c1b086"
+    },
+    {
+      "path": "reports/research/510300_joint_operating_state_continuity_counterexamples_v1/protocol.json",
+      "sha256": "c0b877e31ab2cf7960eb91641fad9c07cf183f351d35143c735f788397b7e5fe"
+    },
+    {
+      "path": "reports/research/510300_joint_operating_state_continuity_counterexamples_v1/全部79原身份_同钟共同条件与下一原经营公布_未知保留.json",
+      "sha256": "aa07331bfbb0b4cb32f3fe16fd42b0b70f806a4ac8a69f7a954803a375535c2d"
+    },
+    {
+      "path": "reports/research/510300_original_producer_price_full_joint_source_v1/全部79原期_实际价格资金订单回款库存利润与有年龄基金共同状态_v1_0_1.json",
+      "sha256": "74a0c02071c4947280b435492eb8df29ca3105d130f263c2d64a39f3116df714"
+    },
+    {
+      "path": "reports/research/510300_original_producer_price_full_joint_source_v1/source_gate_v1_0_1.json",
+      "sha256": "aca5cfb734292284bfbad4d224980da16afb94cb73ad1c05f22e825420a345a2"
+    },
+    {
+      "path": "reports/research/510300_enterprise_multidimensional_original_state_discovery_v1/protocol.json",
+      "sha256": "bea1c6903bd65ac5d525c415694f9c9b90294736464fbb6dc8bb7553d626b1c4"
+    },
+    {
+      "path": "reports/research/510300_original_collection_inventory_joint_state_decomposition_v1/有限已有用途界定与解释侧表准入_E112.json",
+      "sha256": "ef69d854934b06bade4334f547b5b7eb0c55f7911778c36a9158ad11d472063d"
+    }
+  ],
+  "original79_1711_1212_identities_preserved": true,
+  "fixed_old_conditions_outcomes_baselines_and_denominators_unchanged": true,
+  "one_local_execution_only": true,
+  "new_linear_regressions": 0,
+  "new_simple_weighted_scores": 0,
+  "no_optimization": [
+    "不搜索阈值、窗口、费用、符号或最有利组合",
+    "不救已拒E100/E106及原价格/原因缺钟路线",
+    "不删未知、不将空格当成功或失败、不把连续月当独立样本",
+    "不以联合格观察宣布预期差、指数Alpha或达标"
+  ],
+  "case_and_source_already_observed": true,
+  "historical_first_vintage_authenticated": false,
+  "independent_validation": false,
+  "financial_admission_pass": false,
+  "net_sharpe": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "prospective_forecasts": false
+}

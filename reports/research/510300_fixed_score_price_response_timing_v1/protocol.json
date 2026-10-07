@@ -1,0 +1,120 @@
+{
+  "study_id": "510300_FIXED_SCORE_PRICE_RESPONSE_TIMING_V1",
+  "experiment_id": "E22",
+  "recorded_at": "2026-10-02T13:09:57.438929+08:00",
+  "status": "REGISTERED_FIXED_HISTORICAL_PRICE_RESPONSE_TIMING_DIAGNOSTIC",
+  "previous_goal_turn_classification": "PROGRESS_E20_SOURCE_VERSION_GAP_AND_E21_CONFIRMED_INPUT_ERROR_CORRECTION_COMPLETED",
+  "question": "原高分无后续净收益，是否主要表现为信号形成前已上涨、买入后缺乏收益？",
+  "research_scope": "指数历史解释；原E21保存评分及自然机会，不产生新交易候选。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "score_pool": {
+    "each_model": 1212,
+    "primary": 485,
+    "earlier": 727,
+    "feature_sets": [
+      8,
+      10
+    ],
+    "existing_five_bands": [
+      "0—20",
+      "20—40",
+      "40—60",
+      "60—80",
+      "80—100"
+    ]
+  },
+  "opportunity_pool": "只复用E21固定score>=80且预测>0的非重叠机会；主期两模型各9笔，保留全部记录，不改阈值、方向或持有。",
+  "definitions": {
+    "pre20_total_return": "wealth[i]/wealth[i-20]-1，原指数趋势分子，包含信号日；不是20日前即可知道的预测。",
+    "pre19_before_signal_total_return": "wealth[i-1]/wealth[i-20]-1，仅作与信号日的复利恒等式分解，非另选19日窗口。",
+    "signal_day_total_return": "直接复用原total_simple[i]；不能加到已经包含它的pre20。",
+    "raw_next_open_quote_gap": "open[i+1]/close[i]-1，只有次日开盘后实际可观察，不能作为原16点信号输入。",
+    "dividend_aligned_next_open_gap": "(open[i+1]+dividend[i+1])/close[i]-1，与原overnight_log[i+1]复算；为既有持有人除息对齐的价格段，不声称次日新买者有此权益或可赚该缺口。",
+    "executable_net5": "只复用E21 actual_net5/net_label，次日开盘入/第5交易日开盘出，原10000股权益及成本不变；不计算新的持有期标签。",
+    "ranking_prediction": "直接复用E21分数/树预测，不重新拟合。"
+  },
+  "display": "两模型、两个原时期的全部五档均保留；逐笔列出全部自然机会及上述分段，每期仅描述均值/中位数/符号计数。",
+  "fixed_interpretation_rule": "若主期自然高分机会pre20平均为正且原net5平均非正，只接受该固定池中的先涨后无净收益事实；否则不接受该简单叙述。无论哪项，都不凭时间先后证明完全信息吸收、机制因果或提前成交优势。",
+  "inference_limits": "五日标签重叠，九笔机会少且日期集中；历史已观察。不开显著性扫描，不追加分组或找最佳窗口/退出；不利用未来峰值。",
+  "anti_overfit": "只固定算术诊断，不改变模型、特征、成本、账户、阈值、年份或原拒绝；负收益不反向交易。",
+  "new_source_acquisitions": 0,
+  "new_labels": 0,
+  "new_fits": 0,
+  "new_full_accounts": 0,
+  "parameter_grids": 0,
+  "source_code_edits": 0,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "parents": [
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/protocol.json",
+      "bytes": 7791,
+      "sha256": "e7ac9363d11abc118d07b444536e23e4602c33e6e445d6442dae23868c5de523"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/result.json",
+      "bytes": 15001,
+      "sha256": "355b2b53c040c37e808ed8180b4f7184b0d4ee86dda6fa934f72d3fc92fc47ed"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/next_experiment.json",
+      "bytes": 1687,
+      "sha256": "5efbfe25c7e5248144de746e1ab0936355fbe42b9282c7f9322d037204982628"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/保存结果必要核对.json",
+      "bytes": 761,
+      "sha256": "334553e77db90850ea19420a78bb8f6032fad54e1939bfb3cb34573d25d76069"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错八变量历史输入及原标签.parquet",
+      "bytes": 1874361,
+      "sha256": "c6be6dcf35dbff5f162980115de43acc498a15c0bd116b0f003d009c7ec712e7"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错十变量历史输入及原标签.parquet",
+      "bytes": 1904058,
+      "sha256": "0ccb9e91f03abc5d6ab543cb0c0551cc900ce3738327fb263dbe597c0b12dad0"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量每日联合评分.csv",
+      "bytes": 182577,
+      "sha256": "554a2ec51bd1844409fe396167f4dd8ee381796912253481478c3dcec6ce9a68"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错10变量每日联合评分.csv",
+      "bytes": 347445,
+      "sha256": "98f1b3b31e5b57a79a208e4ad7cbbfdf2558e7112eb30766a3ccd04ede55257d"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/固定高分不重叠机会.csv",
+      "bytes": 20681,
+      "sha256": "5921de9ca46c64dd6c89fa93a971c647f34666ef3de94a1fdb17c531476d6ceb"
+    },
+    {
+      "path": "data/reference/510300_dividends.csv",
+      "bytes": 2021,
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "research/multidim_nonlinear_score_v1.py",
+      "bytes": 26073,
+      "sha256": "baba71bf5e3c56a9c6f173f5762ccb3ffc472c0718dcd01ad5cb003a8ad9c34b"
+    },
+    {
+      "path": "research/multidim_policy_transmission_score_v1.py",
+      "bytes": 34787,
+      "sha256": "114f1e2966936bedd0c87ccf031a2c016c4eb6e8198f1338add425cbce514f48"
+    }
+  ]
+}

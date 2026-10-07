@@ -1,0 +1,9 @@
+# 交付导航
+
+先读研究结论.md，再看main_pass_14_with_target_change.csv和target_change_result.json。完整22模型对照为deduplicated_candidate_comparison.csv；所有2710行和214个来源分别在all_saved_metric_rows.csv、metric_source_inventory.csv。
+
+source_snapshot保留本轮实际使用的原配置、指标、裁决、较早时期和保存周期，身份见source_snapshot_manifest.json。inputs/previous_1_5_saved_screen.json用于6至14的目标变化比较。用户当前1.3指令快照见source_snapshot/config/510300_existing_data_training_mandate_v1.json。
+
+可用Python运行source_snapshot/scripts/review_510300_saved_candidates_sharpe13_v1.py，从包内来源生成同一筛查结果。该入口只重算保存表格，不拟合模型、运行策略账户或下载数据。输出位于source_snapshot/reports/research/510300_saved_candidates_sharpe13_v1；若该目录已经存在完成结果，入口会拒绝覆盖。
+
+FILE_INDEX.csv覆盖ZIP内全部其他成员。根目录delivery_receipt.json在ZIP外生成，记录新解压目录复算与压缩包身份。finish脚本是原工作区报告生成工具，不是便携入口。

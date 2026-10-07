@@ -1,0 +1,40 @@
+{
+  "study_id": "510300_SELECTED_MIX_REAPPRAISAL_V1",
+  "at": "2026-09-25T11:36:10.836687+08:00",
+  "strategy": "SELECTED_MIX_BAND10_SIMPLE2",
+  "primary_question": "高过拟合风险是否足以断言不存在真实优势，以及原版能否按固定规则完整复现。",
+  "hypotheses": [
+    "正期望存在，但历史筛选放大了绩效",
+    "主要收益来自选择偶然性",
+    "存在环境依赖且当前信息不足以区分"
+  ],
+  "fixed_original": {
+    "weights": [
+      0.85,
+      0.15
+    ],
+    "outer_weight_band": 0.1,
+    "signal_window": 60,
+    "costs": "原BASE/STRESS",
+    "annual_days": 242,
+    "initial_capital": 200000,
+    "model_coefficients": "原保存月度模型，按原成熟时钟使用，不重新拟合"
+  },
+  "reproduction": "主历史从各依赖节点的原起点重建22条账户至2026-09-16；与最后正式账本逐日比对，不从最终收益反推交易。较早四场景中的早期两账户直接复算。",
+  "unchanged_original_end": "原来收盘估值的主历史仍用收盘；早期2019-12-31原终点开盘清算单独保留，不拼接两段净值。",
+  "statistics": "复用已有5/20/60日区块区间及完整50/60/70日邻域；本次不再抽样择优，不运行删减模型。",
+  "important_limits": [
+    "两段历史都参与过选优，因此较早区间不是独立留出。",
+    "完整邻域变体沿用60日版学习系数，只检验冻结系统输入扰动，不是重新训练后的50/70日算法。",
+    "简单核心同时移除多个模块，不能替代完整原版的邻域结果或归因单一模块。",
+    "原试验的选择家族与相关试验数未完整界定，不能给出策略无效的精确概率；DSR及PBO保持未计算。",
+    "利润集中是脆弱性证据，不单独证明过拟合；历史正收益与过拟合膨胀可同时存在。"
+  ],
+  "forward_check": "核对原研究起点后的真实记录日、按时到达日、有仓日、成交和完整周期；禁止把空仓零收益当交易能力验证。",
+  "current_mandate_compatibility": "本轮原样复核具有窄范围历史例外；原策略不自动满足新提案的两年日更及50%库存预算，不能静默改规则。",
+  "goal_achieved": false,
+  "new_candidates": 0,
+  "new_parameter_search": false,
+  "new_market_downloads": 0,
+  "orders_authorized": false
+}

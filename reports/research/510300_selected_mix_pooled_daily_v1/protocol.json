@@ -1,0 +1,67 @@
+{
+  "study_id": "510300_SELECTED_MIX_POOLED_DAILY_V1",
+  "at": "2026-09-25T12:44:57.900018+08:00",
+  "primary": "POOLED_DAILY_TWO_YEAR_TAIL",
+  "question": "仅D60成熟周期稀少时，三类原价格过程共享斜率且保留类别差异，能否改善两年每日退出。",
+  "change_from_parent": "只更换学习退出的训练来源与估计结构；保持父实验价格信号、每日风险预算、最终仓位约束、费用和评价起止。",
+  "reference_signals": [
+    "D60_INTRA",
+    "S1_TREND_REBOUND",
+    "R2_Z_CONFIRM"
+  ],
+  "new_reference_reconstructions": 2,
+  "reused_D60_reference": true,
+  "training": {
+    "window": "最近两个日历年，完整周期入场>=窗口起点且退出索引<决策索引。",
+    "minimum_total_cycles": 10,
+    "minimum_cycles_each_signal": 3,
+    "minimum_rows": 100,
+    "state_features": [
+      "log_holding_days",
+      "cycle_return",
+      "cycle_drawdown",
+      "entry_mode",
+      "mom5",
+      "mom20",
+      "sma120",
+      "vol20"
+    ],
+    "ridge_alpha": 1.0,
+    "feature_clip": 5.0,
+    "weights": "三类过程各占相同总权重，每类内每周期等权、周期内每状态等权；总权重仍为周期数。",
+    "ridge_model": "共同八项斜率，三类过程各有未惩罚截距；实际D60预测采用D60截距。",
+    "within_model": "共同八项周期内斜率，每周期有未惩罚截距；实际预测只取成熟D60周期截距等权均值。",
+    "refresh": "每交易日重新检查并拟合；资格失败不延续过期系数，按原价格退出。",
+    "sample_dependence": "三类过程可重叠且共享510300价格；周期数量不解释为独立样本，单独披露重叠组。"
+  },
+  "primary_comparators": [
+    "父实验DAILY_TWO_YEAR_MIN5_TAIL",
+    "父实验ORIGINAL_TAIL"
+  ],
+  "target": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "tail_contract": {
+    "position_target_cap": 0.5,
+    "five_day_ES95_budget_fraction": 0.025,
+    "gap_stress_return": -0.1,
+    "gap_budget_fraction": 0.05,
+    "drawdown_headroom_share": 0.5,
+    "stop_drawdown": 0.1,
+    "distribution": "两年内已成熟的次开盘至第六开盘含分红五日收益；匹配当时20日动量正负状态，至少60条，否则使用同窗全部成熟样本；不足60不新增风险。",
+    "fees": "新增调仓及未来退出的佣金和不利价格单位滑点计入事前预算。",
+    "band": "风险上限优先于10个百分点调仓带；资料未知不能新增买入，仍可按已知风险减仓。",
+    "gap_execution": "预算按决策收盘检查；次开盘成交仍受现金、T+1和涨跌停约束。收盘仓位可因价格变化偏离目标，风险预算不保证最大回撤。",
+    "stop": "收盘回撤达到10%后下一可卖开盘申请清仓，本轮不重新开启。"
+  },
+  "planned_new_accounts": 2,
+  "planned_internal_graph_accounts": 22,
+  "new_parameter_grid": 0,
+  "statistics": "复用父实验20日区块、2000次，固定种子20260926，比较同日完整账户。",
+  "evidence_class": "此前查看过历史后的新固定开发假设，不是独立验证。",
+  "new_market_collection": false,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

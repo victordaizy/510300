@@ -1,0 +1,103 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_US_RATES_TRADE_Q2_V1",
+  "recorded_at": "2026-10-01T15:01:21.858627+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "previous_result": "reports/research/510300_historical_index_us_rates_policy_v1/result.json",
+  "mode": "HISTORICAL_DISCOVERY_ONLY",
+  "research_unit": "沪深300整体与510300，不扩展个股",
+  "question": "相邻2019Q2中，美债下降的构成和政策回应能否解释指数阶段差异？会议内预期路径重定价、交易前等待与新贸易消息是否改变解释？",
+  "calendar": [
+    "2019-04-01",
+    "2019-06-30"
+  ],
+  "baseline_month": "2019-03",
+  "events": [
+    "2019-05-01",
+    "2019-06-19"
+  ],
+  "selection": "季度及全部两次会议承接上轮写明的下一步；历史价格与部分美国事件反应已见，不是独立盲测。",
+  "horizons": [
+    5,
+    20
+  ],
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_event_budget_cny": 100000,
+    "illustrative_full_capital_cny": 200000
+  },
+  "same_return_contract": "完整会议窗口结束之后第一中国交易日开盘买入，入场后5/20交易日开盘卖出；固定窗口，完整保留亏损，不按关税消息撤单重选样本。",
+  "price_context": "此前20/60交易日、前收至开盘缺口、入场后净收益分别计算；不将假期缺口归为纯FOMC效应，也不将已跌部分记作空仓收益。",
+  "monthly_rates": "按中国月末21:00沿旧保守美国日终时钟对齐；同日名义/TIPS内连接，另保留延迟一条美国观测。季度端点及当日PE仅作事后描述。",
+  "intraday": "复用USMPD现有文件，固定2018Q4—2019Q2全部六次预定会议，保留声明、记者会和完整事件三个窗口；OIS及债券百分点乘100转bp，美股/美元原字段是百分比。",
+  "intraday_limits": "2026版历史重建，非2019年数据库下载记录；采用原始报价变化，不拟合PCA、不把单一OIS变化叫纯政策冲击、不设新分组交易规则。",
+  "nearest_old_study": {
+    "path": "reports/research/510300_historical_fomc_transmission_v1",
+    "period": "2022—2025全部32次会议",
+    "status": "HISTORICAL_CAUSES_REVIEWED_NO_ROBUST_OPEN_AFTER_BUY_EDGE",
+    "difference": "新工作是已声明的2019相邻季度机制对照及交易日等待解释；不复活旧利率降股涨买入规则。"
+  },
+  "dkw": "沿已有2025-11-12重估版只作历史构成解释，禁止当成当年输入；保留模型拟合残差与Treasury曲线差异。",
+  "trade_context": "5月5日公开推文、5月10日美方实施、5月13日中方公告、6月29日G20声明；材料时间与经济生效时间分开。已知新闻与持有期新消息不混用。",
+  "sources": [
+    {
+      "id": "fed_20190501",
+      "name": "fed_20190501.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190501a.htm"
+    },
+    {
+      "id": "fed_20190619",
+      "name": "fed_20190619.html",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20190619a.htm"
+    },
+    {
+      "id": "press_20190501",
+      "name": "press_20190501.pdf",
+      "url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20190501.pdf"
+    },
+    {
+      "id": "press_20190619",
+      "name": "press_20190619.pdf",
+      "url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20190619.pdf"
+    },
+    {
+      "id": "trump_20190505",
+      "name": "trump_20190505.html",
+      "url": "https://www.presidency.ucsb.edu/documents/tweets-may-5-2019"
+    },
+    {
+      "id": "china_tariff_20190513",
+      "name": "china_tariff_20190513.html",
+      "url": "https://gss.mof.gov.cn/gzdt/zhengcefabu/201905/t20190513_3256787.htm"
+    },
+    {
+      "id": "g20_20190629",
+      "name": "g20_20190629.html",
+      "url": "https://www.fmprc.gov.cn/web/gjhdq_676201/gj_676203/bmz_679954/1206_680528/xgxw_680534/201906/t20190629_9360943.shtml"
+    }
+  ],
+  "existing_inputs": {
+    "market": "reports/research/510300_macro_dynamic_reframe_v1/inputs/market.parquet",
+    "price": "reports/research/510300_macro_earnings_pricing_bridge_v5/inputs/index_price.parquet",
+    "pe": "reports/research/510300_macro_earnings_pricing_bridge_v5/inputs/pe.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "nominal2018": "reports/research/510300_rmb_residual_state_v1/sources/treasury_2018.xml",
+    "nominal2019": "reports/research/510300_rmb_residual_state_v1/sources/treasury_2019.xml",
+    "dkw": "reports/research/510300_real_yield_company_exposure_v19/sources/DKW_canonical.csv"
+  },
+  "usmpd": "reports/research/510300_historical_fomc_transmission_v1/sources/USMPD_20260930.xlsx",
+  "anti_overfit": [
+    "不延长到多年筛选",
+    "不凭季度结果调方向",
+    "不以新消息删掉亏损",
+    "不调期限或阈值",
+    "不把事件平均转成年化夏普"
+  ],
+  "full_account_runs": 0,
+  "parameters_fitted": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

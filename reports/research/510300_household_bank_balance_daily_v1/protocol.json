@@ -1,0 +1,142 @@
+{
+  "at": "2026-09-26T05:16:11.082968+08:00",
+  "study_id": "510300_HOUSEHOLD_BANK_BALANCE_DAILY_V1",
+  "primary": "PRICE_BANK_CALENDAR_TOTALS_AND_HOUSEHOLD_BANK_BALANCE__FIXED5_NO_ADD",
+  "question": "在同样价格、资金、贷款和存款总量增长下，住户银行存贷净增加差额是否改善五日修复预测与账户？",
+  "new_evidence": {
+    "at": "2026-09-26T05:12:44.678400+08:00",
+    "study_id": "510300_HOUSEHOLD_BANK_BALANCE_SOURCE_V1",
+    "status": "104_RELEASED_HOUSEHOLD_BANK_BALANCE_MONTHS_READY",
+    "source_months": 104,
+    "first_month": "2018-01",
+    "last_month": "2026-08",
+    "joint_ratio_months": 104,
+    "feature": "household_deposit_loan_flow_gap_percent_of_deposits",
+    "feature_range_percent": [
+      -0.5373413417951043,
+      5.4197292069632494
+    ],
+    "negative_flow_gap_months": [
+      "2018-01",
+      "2018-07",
+      "2018-08",
+      "2018-09",
+      "2018-10",
+      "2018-11",
+      "2018-12"
+    ],
+    "household_deposit_direct_cumulative_months": 66,
+    "original_deposit_reporting_intervals": {
+      "YEAR_TO_DATE": 57,
+      "MONTH": 47
+    },
+    "partial_cumulative_202204_used": true,
+    "loan_total_known_during_202204_202205": true,
+    "new_market_downloads": 0,
+    "new_accounts": 0,
+    "new_strategy_returns": 0,
+    "historical_first_vintage_verified": false,
+    "goal_achieved": false
+  },
+  "feature": "100*(住户存款年初累计净增-住户贷款年初累计净增)/当期人民币存款余额。只增加这一项住户行为指标，不从企业、财政或非银部门挑选表现好的指标。",
+  "mechanism": "住户在银行端积累存款同时少借款或偿还贷款，可能对应风险承受能力或资金配置变化；其股票收益方向未知，并受资产交易、存款利息等其他机制影响。不能称为净储蓄或股市买盘。",
+  "duplicate_boundary": "旧贷款期限、M1/M2、社融政府债、资金政策差与IF基差结果保留。新变量来自住户存款与贷款总额的同统计区间差额，不复用旧失败规则。既有历史仍受大量选择影响，不把该用途称独立验证。",
+  "controls": "三组同日期同训练池。CONTROL已包含贷款余额同比，TOTAL加存款余额同比，SIGNAL再加住户差额。所有模型共有统计月份sin/cos，避免累计投放季节性充当信号。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_BANK_CALENDAR_AND_LOAN_GROWTH": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "stat_month_sin",
+      "stat_month_cos",
+      "rmb_loan_stock_yoy_percent"
+    ],
+    "PRICE_BANK_CALENDAR_LOAN_AND_DEPOSIT_GROWTH": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "stat_month_sin",
+      "stat_month_cos",
+      "rmb_loan_stock_yoy_percent",
+      "rmb_deposit_stock_yoy_percent"
+    ],
+    "PRICE_BANK_CALENDAR_TOTALS_AND_HOUSEHOLD_BANK_BALANCE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "stat_month_sin",
+      "stat_month_cos",
+      "rmb_loan_stock_yoy_percent",
+      "rmb_deposit_stock_yoy_percent",
+      "household_deposit_loan_flow_gap_percent_of_deposits"
+    ]
+  },
+  "traded_models": [
+    "PRICE_BANK_CALENDAR_AND_LOAN_GROWTH",
+    "PRICE_BANK_CALENDAR_LOAN_AND_DEPOSIT_GROWTH",
+    "PRICE_BANK_CALENDAR_TOTALS_AND_HOUSEHOLD_BANK_BALANCE"
+  ],
+  "variants": [
+    "ROLL_NO_ADD",
+    "FIXED5_NO_ADD"
+  ],
+  "training": "每日最近两个日历年的成熟五日原点；当前与训练原点的金融统计范围一致，所有累计依赖月报也不早于当前两年下界；至少252原点，固定126近邻，训练均值/样本标准差标准化后截断5。",
+  "known_at": "月报公布日结束之后最近的A股09:00，最长31自然日。2023年新统计范围重新积累样本。2022-04与2022-05住户总贷款已知，不继承旧期限细分的缺口。",
+  "funding": "复用每个当前两年窗嵌套重建的FDR007日历残差，无新增资金参数或回归。",
+  "account": "3信息x2期限x2成本共12新完整账户。只有此前五日弱势才新增，持仓期间不加仓；主五个后续开盘到期，每日尾部约束可提前减仓。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "capital": 200000,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "risk_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "主FIXED5对两个信息对照及同信息ROLL；20日循环区块2000次以及完整月报公布间隔区块2000次，seed2026092609。固定2020-2023、2024-末端、年度、滚动两年全部保留。",
+  "development_gate": "主压力三项目标通过，住户指标对两个信息对照的两种95%区块下界均正，两个固定时期增量均正；依然需要独立前向和首版认证。",
+  "monitor": "固定每5日相位，使用已成熟的q05结果；最近60条突破率>15%记警报，零警报不证明正期望。",
+  "future_source_perturbation_pass": true,
+  "common_information_days": 2014,
+  "new_full_accounts": 12,
+  "new_parameter_searches": 0,
+  "new_funding_regression_fits": 0,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "current_market_view": "NO_VIEW",
+  "orders_authorized": false,
+  "review_package_created": false
+}

@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-25T10:52:28.922711+08:00",
+  "scope": "固定已选两腿、开盘入场和十日后开盘退出，不做持有中减仓的机会集",
+  "uses_future_information": true,
+  "is_strategy": false,
+  "compute_sharpe": false,
+  "relaxations": [
+    "事后完美选择方向、入场与不参与",
+    "允许非整数张数",
+    "每次最坏到期损失含固定手续费最多权益5%",
+    "放松五日ES、回撤余量、流动性数量和保证金限制",
+    "同一资金不重叠占用，允许退出开盘立即开始下一笔"
+  ],
+  "cost": "仍保留父研究压力每腿价格和每张每侧5元；最大损失分母忽略额外退出滑点储备以保持乐观",
+  "censored": "末端未满十日或未知退出的候选按保护价差价值可降至零的最大净信用利润上界计，不当作实际盈利",
+  "limits": "只约束不减仓的固定十日形式；不是所有动态减仓、其他持有期或结构的上限，也不证明可预测性",
+  "files": {
+    "reports/research/510300_protected_put_spread_daily_v1/results/candidates.parquet": "bdde8f12dcb1202c817f9a2a65df89799ed90d763d29c5c3f854b435efadd476",
+    "reports/research/510300_protected_put_spread_daily_v1/results/payoff_labels.parquet": "6d86be061ee21a2d80d2aa694011a1595831cc905a8396769583b1d017fbd187",
+    "reports/research/510300_option_credit_spread_router_daily_v1/results/call_candidates.parquet": "6f9da36f203773e5e13797f2d705e5ef7e378e8c31eaa8634fad76ec44e507fc",
+    "reports/research/510300_option_credit_spread_router_daily_v1/results/payoff_labels.parquet": "7ae120e76a54635a0a244dccf86aa47b7fb973a219d5c8c50028983d35a71227",
+    "reports/research/510300_option_credit_spread_router_daily_v1/inputs/option_eod.parquet": "6c443e4137634633340b72b6c0d8a429ba7a8af8d1b249fbbc4cb3effa82f064",
+    "reports/research/510300_option_credit_spread_router_daily_v1/inputs/daily_terms.parquet": "9357fb881f2c56b6e4351be104a82de7729c5bf567500c201033371624b95ad8"
+  },
+  "script_sha256": "c5075f7b5df12f3a7c55ecae3888d04367c1bcfae3ce2783ed0fb538f67b387a"
+}

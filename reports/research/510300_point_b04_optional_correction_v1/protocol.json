@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-02T21:34:35.682502+08:00",
+  "study": "510300_POINT_B04_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R134",
+  "result_decision": "TECH.R135",
+  "candidate_configurations": 1,
+  "fields": [
+    "post_shock_vol3_ratio",
+    "below_frozen_shock_low"
+  ],
+  "hypothesis": "原可知负收益冲击后1—10日，当前三日波动相对冲击前波动及是否跌破冻结冲击低点，能否在已知时补充原八项周期内继续价值。",
+  "field": {
+    "returns": "原现金经济total_log=log((C[t]+当日已除息cash[t])/C[t-1])；首日未知。rv20/rv3为20/3连续真实交易区间样本标准差ddof1，无年化。为保持恒定窗口真零，std计算中心平移后求样本std，与定义等价，无epsilon。",
+    "shock": "r[e]<-2*std(r[e-20:e-1])，前20真实收益全部有限且std>0；严格边界。首可能事件索引21。接受冲击起点与前接受起点相隔至少10实际市场日，较近冲击不重置。",
+    "stage": "接受冲击e后仅年龄1—10日有两列；e日记录新事件但阶段外未知，11日到期。接受新冲击在当前收盘先重置；同旧年龄10日时新年龄0优先。窗口沿用实际T14，不由支持/收益选取。首次收涨不终止逐日记录。",
+    "post_shock_vol3_ratio": "当前r[t-2:t]样本std/冻结std(r[e-20:e-1])；前3收益按当前最后3真实区间，不另外选后冲击区间；合法0和大于1比例保持。",
+    "below_frozen_shock_low": "L[j]=W[j]*(raw_low[j]+cash[j])/(raw_close[j]+cash[j])。当前L[t]严格小于冻结L[e]为1，相等或较高为0；不增加整个中间路径不破低条件。只在合法阶段且两个字段完整时可用。",
+    "exact_cash_low_comparison": "核验原C/low/cash符合0.001单位、整数缩放误差<=1e-7且安全范围<=1e15，否则拒绝，不修复。以Python整数连乘e+1..t的(C+cash)/前C，乘两端低点映射，交叉乘积严格判小；没有信号容差/额外阈值。"
+  },
+  "clock": "只读当日收盘已发生原OHLC、当日除息现金、原经济收益和此前价格；最新源索引t、最早e-20。没有未来确认/最终低点/未来低波筛选，未取得当日原源保持未知。既有三处OHLC修正属于当前冻结快照；不再改旧数据。原T完整收盘15:05可用，下一合法开盘应用；字段形成不读取收益目标，拟合只复用已成熟原目标。",
+  "different_function": "原TECH.R100仅裁决两列直接追加的全成员支持，0收益模型拟合；另可选两系数函数保留全部原成员及阶段外NaN并精确沿用核心。不重开T03/T14价格或融资入场、不改事件或挑首次收涨，不是新物理信息或独立证据。",
+  "original_members": "原1507状态及142月115可用27未知、全部成熟训练成员/原标签/周期总权重1；最近20/至少10周期100行、原入场锁定与核心尺度/截距保持。",
+  "fit": "仅原波动比及原0/1新低两列，不log/截断原比例、不加年龄/交互/未知指示。已知原训练行按原周期权重标准化clip±5再中心化；未知原值NaN且修正不活动。设计与原目标减固定核心预测分别周期内中心化，beta=(Dx.T W Dx+I2)^(-1)Dx.T W Dy，alpha1、新截距0。全部原行/标签/每周期总权重1、原八项和入场锁定保持；联合未知精确返回原核心、原核心未知双方未知。",
+  "missing": [
+    "不触发/冲击当天/十日阶段外均未知，不补0或延长记忆；真实不破低0只在阶段内完整源时成立。",
+    "收益/价格现金来源未知或20真实前序区间不齐时清空事件与去重记忆；等全20前序区间恢复，再接受新冲击，不跨未知携带或压缩日历。",
+    "冻结事件最低价缺失，该事件阶段两列均未知；当日最低价缺失只该日未知，之后完整低点源可恢复当前相对冻结低点判断。",
+    "原完整快照若经济收益/财富身份或OHLC不合法终止；未知处理仅为字段语义，不修复实际原源。"
+  ],
+  "prediction_gate": "完整原配对、周期等权原收益MSE两期均严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后另冻结20万元252日BASE/STRESS双期完整账户：净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、最大回撤<=10%、次数软目标。",
+  "no_rescue": "不改严格负2倍/20与3日样本std/10日去重和1—10寿命/现金低点/源坐标/原0和比例>1，不加波动已回落筛选/首次收涨确认/丢成员/未知指示/新交互，不log/截断原比例或填0，不改标签/方向/训练/alpha/时期/门，不重跑T03/T14。",
+  "old_R100_direct_two_field_support_gate_passed": false,
+  "complete_B04_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_return_labels": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

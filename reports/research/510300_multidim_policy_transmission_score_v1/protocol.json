@@ -1,0 +1,108 @@
+{
+  "study_id": "510300_MULTIDIM_POLICY_TRANSMISSION_SCORE_V1",
+  "recorded_at": "2026-10-01T22:28:25.300292+08:00",
+  "user_priority": "我们可以多维一起看待，一起打分，我要快速看到结果，他们不可能是线性关系",
+  "research_scope": "指数整体历史联合评分，仅510300和现金，不形成当前行情判断。",
+  "hypothesis": "订单、融资与价格状态相同的情况下，最近利率动作及资金利差变化可能提供不同的收益分段条件；变化不预设为正或负，不能冒称原因已识别。",
+  "features": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "已观察逆回购利率二十日变化",
+    "资金利差二十日变化"
+  ],
+  "added_features": [
+    "已观察逆回购利率二十日变化",
+    "资金利差二十日变化"
+  ],
+  "new_feature_definitions": {
+    "已观察逆回购利率二十日变化": "截至每日16点在现有央行操作记录中已经观察到的最近7天逆回购利率，减去20个ETF交易日前同口径数值；单位百分点。",
+    "资金利差二十日变化": "原八变量中的已滞后一日资金利差减去20个ETF交易日前同口径利差；单位百分点。"
+  },
+  "economic_dimensions": [
+    "订单需求状态",
+    "已观察利率动作",
+    "市场资金价格",
+    "融资活动",
+    "指数价格、波动及成交反映"
+  ],
+  "source_clock_boundary": "按原操作记录published_at合并，naive时间按北京时间。2024年9月末现有记录首次看到1.5%是9月29日，对应9月30日评分；不倒填9月24日预告或9月27日实施。研究的是操作记录可观察变化，不是最早公告或政策意外。",
+  "omitted_policy_series": "没有完整降准公告和事前政策共识序列，不把手选政策链节点加入模型，也不把缺失共识当成零。",
+  "regime_caution": "2024年7月前后公开市场招标机制有变化，7天逆回购序列可观察但其政策角色并非全时期完全相同。",
+  "model": {
+    "max_depth": 3,
+    "min_samples_leaf": 60,
+    "random_state": 20261001
+  },
+  "maximum_leaves": 8,
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_rows": 252,
+    "update": "每个交易日",
+    "label_availability": "只用退出日不晚于决策日的完整标签"
+  },
+  "label": {
+    "horizon_sessions": 5,
+    "entry": "信号后次日开盘",
+    "exit": "入场后第5个交易日开盘",
+    "fixed_quantity": 10000,
+    "commission_each_side": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_each_side": 0.001,
+    "tick": 0.001,
+    "dividend": "按权益登记日归属；标签包括权益，但不冒充到账现金账户。"
+  },
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "comparisons": "复用原八变量的保存预测；增加同复杂度十变量树和同alpha10的十变量岭回归，逐日训练池和标签必须相同。",
+  "score": "预测五日压力净收益在当日训练池拟合值中的百分位，平值取中位秩，范围0至100；不是上涨概率。",
+  "evaluation": "原固定五档分数[0,20)、[20,40)、[40,60)、[60,80)、[80,100]，保留所有档；与平均、线性两基准比较相同日期。",
+  "nonoverlap_opportunity": "仅作评分诊断：分数>=80且预测净收益>0时，次日开盘买，5日后开盘卖；已有事件结束前不新增，退出日收盘起才允许新判断。固定规则，不根据结果改门槛。",
+  "diagnostic_context_table": "按事前已观察利率变化小于0/等于0/大于0、资金利差变化小于0/大于等于0固定交叉展示；不以收益改组，不作为第二套信号。",
+  "anti_overfit": "本轮只有一个十变量树候选，不搜索窗口、深度、权重、门槛或年份；未把已知上涨事件编码为利好。此前已观察该段历史，本轮仍不构成独立验证。",
+  "family_sequence": "这是看到八变量失败后的信息增量尝试；保留全家族尝试历史，不声称未被选择的独立实验。",
+  "dedup": {
+    "old_policy_quantity": "reports/research/510300_policy_liquidity_quantity_v1/result.json",
+    "disposition": "旧16候选与账户失败原样保留；本轮不恢复该账户，仅对新八变量基线做固定信息增量比较。"
+  },
+  "sources": [
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/historical_inputs_and_labels.parquet",
+      "sha256": "afd82d54745fcad558306eb4c665e36e85edc89a243e8089d2ec3a723a84d49f"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/每日历史联合评分.csv",
+      "sha256": "865a892d23667360b167d8ff3d83951b20f6615e702fd4f2a4c6d513fbda45d2"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/result.json",
+      "sha256": "58b7bc03bc6067185917e16986b6d92d82b719db40089eb1d641364df25ed2ae"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/protocol.json",
+      "sha256": "520c79e6b3cc985b23142a88416ba1a323569586420ceb4ac7e02f56e84add7a"
+    },
+    {
+      "path": "reports/research/510300_macro_dynamic_reframe_v1/inputs/operation_rate_records.parquet",
+      "sha256": "bde5a3ecfac237b15a15f8c208ba38060bf2ff86171f6b07461208534229b5af"
+    }
+  ],
+  "full_account_admission": "先报告固定高分机会的成本后收益及对原八变量的增量。若高分不重叠机会均值非正，直接不进入完整账户；正值亦不等于目标达成。",
+  "new_full_accounts": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false
+}

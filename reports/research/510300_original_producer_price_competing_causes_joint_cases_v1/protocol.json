@@ -1,0 +1,133 @@
+{
+  "study_id": "510300_ORIGINAL_PRODUCER_PRICE_COMPETING_CAUSES_JOINT_CASES_V1",
+  "experiment_id": "E108",
+  "status": "REGISTERED_THREE_FIXED_ORIGINAL_PRICE_AND_CAUSE_SOURCE_CASES_BEFORE_NEW_SOURCE_READ",
+  "registered_at": "2026-10-04T18:52:06.009265+08:00",
+  "proposal_path": "reports/research/510300_fund_population_joint_nonlinear_increment_v1/next_experiment.json",
+  "proposal_sha256": "540311e6ddcab039b3cc738459f91dddfe1b3444153f1af73ab1de5bab5c0731",
+  "parents": [
+    {
+      "path": "reports/research/510300_fund_population_joint_nonlinear_increment_v1/result.json",
+      "sha256": "10a11d1c46f4bb7ffb360e6f0afa295ccb509e53aad1530ebad53bcdb0721dc2"
+    },
+    {
+      "path": "reports/research/510300_fund_population_joint_nonlinear_increment_v1/固定失败归因结果_E107.json",
+      "sha256": "5377cf711c25efb0613443804ee85e85dfc334e982653d7a7e210a809926e80a"
+    },
+    {
+      "path": "reports/research/510300_fund_quarterly_aggregate_full_original_panel_source_v1/result.json",
+      "sha256": "35aebd8136ff73ec3bb892ee29b8e8f863ce13ec58d1c00626346c66e3c50561"
+    },
+    {
+      "path": "reports/research/510300_industrial_official_cause_explanations_v1/三个固定原期_原量原因与资金订单回款库存同钟共同状态.json",
+      "sha256": "76e8d87c3d8d55ff246617b494b6967d21b2bdeee5f80a37ec15273330f9465f"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_history_acquisition_v1/本地制造业价格候选_旧用途核对与不重开裁决.json",
+      "sha256": "2b65c1f631e3386b6f37e691c364e403a77714a1ead7d004976974758acb724b"
+    }
+  ],
+  "fixed_cases": [
+    {
+      "economic_period": "2020M10",
+      "same_existing_decision_time": "2020-11-30T16:00:00+08:00"
+    },
+    {
+      "economic_period": "2021M07",
+      "same_existing_decision_time": "2021-08-27T16:00:00+08:00"
+    },
+    {
+      "economic_period": "2024M04",
+      "same_existing_decision_time": "2024-05-27T16:00:00+08:00"
+    }
+  ],
+  "question": "三个已经固定的原宏观时期，原出厂及购进价格变化和官方当时解释能否区分需求拉动、供应限制、基数/非经营等竞争原因，并与原订单、融资、应收现金约束、库存及基金不同母体共同解释？",
+  "hypothesis": "同一工业利润方向可能由数量需求、上游价格、下游成本和非经营项构成。新增原价格渠道及其自身变化原因可以限定共同机制，但不能靠线性关联、粗权重相减或一棵失败条件树确定纯指数方向。",
+  "different_information_admission": "reports/research/510300_original_producer_price_competing_causes_joint_cases_v1/旧价格感受方向与本原价格调查原因问题准入.json",
+  "fixed_queries": [
+    {
+      "economic_period": "2020M10",
+      "role": "NATIVE_PRICE_RELEASE",
+      "query": "site:stats.gov.cn 2020年10月份工业生产者出厂价格 购进价格",
+      "primary_domain": "stats.gov.cn",
+      "maximum_primary_raw_carriers": 1
+    },
+    {
+      "economic_period": "2020M10",
+      "role": "NATIVE_OFFICIAL_CAUSE_INTERPRETATION",
+      "query": "site:stats.gov.cn 董莉娟 解读 2020年10月份 CPI PPI",
+      "primary_domain": "stats.gov.cn",
+      "maximum_primary_raw_carriers": 1
+    },
+    {
+      "economic_period": "2021M07",
+      "role": "NATIVE_PRICE_RELEASE",
+      "query": "site:stats.gov.cn 2021年7月份工业生产者出厂价格 购进价格",
+      "primary_domain": "stats.gov.cn",
+      "maximum_primary_raw_carriers": 1
+    },
+    {
+      "economic_period": "2021M07",
+      "role": "NATIVE_OFFICIAL_CAUSE_INTERPRETATION",
+      "query": "site:stats.gov.cn 董莉娟 解读 2021年7月份 CPI PPI",
+      "primary_domain": "stats.gov.cn",
+      "maximum_primary_raw_carriers": 1
+    },
+    {
+      "economic_period": "2024M04",
+      "role": "NATIVE_PRICE_RELEASE",
+      "query": "site:stats.gov.cn 2024年4月份工业生产者出厂价格 购进价格",
+      "primary_domain": "stats.gov.cn",
+      "maximum_primary_raw_carriers": 1
+    },
+    {
+      "economic_period": "2024M04",
+      "role": "NATIVE_OFFICIAL_CAUSE_INTERPRETATION",
+      "query": "site:stats.gov.cn 董莉娟 解读 2024年4月份 CPI PPI",
+      "primary_domain": "stats.gov.cn",
+      "maximum_primary_raw_carriers": 1
+    }
+  ],
+  "source_selection": "六条固定stats.gov.cn定位查询各一次；每角色只选实际返回的标题/原月份相符、带自己原公开钟的官方原全文，最多一GET。重复或wrong月不换别源/不追加查询；原表与解释同载体则只GET一次复用。",
+  "source_gate": "保存完整HTML和正文/原表/全部相关附注，自己原公布时间须不晚于各原截止。保留价格调查对象与分类/环比/同比/累计平均范围；正文数量及表相互对应。archiveURL日期不作原公布钟；原文件名/当前取得钟不能证明原发布或真正首版。",
+  "source_fetch_policy": {
+    "source_locator_queries": 6,
+    "primary_raw_GETs_max": 6,
+    "per_case_max_raw_carriers": 2,
+    "per_role_max_raw_GET": 1,
+    "request_attempts": 1,
+    "retries": 0,
+    "alternate_carrier_rescue": 0,
+    "redirects_follow_same_request": true,
+    "authentication": 0,
+    "TLS_verification": true,
+    "connect_timeout_seconds": 12,
+    "read_timeout_seconds": 30
+  },
+  "joint_output": "三个原共同截止，把E102原工业量/原因/老八/问卷与E104有年龄基金完整门类并列，加入自己原PPI出厂/购进总体和相关分组/原因；每期主机制及最多两个竞争解释，分别原支持/反证/冲突/未知及官方归因/推断，重叠因素不强制单原因。",
+  "unknown_policy": "无原字段、原钟、实际现金、预期差或细行业映射均UNKNOWN；未知不补0，不按股价方向挑月份或反向解释。",
+  "point_in_time_policy": "原经济期、原载体显示公布钟、原共同决策截止、当前取得钟分开；当时可知支持与真正首版认证分开。若解释晚于原截止，原共同状态不准入它。",
+  "budget": {
+    "new_financial_candidates": 0,
+    "new_model_fits": 0,
+    "new_linear_regressions": 0,
+    "new_simple_weighted_scores": 0,
+    "new_labels_generated": 0,
+    "financial_labels_read": false,
+    "new_full_accounts": 0,
+    "source_code_edits": 0,
+    "authenticated_requests": 0
+  },
+  "stop": "完成固定六定位及最多六首GET后结束来源路线；不重试/换月/换来源/追加有利例子/参数救回。缺保留UNKNOWN。仅三例不取得79/1711/1212新金融源门，金融预算0。",
+  "previous_frozen_rejections_preserved": true,
+  "exact_E103_target_month_index_bridge_0_of_3_preserved": true,
+  "original79_1711_1212_identities_preserved": true,
+  "historical_first_vintage_authenticated": false,
+  "independent_validation": false,
+  "net_sharpe": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "prospective_forecasts": false
+}

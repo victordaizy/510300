@@ -1,0 +1,336 @@
+{
+  "study_id": "510300_PURCHASE_ADJUSTMENT_CURRENT_REPORT_CAUSE_REVIEW_V1",
+  "experiment_id": "E37",
+  "registered_at": "2026-10-02T16:35:07.355142+08:00",
+  "question": "2024—2025全部24统计月采购量扩散指数调整，原官方当月正文是否直接解释需求、备料/库存、成本或交付原因？",
+  "prior_turn_classification": "PROGRESS_E35_MONTHLY_SOURCE_IDENTITY_AND_E36_ACTUAL_FIXED_INCREMENT_REJECTION_WITH_COST_DIAGNOSIS",
+  "parents": [
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/next_experiment.json",
+      "sha256": "bab71a6388a61eccc5dd3cee80f519ae5d3a5770ca25c6034297643b5f9853f1",
+      "bytes": 1540
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/protocol_source.json",
+      "sha256": "9d1ba4068fa73a0cd71596402aa180354bc08ca30ea57b35cc91127050fa2388",
+      "bytes": 8788
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/protocol.json",
+      "sha256": "6d9299acec76d86d80ac0feb8105efd9d8c931653e9318c703325d5056dbc010",
+      "bytes": 8736
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/source_gate.json",
+      "sha256": "ce392cf07b5849f2a503482962819dd9aa2e6f5f9fbc19b39bc9703cb74f9c11",
+      "bytes": 2594
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/result.json",
+      "sha256": "8a45350b8750da45a9bc8466640087671b32bd8458e4438a201996ae7a2804c7",
+      "bytes": 4596
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/全部132月采购原文绑定.json",
+      "sha256": "9d8eea810519b44dea22c3ba4a0d11df49ef0225bb1c4c9ef67ca7f1fc157b36",
+      "bytes": 231167
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原公布采购月度字段.parquet",
+      "sha256": "bd980bd3c05f70ce34dd398b65a1514f32e917cb5644a4e2d0f9fdc09b15a872",
+      "bytes": 27534
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed",
+      "bytes": 1880663
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/每日采购条件评分.csv",
+      "sha256": "9afc2cfa249503874728fc29924d58283d8c669e6350a39724b664cdb2d93255",
+      "bytes": 317478
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/固定失败归因_信号费用与账户边界.json",
+      "sha256": "ce3f89e016ef853bd6ca9c107b544d51408723f9f3d4c2829c941410a7f9310a",
+      "bytes": 2622
+    },
+    {
+      "path": "reports/research/510300_historical_index_domestic_constraint_clock_v1/protocol.json",
+      "sha256": "278353ab99d78ef3f890409da3e812cb48f2177873b80714e7ff68b606626db3",
+      "bytes": 3533
+    },
+    {
+      "path": "reports/research/510300_historical_index_domestic_constraint_clock_v1/result.json",
+      "sha256": "07c3b83ef2407aba9d210813f99cc347f3e327ea02785ffc85d8c72220acf500",
+      "bytes": 2343
+    },
+    {
+      "path": "research/historical_index_domestic_constraint_clock_v1.py",
+      "sha256": "39acc1d603a47fde68ee92e60b0f3a27165db652ef0754cbfe5619632293a285",
+      "bytes": 41075
+    }
+  ],
+  "raw_reports": [
+    {
+      "stat_month": "2024-01",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-01_9b51e5ba6646.html",
+      "sha256": "4e9a5aae1e4124b5a6549513d9b37fd1f59a2f4004baf35a97682be3dbf5a6e4",
+      "source_url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202401/t20240131_1947012.html",
+      "published_at": "2024-01-31T00:01:00+08:00",
+      "available_at": "2024-01-31T00:01:00+08:00"
+    },
+    {
+      "stat_month": "2024-02",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-02_12c90632c766.html",
+      "sha256": "7d0f0092ce0de3d5b8f4f12856da7910d0990df0c795ea251ad0a550043bcdcf",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202403/t20240301_1947971.html",
+      "published_at": "2024-03-01T09:30:00+08:00",
+      "available_at": "2024-03-01T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-03",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-03_a476dc24eac7.html",
+      "sha256": "379d3a7a6ae0db1ad221c4fb554d44e9c1a0b62b4a69c16b0ca21b3224b1ae1d",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202404/t20240411_1948446.html",
+      "published_at": "2024-03-31T09:30:00+08:00",
+      "available_at": "2024-03-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-04",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-04_0b0d68a978fd.html",
+      "sha256": "1bcdd0994a7560efe3c8e228c021da7b6374e2aa8d65b10205cb8b91161a7118",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202404/t20240430_1948787.html",
+      "published_at": "2024-04-30T09:30:00+08:00",
+      "available_at": "2024-04-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-05",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-05_be0a36152c67.html",
+      "sha256": "bcb7aeb7c57f78811272c115dc428f70716f3b2d0f0f4868c8981825d13ab7f4",
+      "source_url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202405/t20240531_1954176.html",
+      "published_at": "2024-05-31T00:01:00+08:00",
+      "available_at": "2024-05-31T00:01:00+08:00"
+    },
+    {
+      "stat_month": "2024-06",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-06_f9386ee95c50.html",
+      "sha256": "8ff0aeed443742020fc22727cf0b1d0b3859f18b04d2c13b137a40db1bb7353f",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202406/t20240630_1955251.html",
+      "published_at": "2024-06-30T09:30:00+08:00",
+      "available_at": "2024-06-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-07",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-07_661056e114b6.html",
+      "sha256": "6b8e3553853e42674fb2357f69b2019952738085c6ae934e6912dce921595ac2",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202407/t20240731_1955901.html",
+      "published_at": "2024-07-31T09:30:00+08:00",
+      "available_at": "2024-07-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-08",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-08_aa85221eb459.html",
+      "sha256": "2ae1871f300dc87af8612bcd608ba19c22de6236b04f07da6df7652c0cb06451",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202408/t20240831_1956161.html",
+      "published_at": "2024-08-31T09:30:00+08:00",
+      "available_at": "2024-08-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-09",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-09_ccceec4d0f8b.html",
+      "sha256": "775167727ed3d668c2ff872f582fbae1be32049782cc3c72132e1eb5e2ad3da6",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202409/t20240930_1956798.html",
+      "published_at": "2024-09-30T09:30:00+08:00",
+      "available_at": "2024-09-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-10",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-10_8bdf3f47eb56.html",
+      "sha256": "932ad20d7441a42acdd09bdd110460f9fcfa1c51a98332a23906731e21fedb6b",
+      "source_url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202410/t20241031_1957214.html",
+      "published_at": "2024-10-31T09:30:00+08:00",
+      "available_at": "2024-10-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-11",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-11_aafb052e697d.html",
+      "sha256": "02757871f581c935114c4556119c4dbd17be18bf75c4eaaa690a1d6152a2d60f",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202411/t20241130_1957624.html",
+      "published_at": "2024-11-30T09:30:00+08:00",
+      "available_at": "2024-11-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2024-12",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2024-12_b508ae3393fa.html",
+      "sha256": "eca636ed673f1e79d5fa02dbbbb39ebaa0a89b04bb68fac64140542e75783edb",
+      "source_url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202412/t20241231_1958118.html",
+      "published_at": "2024-12-31T09:30:00+08:00",
+      "available_at": "2024-12-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-01",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-01_1e6dc5765e26.html",
+      "sha256": "85367750e9a97bf84cd6e2989ef321657af0999fd3d102d80c23167e6000a5a1",
+      "source_url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202501/t20250127_1958493.html",
+      "published_at": "2025-01-27T09:30:00+08:00",
+      "available_at": "2025-01-27T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-02",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-02_7d39b31546c2.html",
+      "sha256": "10a8223085e9fd8fa3f5da8d2c238b6ce379d249f191cb9ff57060019018713e",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202503/t20250301_1958837.html",
+      "published_at": "2025-03-01T09:30:00+08:00",
+      "available_at": "2025-03-01T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-03",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-03_4bdcd5225c80.html",
+      "sha256": "76355e096ffeec0f22e933f7c588f806dcdeb1cb2045b0d47c26b2cd91486b4a",
+      "source_url": "https://www.stats.gov.cn/xxgk/sjfb/zxfb2020/202503/t20250331_1959176.html",
+      "published_at": "2025-03-31T09:30:00+08:00",
+      "available_at": "2025-03-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-04",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-04_e942ab68745b.html",
+      "sha256": "618974507edb00338b07e897f5ba0b3ad500652d246246a3598b0be1d45542e8",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202504/t20250430_1959521.html",
+      "published_at": "2025-04-30T09:30:00+08:00",
+      "available_at": "2025-04-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-05",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-05_c0e618bf1465.html",
+      "sha256": "81017fab6ebc9e290ac6acffc7dc872217cab9dd60c25db6ef4aa38d3886c395",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202505/t20250531_1959985.html",
+      "published_at": "2025-05-31T09:30:00+08:00",
+      "available_at": "2025-05-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-06",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-06_c7b05af08b21.html",
+      "sha256": "98084f5319dbd803824aaf120e15615dc01d744251dd571cedb2343866436078",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202506/t20250630_1960283.html",
+      "published_at": "2025-06-30T09:30:00+08:00",
+      "available_at": "2025-06-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-07",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-07_f614a7b96ea7.html",
+      "sha256": "612970ffd57649de42d0bd0d150c10641a46a4c39350632c07e0b049295161c0",
+      "source_url": "https://www.stats.gov.cn/sj/zxfbhjd/202507/t20250731_1960551.html",
+      "published_at": "2025-07-31T09:30:00+08:00",
+      "available_at": "2025-07-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-08",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-08_697ac9ea0f59.html",
+      "sha256": "83490e266e9135f6b611ece6076469e42632869738296368854a73de3de82e30",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202508/t20250831_1960937.html",
+      "published_at": "2025-08-31T09:30:00+08:00",
+      "available_at": "2025-08-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-09",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-09_74811c734f89.html",
+      "sha256": "8c0f9ed515de9f4a6fc6aedbf5b11e4b12e04ca8ae1d41eebaade80533c45499",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202509/t20250930_1961438.html",
+      "published_at": "2025-09-30T09:30:00+08:00",
+      "available_at": "2025-09-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-10",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-10_a7881652dfa0.html",
+      "sha256": "98ca301f397da6ae47228f2292dcf861de2daabad1de2efc78865ce657c6bbae",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202510/t20251031_1961740.html",
+      "published_at": "2025-10-31T09:30:00+08:00",
+      "available_at": "2025-10-31T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-11",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-11_730d66cd2edb.html",
+      "sha256": "614dd2493810bd71001459b3b5c98ea1e83d0878c163bc8cb9d31a5dbc827e00",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202511/t20251130_1961945.html",
+      "published_at": "2025-11-30T09:30:00+08:00",
+      "available_at": "2025-11-30T09:30:00+08:00"
+    },
+    {
+      "stat_month": "2025-12",
+      "path": "data/raw/macro/510300_macro_stress_avoidance_v1_sources/nbs_pmi_2025-12_87d6815c2f35.html",
+      "sha256": "c0ddfab5bf8aba69ac58403c3bc514c5d2a8dac060b4fb26337d75a421c6a249",
+      "source_url": "https://www.stats.gov.cn/sj/zxfb/202512/t20251231_1962218.html",
+      "published_at": "2025-12-31T09:30:00+08:00",
+      "available_at": "2025-12-31T09:30:00+08:00"
+    }
+  ],
+  "fixed_months": [
+    "2024-01",
+    "2025-12"
+  ],
+  "expected_stat_months": [
+    "2024-01",
+    "2024-02",
+    "2024-03",
+    "2024-04",
+    "2024-05",
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10",
+    "2025-11",
+    "2025-12"
+  ],
+  "field_plan": {
+    "original_purchase": [
+      "采购量水平",
+      "采购量月度变化"
+    ],
+    "context_current_month_only": [
+      "生产",
+      "新订单",
+      "原材料库存",
+      "供应商配送时间",
+      "主要原材料购进价格",
+      "出厂价格",
+      "产成品库存"
+    ],
+    "context_change": "只能用本24月内相邻统计月差；第一个月相邻背景变化未知，不扩大原文预算补值。"
+  },
+  "official_text_scope": "仅当月报告正文，排除表格/导航/脚本；保存全部正文段落及采购主题定位句，人工核全部24月。只数字解释不能算驱动原因。",
+  "direct_cause_requirement": "原文明确以采购/备料行为调整为被解释对象并说明原因；一般制造业需求/生产/库存/价格同期变化只记竞争解释线索。原因缺失UNKNOWN，多解释不能定主因MIXED。",
+  "quantity_measure_limits": "不同问项扩散指标没有实际采购数量/现金流恒等式；采购指数上升与高于50分别记录，不把指数上升当实际采购总量增长。",
+  "score_time_pair": "复用原E36首次进入新统计月的保存决定日及前一保存日，仅读score/pred/path/时点，排除未来收益列。跨日同时含订单、日行情和成熟池变化，不将分数差归为采购因果效应。",
+  "historical_first_vintage_authenticated": false,
+  "evidence_class": "当月原网页的后来保存重构，有限历史解释；未认证首次收件/不可变首版。",
+  "budget": {
+    "raw_report_months": 24,
+    "new_network_requests": 0,
+    "new_labels": 0,
+    "new_models": 0,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "source_code_edits": 0
+  },
+  "stop": "完成24月全文/当期原行与时点线索即结束，不新增字段组合/阈值/时期/模型、收益分组或新账户。",
+  "preserve": "E36固定五门/拒绝、E35不同总体源门、DR暂缺有效访问与E34条件接续全部保持。",
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false
+}

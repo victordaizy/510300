@@ -1,0 +1,133 @@
+{
+  "study_id": "510300_HOLIDAY_EVENT_CAPITAL_RISK_V1",
+  "frozen_at": "2026-09-24T13:48:07.022783+08:00",
+  "user_direction": "综合宏观、微观资金与技术形态追求510300高夏普，新增节日及重大事件资金避险；不用审核包和汇总表格。",
+  "periods": {
+    "PRIMARY": [
+      "2021-01-04",
+      "2026-08-14"
+    ],
+    "RECENT_DIAGNOSTIC": [
+      "2024-08-20",
+      "2026-08-14"
+    ]
+  },
+  "policies": [
+    "A",
+    "A_MATCH",
+    "H_CALENDAR",
+    "H_PRESSURE",
+    "EVENT_REACTION",
+    "COMBINED",
+    "BUY_HOLD",
+    "CASH"
+  ],
+  "primary_candidates": [
+    "H_CALENDAR",
+    "H_PRESSURE",
+    "EVENT_REACTION",
+    "COMBINED"
+  ],
+  "clock": "形态和原退出仍为收盘判断次开盘；新增风险在执行日09:00判断，同日09:30尝试。",
+  "macro": "DR007相对7天逆回购政策利率>0且已知DR007相对五交易日前上升。DR007次交易日09:30才视作已知，09:00判断因此多保留一个时段；政策利率用原published_at。",
+  "micro": "官方月度权重聚合的大单超大单成交分类强度，最近连续五日均值<0且正强度权重占比五日均值<50%。覆盖>=98%，权重快照严格早于观察日，同日快照置缺并重算。微观数据同样次交易日09:30视作已知。不是资金所有人身份或真实净流出。",
+  "global": "标普500日对数收益/此前20日波动<=-2，或VIX日对数变化/此前20日波动>=2。每条美东17:00才视作可用，转换北京时间并与09:00对齐；最大信息年龄7自然日。",
+  "calendar": "相邻开市日日期间隔>=4自然日，休市前三个交易日的09:00为固定节前窗口；不依据收益选择节日。2021—2025为既有历史开市日重建，尚无逐年首发通知认证；2026沿用本地官方年度通知。",
+  "H_CALENDAR": "同覆盖资料已知时，所有节前三日否决新入场并退出既有可卖份额。",
+  "H_PRESSURE": "节前三日且宏观资金收紧且微观成交分类承压时避险。",
+  "EVENT_REACTION": "海外冲击已经公开且宏观收紧或微观承压，执行风险退出/入场否决；不宣称预知战争、会议、政策新闻。",
+  "COMBINED": "H_PRESSURE或EVENT_REACTION；唯一预先固定联合，不追认事后赢家。",
+  "missing": "四候选及A_MATCH同样要求入场时全部资料可用；持仓后缺值不强行卖出，原形态止损和五日退出仍有效。最长DR与微观年龄14自然日。",
+  "account": {
+    "capital_cny": 200000,
+    "assets": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "costs": {
+      "BASE": [
+        0.0002,
+        0.0005
+      ],
+      "STRESS": [
+        0.0004,
+        0.001
+      ]
+    },
+    "cash_yield": 0,
+    "annual_days": 252,
+    "lot": 100,
+    "minimum_commission": 5,
+    "T_plus_1": true,
+    "reenter_old_signal": false
+  },
+  "inference": "四候选与A_MATCH主压力账户作2000次20日联合循环区块重抽；单侧alpha=.05/4。同期数字门及增量均通过也仅为本轮历史探索。",
+  "target": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "search": {
+    "fits": 0,
+    "threshold_grid": 0,
+    "horizon_grid": 0,
+    "direction_changes_allowed": false
+  },
+  "historical_source_first_versions_authenticated": false,
+  "independent_validation": false,
+  "new_market_data_collection": false,
+  "orders": false,
+  "make_review_package": false,
+  "old_rejections_preserved": [
+    "510300_CALENDAR_LIQUIDITY_TIMING_V1",
+    "510300_THURSDAY_WEEKLY_REDUCTION_V1",
+    "510300_ALL_RESEARCH_ABCD_INCREMENT_V1"
+  ],
+  "terminated_strategy_revived": false,
+  "sources": [
+    {
+      "snapshot": "inputs/features.parquet",
+      "original_path": "reports/research/510300_sequential_patterns_regime_v1/results/features.parquet"
+    },
+    {
+      "snapshot": "inputs/signals.parquet",
+      "original_path": "reports/research/510300_sequential_patterns_regime_v1/results/signals.parquet"
+    },
+    {
+      "snapshot": "inputs/dividends.csv",
+      "original_path": "reports/research/510300_sequential_patterns_regime_v1/inputs/dividends.csv"
+    },
+    {
+      "snapshot": "inputs/calendar_history.csv",
+      "original_path": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.csv"
+    },
+    {
+      "snapshot": "inputs/calendar_2026.csv",
+      "original_path": "data/reference/sse_trade_calendar_2026.csv"
+    },
+    {
+      "snapshot": "inputs/calendar_2026_metadata.json",
+      "original_path": "data/reference/sse_trade_calendar_2026.metadata.json"
+    },
+    {
+      "snapshot": "inputs/dr007.parquet",
+      "original_path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_2/dr007_daily_20150105_20260814.parquet"
+    },
+    {
+      "snapshot": "inputs/policy_rate.parquet",
+      "original_path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_7d_reverse_repo_published_rates_anchor_20150105_20260814.parquet"
+    },
+    {
+      "snapshot": "inputs/moneyflow.parquet",
+      "original_path": "data/features/000300_official_weighted_moneyflow_daily.parquet"
+    },
+    {
+      "snapshot": "inputs/GSPC.parquet",
+      "original_path": "data/raw/cross_market_chart_ml_v1/GSPC_daily.parquet"
+    },
+    {
+      "snapshot": "inputs/VIX.parquet",
+      "original_path": "data/raw/us_china_overnight_v1/VIX_daily.parquet"
+    }
+  ]
+}

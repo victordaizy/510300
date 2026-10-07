@@ -1,0 +1,61 @@
+{
+  "study_id": "510300_HISTORICAL_COMPANY_INDEX_BRIDGE_V1",
+  "frozen_at": "2026-09-30T12:48:15+08:00",
+  "question": "原23个正向财报篮子的经营改善覆盖多大指数权重，公司历史涨幅能否代表510300的剩余收益？",
+  "mode": "HISTORICAL_DIAGNOSTIC_ONLY",
+  "sample": "沿用现金质量分解的全部49条公司报告、23个日期，不按收益删选；另列原规则公司自身同时通过的30条，不能当新策略。",
+  "inputs": {
+    "companies": "reports/research/510300_historical_cash_quality_causes_v1/全部49条公司财务变化.parquet",
+    "names": "reports/research/510300_factor96_earnings_cashflow_measurement_v1/inputs/document_queue.parquet",
+    "weights": "data/raw/constituents/000300_historical_weights.parquet",
+    "membership": "data/curated/510300_csi300_pit_membership_weights_source_remediation_v1/000300_daily_pit_membership_20150101_20260814.parquet",
+    "stock_prices": "data/raw/market/csi300_absorption_ratio_v1_total_return_close.parquet",
+    "etf_prices": "reports/research/510300_macro_dynamic_reframe_v1/inputs/market.parquet",
+    "dividends": "data/reference/510300_dividends.csv",
+    "old_account": "reports/research/510300_factor96_t11_date_proxy_account_v1/result.json"
+  },
+  "clock": {
+    "d": "既有测量日，即名义公告日之后首个交易日；不是公告精确首见时间。",
+    "pre20": "d-21交易日收盘至d-1交易日收盘，共20次日收益。",
+    "response": "d-1交易日收盘至d日收盘。",
+    "post20": "d日收盘至d+20交易日收盘；公司与ETF用相同日期。",
+    "etf_remaining_event": "d+1交易日开盘买入、d+21交易日开盘卖出，20个交易日的单独事件费用测量。",
+    "missing_endpoint": "保留缺失，不用未来价格或无限前填冒充端点成交。"
+  },
+  "weight_contract": {
+    "status": "UNVERSIONED_HISTORICAL_REFERENCE_ONLY",
+    "snapshot_rule": "严格早于d的最近月末快照，最长62个自然日；原始百分比除以100。",
+    "membership_rule": "核对d日历史成员；不以今天的成员或权重回填。",
+    "no_selected_cohort_weight_renormalization": true,
+    "contribution_proxy": "sum(reference_weight * stock_adjusted_return)，仅固定参考权重价格贡献量级，不是官方指数精确收益归因或财报因果影响。",
+    "cohort_mean_stock_return": "公司收益的等权描述，与指数贡献量级分列；不构造可交易股票组合。"
+  },
+  "stock_return_definition": "本地新浪后复权收盘价比值减1，保留供应商历史调整与首次版本限制；不把股票收益视为已获授权的交易。",
+  "costs": {
+    "commission_rate": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_fraction_each_side": 0.001,
+    "tick": 0.001,
+    "lot_size": 100,
+    "illustrative_event_budget_cny": 100000,
+    "illustrative_full_capital_cny": 200000
+  },
+  "dividend_rule": "按买入日至卖出开盘之前的股权登记日计算510300分红权益；已卖出但尚未付现的权益仍计入事件收益。",
+  "reports": [
+    "49条公司权重、三个固定窗口收益与同期ETF收益",
+    "23个日期的总覆盖、原公司同时通过覆盖、等权公司变化及固定权重贡献量级",
+    "全部23次ETF下一开盘后净收益描述，保留重叠和失败事件",
+    "此前按财务构成选定的牧原、小商品城、上机数控三例；不按本轮收益重新选例"
+  ],
+  "no_parameter_search": true,
+  "historical_prices_already_seen": true,
+  "independent_validation": false,
+  "event_windows_may_overlap": true,
+  "event_results_are_full_account": false,
+  "new_accounts": 0,
+  "new_fitted_parameters": 0,
+  "new_prospective_forecasts": 0,
+  "old_account_unchanged": true,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,75 @@
+{
+  "study_id": "510300_INDEX_PERSISTENT_STATE_DAILY_V1",
+  "at": "2026-09-25T13:25:25.546717+08:00",
+  "primary": "MACRO_HMM",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "question": "两年每日更新的持续状态能否改善纯指数条件收益分布，宏观信息与状态记忆是否有实际账户增量。",
+  "mechanism": "相似当前价格可来自不同的持续状态；用历史状态概率及其转移更新今天的条件分布。不能把隐藏状态名称当成已知牛熊或真实资金意图。",
+  "features": {
+    "PRICE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60"
+    ],
+    "MACRO": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "credit_acceleration3_pp",
+      "funding_gap_pp"
+    ]
+  },
+  "macro_definition": "社融存量同比的三月变化及DR007减七日逆回购政策利率，沿用保存可用时钟；不是NFCI，也不是名义利率减中性利率。",
+  "period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "capital": 200000,
+  "annual_days": 252,
+  "targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "training": "每个09:00决策只使用当日向前两日历年内的已知共同观察，包括今天已知特征；收益标签退出日必须严格早于今天，最少252行。共同观察若不连续，当天NO_VIEW。",
+  "hidden_model": {
+    "states": 2,
+    "covariance": "diagonal",
+    "EM_iterations": 40,
+    "initialization": "同窗二十日趋势中位数单次确定初始化",
+    "variance_floor_standardized": 0.05,
+    "transition_pseudocount_per_cell": 1.0,
+    "standardization": "同窗均值及样本标准差、裁剪5",
+    "no_previous_window_warm_start": true,
+    "batch_dimension": "仅并行计算互不共享参数的每日窗口"
+  },
+  "policies": {
+    "HISTORY": "共同成熟标签等权经验分布",
+    "PRICE_HMM": "仅三价格变量的双状态模型和前向过滤概率",
+    "MACRO_EMISSION": "与MACRO_HMM相同拟合模型，使用平稳概率乘当日发射似然，不继承昨日状态概率",
+    "MACRO_HMM": "五变量双状态模型，沿时间前向过滤；以当前状态概率混合各状态的成熟五日收益分布"
+  },
+  "distribution": "状态历史样本仅按前向过滤概率加权，不按看过后来观察的平滑后验分组。有效加权行数小于126则回到同窗等权分布。精确取下侧5%概率质量计算ES。",
+  "cashflow": "五日开盘至开盘含新增登记股息；原20万元库存效用和T+1引擎。目标50%、五日ES2.5%、10%跳空5%及回撤余量；本轮明确将调仓费一并计入风险预算。",
+  "entry_gap": "09:00确定方向与最多份额，09:30开盘只允许因风险预算缩小买入；不足现金和T+1仍由原引擎处理。",
+  "comparison": "MACRO_HMM对PRICE_HMM为宏观增量，MACRO_HMM对MACRO_EMISSION为状态记忆增量；与HISTORY比较整个条件化过程。20日区块2000次，种子20260930，全部账户日。",
+  "duplicate_boundary": [
+    "旧HMM只在2012-2014拟合后冻结、三状态牛熊映射满仓或空仓；本次是两年每日估计的条件完整收益分布，不使用旧参数或状态序列。",
+    "旧两年日更浅树仅按当前截面特征分叶；本次明确检验历史状态过滤的额外作用，同日发射对照用于识别记忆影响。"
+  ],
+  "account_count": 8,
+  "parameter_search": false,
+  "mechanism_checks": {
+    "state_path_enumeration_likelihood_and_smoothing": true,
+    "padding_adds_no_transitions": true,
+    "filter_does_not_read_later_observations": true,
+    "exact_weighted_five_percent_tail": true
+  },
+  "new_market_collection": false,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "evidence_class": "此前已研究历史上的固定开发实验，没有独立留出"
+}

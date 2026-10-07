@@ -1,0 +1,54 @@
+{
+  "at": "2026-09-26T03:35:11.366476+08:00",
+  "study_id": "510300_REPURCHASE_FIXED_MATURITY_ACCOUNT_V1",
+  "primary": "PRICE_FUNDING_AND_REPURCHASE__FIXED5_NO_ADD",
+  "question": "五日分布被每日续持转为长周期库存后造成的损失，能否通过事前固定同一期限改善；回购信息在相同期限下是否仍有增量？",
+  "why_now": "回购信息试验已失败。随后逐批次归因发现主STRESS前五日毛损益4044.50元、后续续持毛损益-9228.60元；这只是实际路径归因，不能视为可赚取的反事实。",
+  "models": [
+    "PRICE",
+    "PRICE_AND_FUNDING",
+    "PRICE_AND_REPURCHASE",
+    "PRICE_FUNDING_AND_REPURCHASE"
+  ],
+  "predictions": "复用上一轮全部逐日预测与训练池，不重新拟合、不重选特征或邻居；全部历史价格已被研究。",
+  "variants": {
+    "ROLL_NO_ADD": "空仓可按原信号和预算建立仓位，已有仓位不加仓；每日按原五日分布调整或退出。",
+    "FIXED5_NO_ADD": "空仓按完全相同信号及预算入场，期间不加仓；第五个后续交易日开盘退出，之前仅因尾部预算、回撤或信息失效减仓/退出；原尾部规则优先。"
+  },
+  "implementation": "完整复用已存在的funding_forecast_maturity_account_v1.simulate，不新增退出期限搜索；此次唯一变化是输入新的回购/资金共同样本预测。",
+  "controls": "与同模型原每日库存账户及ROLL_NO_ADD比较期限作用；FIXED5_NO_ADD内部三个价格/资金对照检验回购信息增量。不能把所有模型共有的执行改善归功于回购。",
+  "account": "16新账户，加8个只读原账户；20万元，510300.SH/CASH_CNY，T+1、100份、压力成本决策、最多50%仓位、ES及跳空和回撤规则全沿用。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparison": "主STRESS相对五个对照，20日循环区块2000次seed2026092604；完整账户及上一轮固定可用期均报告，后者不替代全期目标。逐年及全部滚动两年保留。",
+  "development_gate": "主STRESS完整三目标通过、相对同期限三个信息对照配对差95%下界均正、至少两个日历年各126预测日且增量为正，才列开发候选；仍不代替独立验证。",
+  "selection_boundary": "这是已看到原失败后提出的有限开发检验，不是未触碰留出样本。旧资金期限研究的失败保持原记录。",
+  "new_full_accounts": 16,
+  "reused_full_accounts": 8,
+  "new_prediction_fits": 0,
+  "new_parameter_searches": 0,
+  "new_market_downloads": 0,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

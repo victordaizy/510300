@@ -1,0 +1,102 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_REOPENING_CONSTRAINTS_V1",
+  "recorded_at": "2026-10-01T15:59:48.338660+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "previous_evidence": "六次降准的四份连续账户已完成，主账户夏普-0.249，固定持仓费用返还仍亏损。",
+  "question": "2022年全国防控制度的四次整体调整，分别改变哪些经济活动约束；指数在公告前、公告日、下一可成交开盘之后如何反映，连续账户是否存在剩余收益？",
+  "mode": "HISTORICAL_INDEX_LEVEL_DISCOVERY",
+  "source_first": true,
+  "event_population": "2022年全国防控总方案或综合措施中，系统调整隔离、风险区、人员流动或传染病管理类别的四次总体修订；不是2022年全部涉疫公告全集。",
+  "events": [
+    {
+      "id": "PLAN9_20220628",
+      "date": "2022-06-28",
+      "title": "第九版防控方案"
+    },
+    {
+      "id": "TWENTY_20221111",
+      "date": "2022-11-11",
+      "title": "二十条措施"
+    },
+    {
+      "id": "TEN_20221207",
+      "date": "2022-12-07",
+      "title": "十条措施"
+    },
+    {
+      "id": "CLASSB_20221226",
+      "date": "2022-12-26",
+      "title": "乙类乙管总体方案"
+    }
+  ],
+  "excluded": "地方执行、单一航空/行程卡措施、原措施配套问答和再次转发不作为独立触发；同期公开信息仍记为背景。",
+  "first_direction_vs_operating_rule": "11月10日晚常委会已公开部署二十条，单列前置信息；11月11日具体条款公开为统一触发，不能把当日全部涨幅解释为新条款造成。",
+  "entry_rule": "文件页面首次公开日期的23:59:59之后下一ETF交易日09:30；签发日不替代公开日；不选择盘中低点。",
+  "event_horizons": [
+    5,
+    20
+  ],
+  "primary_account_hold_open_intervals": 20,
+  "preprice": "前20个交易日收盘至公告前收盘；公告前收盘至公告日开盘、当日开盘至收盘、公告日收盘至下一开盘。含分红时分别按持有人权益处理。",
+  "expectations": "没有事前可核验共识则预期差未知。公告前上涨不等于已识别的政策提前交易，防控政策与外部利率、地产及流动性消息可能共同作用。",
+  "account_calendar": [
+    "2022-01-01",
+    "2023-03-31"
+  ],
+  "why_end": "给2022年末公告预留下一完整季度以覆盖固定持有期及空仓，而非按收益高低截断。",
+  "accounts": [
+    "POLICY_200000_STRESS",
+    "POLICY_20000_STRESS",
+    "BUY_HOLD50_200000_REFERENCE",
+    "CASH_200000_REFERENCE"
+  ],
+  "signal_rule": "四次同等处理，不看收益删事件。已有持仓不加仓、不延长；未成交入场不换日期追入；后续公告作为新信息记录但不改冻结退出。",
+  "cost": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001,
+    "tick": 0.001,
+    "lot": 100
+  },
+  "risk_reuse": "复用research/factor96_bottleneck_diagnostic_v1.py的ORIGINAL风险目标与simulate，不拟合新预测器；50%目标上限，条件五日ES95预算2.5%，-10%冲击预算5%，10%回撤触发；风险减仓只用前收盘估计；50%是决策目标，不是盘中或收盘连续保证。",
+  "benchmark": "期初50%买入持有、价格漂移、期末费用预留，仅为市场参考，不是全部风险合规候选。",
+  "accounting": "现金与无风险收益零，242交易日年化，全日历T+1整手和分红应收/支付；两笔本金分别核算。",
+  "targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "new_filters": 0,
+  "parameter_search": false,
+  "new_forecasts": false,
+  "historical_prices_previously_used": true,
+  "independent_validation": false,
+  "stop_rule": "不通过筛四次事件、把20日改成赢家期限、使用未来感染或宏观实现量回填、倒推所谓政策超预期营救结果；直接公告规则不足就停止这一表达。",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "dedup_findings": [
+    {
+      "file": "reports/research/510300_banker_loan_approval_daily_v1/result.json",
+      "topic": "贷款需求与审批已有完整账户，未达标"
+    },
+    {
+      "file": "research/funding_calendar_innovation_daily_v1.py",
+      "topic": "月初月末季末资金因素已做"
+    },
+    {
+      "file": "reports/research/510300_historical_index_credit_constraint_relief_v1/result.json",
+      "topic": "资金/风险分担/资本约束2018—2019已有"
+    },
+    {
+      "search_scope": "research/*.py, config/*.json and report paths",
+      "terms": [
+        "二十条",
+        "新十条",
+        "第九版",
+        "防控政策",
+        "疫情放松"
+      ],
+      "result": "没有找到这些四次总体修订的既有独立研究"
+    }
+  ]
+}

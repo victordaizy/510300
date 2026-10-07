@@ -1,0 +1,68 @@
+{
+  "study_id": "510300_OPTION_PAIRED_STATE_VALUE_DAILY_V1",
+  "at": "2026-09-25T11:03:40.637892+08:00",
+  "primary": "TREE_MACRO",
+  "models": {
+    "EMPIRICAL": [],
+    "LINEAR_PRICE": [
+      "trend20_current",
+      "volatility_richness",
+      "quoted_compensation_difference"
+    ],
+    "TREE_PRICE": [
+      "trend20_current",
+      "volatility_richness",
+      "quoted_compensation_difference"
+    ],
+    "TREE_MACRO": [
+      "trend20_current",
+      "volatility_richness",
+      "quoted_compensation_difference",
+      "funding_gap_pp",
+      "credit_acceleration3_pp",
+      "GSPC_z",
+      "VIX_z"
+    ]
+  },
+  "new_question": "对同日两侧保险及现金的相对决策价值建立共同状态，而非分别拟合两个成本水平后比较。",
+  "inputs": {
+    "trend20_current": "昨日收盘前已知20日趋势",
+    "volatility_richness": "两侧观察日log(隐波/实现波动率)的均值",
+    "quoted_compensation_difference": "认沽压力信用额/事前最大损失减认购同口径比例",
+    "macro": [
+      "funding_gap_pp",
+      "credit_acceleration3_pp",
+      "GSPC_z",
+      "VIX_z"
+    ]
+  },
+  "target": "各侧(观察日压力信用额-第10日实际压力买回成本-四次每张5元费用)/事前最大损失；同日成对标签",
+  "training": "每日更新，只用最近两个日历年内且两个十日退出标签均已成熟的原点；至少252行共同样本",
+  "models_detail": {
+    "EMPIRICAL": "共同历史池的两个均值",
+    "LINEAR_PRICE": "三价格变量的双输出岭回归lambda10，含未惩罚截距",
+    "TREE_PRICE": "三价格变量，双输出平方误差树，max_depth2、min_samples_leaf63、random_state20260925",
+    "TREE_MACRO": "增加四宏观变量，树的其他设置相同"
+  },
+  "scaling": "仅训练均值和样本标准差；标准化截断[-5,5]，所有模型共同历史池",
+  "state_limit": "最多四个叶状态；不扫描深度、叶样本、变量子集或模型混合权重",
+  "action": "两个预测净收益/风险均不正则现金；否则选较大正值，同分认沽；保留当时状态条件与叶样本数",
+  "entry_credit_limit": "max(观察日压力信用额-预测净收益比*事前最大损失,全部固定费用+原退出滑点储备)；沿用原开盘检查",
+  "risk_and_execution": "认沽和认购的原合约、十日持有、尾部预测、5%最坏损失、2.5%ES、回撤余量、逐腿费用、保证金和减仓逻辑保持",
+  "coverage": "只在两侧既有尾部与定价资料及本次预测均有的日期比较；当前未来标签是否成熟不影响入场资格",
+  "evaluation": "成对预测MSE、事后最优动作的相对遗憾仅作诊断、完整账户与全部滚动两年；最大四状态不等于已证明存在四种经济制度",
+  "primary_increment": "TREE_MACRO对TREE_PRICE；TREE_PRICE对LINEAR_PRICE检验固定非线性增量",
+  "bootstrap": {
+    "block_sessions": 20,
+    "draws": 2000,
+    "seed": 2026092505
+  },
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "historical_selection_limit": "之前多个模型的失败和容量诊断均已见；本轮是有限开发比较，不是独立确认",
+  "new_market_downloads": 0,
+  "orders_authorized": false
+}

@@ -1,0 +1,19 @@
+{
+  "study": "510300_POINT_C03_INFORMATION_INTAKE_V1",
+  "frozen_at": "2026-10-02T12:45:47.332362+08:00",
+  "purpose": "收益拟合前检验固定C03直接第九项的原完整成员支持，不读取未来收益标签。",
+  "registered_definition": "最近10日正收益总和/正日成交额合计，与负收益绝对值总和/负日成交额合计比较；各自乘同一期日均成交额归一。",
+  "field_binding": "r=原log((close+当日已除息现金)/previous_close)=total_log；固定[t-9,t]十个完整实际日，严格r>0与r<0归组，零日不入两组但计入日均金额。mean(amount10)*[sum(正r)/sum(正日amount)-sum(abs负r)/sum(负日amount)]固定一列。",
+  "source_clock": "原现金前向财富和log收益先核身份，首个市场点没有前一区间不补0；CNY成交额在完整收盘后可知，下一合法开盘执行，不读未来现金/行情或回溯复权。",
+  "missing_rule": "十日任一经济收益/金额缺口、非有限或金额<=0未知；任一正负组金额分母<=0未知，不填0/epsilon、延长/压缩窗口或删成员。两组有效但效率差真0合法，正负零边界严格按原log收益。",
+  "support_gate": "全部1507原自然成员、115原可用月全部训练成员有限才接纳直接第九项；142原月中27原未知不改。",
+  "no_rescue": "不恢复原HIGH/LOW，不改10日、金额尺度/收益边界/维度、分母、缺失、成员、标签、岭/权重、入场固定版本/确认、预测/账户门、时期或成本营救；没有支持就停止，不拟合再挑窗口。",
+  "fixed_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

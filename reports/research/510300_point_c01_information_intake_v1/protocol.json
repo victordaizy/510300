@@ -1,0 +1,19 @@
+{
+  "study": "510300_POINT_C01_INFORMATION_INTAKE_V1",
+  "frozen_at": "2026-10-02T14:23:13.409187+08:00",
+  "purpose": "收益拟合前检验固定C01直接第九项的原完整成员支持，不读取未来收益标签。",
+  "registered_definition": "过去20日负收益和正收益两组分别取median(abs(r)/成交额)，取负组/正组；样本各少于5则缺失。",
+  "field_binding": "r_j=log((raw_close_j+cash_j)/raw_close_(j-1))=total_log，I_j=abs(r_j)/amount_CNY_j。固定[t-19,t]二十个完整真实市场收益日，严格r<0和r>0两组各>=5，取median(I负组)/median(I正组)一列。不先log比值/截断/改均值；r=0不入正负组，但其日期/正金额必须源完整。",
+  "source_clock": "原close/previous_close/dividend/total_simple/total_log/前向wealth身份核验，财富正有限，首点无前一区间不补0，首20行无法有20真实经济区间。CNY成交额按原快照在完整收盘后已知，下一合法开盘；不使用回溯复权/未来现金/实际目标标签，不混volume单位。",
+  "missing_rule": "20日任一r或amount缺失/非有限、amount<=0则整个固定窗口未知，不压缩市场日。任一正负组<5则比值未知，不填0/1或删成员；零收益不入两组。完整严格组中位数应正，均衡冲击比值1有效、原比值可<1或>1，不截断；计算溢出/下溢不修补、不换尺度。组数不足是定义结构，不是可以补零的卖压0。",
+  "support_gate": "全部1507原自然成员及115原可用月份全部成熟训练成员有限才接纳直接第九项；142原月中27无模型月份保持。只读原样本元数据，不读target，不删成员重算权重。",
+  "no_rescue": "不恢复T05/旧总体流动性模型，不改20日/各至少5/log经济收益/严格正负0边界/CNY金额/中位数/比值维度、缺失、标签/成员/模型/岭/锁定/确认、门/时期成本营救。支持不全即固定终止，不跑账户挑盈利子段。",
+  "fixed_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

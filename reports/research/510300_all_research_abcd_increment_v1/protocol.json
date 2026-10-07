@@ -1,0 +1,88 @@
+{
+  "study_id": "510300_ALL_RESEARCH_ABCD_INCREMENT_V1",
+  "frozen_at": "2026-09-24T13:18:14.231876+08:00",
+  "user_authorization": "综合后继续执行附件中的 A/B/C/D 增量实验",
+  "primary_period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "diagnostic_period": [
+    "2024-08-20",
+    "2026-08-14"
+  ],
+  "common_end_reason": "指数内部输入只到2026-08-14；不得把8月之后的价格单边延长用于四组比较。",
+  "account": {
+    "capital_cny": 200000,
+    "annual_days": 252,
+    "cash_yield": 0,
+    "assets": [
+      "510300.SH",
+      "CASH_CNY"
+    ],
+    "lot": 100,
+    "tick": 0.001,
+    "T_plus_1": true,
+    "execution": "当日收盘判断，次一可执行开盘；原形态失效和五日退出优先保留",
+    "costs": {
+      "BASE": [
+        0.0002,
+        0.0005
+      ],
+      "STRESS": [
+        0.0004,
+        0.001
+      ]
+    },
+    "minimum_commission": 5
+  },
+  "A": "V1/V2已冻结PATTERN_ONLY，三个形态定义及其优先顺序全部沿用。",
+  "B": {
+    "variable": "形态准备日固定核心群体的三日加权上涨参与率相对准备日的变化",
+    "anchor": "原形态setup_date，不回填交易。此前连续五日归因合格且快照日期严格早于归因日；将五日正贡献合计最高的至多三个行业及准备日成员、权重固定。",
+    "daily": "同一固定成员、固定权重；逐日上涨者权重除以准备日群体总权重，再取最近三个连续交易日均值。",
+    "coverage": "每日固定群体已知收益权重至少98%，归因质量合格；不随当日赢家换成员、不剔除缺值重归一化。",
+    "decision": "确认日变化>=0可入场；持仓后已知变化<0于下一可卖开盘退出。"
+  },
+  "C": {
+    "variable": "三日日内补偿相对同一形态准备日的变化",
+    "daily": "I=(close-open)/previous_close；O=(open-previous_close+entitled_cash_dividend)/previous_close；K=mean_3(I-max(-O,0))；C=K_t-K_setup。",
+    "decision": "确认日C>=0可入场；持仓后已知C<0于下一可卖开盘退出。",
+    "scope": "不删除隔夜、不假设当日新买份额可收盘卖出，不是D20/D60方向比较或隔夜下行平方占比。"
+  },
+  "D": "仅一个预定交互：B>=0且C>=0时准入；任一已知转负就退出。无加权优化、无新阈值。",
+  "missing": "B/C/D入场统一要求两变量可计算；A保持原样；增设A_COVERAGE只使用相同可用性，不使用变量符号，分离缺失筛选贡献。持仓缺值本身不构成卖出。",
+  "additional_controls": [
+    "A_COVERAGE",
+    "BUY_HOLD",
+    "CASH"
+  ],
+  "account_budget": 28,
+  "training_fits": 0,
+  "parameter_grids": 0,
+  "novelty": "新问题为既定短形态内的固定起点群体变化和补偿变化；旧固定驱动周期M1/T1、静态广度、D20/D60以及隔夜下行风险的原失败全部继承，未重新运行旧研究。",
+  "numerical_acceptance": {
+    "net_cagr": 0.1,
+    "net_sharpe": 1.2,
+    "max_drawdown": 0.1,
+    "both_costs": true,
+    "annual_trade_minimum": null
+  },
+  "increment_evidence": "主要时期压力账户B-A/C-A/D-A，净日均收益差与夏普差的共同20日区块单侧下界均>0；三候选Bonferroni，单项alpha=.05/3。同时列A_COVERAGE比较，不以较近期点值替代主时期。",
+  "uncertainty": {
+    "block_length": 20,
+    "repetitions": 2000,
+    "seed": 20260924,
+    "zero_volatility_sharpe": "UNDEFINED，不用0或无穷代替"
+  },
+  "diagnostics": [
+    "每年收益、完整周期、空仓比例和平均暴露",
+    "最大一笔和前三笔利润集中；不删掉原交易后改报策略",
+    "同平均暴露及同波动线性缩放A仅作事后归因",
+    "在相同形态事件内控制trend_z、log(rv20)、family的固定OLS残差关系，属于样本内解释，不作预测资格或交易门"
+  ],
+  "historical_source_boundary": "月度权重与行业区间为既有历史重建，snapshot_date不是已认证first_public时间；旧质量门只能支持快照归因。该局限禁止将本轮结果升级为实时或独立验证。",
+  "independence": "2026-09-24创建，全部市场历史此前已见，独立前向=0；多重比较校正不消除全部既往研究选择。",
+  "stop": "一次运行全部固定比较；不因失败改变核心数量、3/5日窗、0阈值、方向、形态、配比和费用；新数值通过也不能自动恢复旧终止策略。",
+  "new_market_collection": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,132 @@
+{
+  "study_id": "510300_FISCAL_EXECUTION_STATE_20D_V1",
+  "frozen_at": "2026-09-22T13:39:05.584790+08:00",
+  "evidence_class": "FIXED_NEW_MECHANISM_ON_ALREADY_OBSERVED_HISTORY_NOT_INDEPENDENT_VALIDATION",
+  "mechanism": "财政已执行支出可能影响需求及银行体系流动性；检验一般公共预算、政府性基金各自累计可比增速在价格与融资条件之外的收益/风险信息，及一般公共预算增速与融资松紧的一项交互。既不假定支出增加必涨，也不等同新增政策冲击、市场预期差或到账企业利润。",
+  "scope": "宏观主线中的财政执行子实验；不重新打开旧M1/M2五日、新订单二十日、操作数量、直接效用或终止85/15方案。融资状态仅作控制，不因本轮结果重宣其旧实现有效。",
+  "features": {
+    "P0": [
+      "price_m20",
+      "price_log_sigma20",
+      "funding_spread20_pp"
+    ],
+    "P1": [
+      "price_m20",
+      "price_log_sigma20",
+      "funding_spread20_pp",
+      "general_model_yoy_pp",
+      "fund_model_yoy_pp"
+    ],
+    "P2": [
+      "price_m20",
+      "price_log_sigma20",
+      "funding_spread20_pp",
+      "general_model_yoy_pp",
+      "fund_model_yoy_pp",
+      "general_funding_interaction"
+    ],
+    "R0": [
+      "price_m20",
+      "price_log_down20",
+      "funding_spread20_pp"
+    ],
+    "R1": [
+      "price_m20",
+      "price_log_down20",
+      "funding_spread20_pp",
+      "general_model_yoy_pp",
+      "fund_model_yoy_pp"
+    ],
+    "R2": [
+      "price_m20",
+      "price_log_down20",
+      "funding_spread20_pp",
+      "general_model_yoy_pp",
+      "fund_model_yoy_pp",
+      "general_funding_interaction"
+    ],
+    "P_REV": [
+      "price_m20"
+    ],
+    "P_MOM": [
+      "price_m20"
+    ]
+  },
+  "feature_rules": {
+    "fiscal": "当次正文全国累计支出同比；明确公布同口径同比时使用同口径，否则用当次标题口径。一般公共预算与政府性基金分开，不相加；单位百分点；增长1.1倍是+110%。不拆1—2月，不以累计差分制造单月流量。",
+    "funding": "每个A股交易收盘只使用日期严格早于当日的最近DR007加权利率，减截至收盘已公布的7天逆回购实际操作利率；取过去20个A股交易日平均，单位百分点。DR007是继承供应商历史，非逐日原始首发版本认证。",
+    "interaction": "一般公共预算可比累计同比百分点乘融资利差20日均值百分点，允许两者的条件联系由成熟训练样本估计；不预设方向、不搜索阈值。",
+    "price": "收盘已知的20个含分红日回报复合收益、标准差对数、负收益平方均值对数。"
+  },
+  "source_availability": "财政本页明确公开日、正文日期和目录日期取最大值，日期精度一律23:59:59上界；不用网址创建日或月份末。首个此后收盘观察，下一交易日开盘后评价。较晚转载保守延迟，不能当最早市场已知日。",
+  "horizon": 20,
+  "lookback": 20,
+  "last_decision_date": "2026-07-31",
+  "price_end": "2026-09-11",
+  "minimum_train_events": 36,
+  "minimum_eval_events": 24,
+  "decision_grid": "每周最后A股交易日收盘，加财政原文首次合格可用收盘、7天逆回购新利率操作记录首次可用收盘；同日去重。财政公布原点仅每份原文一次用于训练和主要评价。",
+  "training": "扩展的财政公布原点；标签20日终点严格早于当前判断收盘。所有模型共同训练集合；成熟集合相同仅拟合一次。周度和公告触发只更新当时已知输入。",
+  "ridge_penalty": 1.0,
+  "ridge": "训练内总体标准差标准化；平均平方误差加斜率平方和；截距不惩罚。没有窗口、方向、惩罚、配比搜索。",
+  "return_target": "次日开盘买入一份到第20个交易日收盘，入场后除息的现金权利计入，不再投资；不获得入场前跳涨、入场当日除息权益。",
+  "risk_target": "相同路径、含累计现金权益的20个日财富回报负值平方均值；首日从开盘起，不含已发生的公告跳空。",
+  "risk_floor": 1e-08,
+  "risk_model": "训练log(max(下行方差,1e-8))，指数预测乘训练残差指数均值；风险比较主损失为QLIKE。",
+  "references": {
+    "P1": [
+      "P0",
+      "MEAN",
+      "ZERO",
+      "P_REV",
+      "P_MOM"
+    ],
+    "P2": [
+      "P1",
+      "P0",
+      "MEAN",
+      "ZERO",
+      "P_REV",
+      "P_MOM"
+    ],
+    "R1": [
+      "R0",
+      "RMEAN",
+      "DOWN20"
+    ],
+    "R2": [
+      "R1",
+      "R0",
+      "RMEAN",
+      "DOWN20"
+    ]
+  },
+  "reversal_baselines": "依据用户新增的均值回归问题，在财政拟合之前增加两个同训练集合、同惩罚的单变量对照：仅过去20日收益，P_REV斜率限制<=0，P_MOM斜率限制>=0；若触及边界，退化为成熟样本均值。不能用全历史选方向。与宏观相同的次日开盘后20日标签，不计当前收盘到入场开盘的跳空。",
+  "known_reversal_diagnostic": "此前已在独立固定月末诊断观察170原点：81反转、88延续、1零，反转频数47.9%；该诊断不参与任何阈值、方向或系数选择，也不是完整账户证据。",
+  "gates": "四个候选分别评价；每项对照损失改善均值>0且单侧98.75%区块下界>0，以Bonferroni保守分配四候选的5%错误额度。相对各自主基准前后两半改善均>0，至少24评价事件。不能在失败后改成另一指标宣称有效。此校正不覆盖仓库历次研究选择。",
+  "bootstrap": {
+    "draws": 10000,
+    "block_events": 6,
+    "seed": 20260922,
+    "lower_quantile": 0.0125,
+    "method": "非循环连续财政公布序列移动块，不将每周重复宏观值算新增观察；共享抽样索引。"
+  },
+  "refresh_diagnostic": "非周度且非首个周度以前的公告复核，用相同当时价格、相同训练系数、相同后续20日标签，比较最新财政和融资状态与上个周末已知状态；不是连续账户，也不收获已发生首轮反应。",
+  "cost": {
+    "annual_days": 242,
+    "commission": 0.0003,
+    "minimum": 5.0,
+    "stress_slippage": 0.0005,
+    "lot": 100,
+    "cash_rate": 0.0,
+    "risk_free_rate": 0.0
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "account_gate": "本模块通过自身预定信息门才运行账户及动态配置；失败保留NOT_RUN，不填零收益。资金行为、其他宏观通道可独立继续，不被本次成败锁死。",
+  "exit_boundary": "涨幅较大后再依回撤退出属于固定入场后的独立比较；本次没有搜卖点。",
+  "strict_forward_events": 0,
+  "new_orders_or_services": false
+}

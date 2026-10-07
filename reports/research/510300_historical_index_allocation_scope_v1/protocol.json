@@ -1,0 +1,57 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_ALLOCATION_SCOPE_V1",
+  "created_at": "2026-10-01T19:58:53.272166+08:00",
+  "previous_goal_turn": "PROGRESS_INDEX_PARTICIPATION_SCOPE_AND_FINANCING_SUPPLY_SEPARATION",
+  "question": "全市场融资增加与沪深300走弱并存时，500/1000是否表现不同；相对定价、成交活动和ETF份额是否支持同一解释？",
+  "calendar": [
+    "2022-09-30",
+    "2023-03-31"
+  ],
+  "indexes": {
+    "000300": "沪深300",
+    "000905": "中证500",
+    "000852": "中证1000"
+  },
+  "etf_pools": {
+    "000300": [
+      "510300.SH",
+      "510310.SH",
+      "510330.SH"
+    ],
+    "000905": [
+      "510500.SH",
+      "512500.SH"
+    ]
+  },
+  "main_units": "六个完整自然月；另按上一轮的六组周快照边界和24周做范围衔接，边界不依结果变化",
+  "known_history": "已见300及其行业、份额、融资结果，本轮不是独立盲测",
+  "deduplication": {
+    "old_cross_etf": "五条总份额规则失败，禁止救援",
+    "old_etf_migration": "已有单300ETF相对同篮子份额迁移表达，不重跑",
+    "old_cross_asset_rotation": "八价格因子跨资产轮动代码与当前仅510300/现金范围不同，不启用",
+    "new_information": "两条官方规模指数的历史价格、PE和成交额，与原融资及固定ETF池作相同边界比较"
+  },
+  "data_request": "000905、000852各一次，20220930至20230331；000300复用已保存官方原文",
+  "relative_states": "300回报严格高于另两者为300领先，严格低于两者为300落后，其余居中或持平；不预设该分类构成择时",
+  "valuation": "log(P1/P0)=log(PE1/PE0)+log((P1/PE1)/(P0/PE0))，只作恒等式；隐含分母不是可比公司EPS，也不是前瞻盈利修正，PE项不是纯风险溢价",
+  "activity": "对三只指数不重叠样本组的官方成交额求和份额；范围仅这三个指数，不称全A股，不称净流入。调样可能改变构成。",
+  "share_proxy": "原固定10ETF集合内300三只与500两只，周净份额变化乘各自未复权周收盘价；1000基金份额本轮未取得，不新拼产品池",
+  "causality": "相对上涨、成交份额提高和两市融资增加不能合称融资流入该指数；没有按当期成员汇总的融资交易及对手方证据",
+  "comparison_clock": "所有六个月末T统计，保守按T+1收盘形成可用上界、T+2开盘看510300后5/20个交易日；不宣称证明了历史第一次可得时间",
+  "horizons": [
+    5,
+    20
+  ],
+  "cost": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001
+  },
+  "market_end": "2023-05-31",
+  "new_candidates": 0,
+  "new_full_accounts": 0,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "new_prospective_tasks": 0,
+  "stop": "不把相对领先、成交占比或观测的赢家月份拼成买入规则；不能证明的资金归属和纯规模效应保留未知。"
+}

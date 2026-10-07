@@ -1,0 +1,47 @@
+{
+  "study_id": "510300_NEW_M1_CONSENSUS_TRAINING_V1",
+  "user_instruction": "不用那么严格，直接进入训练；不用采集",
+  "regime": "M1_NEW2025",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.5,
+  "target_max_drawdown_magnitude": 0.1,
+  "annual_days": 242,
+  "min_train": 6,
+  "ridge_mean_loss_penalty": 1.0,
+  "horizon_sessions": 5,
+  "clock": "完全沿用父级：公布后首个完整交易日收盘观察，下一交易日开盘入场，含入场日在内第5个交易日收盘退出。训练标签必须在观察收盘之前成熟。",
+  "features": {
+    "price": ["price_pre20_return", "initial_response", "price_log_sigma20"],
+    "surprise": ["spread_surprise_proxy_pp"]
+  },
+  "models": {
+    "A_PRICE": {"groups": ["price"]},
+    "B_PRICE_SURPRISE": {"groups": ["price", "surprise"]},
+    "MATURE_MEAN_REFERENCE": {"groups": []}
+  },
+  "policies": {
+    "ERROR_BUFFER_PRIMARY": {"prediction_error_multiplier": 1.0, "min_mature_prequential_errors": 6},
+    "NET_POSITIVE_DIAGNOSTIC": {"prediction_error_multiplier": 0.0, "min_mature_prequential_errors": 0}
+  },
+  "entry": "主方案预测超过以观察日收盘估计的压力往返费用及至少6个成熟逐期误差的RMSE；费用覆盖对照只要求超过压力费用。均为事先规则，无参数搜索，误差缓冲不是概率保证。",
+  "account": {
+    "vol_target_annual": 0.1,
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "slippage_per_side": {"BASE": 0.0005, "STRESS": 0.001},
+    "lot_size": 100,
+    "prediction_error_multiplier": 1.0,
+    "min_mature_prequential_errors": 6,
+    "drawdown_brake": 0.08,
+    "cash_and_risk_free_daily_return": 0,
+    "exit": "固定五日收盘退出；账户收盘回撤8%触发最早次开盘清仓并停止。",
+    "scope": "账户从本轮首次可产生逐期预测的交易日开始，至已有行情末日；训练前时段单列为模型预热，不冒充可交易表现。包含评价期每个空仓交易日。"
+  },
+  "no_parameter_grid": true,
+  "minimum_relaxation": "仅按用户指令将新版此前未运行的36训练/24评价样本门放宽为6个成熟训练事件，直接生成探索模型与账户；未改变旧口径已冻结拒绝。",
+  "historical_data_seen": true,
+  "new_downloads": 0,
+  "executable_assets": ["510300.SH", "CASH_CNY"],
+  "orders_authorized": false,
+  "goal_achieved": false
+}

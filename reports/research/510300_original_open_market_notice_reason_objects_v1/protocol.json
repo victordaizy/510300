@@ -1,0 +1,149 @@
+{
+  "study_id": "510300_ORIGINAL_OPEN_MARKET_NOTICE_REASON_OBJECT_QUALIFICATION_V1",
+  "experiment_id": "E73",
+  "registered_at": "2026-10-02T23:09:38.302686+08:00",
+  "status": "REGISTERED_ORIGINAL_OPEN_MARKET_REASON_OBJECT_AND_PRIOR_USE_QUALIFICATION_ONLY",
+  "previous_goal_turn_classification": "PROGRESS_E69_BOUNDED_ROUTE_CLOSED_E70_COMPLETE_DIFFERENT_RELATIVE_PRICE_SOURCE_E71_FIXED_MODEL_REJECTED_E72_ALL_ORIGINAL_OPPORTUNITY_DIAGNOSIS",
+  "question": "相同资金利率或操作金额可以来自不同的银行流动性需求/供给原因；原公开市场公告的明确税期、财政、现金、到期对冲说明，可能是价格和日历之外的信息。公告只直接说明操作理由，不自动识别DR007变动、指数收益或市场预期差。",
+  "fixed_historical_notice_period": [
+    "2018-12-01",
+    "2025-12-31"
+  ],
+  "target_objects": [
+    "央行原公告对常规公开市场操作或明确不操作的直接理由",
+    "同原公布日银行体系流动性原因及状态",
+    "单纯维持合理充裕的目的单列"
+  ],
+  "prior_use_first": [
+    "research/historical_index_rates_policy_transmission_v1.py",
+    "reports/research/510300_historical_index_rates_policy_transmission_v1/protocol.json",
+    "reports/research/510300_multidim_policy_transmission_score_v1/protocol.json",
+    "research/policy_liquidity_quantity_v1.py",
+    "research/total_reverse_repo_v2.py",
+    "reports/research/510300_domestic_reverse_repo_maturity_prior_source_review_v1/protocol.json",
+    "research/funding_calendar_innovation_daily_v1.py"
+  ],
+  "if_same_failed_use": "原同用途终态拒绝则立即结束，不读新收益或拟合。",
+  "local_source_candidates": [
+    "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_open_market_notice_ledger_20150105_20260814.parquet",
+    "reports/research/510300_total_reverse_repo_v2/ordinary_all_tenor_operations.parquet"
+  ],
+  "finite_text_tags_frozen_before_read": [
+    "TAX 税期/税收高峰/税收缴款等明确原文",
+    "FISCAL_SPENDING 财政支出/财政拨付等明确原文",
+    "CASH 现金需求/投放/回笼等明确原文，春节本身不替代现金",
+    "MATURITY_OFFSET 对冲到期/到期回笼的明确原文",
+    "LIQUIDITY_LEVEL 原文已有银行体系流动性总量较高/充裕等事实，维护目的不当实际状态",
+    "OTHER_EXPLICIT 保留其他直接原因原锚不事后改标签体系",
+    "PURPOSE_ONLY 单纯维护平稳/合理充裕的目的非具体原因",
+    "UNKNOWN 原正文/对象/钟/具体理由未成立",
+    "MIXED 多具体理由并列保留，非单一外生冲击"
+  ],
+  "reason_object_rule": "必须指向本次操作或明确不操作；金额/期限行、一般方法背景、目的模板或后来说明不能自动成为本次实际原因。相关词只作原文定位，不单凭命中认证因果。",
+  "source_extraction": "复用原HTML正文提取方式，全部原公告/原目录去重后完整保留正文、显示钟、原路径与hash，其他工具另列而不混母体。冲突/缺失保持。",
+  "clock_rule": "复用原正式历史显示/重建公布钟为代理，首次历史首版/收件仍未认证；发布时间不得晚于原决定。公告日与实际结算/DR007统计日分开。",
+  "membership_support_rule": "仅读原idx/date/decision_time及原共同池身份，不读取股价/收益/预测。全部1212当前和1711当前/成熟成员保留；当日没有明确理由或时点则UNKNOWN，不前填/后填或把原规则目的当真实原因。来源完整性决定是否有原全模型资格，不按盈利/有值月删样本。",
+  "financial_labels_read": false,
+  "new_network_budget": 0,
+  "authenticated_requests_budget": 0,
+  "new_model_fits_budget": 0,
+  "new_labels_budget": 0,
+  "new_accounts_budget": 0,
+  "source_code_edits_budget": 0,
+  "parameter_grids_budget": 0,
+  "old_rejections_preserved": [
+    "R24固定2019资金价格历史观察",
+    "R35政策利率和资金利差二十日变化固定失败",
+    "E19实际到期来源门未建立",
+    "旧逆回购数量/全部期限/日历表达失败",
+    "E71相对价格表达冻结拒绝"
+  ],
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "historical_first_vintage_authenticated": false,
+  "parents": [
+    {
+      "path": "reports/research/510300_csi300_csi500_relative_price_increment_v1/固定失败归因_信号费用与原叶.json",
+      "bytes": 3793,
+      "sha256": "57fbb261ae478675a2b028650545b8c10c9463a08d308954c721c0119e97f615"
+    },
+    {
+      "path": "reports/research/510300_csi300_csi500_relative_price_increment_v1/next_experiment.json",
+      "bytes": 3749,
+      "sha256": "670ebcf7d1dda07b18a4710801e093b9d5e0d2bb9b6a31083ef5f78d2f83295d"
+    },
+    {
+      "path": "research/historical_index_rates_policy_transmission_v1.py",
+      "bytes": 35873,
+      "sha256": "ff478d2fd76d359cd5c26ff57a416d08ecaab476b866425a451890df9ddd0c0a"
+    },
+    {
+      "path": "reports/research/510300_historical_index_rates_policy_transmission_v1/protocol.json",
+      "bytes": 3706,
+      "sha256": "f5e06a84d68a9b745f075ced79c086566e56684b3661dbbb2b6a4130d6669c0c"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/protocol.json",
+      "bytes": 5983,
+      "sha256": "28198a25fffa2a386fbdb13d0773c25b5b3b014896e927b8eb16f28ed3a5f66c"
+    },
+    {
+      "path": "research/policy_liquidity_quantity_v1.py",
+      "bytes": 29999,
+      "sha256": "0d31896f6744cf6ae793df0f5fa449c261e0459066728f26f1ab16ef1573daeb"
+    },
+    {
+      "path": "research/total_reverse_repo_v2.py",
+      "bytes": 27353,
+      "sha256": "2b0533ec60fc2a607d6451da62d893c5ab189201af77cdb6db6ff74c36e18d9f"
+    },
+    {
+      "path": "reports/research/510300_domestic_reverse_repo_maturity_prior_source_review_v1/protocol.json",
+      "bytes": 7045,
+      "sha256": "6ffe1fb015a838f15a0af1b901bcc30af4f4b1f850069288e122913983f5fcff"
+    },
+    {
+      "path": "research/funding_calendar_innovation_daily_v1.py",
+      "bytes": 22410,
+      "sha256": "86a89b39f51219d7e36b349c883d8bb12b02497e67e6b39d5b8b346831b24ad3"
+    },
+    {
+      "path": "data/curated/510300_asymmetric_stress_hazard_v1_source_remediation_v1_0_1/pboc_open_market_notice_ledger_20150105_20260814.parquet",
+      "bytes": 375963,
+      "sha256": "f5fecc285fef9fdbad671fa79a4ee971f03599c73a99051955537a7b30273981"
+    },
+    {
+      "path": "reports/research/510300_total_reverse_repo_v2/ordinary_all_tenor_operations.parquet",
+      "bytes": 331926,
+      "sha256": "5ab0bb2b30dc7988d97aeb6feddb25c3c48aa16c23406b1a67db55fe640dd7ac"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/共同成熟训练池.json",
+      "bytes": 8002821,
+      "sha256": "2edb4d5dc05c51cc64ca2c53be66af971af33ce44c88aa67cd2ddf702734eb32"
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "bytes": 1880663,
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed"
+    },
+    {
+      "path": "reports/research/510300_policy_liquidity_quantity_v1/result.json",
+      "bytes": 3700,
+      "sha256": "5bd6419603e5daa618a9828ed17ddcf71b8f197082f80df4d76fb8f9dbc126d9"
+    },
+    {
+      "path": "reports/research/510300_total_reverse_repo_v2/result.json",
+      "bytes": 3807,
+      "sha256": "e5a3f1ac38dbb9b0cfdce29add77b05c11e2837b88d134b8e7276466ec15562f"
+    },
+    {
+      "path": "reports/research/510300_multidim_policy_transmission_score_v1/result.json",
+      "bytes": 13456,
+      "sha256": "580be9689b77bc369d2dcf9fb2a2b429fd74cac317d074dda5f7b7cc0b17804e"
+    }
+  ]
+}

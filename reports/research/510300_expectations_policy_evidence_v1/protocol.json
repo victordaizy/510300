@@ -1,0 +1,47 @@
+{
+  "study_id": "510300_EXPECTATIONS_POLICY_EVIDENCE_V1",
+  "frozen_before_new_return_calculations": true,
+  "research_type": "公开来源补充、数据核对和历史描述性检验；不运行交易账户",
+  "user_question": "510300 的走势是否与 M1/M2 相对市场预期的偏差及宏观政策新信息有关？补齐能够核实的信息后给出结论。",
+  "market_cutoff": "2026-09-11",
+  "official_money_months": ["2018-01", "2026-08"],
+  "spread": "M1 同比减 M2 同比，单位百分点",
+  "consensus_proxy": "同一份事前报告所载 M1、M2 调查共识的差；不是机构配对剪刀差预测的中位数",
+  "source_admission": {
+    "best_available": "原发布机构有明确报告日期、日期早于官方实际公布日、统计期和口径可确认的同份 M1/M2 共识；属于历史重建，不声称当时已不可篡改保存",
+    "post_release": "只作回述例证，不并入事前样本",
+    "previous_not_forecast": true,
+    "own_model_not_market_consensus": true,
+    "same_day_unknown_time": "事前资格不成立",
+    "new_M1": "2025 年 1 月统计月起单列；不将回溯新口径用于历史决策",
+    "missing": "保留缺失；不插值，不用后来共识回填"
+  },
+  "calendar_reconciliation": "只将真实官方发布日期与实际值都一致的原始 M2 行标为对齐；日期附近的候选另列，不能默默改日期成为正式样本。",
+  "expectations_selection": "在最终实际公布日之前，选同一统计月最晚一份、明确提供两项预测的合格原始报告；同日日期精度不足者排除。来源可覆盖的月份全部保留。",
+  "policy": {
+    "dataset": "Harrison Shieh 作者公开的 ChinaMPFactors_June2025.xlsx，446 次央行公告",
+    "factors": ["Target", "Path"],
+    "unit": "作者标注 0.01 对应相关利率互换利率变化 1 个基点；正值对应利率上行方向",
+    "full_sample_PCA": true,
+    "role": "事后政策消息测量与历史关联描述；不能作为实时信号，不能视作央行政策的纯外生因果效果",
+    "coverage": "该作者的货币政策公告目录，不代表全部财政、地产、资本市场或国际政策；其他政策只列官方可核实的背景事件，不估计它们的贡献"
+  },
+  "event_returns": {
+    "horizons_sessions": [1, 5, 20],
+    "base": "公告日当天或之前的最后一个交易日收盘；终点为公告日之后严格第 h 个交易日收盘",
+    "measure": "510300 保存数据的含分红总收益指数终点除以基点减一",
+    "limitation": "统一日频描述口径，可能遗漏盘中即时反应；未知时刻的政策事件不能据此还原成交。窗口内可能叠加其他政策和数据，不解释为单项消息带来的收益。",
+    "immediate_or_tradable_claim": false,
+    "return_gate": "终点不超过保存行情截止日，且起点与终点均有有效原始观察"
+  },
+  "descriptive_outputs": [
+    "逐月覆盖与未通过原因",
+    "原始日历逐行核对和异常统计",
+    "事前预期、回述预期各自完整列示及逐事件收益",
+    "政策两因子与各固定收益窗口的 Pearson 和 Spearman 相关；全部报告，无窗口择优",
+    "政策正负两组各窗口的样本数、平均值、中位数、上涨比例；仅作描述，不认定独立样本或显著性"
+  ],
+  "predictive_acceptance": "本轮不建立独立预测通过结论。公众历史重建、全样本政策因子和稀疏事前共识均不替代冻结后验证；不存在依据描述统计启动账户的路径。",
+  "account_status": "NOT_RUN_INFORMATION_EVIDENCE_STUDY",
+  "forbidden": ["围绕历史收益调整窗口或符号", "恢复已终止 85/15 策略", "补造预期", "将 M2 意外冒充完整剪刀差意外", "将同涨同跌解释为因果"]
+}

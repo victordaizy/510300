@@ -1,0 +1,40 @@
+{
+  "study": "510300_POINT_A05_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T13:56:09.125540+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "原D60价格事件锚定的多日收盘成交份额加权距离及首次转正是否增加原八项持仓继续价值信息。",
+  "information_role": "EXISTING_CLOSE_VOLUME_INFORMATION_EVENT_ANCHORED_CONDITIONAL_PURPOSE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定事前事件锚定量价距离与首次转正脉冲两列共十项；不恢复旧日均价/新低锚/固定滚动均价政策，不更改实际入场。",
+  "fields": [
+    "event_anchor_close_volume_distance",
+    "first_positive_reclaim_event"
+  ],
+  "formula": "P=原已发生raw收盘与当日已除息现金前向wealth、Q=volume份额share；锚e是上述当日已知唯一事件。VWAP代理=sum(P_j*Q_j,e..t)/sum(Q_j,e..t)，第一列P_t/代理−1；第二列仅本锚之后首次严格转正当日为1，之前和之后均0，锚日真实距离0/事件0。首次发生索引只在发生后记元数据，不用未来首次日期回填此前。含当日；不设最长锚龄、截断或压单分。",
+  "zero_missing": "原快照价格/现金/分解身份异常拒绝，不填值；纯字段中锚缺失或[e,t]任一财富/成交份额NaN/无穷/非正即两列未知，整段保持未知至新合法已知事件重置，不能跳过缺失行或压缩累计窗口。有效段真0/首次事件0合法，严格正距离才首次事件1；不截断负值。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、周期截距、入场固定版本、两负确认。",
+  "model": "两列各自沿原加权标准化/clip5线性加入，不新增交互、阈值或入场规则。",
+  "source_clock": "原D60条件从不成立转为成立的收盘e为锚；累计[e,t]前向财富收盘*成交份额/份额，含当日，首次严格转正只记当日1脉冲；收盘后可知、下一合法开盘执行，不用未来填单/周期。",
+  "prediction_gate": "同自然原点原收益单位周期等权MSE，两时期原可用预测全部配对且MSE严格改善，入场年份块5000次/seed51030095改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序十项/标签/成员/权重/设置完全相同才复用，失败不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历BASE/STRESS两时期，净CAGR与净夏普均高于A、实际净pB>1、平均周期收益>0、回撤<=10%；次数软目标。",
+  "old_failures": "旧ETF_CLOSE_VWAP、20/60滚动量加权、新低锚定进入与全部固定失败保持，不营救原政策。",
+  "no_rescue": "不按支持/预测/账户结果改D60父因子/60/1/原feature_valid、事件定义/锚重置/价格/份额/首次脉冲维度/缺失、原目标/成员/岭/权重/入场锁定/两负确认、预测/经济门或时期成本；旧VWAP/VWMA/新低锚/上下文失败保持，不以换锚救原失败。",
+  "feature_regression_estimation_calls": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

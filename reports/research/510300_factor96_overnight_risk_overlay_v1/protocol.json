@@ -1,0 +1,79 @@
+{
+  "at": "2026-09-27T15:06:19.071110+08:00",
+  "study_id": "510300_FACTOR96_OVERNIGHT_RISK_OVERLAY_V1",
+  "primary": "FULL",
+  "new_primary_overlays": 1,
+  "new_entry_strategies": 0,
+  "periods": {
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "policies": [
+    "PRICE_ALL",
+    "PRICE_COMMON",
+    "D06_ONLY",
+    "P02_ONLY",
+    "FULL"
+  ],
+  "primary_lag": 0,
+  "one_day_extra_lag_policies": [
+    "PRICE_COMMON",
+    "FULL"
+  ],
+  "expected_accounts": 56,
+  "baseline": "与T06完全相同MA20财富收盘条件、最多5个开盘间隔、风险后实际原份额上限；仅已核对账本而非已验证盈利，不能把它称合格入场策略。",
+  "returns": "rCO=(开盘+当日每份分红)/前收盘-1；rOC=(收盘+当日分红)/(开盘+当日分红)-1，精确复合为当日持有总收益。分红为应收财富归属，不视作当日可交易现金。",
+  "D06": "完整最近60日sum(min(rCO,0)^2)/sum(rCO^2+rOC^2)；分母为零或缺失则未知。另报最差3个rCO的均值，非额外入场条件。",
+  "P02": "收益平方/事前预测方差；预测以此前60个完整日收益平方均值初始化，之后v[t]=0.94*v[t-1]+0.06*r[t-1]^2。当前平方收益从不进入当天分母。缺口后重建60日种子。",
+  "thresholds": "两个变量各自严格此前252日、至少120有效点的90和70分位；当前值不进入当日阈值。",
+  "clock": "主版本当日收盘得到D06/P02及阈值，下一合法开盘仅调整旧份额；额外延迟一交易日仅敏感性，不延迟当前基准和成熟风险预算。",
+  "cut": "FULL任一变量严格超过自身P90则减半风险限制后的基准份额，向下取整100；只管理已建立周期，不用风险层另开入场。",
+  "restore": "FULL两变量都严格低于各自P70连续2日才恢复风险允许的原份额；单项臂按自身低阈值两日恢复。未知重置恢复计数、保留削减；70至90分位区间不视作恢复。",
+  "entry_coverage": "PRICE_COMMON和三个覆盖臂首次进入都要求两个风险变量可知；PRICE_ALL不加该源条件。",
+  "risk": "沿用两年成熟5日ES95、2.5%预算、50%最大名义比例、10%跳空5%预算和回撤剩余空间折半；10%回撤后合法开盘退出且不重启。",
+  "account": "100份、0.001元、T+1、方向涨跌停、最低佣金5元、分红应收及现金、期末压力退出成本准备、保留全部现金日。",
+  "acceptance": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "both_main_capitals_stress_required": true
+  },
+  "bootstrap": {
+    "block": 20,
+    "draws": 4000,
+    "seed": 20261002,
+    "comparisons": [
+      "PRICE_COMMON",
+      "D06_ONLY",
+      "P02_ONLY"
+    ]
+  },
+  "stop": "固定OR覆盖层不达标则结束；不调60日、252日、0.94、90/70分位、两日恢复或基准来挽救，不晋升表现最好单项。",
+  "independent_forward_validation": false,
+  "goal_achieved": false,
+  "goal_status": "active",
+  "orders_authorized": false
+}

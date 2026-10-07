@@ -1,0 +1,73 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_VALUATION_REPRICING_V1",
+  "recorded_at": "2026-10-01T14:03:01.416932+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "mode": "HISTORICAL_DISCOVERY_ONLY",
+  "research_unit": "沪深300整体，ETF成本后事件收益单列",
+  "question": "2019年1至4月，信用信息出现时指数整体估值已变化多少；旧PE隐含分母与真实已披露盈利能否区分？",
+  "events": [
+    {
+      "id": "2018-12",
+      "date": "2019-01-15",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/370befa3ce2042dfbc414b74f3b397b7/index.html"
+    },
+    {
+      "id": "2019-01",
+      "date": "2019-02-15",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/7edf9df774a54075bbe1ee1a2668d2de/index.html"
+    },
+    {
+      "id": "2019-02",
+      "date": "2019-03-10",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2e1a6b1acada49c1a209632913dd7372/index.html"
+    },
+    {
+      "id": "2019-03",
+      "date": "2019-04-12",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4818fd3dab79452b88397496fdd6798f/index.html"
+    }
+  ],
+  "monthends": [
+    "2018-12",
+    "2019-01",
+    "2019-02",
+    "2019-03",
+    "2019-04"
+  ],
+  "input_files": {
+    "pe": "reports\\research\\510300_macro_earnings_pricing_bridge_v5\\inputs\\pe.parquet",
+    "index_price": "reports\\research\\510300_macro_earnings_pricing_bridge_v5\\inputs\\index_price.parquet",
+    "vendor_valuation": "data/raw/valuation/000300_valuation_daily_raw.parquet",
+    "old_pe": "data/raw/valuation/000300_pe_official_raw.parquet",
+    "old_arithmetic": "reports/research/510300_index_repricing_chronology_v26/results/104个月_定价前后便览.csv"
+  },
+  "existing_work_reused": "V5与V26已做价格/PE恒等式；本轮不声称发明新分解，只连接四次历史调查预期、利率和成本后收益，并检查定义缺口。",
+  "known_history": "这些历史价格、部分估值和结果已在旧研究出现，不是盲检或独立验证。",
+  "identity": "100*log(P1/P0)=100*log(PE1/PE0)+100*log((P1/PE1)/(P0/PE0))；仅代数恒等式。",
+  "asset_clock": "价格和PE只使用同日期000300；不能把510300价格、全收益指数或不同日期估值混入恒等式。",
+  "pre_release_context": "各金融数据公开日21:00，选择旧PE账本available_at不晚于该时刻的最近可用值；可用日期与数据日期分开。",
+  "lookbacks": [
+    20,
+    60
+  ],
+  "lookback_origin": "直接沿用V5、V26既有20/60交易日价格描述，不选表现最好的窗口。",
+  "monthend_role": "月末同日期价格和PE只作历史分解，保留PE假设可用时间；不假称月末收盘即可按收盘下单。",
+  "csi_source_probe": {
+    "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf",
+    "params": {
+      "indexCode": "000300",
+      "startDate": "20181228",
+      "endDate": "20190516"
+    },
+    "purpose": "一次有界请求核对官方历史字段；无响应时保留缺口，不批量重试或用现价替代。"
+  },
+  "cross_provider": "乐咕静态与TTM整体PE分别作为口径对照，不与中证peg平均、拼接或挑选有利值。当前供应商历史未认证首次版本。",
+  "earnings_interpretation": "P/PE是隐含分母；股本、样本、除数、亏损处理、报告期和修订均可能改变它。未取得一致口径真实盈利前，不命名为已披露或预期EPS。",
+  "old_failure": "VAL04维持HISTORICAL_REJECTED_FROZEN_NO_STRATEGY_BACKTEST；本轮不复活PB-ROE回归、调阈值或组合权重。",
+  "returns": "复用四个既有5/20日净收益，不更改入场、退出或费用；不把解释窗口收益折算为策略夏普。",
+  "new_parameters_fitted": 0,
+  "new_full_accounts": 0,
+  "net_sharpe": null,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

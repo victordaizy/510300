@@ -1,0 +1,280 @@
+{
+  "study_id": "510300_MULTIDIM_SHARED_EVIDENCE_ATTRIBUTION_V1",
+  "registered_at": "2026-10-02T02:28:40.856867+08:00",
+  "status": "REGISTERED_NOT_RUN",
+  "purpose": "区分三项月度评分的训练标签依赖、完全相同或重叠的收益观察、实际保存账户持有重合与相邻行情暴露。",
+  "research_mode": "HISTORICAL_DESCRIPTIVE_ATTRIBUTION_ONLY",
+  "prior_observed_clues": "事先已知M2主期最大盈利集中、贷款主期高分同日、公募三叶依赖九月标签；本诊断不是独立检验或新的策略验证。",
+  "code_edit_authorized_this_turn": false,
+  "specs": [
+    {
+      "id": "M2",
+      "name": "M2联合评分",
+      "base": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score",
+      "events": "月度事件联合状态及标签.parquet",
+      "predictions": "逐事件联合评分.csv",
+      "expected_predictions": 47,
+      "account_base": "reports/research/510300_multidim_money_surprise_score_v1"
+    },
+    {
+      "id": "LOAN",
+      "name": "贷款联合评分",
+      "base": "reports/research/510300_multidim_loan_surprise_score_v1",
+      "events": "共同事件的十变量与原标签.parquet",
+      "predictions": "逐事件贷款预期联合评分.csv",
+      "expected_predictions": 40,
+      "account_base": "reports/research/510300_multidim_loan_surprise_score_v1"
+    },
+    {
+      "id": "PUBLIC_FUND",
+      "name": "公募份额联合评分",
+      "base": "reports/research/510300_multidim_public_fund_share_score_v1",
+      "events": "月度事件联合状态及标签.parquet",
+      "predictions": "逐事件联合评分.csv",
+      "expected_predictions": 14,
+      "account_base": null
+    }
+  ],
+  "model_scope": "仅各自保存joint_tree，合计101次；同一模型的参考对照不扩展本轮范围。",
+  "high_score_definition": {
+    "score_gte": 80,
+    "prediction_gt": 0,
+    "opportunities": "使用原保存不重叠高分表，不重新挑选。"
+  },
+  "tree_replay": {
+    "comparison": "float(np.float32(value)) <= saved_threshold",
+    "reconstruct_pool": "以保存training_months原顺序恢复事件；检查504日前序窗口和exit_at<=decision_at。",
+    "prediction_tolerance": 1e-12,
+    "score_tolerance": 1e-08,
+    "training_count": "叶成员数必须等于保存samples；全池数必须等于原training_events。"
+  },
+  "contribution_definition": {
+    "signed_share": "最大正标签 / 叶内全部带符号收益之和；分母接近零记null，负分母保留负值，不称概率或因果贡献。",
+    "positive_share": "最大正标签 / 叶内全部正收益之和；无正标签记null。",
+    "all_members_saved": true
+  },
+  "overlap_definition": {
+    "exact": "相同entry_date与exit_date；不同训练群体的月名不用于收益去重。",
+    "partial": "交易日开盘到下一开盘的持有间隔集合交集；退出当日不再计算为仍持有。",
+    "adjacent": "一个窗口exit_date等于另一个entry_date且无持有间隔交集；不计完全重复。",
+    "primary": "沿用原era=2024—2025，不按收益重新划阶段。",
+    "September_2024": "只列训练标签是否已成熟及原窗口实际出现时序，不估计政策因果效应。"
+  },
+  "account_scope": {
+    "existing_only": true,
+    "main_capital": 200000,
+    "comparison_capital": 20000,
+    "case_id": [
+      "joint_200000",
+      "joint_20000"
+    ],
+    "public_fund": "原未准入账户；不创建或假定公募账户。",
+    "new_fits": 0,
+    "new_accounts": 0,
+    "new_price_labels": 0
+  },
+  "outputs": [
+    "01_全部101次预测来源.csv",
+    "02_全部训练叶成员.csv",
+    "03_原高分机会与训练贡献.csv",
+    "04_高分持有窗口两两关系.csv",
+    "05_全部评分窗口两两关系.csv",
+    "06_保存账户周期与重合.csv",
+    "07_训练标签去重与使用次数.csv",
+    "08_实际路径字段频数.csv",
+    "09_时间顺序及必要复核.json",
+    "10_三项评分来源时间线.png",
+    "共同收益来源归因_研究结论.md",
+    "result.json",
+    "execution_receipt.json"
+  ],
+  "minimum_checks": [
+    "恢复叶均值及保存树值与预测一致",
+    "训练成熟与源可得时点不晚于决定",
+    "原评分和固定高分次数不变",
+    "固定输入前后hash不变"
+  ],
+  "stop": "归因问题回答完即结束；不删样本重训，不删交易创造账户，不改规则或阈值，不组合账户，不宣称目标达成。",
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/月度事件联合状态及标签.parquet",
+      "bytes": 49109,
+      "sha256": "fd1a8790e68f3705523f4225a2dd68442df9d291a9dc52c9759bc79f12aeb4dd"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/逐事件联合评分.csv",
+      "bytes": 54428,
+      "sha256": "fd8b1e35e8d4fab2358edaa69ebe69c0c64856e1b73d2df3b8a9f2f1865086da"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/saved_models.json",
+      "bytes": 206749,
+      "sha256": "62cf1e882133f70727230727ebc25ea33a70e0f0e82bc410fbb6c65d3b71f484"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/全部固定高分机会.csv",
+      "bytes": 3197,
+      "sha256": "76382c567cb8dedf642ba234b83fe51dac071e79bcdbb022e5b8e08c8da44fb0"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/protocol.json",
+      "bytes": 5370,
+      "sha256": "9871cbddde793cce52a29e977d0dbbeea14b028c0b43910448a2e2c60a746728"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/result.json",
+      "bytes": 10552,
+      "sha256": "49496c9691e7e39177fc090d437877715d939f3d1389bcb3970e9288c89d9b88"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/account_result.json",
+      "bytes": 34801,
+      "sha256": "ddc384461eb041886545625f9e2b573f1770797b6799d2aa63e76bdbc5e9e2ce"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/account_protocol.json",
+      "bytes": 5228,
+      "sha256": "f0193b6a8d0fb23bc9829a46923c97823150d8034d00956eff1e506f59ced0d8"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/全部账户自然交易周期.csv",
+      "bytes": 4130,
+      "sha256": "7f00c0f4c832a160884eece2dd0897e9c0598533d7a43e871a554aeb7eed046c"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/accounts/joint_200000.parquet",
+      "bytes": 82230,
+      "sha256": "87a56993d382e79cabe5e20aa14f8bc691d8ef199ddbd4107ae81baadc93f08b"
+    },
+    {
+      "path": "reports/research/510300_multidim_money_surprise_score_v1/accounts/joint_20000.parquet",
+      "bytes": 81355,
+      "sha256": "b1b9d45988d0a78208f04859e2c4af4319a6c901957d5d14c2dee98151f93836"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/共同事件的十变量与原标签.parquet",
+      "bytes": 71857,
+      "sha256": "26b8b1608f2386e16714435d4b48448ac03a7084317b5c0cb8ef7b1fd21de8af"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/逐事件贷款预期联合评分.csv",
+      "bytes": 71340,
+      "sha256": "81014a29cb00a01068fc3f22daa4d52e271aa3e7f8e1134033dabf5a4dd73b5d"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/saved_models.json",
+      "bytes": 186898,
+      "sha256": "d38442099374042e36fe358664420d8966913ec9321e249132332a96fac20dc6"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/全部固定高分机会.csv",
+      "bytes": 2155,
+      "sha256": "67a81f52921c498b25e0d5854fe5c97252cf727c550c9ec23fb07e04d6a9a0e6"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/protocol.json",
+      "bytes": 6135,
+      "sha256": "34aecb4d2d9ab05aee4a5238ace88283d19ebff205c0892a2a5d35ee387314fa"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/result.json",
+      "bytes": 10699,
+      "sha256": "7ec1efc0e4751a96a177668f26f9da7a135ce327e0f30c0cf5974afafc68856b"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/account_result.json",
+      "bytes": 27620,
+      "sha256": "a2971a522275254ef651ccf033442eb21cb3afc3e780297a8b47771ad661a72c"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/account_protocol.json",
+      "bytes": 5628,
+      "sha256": "745c99a926e5e5467f5a10e4775c8dddcc48fa97bc2efe7ce60289b6f35258c4"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/全部账户自然交易周期.csv",
+      "bytes": 4037,
+      "sha256": "812e3ef1ae0b2f1a11931c6d926c77ddaf680cbda25fda9abac9bf5ae7e9b5fc"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/accounts/joint_200000.parquet",
+      "bytes": 83306,
+      "sha256": "211ed8b8270b7936476c56bbb315840cddb572af0da9685b0b7fee07051f9dbc"
+    },
+    {
+      "path": "reports/research/510300_multidim_loan_surprise_score_v1/accounts/joint_20000.parquet",
+      "bytes": 82254,
+      "sha256": "976675bde9c10f825e381f779bbb35c767225bdd835a427e9c49e31e260b7062"
+    },
+    {
+      "path": "reports/research/510300_multidim_public_fund_share_score_v1/月度事件联合状态及标签.parquet",
+      "bytes": 60728,
+      "sha256": "89b0f8cbdfbbd59daa08879a621d958afd4ea8333160f8c2c51aef963eaa62cd"
+    },
+    {
+      "path": "reports/research/510300_multidim_public_fund_share_score_v1/逐事件联合评分.csv",
+      "bytes": 23512,
+      "sha256": "24dcd6061aac335c5fbd43cb7e5d13d4844ec6f8ff9637490cd86ae0fb03c13f"
+    },
+    {
+      "path": "reports/research/510300_multidim_public_fund_share_score_v1/saved_models.json",
+      "bytes": 62354,
+      "sha256": "9642a4c5250eac788e82a34d184911793c03b23ae607477878f5c392a8aa7dae"
+    },
+    {
+      "path": "reports/research/510300_multidim_public_fund_share_score_v1/全部固定高分机会.csv",
+      "bytes": 858,
+      "sha256": "88683926889ed20b635b1f5193f0ccf11cbc6796d86dedbe2e8a606e13027506"
+    },
+    {
+      "path": "reports/research/510300_multidim_public_fund_share_score_v1/protocol.json",
+      "bytes": 5729,
+      "sha256": "070715d0e41565b7c05618097027a80ca7b60168ec087d24ef27ac383e792031"
+    },
+    {
+      "path": "reports/research/510300_multidim_public_fund_share_score_v1/result.json",
+      "bytes": 5637,
+      "sha256": "ac629f6bc290d13bd5775fce98b89873691d0cfec342d1715547a6db057a7fbc"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/daily_inputs_corrected_20240808.parquet",
+      "bytes": 1874361,
+      "sha256": "c6be6dcf35dbff5f162980115de43acc498a15c0bd116b0f003d009c7ec712e7"
+    },
+    {
+      "path": "config/510300_financing_source_correction_20240808_v1.json",
+      "bytes": 919,
+      "sha256": "583e830a6f9f0b05e76f7c4b06263d7cf332bb7b888094ecb55e6b46e52c61d2"
+    },
+    {
+      "path": "config/510300_historical_cause_discovery_v1.json",
+      "bytes": 3756,
+      "sha256": "5df4e20b21e0590df62b61804ee6b877d638f60c8b004bb2fc2bcb8ed413f761"
+    },
+    {
+      "path": "config/510300_existing_data_training_mandate_v1.json",
+      "bytes": 20012,
+      "sha256": "7abaaf45a2ab289fac522c82c4a63a2e9d1ec21ceee3a86d7621e11a344da522"
+    },
+    {
+      "path": "research/multidim_money_surprise_score_v1.py",
+      "bytes": 18109,
+      "sha256": "67ed54914f0a6afe3455858a322e8528875e15169845c2f721a1d6779d1b815d"
+    },
+    {
+      "path": "research/multidim_loan_surprise_score_v1.py",
+      "bytes": 22535,
+      "sha256": "7d3ac0aa5904486aeb94c0ea62342d873004cb1e54763daa42f609475e83b90e"
+    },
+    {
+      "path": "research/multidim_public_fund_share_score_v1.py",
+      "bytes": 23617,
+      "sha256": "0d3cf9d91ca7835835676d5a1c4a7df5aa88c05f900aa9c776ec4dd69770fd5f"
+    },
+    {
+      "path": "research/finalize_multidim_public_fund_share_v1.py",
+      "bytes": 22663,
+      "sha256": "a053e3ec7bf168e0a96d7840c87f4550e17f1592dd7fbf86eedc10b2d2567af0"
+    }
+  ]
+}

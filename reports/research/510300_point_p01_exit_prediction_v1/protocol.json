@@ -1,0 +1,40 @@
+{
+  "study": "510300_POINT_P01_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T13:29:11.969072+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "全天经济收益下行平方占比与总波动是否增加原八项持仓继续价值信息。",
+  "information_role": "EXISTING_FULL_DAY_DOWNSIDE_VOLATILITY_BLOCK_DISTINCT_FROM_OVERNIGHT_COMPONENT_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定P01全天下行平方占比与经济log日波动两列共十项，不恢复旧风险政策、旧隔夜分量模型或更改入场。",
+  "fields": [
+    "downside_square_share20",
+    "daily_log_std20"
+  ],
+  "formula": "P为原raw close及当日已除息现金前向累乘财富，r=log(P[j]/P[j-1])与原total_log绑定，首点没有区间。包含当前[t-19,t]二十个真实log收益，DS20=sum(min(r,0)^2)/sum(r^2)，总波动为同窗std ddof1不年化。需二十一完整实际财富点，收盘后可知，原八项加固定两列共十项，不改入场。",
+  "zero_missing": "首区间/真实历史不足、财富缺口/非正/非有限、收益未知均保留，不压缩合格历史。总平方和非正/非有限则占比NO_VIEW；分母正时没有负收益真实0、全负真实1保留。std为0并不令正平方分母占比未知，常数非零收益可同时有DS0或1和总波动0。全零收益DS未知，原始总波动0可以保留为已知元数据/第二列，但完整块仍不支持。无epsilon、补0、删成员或改收益类型。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、周期截距、入场固定版本、两负确认。",
+  "model": "两列各自沿原加权标准化/clip5线性加入，不新增交互、阈值或入场规则。",
+  "source_clock": "包含当日二十个真实经济log收益，sum(min(r,0)^2)/sum(r^2)与同窗样本std ddof1，不年化；需二十一完整财富点，收盘后可知、下一合法开盘执行。",
+  "prediction_gate": "同自然原点原收益单位周期等权MSE，两时期原可用预测全部配对且MSE严格改善，入场年份块5000次/seed51030093改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序十项/标签/成员/权重/设置完全相同才复用，失败不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历BASE/STRESS两时期，净CAGR与净夏普均高于A、实际净pB>1、平均周期收益>0、回撤<=10%；次数软目标。",
+  "old_failures": "原P01高低政策、旧下行风险预算/平衡门、旧隔夜下行占比及全部固定失败保持。",
+  "no_rescue": "不恢复P01分位、旧下行风险规模/方向门或旧隔夜份额；不变20窗口、全天log坐标、0边界、平方分母/std尺度、维度/交互、未知/epsilon、原标签/成员/权重/岭/截距/入场锁定/两负确认、门/时期/成本营救。",
+  "feature_regression_estimation_calls": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

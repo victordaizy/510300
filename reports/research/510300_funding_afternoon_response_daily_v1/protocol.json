@@ -1,0 +1,89 @@
+{
+  "at": "2026-09-26T00:08:56.087244+08:00",
+  "study_id": "510300_FUNDING_AFTERNOON_RESPONSE_DAILY_V1",
+  "primary": "PRICE_FUNDING_AND_AFTERNOON",
+  "question": "同样的上午资金模型意外，与午后继续下跌或企稳上涨共同观察时，能否更好地区分下一可交易阶段的结果？",
+  "information": "沿用已保存、当前两年窗内嵌套计算的FDR007模型意外，只增加同一源日13:05至14:55标签close价格的对数变化，除以源日前20日含分红日收益均方根波动。",
+  "funding_clock": "上午定盘按源日12:00计划可用；实际首次送达未认证。下午窗口在该计划时间之后。",
+  "response_clock": "下午两个价格仅作为信号，源日15:30后视为可用，最早下一A股09:00判断、09:30开盘执行；不把确认期涨幅算进交易收益。",
+  "minute_source": "已有第三方代理分钟档案，2021-08-12至2026-08-12共1211日；两个指定标签均存在。原供应商未明确定义标签是bar起点还是终点，不宣称精确秒级事件反应；两者均位于午后，仅用于次日信息。",
+  "causal_limit": "下午价格受多种消息影响，不能证明它由资金意外引起；模型意外也不是市场一致预期差。本轮只检验预测和账户增量。",
+  "models": {
+    "HISTORY": [],
+    "PRICE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60"
+    ],
+    "PRICE_AND_FUNDING": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation"
+    ],
+    "PRICE_AND_AFTERNOON": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "afternoon_response"
+    ],
+    "PRICE_FUNDING_AND_AFTERNOON": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "afternoon_response"
+    ]
+  },
+  "primary_increment": "PRIMARY减RESPONSE，识别已有相同价格反应时资金信息的额外作用。另比较PRIMARY减FUNDING及PRIMARY减PRICE。",
+  "factorial_diagnostic": "完整账户每日收益的PRIMARY-RESPONSE-FUNDING+PRICE，保留为联合增量描述；账户路径不同，不当成结构因果交互。",
+  "training": "所有5个分布模型使用完全相同且已具备两个信息的训练池；最近两日历年、至少252个成熟原点、退出开盘严格早于当前09:00；沿用固定126近邻、训练内标准化截断5。",
+  "reuse": "复用上一轮572489组嵌套资金预测，不重估其1144978次资金回归。只生成本轮新的条件分布和账户。旧六账户不作为本轮共同覆盖对照。",
+  "coverage": "账户仍从2020-01-02持续到2026-09-24，包括分钟历史开始前的NO_VIEW、样本不足及末端缺少分钟信息的所有现金日；另描述实际可预测区间，不靠缩短评价期宣布通过。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free_rate": 0,
+  "targets": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "account": "四方案各BASE/STRESS共8个完整账户。只在已知五日价格弱势时允许新增库存；原目标效用、50%上限、ES95的2.5%、10%跳空的5%与峰值余量一半、T+1与压力费用均不变。",
+  "comparison": "完整同日收益20日循环区块2000次，seed2026092601；固定2020-2023、2024-末端及所有滚动两年。",
+  "development_gate": "主压力账户三目标通过；相对RESPONSE、FUNDING和PRICE的增量95%下界都正且两个固定时期均正，才留作开发候选；资料认证和独立验证仍未完成。",
+  "duplicate_boundary": "不恢复旧收盘30分钟成交压力策略，不重做LPR与日终股债20日实验；本次检验上午资金残差加午后价格共同状态，单独保留下午价格对照。",
+  "new_parameter_grid": 0,
+  "new_funding_regression_fits": 0,
+  "new_market_downloads": 0,
+  "source_quality_warnings": [
+    {
+      "code": "UNOFFICIAL_PROXY",
+      "impact": "数据经第三方代理获取，不等同于直连TuShare官方主站。"
+    },
+    {
+      "code": "API_NAME_DOCUMENTATION_MISMATCH",
+      "impact": "代理请求名为stk_mins，TuShare当前官方ETF历史分钟文档记载的接口名为etf_mins。"
+    },
+    {
+      "code": "TRADE_TIME_SEMANTICS_NOT_PROVIDER_DEFINED",
+      "impact": "官方文档仅将trade_time解释为交易时间，不额外断言为bar_start或bar_end。"
+    },
+    {
+      "code": "NO_POST_CLOSE_FIXED_PRICE_SESSION",
+      "impact": "序列仅到15:00，不包含2026-07-06以后15:05至15:30盘后固定价格交易。"
+    }
+  ],
+  "new_full_accounts": 8,
+  "first_vintage_authenticated": false,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

@@ -1,0 +1,139 @@
+{
+  "study_id": "510300_DENSE_PROBABILITY_PAYOFF_NODES_V1",
+  "user_instruction": "请继续，达到目标再停止；先训练胜率与盈亏幅度，再逐步增加节点；不用采集。",
+  "relation_to_parent": "旧20事件门失败保留；本次以已有10个耗竭事件做同一家族探索，不称独立证据。此前一般IF持仓增量失败也保留。",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.3,
+  "target_max_drawdown_magnitude": 0.1,
+  "annual_days": 242,
+  "signal_end": "2026-08-12",
+  "account_end": "2026-08-18",
+  "account_end_reason": "末次8月4日已知信号的十日持有在8月18日结束；信号截止后仅完成已有交易，不推断缺失IF日的新信号。",
+  "event": "完全继承原pressure_exhaustion_event；IF数据滞后一交易日，信号15:01已知，次开盘入场。",
+  "horizon_sessions": 10,
+  "min_train": 24,
+  "training_sample": "全部data_eligible日；只纳入标签结束时点严格早于模型时点的十日标签。",
+  "ridge_mean_loss_penalty": 1.0,
+  "features": {
+    "price": [
+      "etf_past_5d_total_return",
+      "etf_realized_volatility_20d",
+      "etf_same_day_total_return",
+      "etf_log_amount_vs_trailing_60d_median"
+    ],
+    "if_joint": [
+      "basis_residual_percentile",
+      "open_interest_shock_percentile",
+      "basis_oi_interaction"
+    ]
+  },
+  "models": {
+    "A_PRICE": {
+      "groups": [
+        "price"
+      ]
+    },
+    "B_IF_EXHAUSTION": {
+      "groups": [
+        "price",
+        "if_joint"
+      ]
+    },
+    "MATURE_MEAN_REFERENCE": {
+      "groups": []
+    }
+  },
+  "policies": {
+    "ERROR_BUFFER_PRIMARY": {
+      "prediction_error_multiplier": 1.0,
+      "min_mature_prequential_errors": 6
+    },
+    "NET_POSITIVE_DIAGNOSTIC": {
+      "prediction_error_multiplier": 0.0,
+      "min_mature_prequential_errors": 0
+    }
+  },
+  "additional_control": "EVENT_ONLY：全部耗竭事件进入，不计算或冒充模型预测；相同仓位、期限、成本和回撤停止。",
+  "account": {
+    "vol_target_annual": 0.1,
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "slippage_per_side": {
+      "BASE": 0.0005,
+      "STRESS": 0.001
+    },
+    "lot_size": 100,
+    "prediction_error_multiplier": 0,
+    "min_mature_prequential_errors": 0,
+    "drawdown_brake": 0.08,
+    "force_close_on_last_day": true,
+    "cash_and_risk_free_daily_return": 0,
+    "dividend_cash_policy": "除息记应收，付款日现金可用。",
+    "scope": "与原100个月末评价的首日一致，截止最后可用IF信号十日标签结束；全程包括空仓。",
+    "exit": "第10个持有交易日收盘退出；收盘回撤8%后次开盘清仓并停止，不再进入。"
+  },
+  "historical_prices_seen": true,
+  "event_dates_seen": true,
+  "no_parameter_grid": true,
+  "new_downloads": 0,
+  "executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "hypothesis": "月末抽样损失训练信息；已知波动水平应解释条件盈亏的尺度。两项增量分别用固定对照识别。",
+  "overlap_weight": "在当次成熟训练集内，计算每段十日标签的平均逆重叠数，作为样本权重；不声称标签独立。",
+  "model_clock": "沿用100个月末预测原点，每月末更新一次，随后逐日固定参数；末次期末模型只保存不参与评价。",
+  "model_family": "无加权类别再平衡的L2逻辑回归；条件Gamma均值回归；波动尺度为事前vol20*sqrt(10)。",
+  "loss_penalty": 1.0,
+  "standardized_clip": 3.0,
+  "net_label_cost_proxy": 0.0024,
+  "amplitude_variants": "同一IF概率分别配原幅度经验均值、Gamma、波动缩放经验均值、带波动offset的Gamma；价格版作为辅助信息对照。",
+  "primary_model": "DENSE_IF_VOL_GAMMA",
+  "comparison_models": [
+    "DENSE_EMPIRICAL",
+    "DENSE_IF_EMPIRICAL",
+    "DENSE_IF_GAMMA",
+    "DENSE_IF_VOL_MEAN",
+    "DENSE_IF_VOL_GAMMA",
+    "DENSE_PRICE_VOL_GAMMA",
+    "MONTHLY_IF_GAMMA"
+  ],
+  "fixed_comparisons": [
+    [
+      "DENSE_IF_VOL_GAMMA",
+      "DENSE_IF_GAMMA"
+    ],
+    [
+      "DENSE_IF_VOL_GAMMA",
+      "DENSE_IF_VOL_MEAN"
+    ],
+    [
+      "DENSE_IF_VOL_GAMMA",
+      "DENSE_PRICE_VOL_GAMMA"
+    ],
+    [
+      "DENSE_IF_GAMMA",
+      "MONTHLY_IF_GAMMA"
+    ],
+    [
+      "DENSE_IF_EMPIRICAL",
+      "DENSE_EMPIRICAL"
+    ]
+  ],
+  "node_stages": {
+    "S0_IF_ONLY": "原10个IF耗竭节点，日期不变。",
+    "S1_PLUS_FORECAST_ONSET": "加入主模型的p>0.5、W>L、E>0联合状态由假转真的首日；不调阈值，不在持仓中叠加。"
+  },
+  "node_interpretation": "预测状态转正不等于已证明市场变盘；三个门槛并非三份独立信息，p>0.5且W>L已蕴含E>0。",
+  "node_timing": "每日15:01使用当时特征和最近一次月末模型；下一交易日开盘，固定第10日收盘；模型更新触发也明确标记。",
+  "prior_node_state": "首个有模型日前及数据缺口前状态未知，只有相邻完整交易日可触发转正，不把第一次得到模型自动算新增节点。",
+  "evaluation": "月末、原IF节点和全部日预测分开；新节点只在完成预测保存后产生并独立报告。日预测的十日标签相关。",
+  "annual_frequency_is_training_admission_gate": false,
+  "minimum_complete_cycles_each_full_calendar_year": 5,
+  "no_feature_direction_reversal": true,
+  "historical_results_already_seen": true,
+  "independent_holdout": false,
+  "branch_budget": "本协议两项固定训练增量和一类节点扩展各做一次；不能因为未达1.3继续在本分支调整窗口或门槛。"
+}

@@ -1,0 +1,88 @@
+{
+  "study_id": "510300_FACTOR96_MARGIN_REPAIR_V1",
+  "registered_at": "2026-09-27T11:47:19.547426+08:00",
+  "primary_candidates": [
+    "T03",
+    "T05"
+  ],
+  "candidate_count": 2,
+  "parameter_search": false,
+  "periods": {
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "capital_cny": [
+    200000,
+    20000
+  ],
+  "annual_days": 242,
+  "annual_252": "只披露转换，不据此改变判定",
+  "cash_rate": 0,
+  "rf": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "primary_margin_lag_sessions": 1,
+  "extra_delay_sensitivity": 2,
+  "execution": "收盘确认后次开盘；100份，0.001价位，T+1，方向涨跌停保守不成交；开盘只缩减已提交份额。",
+  "candidate_T03": "B04日对数总收益低于前20日标准差负2倍，事件10日去重；第1至3日首个低价不低于冲击日且总收益为正的确认；已公开F5<0且F5减前非重叠5日F5>0。",
+  "candidate_T05": "B06三日平均收益较前三日提高且收盘超前日高点的首次确认；C01不高于5日前；此前已公开5日隐含偿还/期初余额高于前252日80分位，最少120值。",
+  "exit_T03": "收盘到事件前MA20，或低于事件日低点减0.5事件前ATR20，或买入开盘后5个开盘间隔；次开盘卖。",
+  "exit_T05": "收盘到确认前MA20，或跌破确认日及此前5日最低点，或买入开盘后5个间隔；次开盘卖。",
+  "interpretation_choices": [
+    "T03不创新低比较当日低价与冻结冲击日低价；不增加中间各日全都守住的新条件。",
+    "T05首个确认是B06由假变真；确认区明确固定最近6个完整日；分位当前值排除。",
+    "T03草案提到波动回落，但进入种子无rv3阈值，本轮不另造过滤条件。",
+    "两个价格对照仅去掉融资条件，风险预算、期限和成本不变。"
+  ],
+  "financing_measurement": "由官方余额恒等式推导净融资=余额变化、偿还=买入-余额变化；称隐含偿还，含权益调整，非纯现金还款或强平。",
+  "source_limit": "历史源为2026年回取；沪市全段交叉核对，深市部分交叉核对和官方补缺；真实首次发布/修订版本未逐日认证。",
+  "novelty": "旧研究检验融资杠杆和广泛卖压的5日风险分类；本轮是固定价格修复事件内融资收缩减速/高隐含偿还的增量，不再训练旧分类器或改旧规则。",
+  "risk": {
+    "maximum_target": 0.5,
+    "conditional_five_day_es95_budget": 0.025,
+    "gap_stress_return": -0.1,
+    "gap_stress_budget": 0.05,
+    "drawdown_stop": 0.1,
+    "remaining_drawdown_half_budget": true,
+    "model": "每日此前2日历年，成熟5日开盘总回报，3个价格状态标准化截断5，取126最近邻，至少252训练；只用于风险仓位。",
+    "training_maturity": "原点j的开盘j+1至j+6，退出开盘索引不晚于当前收盘；同日风险输出前已可知。",
+    "missing": "缺风险估计不新增；已有仓位退出；所有现金日保留。"
+  },
+  "benchmark": "期初半仓买入持有，剩余现金；不实施策略止损；CASH零利息，夏普未定义。",
+  "terminal": "末日持仓保持原状并扣压力退出成本准备，不伪造成交；应收分红持续计值。",
+  "statistics": {
+    "paired_increment": "主期20万元压力相对匹配价格对照日收益差",
+    "block_length": 20,
+    "bootstrap_draws": 4000,
+    "seed": 20260927,
+    "family_holm_candidates": 2,
+    "global_96_candidate_selection_adjusted": false,
+    "warning": "家族校正不能清除全库和旧研究选择偏差。"
+  },
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1,
+    "historical_point_pass": "主期压力20万元且2万元均达到三个线；提前列出两项，不挑最好再回填。",
+    "independent_validation": "NOT_ESTABLISHED；两历史时期都已被研究，不称独立样本外。"
+  },
+  "stop_condition": "固定规则不达标即保留失败；不改窗口、退出、方向补救。本轮结果不能授权交易。",
+  "goal_status": "active",
+  "orders_authorized": false
+}

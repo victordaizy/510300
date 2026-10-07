@@ -1,0 +1,81 @@
+{
+  "study_id": "510300_PRIVATE_MANAGER_INTENT_V1",
+  "frozen_at": "2026-09-22T17:53:50.342352+08:00",
+  "role": "有限历史机制诊断和小样本预测检查；调查意向不是成交指令，仓位变化不等于真实净买入",
+  "research_selection": "在多年已研究历史上新增调查意向来源。属于开发记录，不是未见市场或严格前向。继承整个研究项目的选择偏差。",
+  "frozen_source_files": {
+    "admitted_sources.json": "bc9730088cc41bf7fa586e8cd1648c6f74bce44e495f82842fe86de01d6d8be3",
+    "月度调查仓位.csv": "4a4e42a2a4882d6ac691db372f1fe3d9a0aa31e0cd1c37e4ca01d5ce179cd897",
+    "全部月份覆盖与缺口.csv": "ffb6febf966311ee8c8ab61889ea1bba8e37df45ff7384ebe84df3a74182f6bf",
+    "inputs/market.parquet": "d2fc3d36f28806ee98c4cd54a752fcc25066e8b544e9d8c93caa2de9e2b86b68"
+  },
+  "availability": "公开日期一律按当日结束，下一交易日开盘开始评价。目录加当前PDF仅为历史重建；同时固定仅有日期公开正文的子样本。",
+  "publication_month": "无日期、晚于计划所属月、计划月份矛盾不进入主诊断；保留验证栏。缺失月份不插值。",
+  "market_label": {
+    "horizon_trading_days": 20,
+    "entry": "strictly_next_open",
+    "exit": "20th_trading_day_close",
+    "dividends": "入场日除息不享有，之后到退出日按每份现金分红计入应收；不再投资",
+    "gross_only": true
+  },
+  "features": {
+    "prior_return20": "最近已收盘日含分红财富/此前20日财富-1",
+    "logvol20": "此前20个日总回报标准差乘sqrt(242)取对数",
+    "intent": "(计划指数-100)/100",
+    "headroom": "1-调查仓位/100，仅为可加仓空间粗略代理",
+    "intent_headroom": "intent*headroom"
+  },
+  "descriptive_tests": [
+    "intent对之前20日收益",
+    "intent对随后20日收益",
+    "intent_headroom对随后20日收益",
+    "intent对下期月度调查仓位变化",
+    "intent_headroom对下期月度调查仓位变化"
+  ],
+  "descriptive_method": "Spearman秩相关；全体可用和有日期正文子集均报告；逐年剔除范围仅作集中度诊断，不选子样本",
+  "behavior_label": "严格相邻报告月份的调查平均仓位之差；比较的下次报告所属仓位日必须不早于当前可用日期。不是资金净流量，可能受价格和样本构成影响。",
+  "fixed_models": {
+    "A": [
+      "prior_return20",
+      "logvol20"
+    ],
+    "B": [
+      "prior_return20",
+      "logvol20",
+      "intent"
+    ],
+    "AC": [
+      "prior_return20",
+      "logvol20"
+    ],
+    "C": [
+      "prior_return20",
+      "logvol20",
+      "intent",
+      "headroom",
+      "intent_headroom"
+    ]
+  },
+  "estimator": {
+    "type": "Ridge",
+    "alpha": 10.0,
+    "scaler": "仅当时成熟训练样本的均值及标准差",
+    "fit_intercept": true,
+    "minimum_mature_training_events": 24,
+    "no_tuning": true
+  },
+  "evaluation": "逐时点扩展训练，仅标签结束日早于决策日者入训练。A/B使用相同计划可用训练及评价月份；AC/C使用相同意向和仓位完整训练及评价月份。AC是为C重新匹配训练样本的价格基准，不是另一个候选。同期成熟均值和恒零收益基准也报告。",
+  "promotion_gate": {
+    "minimum_evaluation_events": 24,
+    "minimum_evaluation_span_years": 3.0,
+    "required": "相对A和成熟训练均值的MSE均降低，按月份顺序3事件移动区块5000次重采样的成对改进95%区间下界均大于0；至少三个评价年，去掉任一年两项改进仍为正；有日期正文子集方向一致。未达到样本门槛时，不计算显著性或宣布正负作用。"
+  },
+  "accounts": "通过上述门槛后才能另立账户协议。本协议不授权账户回测。",
+  "capital_main": 200000,
+  "capital_comparison": 20000,
+  "annualization": 242,
+  "stop": "固定本轮来源、变量、模型、期限和方向；不反号或换窗口救援。新增资料另登记版本。",
+  "new_labels_read_before_freeze": 0,
+  "new_model_fits_before_freeze": 0,
+  "strict_forward_days": 0
+}

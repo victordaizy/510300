@@ -1,0 +1,139 @@
+{
+  "at": "2026-10-04T21:13:41.438411+08:00",
+  "study": "510300_POST_REPAIR_PATH_EXPLANATION_V1",
+  "technical_decision": "TECH.R162",
+  "phase": "EXPLANATION_ONLY_NO_NEW_FINANCIAL_POLICY",
+  "user_order": "先解释具体上涨段的量价和指标，再反推能提前识别的点位。",
+  "previous_goal_turn_classification": "PROGRESS_NEW_COMPLETE_CASE_DERIVED_POLICY_EVIDENCE",
+  "question": "价格修复失效后再次确认时，MACD动量是否一直保留、重建或尚未为正？这些状态是否解释延续、失败及原A覆盖？",
+  "known_state": "每个原点只读取此前及当前的原字段。上一合格价格确认记录，随后首次收盘<=EMA20记失效；当前MACD正段出生<=上一确认且未中断则动量保留，之后重新出生则重建，当前非正单列。未知中断既有关系，不以两个正端点证明全段连续。",
+  "membership": "全部当前3488日，2015起原价格确认全保留；原186成熟事件必须完整匹配，不以未来成熟筛当前状态，尾部无旧标签单列。",
+  "outcomes": "只复用原186固定20日标签及R161纯价格对照保存实际周期；独立结果文件在当时状态计算后才合并。实际周期子集不是新的政策账户，开放周期保留。",
+  "grouping": "唯一预先声明的动量路径分组，ALL及原2015-2019/2020-2023/2024-2026一起报告；不做量/周线/波动组合筛选、排名或阈值搜索。",
+  "episodes": "保留原61条分段及原admitted/status，正式49上涨段完整展示原A持仓/已知目标覆盖；低高点仅回顾对齐，不进入当时状态。",
+  "charts": "原已解释18/37/42/55四案例，价格/日MACD/量/周MACD与波动四面板；低点前10至高点后10日是固定图示范围，不是交易窗口。",
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_accounts": 0,
+  "new_market_requests": 0,
+  "necessary_tests": 3,
+  "no_rescue": "R161严格顺序完整政策终态保持；本轮不是放宽该政策、调退出、改量窗口、改年份或选出最优再确认策略。",
+  "independent_validation": "NOT_ESTABLISHED",
+  "source_first_vintage": "NOT_CERTIFIED",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "sources": [
+    {
+      "path": "research/post_repair_path_explanation_v1.py",
+      "sha256": "cae1a7807182e2f1c49c102d1b524fae4c8b42d6e108a97e633c1a4c851294b2"
+    },
+    {
+      "path": "research/post_repair_path_inputs_v1.py",
+      "sha256": "df14e018e25355ed0b7c31276d5eb4699cd5acc6546bf90838e76bfab5de0712"
+    },
+    {
+      "path": "tests/test_post_repair_path_inputs_v1.py",
+      "sha256": "41a1e9e232dfb492ade3f2f8c290b10b8468c971b825d1d1648ce94e80efa6de"
+    },
+    {
+      "path": "reports/research/510300_post_repair_path_explanation_v1/tests_receipt.json",
+      "sha256": "cfb5995e79f5c1cc00f7948bd90bb150b23388b1b70cb10c7f04657fbcd6c8e1"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/protocol.json",
+      "sha256": "1f69e758fce7362c229a10f40cac189593f0d66c4f7b1049de8eb7c3cbfe91b1"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/summary.json",
+      "sha256": "3956d1dba4937e121048fa58036a3c8c496a45130ded59cd09801e64b7dff3d4"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/saved_result_verification.json",
+      "sha256": "047b012b251df664ecd24c556392858140e3607014e6361746dbb8c90a61ecff"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/全部原点的当时已知修复顺序.parquet",
+      "sha256": "e8bd53b8457e9c9df83e04a5598538bfb302acaf665060199b809fe8926a4a67"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/原186事件的顺序状态与旧结果标签.parquet",
+      "sha256": "0a29abef407735aa428b875fce1691a7ee9243cf86cc4657176101a075377757"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/protocol.json",
+      "sha256": "cce060dca5f87b083232b62dd216a4f033260607905edd6d1a02973ffa558ceb"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/上涨段全集.parquet",
+      "sha256": "7f2e8b91cae86c364eaa4105c382c894cb4dcc76c4f8c3b53a3e91416dfffdb6"
+    },
+    {
+      "path": "reports/research/510300_upward_episode_anatomy_v1/results/features.parquet",
+      "sha256": "d2c732c33340c1dbff9e1adc9fb64b683aebc1c3ebcac583d0d69d09e1a6fac1"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "research/point_fresh_repair_order_study_v1.py",
+      "sha256": "b84f7db8b6df9a44916faa321c52abe66401106f60886a653e9b0d57eaedd4b0"
+    },
+    {
+      "path": "research/point_fresh_repair_order_inputs_v1.py",
+      "sha256": "7a4015c226fbcd0d263c01c722f95d6e35a5b3c3305cbe8c67c0f7d29189d78a"
+    },
+    {
+      "path": "research/upward_episode_anatomy_v1.py",
+      "sha256": "d2409657f026a50948c5dd15afc4172d7e0ce68ec06caea156abfcda40b0e90b"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "reports/research/510300_post_repair_path_explanation_v1/pre_registration_first_test_failure.json",
+      "sha256": "b7d196325b7f8e51b3407293df25507c696b88977d9324033f08013681c930e6"
+    },
+    {
+      "path": "reports/research/510300_post_repair_path_explanation_v1/initial_path_inputs_before_null_fix.py",
+      "sha256": "3b475bf5d1e790f0a9796251879ca3522f7a5e3e396295e31c35c126b612bbac"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2015_2019/STRESS/PRICE_CONFIRMATION/trades.parquet",
+      "sha256": "bd83fea19f9b0965f8070fa4306fd9421298ff2b7f387b7056625e2e1b768567"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_fresh_repair_order_study_v1/results/accounts/2020_2026/STRESS/PRICE_CONFIRMATION/trades.parquet",
+      "sha256": "394056e2a05c9bb71b5bae02dd58a9692a620583e5b0fabda9772ba7abdc4e32"
+    }
+  ]
+}

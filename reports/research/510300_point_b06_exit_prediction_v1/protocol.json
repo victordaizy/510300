@@ -1,0 +1,40 @@
+{
+  "study": "510300_POINT_B06_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T14:14:44.880073+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "原三日减此前三日的经济log速度变化及前高收复首次确认是否增加原八项持仓继续价值信息。",
+  "information_role": "EXISTING_SIX_RETURN_ACCELERATION_AND_PREVIOUS_HIGH_CONFIRMATION_CONDITIONAL_PURPOSE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定3+3速度差及严格前高首次确认两列共十项，不恢复旧T05/价格对照或加入融资/C01过滤，不改实际入场。",
+  "fields": [
+    "velocity_change_3_3",
+    "first_velocity_high_reclaim_event"
+  ],
+  "formula": "r_j=log((raw_close_j+cash_j)/raw_close_(j-1))=log(W_j/W_(j-1))。第1列a_t=(r_t+r_(t-1)+r_(t-2))/3-(r_(t-3)+r_(t-4)+r_(t-5))/3；不截负值。H_(t-1)=W_(t-1)*(raw_high_(t-1)+cash_(t-1))/(raw_close_(t-1)+cash_(t-1))。c_t=(a_t>0且W_t>H_(t-1))。第2列只有当前与前一c源均完整时，1[c_t且非c_(t-1)]，其他已知状态为0；两列共同掩码，不加交互/事件选择。",
+  "zero_missing": "两列须t-7..t八个正有限财富及七个真实经济收益，当前和前一速度/前高源完整；前7个市场行共同未知，不把前一未知当false制造首次。任何NaN/无穷/非正财富或收益缺口不压缩窗口，相关联合段未知；previous-high所需raw价格/cash缺口也未知。有效已知a=0和首次事件=0是真0，严格>0才速度确认。纯字段未知保留；固定生产快照原价格/现金/时钟身份异常拒绝，离网源不取整修补。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、周期截距、入场固定版本、两负确认。",
+  "model": "两列各自沿原加权标准化/clip5线性加入，不新增交互、阈值或入场规则。",
+  "source_clock": "固定当前3经济log区间减此前3区间的平均速度；财富收盘严格超过前日(high+当日现金)/(close+当日现金)映射财富高点且速度>0的首次确认脉冲；前一条件源也完整，收盘后可知、下一合法开盘执行。",
+  "prediction_gate": "同自然原点原收益单位周期等权MSE，两时期原可用预测全部配对且MSE严格改善，入场年份块5000次/seed51030096改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序十项/标签/成员/权重/设置完全相同才复用，失败不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历BASE/STRESS两时期，净CAGR与净夏普均高于A、实际净pB>1、平均周期收益>0、回撤<=10%；次数软目标。",
+  "old_failures": "旧T05与价格对照、融资及C01过滤、其他加速/收复固定失败保持，不营救原政策。",
+  "no_rescue": "不按支持/预测/账户结果改3+3区间、log收益/现金high映射、首个假至真、联合两列/缺失或收益epsilon，原目标/成熟成员/八项/alpha1/clip5/等周期/入场锁定/两负确认、预测与经济门及时期费用保持；不复活旧T05或价格对照，不加融资/C01救失败。",
+  "feature_regression_estimation_calls": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

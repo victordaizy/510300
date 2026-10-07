@@ -1,0 +1,20 @@
+{
+  "at": "2026-09-27T20:17:39.202604+08:00",
+  "study_id": "510300_FACTOR96_FINANCIAL_PARSER_REPAIR_V1",
+  "previous_turn_classification": "PROGRESS_MEASUREMENT_AND_SEVEN_SOURCE_CONTRADICTIONS",
+  "question": "修复摘要财务字段的行列、单位、脚注和完整金额选择错误，形成独立来源修正版；不调整经济公式或策略阈值。",
+  "known_regressions": "六份相同哈希原PDF中的七个错误字段，由前轮原页确定期望金额；先用旧公开提取API复现，再对新解析器运行同一测试。",
+  "scope_before_fix": "三项T11基础字段：归母净利润YTD、经营现金流YTD、期末总资产；完整档案保留作来源范围，其他六项财务字段不据本轮测试声称修复。",
+  "baseline": "原V1_6公开PDF接口，旧代码只读并按哈希记录；新实现放独立模块，不向旧全局模块注入变更。",
+  "source_admission": "当前保存PDF可用且哈希与原档案一致时才能按原记录历史文档身份修复；缺全文、版本不同、行列/单位/当期口径不确定则保持未知。",
+  "staging": "先六份原PDF回归；新范围由全部同一语义解析路径定义，排查标准不读取收益。新增公开请求另在下载前固定来源清单。",
+  "research_boundary": "源字段修正不等于T11收益验证或夏普目标达成；旧数据、错误计数、测量结果和研究失败保留。",
+  "diagnostic_context": "使用既有研究协议与本地记录，无工单发布或仓库技能配置变更；无需将工单系统设置作为财务修复的前置条件。",
+  "network_requests_before_target_freeze": 0,
+  "returns_read": false,
+  "new_accounts": 0,
+  "goal_achieved": false,
+  "goal_status": "active",
+  "orders_authorized": false,
+  "external_review": "NOT_PERFORMED"
+}

@@ -1,0 +1,14 @@
+# A_SHARE_HS_CSI300_OFFICIAL_ADDITION_FORCED_DEMAND_V1 官方源准入
+
+- 状态：`NO_VIEW_DATA_CONTRACT_FAILED`
+- 收益评估：`NOT_ALLOWED`
+- D1 周期枚举：`PASS`，21/21
+- D2 官方原文与附件：`PASS`，21/21
+- D3 事件数量：`PASS`，425 个事件
+- D4：`NOT_ASSESSED`
+- D5：`NOT_ASSESSED`
+- D6：`NOT_ASSESSED`
+- D7：`NOT_FROZEN`
+- D8 无收益边界：`PASS`
+
+下一步：仅执行 D4/D5 数据覆盖准入和 D6/D7 冻结；不得计算收益。

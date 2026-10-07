@@ -1,0 +1,46 @@
+{
+  "study_id": "510300_L2_ORDER_LINEAGE_AND_BOOK_CONSISTENCY_V1",
+  "mode": "EXISTING_LOCAL_ONLY_MEASUREMENT",
+  "source_dates": ["20260709", "20260812", "20260904"],
+  "source_semantics": {
+    "local_exchange_document": "reports/research/510300_pressure_recovery_v1/source_followup_20261001/ldds_level2_2_0_10.pages.json",
+    "document_physical_pages": [21, 22],
+    "continuous": "先发布主动成交，再发布剩余新增委托；重建时连续成交只扣已有被动订单，不能从之后才出现的剩余数量再次扣主动成交。",
+    "auction": "开收盘集中撮合扣买卖两侧已报订单。",
+    "source_transformation_independently_verified": false
+  },
+  "linkage": {
+    "order_key": "ex_order_id",
+    "add_type": "A",
+    "cancel_type": "D",
+    "status_type": "S",
+    "passive_id_candidate": "连续成交的较小买卖订单号；另以新增时间、委托方向、限价、数量生命周期及行情快照检查一致性。",
+    "aggressor_internal_support": "只在一侧新增时间严格早于成交且该侧被动关联方向和价位一致，另一侧新增缺失或不早于成交时，记录同源订单时序支持；同时间或两侧都早于成交保留不确定。",
+    "auction_bs_is_aggressor_evidence": false,
+    "missing_aggressive_add_is_automatic_data_loss": false,
+    "zero_order_id_is_exchange_order_id": false
+  },
+  "book_reconstruction": {
+    "source_clock_phase": "09:30前为开盘集中撮合；09:30至14:57为连续源消息（午休边界消息仅作库存核对）；14:57至15:05为收盘集中撮合；15:05以后不重建盘后队列。",
+    "snapshots_compared": "09:30至11:30之前、13:00至14:57之前的有效十档报价",
+    "cutoff": "仅纳入源时间不晚于快照时间的消息，同时间戳作为一批处理，不假定批内个人队列顺序。",
+    "clock_shift_tuning": false,
+    "price_tolerance_raw_units": 0,
+    "quantity_tolerance_shares": 0.000001,
+    "full_feed_receive_clock_known": false,
+    "reconstruction_is_personal_fill_validation": false
+  },
+  "event_pressure_bounds": {
+    "events": "原17个固定价格压力事件，冲击前5分钟与随后固定5分钟，不改变样本或收益路径。",
+    "window": "(t-5分钟,t]，显式统一为纳秒",
+    "unknown_direction_bound": "将未获同源时序支持的全部成交量分别归为买或卖，计算量差上下界；不把支持状态称作外部验证。",
+    "new_alpha_or_sharpe": "NOT_COMPUTED"
+  },
+  "reporting": {
+    "actual_orders": 0,
+    "new_network_requests": 0,
+    "do_not_tune_old_failures": true,
+    "new_result_storage_limit_bytes": 15728640,
+    "goal_complete_requires_original_m1_m2_evidence": true
+  }
+}

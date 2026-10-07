@@ -1,0 +1,123 @@
+{
+  "study_id": "510300_DR007_OFFICIAL_HISTORY_CATALOG_PROBE_V1",
+  "experiment_id": "E35",
+  "registered_at": "2026-10-02T16:11:33.122141+08:00",
+  "question": "官方已有成交概览及公开历史查询目录，是否提供与DR007.IB/DR007相同总体/期限/成交额字段的实际旧日记录，足以另立完整原训练支持采集？",
+  "new_action_relative_to_prior_studies": "E32只向官方日报PrDlyBltn请求2020样例日得到空记录；E33因临时运输到期0提供方请求。本轮核未请求的官方成交概览/公开历史目录，不重试旧日报接口，不绕过到期或要求用户购买访问。",
+  "parents": [
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_source_and_prior_use_probe_v1/protocol.json",
+      "bytes": 6300,
+      "sha256": "1e68022b2657f9a31f2da9c4d95d9c9629fece780508b47cbec228c21ae47190"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_source_and_prior_use_probe_v1/result.json",
+      "bytes": 2250,
+      "sha256": "f1d9f29977aa622beba7e1740bbc06315b74427086de9e8d997155bf52a82058"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_source_and_prior_use_probe_v1/source_gate.json",
+      "bytes": 1093,
+      "sha256": "b0807ec1fddb89b64a39c2c584f10c3bf8762e6364ad41bb0609ce09e554e9e8"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_source_and_prior_use_probe_v1/字段身份_单位_全部两个有限样例.json",
+      "bytes": 1970,
+      "sha256": "3e4492ab43e45a18bcf034f0ed38e378718e542a7f214331798a18eeeb9b0361"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_history_acquisition_v1/result.json",
+      "bytes": 2087,
+      "sha256": "345e3f4d4ebed9a94184716f6560378e27a45f43dc7299a704cee196b5e5ea63"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_history_acquisition_v1/用户访问答复_事实.json",
+      "bytes": 375,
+      "sha256": "fc48990097390592541c3c91087d7d0eac2c04fcdd4ac8b46a0f3f24d42f78ce"
+    },
+    {
+      "path": "reports/research/510300_dr007_transaction_amount_history_acquisition_v1/next_experiment.json",
+      "bytes": 3764,
+      "sha256": "25dfeeba7d8bfe2da286d489549b43ecfa12319e939a58577a05f7685904abaf"
+    },
+    {
+      "path": "reports/research/510300_official_dr007_source_v1/sources/official_navigation.html",
+      "bytes": 60152,
+      "sha256": "854fbc5bfef5d2d1b0baee275b4d40cd03bb42d8375df02f036fe355825e55df"
+    },
+    {
+      "path": "reports/research/510300_official_dr007_source_v1/sources/money_market_page.html",
+      "bytes": 21486,
+      "sha256": "3c92b4eaf46b07244b342a4dc1e35b24f336a0b91bd09c4e836dffca0c527800"
+    },
+    {
+      "path": "reports/research/510300_official_dr007_source_v1/sources/daily_repo_component.html",
+      "bytes": 10948,
+      "sha256": "b3a07aac8d979104bd53b5c6f7ad0bd50dfe78e26f723307c644bdb130cb6c96"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/protocol.json",
+      "bytes": 7791,
+      "sha256": "e7ac9363d11abc118d07b444536e23e4602c33e6e445d6442dae23868c5de523"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/共同成熟训练池.json",
+      "bytes": 8002821,
+      "sha256": "2edb4d5dc05c51cc64ca2c53be66af971af33ce44c88aa67cd2ddf702734eb32"
+    }
+  ],
+  "budget": {
+    "web_search_queries": 1,
+    "direct_public_objects": 4,
+    "download_bytes_total": 4194304,
+    "workers": 2,
+    "timeout_connect_seconds": 10,
+    "timeout_read_seconds": 25,
+    "retries": 0
+  },
+  "fixed_catalog_url": "https://www.chinamoney.com.cn/chinese/mtmoncjgl/",
+  "fixed_query": {
+    "q": "中国货币网 存款类机构 质押式回购 DR007 成交量 历史 查询",
+    "domains": [
+      "chinamoney.com.cn"
+    ]
+  },
+  "fixed_historical_sample_date": "2020-08-04",
+  "sample_date_basis": "E32提供方文档唯一示例日期，查询前固定，不按收益或可得值换日期。",
+  "required_identity": {
+    "institution_universe": "存款类金融机构",
+    "collateral": "利率债",
+    "term": "DR007七日",
+    "value": "成交额/成交量金额",
+    "unit": "万元或可无歧义换算为亿元"
+  },
+  "source_admission_rule": "目录/字段/旧日记录/总体身份/单位/公开时钟分别记录。即使单日样例通过，本轮也不声明完整原1212决定日及成熟成员支持，不拟合；原全部成员不得因缺量删除。",
+  "stop_conditions": [
+    "目录仅含R全市场或资金投放等其他总体",
+    "只提供近期或摘要，不支持固定旧日",
+    "页面明确要求登录、付费或缺少访问",
+    "请求失败或空记录不重试、不改锚日",
+    "预算耗尽"
+  ],
+  "forbidden": [
+    "请求旧PrDlyBltn日接口",
+    "带凭据请求",
+    "购买/续费服务",
+    "通过改字段/代理总体营救缺量",
+    "重开旧参数/标签/时期/风险限额",
+    "恢复前瞻任务或真实下单"
+  ],
+  "planned_new_labels": 0,
+  "planned_new_fits": 0,
+  "planned_new_accounts": 0,
+  "source_code_edits": 0,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "first_vintage_authenticated": false,
+  "previous_goal_turn_classification": "PROGRESS_E32_FIELD_IDENTITY_E33_ACTUAL_EXPIRED_TRANSPORT_AND_LOCAL_USE_REVIEW",
+  "current_turn_can_be_progress_only_if": "取得实际不同目录/字段/历史支持证据改变接续，不以注册或状态重述本身算进展。",
+  "root_impasse_proven": false
+}

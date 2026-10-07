@@ -1,0 +1,108 @@
+{
+  "study_id": "510300_ELECTRICITY_ORIGINAL_PUBLICATION_STATE_V1",
+  "experiment_id": "E41",
+  "registered_at": "2026-10-02T17:44:48.490843+08:00",
+  "status": "DISTINCT_ACTUAL_PUBLICATION_FLOW_SOURCE_PHASE_REGISTERED_BEFORE_NEW_REQUESTS",
+  "question": "保留原通报各自实际统计区间的第二产业用电同比、区间长度和公告年龄，是否形成原评分日及同一成熟训练池完整可知的独立生产活动信息？",
+  "distinct_information": "E39/E40问固定统计月原单月是否存在；E41问每个历史决策日最新实际公开的区间信息，累计原同比仍标累计，单月缺失仍UNKNOWN。电量模型未曾检验，后续拟合须另登记。",
+  "development_disclosure": "采用公告状态表达的选择发生于已看到E39源结构和E40空索引之后；属于开发期选择，不称独立验证，也不以股票未来收益选择来源或字段。",
+  "fixed_stat_period_range": [
+    "2018-01",
+    "2025-12"
+  ],
+  "parents": [
+    {
+      "path": "reports/research/510300_electricity_physical_quantity_source_qualification_v1/protocol.json",
+      "sha256": "c7a4ce8be3ae76c377007967267b7f1004e355574a2eeb60814c9a1fdc7748a1",
+      "bytes": 6615
+    },
+    {
+      "path": "reports/research/510300_electricity_physical_quantity_source_qualification_v1/result.json",
+      "sha256": "f7d2d66d91592500098b3c18c5774904b82239d637129ed4693774fa046be5dd",
+      "bytes": 4012
+    },
+    {
+      "path": "reports/research/510300_electricity_physical_quantity_source_qualification_v1/全部实际原周期与用电字段.json",
+      "sha256": "aafa7778765c8d7ae270129f964008d3310304d0d1793ac28c0dd70f60f401c3",
+      "bytes": 5578
+    },
+    {
+      "path": "reports/research/510300_electricity_physical_quantity_source_qualification_v1/raw/official_news_catalogue.html",
+      "sha256": "d15277d7c4245c5e668d062f396527c36b1f9b0fa145067a8762ca655540bb77",
+      "bytes": 8078
+    },
+    {
+      "path": "reports/research/510300_cec_national_single_month_electricity_source_qualification_v1/protocol.json",
+      "sha256": "7d2191727f355d5c97fcb737c5c434abf54db22657b3e54b63224c97b33a7c2b",
+      "bytes": 6290
+    },
+    {
+      "path": "reports/research/510300_cec_national_single_month_electricity_source_qualification_v1/result.json",
+      "sha256": "4421c57f0bebb3599277626afd9396d6114694a8b0df87ad5bc8e5f5d1b6e958",
+      "bytes": 1527
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/protocol.json",
+      "sha256": "6d9299acec76d86d80ac0feb8105efd9d8c931653e9318c703325d5056dbc010",
+      "bytes": 8736
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/保存采购十变量模型.json",
+      "sha256": "9afe215eeb8b913c0e3cd960d390fb6cb8f2ee4a2e4c2d6fa28e6fe1eb5cfd4f",
+      "bytes": 3542943
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed",
+      "bytes": 1880663
+    }
+  ],
+  "reused_objects": [
+    "E39目录index_2.htm及2024-01~02/2024-03原HTML，哈希一致才复用"
+  ],
+  "initial_known_directory_urls": [
+    "https://www.nea.gov.cn/xwfb/index.htm",
+    "https://www.nea.gov.cn/xwfb/index_3.htm",
+    "https://www.nea.gov.cn/xwfb/index_4.htm"
+  ],
+  "allowed_directory_navigation": "只沿实际已保存的同域/xwfb/index目录锚点；不猜index_n、不抓新目录、代理或转载。",
+  "eligible_report": "原目录标题明确全国全社会用电量；原正文统计期在固定区间，省级、发电量、电力工业综合统计、政策解读不替代。报告是否存在未知。",
+  "original_row_priority": "同一公告中优先原文明确的最新单月；无单月则选原文最新累计区间。同期同类型重复版本不拼接，保存冲突并停止该冲突成员准入。",
+  "proposed_model_inputs": [
+    "全国第二产业原区间公布同比_pct",
+    "原统计区间月数",
+    "公告年龄_日"
+  ],
+  "cause_boundary": "物理活动代理不是原驱动原因、因果识别或CSI300利润；天气、工作日、效率、结构原因原文未解释就UNKNOWN。",
+  "historical_clock": "原网页发布日期只有日就保留日内UNKNOWN；研究保守假设当日23:59:59+08:00才可用，下一决策日生效。当前收件、URL日期、原显示发布时间分开；首版历史未认证。不能称严格first-vintage。",
+  "carry_state": "只沿时间使用最近已公开对象，不跨版本相减、不生成缺失单月。公告年龄大于90自然日则输入UNKNOWN；不丢原评分日或训练成员营救。",
+  "source_gate": "全部原1212评分日与完全相同的成熟训练成员均有非UNKNOWN三字段、原发布对象/区间/单位/时间出处完整，才允许另登记一次联合拟合；不以完整统计月数当门，不把三月有限事实称完整准入。",
+  "fixed_current_score_days": 1212,
+  "fixed_required_unique_members": 1711,
+  "required_date_min": "2018-12-06 00:00:00",
+  "required_date_max": "2025-12-31 00:00:00",
+  "original_rolling_sessions": 504,
+  "original_maturity_rule": "exit_idx<=current_idx; current_idx excluded",
+  "min_train": 252,
+  "budget": {
+    "new_linked_catalogue_gets_at_most": 15,
+    "new_original_report_gets_at_most": 100,
+    "search_queries": 0,
+    "authenticated_requests": 0,
+    "new_labels": 0,
+    "new_models": 0,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "source_code_edits": 0
+  },
+  "transport": "每个原对象只GET一次；不自动跟随重定向、不关闭证书校验、不重试；实际原响应及失败保存。HTTP同域原目录链接请求前统一HTTPS并保留原链接。",
+  "stop": "有完整源支持再单独登记原八变量+固定三列的一次树/岭比较；缺成员则本模型NOT_RUN，来源事实保存，不挑时期或缩成员。",
+  "E39_E40_preserved": true,
+  "E36_rejection_preserved": true,
+  "historical_first_vintage_authenticated": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "live_process": false
+}

@@ -1,0 +1,20 @@
+{
+  "study": "510300_POINT_C04_INFORMATION_INTAKE_V1",
+  "frozen_at": "2026-10-02T07:21:43.131875+08:00",
+  "purpose": "单一C04操作定义的事前时钟及原模型第九项数量准入；不拟合、不读收益结果。",
+  "price_clock": "原收盘加各自截至当日已除息现金累计；严格左右各2根日收盘，center=t-2，在t首次确认。",
+  "up_swing": "确认高点b时配此前最新已确认低点a，a<b且正幅度才更新；不使用A04比例或T01阈值。",
+  "pullback_phase": "已确认合法段的价格严格处于P[a]与P[b]之间，首次在当时可知的日t开启e=t，不追溯到b+1。",
+  "phase_end": "当日价格>=P[b]结束；再进入区间重新e=t。价格<=P[a]使该段失效，须新的合法高点确认才能重新开始。新合法段在确认当日替换旧阶段。无期限或深度阈值。",
+  "amount_definition": "mean(amount[e..t])/mean(amount[e-5..e-1])；原始成交额CNY，前五日窗口固定在e之前，不随t滚动；真实零额可进入均值，基准须正。",
+  "missing": "非回调、无已确认段、段失效、缺失/负成交额或窗口不足均NO_VIEW；不填0，不删日期或原成员。",
+  "background": "回撤/ATR20仅诊断列，不加入第二字段、不作为入场或深度过滤；ATR为20个完整TR简单均值。",
+  "support_gate": "原1507自然状态字段全部有限，原142月度中的115成熟模型全部原有序训练成员有限；保留27个原无模型月份。任何不足均拒绝该直接第九项路线。",
+  "source_scope": "仅已冻结510300日线，历史DEVELOPMENT_CALIBRATION，不新增行情或独立期间。",
+  "no_rescue": "不换上涨确认、阶段起止、基准5日、缺失赋值、原成员或用途以营救本次固定定义；不恢复T01旧组合。",
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

@@ -1,0 +1,144 @@
+{
+  "study_id": "510300_BANKERS_OVERALL_LOAN_DEMAND_FIXED_NINE_FIELD_JOINT_SCORE_V1",
+  "experiment_id": "E78",
+  "registered_at": "2026-10-03T10:35:54.358276+08:00",
+  "status": "REGISTERED_ONE_ORIGINAL_LOAN_DEMAND_FIELD_FIXED_JOINT_SCORE_BEFORE_RETURN_LABEL_USE",
+  "hypothesis": "备用流动性能力不足以刻画融资需求。已公布银行家贷款总体需求的不同主观状态，可能改变原订单/资金价格/融资/趋势/波动联合条件的剩余五日净收益估计；不预设线性符号或因果。",
+  "previous_studies_preserved": [
+    "E76比率来源未通过且经济未检验",
+    "E17已知晚版本来源拒绝",
+    "E71/E72相对价格固定失败",
+    "原纠错八变量及采购/生产/就业/服务等全部失败"
+  ],
+  "source_gate": "reports/research/510300_bankers_loan_demand_source_qualification_v1/source_gate_v1_0_1.json",
+  "source_original_quarters": 29,
+  "source_claim": "完整原29当前问卷字段/方法/公布页，元日期未见已知晚版本；原1711成员/1212当前及成熟池全齐，仅保守历史重构，历史首版/首次公开和独立验证未认证。",
+  "fixed_model_plan": {
+    "features8_reused": [
+      "订单水平",
+      "订单月度变化",
+      "资金利率与政策利率差",
+      "融资五日净变化",
+      "融资买入活跃度",
+      "指数趋势强度",
+      "短长波动比",
+      "成交活跃度"
+    ],
+    "added_features": [
+      "贷款总体需求指数"
+    ],
+    "added_definition": "唯一原已公布本季贷款总体需求原百分数0—100，未中心化/差分/变号/加季节模型。它是银行家对本行本季主观需求的扩散指数，非实际信贷、外生需求或预期差。原公开钟/季度/信息龄展示但不新增预测列。",
+    "tree": {
+      "max_depth": 3,
+      "min_samples_leaf": 60,
+      "random_state": 20261001
+    },
+    "ridge": {
+      "alpha": 10,
+      "std_ddof": 1,
+      "clip": [
+        -5,
+        5
+      ],
+      "center_after_clip": true,
+      "constant_scale_below": 1e-12
+    },
+    "training": {
+      "lookback_sessions": 504,
+      "minimum_mature_rows": 252,
+      "mature": "exit_idx<=decision_idx",
+      "membership": "全部原纠错八变量成熟身份，不删换"
+    },
+    "dates": "原1212日，2021—2023较早与2024—2025主期全保留",
+    "labels": "原5日下一开盘入、idx+6开盘出、10000股费用/分红标签只复用",
+    "score": "原训练拟合值midrank0—100；原80线且预测>0，全时间连续非重叠机会",
+    "primary_increment_gate": [
+      "主期树MSE严格小于原纠错八变量",
+      "主期树MSE严格小于同池均值",
+      "主期高分自然机会平均净标签>0",
+      "至少一新增主期自然高分日期",
+      "至少一主期高分实际路径使用新增字段"
+    ],
+    "new_tree_and_ridge_fits_if_ready": 2424,
+    "baseline_refits": 0,
+    "new_full_accounts": 0,
+    "account_rule": "五项全过才另登记原完整账户；否则固定表达拒绝，不换参数/字段/符号/时期救回。"
+  },
+  "parents": [
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "bytes": 1880663,
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/共同成熟训练池.json",
+      "bytes": 8002821,
+      "sha256": "2edb4d5dc05c51cc64ca2c53be66af971af33ce44c88aa67cd2ddf702734eb32"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量每日联合评分.csv",
+      "bytes": 182577,
+      "sha256": "554a2ec51bd1844409fe396167f4dd8ee381796912253481478c3dcec6ce9a68"
+    }
+  ],
+  "source_stage_outputs": [
+    {
+      "path": "reports/research/510300_bankers_loan_demand_source_qualification_v1/source_gate_v1_0_1.json",
+      "bytes": 2836,
+      "sha256": "10342284e19355ff1f24337c4621d9e3f7cefd515db0927b16285161893c53cc"
+    },
+    {
+      "path": "reports/research/510300_bankers_loan_demand_source_qualification_v1/全部29当前原字段方法_目视补全_v1_0_1.json",
+      "bytes": 116651,
+      "sha256": "029c7fb47b7f3e317ebcc5ea6e8acd64a17533e883441e143d50220c9db3adea"
+    },
+    {
+      "path": "reports/research/510300_bankers_loan_demand_source_qualification_v1/原八字段与贷款总体需求_未读股票标签_v1_0_1.parquet",
+      "bytes": 314245,
+      "sha256": "1cc3d9c98c50b413de1d7619aae21078a57fecfbebdf8e23ff8caa47672ee890"
+    },
+    {
+      "path": "reports/research/510300_bankers_loan_demand_source_qualification_v1/全部1711原成员_需求信息与原公布钟_v1_0_1.csv",
+      "bytes": 178832,
+      "sha256": "a193696033fb99cfa7ea1f643c7418ededc91cfb9fa368a89568c7fc19053ecf"
+    },
+    {
+      "path": "reports/research/510300_bankers_loan_demand_source_qualification_v1/全部1212原评分日_需求全成熟池支持_v1_0_1.csv",
+      "bytes": 64414,
+      "sha256": "dd7d9f65f841b4a4c069114e2af9a23956c0fa19448dc99d24386d45630b97c0"
+    },
+    {
+      "path": "reports/research/510300_bankers_loan_demand_source_qualification_v1/06_2020Q4同一原页目视修正登记.json",
+      "bytes": 1396,
+      "sha256": "aebc87378ad24cae83785b7da4404e27eddee167653559aa075fdf4c8402bedf"
+    }
+  ],
+  "economic_candidates": 1,
+  "parameters_changed_from_original_control": false,
+  "new_tree_fits_budget": 1212,
+  "new_ridge_comparator_fits_budget": 1212,
+  "baseline_refits_budget": 0,
+  "new_stock_labels_budget": 0,
+  "new_accounts_budget": 0,
+  "source_code_edits_budget": 0,
+  "parameter_grids": 0,
+  "decision": "五项原主期门全过才另题登记完整20万主/2万敏感性账户；否则该固定需求表达拒绝，先全部机会信号/费用/实际路径解释，不变需求字段/差分/季节窗/参数/时期/费用营救。",
+  "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY",
+  "historical_first_vintage_authenticated": false,
+  "market_expectation_surprise": "NOT_IDENTIFIED",
+  "loan_demand_causal_equity_effect": "NOT_IDENTIFIED",
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "only_executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "target_net_sharpe": 1.2,
+  "target_net_cagr": 0.1,
+  "target_max_drawdown": 0.1,
+  "annualization_sessions": 242,
+  "minimum_naturally_completed_cycles_per_full_year": 5
+}

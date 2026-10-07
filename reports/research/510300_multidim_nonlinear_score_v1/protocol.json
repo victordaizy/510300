@@ -1,0 +1,88 @@
+{
+  "study_id": "510300_MULTIDIM_NONLINEAR_SCORE_V1",
+  "recorded_at": "2026-10-01T22:13:05.684843+08:00",
+  "user_priority": "多维联合、非线性、快速展示历史结果",
+  "previous_goal_turn_classification": "PROGRESS_HISTORICAL_INDEX_MARGIN_CONTRACT_AND_CAPACITY",
+  "features": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度"
+  ],
+  "feature_scope": "宏观订单、资金价格、融资活动、指数趋势、波动和成交六类状态；共八个已知变量。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "model": {
+    "type": "DecisionTreeRegressor",
+    "max_depth": 3,
+    "min_samples_leaf": 60,
+    "random_state": 20261001,
+    "maximum_leaves": 8
+  },
+  "comparisons": [
+    "同训练池成熟收益平均",
+    "同八变量标准化岭回归alpha10",
+    "深度3分段交互树"
+  ],
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_rows": 252,
+    "update": "每个交易日",
+    "label_availability": "只用退出日不晚于决策日的完整标签"
+  },
+  "label": {
+    "horizon_sessions": 5,
+    "entry": "信号后次日开盘",
+    "exit": "入场后第5个交易日开盘",
+    "fixed_quantity": 10000,
+    "commission_each_side": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_each_side": 0.001,
+    "tick": 0.001,
+    "dividend": "按权益登记日归属；标签包括权益，但不冒充到账现金账户。"
+  },
+  "score": "预测五日压力净收益在当日训练池拟合值中的百分位，平值取中位秩，范围0至100；不是上涨概率。",
+  "evaluation": "原固定五档分数[0,20)、[20,40)、[40,60)、[60,80)、[80,100]，保留所有档；与平均、线性两基准比较相同日期。",
+  "nonoverlap_opportunity": "仅作评分诊断：分数>=80且预测净收益>0时，次日开盘买，5日后开盘卖；已有事件结束前不新增，退出日收盘起才允许新判断。固定规则，不根据结果改门槛。",
+  "feature_clock": "宏观按原始available_at合并至每日16点；资金使用原保存滞后一日且fund_known的数值；融资统计整组滞后一交易日；日线收盘后观察。",
+  "prediction_stage_is_full_account": false,
+  "risk_contract_accounts_only_after_score_evidence": true,
+  "anti_overfit": "只运行一个分段交互树，不搜索深度、叶数、阈值、窗口或变量组合；历史已使用，不称独立验证。",
+  "current_date_forecast": false,
+  "new_strategy_account": false,
+  "parameter_grids": 0,
+  "sources": {
+    "price": {
+      "path": "reports/research/510300_original_frozen_sse_completion_20260925/candidate_features.parquet",
+      "sha256": "c9ed3118ca4273b5a4e2895edc4679175c48610381bf4485b31b80ea9bac0df3"
+    },
+    "orders": {
+      "path": "reports/research/510300_macro_dynamic_reframe_v1/inputs/pmi_new_orders.parquet",
+      "sha256": "442ab2ec5f0f5a4f89f91b61e896d9bb1a79a79a8d48a6923b301d866aeb9be4"
+    },
+    "funding": {
+      "path": "reports/research/510300_factor96_funding_relief_v1/daily_features_lag1.parquet",
+      "sha256": "623ae2b155e5733c7146a93da9c85aecf70330bd6109ffdf8794a4222a0817c3"
+    },
+    "financing": {
+      "path": "reports/research/510300_factor96_mechanism_batch_v1/data_repair/margin_complete.parquet",
+      "sha256": "6b63f48629cb5404383fa97000702c52209dd68fd434cc4a8f813ed2526ef7e1"
+    },
+    "dividend": {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  },
+  "goal_achieved": false,
+  "orders_authorized": false
+}

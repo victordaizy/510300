@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-02T20:20:36.783715+08:00",
+  "study": "510300_POINT_C04_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R124",
+  "result_decision": "TECH.R125",
+  "candidate_configurations": 1,
+  "fields": [
+    "confirmed_pullback_amount_ratio"
+  ],
+  "hypothesis": "原固定回调成交额比的阶段内单系数可选残差，是否增加原自然继续价值的跨期信息。",
+  "field": "完全复用R76原确认/现金前向平移/阶段边界；阶段e..t平均成交额除e前5日固定均额，CNY。ATR仅背景，不加入第二字段或深度/期限过滤。",
+  "clock": "原T收盘15:05，在T首次确认center=T-2的左右各2根；只在当时已确认上涨段内实时开e，不追溯、不前填。下一合法开盘方可应用。",
+  "different_function": "R76仅完整第九项数量准入失败、当前收益模型拟合0，裁决保持。本次只估一个周期内原预测残差系数，原八项固定、全部原成员保留、无源精确回退，不将缺字段填零或准入完整原卡。旧供给测试/力度/签名量/T01组合失败不修改。",
+  "original_members": "原1507状态及142月115可用27未知、全部成熟训练成员/原标签/周期总权重1；最近20/至少10周期100行、原入场锁定与核心尺度/截距保持。",
+  "fit": "已知原训练单列权重标准化、clip±5再中心化；未知原值NULL，设计修正分支0。全原训练行的设计和原预测残差各在周期内中心化，beta=sum(w*Dx*Dy)/(sum(w*Dx^2)+1)，alpha1、新全局截距0。",
+  "missing": "非回调/段失效/初始或坏源仍各自原NO_VIEW；不把不活动修正当成交额值0。原模型未知双方未知，真实0原比值仍有限。",
+  "prediction_gate": "完整原配对、周期等权原收益MSE两期均严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后另冻结20万元252日BASE/STRESS双期完整账户：净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、最大回撤<=10%、次数软目标。",
+  "no_rescue": "不改R76确认/阶段/价格坐标/前5日/单位/原值缺失，或新增深度/方向/交互；不改单系数/alpha/当前缺失分支/原目标/成员/训练/时期/双期门，不挑有字段子样本评价、不拼失败分支。",
+  "old_R76_direct_ninth_field_support_gate_passed": false,
+  "complete_C04_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_return_labels": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

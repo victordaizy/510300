@@ -1,0 +1,42 @@
+{
+  "study_id": "510300_LPR_EXPECTATION_IDENTIFICATION_V1",
+  "created_at_utc": "2026-09-22T10:46:27.972973+00:00",
+  "stage": "SAVED_SOURCE_IDENTIFICATION_ONLY_NO_EQUITY_OUTCOMES",
+  "inputs": {
+    "actual.csv": {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_lpr_prior_expectations_v1\\facts\\全部84月实际公告母集.csv",
+      "sha256": "c5c50c8c958a5cfd29ef889c5837674840990d968c0bedfa1eb82ea879fc97c4"
+    },
+    "survey_facts.csv": {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_lpr_prior_expectations_v1\\facts\\人工核对的分期限调查事实.csv",
+      "sha256": "64a57941a8ce312894e638ef5d9e1896fbe2eecc8ea832b19b3f4e1709749502"
+    },
+    "candidates.csv": {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_lpr_prior_expectations_v1\\facts\\事前调查候选目录.csv",
+      "sha256": "942625e7970fd9cc6d44a01c4df57a33b789f69a55be7fb246a30b3f1c5efc78"
+    },
+    "parent_source_plan.json": {
+      "source": "C:\\Users\\戴周阳\\Documents\\New project 8\\reports\\research\\510300_lpr_prior_expectations_v1\\source_plan.json",
+      "sha256": "29148c3ae3a10357bbda527ea48b56ae377f49a589792fa96e754ed3d15d205f"
+    }
+  },
+  "known_before_this_protocol": "已查看49条保存调查的数值、对应原文段落和84个月实际报价；已查看点值识别计数和三个月点值偏差。未查看任何新增证券收益标签。此协议不宣称数值发现为盲测。",
+  "scope": "利用已有保存资料逐期限识别调查票数比例、报价中位数及其区间；保留全部84个月，不补选缺失月份，不更改父级原表。",
+  "clock": "调查发布和当前版本修改时间均必须早于当月官方公告时钟；网页历史首版未独立认证。使用官方母表available_at，忽略人工备注中的旧09:15示例。",
+  "definitions": {
+    "actual_change_bp": "本月官方LPR减上月官方LPR，百分数差乘100；首月不可定义。",
+    "cut_vote_share": "预计该期限下调人数除调查总人数；无法唯一识别则保留上下界，不解释为风险中性概率。",
+    "cut_vote_realization_gap": "实际是否下调减事前下调票数比例；区间按反向端点计算。",
+    "median_change_bp": "仅继承原文能推出的中位数或中位数区间；不取区间中点。",
+    "surprise_bp": "实际调整bp减调查预期调整bp；负值为调整更偏宽松，正值为更偏紧。只表示兑现差异，不是结构性外生冲击。",
+    "interval_direction": "偏差上界小于0则整段偏宽松，下界大于0则整段偏紧，两个端点均0则一致，其余为方向未唯一识别。只要任一期限区间缺失，即保持该期限缺失。"
+  },
+  "excluded_activity": "不建立预测模型、择时阈值、账户、退出规则或未来收益评价；不据本描述设定通过门槛。",
+  "next_stage": "资料补齐或新收集后，另行冻结与价格基准比较的预测协议；本轮不把单月政策兑现差异升级成买入信号。",
+  "new_equity_labels": 0,
+  "new_models": 0,
+  "new_accounts": 0,
+  "net_sharpe_target": 1.5,
+  "maximum_drawdown_target": 0.1,
+  "capital_cny": 200000
+}

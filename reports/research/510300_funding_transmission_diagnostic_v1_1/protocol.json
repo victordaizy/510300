@@ -1,0 +1,50 @@
+{
+  "at": "2026-09-26T00:48:18.125270+08:00",
+  "study_id": "510300_FUNDING_TRANSMISSION_DIAGNOSTIC_V1_1",
+  "question": "资金信息到收益的断点出现在预测、弱势入场条件、成本效用、执行还是持有路径？",
+  "scope": "只读四个已保存的压力账户、920日预测和原训练样本；不改参数、不生成新账户。",
+  "flat_first_refusal": [
+    "无预测",
+    "均值非正",
+    "价格不弱",
+    "预算连一手也不允许",
+    "扣费和方差惩罚后不值得进入",
+    "计划买入但未成交",
+    "实际买入"
+  ],
+  "inventory_days": "已有库存另列增仓/不增仓，不能把维持库存重复算作新入场。",
+  "prediction_groups": [
+    "全部成熟预测",
+    "事前五日下跌",
+    "事前五日下跌且均值为正",
+    "实际买入日",
+    "全部未买日"
+  ],
+  "fixed_periods": [
+    [
+      "2020-01-02",
+      "2023-12-31"
+    ],
+    [
+      "2024-01-01",
+      "2026-09-24"
+    ]
+  ],
+  "uncertainty": "每组五日收益均值给20个交易日循环区块2000次区间，seed2026092602；保持被选择日期掩码，不当作独立交易或全项目多重筛选校正。",
+  "horizon": "实际买入日的原五日标的含息标签只作诊断，不等于固定五日账户；无挑选收益最好的持有期限。",
+  "hold_path": "按原实际份额分拆旧仓隔夜、新旧仓日内、股息、费用；恒等式复算，不运行零成本策略。",
+  "neighbor_diagnostic": "只统计选择比例、样本年龄、标签覆盖重叠和预测与同池HISTORY的差异，不据诊断调近邻数。",
+  "source_context": {
+    "url": "https://www.ecb.europa.eu/press/financial-stability-publications/fsr/special/html/ecb.fsrart202305_01~830184261b.en.html",
+    "publication": "2023-05",
+    "used_as_alpha_evidence": false,
+    "note": "融资流动性与市场流动性不同；融资环境改善不自动等于510300存在可交易折价。"
+  },
+  "engineering_correction": "原V1使用仅在成交行填写的shares_after分解日内损益，核验报NaN。改用连续账本shares及其一日滞后；没有改账户、参数或分组。原失败保留。",
+  "post_result_diagnostic": true,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "new_market_downloads": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

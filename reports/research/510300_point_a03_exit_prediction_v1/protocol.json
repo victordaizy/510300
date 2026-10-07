@@ -1,0 +1,40 @@
+{
+  "study": "510300_POINT_A03_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T12:57:03.443599+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "严格新高事件的重复频率与近期加速是否增加原八项持仓继续价值信息。",
+  "information_role": "EXISTING_NEW_HIGH_FREQUENCY_BLOCK_NEW_CONDITIONAL_EXIT_USE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定A03频率与加速两列共十项，不恢复旧分位政策或突破入场。",
+  "fields": [
+    "new_high_frequency20",
+    "new_high_frequency_acceleration5_15"
+  ],
+  "formula": "P为原现金经济收益前向累乘财富W，初始1，无未来回溯复权。h[j]=1{W[j]>max(W[j-20..j-1])}，需21完整正财富点，严格>，相等为0。两列f20=mean(h[t-19..t])，accel=mean(h[t-4..t])-mean(h[t-19..t-5])，共同需40完整财富点含当日。",
+  "zero_missing": "任何当前或必要历史财富点非有限/非正、完整20事件/5+15事件不足均NO_VIEW，不补0/压缩合格行/删除原成员。真实无新高频率0、加速0有效；不加阈值容差、把当日纳入此前高点或选择变体。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、周期截距、入场固定版本、两负确认。",
+  "model": "两列各自沿原加权标准化/clip5线性加入，不新增交互、阈值或入场规则。",
+  "source_clock": "j仅当日与此前20完整财富点判新高；完整两列用40点截至当日，收盘后可知、下一合法开盘执行，不读未来分红/价格。",
+  "prediction_gate": "同自然原点原收益单位周期等权MSE，两时期原可用预测全部配对且MSE严格改善，入场年份块5000次/seed51030090改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序十项/标签/成员/权重/设置完全相同才复用，失败不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历BASE/STRESS两时期，净CAGR与净夏普均高于A、实际净pB>1、平均周期收益>0、回撤<=10%；次数软目标。",
+  "old_failures": "原A03高低分位、单一突破/回踩/A01/其他固定失败保持。",
+  "no_rescue": "不恢复HIGH/LOW或突破进入，不改20/5/15窗口、40点需求、严格边界、财富坐标、两列选择/交互、缺失、原标签/成员/周期权重/岭/确认/门/时期/成本救援；先支持后单一固定模型。",
+  "feature_regression_estimation_calls": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

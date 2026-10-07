@@ -1,0 +1,143 @@
+{
+  "at": "2026-09-26T07:03:34.090299+08:00",
+  "study_id": "510300_HOUSING_COLLATERAL_DAILY_V1",
+  "primary": "PRICE_FUNDING_AND_HOUSING_BREADTH__PUBLISHED_MEASUREMENT__FIXED20_NO_ADD",
+  "question": "已公开二手房价格下跌覆盖范围，是否改善相同股票压力与银行资金意外后的修复判断？财富和抵押品作用可能慢于五日，所以主期限20交易日，五日为事前固定对照。",
+  "feature": "唯一新增信息为70城已公布二手住宅环比指数<100的城市数/70；没有把它转为房产市值损失、沪深300抵押率、违约率或资金流。",
+  "source": {
+    "at": "2026-09-26T07:03:28.244097+08:00",
+    "study_id": "510300_HOUSING_COLLATERAL_MONTHLY_SOURCE_V1",
+    "status": "COMPLETE_HOUSING_BREADTH_SOURCES_READY_WITH_REBASE_BREAK",
+    "admitted_months": 68,
+    "expected_months": 68,
+    "missing_months": [],
+    "city_observations": 4760,
+    "base_groups": {
+      "2020": 60,
+      "2025": 8
+    },
+    "latest_source": {
+      "stat_month": "2026-08",
+      "title": "2026年8月份70个大中城市商品住宅销售价格变动情况 - 国家统计局",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202609/t20260915_1965304.html",
+      "catalogue_date": "2026-09-15",
+      "catalogue_raw_path": "reports/research/510300_industrial_receivable_source_probe_v1/raw/release_catalogue.html",
+      "catalogue_sha256": "dd7b85be689b42da58ef634b765a8a34e8cb4d28a8226e645360c16d80c6690c",
+      "published_at": "2026-09-15T09:30:00+08:00",
+      "publication_precision": "MINUTE_OR_SECOND",
+      "clock_support": "PAGE_AND_CATALOGUE",
+      "known_at": "2026-09-15T23:59:59+08:00",
+      "second_hand_down_count": 62,
+      "second_hand_flat_count": 5,
+      "second_hand_up_count": 3,
+      "second_hand_down_share": 0.8857142857142857,
+      "index_base_year": 2025,
+      "raw_path": "reports/research/510300_housing_collateral_source_probe_v1/raw/month_2026-08.html",
+      "raw_sha256": "cbb5949b850a33eed1d604170ca8212e9e21c20394eddef9c7fe63f139d9a5fd",
+      "notes": "附注：1.调查范围：各城市的市辖区，不包括县。2.调查方法：新建商品住宅销售价格调查为全面调查，基础数据采用当地房地产管理部门的网签数据；二手住宅销售价格调查为重点调查和典型调查相结合，基础数据来源于房地产经纪机构或房屋居住服务平台等相关企业上报和调查员实地采价。3.价格指数的计算方法详见《房地产价格统计报表制度》。4.如某城市当月无成交，则视为价格水平总体无变动。5.按照统计制度规定，2026年1月起，70个大中城市房地产价格统计调查开始使用2025年作为新一轮对比基期，各城市基本分类权数有所调整，以更好反映住宅销售结构变动。经测算，本次基期轮换对70个大中城市商品住宅销售价格各月同比指数影响平均在0.03个百分点以内。",
+      "table_instances_agree": true,
+      "matching_table_instances": 2,
+      "table_caption": "表2：2026年8月70个大中城市二手住宅销售价格指数",
+      "table_column_count": 8,
+      "historical_first_vintage_verified": false
+    },
+    "unresolved_fields": 0,
+    "historical_first_vintage_verified": false,
+    "new_accounts": 0,
+    "new_strategy_returns": 0,
+    "current_market_view": "NO_VIEW",
+    "goal_achieved": false,
+    "orders_authorized": false
+  },
+  "information_clock": "原公布日日末才可使用；45自然日有效，不回填统计月末。首版未认证。",
+  "rebase": "主研究比较同一定义的已公布环比下跌广度，允许2020和2025基期混合，但不声称权重变化无影响。强制另做SAME_BASE_ONLY主20日期限及同池价格资金对照；2026年同基期不足252时保持NO_VIEW。两种处理都披露，不挑较好者。",
+  "training": "每个交易日向前两日历年；来源公布也在两年内；5日和20日都必须已成熟，20日退出开盘严格早于当前日。两期限共同池至少252个原点；固定126近邻、训练内标准化clip5、同距原点编号优先。",
+  "overlap": "252个日原点、126近邻和重复月度值均不是独立机会；两年最多约24个月报。报告实际月报数，完整公布间隔与20交易日区块均保留。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_AND_FUNDING": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation"
+    ],
+    "PRICE_FUNDING_AND_HOUSING_BREADTH": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "second_hand_down_share"
+    ]
+  },
+  "scopes": [
+    "PUBLISHED_MEASUREMENT",
+    "SAME_BASE_ONLY"
+  ],
+  "horizons": [
+    5,
+    20
+  ],
+  "accounts": "主混合基期：2信息模型×2期限×2费用=8；严格同基期：2信息模型×20日期限×2费用=4；共12新账户。HISTORY仅预测对照。",
+  "decision": "空仓且此前5日价格弱势时，枚举100份目标，最大化期限一致的w*均值-2*w^2*方差-调整成本-退出储备；参数不变。持仓不加仓，只按当日五日风险缩量，或固定第5/20个后续开盘到期。缺预测满5日退出。",
+  "risk": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "risk_horizon": "风险约束始终使用五日ES；20日均值和方差只用于20日期限收益评价，不把20日ES冒充五日ES。长持有仍承担连续跳空和风险预测错误。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "capital": 200000,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparison": "各期限同池信息增量；主20日减5日；同基期主20日信息增量。20日循环及月报完整间隔各2000次，seed2026092613。固定2020-2023/2024-末端，另外单列2026基期变更后。",
+  "gate": "主压力账户共同三目标通过，主信息增量两种区块95%下界均正且两个固定时期为正；严格同基期敏感性信息增量两区块下界也正。仍需要独立前向。",
+  "monitor": "固定五日相位，最近60个成熟五日q05突破率>15%记警报；另报告20日非重叠监控，样本不足不当稳定。监控不修改本轮账户。",
+  "availability": "2021年初之前、训练不足与未知时段保留NO_VIEW及完整账户现金日，不能当已经历市场验证。",
+  "implementation_checks": {
+    "five_day_matches_existing_engine": true,
+    "fixed_5_and_20_exit_dates": true,
+    "no_add_cash_T1_risk": true,
+    "missing_forecast_exits_after_five_days": true,
+    "dividend_record_boundary": true,
+    "entry_uses_matching_horizon_mean": true,
+    "five_day_risk_not_twenty_day_risk": true,
+    "common_pool_future_and_expired_labels_ignored": true,
+    "insufficient_same_base_returns_no_view": true
+  },
+  "source_future_perturbation": true,
+  "new_parameter_searches": 0,
+  "new_funding_regression_fits": 0,
+  "new_independent_forward_observations": 0,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "current_market_view": "NO_VIEW"
+}

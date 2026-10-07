@@ -1,0 +1,492 @@
+{
+  "at": "2026-10-06T07:10:03.365079+08:00",
+  "registration": "TECH.R239",
+  "decision": "TECH.R240",
+  "study": "510300_SHARED_CASH_SOURCE_OWNERSHIP_V1",
+  "primary": "CORE_SUPPORT_SOURCE_OWNERSHIP",
+  "policies": [
+    "CORE_SUPPORT_SOURCE_OWNERSHIP",
+    "CORE_PRICE_SOURCE_OWNERSHIP",
+    "CORE_SUPPORT_FIXED_SOURCE_OWNERSHIP"
+  ],
+  "saved_controls": [
+    "A_SAVED_WEIGHT",
+    "SUPPORT_PRICE_ACCEPTANCE_CARRY",
+    "CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY"
+  ],
+  "all_comparison_controls": [
+    "CORE_PRICE_SOURCE_OWNERSHIP",
+    "CORE_SUPPORT_FIXED_SOURCE_OWNERSHIP",
+    "A_SAVED_WEIGHT",
+    "SUPPORT_PRICE_ACCEPTANCE_CARRY",
+    "CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY"
+  ],
+  "new_candidate_accounts": 12,
+  "saved_accounts_reused": 12,
+  "known_before_freeze": "12支持点、5潜在互补及三旧冲突/两合格出生全已知；原R232/R236完整失败已知，全部历史开发。",
+  "rule_card": "docs/510300_SHARED_CASH_SOURCE_OWNERSHIP_V1.md",
+  "entry": "空仓CORE正优先/未知不补充，原CORE明确零才尝试当天支持接受；身份当日消费。",
+  "ownership": "首次真实买入固定CORE/COMPLEMENT；CORE沿原A，补充沿R232各退出且不补买；持仓中不转身份、另开现金账户或同开复买。",
+  "account": "每时期20万元，510300.SH/CASH_CNY；不补买，只允许风险减仓；最大50%、成熟ES5预算2.5%、10%跳空预算5%和半数剩余回撤余量；账户DD10%触发次可卖开盘清仓且永久停止新买入。下一开盘只减原计划可买数量，涨跌停、T+1、100份、.001报价、股息登记/应收/到账、252年化及全部现金日、终点自然持仓保持。",
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ],
+    "minimum_commission": 5
+  },
+  "necessary_tests": 11,
+  "original_A_adapter_replays": 4,
+  "original_support_adapter_replays": 4,
+  "raw_CORE_target_prefixes": 19,
+  "source_context_prefixes_reused_not_recomputed": 31,
+  "economic_gate": "四场景主CAGR/Sharpe正且同时高于五对照，DD<=10%，实际净pB>1/标准期望正；次数软。",
+  "stability": "五对照原20/252循环块各2000、种子510300154，所有CAGR/Sharpe增量95%下界正。",
+  "parameter_grid": false,
+  "financial_run_budget": 1,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_market_requests": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "first_vintage": "NOT_CERTIFIED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "search_selection_correction": "NOT_COMPUTED",
+  "goal_achieved": false,
+  "no_rescue": "不按赢家/PMI另设门槛或拼时期，不修旧退出/周纯度，失败本配置不重跑；E03独立保持。",
+  "sources": [
+    {
+      "path": "research/shared_cash_source_ownership_study_v1.py",
+      "sha256": "00d9110e895c4340cffac4219fad7ac9153e468ce5f08ac301549e620f31db00"
+    },
+    {
+      "path": "research/shared_cash_source_ownership_rules_v1.py",
+      "sha256": "dbf6b20f9adf620d39bc1d8ede285974270636bdd5dea2ebefc34346f716cadd"
+    },
+    {
+      "path": "research/shared_cash_source_ownership_account_v1.py",
+      "sha256": "0c1daf7f0bb987a58ae0489e32d9f541ef71ac36d8c7138948681335e2f7f5f6"
+    },
+    {
+      "path": "tests/test_shared_cash_source_ownership_v1.py",
+      "sha256": "3e444bd8c951ad03cc1f0d0d5c955a5cc27a00a352fa3ace5d2700045884269f"
+    },
+    {
+      "path": "docs/510300_SHARED_CASH_SOURCE_OWNERSHIP_V1.md",
+      "sha256": "5e60cde0eab30115f3bf4798c295650a855239e6cbd02c9e2a81330b8ca4a295"
+    },
+    {
+      "path": "research/support_price_acceptance_inputs_v1.py",
+      "sha256": "cc3d2412dc2c2c7124f9cadb94c69df889058a1c15df1350bf1ece92ef76a459"
+    },
+    {
+      "path": "research/core_actual_acceptance_study_v1.py",
+      "sha256": "0992067a8662ec8067444fb5e175de319376f70e795d424b80a3c15282baf777"
+    },
+    {
+      "path": "research/broker_stage_policy_study_v1.py",
+      "sha256": "e499afbe707a7ee114cf2ff3fdf69de934516560842db472fc4120a4bd3c53d5"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/broker_cohort_failure_study_v1.py",
+      "sha256": "742d1f67ecea36f196d57de276e8191964d38425a95b0fbfdfc0076c0e236379"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/results/全部3488支持信息与价格接受状态.parquet",
+      "sha256": "4230f8d3b5e9585f82adc71e7afeecdb6f7780d04a51e5256bc4bcfe9a92b5c1"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/results/全部来源首次原ETF可知_宣布与确认分开.parquet",
+      "sha256": "ea5c4ec8c2bc83cd72db49aec0c4c85e843460a7d44029918a8561c9ec73ccec"
+    },
+    {
+      "path": "reports/research/510300_original_policy_announcement_trace_v1/implementation_v1_0_1/results/全部19关键日_原17与两假启动.parquet",
+      "sha256": "2208ab42406baf3c44b2b3d9df0e7b40e8740544cfc446cd2a293cd08fc41ad5"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/protocol.json",
+      "sha256": "9b41f56dc52a330944a44ac8b95f37e690cfd84333a7be7915ff7757b208e639"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/implementation_v1_0_1/summary.json",
+      "sha256": "768d53dc507047f1ea1a36a48533f20367369c65f64b14cbf19c4a028456d762"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/protocol.json",
+      "sha256": "b4c963be5e79c15e155f37759f9bd4453430c5f749afdac0aaa96c2c11de4047"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/summary.json",
+      "sha256": "98b06af77bd216e11093c80803449d8a6db10ac444fa289f706a726889e17785"
+    },
+    {
+      "path": "reports/research/510300_core_support_complement_description_v1/implementation_v1_0_1/protocol.json",
+      "sha256": "b3d27748ae35afdc8f142f551237e94cbce8ddaa3f77c21ad3f1d6ff4f5ad91e"
+    },
+    {
+      "path": "reports/research/510300_core_support_complement_description_v1/implementation_v1_0_1/summary.json",
+      "sha256": "8bc0a56881506b9a97221ac39b10bf6a56402f64a8eaa432c7398664409b79c3"
+    },
+    {
+      "path": "reports/research/510300_core_support_complement_description_v1/implementation_v1_0_1/next_shared_cash_source_ownership_proposal.json",
+      "sha256": "09d741f4e6e7efead48982a379bf99844874c9b22e4797bffa6f6d025575f424"
+    },
+    {
+      "path": "reports/research/510300_core_support_complement_description_v1/implementation_v1_0_1/post_run_diagnosis.json",
+      "sha256": "05cf57be776289df7939087725dac8e43b661536c0858c11b7b9fe8b7c981980"
+    },
+    {
+      "path": "reports/research/510300_core_support_complement_description_v1/implementation_v1_0_1/project_state_update_receipt.json",
+      "sha256": "39369a140f8a56fd698a3375e6e7536c74629e55ad43fb1a01d5a992f058da62"
+    },
+    {
+      "path": "reports/research/510300_shared_cash_source_ownership_v1/tests_receipt.json",
+      "sha256": "cf812514c86c25ec5f2dc4943208561c6eb31f67bc3257c180a314352b11a22f"
+    },
+    {
+      "path": "reports/research/510300_shared_cash_source_ownership_v1/control_and_prefix_preflight.json",
+      "sha256": "217df48215e11668edcc816d6ba8f34126ed78ab5fa57f9111de919c4c199295"
+    },
+    {
+      "path": "reports/research/510300_shared_cash_source_ownership_v1/tests_first_pre_freeze_failure.json",
+      "sha256": "0fa2e25260848cb5502547d80b15cbdd81ac53a5c30ecd07621c497c3ac6e3c8"
+    },
+    {
+      "path": "reports/research/510300_shared_cash_source_ownership_v1/pre_freeze_original_account_schema.py",
+      "sha256": "22a5e7cb0e9349b9360477c59c6819eb9c4884b695b768372538ffa4d585475d"
+    },
+    {
+      "path": "reports/research/510300_shared_cash_source_ownership_v1/preflight_first_string_schema_failure.json",
+      "sha256": "d56a74684d5170d0e9aa953a73696d42f56a4e5fb407efa03f92eb2a8ef3010c"
+    },
+    {
+      "path": "reports/research/510300_shared_cash_source_ownership_v1/tests_receipt_before_string_schema_fix.json",
+      "sha256": "541d6cd68db333fd0ef6a9a1ac73a2bb7a1efae401840e8b7066069715e72337"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/decisions.parquet",
+      "sha256": "6a20528109b0705c12120907e0dc86e7e6fdc58aba81696b47634a03570ff40f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/rejections.parquet",
+      "sha256": "932831d153d2788273c83acf839668149eb9f307ed5f4ff277af71f8686b517e"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/terminal.json",
+      "sha256": "44e25592ac38919262e8c629ac9e965d82013650b6c447b5798b4707e0819a89"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/daily.parquet",
+      "sha256": "741ff8801c15c25a90ebe1b89a38ed79147401a5cd9bf90b941f8727ce946b9a"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/orders.parquet",
+      "sha256": "5c0d61ad23d6b3ed713cacf9868f0c81ff0d2ea16e4428b56e49f87c40f823ad"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/trades.parquet",
+      "sha256": "0325f8d60128a7d02dda4b9a3d503c665dd0127059c2c7b0158032db49537768"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/decisions.parquet",
+      "sha256": "101578bc344d5cb4e0d01498a25b5be2b9773a3ef9b74135a18cbd8bd7758714"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/terminal.json",
+      "sha256": "15a0cf6cee547317d3a6c897c4f8e654136bd5f0d193ad37e5cb4aede1c202d2"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/daily.parquet",
+      "sha256": "e27817afd1bbca56f1afa00d4d14e3b21cbb7787128b845752ae392fe3a14d84"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/orders.parquet",
+      "sha256": "6e7f515516e43f62bd822ae79595f257d92487651cefa7ef5e5bf0bc5669f8fc"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/trades.parquet",
+      "sha256": "8ca723d85089c3322e658205d9788bffdfbb1b8eb40edf412d2277e3c006c1f5"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/decisions.parquet",
+      "sha256": "14b16096d50496c44642943515ee4a29116631b485880f5d37313687327b6abf"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/rejections.parquet",
+      "sha256": "26173fe2568e25d77ff86b5aecfa6425dc4a17f955beb42433d95db755f53cbe"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/terminal.json",
+      "sha256": "db9b4e9903840d0c2f0c0f7b4d4a5ee1327218bffa2bd0e0ddb235e3009b3287"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/decisions.parquet",
+      "sha256": "e0e7c2eec34c2c83bde6d01d08a39f751e7a7dd6a1a077095e0d9e6a70956aae"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/rejections.parquet",
+      "sha256": "9879753fc598499e19d2be356a563c52d331562ccf0d4cd19078adb43a6e00f3"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/terminal.json",
+      "sha256": "a7d9d0ede58b3de63d81f19d99f0c3925a2eae5d67da000cd9fc292c58e739f9"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/daily.parquet",
+      "sha256": "d2d26029701278fd521274994f48c213ee71ee7de807431414c17afa97dca961"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/orders.parquet",
+      "sha256": "8c1e581391fa2b8b184790a837a8067e3faebfb599ee6c7fb26c2e412ed76576"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/trades.parquet",
+      "sha256": "e9a65c6f6e345b78cf518007c83d19170d214ef22e60b03e3e1e71d094158222"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/decisions.parquet",
+      "sha256": "794003b1de5c0d4a426af97d6bd23527f0662e64cf84ed800d59af338e2978b1"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2015_2019/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/terminal.json",
+      "sha256": "15a0cf6cee547317d3a6c897c4f8e654136bd5f0d193ad37e5cb4aede1c202d2"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/daily.parquet",
+      "sha256": "5aacc595a2c0e074353a6bd07918fd11d5dd34a7eb0984c637e22eea7ea180b5"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/orders.parquet",
+      "sha256": "f0901d71158f8a3937ef80d636cb0f5c3dbcb351cb3b53d690cb2e2ebfaac6ac"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/trades.parquet",
+      "sha256": "1d71d3e1c1812bec09df73597d650fcc285f3eea4f82e2a9e2eccf2634311563"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/decisions.parquet",
+      "sha256": "c8c647e65f7c343154b278b0970e059cf6264a83f765c4fc49302d025b642263"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/rejections.parquet",
+      "sha256": "01c03b75e122311290ad382ea7ae6cc178291b26c75d4ea012c7e775dda443ab"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2015_2019/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/terminal.json",
+      "sha256": "80946b9548ac897847eb11c709ac4b117dbdf3350f5e993ec6d0306535b7887e"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/decisions.parquet",
+      "sha256": "ba7043997c346173defa885e597c3b935bb975f2ca7582c560c81f3aeab73c7c"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/rejections.parquet",
+      "sha256": "5d3ce1808f498ba0cd2b2ce3ee794b51ec4cd051adf05fcbbbadcb07e0ebc096"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/terminal.json",
+      "sha256": "245164248d323748c2d593ac3cb9144263769bfc513338bed2bcb46da50945e9"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/daily.parquet",
+      "sha256": "4aac4e8f7e57ed3ca4c63c7775cade2531f246547fb22b9e697cd7e6dfebb6f6"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/orders.parquet",
+      "sha256": "d62993bb711df381fc6d15881c81bd3d11c741496d419de95e206220a7ede0bc"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/trades.parquet",
+      "sha256": "9d52f0c8d92a3330e4195e1d165e6186ead20ef5ca807ce9fe0b4cd67d927d69"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/decisions.parquet",
+      "sha256": "0a7c426485c57159716351de9d2cb8170e2256d6e77cd36eea145fc186dbf2b7"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/BASE/SUPPORT_PRICE_ACCEPTANCE_CARRY/terminal.json",
+      "sha256": "c9a551def7c65ba1783a078df7284fae3410d771d9576894a1934f76e413ce8e"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/daily.parquet",
+      "sha256": "40d3ebae5a101cb37adea8b064e3e3198cd96d6ea9c41fa15b464d9ec005f8e3"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/orders.parquet",
+      "sha256": "aaeeacfc8083f8b41c400a74bae871e3525c751db7355c74435f19b83f71ed92"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/trades.parquet",
+      "sha256": "e4d66c3872a53603acd40b3ae2bcf61343fd43080e34899a25a171d74762c76d"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/decisions.parquet",
+      "sha256": "420f63a5840ddb92294950c508ea797ec95b70943bb02e53008469c7aa371cda"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/rejections.parquet",
+      "sha256": "0228e1c7cb9c552895d369e2adc1c2250b8f076994745b19959dd2ac05650726"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/BASE/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/terminal.json",
+      "sha256": "d46bea169504ef75c4b5a788668e5ead1b72387c3343cbad1781c2b3d307003f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/decisions.parquet",
+      "sha256": "01122117946d5cb3e641da4cc708664ed878c6f94385062923cf8bc81f230aa6"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/rejections.parquet",
+      "sha256": "c31f921b23fce3f3ecb00ac3055a4f26a4eba094d5f880739b1eaf495a34fccf"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/terminal.json",
+      "sha256": "245164248d323748c2d593ac3cb9144263769bfc513338bed2bcb46da50945e9"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/daily.parquet",
+      "sha256": "db35c1821bdaa0706460a27220669781f58efaf9a62b35757211c8372d6cde78"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/orders.parquet",
+      "sha256": "5584f6359708bd8832f281f9151f397b21f4184e3e94a6b3a958a707b5f8262d"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/trades.parquet",
+      "sha256": "f98d139ce26a235fe5233d0194277bee3a046a67ab4a8462a7d59ab6c2cdc1ba"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/decisions.parquet",
+      "sha256": "ce26de00db549f3e7f9338d1bba27998e4d9fc1dcefacc00d386d947964c1d00"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/rejections.parquet",
+      "sha256": "cd9225d1c4474875f27908d757a422d710e90f3321b3cb30aaa3d94e77f5e4ed"
+    },
+    {
+      "path": "reports/research/510300_support_price_acceptance_v1/accounts/2020_2026/STRESS/SUPPORT_PRICE_ACCEPTANCE_CARRY/terminal.json",
+      "sha256": "c9a551def7c65ba1783a078df7284fae3410d771d9576894a1934f76e413ce8e"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/daily.parquet",
+      "sha256": "6ea17dc17ca7bb42559cc5402ea23d410ba579a0aedec90877b422957f65fd0e"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/orders.parquet",
+      "sha256": "f8092e9ca033635c68fe55145594df81b4e2d990e7dc5b876bdeeabf9e5157e8"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/trades.parquet",
+      "sha256": "a499772c25688253a1dc62e2a8736e35f70ce5c6aec482f918dd2af6e3994960"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/decisions.parquet",
+      "sha256": "4107d56532fbe84cd63718bc800ba8bb6f4582e45f0ca806ce857469f0a1dbae"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/rejections.parquet",
+      "sha256": "2a7ee739a9b1dba59179f37d5500cdc0c64f61aa39c89e73abd1ff81de3c687b"
+    },
+    {
+      "path": "reports/research/510300_core_actual_acceptance_v1/accounts/2020_2026/STRESS/CORE_ACTUAL_ACCEPTANCE_INFORMATION_CARRY/terminal.json",
+      "sha256": "d46bea169504ef75c4b5a788668e5ead1b72387c3343cbad1781c2b3d307003f"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "study_id": "510300_VOLATILITY_MONEY_DECOMPOSITION_V3",
+  "goal": "继续拆解波动率和M1/M2剪刀差，形成更明确、能经受反例和跨时期核对的510300结论；不预设一定存在盈利规律。",
+  "historical_data_seen": true,
+  "independent_validation": false,
+  "parent_observation": "reports/research/510300_macro_volatility_observation_v2_run1",
+  "parent_mechanism": "reports/research/510300_macro_volatility_mechanisms_v2_run2",
+  "market_cutoff": "2026-09-11",
+  "price_return": "r=(close+dividend)/previous_close-1；与首轮一致。",
+  "variance_identity": "n=20；U2=252*mean(max(r,0)^2)，D2=252*mean(min(r,0)^2)，RV2=n/(n-1)*(U2+D2-252*mean(r)^2)。三项5日差分逐项保存，均值修正不可省略。",
+  "rolling_identity": "D2(t)-D2(t-5)=252/20*(最近5日负收益平方和-刚移出20日窗口的5日负收益平方和)。另比较最近5日与此前5日负收益平方和。",
+  "volatility_states": "总方差5日上升时，按上行项、下行项、均值修正项中最大的正贡献分类；相等或数值边界单列。未上升单列。命名是算术驱动，不是外部经济因果。",
+  "downside_relief_states": "20日D2下降且最近5日下行平方和<=此前5日：近期下行同步缓和；20日D2下降但最近5日下行平方和>此前5日：旧下跌移出但近期下行增强。其余单列。",
+  "epsilon": 1e-12,
+  "future_risk_labels": "复用E0/E1入场退出日，取固定份额含分红权益的每日财富路径；首个收益为入场开盘到当日收盘，后续为相邻财富点变动。由此算样本年化RV、上/下行RMS。主20日；5/60辅助。与旧总收益和最差路径交叉核对。",
+  "origins": "首轮445周与104月全部保留。宏观使用当时已发布记录，旧/新口径不拼接。",
+  "periods": ["2018-2021", "2022-2024", "2025-2026"],
+  "weighting": "周度主汇总按每个宏观发布周期等权，周期内有效周等权；没有宏观发布周期的早期周只作事实，不进入周期推断。月度每次公告一次。",
+  "primary_risk_associations": "周度RV20、上行RMS20、下行RMS20与后20日RV/下行RMS/收益/最差路径的Spearman，各口径与前后时期全部披露。相关主值按周期内总权重相等的加权中秩计算；不把周数当独立样本。",
+  "primary_comparisons": [
+    "总方差上升且上行项主导减下行项主导：后20日收益、最差路径、下行RMS；E0主，E1延迟敏感性。",
+    "D20下降但近期5日增强减D20下降且近期5日缓和：后20日收益、最差路径、下行RMS；E0主，E1敏感性。"
+  ],
+  "macro_context": "上述波动组同时按delta3_spread_pp>0和<=0列出，缺失单列；为解释比较，不筛选最佳交叉组。月度对剪刀差水平/三月变化与后20日风险和收益分别计算关联，并用过去20/60日收益、logRV20、下行平方占比、日历月份哑变量做线性残差关联；只描述条件相关，不称为预测验证或因果识别。",
+  "uncertainty": "固定6个连续宏观发布周期移动块重采样2000次，seed=20260929；同一次抽样用于各比较。只算主20日；保存抽样索引和缺组次数，少于24周期标为样本不足。区间是描述性、未校正多重比较，不能单凭某个区间过零宣称发现。",
+  "decision_standard": "区分恒等式事实、已被反例否定的充分条件、跨时期重复的历史风险关联、以及未通过的方向优势。方向优势不能因平均为正升级；需E0/E1、旧前后期均同向，具备可比性且独立新证据才能提升。没有就保留目标未完成，不反转/换阈值救援。",
+  "existing_forecast_evidence": "复算原MONTHLY_DOWNSIDE_FORECAST_V1保存损失和原M1/M2增量预测结果，明确风险预测与方向预测的区别；不重拟合、不改变旧门槛。",
+  "source_collection": "仅核对方法的作者原始文献页面；本轮无新行情、订单或外发。",
+  "account_backtests": 0,
+  "positions": "NOT_COMPUTED",
+  "sharpe": "NOT_COMPUTED",
+  "delivery_package_required": false
+}

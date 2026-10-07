@@ -1,0 +1,316 @@
+{
+  "study_id": "510300_MULTIDIM_ANNOUNCED_TREASURY_QT_CAP_PATH_V1",
+  "experiment_id": "E15",
+  "registered_at": "2026-10-02T08:56:05.791214+08:00",
+  "phase": "FIXED_SOURCE_QUALIFICATION_BEFORE_MODEL_REGISTRATION",
+  "question": "从上游正式公开时点重建的未来三整月国债兑付上限路径状态，是否具有原国内订单/资金/融资/量价状态之外的信息增量？",
+  "hypothesis": "相同国内状态下，已公开的美国国债兑付政策约束路径可能具有不同信息；不预设股市符号，不把上限当现金流或市场意外。",
+  "why_different": "E6是财政部发行长端gross增幅；E12是季度借款更新现金及扣现金修订。此题是Fed先公开的政策上限路径状态，事件可用时点可能早数周；不改旧字段、源年龄、符号或失败模型。并非将借款更新重新标成政策意外。",
+  "source_universe": "沿原32次FOMC美国日期，每年8次；不是按股票收益或QT变化挑会议。",
+  "source_objects": [
+    {
+      "source_id": "fed_statement_20220126",
+      "date": "2022-01-26",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220126a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20220316",
+      "date": "2022-03-16",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220316a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_historical_fomc_transmission_v1/sources/20220316_声明.html"
+    },
+    {
+      "source_id": "fed_statement_20220504",
+      "date": "2022-05-04",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220504a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_treasury_soma_all_revision_prior_policy_sources_v1/sources/20220504_FOMC原声明.html"
+    },
+    {
+      "source_id": "fed_statement_20220615",
+      "date": "2022-06-15",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220615a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20220727",
+      "date": "2022-07-27",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220727a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20220921",
+      "date": "2022-09-21",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220921a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20221102",
+      "date": "2022-11-02",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20221102a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20221214",
+      "date": "2022-12-14",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20221214a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20230201",
+      "date": "2023-02-01",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230201a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20230322",
+      "date": "2023-03-22",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230322a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20230503",
+      "date": "2023-05-03",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230503a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20230614",
+      "date": "2023-06-14",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230614a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20230726",
+      "date": "2023-07-26",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230726a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20230920",
+      "date": "2023-09-20",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20230920a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20231101",
+      "date": "2023-11-01",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20231101a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20231213",
+      "date": "2023-12-13",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20231213a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_historical_fomc_transmission_v1/sources/20231213_声明.html"
+    },
+    {
+      "source_id": "fed_statement_20240131",
+      "date": "2024-01-31",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240131a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20240320",
+      "date": "2024-03-20",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240320a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20240501",
+      "date": "2024-05-01",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240501a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_treasury_soma_revision_prior_policy_clock_v1/sources/20240501_FOMC原声明.html"
+    },
+    {
+      "source_id": "fed_statement_20240612",
+      "date": "2024-06-12",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240612a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20240731",
+      "date": "2024-07-31",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240731a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_historical_fomc_transmission_v1/sources/20240731_声明.html"
+    },
+    {
+      "source_id": "fed_statement_20240918",
+      "date": "2024-09-18",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240918a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20241107",
+      "date": "2024-11-07",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20241107a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20241218",
+      "date": "2024-12-18",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20241218a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20250129",
+      "date": "2025-01-29",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250129a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20250319",
+      "date": "2025-03-19",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250319a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_treasury_soma_all_revision_prior_policy_sources_v1/sources/20250319_FOMC原声明.html"
+    },
+    {
+      "source_id": "fed_statement_20250507",
+      "date": "2025-05-07",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250507a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20250618",
+      "date": "2025-06-18",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250618a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20250730",
+      "date": "2025-07-30",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250730a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20250917",
+      "date": "2025-09-17",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20250917a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed_statement_20251029",
+      "date": "2025-10-29",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251029a.htm",
+      "kind": "statement",
+      "reuse_path": "reports/research/510300_historical_fomc_transmission_v1/sources/20251029_声明.html"
+    },
+    {
+      "source_id": "fed_statement_20251210",
+      "date": "2025-12-10",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251210a.htm",
+      "kind": "statement",
+      "reuse_path": null
+    },
+    {
+      "source_id": "fed20220504_plan",
+      "date": "2022-05-04",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220504b.htm",
+      "kind": "balance_sheet_plan",
+      "reuse_path": "reports/research/510300_treasury_soma_all_revision_prior_policy_sources_v1/sources/20220504_资产负债表缩减原计划.html"
+    },
+    {
+      "source_id": "fed20251029_implementation",
+      "date": "2025-10-29",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251029a1.htm",
+      "kind": "implementation",
+      "reuse_path": null,
+      "direct_link_source": "reports/research/510300_historical_fomc_transmission_v1/sources/20251029_声明.html"
+    }
+  ],
+  "new_html_count": 26,
+  "reuse_html_count": 8,
+  "source_budget": {
+    "max_original_statement_objects": 32,
+    "reused_original_plan_objects": 1,
+    "max_end_implementation_objects": 1,
+    "max_new_objects": 26,
+    "max_workers": 3,
+    "per_object_max_bytes": 1048576,
+    "attempts_per_url": 2,
+    "no_retry_statuses": [
+      403,
+      429
+    ],
+    "timeouts": [
+      15,
+      35
+    ]
+  },
+  "source_required": [
+    "各原声明日期及正式时点",
+    "国债兑付上限明确更改/续行/生效月",
+    "同日计划内台阶",
+    "2025Dec结束后的国债本金滚续范围"
+  ],
+  "earliest_admission": "2022-05-04原计划正式公开之后；之前缺明确路径不填0",
+  "candidate_field": "美国已公布未来三整月国债兑付上限合计",
+  "candidate_definition": "只依decision_at之前正式公布的政策路径，对其纽约日期所属月之后三个完整自然月已知国债兑付上限求和，十亿美元；月末/阶段切换按公告生效月，未公布的未来更改不使用。没有精确到期量时只称上限状态，不称预计现金兑付。",
+  "validity": "按正式政策明示生效路径及其后公告更新；原32声明核连续性，不凭默认不变，不用后公告回填更早。",
+  "root_dependence": "4个已定位政策根及计划内台阶都分别记录；多个月度股票事件共享公开路径，不制造独立政策根。",
+  "source_phase_columns_allowed": [
+    "原US事件Date",
+    "原M2 stat_month/decision_at/status"
+  ],
+  "source_phase_no_equity_labels_or_model_fits_or_accounts": true,
+  "model_not_registered": true,
+  "model_intent": "源合格后另登记一次11国内/月份控制对12单字段联合比较；原纠正后68M2事件共同池、504日/12成熟、深2叶6、原五间隔成本标签及80分线；alpha10/均值仅参考，不选模型营救。评分、收益和账户均未运行。",
+  "minimum_economic_limits": [
+    "上限不是实际本金现金结算",
+    "未给出的到期量/市场共识仍未知",
+    "零上限须原实施说明不能从aggregate结束反推",
+    "当时公开的未来政策路径不等于用未来实际数据"
+  ],
+  "first_vintage_or_historic_receipt_verified": false,
+  "independent_validation": false,
+  "E6_E9_E12_rejections_preserved": true,
+  "E11_original_gate_failure_preserved": true,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "new_repository_source_code_edits": 0,
+  "new_equity_labels": 0,
+  "new_fits": 0,
+  "new_accounts": 0,
+  "goal_achieved": false,
+  "previous_goal_turn_classification": "PROGRESS_E14_FIXED_SOURCE_EXPERIMENT_COMPLETED",
+  "complete_account_targets_unchanged": {
+    "capital_cny": 200000,
+    "net_sharpe_min": 1.2,
+    "net_cagr_min": 0.1,
+    "max_drawdown_max": 0.1,
+    "position_cap": 0.5,
+    "minimum_cycles_each_complete_year": 5
+  }
+}

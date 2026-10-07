@@ -1,0 +1,180 @@
+{
+  "study": "510300_POINT_EXIT_SIGN_CALIBRATION_V1",
+  "frozen_at": "2026-10-02T04:44:45.513325+08:00",
+  "linked_question": "E06_原退出预测的决策相关校准",
+  "hypothesis": "原模型在固定版本和负预测确认的决策附近，是否能识别负的原定义继续收益。",
+  "deduplication": "旧周期相邻误差研究改变拟合损失，旧固定稳定性诊断评价账户路径；本次只检查原模型正负与原经济标签的条件关系，不重开其候选。",
+  "candidate_configurations": 0,
+  "new_model_fits": 0,
+  "new_strategy_accounts": 0,
+  "prediction_partition": "只用原零阈值：NEGATIVE / NONNEGATIVE；未知单列NO_VIEW，不翻号、不选分箱。",
+  "canonical_view": "原E05同原点表中仅原模型列，复算原参数预测与原BASE自然标签；原参考退出后的原点不算真实决策。",
+  "active_reference_view": "两时期BASE/STRESS保存ENTRY_VINTAGE中有真实学习周期的持仓收盘，保留所有缺预测/缺标签；按入场日及全局索引匹配原自然参考，不能按cycle_id配。",
+  "auxiliary_label": "匹配自然参考的原保存状态且t+1<自然退出开盘时，以该活跃参考的原入场份额，复用原continuation_label至匹配自然终点，仍用训练BASE费用。不是学习策略未来真实现金流。",
+  "auxiliary_label_limit": "STRESS预测使用STRESS持仓状态，但标签仍是原BASE训练定义；八项状态与自然参考是否相同单列。未匹配入场/没有保存自然状态/未成熟/无更长持有区间均未知，不补标签。",
+  "confirmation_view": "每活跃参考周期只取首次原规则learned_exit_requested，两次严格负预测已由旧代码确认；不新增或调整确认规则。",
+  "actual_account_overlap": "与保存A收盘shares>0相交仅注明是否影响当时持仓；参考标签不能称A剩余现金流、提前退出增量或策略收益。",
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "weighting": "各负/非负分组内每自然或活跃参考周期总权重一；费用和时期不合并，行数不是独立样本数。",
+  "uncertainty": {
+    "method": "整入场年度块，保留同周期全部行",
+    "iterations": 5000,
+    "seed": 51030068,
+    "purpose": "已用历史描述；不足两个入场年度NOT_COMPUTED；不消除选优偏差"
+  },
+  "failure_exit": "无论标签关系好坏，本诊断不生成新交易规则、不反向交易、不改旧截距/阈值/正则化；若没有不同事前信息，不自动进入E02。",
+  "history_role": "DEVELOPMENT_CALIBRATION_NOT_INDEPENDENT",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "sources": [
+    {
+      "path": "docs\\510300_CYCLE_SERIAL_ERROR_EXIT_V1.md",
+      "sha256": "c70d4639801926dc95257a60784434e622ea6f07fdb02e2b21a2dae8c3341793"
+    },
+    {
+      "path": "docs\\510300_POINT_PASS_FIXED_DIAGNOSTIC_V1.md",
+      "sha256": "20a2ba9cb517b44d3d5846c84df0f0638dfd15e79b9446c2012609d523a5f505"
+    },
+    {
+      "path": "reports\\research\\510300_daily_weekly_goal_continuation_20261001\\isolated_code_authorization_20261002.json",
+      "sha256": "127558466ab14fca2770a641a39beff5909533b68c3e955e51fd22e4104fb71d"
+    },
+    {
+      "path": "reports\\research\\510300_point_core_observation_v1\\inputs\\within_models.json",
+      "sha256": "04de336c81d2d98013627bcc03a32dfe63a39a6fa7dcc71020e0becc67f1ecd8"
+    },
+    {
+      "path": "reports\\research\\510300_point_core_observation_v1\\results\\earlier_diagnostic\\references\\ENTRY_VINTAGE_BASE_cycles.parquet",
+      "sha256": "9566a8a432913df9645cd09e623f5faf46c4b90f2a6488c7332f54e5502e8d0d"
+    },
+    {
+      "path": "reports\\research\\510300_point_core_observation_v1\\results\\earlier_diagnostic\\references\\ENTRY_VINTAGE_BASE_decisions.parquet",
+      "sha256": "d39ea1fb67b301db9e62b2a2c7979f42e5f14f5257d4febc49badaa9f9dea68f"
+    },
+    {
+      "path": "reports\\research\\510300_point_core_observation_v1\\results\\earlier_diagnostic\\references\\ENTRY_VINTAGE_STRESS_cycles.parquet",
+      "sha256": "7a3faefdd5886003a48d7246ed0b28e7e856c6fc3aff566f21f4bf1bc65ebcba"
+    },
+    {
+      "path": "reports\\research\\510300_point_core_observation_v1\\results\\earlier_diagnostic\\references\\ENTRY_VINTAGE_STRESS_decisions.parquet",
+      "sha256": "54374cb936847397af0ff85795ca0e32a5db09a42b2eb0c085fb3249e9fb77b7"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\candidate_features.parquet",
+      "sha256": "4e72f225a7551b34936553088eba81333f237e2ec2e32aa9a615a3b8297e9720"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\config\\within_cycle_exit.json",
+      "sha256": "9fa814fcea42b92f62f9c19eef25d78061702c847c3b0c1f206f7099cf2656d6"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\inputs\\within_models.json",
+      "sha256": "3514e3fba76ac4b0e3e4adf261440392ce10852608f3dc2bef3d9c5d88fae917"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\results\\references\\ENTRY_VINTAGE_BASE_cycles.parquet",
+      "sha256": "5ecfd406c0371e9b18bd60a5c1b7593139416425672d2357a1f7bef0cb84cb8f"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\results\\references\\ENTRY_VINTAGE_BASE_decisions.parquet",
+      "sha256": "0f04fb41f587067ff045824503cde2c7287e4c1729a58852edd647e7854a629a"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\results\\references\\ENTRY_VINTAGE_STRESS_cycles.parquet",
+      "sha256": "f3a9e4ca3d3be013a14645d57ccdce15ee103f26129e1ea676a915025895c9f0"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\results\\references\\ENTRY_VINTAGE_STRESS_decisions.parquet",
+      "sha256": "084da477ea926e6025204445c9dbf8cce36b302eb48440575e5c22812bf801d7"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\results\\training_reference\\cycles.parquet",
+      "sha256": "908095bc5697811a038e63ea0b6644f83f6c01abfdf931bc2be51815733d2c40"
+    },
+    {
+      "path": "reports\\research\\510300_point_current_observation_20261001\\results\\training_reference\\samples.parquet",
+      "sha256": "45345b608081d5a683dc3d14144b3512b546c134578787dfba797a98e7566c92"
+    },
+    {
+      "path": "reports\\research\\510300_point_exit_sign_calibration_v1\\tests_receipt.json",
+      "sha256": "7a567fa09cfccae92da070a593816608f5c03cfe15a859602d78d39aac0bc3b1"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\BASE\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2015_2019\\STRESS\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\BASE\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\inputs\\controls\\2020_2026\\STRESS\\A_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports\\research\\510300_point_volatility_unit_exit_v1\\prediction_summary.json",
+      "sha256": "83ca334515682d7bc8bb9be230a776d4cde43d8c4e7316153132a9f92af9024e"
+    },
+    {
+      "path": "reports\\research\\510300_point_volatility_unit_exit_v1\\protocol.json",
+      "sha256": "4c83b4dad4c121328cf62952f69e63f305b6c11a2b95559e8df58cbe5908ab06"
+    },
+    {
+      "path": "reports\\research\\510300_point_volatility_unit_exit_v1\\results\\同原点配对预测.parquet",
+      "sha256": "f5721218c19e95224ab8e143b4cc2179c6d72bfb4b63ccc16fa7bba9b256f112"
+    },
+    {
+      "path": "research\\adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research\\entry_vintage_exit_inputs_v1.py",
+      "sha256": "13fb283c8b238e84b491aec4ad15a7ddbcf80b27efd571554ce03b0884a91521"
+    },
+    {
+      "path": "research\\learned_cycle_exit_v1.py",
+      "sha256": "0c5bbc58e6a7fe037ea9b67b05e72409d65660c4f6803362e9ceaf51ffb74c3e"
+    },
+    {
+      "path": "research\\point_account_cashflow_state_v1.py",
+      "sha256": "cce026c51148c2bdc835f7be55ac621d00213eb664a391e1f606febf40ba24b0"
+    },
+    {
+      "path": "research\\point_exit_sign_calibration_v1.py",
+      "sha256": "ec6fd5048e8b099e705a3b8f94d6a637a66e993829944e275243c1ac56a324d2"
+    },
+    {
+      "path": "research\\point_monthly_model_inputs_v1.py",
+      "sha256": "685fcad63a7b4f3b69a5c8d935baf0e57d9508b3fa9c70f2a51b87882a4f46d2"
+    },
+    {
+      "path": "research\\simple_price_entry_exit_v1.py",
+      "sha256": "bed7f6c4d70662fab24ffe9deff2c2edd5964f327a2484f1723b725f8e596311"
+    },
+    {
+      "path": "research\\within_cycle_exit_inputs_v1.py",
+      "sha256": "986db7742140db8bbf59794c6250f8ab3cef99d48788262de8e2bcc4964c4c37"
+    },
+    {
+      "path": "tests\\test_point_exit_sign_calibration_v1.py",
+      "sha256": "65495bc65a79a40f06d4cbc25c5e04d5173cd8c56dba925f287d22483c952fc0"
+    }
+  ]
+}

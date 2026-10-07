@@ -1,0 +1,33 @@
+{
+  "study_id": "510300_HISTORICAL_CASH_QUALITY_CAUSES_V1",
+  "recorded_at": "2026-09-29T17:02:30.363554+08:00",
+  "previous_goal_turn_classification": "PROGRESS_HISTORICAL_POLICY_CAUSE_DECOMPOSITION_AND_REMAINING_RETURNS",
+  "user_direction": "不做前瞻性，只做历史检验和发现；追到因子调整背后的原因，减少不必要检验。",
+  "question": "现金质量指标上升究竟来自现金流增长、利润变化还是资产分母变化；已知失败财务篮子中，有多少公司实际支持经营改善解释？",
+  "sample": "已冻结财务测量的全部23个正向披露日，对应49条公司报告、41家公司；不按ETF后续收益选择公司或日期。",
+  "current_knowledge": "财务篮子数量及日期已知，后来日期代理账户已失败；本轮开始时尚未读取49条公司的现金流与利润构成，不重新运行账户。",
+  "financial_measurements": "reports/research/510300_factor96_financial_parser_scope_v2_0_2/repaired_member_report_measurements.parquet",
+  "cohorts": "reports/research/510300_factor96_t11_financial_cohorts_v1_0_1/company_financial_cohorts.parquet",
+  "positive_days": "reports/research/510300_factor96_t11_financial_cohorts_v1_0_1/daily_financial_cohorts.parquet",
+  "decomposition": {
+    "definition": "q=(CFO_TTM-PARENT_PROFIT_TTM)/TOTAL_ASSETS，原指标保持不变。",
+    "symmetric_exact_cash": "(C1-C0)*(1/A1+1/A0)/2",
+    "symmetric_exact_profit": "-(P1-P0)*(1/A1+1/A0)/2",
+    "symmetric_exact_assets": "((C1-P1)+(C0-P0))/2*(1/A1-1/A0)",
+    "identity": "三项之和等于q1-q0；只是算术贡献，不是三种经济因果效应。",
+    "profit_surprise": "复用原L02和当时依赖，列出当期单季利润、前两年同季利润及资产；不把两点标准差的历史意外当市场共识。"
+  },
+  "categories": "全部49条保留；分别统计公司自身是否满足原三项条件、现金质量是否上升、TTM现金和利润是否同增。不用这些分类创建新交易信号。",
+  "case_selection": "在公司自身满足三条件且q改善的行中，按现金、利润、资产三项对q的正贡献分别选最大者，重合只读一次；并列按公告ID排序。最多3份当前报告加其必要原依赖；选例不使用后续股价。",
+  "source_context": "从所选报告及现金流量附注核对销售回款、营运资本、一次性项目及范围差异；无法核对则未知，不倒填后来的经营解释。",
+  "index_bridge": "列出披露公司与覆盖；行业等票中位数不是指数权重，不把公司财务归因当510300归因。",
+  "existing_failed_account": "reports/research/510300_factor96_t11_date_proxy_account_v1/result.json",
+  "old_failure_disposition": "完整保留，不改方向、聚合、公司门槛、价格退出或持有期，不重跑。",
+  "new_accounts": 0,
+  "new_return_tests": 0,
+  "new_fitted_parameters": 0,
+  "new_forecast_cards": 0,
+  "independent_validation": false,
+  "wait_for_future_data": false,
+  "goal_achieved": false
+}

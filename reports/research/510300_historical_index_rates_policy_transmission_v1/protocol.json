@@ -1,0 +1,70 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_RATES_POLICY_TRANSMISSION_V1",
+  "recorded_at": "2026-10-01T13:43:33.421901+08:00",
+  "previous_goal_turn_classification": "PROGRESS",
+  "mode": "HISTORICAL_DISCOVERY_ONLY",
+  "research_unit": "沪深300整体，510300为可交易价格观察",
+  "question": "同一时期资金利率、短长国债定价和央行操作是否支持融资改善与近期宽松预期的不同传导？",
+  "events": [
+    {
+      "id": "2018-12",
+      "date": "2019-01-15",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/370befa3ce2042dfbc414b74f3b397b7/index.html"
+    },
+    {
+      "id": "2019-01",
+      "date": "2019-02-15",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/7edf9df774a54075bbe1ee1a2668d2de/index.html"
+    },
+    {
+      "id": "2019-02",
+      "date": "2019-03-10",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/2e1a6b1acada49c1a209632913dd7372/index.html"
+    },
+    {
+      "id": "2019-03",
+      "date": "2019-04-12",
+      "loan_source": "https://www.pbc.gov.cn/diaochatongjisi/116219/116225/4818fd3dab79452b88397496fdd6798f/index.html"
+    }
+  ],
+  "series": [
+    "fdr007",
+    "cgb_1y",
+    "cgb_10y",
+    "slope_10y_1y_bp"
+  ],
+  "local_inputs": {
+    "curve": "data/raw/macro/china_government_bond_yields_daily.parquet",
+    "funding": "data/raw/macro/510300_macro_stress_2015_v2/fdr007_daily_2015_2026.parquet",
+    "market": "reports/research/510300_macro_dynamic_reframe_v1/inputs/market.parquet",
+    "policy_rates": "reports/research/510300_fiscal_execution_state_20d_v1/inputs/operation_rates.parquet"
+  },
+  "calendar_scope": [
+    "2018-12-03",
+    "2019-05-16"
+  ],
+  "policy_document_scope": [
+    "2019-01-01",
+    "2019-04-30"
+  ],
+  "event_baseline": "公布日期之前最后一个ETF交易日；当天原观测缺失时保留缺失，不以前值替代。",
+  "response_endpoints": "公布日期之后第1、第5、第20个ETF交易日的利率观察，首次交易日计为第1日。公布当日整日排除，避免假定已知盘中发布先后。",
+  "response_horizons": [
+    1,
+    5,
+    20
+  ],
+  "point_vs_average": "FDR007既保存端点值，也列出终点截至当日最近20个有效原观测均值；不将上午定盘值称为全天DR007。",
+  "calendar_comparison": "2018年12月至2019年4月每月最后一个ETF交易日及对应20观测资金均值，按月历固定，不按行情分段。",
+  "rates_units": "原利率为年化百分数，变化乘100得到bp；10年减1年是期限差，不直接命名为期限溢价。",
+  "availability": "FDR原账本给出11:30发布时间；中债估值曲线保守作为下一ETF交易日开盘才可使用。响应终点的当日值只作事后路径，不作为原入场信号。",
+  "policy_interpretation": "操作金额不是股票流入；到期替换、财政税期、现金投放与政策利率改变须分别解释。",
+  "returns": "复用此前已保存的四次5/20日事件净收益，不重算、截短或选择最好窗口。利率响应按收盘日期观察，ETF收益仍按原开盘进入与退出。",
+  "prior_information_seen": "已见事件收益、部分2019年行情和同期政策解释，旧信用利差研究亦使用过该段历史；不是独立验证。本轮尚未计算这些固定窗口的期限及资金价格响应。",
+  "old_strategy_disposition": "旧MACRO-02及信用成本分组失败保持原结论，不反号、不新增过滤救回。",
+  "new_parameters_fitted": 0,
+  "new_full_accounts": 0,
+  "net_sharpe": null,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

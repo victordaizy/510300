@@ -1,0 +1,123 @@
+registry_version: 1
+registered_on: "2026-08-13"
+research_status: "POSTHOC_CIRCULATING_CAP_APPROXIMATION_NO_STRICT_HOLDOUT"
+registration_timing: "FACTOR_DEFINITIONS_REGISTERED_BEFORE_ROUND4_RESULT_COMPUTATION"
+derivation_note: "第四轮使用首次纳入本项目的每日点时成员流通市值近似权重；定义在计算第四轮结果前登记，但复用已观察历史，因此只能产生探索性线索，不能视为独立确认。"
+
+data_governance:
+  membership: "历史点时成员区间，项目内每个交易日严格300只。"
+  weighting: "当日未复权收盘价乘新浪流通股本，并在有市值的当日点时成员内归一化；不是中证自由流通调整权重。"
+  minimum_member_market_cap_coverage: 0.99
+  missing_cap_rule: "缺失流通股本的成员不估算、不回填；当日剩余成员权重重新归一化并披露成员覆盖率。"
+  suspension_rule: "停牌日使用最后有效收盘价和当时可得流通股本，信息截止日不得晚于权重日。"
+  official_comparison: "仅在当前官方权重快照日期比较相关性、差异和前十重合度，不据此校准历史权重。"
+
+targets:
+  primary: "exec_total_return_20d_net"
+  sensitivity: "exec_total_return_5d_net"
+
+strategy_rule:
+  long_only: true
+  entry_percentile: 0.70
+  exit_percentile: 0.30
+  retain_between_thresholds: true
+  minimum_history: 252
+  percentile_window: 756
+  initial_position: 0.0
+
+evidence_governance:
+  multiple_testing_family: "第一至四轮全部日线假设合并执行Benjamini-Hochberg；证据评分使用全研究q值。"
+  effective_sample_guard:
+    minimum_pseudo_oos_approx_independent_observations: 20
+    action: "若不足20且原评级为WEAK或STRONG，则降为WEAK_SAMPLE_LIMITED。"
+  candidate_boundary: "第四轮复用旧历史，即使通过证据和回测也只能进入真正前向观察，不能冻结。"
+
+candidate_gate:
+  primary_d20_uncapped_evidence_ratings: ["WEAK", "STRONG"]
+  sensitivity_d5_audited_evidence_ratings: ["WEAK", "STRONG"]
+  minimum_pseudo_oos_trade_count: 6
+  require_positive_pseudo_oos_excess: true
+  require_risk_adjusted_or_drawdown_improvement: true
+  require_positive_15bps_stress_excess: true
+  note: "D20原始证据与样本数充足的D5证据必须同时通过，才允许进入真正前向观察。"
+
+factor_definitions:
+  - factor_id: "CMW_ADVANCER_SHARE_1D"
+    column: "circulating_cap_weighted_advancer_share_1d"
+    name_cn: "流通市值近似加权上涨占比"
+    transform: "当日总收益为正成员的流通市值近似权重和除以有效权重和"
+    lookback: 1
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "cap_weighted_breadth_level"
+    economic_hypothesis: "更大流通市值成员共同上涨时，指数短中期延续概率更高。"
+
+  - factor_id: "CMW_POSITIVE_MOMENTUM_20D"
+    column: "circulating_cap_weighted_positive_momentum_share_20d"
+    name_cn: "流通市值近似加权二十日正动量占比"
+    transform: "二十日总收益为正成员的流通市值近似权重占比"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "cap_weighted_breadth_momentum"
+    economic_hypothesis: "中期趋势覆盖较多流通市值时，指数趋势更可持续。"
+
+  - factor_id: "CMW_ABOVE_MA20_SHARE"
+    column: "circulating_cap_weighted_above_ma20_share"
+    name_cn: "流通市值近似加权站上二十日均线占比"
+    transform: "总收益价格高于自身二十日均线成员的流通市值近似权重占比"
+    lookback: 20
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "cap_weighted_breadth_trend_short"
+    economic_hypothesis: "大市值覆盖的短周期趋势扩大时，指数未来收益更有支撑。"
+
+  - factor_id: "CMW_ABOVE_MA60_SHARE"
+    column: "circulating_cap_weighted_above_ma60_share"
+    name_cn: "流通市值近似加权站上六十日均线占比"
+    transform: "总收益价格高于自身六十日均线成员的流通市值近似权重占比"
+    lookback: 60
+    expected_sign: "positive"
+    threshold_mode: "rolling_percentile"
+    role: "cap_weighted_breadth_trend_medium"
+    economic_hypothesis: "大市值覆盖的中期趋势扩大时，指数趋势更稳健。"
+
+  - factor_id: "CMW_RETURN_DISPERSION_1D"
+    column: "circulating_cap_weighted_return_dispersion_1d"
+    name_cn: "流通市值近似加权单日收益离散度"
+    transform: "点时成员单日总收益的流通市值近似加权横截面标准差"
+    lookback: 1
+    expected_sign: "negative"
+    threshold_mode: "rolling_percentile"
+    role: "cap_weighted_cross_sectional_stress"
+    economic_hypothesis: "加权成员收益分化加剧代表内部结构脆弱，未来指数收益应更低。"
+
+  - factor_id: "CMW_TOP10_CONCENTRATION"
+    column: "top10_circulating_cap_share"
+    name_cn: "前十大流通市值集中度"
+    transform: "每日点时成员中流通市值最大的十只所占近似权重和"
+    lookback: 1
+    expected_sign: "negative"
+    threshold_mode: "rolling_percentile"
+    role: "cap_weight_concentration"
+    economic_hypothesis: "权重过度集中于少数大市值股票时，指数内部支撑较窄，未来收益应更低。"
+
+hypotheses:
+  - {hypothesis_id: "R4H001", factor_id: "CMW_ADVANCER_SHARE_1D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R4H002", factor_id: "CMW_POSITIVE_MOMENTUM_20D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R4H003", factor_id: "CMW_ABOVE_MA20_SHARE", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R4H004", factor_id: "CMW_ABOVE_MA60_SHARE", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R4H005", factor_id: "CMW_RETURN_DISPERSION_1D", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R4H006", factor_id: "CMW_TOP10_CONCENTRATION", target: "exec_total_return_20d_net"}
+  - {hypothesis_id: "R4H007", factor_id: "CMW_ADVANCER_SHARE_1D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R4H008", factor_id: "CMW_POSITIVE_MOMENTUM_20D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R4H009", factor_id: "CMW_ABOVE_MA20_SHARE", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R4H010", factor_id: "CMW_ABOVE_MA60_SHARE", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R4H011", factor_id: "CMW_RETURN_DISPERSION_1D", target: "exec_total_return_5d_net"}
+  - {hypothesis_id: "R4H012", factor_id: "CMW_TOP10_CONCENTRATION", target: "exec_total_return_5d_net"}
+
+blocked_tracks:
+  official_historical_weights: "缺少满足五年覆盖且可重复下载的中证官方点时权重；本轮近似权重不得冒充官方权重。"
+  historical_sector_classification: "11个中证行业当前成分文件可得，但公开历史成分记录不覆盖2021至2026，禁止当前行业倒填。"
+  pv_lc_order_flow: "USER_DEFERRED_NOT_ACTIVE；用户明确本阶段不开展Level-2/PV/LC。"
+  historical_total_market_cap: "新浪字段是流通股本而非总股本；本轮不声称总市值因子。"

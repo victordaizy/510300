@@ -1,0 +1,119 @@
+{
+  "study_id": "510300_BANK_INDUSTRY_CONSTRAINT_SOURCE_PROBE_V1",
+  "experiment_id": "E29",
+  "registered_at": "2026-10-02T14:50:26.012795+08:00",
+  "previous_goal_turn_classification": "PROGRESS_E28_ALL_SAVED_PAIR_RESPONSE_AND_NATURAL_LEAF_INFORMATION_ORDER_EXPLAINED",
+  "question": "E29先核商业银行法人口径的净息差、资本充足率、不良贷款率之旧用途与官方季度来源定义，询问相同订单/资金状态下银行整体盈利及资本约束是否提供不同上游信息。拟研究2018Q1—2025Q3；当前只提案、未登记或采集。先做有限目录/方法/实际发布样例初探，不在初探内强求完整季度面板；初探支持后另注册完整来源阶段。不得将行业总体等同沪深300金融权重或个股盈利，不从累计净息差推单季冲击；2024资本规则/分类变化、实际发布与数值版本必须单列。没有实质新用途或定义/时钟不支持则结束，不改E26模型、窗口、阈值、标签营救；尚无新特征或模型准入。",
+  "hypothesis": "制造业订单、资金价格相近时，全行业银行利润缓冲、资本约束与资产风险可能改变信用供给/风险承担；需要真正不同的公开历史信息，不能将旧公司传导复述作为新增因子。",
+  "competing_explanations": [
+    "行业汇总口径与上市金融权重不一致，未必代表指数盈利。",
+    "该状态可能只是贷款/利率现有列的重复，季度频率可能不提供新日频信息。",
+    "字段虽同名但制度、累计口径或版本不同，可能制造虚假变化。"
+  ],
+  "scope": "历史官方行业监管源初探；不是全31季度面板/字段定义/模型注册。",
+  "proposed_panel_range": "2018Q1—2025Q3",
+  "proposed_raw_fields": [
+    "净息差",
+    "资本充足率",
+    "不良贷款率"
+  ],
+  "budget": {
+    "directory_queries_max": 2,
+    "new_unique_direct_source_urls_max": 8,
+    "parallel_workers_max": 2,
+    "connect_timeout_seconds": 10,
+    "read_timeout_seconds": 25,
+    "total_download_bytes_max": 16777216,
+    "retry_known_failures": false,
+    "purpose": "只核旧用途、官方定义、表的载体和少量发布样例；不是31季度完整面板取得预算。"
+  },
+  "allowed_source_hosts": [
+    "nfra.gov.cn",
+    "cbirc.gov.cn"
+  ],
+  "clock_rules": [
+    "统计期、网页内容日期、页面迁移/修改日期、实际下载收件日期分别保存。",
+    "当前取得的历史表不自动证明首版/首次公开值。",
+    "正文与附件原件同链绑定；页面只列日期时保守日末，没有证据不填精确时刻。"
+  ],
+  "definition_rules": [
+    "先确认商业银行法人口径与排除范围，不代表全部沪深300金融权重。",
+    "净息差的累计平均定义未查明前不变成单季冲击。",
+    "2024资本制度及贷款分类定义变化需要实际官方方法证据，不默认为可比。",
+    "季度末不是发布日期，当前长历史表不得倒填原时点。"
+  ],
+  "stop_conditions": [
+    "已覆盖同用途则初探结束。",
+    "官方定义/原件/发布链不支持则保留缺口结束本有限问题，不用媒体数字替代。",
+    "两查询/最多8新直链或有限超时后停止，不重试已知失败。",
+    "支持初探也只提出另注册完整来源阶段，不自动训练模型。"
+  ],
+  "parents": [
+    {
+      "path": "reports/research/510300_saved_export_information_update_v1/next_experiment.json",
+      "sha256": "0fd9e566ba3460738500a0284156e22dfee9b1a4ebc1ec2fd1749831baad4149"
+    },
+    {
+      "path": "reports/research/510300_saved_export_information_update_v1/result.json",
+      "sha256": "9d916ef1d6935db68786290fd6efdc82a8b374a2c74c6f69a8ef7ccd858b5805"
+    },
+    {
+      "path": "reports/research/510300_bank_profit_credit_bridge_v13/protocol.json",
+      "sha256": "ab3edc48d476c959aa6c914e0f27cfd47bdf65852b2bfc3cfb7087656629ad78"
+    },
+    {
+      "path": "reports/research/510300_bank_profit_credit_bridge_v13/result.json",
+      "sha256": "fa99729f76c759167d22c8fbf932aacb561ceea27df5014d7ced17225f409dd3"
+    },
+    {
+      "path": "reports/research/510300_company_credit_realization_v24/protocol.json",
+      "sha256": "5ab713a4a3131fdd0929c310ae0d390244a2331bc212351076263550f238774f"
+    },
+    {
+      "path": "reports/research/510300_financial_driver_bridge_v1/result.json",
+      "sha256": "f1a5366e6702addaf3181bc335fc6d8a634eded62b02765d137043b3d9ed3ab9"
+    },
+    {
+      "path": "config/510300_bank_profit_credit_bridge_v13.json",
+      "sha256": "ab3edc48d476c959aa6c914e0f27cfd47bdf65852b2bfc3cfb7087656629ad78"
+    },
+    {
+      "path": "research/bank_profit_credit_bridge_v13.py",
+      "sha256": "341baa61347bc6db30fa0303ed605ec57913611e5e1e1a0d4a2587a5d53fa259"
+    },
+    {
+      "path": "research/company_credit_realization_publish_v24.py",
+      "sha256": "7ad4152e167486199a5c5c05ecf98cc343ad0817885f9e77f3d00ca0d5f4ea24"
+    },
+    {
+      "path": "research/company_exposure_facts_v16.py",
+      "sha256": "af4a54f6cbfa609110d864496075b5f63a755e5a19ec65a0bc755d457a10ab34"
+    },
+    {
+      "path": "research/company_exposure_facts_v19.py",
+      "sha256": "8dff2debe7019ea9cbbfbc8b71f453bcda729809b17638a9c7db30756d87e370"
+    },
+    {
+      "path": "research/complete_funding_quantity_price_bridge_v12.py",
+      "sha256": "b1b1a12521337d1a285200c5342dc8914b6985c4f98596631f08985a878ce853"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/原研究权限与账户口径快照.json",
+      "sha256": "17335e874287f72c727895967ad58a4eae110f3bcc51af844a35f8639cdcf6dc"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/原历史范围与目标快照.json",
+      "sha256": "e8b2b19fd3a47b647be27ef16c25bd14bc182f85a71d97b7e29bf947da339288"
+    }
+  ],
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false,
+  "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY"
+}

@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-02T21:10:09.261397+08:00",
+  "study": "510300_POINT_C01_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R130",
+  "result_decision": "TECH.R131",
+  "candidate_configurations": 1,
+  "fields": [
+    "negative_positive_median_impact_ratio20"
+  ],
+  "hypothesis": "固定二十日负正单位CNY金额冲击中位数比，在有定义时能否提供原八项外的周期内继续价值信息。",
+  "field": "r_j=log((raw_close_j+cash_j)/raw_close_(j-1))=total_log，I_j=abs(r_j)/amount_CNY_j。固定[t-19,t]二十个完整真实市场收益日，严格r<0和r>0两组各>=5，取median(I负组)/median(I正组)一列。不先log比值/截断/改均值；r=0不入正负组，但其日期/正金额必须源完整。",
+  "clock": "原close/previous_close/dividend/total_simple/total_log/前向wealth身份核验，财富正有限，首点无前一区间不补0，首20行无法有20真实经济区间。CNY成交额按原快照在完整收盘后已知，下一合法开盘；不使用回溯复权/未来现金/实际目标标签，不混volume单位。原T完整收盘15:05可用，下一合法开盘应用；字段形成不读取收益目标，拟合只复用已成熟原目标。",
+  "different_function": "原TECH.R97只做完整直接第九项支持，0收益模型拟合；下一只拟议固定核心外单系数可选残差。旧支持失败/旧T05与T05_PRICE/总体Amihud失败保留，不登记进入或重跑旧账户。",
+  "original_members": "原1507状态及142月115可用27未知、全部成熟训练成员/原标签/周期总权重1；最近20/至少10周期100行、原入场锁定与核心尺度/截距保持。",
+  "fit": "唯一一个系数；已知原训练行按原周期权重标准化、clip±5、再中心化；全部原行保留。设计和原目标减固定核心预测的残差分别周期内中心化；beta=sum(w*Dx*Dy)/(sum(w*Dx^2)+1)，alpha1、新全局截距0。原八项和入场锁定不变。原比值不先log或截断，标准化设计clip仅属另固定函数。",
+  "missing": "20日任一r或amount缺失/非有限、amount<=0则整个固定窗口未知，不压缩市场日。任一正负组<5则比值未知，不填0/1或删成员；零收益不入两组。完整严格组中位数应正，均衡冲击比值1有效、原比值可<1或>1，不截断；计算溢出/下溢不修补、不换尺度。组数不足是定义结构，不是可以补零的卖压0。未知只令修正不活动并精确返回原核心，原模型未知双方未知。原值不补0/1。",
+  "prediction_gate": "完整原配对、周期等权原收益MSE两期均严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后另冻结20万元252日BASE/STRESS双期完整账户：净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、最大回撤<=10%、次数软目标。",
+  "no_rescue": "不重开T05/T05_PRICE/总体Amihud，不改20日/正负各5/经济log收益/CNY金额/中位数/原比值或其缺失，不先log或给分母epsilon，不改原成员/目标/训练/alpha/时期/门，不拼失败分支或只挑有字段评价。",
+  "old_R97_direct_ninth_field_support_gate_passed": false,
+  "complete_C01_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_return_labels": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

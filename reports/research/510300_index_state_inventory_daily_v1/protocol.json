@@ -1,0 +1,80 @@
+{
+  "study_id": "510300_INDEX_STATE_INVENTORY_DAILY_V1",
+  "at": "2026-09-25T11:19:34.502575+08:00",
+  "user_instruction": "不做期权了，我只做指数",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "primary": "MACRO",
+  "capital": 200000,
+  "period": [
+    "2021-01-04",
+    "2026-08-14"
+  ],
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "question": "在纯指数的共同资料下，资金利差和信用变化能否通过少量条件交互改善收益及尾部分布，并改善完整库存账户。",
+  "price_features": [
+    "pressure5",
+    "trend20",
+    "log_rv5_rv60"
+  ],
+  "macro_features": [
+    "credit_acceleration3_pp",
+    "funding_gap_pp"
+  ],
+  "definitions": "三个价格特征沿用已冻结的五日抛压、二十日趋势和5/60日实现波动比，均至昨收盘；社融同比三月变化及DR007-政策利率沿用逐项发布时间。不称NFCI或中性利率差。",
+  "option_inputs_used": false,
+  "pure_index_source_columns": "仅选日期、价格特征、信用与利率及各自可用时钟；既有宽面板中的期权字段不读入模型或共同覆盖条件。",
+  "training": "每天仅使用当日向前两个日历年内、五日退出开盘严格早于当天的成熟标签；最少252共同样本。未来是否有结果不限制当前原点。",
+  "target": "开盘至第五个后续交易日开盘的标的含已获分红权益收益；不含入场前跳空，不把重叠五日收益当独立样本。",
+  "models": {
+    "HISTORY": "全部共同成熟历史的经验分布",
+    "PRICE": "价格三变量的平方误差树，max_depth2、min_samples_leaf126、random_state20260925",
+    "MACRO": "在相同树设置及共同训练池内增加两资金变量；当前叶内历史构成条件收益分布"
+  },
+  "tree_limits": "最多四个叶，实际两年样本通常至多三个；不扫描深度、叶数或变量；按训练均值和样本标准差标准化并截断[-5,5]，保存全部状态条件与样本。",
+  "moments": "当前叶内收益均值、样本方差、5%分位和最差ceil(n*5%)个收益均值的损失；包含所有尾部观察，不只保留成功形态。",
+  "decision": "逐日枚举合法100份目标，最大化w*mu5-2*w^2*variance5-调整成本/权益-退出储备/权益；允许上涨趋势或下跌修复中的正期望入场；缺预测最长保留五日。",
+  "ablation": "PRICE_DOWN_ONLY复用同一PRICE预测与风险预算，只额外禁止五日抛压非正时增仓；其余账户不预设买入方向状态。",
+  "risk": {
+    "five_day_ES95_budget": 0.025,
+    "gap_stress_return": -0.1,
+    "gap_loss_budget": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_headroom_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "after_trigger": "下一可卖开盘退出且本次不恢复；T+1与涨跌停可能使实际回撤超过触发值"
+  },
+  "execution": "09:00据昨收盘及已知除息额给固定份额；开盘仅能因预算或现金缩小买入，不扩张；T+1、100份、tick0.001、分红登记应收到账分账。",
+  "terminal": "没有利用最后样本日预先卖出；照常决定并收盘计价，末端若有库存额外计压力清算费用储备，保留未平仓状态。",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 252,
+  "cash_interest": 0,
+  "monitor": "五日固定相位成熟原点，60个原点的5%预测分位越界率>15%记录预警；不看完结果再改启停门槛。宏观月度重复值不当新增独立公告。",
+  "comparison": "MACRO对PRICE是主比较；PRICE对PRICE_DOWN_ONLY为方向状态限制诊断；固定20日区块2000次seed2026092510。另保留固定2021—2023/2024—末端及所有滚动两年。",
+  "candidate_gate": "压力账户三目标同时达到，主增量95%区间下界>0且两个固定期间增量都正，才列开发候选；仍需独立验证。",
+  "duplicate_boundary": [
+    "旧直接效用研究为季度更新、扩展/756日、多特征连续策略优化；本次是用户要求的两年日更、最多四状态条件分布。",
+    "旧条件承接研究固定最近126邻居、加入期权定价信息且只允许五日下跌后增仓；本次不使用期权，资金交互由浅树形成状态，并独立比较买入方向限制。",
+    "宏观信息和价格历史已经反复研究；本次是有限开发比较，不宣称新独立数据或复活旧终止组合。"
+  ],
+  "parameter_search": false,
+  "new_market_downloads": 0,
+  "orders_authorized": false
+}

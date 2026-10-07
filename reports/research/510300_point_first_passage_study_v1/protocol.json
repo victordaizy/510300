@@ -1,0 +1,222 @@
+{
+  "study": "510300_POINT_FIRST_PASSAGE_LEARNING_V1",
+  "at": "2026-10-04T19:48:19.107449+08:00",
+  "registration_decision": "TECH.R157",
+  "result_decision": "TECH.R158",
+  "question": "日周线MACD、价量和波动能否预测首次盈利/亏损/到期事件，并在完整账户同时提高原A和无技术特征对照的收益夏普？",
+  "known_before_freeze": "已知全部旧技术账户和历史选择。A/B共享同一核心及RETURN_RUNS_STATE辅助，差别为回撤或相关方向准入；不新增A/B切换。此前5/20日二分类、原完整入场收益岭与IF概率幅度均有旧结果。",
+  "novel_use_bounded_review": "所核对旧合同为固定期限涨跌、原自然入场终点收益、原退出继续收益或IF节点；此处使用逐原点首次边界类别及其实际扣费回报，成熟时间依赖已发生事件。不是原模型单字段残差，不复活旧分类版本；有限去重不声称穷尽全项目。",
+  "features": [
+    "daily_hist_atr",
+    "weekly_hist_atr",
+    "ema_distance_atr",
+    "momentum5_scaled",
+    "log_relative_volume",
+    "up_volume_balance5",
+    "log_rv_ratio",
+    "body_efficiency"
+  ],
+  "features_definition": "现金前向平移价用于ATR和MACD；经济含息log收益用于动量和波动；日MACD12/26/9及EMA20、ATR14，量/此前20日中位量，5日有向量占比，RV20/此前252日中位；前完整周MACD12/26/9以周末之后才可用，EMA最小期数26/9，不使用原图谱130周暖机合同。",
+  "labels": "决定原点次开入；初始开盘前向经济价下1ATR/上2ATR，ATR只取原点已知14日均TR；每日收盘首达或20个持有收盘到期，下一真实开盘出。十万元原价名义参考份额、压力摩擦/刻度/股息资格。类别不等同实际盈亏，缺后续开盘或未确认权益不成熟。",
+  "training": {
+    "schedule": "2015账户首个原点及每月第一个实际收盘",
+    "window_origins": 756,
+    "minimum_mature_known_rows": 252,
+    "minimum_each_class": 10,
+    "maturity": "标签退出与已有权益经济成熟都<=拟合原点；不补未来版本。",
+    "weights": "当前已成熟训练池的区间平均倒数并发数，归一为均值1；权重不是独立事件数。",
+    "estimator": "单一多项Logistic，lbfgs、C1、max_iter2000、tol1e-8；训练加权均值方差标准化、clip5；不收敛NO_VIEW不重试。",
+    "payoff_mapping": "同一成熟池的各类别实际正/负比例和平均正/负贡献，概率混合成预计实际p、B和净期望。",
+    "policies": [
+      "TECHNICAL_LOGIT",
+      "MATURE_FREQUENCY"
+    ],
+    "parameter_search": false
+  },
+  "entry": "有当时可用模型和完整特征，预计p×B>1且预计净期望>0，则空仓时次开尝试。预计pB仅模型门，最终用实际完成账户pB检验。对照仅改为相同成熟池类别频率，不使用技术特征。",
+  "exit": "买入后固定实际开盘锚定1ATR/2ATR及20收盘，不随新模型移动目标；收盘触发次可卖开盘退出，风险只减仓，终点不伪造清仓。计划2R是本策略标签几何，不是用户通用门槛或已实现B。",
+  "account": "两个独立现金账户时期，各20万元、510300.SH/CASH_CNY；原50%上限、ES5预算2.5%、负10%跳空预算5%和半数剩余回撤余量、DD10停止新入场。风险复用保存成熟值、252日、现金0、T+1/100份/.001刻度。",
+  "periods": {
+    "2015_2019": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "2020_2026": [
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  },
+  "costs": {
+    "BASE": [
+      0.0002,
+      0.0005
+    ],
+    "STRESS": [
+      0.0004,
+      0.001
+    ],
+    "minimum_commission": 5
+  },
+  "primary": "TECHNICAL_LOGIT作为独立完整政策，相对原A和MATURE_FREQUENCY都比较；没有新来源合并和按结果切换。",
+  "economic_gate": "全部两时期两费用：技术政策CAGR及全日历Sharpe都高于原A且高于频率对照并为正，DD<=10%，实际完成交易pB>1、标准期望>0。次数是软目标，未定义质量不填0或无穷。",
+  "prediction_diagnostic": "所有当时可知预测的成熟事件logloss和Brier；另固定原账户首日每20原点一记录。只解释，不用预测误差门阻止完整账户运行。",
+  "uncertainty": "完整真实账户配对20/252日循环区块各2000，沿用种子510300154；两种尺度全部报告，不选有利区间，不提供独立验证。",
+  "necessary_tests_passed": 6,
+  "original_control_replays": 4,
+  "new_candidate_accounts_planned": 8,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "first_vintage": "原日线与股息供应历史首版未认证；时钟正确不等于物理PIT认证。",
+  "no_rescue": "固定窗口、类别、边界、特征、参数、预计门、退出、成本和时期均不据结果修改；原失败和前瞻不变。",
+  "implementation_reference": "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html",
+  "reference_limit": "官方文档只支持多项分类、正则化和样本权重实现；新标签及交易规则为本地固定设计，来源不证明盈利。",
+  "environment": {
+    "sklearn": "1.9.0",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5"
+  },
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "sources": [
+    {
+      "path": "research/point_first_passage_study_v1.py",
+      "sha256": "dd1dc78d81200aadde09cc64e0e08acfd5bf92b11eecbf0167b86b0e98eee9ad"
+    },
+    {
+      "path": "research/point_first_passage_inputs_v1.py",
+      "sha256": "3fd2417f15181c0f6e8aebccf01d3ddac80e678a99d543e90a7727a3312309fb"
+    },
+    {
+      "path": "research/point_first_passage_account_v1.py",
+      "sha256": "aa02f183c9bf21434906370be4f47e6a29c4bee83896b0c0e447bc71fd341edf"
+    },
+    {
+      "path": "tests/test_point_first_passage_v1.py",
+      "sha256": "838483d9e0733849ce22c1199e491b414b226f4fa4c4b6b8fb3b5885e2d43817"
+    },
+    {
+      "path": "reports/research/510300_point_first_passage_study_v1/tests_receipt.json",
+      "sha256": "2b92fe72bcaf7f855ad18ca0b31be9483c8a458d4004625d7c96977c8be4e985"
+    },
+    {
+      "path": "reports/research/510300_point_first_passage_study_v1/control_preflight.json",
+      "sha256": "9bdc730523c39aba8b42aab665467975b9c5a45d28cb908cbc7db6c4e280588e"
+    },
+    {
+      "path": "reports/research/510300_point_first_passage_study_v1/pre_registration_test_failure.json",
+      "sha256": "7845ba8872a02c56a07e48a3eac6a3f67f49fe0d754b4e9ca9b1b1ca560957f7"
+    },
+    {
+      "path": "reports/research/510300_point_first_passage_study_v1/pre_registration_control_failure_01.json",
+      "sha256": "76e6d00b844d68adb68ebf1c12b02d25df8d1ca2ff0f9454fe8a94d3cadaa99e"
+    },
+    {
+      "path": "reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet",
+      "sha256": "544450e913597ce6f3e9ed3ca56806719fd9d06fa75251302ad222d5f7cf5a89"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/risks.parquet",
+      "sha256": "af833321093141ca67617917ca9162fb4d13721f5c863d5f07a45768bec82745"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/parent_signals.parquet",
+      "sha256": "9d0601e518dec9b03495c47330a8773749f4f9ab6851b28c7541b32427dd6256"
+    },
+    {
+      "path": "reports/research/510300_point_weight_information_diagnostic_v1/inputs/earlier_signals.parquet",
+      "sha256": "a7123b22e38dba8a29d22cddecdbb736e0d1eef12fcdb00a470f00f1a457ab15"
+    },
+    {
+      "path": "research/point_account_nr7_inputs_v1.py",
+      "sha256": "c2ad8fd8dcf3c35cbb74cad6dc3ca2d56ae6d28b36e4f57134b4a4be28236ea2"
+    },
+    {
+      "path": "research/daily_supply_test_v1.py",
+      "sha256": "9427a9eee57fa43edeae5a7223571dcda1ae6fbeeafd14283114551cb640e929"
+    },
+    {
+      "path": "research/point_account_nr7_complement_v1.py",
+      "sha256": "fa2585dd4101578668d3a17eb911085659c1273fc40a1598ddded9253457803b"
+    },
+    {
+      "path": "research/adaptive_allocation_v1.py",
+      "sha256": "4ae25cb346943771a5dea4e80e3e82a9bf34d5a406973279bea230a2e38121de"
+    },
+    {
+      "path": "research/point_directional_confirmation_study_v1.py",
+      "sha256": "1d2941f19edd61a08da2eaaa13c04b9cbe4af8b74a0819c8affd32fc8f9e221a"
+    },
+    {
+      "path": "research/core_auxiliary_drawdown_gate_inputs_v1.py",
+      "sha256": "d45b73f963b4cd916eee2433be8624ffec89ea0b980f6e7c81000c25144b14f4"
+    },
+    {
+      "path": "research/return_confirmation_auxiliary_batch_inputs_v1.py",
+      "sha256": "111354a9d598deba11cacadf0433a4d57de1cee9133f348bda007532d3fe1818"
+    },
+    {
+      "path": "research/return_classification_v1.py",
+      "sha256": "e82396c87ec56a89df2a47022210184dc9d63984468ba8da3aae5bb8c2ffbc98"
+    },
+    {
+      "path": "research/entry_payoff_gate_inputs_v1.py",
+      "sha256": "92390ce426001c8b0eba5aeb6f92a2fcbab09e30a3f491eae0f71f3f6b92c426"
+    },
+    {
+      "path": "research/probability_payoff_prediction_stage_v1.py",
+      "sha256": "d100f215d04cc8d9b2cfeaa6b25133f0b40f6723481d04813e48cedbdc17a986"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "8766fbe207c16dd6d6746b2bfeb9351cd05d04a0e489bae93336edfb00178271"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "108a3f2299bfd2aadf00c9d90df1855537a7ca70bd970d8779b03dda9c34f124"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2015_2019/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "c98908c628707e188e1f282d04cd242fce5d8b65fd7c1f207141a6759ead716d"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/BASE/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/orders.parquet",
+      "sha256": "bf90ba4e004c2b0a4ec20a48cd2cf97dce16ad244963eff9b6582f011a2f0026"
+    },
+    {
+      "path": "reports/research/510300_point_second_weight_comparison_v1/inputs/controls/2020_2026/STRESS/A_SAVED_WEIGHT/trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    }
+  ]
+}

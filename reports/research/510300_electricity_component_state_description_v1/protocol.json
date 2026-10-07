@@ -1,0 +1,80 @@
+{
+  "study_id": "510300_ELECTRICITY_COMPONENT_STATE_DESCRIPTION_V1",
+  "experiment_id": "E43",
+  "registered_at": "2026-10-02T18:15:03.326560+08:00",
+  "status": "HISTORICAL_COMPONENT_DESCRIPTION_REGISTERED_BEFORE_POOL_SUMMARY",
+  "question": "在已保存全部同原通报/同周期显示数值中，全社会与第二产业同比同号/异向如何分布；总量上涨而产业下降能否由其他原分组的增长抵消？",
+  "why_distinct": "E41/E42是原输入资格/来源层级，E43是原物理量内部构成和测量代理充分条件的历史描述；并非重开任何价格模型/补源门或新因子评分。",
+  "development_disclosure": "已观察E42一个异向案例后提出问题；对全部原99周期保留空值及版本，不称预先独立验证、概率/收益因果或未被观察的历史。",
+  "fixed_inputs": [
+    {
+      "path": "reports/research/510300_electricity_original_publication_state_v1/全部实际原统计区间.json",
+      "sha256": "6342b741d19537e8cd62b0251a19a6633f310c31a00d792e68b0443b9af510c6",
+      "bytes": 228728
+    },
+    {
+      "path": "reports/research/510300_electricity_original_publication_state_v1/result.json",
+      "sha256": "d0804386587372293674cb3673917f6c12076424934f35177a0fc6f609b7f334",
+      "bytes": 2835
+    },
+    {
+      "path": "reports/research/510300_electricity_original_publication_state_v1/source_gate.json",
+      "sha256": "367a1d542d6fbe1d7894c4d25a122f116760a0fd06c5ed19fa4ca3a597173293",
+      "bytes": 1106
+    },
+    {
+      "path": "reports/research/510300_electricity_nov2022_original_yoy_source_probe_v1/同全国单月原同比_索引转载事实.json",
+      "sha256": "ff725c5ca37dddc374acb3a69635e81fc97f20b4516c7482390a9c1337d9b251",
+      "bytes": 1972
+    },
+    {
+      "path": "reports/research/510300_electricity_nov2022_original_yoy_source_probe_v1/同原转载工业分项_描述事实非模型输入.json",
+      "sha256": "2d4371c511f495ae3ad8d6a426c921ebdd8f647b7f9dd24f2b42bfb2ea26fbb4",
+      "bytes": 820
+    },
+    {
+      "path": "reports/research/510300_electricity_nov2022_original_yoy_source_probe_v1/result.json",
+      "sha256": "a3dfffe925494b615954919c785141aefe23b881b1035028f9dfea2e8e07d3e9",
+      "bytes": 2573
+    }
+  ],
+  "fixed_original_period_rows": 99,
+  "single_month_cumulative_annual_separate": true,
+  "no_cross_release_period_subtraction": true,
+  "no_sector_cross_publisher_splicing": true,
+  "same_original_period_fields": [
+    "全社会",
+    "第一产业",
+    "第二产业",
+    "第三产业",
+    "居民生活"
+  ],
+  "state_rule": "只用原公布同比的>0、=0、<0三符号；任何主比较值缺失则UNKNOWN，不填0、不回退累计、不删除原行。",
+  "description_hypothesis": "全社会原同比>0足以说明同周期第二产业原同比>0；已见单月反例后，量化其他原周期是否也有反例，不当新策略检验。",
+  "accounting_formula": "若四组同原量和原同比均已知且r>-100%，仅演示B_i=Q_i/(1+r_i)、c_i=(Q_i-B_i)/sum(B_j)*100的显示值近似构成。B_i是代数隐含基数，不是取得的上一年原数据。各c_i为近似百分点，不是经济因果贡献；四组和与原全国量残差及推算合计同比与原同比误差全部保留。",
+  "rounding_boundary": "原显示整数/一位小数不能认证精确值或原舍入方式，演示不产生精确区间/原数量，不用于填模型。",
+  "E42_extra_case": "同转载11月四组只作独立附加描述，不填入E41原99行或改556未知；原转载与当前HTTP外壳/原根时钟缺口保持。制造业三组权重未知，不算贡献。",
+  "source_gate": "只原测量身份和同周期字段，收益/模型源准入NOT_RUN；指数收益及原调整背后天气/工作日/效率/行业结构原因未识别。",
+  "prior_use_check": {
+    "scope": "仅research/config精确产业用电字段词定位",
+    "returncode": 1,
+    "matches": "",
+    "global_absence_proven": false
+  },
+  "budget": {
+    "new_network_requests": 0,
+    "new_source_downloads": 0,
+    "future_stock_return_values_read": 0,
+    "new_labels": 0,
+    "new_models": 0,
+    "new_fits": 0,
+    "new_accounts": 0,
+    "source_code_edits": 0
+  },
+  "stop": "全部99原周期及一个不同根转载案例一次描述完即止，不按反例选择股市窗口/新阈值，不把计量充分条件否定升级成因子/策略收益否定。",
+  "historical_first_vintage_authenticated": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false,
+  "live_process": false
+}

@@ -1,0 +1,34 @@
+当前用户目标：完整账户成本后基础与压力情景净夏普率均至少1.2，年化收益均至少10%。只按最新双门槛验收；夏普单独通过不能标记目标完成。
+
+继续用户完整目标：510300成本后夏普至少1.2、稳定超额和独立证据。用户要求加快、灵活改策略，暂停EPS、公募、估值及慢来源；全部因素和进出场规则写中文。无GPT数值包、ZIP、重复Word或额外安全审计。仅510300.SH/CASH_CNY；其他ETF问题待回复，不重复问。没有券商、订单、实盘、Paper、Shadow、新任务、子代理或memory写入授权。config/510300_research_authority_v6.json允许新有限方法、历史滚动训练及完整账户，无预测显著性前置门。旧冻结规则、来源、失败结论保留，不能改失败方法参数、方向、年份、费用或父来源救回。
+
+本回合为PROGRESS：第186轮已经完成必要测试、冻结、完整账户、独立保存结果核对、失败关闭和中文交付。权威索引reports/research/510300_sharpe_1_2_latest_research.json，goal_achieved=false、running_studies为空，没有运行进程。THROUGH185及更早进度过时，禁止重跑已完成研究的prepare/freeze/run/verify/finalize或旧诊断。只读最新索引及具体当前文件，接续未完成处，不重复遍历长历史。Windows中文，PYTHONIOENCODING=utf-8，.venv\Scripts\python.exe，用模块入口。
+
+当前第186轮：原策略明确空仓时补充已有两日反弹。研究510300_IDLE_REVERSAL_OPPORTUNITY_V1，主模型IDLE_RSI2_OPPORTUNITY。设置config\510300_idle_reversal_opportunity_v1.json，结果reports\research\510300_idle_reversal_opportunity_v1\result.json，完整规则docs/510300_IDLE_REVERSAL_OPPORTUNITY_V1.md。必要测试4项、2.720962299965322秒；核心计算2.4389604999450967秒，不含开发、测试、结果核对和交付。
+主历史、BASE、IDLE_RSI2_OPPORTUNITY：净夏普0.4548412110948066，年化0.05365853938774614，最大回撤-0.2791927213414051。
+主历史、BASE、IDLE_TREND_RSI2_OPPORTUNITY：净夏普0.6232447085096765，年化0.0664879062182853，最大回撤-0.11967778022631244。
+主历史、STRESS、IDLE_RSI2_OPPORTUNITY：净夏普0.20443655752812528，年化0.018698784640681778，最大回撤-0.35364596061552434。
+主历史、STRESS、IDLE_TREND_RSI2_OPPORTUNITY：净夏普0.41544628889872326，年化0.04167904686486518，最大回撤-0.12902381099055046。
+较早历史、BASE、IDLE_RSI2_OPPORTUNITY：净夏普0.577489395182781，年化0.09709421556637228，最大回撤-0.2922671686315142。
+较早历史、BASE、IDLE_TREND_RSI2_OPPORTUNITY：净夏普0.604385178968395，年化0.07919324951658789，最大回撤-0.2376692979196095。
+较早历史、STRESS、IDLE_RSI2_OPPORTUNITY：净夏普0.4274070362861876，年化0.06595695810792089，最大回撤-0.31339685597452954。
+较早历史、STRESS、IDLE_TREND_RSI2_OPPORTUNITY：净夏普0.46550983018497416，年化0.058132430568316865，最大回撤-0.23820496521680962。
+第186轮在原策略明确空仓时加入已有两日反弹。普通超跌主方案主历史基础／压力夏普0.455／0.204、复合年化5.37%／1.87%；带长期趋势限制的比较方案夏普0.623／0.415、年化6.65%／4.17%。两个方案的较早历史也未达标，新增持仓和交易没有改善全账户结果，关闭这两项固定补充方式。
+
+独立核对已经完成，回执reports\research\510300_idle_reversal_opportunity_v1\saved_verification_receipt.json，核对时间2026-09-13T04:12:36.247391+08:00，状态PASS_EIGHT_SIMULATED_ACCOUNTS_IDLE_REVERSAL_AND_COSTS。具体实际周期、收益归因、费用、覆盖和未知状态读取同目录saved_account_checks.csv、saved_actual_cycles.csv、saved_comparison_differences.csv、account_coverage.csv、target_coverage.csv；无需重新运行账户或再次核对。当前交付deliverables\510300空仓反弹补充_第186轮_20260913\空仓反弹补充_结果及全部中文规则.md，包含全部中文因子与进出场规则。
+
+均衡比较候选510300_RETURN_CONFIRMATION_AUXILIARY_BATCH_V1、EITHER_CONFIRMED_RUNS_AUXILIARY，最后比较186。主基础/压力夏普1.4966392288455168/1.4229803219511783，较早1.0980940406317017/1.0891149645388876。四整段复合超额为正仍不等于逐年稳定超额；较早不足1.2，独立验证NOT_ESTABLISHED，目标尚未完成。原143的20/60日区块比较区间跨零、较早前三盈利周期贡献集中的原诊断保持，不重跑、不称为已证明高夏普。来源reports\research\510300_return_confirmation_auxiliary_batch_v1\result.json。
+
+下一第187轮完整事前规则：docs\510300_SIGNAL_MARKET_RISK_BUDGET_NEXT_20260913.md。状态SIGNAL_MARKET_RISK_BUDGET_PREPARED，重点：保留原进入退出资格，用市场波动直接给仓位，比较每日调整和区间固定。当前只准备事前方案，尚未登记、实现、测试、冻结或计算新账户。开始前先查对应具体研究文件是否有后续进展，接续而非覆盖。计划2套设置、8新账户、0新模型、0新参考，外部来源需求False。完整参数和处理边界以该事前文档为准，不自行变更。
+
+新方法不得修改已经关闭方法的窗口、方向、费用、阈值或父来源绑定救回；新组合必须作为单独固定规则和真实账户评价，原结果仍保留。
+
+框架可复用research/saved_target_batch_runner_v1.py、saved_parent_target_alignment_v1.py、event_clock_account_v1.py。前两者可读已保存父收盘决定并核对身份日期时钟费用；不会重新生成父账户。已有持仓的正目标偏差不足.1保持，否则调中心；空仓正目标直接尝试整百份进入；已知零及终点开盘优先清仓。未知保持实有份额，不能当现金。受阻下一收盘按最新目标决定。独立账户核对可用saved_target_account_checks_v1.py并写本轮源因素/父目标的独立检查，不重复旧核对。
+
+共有行情reports/research/510300_adaptive_allocation_v1/features.parquet，3456日2012-05-28至2026-08-14，SHAbce22dc005e678f1eabec3cc662e5b93c7a2673eecb31ea19f1b57df86cd7f3a；主first1852/anchor1851/1604行，较早前缀1852/first633/anchor632/1219行。data/reference/510300_dividends.csv14事件，SHAa96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d。每账户20万元、242年化、现金及无风险0，基础佣金.0002/min5/slip.0005，压力.0004/min5/slip.001；100份/.001价位/10%方向涨跌停/T+1/登记除息到账分开/真实nextOPEN及终点OPEN清仓。实际份额ledger.shares，应收分红不当可用现金。
+
+通过必要测试、完整中文规则和一次冻结后，实际跑预定新账户。完成后先candidate_outcomes及saved_verification_receipt，再fast_round_delivery_v1交付和更新总索引、当前比较候选的最后比较轮次，并准备一个确有区别的下一有限方法。可运行scripts/prepare_latest_research_heartbeat_v1.py --round 当前完成轮次 --stamp 当天八位日期，保存简短进度及原任务更新参数；每轮只生成一次，已有参数就直接使用，不重复生成。然后通过automation_update更新原510300-1-2完整字段并回读TOML，不直接编辑、不创建重复任务。
+
+自动目标此前实际为usageLimited，继续时按实际工具状态判断；不达标不标complete，有明确工作不标blocked，不消耗重置或购买额度。保持原ACTIVE与通知偏好，无变化安静，只在实质进展、完成、失败或需行动时通知。继续推进。
+
+新增已完成诊断：reports/research/510300_joint_saved_frontier_through186/result.json。复用截至130轮清单，只增量读取131至186轮56份结果，521个不同命名绩效版本、228个标准四场景完整版本，双门槛四场景同时通过为零。按八项指标相对门槛比值的最小值排名，前五为181 ACCOUNT_VOLATILITY_EXPOSURE、180 EXPOSURE_EXPANSION_200、182 EPISODE_ACCOUNT_RISK_BUDGET、180 EXPOSURE_EXPANSION_150、168 RUNS_OPPORTUNITY_CAPPED_SUM。前五的20条保存账簿本次已核对，不重跑诊断或旧账户。第181轮最弱项为较早压力净夏普1.0557279223494714，主压力年化8.993719%左右；第182轮虽较早夏普更高但主压力年化8.048047%左右，不能以单项好看替代双门槛。详细数据见joint_four_scenario_ranking.csv及双门槛优先级说明.md。第187轮具体事前方法仍按已保存文档执行。

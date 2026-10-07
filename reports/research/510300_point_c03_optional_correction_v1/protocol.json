@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-02T20:50:22.030833+08:00",
+  "study": "510300_POINT_C03_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R128",
+  "result_decision": "TECH.R129",
+  "candidate_configurations": 1,
+  "fields": [
+    "up_down_amount_efficiency_difference10"
+  ],
+  "hypothesis": "固定十日正负经济收益/成交额效率差，在已知时能否提供原八项之外的周期内继续价值信息。",
+  "field": "r=原log((close+当日已除息现金)/previous_close)=total_log；固定[t-9,t]十个完整实际日，严格r>0与r<0归组，零日不入两组但计入日均金额。mean(amount10)*[sum(正r)/sum(正日amount)-sum(abs负r)/sum(负日amount)]固定一列。",
+  "clock": "原现金前向财富和log收益先核身份，首个市场点没有前一区间不补0；CNY成交额在完整收盘后可知，下一合法开盘执行，不读未来现金/行情或回溯复权。原T完整收盘15:05可用，下一合法开盘应用；不使用未来市场、现金或原目标。",
+  "different_function": "原TECH.R88只做完整直接第九项原成员支持，0收益模型拟合；下一拟议固定核心外单系数可选残差。旧支持门失败及原HIGH/LOW进入政策失败均保留。",
+  "original_members": "原1507状态及142月115可用27未知、全部成熟训练成员/原标签/周期总权重1；最近20/至少10周期100行、原入场锁定与核心尺度/截距保持。",
+  "fit": "唯一一个系数；已知原训练行按原周期权重标准化、clip±5、再中心化；全部原行保留。设计和原目标减固定核心预测的残差分别周期内中心化；beta=sum(w*Dx*Dy)/(sum(w*Dx^2)+1)，alpha1、新截距0。原八项和入场锁定不变。",
+  "missing": "十日任一经济收益/金额缺口、非有限或金额<=0未知；任一正负组金额分母<=0未知，不填0/epsilon、延长/压缩窗口或删成员。两组有效但效率差真0合法，正负零边界严格按原log收益。未知时只令可选修正不活动，精确返回原核心；原核心未知双方未知。",
+  "prediction_gate": "完整原配对、周期等权原收益MSE两期均严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后另冻结20万元252日BASE/STRESS双期完整账户：净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、最大回撤<=10%、次数软目标。",
+  "no_rescue": "不重开原HIGH/LOW、不改10日/金额尺度/严格收益边界/原分母/未知或加epsilon，不改原成员/目标/alpha/成熟钟/两期门，不拼失败分支，不挑有字段子样本。",
+  "old_R88_direct_ninth_field_support_gate_passed": false,
+  "complete_C03_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_return_labels": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

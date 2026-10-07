@@ -1,0 +1,46 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_CURRENCY_ALLOCATION_V1",
+  "created_at": "2026-10-01T20:17:59.157584+08:00",
+  "previous_goal_turn_classification": "PROGRESS_INDEX_SIZE_SCOPE_AND_REBALANCE_DENOMINATOR",
+  "question": "固定六个月中，对美元升值是否意味着人民币整体走强；北向净买入的量级和月内时序是否支持沪深300整体需求变化；当时已知的上游信息是什么？",
+  "calendar": [
+    "2022-09-30",
+    "2023-03-31"
+  ],
+  "main_units": "沿用六个自然月，另列各月全部交易日，不由结果选月份",
+  "known_history": "已见指数六个月收益、已有美国政策和国内约束资料；检索阶段已见11月篮子跌2.86%、1月篮子约升1.2%。本轮是历史解释性发现，不是盲测。",
+  "deduplication": {
+    "northbound": "既有六条北向方向/分位规则全失败，不复活、不改阈值",
+    "rmb": "RMB_RESIDUAL_STATE旧规则有来源缺口，本轮不运行旧回归、不补2018缺口、不用残差造新信号",
+    "crossborder": "ASHR反应不足完整账户失败，原首日残差和退出不变",
+    "domestic_external": "复用已有国内政策、PMI和美国CPI/FOMC时钟；只补未覆盖的配置与汇率构成"
+  },
+  "measurement": {
+    "rmb_usd": "官方9:15中间价的月末值，人民币对美元回报=上月末每美元人民币/本月末值-1；不是即期可成交收益",
+    "basket": "CFETS官方月末指数及当时公告变化；2023权重调整明确记录，不假设恒定篮子",
+    "dxy": "保存的Yahoo美元指数日收盘；月末各自最后日期，非与中国15:00同步",
+    "northbound": "保存的Eastmoney历史北向实际净买额，买额减卖额，单位亿元；月内加总及按实际记录数的日均，非额度余额估计，不代表全部外资或单一指数",
+    "no_attribution": "美元篮子和人民币篮子币种及权重不同，不能机械相减得到纯中国冲击；买入和价格内生互动，不给因果贡献百分比"
+  },
+  "hypotheses": [
+    "全球美元环境同时影响人民币双边报价和股票折现条件",
+    "国内约束改善改变中国资产配置，但须有不同于纯美元变化的证据",
+    "贸易结汇和资金交易可改变汇率，不能把全部升值归因为股票流入"
+  ],
+  "information_clock": "月底描述与真正月度公告时间分开；比较净收益复用先前月末T+2开盘5/20日窗口。若补官方报告事件，按有日期无小时在当日收盘后可用，次日开盘进入，不回填统计期。",
+  "horizons": [
+    5,
+    20
+  ],
+  "cost": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001
+  },
+  "new_candidates": 0,
+  "new_full_accounts": 0,
+  "new_prospective_tasks": 0,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "stop": "没有当时可识别的独立配置机制和价格之后优势，不从六个月结果造状态阈值或拼收益。缺失原始来源保留缺失。"
+}

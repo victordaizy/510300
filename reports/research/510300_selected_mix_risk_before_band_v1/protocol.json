@@ -1,0 +1,56 @@
+{
+  "study_id": "510300_SELECTED_MIX_RISK_BEFORE_BAND_V1",
+  "at": "2026-09-25T12:57:59.569409+08:00",
+  "primary": "POOLED_RISK_BEFORE_BAND10",
+  "user_instruction": "不找到不中止   找到再停止",
+  "scope": "已有数据、仅指数与现金的研究模拟",
+  "question": "在风险裁剪之后再应用原10个百分点调仓带，能否改善完整账户的成本后表现。",
+  "motivation": "父共享训练压力账户165次加仓申请中112次被风险上限裁为不足10个百分点的加仓；这是事后发现的执行交互，不是未见历史的新假设。",
+  "fixed_rule": "按收盘权益和原信号算整手目标，先用不变的风险预算投影。已有持仓且保持原份额本身可行、并无零目标或回撤停止时，目标与当前仓位差小于10个百分点则保持。否则执行风险可行目标。",
+  "priority": "风险超限减仓、原信号归零及回撤停止优先于调仓带；空仓初次进入不受调仓带拦截。",
+  "unchanged": [
+    "三类共享退出训练的全部保存模型与每日原目标",
+    "两年每日训练与每日风险估计",
+    "50%目标上限、五日ES95为2.5%、10%跳空预算和回撤余量",
+    "成本、账户时钟、T+1与现金、分红"
+  ],
+  "source": "reports/research/510300_selected_mix_pooled_daily_v1/result.json",
+  "period": [
+    "2020-01-02",
+    "2026-09-16"
+  ],
+  "capital": 200000,
+  "annual_days": 242,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "target": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "planned_new_full_accounts": 2,
+  "new_models": 0,
+  "new_parameter_grid": 0,
+  "comparison": "与相同成本父共享训练账户比较；完整同日收益差、20日区块2000次、种子20260927。",
+  "implementation_checks": {
+    "small_optional_change_held": true,
+    "excess_risk_reduced": true,
+    "zero_target_and_stop_exit": true,
+    "missing_source_no_addition": true,
+    "missing_tail_no_entry": true,
+    "entry_not_blocked_by_band": true
+  },
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "evidence_limit": "全部历史已有研究选择，点值或比较改善均不能当作独立验证。"
+}

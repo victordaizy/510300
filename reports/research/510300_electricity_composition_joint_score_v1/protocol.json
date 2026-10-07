@@ -1,0 +1,151 @@
+{
+  "study_id": "510300_ELECTRICITY_COMPOSITION_JOINT_SCORE_V1",
+  "experiment_id": "E45",
+  "registered_at": "2026-10-02T19:11:29.198142+08:00",
+  "status": "REGISTERED_BEFORE_THIS_EXPERIMENT_LABEL_READ_AND_MODEL_FIT",
+  "hypothesis": "原公布同周期第二产业、居民用电构成与订单/资金/融资/指数状态有非线性交互，可改善同事件剩余净收益评分；原统计期长控制单月、累计、年度身份。没有预设份额正负方向，不称上游原因已识别。",
+  "economic_difference": "不同消费渠道的结构信息，与旧同比增幅、总量或采购字段不同；按新自然原公告事件比较，不改写E36、E41失败。",
+  "source_gate_status": "PASS_KNOWN_ORIGINAL_EVENT_COMPOSITION_SOURCE_AND_CLOCK_CONTRACT",
+  "source_receipts": [
+    {
+      "path": "reports/research/510300_electricity_composition_event_source_contract_v1/protocol.json",
+      "bytes": 8440,
+      "sha256": "8c3b22c43a86036d710643f924ae8d1b725a02360c70fc5efd664b2ce3951853"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_event_source_contract_v1/result.json",
+      "bytes": 2970,
+      "sha256": "dc5495207fc533841033d942351cdaa0583ad793c9751e5718c8417057363105"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_event_source_contract_v1/全部52原根公告_同原构成与原八状态_无收益标签.parquet",
+      "bytes": 48724,
+      "sha256": "1ed24984e728dee2bd97220df2f02d5902b375e6d245497bf00de5822d26b61f"
+    },
+    {
+      "path": "reports/research/510300_electricity_composition_event_source_contract_v1/全部51评估公告_相同成熟池支持.json",
+      "bytes": 44201,
+      "sha256": "5ce3cf64fc0e434932cdcf63bbd06612bcee4759bca2885c0a3fc8d66f2a601f"
+    },
+    {
+      "path": "reports/research/510300_multidim_nonlinear_score_v1/protocol.json",
+      "bytes": 3885,
+      "sha256": "520c79e6b3cc985b23142a88416ba1a323569586420ceb4ac7e02f56e84add7a"
+    },
+    {
+      "path": "reports/research/510300_purchase_quantity_cause_increment_v1/原八变量与采购两列_原标签不变.parquet",
+      "bytes": 1880663,
+      "sha256": "06dc73c28abfc4fe961943107f4577daa9723a15aa7e02135ce0cc0d1a47e5ed"
+    }
+  ],
+  "features_state": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度"
+  ],
+  "features_new": [
+    "同原周期第二产业份额",
+    "同原周期居民份额",
+    "原统计区间月份数"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "同原周期第二产业份额",
+    "同原周期居民份额",
+    "原统计区间月份数"
+  ],
+  "known_roots_total": 52,
+  "known_eval_events": 51,
+  "expected_scored_events": 39,
+  "expected_primary_scored_events": 22,
+  "event_coverage": "已见目录52根事件完整保留，1公告晚于固定2025期；12预热保留。尚不证明所有月份档案完整，来源首版未认证，不宣称独立验证。",
+  "clock": "E44可用日23:59:59研究假设，严格之后首个交易日16点指数状态作为决定；下一交易日开盘入，入后第5交易日开盘出。2024十月转载日2024-11-21独立保留，不能倒填20日。",
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "pool": "E44登记全部原公告事件；state_idx>=current-504且state_idx<current且exit_idx<=current。相同训练事件ID、原退出成熟边界；不删缺失成员、不将复制月值计独立事件。",
+    "update": "每次原公告一行"
+  },
+  "tree": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "ridge": {
+    "alpha": 10,
+    "standardization": "同训练池均值、ddof=1标准差；近零尺度置1，z剪裁[-5,5]后同池中心化；截距同池标签均值。",
+    "choice": "仅参考，不用岭回归救树门失败"
+  },
+  "models": [
+    "state8_tree",
+    "joint11_tree",
+    "state8_ridge",
+    "joint11_ridge",
+    "same_pool_mean"
+  ],
+  "label": {
+    "horizon_sessions": 5,
+    "entry": "信号后次日开盘",
+    "exit": "入场后第5个交易日开盘",
+    "fixed_quantity": 10000,
+    "commission_each_side": 0.0004,
+    "minimum_commission_cny": 5.0,
+    "slippage_each_side": 0.001,
+    "tick": 0.001,
+    "dividend": "按权益登记日归属；标签包括权益，但不冒充到账现金账户。"
+  },
+  "label_reuse": "只读取原已保存net_label，不生成新标签，不改5日、费用、数量、分红或成交时点；股票未来值仅进入成熟y和事后评估，不进入X。",
+  "score": "当前预测在同一模型同训练池拟合值内的中位百分位，0至100，不是上涨概率；空档保留。",
+  "buckets": [
+    0,
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "opportunity_rule": "树分数>=80且预测净收益>0，全期连续保持不重叠，不按年或阶段重置；固定10000份标签仅信号诊断。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "fixed_primary_gates": {
+    "G1": "主要期联合树MSE<=同公告同池原八变量树MSE",
+    "G2": "主要期联合树MSE<=同池历史均值MSE",
+    "G3": "主要期固定联合树高分自然机会n>0且平均原费用后5日标签>0",
+    "G4": "主要期联合树自然机会数>=原八树机会数，且至少1个不属于原八树的自然入场日",
+    "G5": "主要期至少1个实际高分机会决策路径使用三项新构成中的至少一项；全树其他分支使用不能替代当前路径证据"
+  },
+  "account_admission": "五门同时通过才允许另登记完整账户协议；任一未过账户NOT_RUN，不得用早期较好期、低费用、变80线、变深度/叶、改窗口/标签或换岭晋升。",
+  "full_goal": "200000主账户及20000独立成本对照，执行510300.SH/CASH_CNY，费用后Sharpe>=1.2、CAGR>=10%、最大DD<=10%、每完整年>=5入场年自然完成周期；50%仓位及ES95/缺口/剩余回撤空间约束原样保留。",
+  "development_disclosure": "E43反例之后选择的新经济信息，是历史开发。旧观察和结果已见；冻结前39个新增评分未拟合、本实验尚未读取标签。通过亦不恢复独立性。",
+  "one_shot": true,
+  "parameter_grids": 0,
+  "stop": "一次固定比较后冻结全部结果，不寻优、不重跑失败、不得只挑有利分层。",
+  "new_labels": 0,
+  "source_code_edits": 0,
+  "new_accounts": 0,
+  "new_downloads": 0,
+  "authenticated_requests": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET"
+}

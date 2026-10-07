@@ -1,0 +1,47 @@
+{
+  "study": "510300_ANNUAL_FIVE_OR_EDGE_V1",
+  "recorded_at": "2026-10-01T17:13:42.985817+08:00",
+  "user_instruction": "我现在要求一年至少五次交易，要么胜率高，要么盈亏比大",
+  "method": "对既有保存结果的事后重计数与指标比较；不拟合、不重新回测、不把已看历史称为独立验证。",
+  "scope": "最近4项日周线点位表达、既定日线顺序模式的3个原区间、原14个已列名历史方案的2个原区间；全部采用原STRESS成本。",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "price_resolution": [
+    "DAILY",
+    "COMPLETED_WEEKLY"
+  ],
+  "minimum_complete_cycles_each_full_calendar_year": 5,
+  "cycle": "一次从现金买入至持仓全部卖出算一笔；分批订单合并；按入场年归属；必须在样本截止前真实完成原规则退出。",
+  "terminal": "旧回测因样本终点强制清仓的交易另列，不计入自然完成次数；原指标及原裁决不改写。",
+  "year": "对照日线交易日历核对完整自然年，零交易年补0；2026以及起止覆盖不完整的年单列，不按全年通过/失败裁决。跨年交易仅计一次。",
+  "annual_counting_is_training_admission_gate": false,
+  "annual_frequency_is_final_strategy_acceptance_gate": true,
+  "force_trades_to_meet_frequency": false,
+  "edge_logic": "WIN_RATE_OR_REALIZED_PAYOFF",
+  "user_numeric_win_rate_minimum": null,
+  "user_numeric_payoff_minimum": null,
+  "working_win_rate_minimum": 0.55,
+  "working_realized_payoff_minimum": 2.0,
+  "working_threshold_source": "沿用上一轮冻结的55%与2，仅将AND改为OR；这是研究比较口径，用户尚未指定这两个数值。",
+  "net_edge": "正成本后平均净收益，并且平均净利润为正；胜率和盈亏比至少一项达到上述研究比较线。",
+  "return_payoff": "每笔净利润先除以该笔累计买入支出，再以盈利笔平均收益率除以亏损笔平均收益率绝对值。",
+  "cash_payoff": "平均盈利金额/平均亏损金额绝对值，另列；不与利润因子混淆。",
+  "payoff_not_defined": "无交易或没有同时观察到盈利和亏损时，不以无穷盈亏比通过。",
+  "costs": "沿用三类输入的STRESS：单边佣金4bp、滑点10bp、最低佣金5元；保持旧成交价、整手及分红。",
+  "account_targets": {
+    "capital_cny": 200000,
+    "target_net_sharpe": 1.2,
+    "target_net_cagr": 0.1,
+    "target_max_drawdown": 0.1
+  },
+  "account_limit": "旧账户保留其原仓位；不将其视为按当前最高50%仓位及尾部约束重新运行的账户。点位研究无连续账户指标。",
+  "original_failures": "原主方案、冻结失败、历史策略停用和独立性状态全部保留；当前复核不恢复任何旧策略。",
+  "evidence_date": "2026-09-16；原14方案为2026-08-14",
+  "new_accounts": 0,
+  "new_fits": 0,
+  "minute_data_reads": 0,
+  "orders_authorized": false,
+  "official_t_plus_one_source": "https://www.sse.com.cn/assortment/fund/etf/question/c/c_20240118_5734755.shtml"
+}

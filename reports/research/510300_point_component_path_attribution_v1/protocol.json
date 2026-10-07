@@ -1,0 +1,33 @@
+{
+  "study": "510300_POINT_COMPONENT_PATH_ATTRIBUTION_V1",
+  "at": "2026-10-01T19:52:22.635131+08:00",
+  "question": "两条现有组合的新增次数来自哪些入场与持有状态；上一轮六次额外再进入在组合中如何对应？",
+  "known_before_this_study": "既有组合94条完成记录、额外六次再入场及其结果已知；本轮是固定记录的全范围归因，不是独立验证。",
+  "periods": {
+    "earlier_diagnostic": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "evaluation": [
+      "2020-01-02",
+      "2026-08-14"
+    ]
+  },
+  "models": [
+    "CORE_AUXILIARY_DRAWDOWN_GATE",
+    "LAG_CONFIRMED_RUNS_AUXILIARY"
+  ],
+  "entries": "原守护规则同日进入、训练退出规则额外同日进入、原守护规则持有期间的其他进入、其余组合进入四类；按既有时钟描述，不作为新筛选条件。",
+  "held_interval": "从入场开盘含当日到退出开盘不含当日；未完成保留到末端观察开盘。每条规则同一开盘最多一个持有点位。",
+  "holding_state": "每日区间状态取该开盘之前保存的收盘目标：仅核心、仅有效辅助、二者同时、未知保持、零目标等待；拆开核心的两个已存分量，仅作来源解释。",
+  "return_attribution": "每个实际持有开盘到下一开盘的原价差加有资格除息，除该笔原始入场价；按当期状态分组后能加总为整笔毛回报，摩擦单列。不把正信号权重当实际分配份额。",
+  "interpretation": "分组展示收益发生时的信号状态，不识别组件独立因果收益；不模拟删除组件、跳过点位或新策略。末端路径保存但排除胜率和完整点位均值。",
+  "extra_entries": "固定上一轮全部六次额外入场，逐一检查两组合当时同日新开、已持有或空仓，并列所有实际重叠区间，不只挑对应收益较好的记录。",
+  "quality": "沿用p乘实际净B严格>1且净均值>0；频率软目标。缺少盈利或亏损时B保留未定义。",
+  "new_point_replays": 0,
+  "new_full_accounts": 0,
+  "new_model_fits": 0,
+  "parameter_searches": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

@@ -1,0 +1,53 @@
+{
+  "study_id": "510300_BANK_CURRENT_VINTAGE_RATIO_CAUSE_IDENTITY_V1",
+  "experiment_id": "E30",
+  "registered_at": "2026-10-02T14:59:34.226856+08:00",
+  "question": "E30复用当前2025同一年度原表，只分解2025Q1→Q2及Q2→Q3资本充足率/不良贷款率变动：资本净额与风险加权资产、以及不良余额与正常+关注+不良贷款总额。先核同表分子/分母和报告比率的舍入残差，再按固定先分子后分母的两步恒等式解释，不把比率下降全部叫新增损失或信贷宽松；两个完整相邻季度均保留。当前来源版本为2026-02-12，本实验只是现版本历史会计结构，不准入原公布时点/评分/账户。净息差期间未知不差分，Q4不计算；不抓新源、不拟合或重开E26。当前仅提案未注册/计算。",
+  "pairs": [
+    "2025Q1→Q2",
+    "2025Q2→Q3"
+  ],
+  "source_vintage": "2026-02-12 current attachment",
+  "ratio_definitions": {
+    "资本充足率": "资本净额/应用资本底线后的风险加权资产合计",
+    "不良贷款率": "不良贷款余额/(正常类贷款+关注类贷款+不良贷款余额)"
+  },
+  "fixed_order": "分子先、分母后：新分子/旧分母-旧分子/旧分母；新分子/新分母-新分子/旧分母。",
+  "units": "源金额为亿元；原比率单元格为比例；报告贡献转换为百分点。",
+  "necessary_admission": "金额派生比率在原显示值舍入区间内；所有金额有限/同表/分母正，恒等分解误差<=1e-12。",
+  "rounding_tolerance_rule": "取原Excel百分比显示小数位，半个末位的比例幅度；不以结果调容忍。另保存与原未格式化数值的残差。",
+  "source_historical_admission": false,
+  "operating_cause_identification": false,
+  "parents": [
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/next_experiment.json",
+      "sha256": "075dcf88697469536608a4fe95e067901616144e921cb5f059b5770ad0269707"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/protocol.json",
+      "sha256": "563cef6ec8045597afdcef3d3898448230f445f606271c6c706404a133bf9705"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/result.json",
+      "sha256": "92eb9edaca2338879687777ecefd36fa66daf8031e8162f3887188afa0e51530"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/发布正文与年度滚动表时钟.json",
+      "sha256": "d3151e35c65bd4dea4371eec784a2e9b09ed52cb74c06660ac1c81fce19f36f0"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/9a20b3d34d24444bbdd77a210675a95c.xls",
+      "sha256": "207e58f1e78a59c2452391966e974121691c959bc90347aebbb62e4a61f3254e"
+    }
+  ],
+  "new_source_requests": 0,
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false
+}

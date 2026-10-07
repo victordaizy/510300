@@ -1,0 +1,87 @@
+{
+  "study_id": "510300_FACTOR96_CROWDING_OVERLAY_V1_0_1",
+  "at": "2026-09-27T15:20:00.819802+08:00",
+  "primary": "FULL",
+  "new_primary_overlays": 1,
+  "new_entry_strategies": 0,
+  "periods": {
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "policies": [
+    "PRICE_ALL",
+    "PRICE_COMMON",
+    "FINANCE_ONLY",
+    "INTERNAL_ONLY",
+    "FULL"
+  ],
+  "lag1_primary": true,
+  "lag2_sensitivity_policies": [
+    "PRICE_COMMON",
+    "FULL"
+  ],
+  "expected_accounts": 56,
+  "numerical_boundary": "原始0.001元报价与分红的有理数财富比较，严格相等为非多头；仅修复原T06数值实现，不改经济条件。",
+  "base": "财富收盘>包含当日20个财富收盘均值时，现金账户下一开盘进入；<=均值、入场后5个开盘间隔或共同风险停机，下一合法开盘退出。每周期原始实际入场份额为上限，只能随风险预算削减。",
+  "baseline_changes_disclosed": "只借用旧20日价格状态，采用T06表列5日上限，不借用旧6%止损/8%追踪/60日/等待/重入完整合同，当前共同ES/回撤合同对各臂一致；基准不当新策略晋升。",
+  "five_day_field_resolution": "候选表max_hold_days=5固定解释为基准最大持有5个开盘间隔，覆盖层状态仍按两个条件消失两日恢复；到期优先退出，不在第5日先恢复再退出。",
+  "entry_coverage": "PRICE_COMMON、两个单条件及FULL初始进入共同要求融资与同成员源均已知；PRICE_ALL不要求。持仓期缺失不自动退出，也不视为触发消失。",
+  "F5": "融资余额[s]/余额[s-5]-1；必须连续6个A股日有值；P80使用严格此前252日、至少120条有效F5。",
+  "financing_condition": "F5>P80且同经济日510300含分红5日收益<=0；不追加余额/流通市值或绝对融资阈值。",
+  "internal_condition": "s和s-5均为点时成员且两边20日总收益完整的同一批股票，至少294/300，两日四态日门允许；其s日20日总收益中位数严格低于s-5。",
+  "membership_and_missing": "按当时成员，不用当前池；每个20日必须全部有效收益，官方已确认停牌收益0可用，其他缺失不填零。",
+  "clock": "主版本统计日s的信息在下一A股日收盘判断，随后开盘执行。融资、价格停滞和成分状态用同一个s；源首版未认证，时钟是保守历史研究假设。延迟两日仅敏感性。",
+  "cut": "已进入基准周期后，FULL两个条件同时为真才削减；先按当日ES/回撤预算限制原份额，再将允许份额减半并向下取整100份。不是把50%名义目标改25%后忽略已收缩风险预算。",
+  "restore": "FULL要求融资条件及内部条件都明确为假，连续2个判断日后恢复风险允许的原份额；未知重置消失计数但保留削减。单条件对照同样等待该条件为假两日。",
+  "priority": "价格基准退出/停机优先且请求不可撤回；削减到0仍保持基准周期与覆盖层状态，不在下一日误当新周期全仓进入。",
+  "risk": "冻结两年成熟五日ES95每天更新；最高50%目标、2.5%ES预算、10%跳空下5%预算、回撤剩余空间折半、回撤10%后清仓且不恢复。",
+  "account": "100份、0.001元、T+1、方向涨跌停、分红权益/应收/付款、最低5元费用、期末压力退出成本准备；完整现金日保留。只允许原计划削减后恢复，不摊平加码。",
+  "acceptance": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "both_main_capitals_stress_required": true
+  },
+  "bootstrap": {
+    "comparisons": [
+      "FULL_MINUS_PRICE_COMMON",
+      "FULL_MINUS_FINANCE_ONLY",
+      "FULL_MINUS_INTERNAL_ONLY"
+    ],
+    "period": "MAIN",
+    "capital": 200000,
+    "cost": "STRESS",
+    "block": 20,
+    "draws": 4000,
+    "seed": 20261001
+  },
+  "selection": "本库第6个固定主问题，其中5个入场候选、1个覆盖层；旧失败保留，本轮不同于新增独立入场。",
+  "stop": "固定联合覆盖层不达标就结束；不改80分位、5日、20日、两日恢复、基准或数据门，不晋升单条件对照。",
+  "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "goal_status": "active"
+}

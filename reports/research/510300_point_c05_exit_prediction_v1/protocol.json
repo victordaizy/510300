@@ -1,0 +1,38 @@
+{
+  "study": "510300_POINT_C05_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T12:12:40.637355+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "既有成交额条件残差是否提供不同于原八项的持仓继续收益增量。",
+  "information_role": "EXISTING_AMOUNT_RESIDUAL_NEW_CONDITIONAL_EXIT_USE_NOT_NEW_PHYSICAL_SOURCE",
+  "increment": "原八项加固定C05一项，共九项，不恢复原HIGH/LOW分位策略。",
+  "field": "prior252_log_amount_residual",
+  "formula": "y=log(amount_CNY)，X=[1,abs(r),rv20,Tue,Wed,Thu,Fri]；r=log((原close+当日已除息现金)/previous_close)，rv20含当日20完整r样本std，不年化。t只用完整[t-252,t-1]拟合OLS(rcond=None)，输出y[t]-X[t]beta。",
+  "zero_missing": "252实际完整交易日，不压缩为合格行；当前或历史窗口有非正/缺额、r/rv缺口、秩不足7均NO_VIEW，不填0/删日期或原成员。真实残差零有限，不截断小残差。",
+  "unchanged": "原经济标签、全部成熟成员、最近20周期/10周期100行、周期等权、alpha1/clip5、周期截距、入场固定版本、两负确认。",
+  "ninth_model": "原加权标准化及周期内岭；新周期截距为成熟周期截距均值，不新增交互、阈值或入场规则。",
+  "source_clock": "完整收盘后计算当日金额残差；字段OLS仅截至t-1；复用冻结准入表，不在预测阶段重算OLS。",
+  "prediction_gate": "同自然原点原收益单位、周期等权MSE；两时期原可用预测全部配对且MSE严格改善，入场整年块5000次/seed51030086改进95%下界均>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "原完整有序九项训练/标签/权重/设置相同则复用，失败缓存不重试。",
+  "economic_gate_if_prediction_passes": "另冻结应用阶段；原20万元252日全日历BASE/STRESS两时期，净CAGR与净夏普均高于A、实际净pB>1、平均周期收益>0、回撤<=10%；次数软目标。",
+  "old_failures": "原C05高低政策、价量相关、有符号成交份额及C02/全部旧失败保持，不据旧有限用途失败冒充本用途已检验。",
+  "no_rescue": "不恢复旧HIGH/LOW阈值/政策，不以126改252本身为重试理由；不因结果改252、r、标准差、星期、秩、未知赋值、原成员、alpha1/clip5、确认或预测门。",
+  "feature_OLS_calls_during_prediction": 0,
+  "frozen_intake_feature_OLS_calls": 3216,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

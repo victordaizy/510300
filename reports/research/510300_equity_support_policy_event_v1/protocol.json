@@ -1,0 +1,39 @@
+{
+  "study_id": "510300_EQUITY_SUPPORT_POLICY_EVENT_V1",
+  "study_type": "FIXED_RULE_EXISTING_SOURCE_EVENT_ACCOUNT",
+  "user_instruction": "不用采集；直接进入训练；减少不必要审计",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.5,
+  "target_max_drawdown_magnitude": 0.1,
+  "annual_days": 242,
+  "account_start": "2024-01-01",
+  "account_end": "2025-12-31",
+  "horizon_sessions": 20,
+  "admission": "纳入已有政策时钟24条事实中全部资本市场工具节点C01至C06；同一份已存2025-05-07公告补录两项工具额度打通事实C07。不按后续涨跌选择。额度、申请、操作与股票成交保持分开。",
+  "coverage": "仅本地两年目录及已存政策链；不是全国完整政策事件集。2026年无同口径政策覆盖，因此不补作空仓评价。",
+  "timings": {
+    "REVIEW_CLOSE_NEXT_OPEN_PRIMARY": "信息上界之后首个15:00收盘确认，再于次交易日09:00决策、09:30开盘入场，与原政策时钟研究一致。",
+    "FIRST_AVAILABLE_OPEN_DIAGNOSTIC": "信息上界早于当日09:00才可在当日09:30入场，否则顺延至下一交易日；仅用于时点敏感性比较。"
+  },
+  "same_date_policy": "同一发布日期合并为一条事件，全部节点信息均已可知才可交易。已有持仓时忽略后续事件，不加仓、不延长退出时间。",
+  "account": {
+    "vol_target_annual": 0.1,
+    "volatility_lookback": 20,
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "slippage_per_side": {"BASE": 0.0005, "STRESS": 0.001},
+    "lot_size": 100,
+    "drawdown_brake": 0.08,
+    "cash_and_risk_free_daily_return": 0,
+    "exit": "含入场日第20个交易日收盘，或账户收盘回撤达到8%后的下一开盘卖出并停止该账户后续交易。",
+    "execution_assumptions": "使用已存510300原始开收盘价及现金分红；100份整手，T+1、不融资。按前收盘波动和金额预算定委托量，开盘仅允许减到现金可承担量。滑点为连续价格近似，未模拟最小报价单位或涨跌停订单队列。"
+  },
+  "model_fits": 0,
+  "reason_no_model_fit": "本轮检验政策已公开这一直接事件触发规则，不将六个公告日期伪装成充足的独立训练样本；此前LPR和私募意向实际训练产物保留。",
+  "no_parameter_grid": true,
+  "historical_prices_seen_in_prior_research": true,
+  "new_data_downloads": 0,
+  "executable_assets": ["510300.SH", "CASH_CNY"],
+  "orders_authorized": false,
+  "goal_achieved": false
+}

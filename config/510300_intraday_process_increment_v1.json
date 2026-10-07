@@ -1,0 +1,93 @@
+{
+  "study_id": "510300_INTRADAY_PROCESS_INCREMENT_V1",
+  "objective_file": "E:/CodexData/.codex/attachments/b015cfb3-dc9b-491a-85f8-71c35984bd74/goal-objective.md",
+  "output": "reports/research/510300_intraday_process_increment_v1",
+  "inputs": {
+    "minutes": "data/raw/market/510300_1m_tushare_raw.parquet",
+    "minute_metadata": "data/raw/market/510300_1m_tushare_raw.metadata.json",
+    "minute_receipt": "reports/data_quality/510300_1m_tushare_quality.json",
+    "prices": "data/raw/market/510300_daily_downside_risk_v1.parquet",
+    "price_receipt": "reports/data_quality/510300_downside_risk_inputs_v1.json",
+    "dividends": "data/reference/510300_dividends.csv",
+    "dividend_coverage": "data/reference/510300_dividends_coverage.json",
+    "calendar": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+    "old_c_features": "data/features/510300_intraday_close_pressure_daily.parquet",
+    "old_c_result": "reports/research/510300_intraday_close_pressure_2d_report.json",
+    "old_c_config": "config/intraday_close_pressure_direction_challenger.yaml",
+    "restricted_nbs_receipt": "reports/data_quality/510300_nbs_fixed_5min_usage_v2_1/source_adjudication.json",
+    "failed_rv20_result": "reports/research/510300_pressure_recovery_v1/volatility_conditioned_proxy_20261001/summary.json"
+  },
+  "symbol": "510300.SH",
+  "tradable_assets": ["510300.SH", "CASH_CNY"],
+  "data_cutoff": "2026-08-14",
+  "regime_change": "2026-07-06",
+  "signal_clock": "15:05",
+  "feature_contract": {
+    "prior_same_slot_days": 60,
+    "shock_quantile": 0.05,
+    "shock_floor_log_return": -0.0005,
+    "observation_bars_5min": 6,
+    "quiet_bars_5min": 2,
+    "repair_fraction": 0.5,
+    "similar_amount_ratio": [0.8, 1.25],
+    "amount_vwap_tolerance_ticks": 1,
+    "strict_amount_rounding_cny": 2.0,
+    "amount_anomaly_rule": "保存全部严格越界；主代理容许一个最小价位的不确定性，超过者使所涉B窗口或C当期/60日归一化失效；不修改源值。",
+    "day_aggregation": "各日等权，各日内不重叠事件等权；无冲击为明确的结构性零，缺数据保持NaN。",
+    "c_definition": "复用旧C=最后30分钟收益乘成交额占比相对前60日中位数；仅新做日线条件增量归因，不恢复旧独立策略。"
+  },
+  "daily_features": ["daily_total_return", "daily_intraday_return", "daily_range", "daily_close_location", "log_amount", "log_amount_relative20", "log_rv20", "momentum20"],
+  "feature_groups": {
+    "A_CONTROL": ["shock_any", "shock_size", "repair_5", "repair_30"],
+    "A": ["shock_any", "shock_size", "repair_5", "repair_30", "repair_persistence", "relapse_fraction"],
+    "B": ["shock_any", "similar_activity_fraction", "impact_attenuation"],
+    "C": ["close_pressure_30m_60d"]
+  },
+  "model": {
+    "estimator": "RIDGE_CONTINUOUS_GROSS_RETURN",
+    "alpha": 1.0,
+    "minimum_training_days": 504,
+    "refit_interval_trading_days": 20,
+    "standardized_clip": 5.0,
+    "training": "扩展窗口，仅使用退出日不晚于当前盘后决策日的标签；训练标准化；同一制度、共同完整样本。",
+    "primary_target": "T_PLUS_1_OPEN_TO_T_PLUS_2_CLOSE_WITH_ENTITLED_DIVIDENDS",
+    "diagnostic_exit_days": [1, 2, 5],
+    "one_day_path_is_unlawful_for_new_shares": true,
+    "hyperparameter_search": false
+  },
+  "account": {
+    "initial_capitals": [20000, 200000],
+    "lot": 100,
+    "tick": 0.001,
+    "limit_fraction": 0.1,
+    "annual_days": 242,
+    "cash_yield": 0.0,
+    "auction_volume_participation_cap": 0.1,
+    "entry": "信号次日开盘价格代理；前一收盘确定固定份额请求，次日仅按现金、涨跌停和09:30记录容量约束成交。",
+    "exit": "买入后下一交易日收盘价格代理；固定到期，未成交/部分成交继续持仓并于随后收盘重试。",
+    "position": "空仓且预测毛收益超过事前估计往返费用时，以现有现金可负担份额请求；持仓期间不加仓，不改变退出。",
+    "cost_estimate": "2倍单边佣金/名义金额 + 2倍固定滑点 + 2个价位/信号收盘价",
+    "fills": "历史条件模拟；不是实际成交率，容量只提供约束而非成交保证。",
+    "terminal": "最后分钟日收盘；距终点不足完成固定持有期不再新开仓，受阻剩余持仓按收盘记账。"
+  },
+  "costs": {
+    "BASE": {"commission": 0.0002, "minimum": 5.0, "slippage": 0.0005},
+    "STRESS": {"commission": 0.0004, "minimum": 5.0, "slippage": 0.001}
+  },
+  "inference": {
+    "block_days": 20,
+    "draws": 2000,
+    "seed": 510300,
+    "family_comparisons": 3,
+    "family_alpha": 0.05,
+    "primary_account": 200000,
+    "primary_cost": "BASE",
+    "minimum_evaluation_days": 252,
+    "sharpe_reference": 1.2,
+    "independent_validation": "NOT_ESTABLISHED_PREVIOUSLY_EXPOSED_HISTORY",
+    "failure_action": "保存全部正负结果；不换窗口、方向、模型、阈值、持有期或仓位救回。"
+  },
+  "maximum_output_bytes": 31457280,
+  "fees_allowed": 0,
+  "actual_trading_authorized": false
+}

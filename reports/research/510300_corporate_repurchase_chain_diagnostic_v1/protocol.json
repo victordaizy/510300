@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-26T02:51:50.040133+08:00",
+  "study_id": "510300_CORPORATE_REPURCHASE_CHAIN_DIAGNOSTIC_V1",
+  "purpose": "按明确董事会日期与唯一预算范围形成候选链，检查增量、完成状态、披露精度和分母资料；结果只决定后续核实工作。",
+  "candidate_identity_limit": "董事会日期及预算相同仍不保证只有一个方案；需要原方案引用和A/H股份范围核实后才能纳入交易变量。",
+  "increment_rule": "同候选链的当时已知累计值求差；新链未见首购则期初基数未知；完成后变化、累计减少和经济截止日倒退另列。",
+  "reporting_precision": "万元等粗单位披露的相同累计值只能叫报告数未变，不能证明期间完全没有小额买入。",
+  "denominator": "只核对现有成交额与市值的可用性，不加载未来收益，不以缺失市值倒推比例。",
+  "sources": {
+    "reports/research/510300_corporate_repurchase_execution_extractor_v1/results/parsed_documents.json": "067b26ad5e5666dc68810f5a86c6aa1c94b9a77887f606b6ac27cd474782524e",
+    "data/raw/constituents/000300_constituent_daily.parquet": "e9809195a5bb5de1a19bcddd334382c5968eb702bde2b1e8d19cafdb3a4ed0e7"
+  },
+  "code_sha256": "99f09ff9d25884e8e0ba99341a7f3acb5c7f0abc5a182a82c60c086a5c959a05",
+  "implementation_checks": {
+    "new_schemes_not_spliced": true,
+    "post_completion_change_flagged": true,
+    "unknown_start_not_zero": true,
+    "future_disclosure_prefix_invariant": true,
+    "negative_revision_not_sold_shares": true,
+    "same_known_time_uses_economic_date_order": true
+  },
+  "new_accounts": 0,
+  "new_fits": 0
+}

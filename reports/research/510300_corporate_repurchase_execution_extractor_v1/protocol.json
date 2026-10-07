@@ -1,0 +1,21 @@
+{
+  "at": "2026-09-26T02:51:40.942526+08:00",
+  "study_id": "510300_CORPORATE_REPURCHASE_EXECUTION_EXTRACTOR_V1",
+  "purpose": "通用文本提取与原文证据定位，不将董事会日期自动当成完整方案身份，不直接生成交易特征。",
+  "sources_sha256": "fdaea676fb070ae5656188455dbb8273afc0f4e7c50e37aa5dec02ae446b7857",
+  "code_sha256": "7a6ea45fc4f13b9d8991f9d1778e2e4338cd7aad552e910f6f739d2d6a738584",
+  "implementation_checks": {
+    "amount_unit_and_reported_resolution": true,
+    "monthly_vs_cumulative": true,
+    "cutoff_separate_from_publication": true,
+    "board_anchor_not_any_body_date": true,
+    "price_limit_not_budget_cap": true,
+    "page_number_not_amount_digit": true,
+    "parallel_board_and_shareholder_dates": true,
+    "dividend_meeting_not_repurchase_meeting": true
+  },
+  "new_accounts": 0,
+  "new_fits": 0,
+  "rules": "只接受同段明确累计、实际或首购上下文；月度金额与累计分开；港股与纯注销文件排除；未知和多义金额不填零；披露精度独立保存。",
+  "remaining_admission": "多方案同董事会日期、金额区间及精度、跨公告身份与修订、A/H混合和正文一致性仍需核实。"
+}

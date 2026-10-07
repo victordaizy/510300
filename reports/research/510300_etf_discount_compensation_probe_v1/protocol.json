@@ -1,0 +1,59 @@
+{
+  "at": "2026-09-26T01:07:39.483634+08:00",
+  "study_id": "510300_ETF_DISCOUNT_COMPENSATION_PROBE_V1",
+  "question": "ETF相对基金净值的价格让步，是否足以覆盖当前压力费用；之后收益有多少来自净值上涨而非折价修复？",
+  "source": "复用已保存的东财与新浪单位净值双来源及其原报价，2021-08-12以前取历史段、当日以后取当前段；按已有510300交易日历对齐。累计净值有拆分口径差异，不使用。",
+  "canonical_quote": "采用已核对的现有market.parquet原始收盘价重新计算相对单位净值价差，同时保留原净值文件中的报价差异记录；不改原文件。",
+  "clock": "旧feature_asof=15:00只是事后合并标签，不能证明当日单位净值于收盘前已发布。历史首次送达与同步开盘净值均未认证。",
+  "static_scenario": "每个已观察收盘报价分别假设净值保持不变且价格完全回到净值，以10万元预算、100份整手、tick0.001、原BASE/STRESS双边费用计算空间。这个有利情景不是交易、不含等待风险，不是实际策略收益上界。",
+  "threshold": "预先只使用完整原费用后静态空间>0，阈值由费用、tick和报价算出；不搜索折价分位或回归窗口。",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "observed_forward": "固定五个交易日收盘到收盘。每份ETF含息损益=单位净值含息变化+价格减净值的价差变化，全部除以同一初始价格；这是事后归因，不能在知道当日净值后回到当日收盘成交。",
+  "delayed_price_probe": "另保存源日下一交易日开盘至第五个后续交易日开盘的实际含息标的收益；只描述已知历史，不认为净值已在该开盘前认证可用，也不当作完整账户。",
+  "periods": [
+    [
+      "2012-07-02",
+      "2019-12-31"
+    ],
+    [
+      "2020-01-02",
+      "2026-09-24"
+    ],
+    [
+      "2012-07-02",
+      "2026-09-24"
+    ]
+  ],
+  "subsets": [
+    "全部共同日期",
+    "相对单位净值折价",
+    "BASE静态修复空间为正",
+    "STRESS静态修复空间为正"
+  ],
+  "dependence": "按完整交易日日历20日循环区块2000次、seed2026092604给平均归因区间；另给贪心五日不重叠数，不称独立样本量。",
+  "primary_interpretation": "当前2020年起样本的STRESS空间为正组。全部日期、早期及BASE均完整披露；不选择收益最好的一组晋升。",
+  "no_causal_claim": "折价变化不自动代表被迫卖出；净值也可能下跌。份额变化和融资变化的旧失败不借本轮改方向、分位或组合救回。",
+  "primary_source_context": {
+    "url": "https://etf.sse.com.cn/fund/learning/strategy/c/5704303.shtml",
+    "publication": "2022-06-23",
+    "note": "上交所介绍的实时折价套利包含赎回和成分股交易，还须支付固定及冲击成本；当前只持有510300和现金的范围不包含该套利组合。"
+  },
+  "new_accounts": 0,
+  "new_fits": 0,
+  "new_market_downloads": 0,
+  "strategy_status": "NOT_RUN_PRICE_INFORMATION_CLOCK_AND_SYNCHRONOUS_NAV_NOT_ESTABLISHED",
+  "independent_validation": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

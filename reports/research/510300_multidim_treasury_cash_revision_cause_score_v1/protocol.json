@@ -1,0 +1,57 @@
+{
+  "study_id": "510300_MULTIDIM_TREASURY_CASH_REVISION_CAUSE_SCORE_V1",
+  "experiment_id": "E12",
+  "registered_at": "2026-10-02T07:41:33.994200+08:00",
+  "phase": "SOURCE_FIRST_SEPARATE_MODEL_REGISTRATION_REQUIRED",
+  "previous_goal_turn_classification": "PROGRESS_E11_ALL_FIXED_QUARTERS_CAUSE_PANEL_WITH_SOURCE_LIMITS",
+  "question": "全部16原公告能否直接重建现金安排贡献与扣现金后借款修订两观察渠道，再检验其与原国内状态的非线性增量？",
+  "source_scope": {
+    "fixed_current_quarters": [
+      "2022Q1",
+      "2022Q2",
+      "2022Q3",
+      "2022Q4",
+      "2023Q1",
+      "2023Q2",
+      "2023Q3",
+      "2023Q4",
+      "2024Q1",
+      "2024Q2",
+      "2024Q3",
+      "2024Q4",
+      "2025Q1",
+      "2025Q2",
+      "2025Q3",
+      "2025Q4"
+    ],
+    "boundary": "2021Q4前次原计划",
+    "reused_primary_htmls": 17,
+    "new_downloads": 0,
+    "fields_from": "相邻前次原公告中的本季借款/期末目标/前季期末目标，以及当前原公告本季借款/期末目标/前季实际现金/明确报告借款修订。",
+    "not_used_as_missing_field_backfill": "不使用较晚PDF补较早字段，不读取E11缺失Financing Need/All Other Sources。",
+    "actual_body_dates": "使用公告正文日期，原表旧日期标签不进入这个两渠道口径。"
+  },
+  "fields": [
+    "美国借款修订现金贡献",
+    "美国扣现金后借款修订"
+  ],
+  "definitions": {
+    "美国借款修订现金贡献": "(前次对起始现金的假设−当前原文已知实际起始现金)+(此次期末现金目标−前次期末目标)，十亿美元。",
+    "美国扣现金后借款修订": "当前原公告明确报告借款修订−现金贡献，十亿美元；包含融资需要/其他融资/显示精度差，不称纯预算需要、纯流动性或市场共识意外。"
+  },
+  "source_gate": "全部固定16季度的两渠道所需直接原公告字段和实际正文日齐全；来源哈希与E11回执对应、同季度前次/此次值相符。缺一关键字段即NOT_RUN；原报告修订与显示金额相减差不强制消除。",
+  "availability": "实际America/New_York正文公布日23:59:59转上海的保守上界；历史首版及当年收件未认证。仅在原决定前已知时使用。",
+  "quarter_roots": "只有16个美国公布根；状态复用到国内月事件不增加独立根，后续必须保存每条源与年龄。",
+  "new_question_boundary": "从四个独立分量的来源问题转为两条可直接观察合并渠道；不是把扣现金余项冒充E11缺字段。E11完整源门失败和E6/E9已失败模型保留。",
+  "source_fields_already_seen_in_E11": true,
+  "historical_independent_validation": false,
+  "model_registration_required_after_source_gate": true,
+  "equity_labels_allowed_in_source_phase": false,
+  "new_source_code_files": 0,
+  "parameter_searches": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false
+}

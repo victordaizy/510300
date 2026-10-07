@@ -1,0 +1,221 @@
+{
+  "at": "2026-09-26T07:22:26.320457+08:00",
+  "study_id": "510300_MANUFACTURING_PRICE_TRANSMISSION_DAILY_V1",
+  "primary": "JOINT__FIXED20_NO_ADD",
+  "question": "采购成本涨价普遍程度相对出厂涨价普遍程度，是否改变价格压力后的20日收益与五日尾部风险？新增宏观信息的账户作用来自收益判断、风险预算，还是二者的相互影响？",
+  "mechanism": "出厂减购进的扩散指数差可能表示成本传导环境；它不等于实际利润率、通胀幅度、市场预期差或制造业对沪深300的贡献。正负方向由当时条件分布估计，不事后反号。",
+  "feature": "output_minus_input_diffusion_pp",
+  "source": {
+    "at": "2026-09-26T07:16:14.425908+08:00",
+    "study_id": "510300_MANUFACTURING_PRICE_TRANSMISSION_SOURCE_V1",
+    "status": "COMPLETE_MANUFACTURING_PRICE_TRANSMISSION_SOURCE_READY",
+    "expected_months": 116,
+    "admitted_months": 116,
+    "missing_months": [],
+    "unresolved_fields": 0,
+    "method_transitions": [
+      {
+        "first_stat_month": "2017-01",
+        "published_at": "2017-02-01T09:00:00+08:00",
+        "method_group": "GB2011_31IND_3000FIRMS"
+      },
+      {
+        "first_stat_month": "2019-01",
+        "published_at": "2019-01-31T09:00:00+08:00",
+        "method_group": "GB2017_31IND_3000FIRMS"
+      },
+      {
+        "first_stat_month": "2022-04",
+        "published_at": "2022-04-30",
+        "method_group": "GB2017_31IND_3200FIRMS"
+      }
+    ],
+    "official_method_verified": true,
+    "latest_source": {
+      "stat_month": "2026-08",
+      "original_snapshot_retrieved_at": "2026-09-26T07:16:14.098304+08:00",
+      "url": "https://www.stats.gov.cn/sj/zxfb/202608/t20260831_1965154.html",
+      "title": "2026年8月中国采购经理指数运行情况-国家统计局",
+      "published_at": "2026-08-31T09:30:00+08:00",
+      "publication_precision": "MINUTE_OR_SECOND",
+      "known_at": "2026-08-31T23:59:59+08:00",
+      "input_price_diffusion": 56.6,
+      "output_price_diffusion": 50.4,
+      "output_minus_input_diffusion_pp": -6.2,
+      "manufacturing_industries": 31,
+      "manufacturing_sample_firms": 3200,
+      "industry_classification_year": 2017,
+      "method_group": "GB2017_31IND_3200FIRMS",
+      "current_month_row_only": true,
+      "seasonally_adjusted_as_published": true,
+      "matching_table_instances": 2,
+      "selected_tables": [
+        {
+          "table_idx": 1,
+          "current_month_row": [
+            "2026年8月",
+            "50.1",
+            "48.6",
+            "50.5",
+            "56.6",
+            "50.4",
+            "48.4",
+            "46.7",
+            "53.8"
+          ],
+          "header": [
+            "",
+            "新出口订单",
+            "进口",
+            "采购量",
+            "主要原材料购进价格",
+            "出厂价格",
+            "产成品库存",
+            "在手订单",
+            "生产经营活动预期"
+          ],
+          "input_column": 4,
+          "output_column": 5
+        },
+        {
+          "table_idx": 5,
+          "current_month_row": [
+            "2026年8月",
+            "50.1",
+            "48.6",
+            "50.5",
+            "56.6",
+            "50.4",
+            "48.4",
+            "46.7",
+            "53.8"
+          ],
+          "header": [
+            "",
+            "新出口订单",
+            "进口",
+            "采购量",
+            "主要原材料购进价格",
+            "出厂价格",
+            "产成品库存",
+            "在手订单",
+            "生产经营活动预期"
+          ],
+          "input_column": 4,
+          "output_column": 5
+        }
+      ],
+      "raw_path": "reports/research/510300_manufacturing_price_transmission_source_v1/raw/month_2026-08.html",
+      "raw_sha256": "a561911c92b4ea4ea58ed808d5fe4ef61a1dfb79a31f593ba46ad4692aa5af46",
+      "historical_first_vintage_verified": false
+    },
+    "new_accounts": 0,
+    "new_strategy_returns": 0,
+    "historical_first_vintage_verified": false,
+    "current_market_view": "NO_VIEW",
+    "goal_achieved": false,
+    "orders_authorized": false
+  },
+  "source_clock": "只用当期原报告本月行，统一原公布日日末可用，45自然日有效。2015—2016未发布出厂价格，不从后来报告回填。",
+  "method_sensitivity": "主研究使用实际公布同名季调指标；2019行业分类、2022样本扩充全部保留。另每天计算只用同方法组历史的预测，少于252时NO_VIEW；敏感性只评估预测，不产生额外账户。",
+  "training": "最近两日历年，来源公布也在两年内；20日退出开盘严格早于决策日。5日/20日共用同一成熟池，252行最低，126近邻，训练内标准化clip5；不搜参数。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_AND_FUNDING": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation"
+    ],
+    "PRICE_FUNDING_AND_PRICE_TRANSMISSION": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "output_minus_input_diffusion_pp"
+    ]
+  },
+  "account_arms": {
+    "BASE": [
+      "PRICE_AND_FUNDING",
+      "PRICE_AND_FUNDING"
+    ],
+    "MEAN_ONLY": [
+      "PRICE_FUNDING_AND_PRICE_TRANSMISSION",
+      "PRICE_AND_FUNDING"
+    ],
+    "TAIL_ONLY": [
+      "PRICE_AND_FUNDING",
+      "PRICE_FUNDING_AND_PRICE_TRANSMISSION"
+    ],
+    "JOINT": [
+      "PRICE_FUNDING_AND_PRICE_TRANSMISSION",
+      "PRICE_FUNDING_AND_PRICE_TRANSMISSION"
+    ]
+  },
+  "factorial": "BASE全部价格资金预测；MEAN_ONLY只把20日均值/方差换为新增信息预测；TAIL_ONLY只把每日五日ES预算换为新增信息预测；JOINT两者都换。每个账户独立连续执行，不合并盈利路径。",
+  "horizon": "所有账户固定第20个后续开盘到期；持仓不加仓，只因当日五日风险缩量。缺预测满5日退出。期限按慢速经营渠道事前固定，本轮不搜索其他期限。",
+  "risk": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "account": "四组合各BASE/STRESS费用，共8个完整账户；20万元，只510300/CASH_CNY，T+1、100份、开盘只能缩量、现金分红分账。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "MEAN_ONLY、TAIL_ONLY、JOINT各减BASE，并报告JOINT-MEAN_ONLY-TAIL_ONLY+BASE的非可交易交互诊断；20日循环和完整月报公布间隔各2000次seed2026092614；固定2020-2023/2024-末端。",
+  "gate": "主JOINT压力账户三目标同时通过；JOINT-BASE两种区块95%下界均正且两个固定时期均正；相同方法预测敏感性的20日MSE和五日分位损失均不差于其价格资金对照。之后仍需独立前向。",
+  "monitor": "固定五日及20日相位，只纳入成熟结果；60个非重叠样本，q05跌穿率>15%记警报。未满60明确不可评估；不依据本轮警报修改账户。",
+  "information_limits": "相邻日标签重叠，同月信息重复；区块未校正全部既有研究的选择，宏观有效样本按实际公布月数理解。",
+  "common_information_days": 2253,
+  "implementation_checks": {
+    "future_and_expired_labels_ignored": true,
+    "same_method_insufficient_returns_no_view": true,
+    "four_account_input_combinations_exact": true,
+    "reused_execution_checks": {
+      "five_day_matches_existing_engine": true,
+      "fixed_5_and_20_exit_dates": true,
+      "no_add_cash_T1_risk": true,
+      "missing_forecast_exits_after_five_days": true,
+      "dividend_record_boundary": true,
+      "entry_uses_matching_horizon_mean": true,
+      "five_day_risk_not_twenty_day_risk": true,
+      "common_pool_future_and_expired_labels_ignored": true,
+      "insufficient_same_base_returns_no_view": true
+    }
+  },
+  "new_accounts": 8,
+  "new_parameter_searches": 0,
+  "new_funding_regression_fits": 0,
+  "new_independent_forward_observations": 0,
+  "historical_first_vintage_verified": false,
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "current_market_view": "NO_VIEW"
+}

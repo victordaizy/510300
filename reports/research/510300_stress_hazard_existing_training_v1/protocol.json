@@ -1,0 +1,91 @@
+{
+  "study_id": "510300_STRESS_HAZARD_EXISTING_TRAINING_V1",
+  "user_instruction": "不用那么严格，直接进入训练；不用采集",
+  "objective": "检验已有压力信息是否能改进510300稀疏机会研究需要的下行风险识别，最终仍要求20万元全账户净夏普1.5和回撤10%。",
+  "prior_relation": "同一家族后续探索。旧31事件不足40、只有2个达到样本数要求时期的拒绝保留。本次不受其准入门阻止拟合，不声称补齐缺失时期。",
+  "capital_cny": 200000,
+  "target_net_sharpe": 1.5,
+  "target_max_drawdown": 0.1,
+  "models": {
+    "B0": [],
+    "B1": [
+      "b1_realized_vol20_risk_percentile",
+      "b1_drawdown20_risk_percentile",
+      "b1_downside_return5_risk_percentile"
+    ],
+    "B2": [
+      "T",
+      "T_x_F"
+    ],
+    "B3": [
+      "T",
+      "T_x_F",
+      "T_x_M"
+    ]
+  },
+  "model_descriptions": {
+    "B0": "同一成熟训练集的事件加权基准率，仅作对照，不替代预热不足的模型。",
+    "B1": "510300自身波动、回撤和近期跌幅。",
+    "B2": "内部扩散和资金压力T，以及T与内部脆弱性F的交互。",
+    "B3": "B2再加T与估值利率和资金状态M的交互。"
+  },
+  "l2_penalty": 1.0,
+  "slope_constraints": "全部非负，截距不惩罚，不标准化，不搜索参数或反向信号。",
+  "training": "每季度首个交易日更新；正类整事件最后标签结束时刻在版本日前才训练，负类标签结束在版本日前才训练。至少1个成熟正事件和1个负风险日才能拟合。",
+  "evaluation": "正类整个事件使用首次原点时适用的同一季度模型；负类使用各自原点的季度模型。完全相同共同样本，不填NO_VIEW。",
+  "label": "继承BAD10：次开盘起10交易日内任一收盘含有权分红累计亏损不高于-4%；不是期末收益或未来最低成交价。",
+  "weighting": "每个可识别正事件总权重1，每个负风险日权重1。风险分数服务于加权分类目标，不当作未经校准的真实每日概率。",
+  "comparisons": [
+    [
+      "B1",
+      "B0"
+    ],
+    [
+      "B2",
+      "B1"
+    ],
+    [
+      "B3",
+      "B2"
+    ],
+    [
+      "B3",
+      "B0"
+    ]
+  ],
+  "eras": [
+    {
+      "id": "ERA_1_2015_2017",
+      "start": "2015-01-05",
+      "end": "2017-12-29"
+    },
+    {
+      "id": "ERA_2_2018_2020",
+      "start": "2018-01-02",
+      "end": "2020-12-31"
+    },
+    {
+      "id": "ERA_3_2021_2023",
+      "start": "2021-01-04",
+      "end": "2023-12-29"
+    },
+    {
+      "id": "ERA_4_2024_CUTOFF",
+      "start": "2024-01-02",
+      "end": "2026-08-14"
+    }
+  ],
+  "bootstrap_repetitions": 5000,
+  "bootstrap_seed": 20260922,
+  "bootstrap_units": "EVENT：正事件合并，负类每日一组；YEAR：正事件归首次原点年，负类归原点年；重抽样只重算保存预测损失，不拟合。",
+  "conclusion_rule": "逐项报告整体及所有固定时期的损失差，事件和年两种抽样q10；无预测时期保持空缺。改进不足即停止当前表示，不因未满旧样本门掩盖已得到的结果。",
+  "account_mapping": "本模型只识别不利路径，没有收益预测和事前入场规则；不把低风险分数自动映射为上涨或长期持仓。不运行新账户，夏普/回撤保留未计算。",
+  "executable_assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "historical_data_previously_observed": true,
+  "new_downloads": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

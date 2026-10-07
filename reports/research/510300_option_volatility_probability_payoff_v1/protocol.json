@@ -1,0 +1,107 @@
+{
+  "study_id": "510300_OPTION_VOLATILITY_PROBABILITY_PAYOFF_V1",
+  "frozen_at": "2026-09-24T10:40:08.983898+08:00",
+  "new_downloads": 0,
+  "user_request": {
+    "recorded_date": "2026-09-24",
+    "latest_user_instruction": "我只做510300期权，高夏普，稳定盈利，可以多空双开，波动率赚钱",
+    "supersedes_research_asset_scope": "此前仅510300 ETF现货与现金的研究范围；原有冻结研究不改写",
+    "research_executable_assets": [
+      "SSE_510300_ETF_OPTIONS",
+      "CASH_CNY"
+    ],
+    "underlying_etf_usage": "仅作定价和特征观察；本轮不交易ETF，不以ETF或期货做Delta对冲",
+    "capital_cny": 200000,
+    "target_full_account_net_sharpe": 1.3,
+    "target_max_drawdown": 0.1,
+    "minimum_completed_cycles_each_full_calendar_year": 5,
+    "target_interpretation": "高夏普与稳定盈利是待检验目标，不是利润保证；胜率和盈亏比不设未经用户指定的硬数值要求",
+    "authorized_research": [
+      "已有数据训练",
+      "期权多腿买方与卖方组合研究",
+      "波动率定价差研究",
+      "扣费后概率及盈亏幅度评价"
+    ],
+    "first_round_structures": [
+      "LONG_ATM_STRADDLE",
+      "PROTECTED_SHORT_ATM_STRADDLE"
+    ],
+    "first_round_reason": "用买跨式及带保护翼的卖跨式分别研究做多和做空波动率；卖方先限定组合损失结构",
+    "not_assumed": [
+      "同一合约等量反向持仓能产生收益",
+      "买入认购和认沽一定同时赚钱",
+      "Gamma对冲收益已实现",
+      "保证金可以忽略"
+    ],
+    "new_market_data_collection": false,
+    "orders_authorized": false,
+    "broker_connection_authorized": false,
+    "old_frozen_rejections_preserved": true
+  },
+  "stage": "训练概率与盈亏幅度；本轮不生成资金账户、交易指令或夏普估计",
+  "historical_prices_previously_seen": true,
+  "independent_holdout": false,
+  "structures": [
+    "LONG_ATM_STRADDLE",
+    "PROTECTED_SHORT_ATM_STRADDLE"
+  ],
+  "models": [
+    "MATURE_EMPIRICAL",
+    "VOLATILITY_LOGIT_GAMMA"
+  ],
+  "features": [
+    "log_atm_iv",
+    "log_iv_over_rv20",
+    "log_rv5_over_rv20",
+    "log_rv20_over_rv60",
+    "put_call_iv_difference_scaled"
+  ],
+  "decision_clock": "决策日在收盘后，全部行情和风险特征统一使用前一交易日；下一交易日入场",
+  "holding_sessions": 10,
+  "contract_selection": {
+    "dte_calendar_days": [
+      30,
+      75
+    ],
+    "target_dte": 45,
+    "atm": "同到期、同行权价的标准认购认沽对；先按到期距45日、再按行权价距观察日ETF收盘价排序",
+    "minimum_prior_volume_each_leg": 100,
+    "minimum_prior_open_interest_each_leg": 500,
+    "historical_identity": "只使用当日官方exchange_contract_id中的M标准标识；行权价取最后5位/1000，每张10000份",
+    "snapshot_metadata_not_used_for_selection": [
+      "is_adjusted",
+      "strike",
+      "contract_unit"
+    ],
+    "protected_short_wings": "同到期，买入最接近中心行权价下方5%的认沽与上方5%的认购；两翼分别至少一档价外",
+    "no_contract_fallback_after_outcomes": true,
+    "same_underlying_only": "510300；无ETF或期货Delta对冲，组合仍可能存在方向敞口"
+  },
+  "labels": {
+    "unit": "一套组合的净损益 / 观察日可知的组合风险金额",
+    "long_risk_scale": "观察日认购加认沽总权利金加双边固定费用",
+    "short_risk_scale": "较大保护翼宽度乘10000，减观察日净权利金收入，加双边固定费用",
+    "fee_cny_per_contract_per_side": 5.0,
+    "BASE": "入场各腿日开盘价、退出各腿日收盘价；买加卖减max(0.0002,报价*0.005)",
+    "STRESS": "同上，买加卖减max(0.0005,报价*0.01)；这是主训练标签",
+    "DAY_EXTREME": "逐腿买价取当日高价、卖价取当日低价，另扣固定费用；仅作价格包络诊断",
+    "execution_evidence": "日线价格代理，不是历史同步可成交组合报价，也不是下单模拟成交证明",
+    "unscored": "到期或历史调整、缺失关键日行情/风险标识、零成交、报价无效时标记未知；不填零盈亏",
+    "unscored_not_a_trade_filter": "未来路径导致的未知标签不可用于事前拒单，本轮因此不生成账户"
+  },
+  "training": {
+    "minimum_mature_samples_per_structure": 252,
+    "refit": "每自然月首个事前合约可选且成熟样本足够的决策日；不依据该日未来标签是否完整安排拟合；当月参数固定",
+    "maturity": "标签退出日期严格早于模型时点",
+    "weights": "各十日持有区间平均逆重叠数；不把重叠标签算作独立证据",
+    "probability": "带截距L2逻辑回归；平均加权损失的惩罚强度1；不做类别再平衡",
+    "amplitudes": "盈利/亏损分别为Gamma均值回归，正幅度，alpha=1",
+    "scaling": "仅用当时成熟样本均值和标准差；标准化特征截断[-3,3]",
+    "fallback": "若成熟样本只有一个类别或条件样本不足20，使用当时经验均值并明确标记",
+    "baseline": "相同成熟样本与重叠权重的经验胜率、盈利与亏损幅度",
+    "parameter_search": false
+  },
+  "evaluation": "概率Brier与AUC、盈利/亏损条件均方误差、净期望均方误差；全段、2023年前段、2024年后段分别报告",
+  "no_profitability_claim_from_predictions": true,
+  "next_account_requirements": "组合统一现金流、保证金、逐日估值与空仓日；调整及缺失行情处理完整后才能评价20万元全账户目标"
+}

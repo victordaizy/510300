@@ -1,0 +1,48 @@
+{
+  "study": "510300_POINT_STATE_RECONSTRUCTION_V1",
+  "at": "2026-10-01T19:13:18.387446+08:00",
+  "question": "两条旧日期线索能否由事前收盘组合状态生成，并在完整成功失败样本中解释量价差异？",
+  "selection_known": "两条线索来自上一轮全部十四方案事后数值比较，既有价格历史与收益已知；不称独立验证。",
+  "models": [
+    "CORE_AUXILIARY_DRAWDOWN_GATE",
+    "LAG_CONFIRMED_RUNS_AUXILIARY"
+  ],
+  "periods": {
+    "earlier_diagnostic": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "evaluation": [
+      "2020-01-02",
+      "2026-08-14"
+    ]
+  },
+  "gate": "统一参考成本后p×实际B>1；频率软目标",
+  "rebuild_market": "从原始收盘和除息重建含息收益、60日连续段分数、60日相邻收益相关、两日确认、20日风险幅度、120日趋势波动预算及60日回撤。",
+  "reused_reference_inputs": "核心中的第131与139来源目标读取已保存的当时收盘输出；不重训其历史退出模型，也不声称本轮重建所有模型谱系。",
+  "combination": "回撤线索=核心+60日回撤严格>-5%时的辅助；相关线索=核心+相邻相关允许状态下的辅助，上限一；任一必要资料未知则目标未知。",
+  "point_state": "收盘目标>0且空仓：下一开盘尝试进入固定约十万元名义份额；目标=0且持有：下一开盘尝试退出；正目标大小变化不加减份额；未知维持已有状态。",
+  "execution": "只使用真实日线开盘；无有效价格或成交量、进入方向涨跌停则当日不成交；随后按最新收盘目标重算，不保留过时意图。至少隔夜持有。",
+  "cost": "每边佣金万四且至少5元，每边滑点千一，0.001元不利方向取整；100份整手，以初始原价名义金额归一化，按登记资格计股息。",
+  "termination": "两段末日开盘仅标记未完成点位，不能强平后算成成功；不在末日开新点位。",
+  "fixed_feature_diagnostics": {
+    "above_ema20": "收盘高于EMA20",
+    "daily_hist_positive": "日MACD柱为正",
+    "daily_hist_rising": "日MACD柱回升",
+    "weekly_hist_positive": "上个完整周MACD柱为正",
+    "weekly_hist_rising": "上个完整周MACD柱回升",
+    "volume_expansion": "成交量达到此前20日中位数1.5倍",
+    "up_volume_dominant": "近五日上涨方向成交量占优",
+    "low_volatility": "20日波动不高于此前一年中位数"
+  },
+  "feature_threshold_origin": "沿用既有上涨图谱中的八个单项状态，不调指标周期、放量倍数或波动门槛；不生成组合条件。",
+  "feature_assessment": "对每条线索、每个时期比较条件成立与不成立的样本胜率、B、乘积和平均回报；四组平均回报差和乘积差方向是否一致仅作描述。条件下的子集不是重放后的筛选策略。",
+  "entry_exit_attribution": "保存入场时核心/辅助参与、退出时归零来源，以及已知技术状态。正负结果均保留。",
+  "stop": "收盘目标重建不一致则停止，不微调阈值对齐；新点位与旧日期不一致则完整报告，不回填旧日期。",
+  "new_point_replays": 4,
+  "new_full_accounts": 0,
+  "new_model_fits": 0,
+  "parameter_searches": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

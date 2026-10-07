@@ -1,0 +1,77 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_PARTICIPATION_CHANNELS_V1",
+  "created_at": "2026-10-01T19:43:04.737988+08:00",
+  "question": "融资渠道放宽后，实际借入与归还、ETF份额转换和指数价格是否同向；哪些上游行为能够识别？",
+  "months": [
+    "2022-10",
+    "2022-11",
+    "2022-12",
+    "2023-01",
+    "2023-02",
+    "2023-03"
+  ],
+  "same_index_etfs": [
+    "510300.SH",
+    "510310.SH",
+    "510330.SH"
+  ],
+  "calendar": "每月最后一个官方周度快照与上月最后快照之间；三只ETF、两融、指数统一实际起止日期。另存逐周与单ETF逐日明细。",
+  "why_period": "沿用既定2022Q4至2023Q1信用传导阶段，不因资金或收益符号移动边界；此前该期行情已见，不是盲测。",
+  "deduplication": {
+    "cross_etf_flow": "原5候选REJECTED_FIXED_CROSS_ETF_FORCED_FLOW_BINARY_FAMILY_NO_RESCUE，不重跑规则",
+    "share_premium": "原8候选REJECTED_FIXED_ETF_SHARE_PREMIUM_LEVEL_BINARY_FAMILY_NO_RESCUE，不重跑规则",
+    "margin_factors": "F01/F02/F06既有两种表达没有合格账户，不调整门槛、延迟或方向",
+    "new_increment": "融资供给制度、借入与隐含偿还的周转分解、单ETF与固定同指数ETF池的范围差异，同期和公布后回报分开"
+  },
+  "measurements": {
+    "share_flow_proxy": "sum((Q_t-Q_prev)*raw_close_t)，份额转换市值代理，非实收现金、未完成买单或全市场净流入",
+    "market_margin": "两市全标的；隐含偿还=融资买入-余额变化。扩围改变可融资范围，汇总无法排除新标的贡献",
+    "etf_margin": "510300本身的融资，已包含于全市场两融，不相加；偿还原报数与余额恒等式残差单列",
+    "same_index_pool": "固定旧池三只上交所沪深300ETF，不是所有沪深300ETF，更不是全A股资金"
+  },
+  "source_clock": "周份额T统计保守T+1收盘可用，T+2开盘比较；历史首次发布时间仍未证明，不重复已关闭的时钟搜寻",
+  "event_windows": [
+    5,
+    20
+  ],
+  "constraint_events": [
+    {
+      "event_id": "CSF_COST_20221020",
+      "date": "2022-10-20",
+      "title": "转融资成本调整与市场化试点启动公告",
+      "source_ids": [
+        "csf_rate_cut_relay"
+      ]
+    },
+    {
+      "event_id": "MARGIN_SCOPE_20221021",
+      "date": "2022-10-21",
+      "title": "两市融资融券标的扩围公告",
+      "source_ids": [
+        "sse_expansion",
+        "szse_expansion"
+      ]
+    },
+    {
+      "event_id": "CSF_PILOT_20230221",
+      "date": "2023-02-21",
+      "title": "市场化转融资试点上线",
+      "source_ids": [
+        "csf_pilot_relay"
+      ]
+    }
+  ],
+  "constraint_event_clock": "使用公告日期当日结束的可见上界，下一实际交易日开盘；三个已识别制度节点，不声称是全部政策样本",
+  "cost": {
+    "commission": 0.0004,
+    "minimum": 5.0,
+    "slippage": 0.001
+  },
+  "market_end": "2023-05-31",
+  "new_candidates": 0,
+  "new_full_accounts": 0,
+  "goal_achieved": false,
+  "independent_validation": false,
+  "orders_authorized": false,
+  "stop": "仅描述所有固定区间，不按正负收益筛月份，不把事后逆向申购、扩围或余额变化改成策略；未知动机与对冲保留未知。"
+}

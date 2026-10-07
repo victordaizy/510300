@@ -1,0 +1,60 @@
+{
+  "study_id": "510300_PRESSURE_RECOVERY_LOCAL_EXPLORATION_V1",
+  "status": "EXPLORATORY_MEASUREMENT_WITH_EXISTING_DATA",
+  "user_direction": "不用补充，就先进行",
+  "new_network_collection": false,
+  "execution_asset": "510300.SH",
+  "source_dates": ["20260709", "20260812", "20260904"],
+  "parent_protocol_changed": false,
+  "formal_m1_m2_requirements_relaxed": false,
+  "quote_price_divisor": 10000,
+  "quote_quantity_divisor": 1,
+  "quote_units_basis": "来源字段说明、三个样本的量额一致性和两日分钟收盘核对；不是独立交易所全消息验证。",
+  "minute_grid": "09:30至11:29及13:00至14:56，每分钟一次，仅使用不晚于网格时间且年龄不超过5秒的报价",
+  "depth_band_bps": 10,
+  "exploratory_price_episode": {
+    "label": "P0_PRICE_PRESSURE_NOT_M2_SIGNAL",
+    "shock_lookback_minutes": 5,
+    "shock_log_mid_return_bps_at_most": -5,
+    "observation_minutes": 5,
+    "episode_reset_after_consecutive_eligible_nonshock_minutes": 10,
+    "session_boundary_resets_episode": true,
+    "missing_observation_retained": true,
+    "selection_uses_future_return": false,
+    "baseline": "固定5基点价格回撤，仅作探索性分组；不替代原M2过去60个合格同刻交易日分位数、篮子与估值要求。",
+    "liquidity_labels": "分别记录观察结束时价差收窄/不变/扩大和买盘深度增减，不命名为已确认M2恢复。"
+  },
+  "hypothetical_entry": {
+    "time": "固定五分钟观察结束之后的首个连续竞价报价，最多等待5秒",
+    "price": "预定金额和费用预算内的100份整数倍数量，按可见十档卖价逐档计算",
+    "nominal_budgets_cny": [20000, 200000],
+    "fill_probability": null,
+    "actual_orders": false
+  },
+  "price_path_diagnostics": {
+    "intraday_minutes_after_entry_quote": [5, 30],
+    "intraday_price": "目标时刻之前5秒内的中间价，仅限同一连续竞价时段",
+    "intraday_paths_are_lawful_same_day_exits": false,
+    "overnight": "官方本地交易日历的下一交易日09:35和09:36分钟记录",
+    "overnight_price_proxies": ["09:35_close", "09:36_close", "两条记录的最低low和最高high"],
+    "minute_timestamp_boundary_verified": false,
+    "missing_next_day_price": "保留缺失，不替换为其他日期或自然日",
+    "dividends_verified": false
+  },
+  "cost_assumptions": {
+    "commission_rate_per_side": 0.0002,
+    "minimum_commission_cny": 5,
+    "exit_minute_proxy_friction_bps": 5,
+    "extra_entry_friction_on_visible_ask_vwap_bps": 0,
+    "extra_entry_friction_on_after_hours_close_bps": 0,
+    "actual_broker_fees_verified": false
+  },
+  "reporting": {
+    "include_every_detected_episode": true,
+    "count_overlapping_future_windows_as_independent": false,
+    "compute_strategy_win_rate_expectancy_sharpe": false,
+    "hypothetical_net_prices_are_verified_strategy_returns": false,
+    "tune_threshold_after_results": false,
+    "storage_of_new_results_limit_bytes": 20971520
+  }
+}

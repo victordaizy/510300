@@ -1,0 +1,112 @@
+{
+  "study_id": "510300_MULTIDIM_TREASURY_LONG_SUPPLY_CAUSE_SCORE_V1",
+  "experiment_id": "E6",
+  "registered_at": "2026-10-02T05:06:16.873917+08:00",
+  "phase": "FIXED_SOURCE_AND_SINGLE_CAUSE_INCREMENT",
+  "question": "季度已公布长端gross计划增幅能否在原国内状态之外形成实际指数预测增量和不同的高分机会？",
+  "hypothesis": "财政供给期限构成是收益率结果上游的可观察约束；国内资金条件相同时，其影响可能不同，不预设收益方向。",
+  "selection_disclosure": "来源和字段依据E4七券提前计划、期限构成及E5预期期限失配选择；已看过2023-11-01原表示例4.225352%，亦已看过旧M2/E2全部历史。不是完全未观察历史或独立验证。",
+  "source_scope": {
+    "publication_years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "quarterly_statements": 16,
+    "selection": "官方按年季度目录四次实际财政部政策声明，不采用TBAC建议、事后实际发行或未来月份填缺。",
+    "catalog_url": "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/quarterly-refunding-archives/official-remarks-on-quarterly-refunding-by-calendar-year",
+    "max_catalog_pages": 1,
+    "max_statement_pages": 16,
+    "max_official_plan_images": 16,
+    "max_pdf_if_directory_original_pdf": 16,
+    "max_concurrent": 3,
+    "attempts_per_url": 2,
+    "do_not_retry_403_429": true,
+    "reuse_original": "2023-11-01完整HTML与表图复用E4原件，不重抓"
+  },
+  "one_feature": "美国季度长端计划供给增幅",
+  "one_feature_definition": "100×(声明预告未来三月原10/20/30年常规固定券gross计划总额/声明列出的此前三月同范围已知gross总额−1)。包含新发与续发各次、排除其他期限/TIPS/FRN/Bill。",
+  "availability": "依正文美国日期，保守取America/New_York该日23:59:59转上海时区；首次版本未认证但可标为历史公布日代理。只使用available_at<=原decision_at的最新季度，超过120天或已到下一次登记声明而新源缺失不回填。不能用下一季度源倒填早月。",
+  "field_limits": [
+    "gross计划不是净融资、净流动性或市场意外",
+    "不同于美国名义/TIPS/通胀补偿旧结果，未保持它们相同",
+    "月度事件共享季度状态不增加政策根",
+    "季度供给增幅不是精确期限风险DV01"
+  ],
+  "source_gate": "16声明均已取得或明确复用，过去/未来各三月三期限规模可核对；缺表/含糊范围不填0、不改定义。有缺口则记录源未准入并结束本路线，不按收益换窗口。",
+  "event_universe": "原纠正后M2的68准入事件；只在本字段已知且合格的共同事件池评分；全部68事件的未准入原因保存，不制造月度新宏观事件。",
+  "features_control": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "统计月份正弦",
+    "统计月份余弦",
+    "美国季度长端计划供给增幅"
+  ],
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "sample_unit": "每次合格公布一行",
+    "label_availability": "exit_at<=decision_at",
+    "update": "每次公布",
+    "no_future_releases": true
+  },
+  "tree": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "comparisons": [
+    "删除新字段的同池11变量树",
+    "增加单字段的同池12变量树",
+    "同12变量标准化岭回归alpha10仅参考",
+    "同池成熟标签平均"
+  ],
+  "label": "原保存actual_net5：固定10000份、下一开盘到5个持有间隔后的开盘、现金分红权益、4bp佣金且最低5元、10bp滑点、0.001报价单位；不是完整账户收益。",
+  "score": "模型预测在同训练池拟合预测的中位百分位秩，0到100，不是上涨概率。",
+  "evaluation": "原固定五档全部保留；按时间顺序选score>=80且预测净收益>0、持有结束前不增加事件；所有年份、反例、实际路径和训练叶成员保存。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2022-01-01",
+    "2023-12-31"
+  ],
+  "increment_gate": {
+    "primary_joint_mse_not_worse_than_matched_control": true,
+    "primary_joint_high_mean_net5_positive": true,
+    "primary_joint_high_mean_not_worse_than_matched_control_when_nonempty": true,
+    "at_least_one_primary_joint_high_date_not_in_control_or_parent_M2": true,
+    "at_least_one_primary_new_high_path_actually_uses_supply_field": true
+  },
+  "account_admission": "固定增量条件均满足后才能另登记完整账户；不因较好早期点值、线性参考或路径使用本身营救。",
+  "parameter_searches": 0,
+  "authority": "config/510300_existing_data_training_mandate_v1.json",
+  "new_repository_code_edits": 0,
+  "new_prospective_forecasts_enabled": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "goal_achieved": false
+}

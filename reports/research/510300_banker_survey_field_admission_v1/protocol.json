@@ -1,0 +1,22 @@
+{
+  "at": "2026-09-26T05:30:51.239500+08:00",
+  "study_id": "510300_BANKER_SURVEY_FIELD_ADMISSION_V1",
+  "source_status": "PARTIAL_QUARTER_SOURCE_COMPLETION",
+  "extraction": "仅提取每份原季度报告的当季附表行。按实际表头定位并与同名单元格核对，适配11/12列。2019年至2020年部分编制说明缺少行业条目，定义编号不可当列号。重叠字形在1点坐标内去重，不按相邻字符删数字。",
+  "fields": {
+    "loan_demand_index": "贷款总体需求指数",
+    "loan_approval_index": "银行贷款审批指数",
+    "monetary_policy_perception_index": "货币政策感受指数"
+  },
+  "semantics": "贷款需求为银行家对需求增长/不变的扩散判断；审批为条件放松/不变的扩散判断；政策感受亦为扩散指数。三者均不等于实际贷款数或批准比例，不能相减当作经济缺口。",
+  "clock": "沿用每份原报告页面公布日末保守可用。季度末可能在公布日前也可能在其后，季度调查不冒充季度结束后才有的全季实现统计。",
+  "same_day": "同日公布多个季度时，当日结束后的最新状态取统计季度最新者；旧季当时才公布的值不回填过去决策。",
+  "availability_measurement": "按已有市场日期09:00形成逐日元数据，只计资料可用性及最近两年可观察季度状态数，不读取股票收益或拟合策略。",
+  "age_diagnostic_days": 120,
+  "age_is_measurement_limit_not_validated_trade_rule": true,
+  "new_strategy_returns": 0,
+  "new_accounts": 0,
+  "source_parser_pretested_without_stock_returns": true,
+  "historical_first_vintage_verified": false,
+  "goal_achieved": false
+}

@@ -1,0 +1,32 @@
+{
+  "study_id": "510300_PRESSURE_RECOVERY_MEASUREMENT_CORRECTION_V1_1",
+  "mode": "EXISTING_LOCAL_DATA_ONLY",
+  "reason": "pandas实际时间列为微秒，旧滚动函数用纳秒长度做减法，导致五分钟窗口错算为更长窗口。",
+  "source_dates": ["20260709", "20260812", "20260904"],
+  "original_events_changed": false,
+  "original_rules_changed": false,
+  "correction": {
+    "window": "(t-5分钟,t]",
+    "integer_timestamp_unit": "ns",
+    "explicit_conversion_on_both_sides": true,
+    "validation": "每个保存时点另用带时区Timestamp的显式大小比较复算，不使用整数时间减法。",
+    "reported_bs_is_verified_aggressor": false
+  },
+  "depth_diagnostic": {
+    "events": "原先17个价格压力事件，固定5分钟观察终点，不增删。",
+    "band_bps": 10,
+    "decomposition": "移动价格带金额差=共同绝对价格区间内金额净变+新进入价格带部分金额-退出价格带部分金额。",
+    "initial_band": "冲击时中间价下方10bp的绝对价格范围，固定到观察结束；不在十档内时记未知。",
+    "order_cause_inferred": false,
+    "new_signal_or_parameter_search": false
+  },
+  "reporting": {
+    "source_days": 3,
+    "minimum_independent_days_for_original_interval": 30,
+    "conditional_microstructure_alpha": "NOT_ESTABLISHED",
+    "new_strategy_return": "NOT_COMPUTED",
+    "new_orders": 0,
+    "new_network_requests": 0,
+    "result_size_limit_bytes": 5242880
+  }
+}

@@ -1,0 +1,511 @@
+{
+  "study": "510300_POINT_COMPARABLE_SELECTION_V1",
+  "registered_at": "2026-10-04T19:04:59.288773+08:00",
+  "registration_decision": "TECH.R155",
+  "result_decision": "TECH.R156",
+  "blocks": 16,
+  "question": "有限技术线可比账户的历史最优选择，在其余历史时间块是否仍有相对优势？",
+  "known_before_registration": "已知全部账户结果及多轮历史选择；本次派生选择统计尚未计算。原A近期压力夏普1.217、较早0.438；V3已完成失败，不重新运行。",
+  "hypothesis": "若局部最优依赖特定行情或选择，则对称分割的其余半样本排名和收益会不稳定。",
+  "cohort": "仅六项本技术线研究、11个既存身份；20万元、50%上限、原ES/跳空/回撤预算、现金0、252日、两成本。不是全项目搜索宇宙。",
+  "calendar": "两个独立启动时期分别计算；16连续近等长块，保留每个真实日；不拼接账户。",
+  "ranking": "半样本真实净日收益均值除样本标准差乘sqrt252；精确全零半样本排序分数0。非零恒定收益拒绝。",
+  "ties": "分数绝对差<=1e-12视为并列；IS最优平分选择权重，OOS使用平均名次。PBO为相对名次rank/(N+1)<=0.5，另报严格低于中位和中位质量。",
+  "eligibility": "费用档都存在且日历完全一致；缺账户不补跑。两成本全零候选不参与排序；两成本全路径完全相同归并，原路径和失败保留。",
+  "candidate_inventory": [
+    {
+      "period": "2015_2019",
+      "cost": "BASE",
+      "rows": 1219,
+      "raw_candidates": 8,
+      "ranking_candidates": [
+        "A_SAVED_WEIGHT",
+        "A_POINT_BINARY",
+        "B_SAVED_WEIGHT",
+        "A_BINARY_REBALANCE",
+        "DIRECTIONAL_ONLY",
+        "A_PLUS_DIRECTIONAL"
+      ],
+      "first_date": "2015-01-05",
+      "last_date": "2019-12-31"
+    },
+    {
+      "period": "2015_2019",
+      "cost": "STRESS",
+      "rows": 1219,
+      "raw_candidates": 8,
+      "ranking_candidates": [
+        "A_SAVED_WEIGHT",
+        "A_POINT_BINARY",
+        "B_SAVED_WEIGHT",
+        "A_BINARY_REBALANCE",
+        "DIRECTIONAL_ONLY",
+        "A_PLUS_DIRECTIONAL"
+      ],
+      "first_date": "2015-01-05",
+      "last_date": "2019-12-31"
+    },
+    {
+      "period": "2020_2026",
+      "cost": "BASE",
+      "rows": 1636,
+      "raw_candidates": 11,
+      "ranking_candidates": [
+        "A_SAVED_WEIGHT",
+        "A_POINT_BINARY",
+        "B_SAVED_WEIGHT",
+        "A_BINARY_REBALANCE",
+        "B_POINT_BINARY",
+        "NR7_ONLY",
+        "A_BINARY_PLUS_NR7",
+        "PULLBACK_ONLY",
+        "A_PLUS_PULLBACK",
+        "DIRECTIONAL_ONLY",
+        "A_PLUS_DIRECTIONAL"
+      ],
+      "first_date": "2020-01-02",
+      "last_date": "2026-09-30"
+    },
+    {
+      "period": "2020_2026",
+      "cost": "STRESS",
+      "rows": 1636,
+      "raw_candidates": 11,
+      "ranking_candidates": [
+        "A_SAVED_WEIGHT",
+        "A_POINT_BINARY",
+        "B_SAVED_WEIGHT",
+        "A_BINARY_REBALANCE",
+        "B_POINT_BINARY",
+        "NR7_ONLY",
+        "A_BINARY_PLUS_NR7",
+        "PULLBACK_ONLY",
+        "A_PLUS_PULLBACK",
+        "DIRECTIONAL_ONLY",
+        "A_PLUS_DIRECTIONAL"
+      ],
+      "first_date": "2020-01-02",
+      "last_date": "2026-09-30"
+    }
+  ],
+  "all_candidates": {
+    "A_SAVED_WEIGHT": [
+      "510300_point_weight_information_diagnostic_v1",
+      "SAVED_WEIGHT"
+    ],
+    "A_POINT_BINARY": [
+      "510300_point_weight_information_diagnostic_v1",
+      "POINT_BINARY"
+    ],
+    "B_SAVED_WEIGHT": [
+      "510300_point_second_weight_comparison_v1",
+      "B_SAVED_WEIGHT"
+    ],
+    "A_BINARY_REBALANCE": [
+      "510300_point_binary_rebalance_diagnostic_v1",
+      "BINARY_REBALANCE"
+    ],
+    "B_POINT_BINARY": [
+      "510300_point_account_nr7_complement_v1",
+      "POINT_B"
+    ],
+    "NR7_ONLY": [
+      "510300_point_account_nr7_complement_v1",
+      "NR7_ONLY"
+    ],
+    "A_BINARY_PLUS_NR7": [
+      "510300_point_account_nr7_complement_v1",
+      "POINT_A_PLUS_NR7"
+    ],
+    "PULLBACK_ONLY": [
+      "510300_point_confirmed_pullback_study_v1",
+      "PULLBACK_ONLY"
+    ],
+    "A_PLUS_PULLBACK": [
+      "510300_point_confirmed_pullback_study_v1",
+      "A_PLUS_PULLBACK"
+    ],
+    "DIRECTIONAL_ONLY": [
+      "510300_point_directional_confirmation_study_v1",
+      "DIRECTIONAL_ONLY"
+    ],
+    "A_PLUS_DIRECTIONAL": [
+      "510300_point_directional_confirmation_study_v1",
+      "A_PLUS_DIRECTIONAL"
+    ]
+  },
+  "no_promotion_gate": true,
+  "parameter_search": false,
+  "new_accounts": 0,
+  "new_model_fits": 0,
+  "limits": [
+    "已知历史，全项目选择未纳入；低有限PBO也不能证明全项目没有过拟合。",
+    "时间块重组只是统计诊断，非按时间前行的训练或真实样本外账户。",
+    "长期持仓会跨块；模型原训练路径不重新切断，分割之间共享同一历史，组合数不是独立样本数。",
+    "两个时期可用候选集合不同，PBO不能直接当时期质量的同口径因果比较。",
+    "原策略裁决不变，不按新排名复活失败策略或新建调参路线。"
+  ],
+  "global_dsr": "NOT_COMPUTED",
+  "global_pbo": "NOT_COMPUTED_INCOMPLETE_GLOBAL_TRIAL_UNIVERSE",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false,
+  "source": "https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf",
+  "sources": [
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\protocol.json",
+      "sha256": "c945f3b1ce8881f03b31c2f68c0012c886383565c7617868ccc8275b7fb48c63"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\BASE\\NR7_ONLY\\daily.parquet",
+      "sha256": "2bcec5035b9b125d98e99c5b39e82c0ebd3726b0b73206a8223d65640c9999dd"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\BASE\\NR7_ONLY\\trades.parquet",
+      "sha256": "7d7f3cf16e3cbef30a028ad04fd6edb14f159fbe86bc85f19766fabe6609baed"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\BASE\\POINT_A_PLUS_NR7\\daily.parquet",
+      "sha256": "5ca6797dfda8dc37161ebd1d44e54c3608b0be46fd3931a96bb7d92fc5abc5a9"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\BASE\\POINT_A_PLUS_NR7\\trades.parquet",
+      "sha256": "c5e8ab0de8e7df7dc24d6d5d688a6337e5787350ea7595a6c94fab8be11d8174"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\BASE\\POINT_B\\daily.parquet",
+      "sha256": "ddf5457b191a5dc16487f78c87efd483ec8492adec40b2aff6d6c73f2ccec24b"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\BASE\\POINT_B\\trades.parquet",
+      "sha256": "84f7310f4604b5e285e80a70872b19bd43cf8afeecdf6c54dfdd19d6517252cf"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\STRESS\\NR7_ONLY\\daily.parquet",
+      "sha256": "e8be901b7ac8098b77f1b73a133e4a214aa719ad22982c7a67dceaf8064d511a"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\STRESS\\NR7_ONLY\\trades.parquet",
+      "sha256": "ea0897dfaa7cd1667b06e5f5a30ad4590b6a2c32655cd4e0a6df3d6ac4796545"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\STRESS\\POINT_A_PLUS_NR7\\daily.parquet",
+      "sha256": "46cc2e76c9656557236851a896566386e628924c91ca37bbeed42790a3fe8888"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\STRESS\\POINT_A_PLUS_NR7\\trades.parquet",
+      "sha256": "54101a6de56e22a7f4b5b228fcd9d3c4128183e1c69a6782ea93024e1f1ff9e8"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\STRESS\\POINT_B\\daily.parquet",
+      "sha256": "7e2feaaf7da506fa4fe6da1f115dd4ecd0dc81b23717903d50605882ced3ebad"
+    },
+    {
+      "path": "reports\\research\\510300_point_account_nr7_complement_v1\\results\\accounts\\2020_2026\\STRESS\\POINT_B\\trades.parquet",
+      "sha256": "346e8641cd990f46e9fb210a19962e155ebfc768948d82790e1f8b7eabd5012b"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\protocol.json",
+      "sha256": "5de761d9aef3ca53ad089119b94c90edb6259d7f23615914187f2603ccd29bc8"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2015_2019\\BASE\\BINARY_REBALANCE\\daily.parquet",
+      "sha256": "b3bd8de01dba44628f6b3635e152d7c8986e335295cc1a1379a2f9a0a1abcf89"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2015_2019\\BASE\\BINARY_REBALANCE\\trades.parquet",
+      "sha256": "d0b626155a08bf03a4b19bdaad125d35b85749662c8abf1501bb623dc9f16694"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2015_2019\\STRESS\\BINARY_REBALANCE\\daily.parquet",
+      "sha256": "2e064f593dac4e4e96f79392f0b93cc6a18d73964f17e1da2ef01a94fefdf0a4"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2015_2019\\STRESS\\BINARY_REBALANCE\\trades.parquet",
+      "sha256": "ef1f88feb91950e7a1a981d11e746256c4bf5daa0499d01a25bdad64a722aabc"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2020_2026\\BASE\\BINARY_REBALANCE\\daily.parquet",
+      "sha256": "e63cbc4a559f694beb94efc0db3269cbb0f485de0cf935afb9a5ebf6ca0dfef8"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2020_2026\\BASE\\BINARY_REBALANCE\\trades.parquet",
+      "sha256": "30c0dc7daf3dddf44ca0729595fe75555f2ffacc7eee3f69eccb2de4f2a86279"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2020_2026\\STRESS\\BINARY_REBALANCE\\daily.parquet",
+      "sha256": "76f5e4403a300da2c8a6011cf9e4aaf9e4aebf270ff8b03c05e9c10e4aed02c6"
+    },
+    {
+      "path": "reports\\research\\510300_point_binary_rebalance_diagnostic_v1\\results\\accounts\\2020_2026\\STRESS\\BINARY_REBALANCE\\trades.parquet",
+      "sha256": "4d32bd6d4100166d500236b6915649cdfb4a0f632b01a270641748e5e47679f8"
+    },
+    {
+      "path": "reports\\research\\510300_point_comparable_selection_v1\\inputs\\2015_2019_BASE.parquet",
+      "sha256": "8ec3fbc5856b04258b532cb63bd08e1c2d75f70fec6a81c0a99b06e18bcf7326"
+    },
+    {
+      "path": "reports\\research\\510300_point_comparable_selection_v1\\inputs\\2015_2019_STRESS.parquet",
+      "sha256": "ef0c9c765c7c06f7103175bf940a72a2ab40e5fb11bd499ee8c4fbfbc02d2b7c"
+    },
+    {
+      "path": "reports\\research\\510300_point_comparable_selection_v1\\inputs\\2020_2026_BASE.parquet",
+      "sha256": "30b2f82815a5828ff5e95805ae2b1d3d795c902941cc57a2e8c6b21426ff6e4e"
+    },
+    {
+      "path": "reports\\research\\510300_point_comparable_selection_v1\\inputs\\2020_2026_STRESS.parquet",
+      "sha256": "b72fa56d954b031b25218d8011c0e7d61784e9ce29d788ecfa44fadee7cf37cb"
+    },
+    {
+      "path": "reports\\research\\510300_point_comparable_selection_v1\\tests_receipt.json",
+      "sha256": "24d3848d9c89f65c85fe461dd2ebff5e5ef12f96f8e6f53239ee25d098fbc72a"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\protocol.json",
+      "sha256": "b060e1e2304c902b1439dbcb373a07d142a49395ca2b4dfefe273bef101adffa"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\BASE\\A_PLUS_PULLBACK\\daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\BASE\\A_PLUS_PULLBACK\\trades.parquet",
+      "sha256": "92c720b10faa35fe46302343023ad8bed56747bcbe6fe36e1a3e053d66812e41"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\BASE\\PULLBACK_ONLY\\daily.parquet",
+      "sha256": "8e4db348bb3a64513ac98713258a85fedafdc2db346e984fd5c449a8eadde936"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\BASE\\PULLBACK_ONLY\\trades.parquet",
+      "sha256": "c0cda5454f5ec0a1619547c583e60599d3cb4f428a42330bb6c4464b0edd24ac"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\STRESS\\A_PLUS_PULLBACK\\daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\STRESS\\A_PLUS_PULLBACK\\trades.parquet",
+      "sha256": "50a54dfe9bff793b0e367f94d416e1a1b423d5e6f2ec217b46ee0ee41efa3b75"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\STRESS\\PULLBACK_ONLY\\daily.parquet",
+      "sha256": "8e4db348bb3a64513ac98713258a85fedafdc2db346e984fd5c449a8eadde936"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2015_2019\\STRESS\\PULLBACK_ONLY\\trades.parquet",
+      "sha256": "c0cda5454f5ec0a1619547c583e60599d3cb4f428a42330bb6c4464b0edd24ac"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\BASE\\A_PLUS_PULLBACK\\daily.parquet",
+      "sha256": "317b1e3adb2d430961cbbef022bffb81426af9a867f709b06f66ff4cd50028ee"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\BASE\\A_PLUS_PULLBACK\\trades.parquet",
+      "sha256": "18069591fb2df87eb384b49cb5f37947e1e1183bc110297e886c4b12a46823f2"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\BASE\\PULLBACK_ONLY\\daily.parquet",
+      "sha256": "0b27d867ca476675b9447f32fa97e1ede416e785621bd4a88085d69b8de20772"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\BASE\\PULLBACK_ONLY\\trades.parquet",
+      "sha256": "c06a5d845294380c1237ef7189e677c95b1a57d6befefb7a5b52412a108e7fc7"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\STRESS\\A_PLUS_PULLBACK\\daily.parquet",
+      "sha256": "dce3b3f2bb9bba17b52a15f2428ae5da36fa7de5b545dc7a5e0f3d64194f6164"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\STRESS\\A_PLUS_PULLBACK\\trades.parquet",
+      "sha256": "5105fadb61e18133761ebaaea248a8ce109cbc29b0e7f4de1aa7f40a87a80c12"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\STRESS\\PULLBACK_ONLY\\daily.parquet",
+      "sha256": "9357aff840ccacf6a3d77d57b1a3a808a7ddc46a9f3ddb5f7d2b83732ff8b9af"
+    },
+    {
+      "path": "reports\\research\\510300_point_confirmed_pullback_study_v1\\results\\accounts\\2020_2026\\STRESS\\PULLBACK_ONLY\\trades.parquet",
+      "sha256": "d6bdb90c0844df571635448f2a4033c2d3c68b2728fc4f3864095cb9434bac68"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\protocol.json",
+      "sha256": "2d04a172fbbec709d836a38c6d35143d1cfd7b706dff49792d715f6eb362866c"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\BASE\\A_PLUS_DIRECTIONAL\\daily.parquet",
+      "sha256": "e70e1fbae90c96743fc4fe4711e6507ee0e654df1efaff3de535036e26f10774"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\BASE\\A_PLUS_DIRECTIONAL\\trades.parquet",
+      "sha256": "c72cb5142f6ec0a94948f7c05427808443e9a3373fc29cac9758e7e59f291813"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\BASE\\DIRECTIONAL_ONLY\\daily.parquet",
+      "sha256": "3ab9aafdb5e3bdbf821261ddb8c44bc151ee183e1899561ce54ee05203ab2dd3"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\BASE\\DIRECTIONAL_ONLY\\trades.parquet",
+      "sha256": "68d59f1ac9b208254ccefa43a9b4a904b4755675ff9131208aaa5efbf2c2f9bc"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\STRESS\\A_PLUS_DIRECTIONAL\\daily.parquet",
+      "sha256": "b2c5e405b211b252865566bf1ef7c42799ccac305ff018f8046e8611aef67b76"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\STRESS\\A_PLUS_DIRECTIONAL\\trades.parquet",
+      "sha256": "23c930e48c447b8661e5deae6f35246562480012df5d14877720470b2d70e2fd"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\STRESS\\DIRECTIONAL_ONLY\\daily.parquet",
+      "sha256": "dd6b4f87aa711335689631aa67e1c0f78fc98f505cefed1d862c83f24ae0be24"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2015_2019\\STRESS\\DIRECTIONAL_ONLY\\trades.parquet",
+      "sha256": "ad97b573d8e1cb141ca2e8ade3c5d966e80fad35d996f59bf30e030ac9c07363"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\BASE\\A_PLUS_DIRECTIONAL\\daily.parquet",
+      "sha256": "ae9cfc0cd99d4601f4279f241fe7cb93a391a4d2b6f27194878bbdf5341d2a43"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\BASE\\A_PLUS_DIRECTIONAL\\trades.parquet",
+      "sha256": "8ac27ac9571a239f4c0ab6c7ce0d068265974ec6fdcdd6e99a23f0df802af5d2"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\BASE\\DIRECTIONAL_ONLY\\daily.parquet",
+      "sha256": "cc4fc6ad167f11c7a9640a073d35dd3fb66fa381a18bf5c45fd32495456278de"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\BASE\\DIRECTIONAL_ONLY\\trades.parquet",
+      "sha256": "4e6482da3d6626ce9621c227e03d1f03c52642b25e6ef2da523e208307f15b59"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\STRESS\\A_PLUS_DIRECTIONAL\\daily.parquet",
+      "sha256": "e608eb6819aa0254084ad5cfd60d9795588a981cf9e44f925e361fb99c4ab9a0"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\STRESS\\A_PLUS_DIRECTIONAL\\trades.parquet",
+      "sha256": "7a46e7a343f2816079e3336f5ebe8d0b67b488489370c3456003a0b75bdb7b76"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\STRESS\\DIRECTIONAL_ONLY\\daily.parquet",
+      "sha256": "d01cbb94f6fa92d3df55ad9cb627236981691c1fb08349c5a88be57d81aec191"
+    },
+    {
+      "path": "reports\\research\\510300_point_directional_confirmation_study_v1\\results\\accounts\\2020_2026\\STRESS\\DIRECTIONAL_ONLY\\trades.parquet",
+      "sha256": "8a89bb0c13f921f839d5a71da702418b31836b7c0ddda8f7041c02de13b2b11e"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\protocol.json",
+      "sha256": "b334abfa9a91d85f70657fe730293255c9f3131c36488f6dfec89dda2cbc238f"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2015_2019\\BASE\\B_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "73edcbf9f1a5c51f5ef31a0da8d77b6dce44746bc8eeca3a508a813475870576"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2015_2019\\BASE\\B_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "fbea6daa200b50996eecf4343b41622806207286b1f01c30cc424879e2daee44"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2015_2019\\STRESS\\B_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "2c5d77fad14e2574cf3b8de8792a11d9e8fedfd23d87521a0dbe32221ffa02c6"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2015_2019\\STRESS\\B_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "1a2b32206e590a8322980c067a505bc778f77912240d10f63bb3296b9b1fbe0f"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2020_2026\\BASE\\B_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "02a92e6db98afcd47afa93d7cedbfa437386c3c3bdf2656383c5c90e458f5d21"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2020_2026\\BASE\\B_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "e6132a784dbd04de375bbb95421b34cfc0b86151df9c90daebd1a5ee8f06d826"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2020_2026\\STRESS\\B_SAVED_WEIGHT\\daily.parquet",
+      "sha256": "4d89ec3bb620e84749f9d06db8dc632ba021da65314a7ec0b98e7dd4607630ba"
+    },
+    {
+      "path": "reports\\research\\510300_point_second_weight_comparison_v1\\results\\accounts\\2020_2026\\STRESS\\B_SAVED_WEIGHT\\trades.parquet",
+      "sha256": "055ab7c80401c1ae5ae05f5922449cf8efaa18cfbff8196fd17a546d6e70ee2f"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\protocol.json",
+      "sha256": "19baebd9c0581b8fafef3d04b837c141986a527d3514ccbeaf67f17fa25423f1"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\BASE\\POINT_BINARY\\daily.parquet",
+      "sha256": "2f7e2bb3ff465ad75defcf30fc67d79adf83b650de5301eb5fd264e9153137aa"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\BASE\\POINT_BINARY\\trades.parquet",
+      "sha256": "2ff9196915e7ce231c5ef829d09c1122c2792297f003b32409590bc7ee0a9742"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\BASE\\SAVED_WEIGHT\\daily.parquet",
+      "sha256": "a38cf98feb3e3d7ea4aa52c530188787b84e146a3acf19e51521bf37d3cdfdef"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\BASE\\SAVED_WEIGHT\\trades.parquet",
+      "sha256": "a9113d6e48c9291cf7aaacd9fb14bbf62092efaf9ff14c4cba1159e1f00e7a6b"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\STRESS\\POINT_BINARY\\daily.parquet",
+      "sha256": "ee4ca831128f1c8a07890e243df5f49f14e717ceda66739d6fa962510699877c"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\STRESS\\POINT_BINARY\\trades.parquet",
+      "sha256": "8e4380628b289b417b67d87739f6ea69782c332aba6c7cc44315ca764b4015c1"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\STRESS\\SAVED_WEIGHT\\daily.parquet",
+      "sha256": "b321861a74d36a683e51e37fd06c8c0fb6c47f0f278b2234f5debd43e336c079"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2015_2019\\STRESS\\SAVED_WEIGHT\\trades.parquet",
+      "sha256": "fc67d971d167ac63e71fcebf784deb84b90158441fcf3668b000842310891ab8"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\BASE\\POINT_BINARY\\daily.parquet",
+      "sha256": "65592bcd0f350bab34a191f3c4033dfb7bd0c3a017a086d113035bd702db2c59"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\BASE\\POINT_BINARY\\trades.parquet",
+      "sha256": "65d4005a6174c367102c16b1a2cde7f968de0493f56184b4490b02b254b1d24c"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\BASE\\SAVED_WEIGHT\\daily.parquet",
+      "sha256": "1280d6accbf671989bf91de2a36bb279305cef9c864b2908e7b9587e5dabeadc"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\BASE\\SAVED_WEIGHT\\trades.parquet",
+      "sha256": "5f0ba65c5ad387d714b4016a1c28b207de6164011680f030a477ff6c84111a8f"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\STRESS\\POINT_BINARY\\daily.parquet",
+      "sha256": "1b8d9b6675172c6d790caf1f9e4cbb5943655017a11c4d773149321e3f44e887"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\STRESS\\POINT_BINARY\\trades.parquet",
+      "sha256": "135ecb4f71bbcd85f0bd1be0942ee506137c09fe40844493cbed2106a45b3854"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\STRESS\\SAVED_WEIGHT\\daily.parquet",
+      "sha256": "4dfe515368b3136b8adcf12aa0720219839a5bff69dab67bbab16a0bd8c99b14"
+    },
+    {
+      "path": "reports\\research\\510300_point_weight_information_diagnostic_v1\\results\\accounts\\2020_2026\\STRESS\\SAVED_WEIGHT\\trades.parquet",
+      "sha256": "c0b1f69c43dd13f6dacbfd2bf703c9d226457dc00c9aadfabf1989b4b9c358fd"
+    },
+    {
+      "path": "research\\point_comparable_selection_v1.py",
+      "sha256": "6bf7c833978c95fdfb01f673eb2828434453e00bde52bea494e89b2f567614f0"
+    },
+    {
+      "path": "tests\\test_point_comparable_selection_v1.py",
+      "sha256": "e1a243b48a04bc8aa3224bc1a415ec57a48c1f37bf2d3a8449eb340da18dddd9"
+    }
+  ]
+}

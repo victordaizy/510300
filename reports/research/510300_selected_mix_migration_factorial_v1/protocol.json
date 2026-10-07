@@ -1,0 +1,61 @@
+{
+  "study_id": "510300_SELECTED_MIX_MIGRATION_FACTORIAL_V1",
+  "at": "2026-09-25T13:15:56.771871+08:00",
+  "latest_user_instruction": "不找到不中止",
+  "question": "已观察到的两年日更下降，主要来自退出学习块、参考风险分配块，还是两者交互。",
+  "cells": {
+    "E0_R0": {
+      "daily_exit_block": false,
+      "daily_risk_block": false
+    },
+    "E1_R0": {
+      "daily_exit_block": true,
+      "daily_risk_block": false
+    },
+    "E0_R1": {
+      "daily_exit_block": false,
+      "daily_risk_block": true
+    },
+    "E1_R1": {
+      "daily_exit_block": true,
+      "daily_risk_block": true
+    }
+  },
+  "exit_block": "E0为原月度模型和入场锁定周期内系数；E1为已保存三类共享两年每日模型、当日应用及按当日拟合资格路由。",
+  "risk_block": "R0为原月度242日协方差和联合下行参考分配；R1为已实现最近两日历年每日分配。其余价格与风险公式保持。",
+  "common_account": "四格均接同一50%目标上限、五日ES预算、跳空及回撤余量，并统一先算风险可行目标再应用10个百分点带宽。",
+  "contract_status": "只有E1_R1完整符合当前两年日更合同，且直接复用上一轮账户；其他三格仅用于结构诊断，不按结果晋升或恢复旧原版。",
+  "period": [
+    "2020-01-02",
+    "2026-09-16"
+  ],
+  "capital": 200000,
+  "annual_days": 242,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "primary_contrasts": [
+    "E1_R0-E0_R0",
+    "E0_R1-E0_R0",
+    "E1_R1-E1_R0-E0_R1+E0_R0"
+  ],
+  "statistics": "完整同日账户算术年化收益差，20日循环区块2000次、种子20260929；区间描述，不声明完整家族选择校正。",
+  "attribution": "两个结构块同时包含多个原先已声明的接口，比较不将影响归因于某个单独特征或某个参数。账户现金与风险反馈属于各反事实路径的一部分。",
+  "new_model_fits": 0,
+  "new_internal_graph_accounts": 44,
+  "new_terminal_accounts": 6,
+  "reused_terminal_accounts": 2,
+  "new_parameter_grid": 0,
+  "goal_achieved": false,
+  "new_market_collection": false,
+  "orders_authorized": false
+}

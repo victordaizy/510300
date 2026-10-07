@@ -1,0 +1,72 @@
+{
+  "at": "2026-09-25T23:14:17.040719+08:00",
+  "study_id": "510300_REPO_SEGMENTATION_DAILY_V1",
+  "question": "同一上午全市场与银行子样本的七天定盘差，能否改善价格弱势后修复与持续恶化的区分？",
+  "primary": "PRICE_AND_REPO_SEGMENTATION",
+  "control": "PRICE",
+  "mean_reference": "HISTORY",
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "capital": 200000,
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "targets": {
+    "sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "single_new_information": "FR007-FDR007，单位百分点；不变换方向、不取最优期限或最近变化，不作为R007、DR007或中性利率的替代。",
+  "interpretation": "该差同时包含参与者及抵押品范围的差异；不能直接识别纯非银资金成本、国家队资金或未来股票方向。",
+  "known_at": "价格至前一A股收盘；官方上午定盘按当日12:00计划可用，合并到执行日09:00；仅最近7自然日的最新完整同日差可用。历史首版和首次实际送达未认证。",
+  "price_features": {
+    "pressure5": "负的过去五日含分红对数收益除以rv20乘sqrt(5)",
+    "trend20": "过去二十日含分红对数收益除以rv20乘sqrt(20)",
+    "log_rv5_rv60": "五日/六十日均方根波动之比取对数"
+  },
+  "training": "每个交易日只用向前两个日历年内的原点；五日退出开盘严格早于当前执行日。最少252个共同成熟原点，价格和新增信息使用完全相同训练池。",
+  "model": "复用已有固定126近邻经验分布：训练均值和样本标准差标准化、截断[-5,5]、欧氏距离，并列以较早原点优先。HISTORY为同池均值和分布；不拟合或扫描k、缩放、窗口。",
+  "label": "执行日开盘买入至第五个后续交易日开盘的含已获股息权益收益，不含开盘前涨幅；重叠标签不是独立机会。",
+  "account": "两个候选各BASE/STRESS成本，连续四账户；允许五日价格弱势时新增库存。每日枚举100份目标，最大化w*mu5-2*w^2*var5-调整成本及退出储备；决策均使用压力成本。",
+  "risk": {
+    "maximum_position_fraction": 0.5,
+    "five_day_ES95_fraction": 0.025,
+    "gap_stress": -0.1,
+    "gap_budget": 0.05,
+    "drawdown_headroom_share": 0.5,
+    "drawdown_stop": 0.1,
+    "fees": "先扣估计调整费用再算风险预算；尾部和跳空损失另加未来退出费用。开盘只能缩小买入数量。"
+  },
+  "execution": "固定09:00判断、09:30开盘成交，100份、tick0.001、T+1、分红权益分账、现金和涨跌停限制；旧账户引擎复用。缺信息最长保留5日，不新增；10%回撤后本轮不恢复。",
+  "terminal": "最后日期照常决策、收盘计价，有仓位计压力退出储备，不利用未来截止日提前平仓。",
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "new_final_accounts": 4,
+  "comparison": "主比较新增信息减价格：20交易日循环区块、2000次、seed2026092507；披露全部空仓日、固定2020-2023和2024-末端，以及全部滚动两年。",
+  "prediction_comparison": "共同成熟原点的五日均值MSE、5%分位损失；全体及当时五日价格弱势分别报告；不因某个子组更好更换主方案。",
+  "monitor": "固定每5个原点的一相位；只汇入截至当时已退出的标签；至少60个非重叠五日标签，最近60个分位突破率超过15%只记录报警，不据结果改启停。",
+  "development_gate": "主压力账户满足1.2/10%/10%，全账户收益增量95%下界>0且两个固定时期增量均正，才保留开发候选；历史选择和独立验证缺失仍须披露。",
+  "duplicate_boundary": "旧FDR绝对水平/政策利差、DR007减政策利率及操作量研究保留。此次只有同一时钟FR007-FDR007的新字段差值；既有价格分布方法不优化。",
+  "implementation_checks": {
+    "unmatured_and_older_than_two_years_ignored": true,
+    "checked_model_sets": 3
+  },
+  "historical_prices_previously_researched": true,
+  "new_parameter_grid": 0,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

@@ -1,0 +1,180 @@
+{
+  "at": "2026-09-26T06:00:11.577561+08:00",
+  "study_id": "510300_ENTREPRENEUR_SALES_COLLECTION_DAILY_V1",
+  "primary": "PRICE_FUNDING_BANKING_AND_SALES_COLLECTION__FIXED5_NO_ADD",
+  "question": "银行需求与审批条件之外，企业自身收款状况能否区别相似价格压力之后的五日修复分布？",
+  "hypothesis": "信用条件宽松与企业回款良好不是同一事实。回款改善可能减少被迫现金需求，但也可能滞后经济或市场价格，方向与效果只由固定训练规则检验。",
+  "feature": "销货款回笼指数原季值：企业判断良好的比例加0.5乘一般比例。全国工业企业问卷，不是510300成分股财务现金流或股票资金流。",
+  "unused_field": "资金周转指数只做原文定义核对，不参与策略、筛选或事后替换。",
+  "source": {
+    "at": "2026-09-26T05:56:22.383843+08:00",
+    "study_id": "510300_ENTREPRENEUR_CASH_FIELD_ADMISSION_V1",
+    "status": "32_CURRENT_QUARTER_CASH_REPORTS_READY_STRATEGY_NOT_RUN",
+    "quarters": 32,
+    "first_quarter": "2018Q1",
+    "last_quarter": "2025Q4",
+    "unique_effective_release_days": 29,
+    "table_field_counts": {
+      "9": 27,
+      "10": 5
+    },
+    "same_day_releases": [
+      {
+        "quarter": "2023Q3",
+        "known_at": "2024-03-22T23:59:59+08:00"
+      },
+      {
+        "quarter": "2023Q4",
+        "known_at": "2024-03-22T23:59:59+08:00"
+      },
+      {
+        "quarter": "2024Q3",
+        "known_at": "2025-03-21T23:59:59+08:00"
+      },
+      {
+        "quarter": "2024Q4",
+        "known_at": "2025-03-21T23:59:59+08:00"
+      },
+      {
+        "quarter": "2025Q1",
+        "known_at": "2025-07-25T23:59:59+08:00"
+      },
+      {
+        "quarter": "2025Q2",
+        "known_at": "2025-07-25T23:59:59+08:00"
+      }
+    ],
+    "publication_delay_min_days": -16,
+    "publication_delay_max_days": 174,
+    "delays_over_90_days": [
+      {
+        "quarter": "2023Q3",
+        "published_at": "2024-03-22 19:00:55+08:00",
+        "publication_days_from_quarter_end": 174
+      },
+      {
+        "quarter": "2024Q3",
+        "published_at": "2025-03-21 19:00:15+08:00",
+        "publication_days_from_quarter_end": 172
+      },
+      {
+        "quarter": "2025Q1",
+        "published_at": "2025-07-25 20:00:10+08:00",
+        "publication_days_from_quarter_end": 116
+      }
+    ],
+    "bank_and_enterprise_clock_differences": [],
+    "evaluated_market_days": 1633,
+    "available_days_within_120": 1369,
+    "latest_information_asof_last_market_day": {
+      "date": "2026-09-24T00:00:00",
+      "decision_time": "2026-09-24T09:00:00+08:00",
+      "known_at": "2026-01-23T23:59:59+08:00",
+      "quarter": "2025Q4",
+      "age_days": 243.37501157407408,
+      "available_within_120_days": false
+    },
+    "historical_first_vintage_verified": false,
+    "new_accounts": 0,
+    "new_strategy_returns": 0,
+    "current_market_view": "NO_VIEW",
+    "goal_status": "active",
+    "goal_achieved": false
+  },
+  "controls": "共同样本下的价格/银行资金/调查季度对照，及增加贷款需求与审批的对照。主模型再加一项企业收款，不视银行对照为已获验证的优势。",
+  "clock": "银行与企业各按本报告公布日末可用，均不超过120自然日、且最新可见统计季度相同。原季度每份只取当季行，补发不得回填。",
+  "training": "每天最近两日历年且五日退出开盘已过去的共同成熟原点。银行和企业原文的公布时间均不早于两年下界；至少252行、固定126近邻、训练内标准化并截断5。",
+  "quarter_dependence": "一个季度反复填充的交易日不是独立的宏观观察；同时报告实际不同季度数与整季公布间隔区块。",
+  "funding": "复用每个当前两年窗内嵌套重建的FDR007日历残差，不新增资金回归。",
+  "models": {
+    "HISTORY": [],
+    "PRICE_FUNDING_AND_SURVEY_QUARTER": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "survey_quarter_sin",
+      "survey_quarter_cos"
+    ],
+    "PRICE_FUNDING_SURVEY_DEMAND_AND_APPROVAL": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "survey_quarter_sin",
+      "survey_quarter_cos",
+      "loan_demand_index",
+      "loan_approval_index"
+    ],
+    "PRICE_FUNDING_BANKING_AND_SALES_COLLECTION": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "survey_quarter_sin",
+      "survey_quarter_cos",
+      "loan_demand_index",
+      "loan_approval_index",
+      "sales_revenue_collection_index"
+    ]
+  },
+  "traded_models": [
+    "PRICE_FUNDING_AND_SURVEY_QUARTER",
+    "PRICE_FUNDING_SURVEY_DEMAND_AND_APPROVAL",
+    "PRICE_FUNDING_BANKING_AND_SALES_COLLECTION"
+  ],
+  "variants": [
+    "ROLL_NO_ADD",
+    "FIXED5_NO_ADD"
+  ],
+  "account": "仅主新增信息的BASE/STRESS及固定/滚动期限共4个新账户；8个对照在时点、输入、训练池及预测逐值一致后复用原账本。20万元、510300与现金、弱势新增、持仓不加仓。",
+  "control_reuse": "原银行实验已保存的价格资金对照与需求审批对照；共同信息表已逐值一致，执行前还要逐模型核对完整预测，失败即停止复用。",
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "annual_days": 242,
+  "cash_and_risk_free": 0,
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "risk_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "主固定五日对两个信息对照及同信息滚动期限。20日循环区块和季度公布间隔区块各2000次，seed2026092611；两个固定时期及所有年度、滚动两年保留。",
+  "development_gate": "主压力三目标同时通过；对两个信息对照的两类区块下界和两个固定时期增量均正，才列开发候选，仍需独立前向。",
+  "monitor": "每5日固定相位的成熟q05结果，60条窗口跌穿率超过15%记录警报；无报警不表示有收益优势。",
+  "common_information_days": 1793,
+  "future_source_perturbation_pass": true,
+  "control_information_exact_match": true,
+  "new_accounts": 4,
+  "reused_control_accounts": 8,
+  "new_parameter_searches": 0,
+  "new_funding_regression_fits": 0,
+  "new_independent_forward_observations": 0,
+  "historical_first_vintage_verified": false,
+  "current_market_view": "NO_VIEW",
+  "goal_achieved": false,
+  "orders_authorized": false
+}

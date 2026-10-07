@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-26T05:12:42.398087+08:00",
+  "study_id": "510300_HOUSEHOLD_BANK_BALANCE_SOURCE_V1",
+  "source": "复用2018-01至2026-08的104份已保存央行金融统计原文，不新增市场下载。",
+  "fields": [
+    "rmb_deposit_total",
+    "household_deposit",
+    "rmb_deposit_stock_yi",
+    "rmb_deposit_stock_yoy_percent"
+  ],
+  "interval": "每一字段独立按原文识别当月或累计。直接累计优先；当月仅加此前已公布同年累计，每年重置。2022-04另报住户与企业累计，住户字段采用直接累计，其他字段不强行共享其区间。",
+  "feature": "100乘（住户存款年初累计净增－住户贷款年初累计净增）除以当期人民币存款余额；分母为正的规模归一化，不用存款净增作易过零分母。",
+  "economic_limit": "只描述住户银行存贷净增加差额，不能等同国民账户净储蓄、可投资现金、净财富、预期或流入股票的资金。存款利息、房地产交易、理财赎回等均可能影响数值。",
+  "loan_source": "reports/research/510300_rmb_loan_composition_completion_v1/released_loan_composition.parquet",
+  "loan_scope": "仅复用已提取的住户贷款总额；2022-04缺少期限不代表住户总贷款缺失。",
+  "known_at": "原文公布日结束后方可使用，不回填统计月；2023年扩机构范围独立标记。",
+  "training_dependency": "按字段记录构成累计数的报告月份，主变量使用住户存款与贷款依赖的并集；所有依赖供后续两年窗口检验。",
+  "historical_first_vintage_verified": false,
+  "source_parser_pretested_without_stock_returns": true,
+  "new_accounts": 0,
+  "new_market_downloads": 0,
+  "goal_achieved": false
+}

@@ -1,0 +1,22 @@
+{
+  "study_id": "510300_FACTOR96_REPURCHASE_CHANGE_CHAIN_V1",
+  "at": "2026-09-27T18:54:00.326410+08:00",
+  "selection": "完整保留既有54个标题候选。只对用公告编号或原批准日能与既有早期原方案产生候选关系的全部文件，逐段复核变更对象；其余保留缺原方案。另检查终止一词的实际对象。",
+  "schema_exploration": "准备前只读原文及已存元数据，识别多方案提及、待批准、数字跨页和同编号双文档；未读市场价格序列、收益或按绩效挑样本。",
+  "change_documents": 54,
+  "selected_source_documents": 80,
+  "candidate_document_count": 20,
+  "association_rule": "同公司、严格先于变更保守已知时钟的原方案，且原文变更对象条款明确对应。提到原方案或相同批准日仅是候选，不自动认定其用途改变。",
+  "approval_rule": "董事长提议、董事会通过但待股东会、无需股东会的已通过事项分开；拟注销数量不记成已完成注销。",
+  "multi_target_rule": "逐目标保存数量和原方案；一个目标缺原件不妨碍记录另一明确目标，但整篇/全链不标完成。",
+  "clock_rule": "沿用来源保守known_at，不将董事会日期提前当公开日；未证明首次历史发布，所有记录trading_feature_admitted=false。",
+  "same_clock_rule": "同一方案同一时钟多文档保留，未明修订次序不选一个当唯一最新值；不把数量加总两次。",
+  "state_query_scope": "本轮54个候选中的已复核变更，非完整方案存续状态，尚未包含后续批准、登记和全部后续未知公告。",
+  "quantity_rule": "同一页内找数值证据，避免串接页码；预算增加、已实施金额、剩余股份和新成交金额分开。",
+  "free_float_denominator": "MISSING_UNCHANGED",
+  "T12": "NOT_RUN",
+  "new_network_requests": 0,
+  "new_accounts": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

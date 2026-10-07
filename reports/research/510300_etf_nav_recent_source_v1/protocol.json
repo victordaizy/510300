@@ -1,0 +1,54 @@
+{
+  "at": "2026-09-26T01:11:52.967954+08:00",
+  "study_id": "510300_ETF_NAV_RECENT_SOURCE_V1",
+  "range": [
+    "2026-08-10",
+    "2026-09-25"
+  ],
+  "requests": {
+    "eastmoney": {
+      "url": "https://api.fund.eastmoney.com/f10/lsjz",
+      "params": {
+        "fundCode": "510300",
+        "pageIndex": "1",
+        "pageSize": "100",
+        "startDate": "2026-08-10",
+        "endDate": "2026-09-25"
+      },
+      "headers": {
+        "User-Agent": "Mozilla/5.0",
+        "Referer": "https://fundf10.eastmoney.com/jjjz_510300.html"
+      }
+    },
+    "sina": {
+      "url": "https://stock.finance.sina.com.cn/fundInfo/api/openapi.php/CaihuiFundInfoService.getNav",
+      "params": {
+        "symbol": "510300",
+        "datefrom": "2026-08-10",
+        "dateto": "2026-09-25",
+        "page": "1",
+        "num": "100"
+      },
+      "headers": {
+        "User-Agent": "Mozilla/5.0"
+      }
+    }
+  },
+  "maximum_requests": 2,
+  "retries": 0,
+  "timeout_seconds_each": 30,
+  "purpose": "补足最近已核对报价之后缺少的NAV日期，核对ETF折价补偿结论；只采集单位净值，不恢复PCF/IOPV计划任务。",
+  "original_inputs": {
+    "data\\raw\\fund\\510300_nav_daily_raw.parquet": "d5f353a8d7bbcb19b5007e4dcb619d0d854111d1f9641fc368e31b52e5c5369d",
+    "reports\\research\\510300_etf_discount_compensation_probe_v1\\result.json": "8e41536dd2f9202ea8e2c6c2c9ae887a1371e94052e3d33be5ea806cb1e430cc"
+  },
+  "source_hierarchy": "本次基金官网页面经网页工具未能取得内容；使用原历史已有的东财/新浪公开接口，两者匹配不称独立官方首版认证。",
+  "admission": "日期去重且两来源单位净值相差不超过1e-8，重叠日期同旧文件一致；缺失或差异分别保留，不填补。",
+  "publication_time": "只认证本次请求和收取时间；未认证每个历史日期首次公告/送达时钟。",
+  "outside_market_end": "9月25日若有净值但没有已核对价格，只保存净值，不扩展报价或预测标签。",
+  "parameter_changes": 0,
+  "new_accounts": 0,
+  "new_fits": 0,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

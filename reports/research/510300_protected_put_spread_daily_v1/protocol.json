@@ -1,0 +1,129 @@
+{
+  "study_id": "510300_PROTECTED_PUT_SPREAD_DAILY_V1",
+  "created_at": "2026-09-25T10:22:59.830078+08:00",
+  "primary": "MACRO",
+  "capital_cny": 200000.0,
+  "assets": [
+    "SSE_510300_ETF_OPTIONS",
+    "CASH_CNY"
+  ],
+  "observed_underlying": "510300.SH",
+  "evaluation_start": "2021-01-04",
+  "end": "2026-08-14",
+  "targets": {
+    "net_sharpe": 1.2,
+    "net_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "economic_question": "已收取的下行保险权利金在保护、赔付和费用之后是否有补偿；方差预测能否改善该补偿。",
+  "novelty": "两腿认沽信用价差，和旧四腿卖跨式、ETF合成负Gamma库存具有不同现金流；旧结论不改变。",
+  "policies": [
+    "UNCONDITIONAL",
+    "RV",
+    "PRICE",
+    "MACRO"
+  ],
+  "cost_scenarios": [
+    "BASE",
+    "STRESS"
+  ],
+  "clocks": {
+    "decision": "交易日09:00；期权所有选腿及定价原始资料用前两个交易日收盘；价格方差预测用此前已保存的当日09:00预测",
+    "execution": "同日各腿开盘价代理；分别作不利滑点和最小报价单位取整；不同腿并非同步可成交报价",
+    "maturity": "训练标签的退出日严格早于决策日，不能使用当日09:30才出现的退出价格"
+  },
+  "selection": {
+    "standard_contract_identity": "当日官方510300[CP]YYMMMKKKKK代码；M合约单位10000；禁止用晚期快照行权价筛历史",
+    "calendar_dte_on_observation": [
+      30,
+      75
+    ],
+    "target_calendar_dte": 45,
+    "each_leg_prior_volume": 100,
+    "each_leg_prior_open_interest": 500,
+    "short_put_delta": -0.3,
+    "long_put_delta": -0.1,
+    "long_strike": "严格低于空头行权价且同到期；同到期先确定短腿，再选择保护腿；不按价差或收益选期",
+    "expiry_priority": "距45日最近，其次到期日；同腿按Delta距离、行权价、合约代码稳定排序",
+    "forward": "同到期最近平值标准认购认沽收盘价按F=K+C-P还原零利率远期代理；不额外假定未来现金分红",
+    "no_fallback": "选定期限缺少可用远期对时不改用另一期；未读未来结果"
+  },
+  "pricing": {
+    "RV": "当日09:00已保存的20日已实现方差持续值",
+    "PRICE": "已冻结的两年日更价格岭回归方差均值预测",
+    "MACRO": "同历史池价格加资金利差、社融同比三月变化及海外信息的方差均值预测",
+    "fair_value_proxy": "同一个方差用于两腿，零利率Black公式计算无漂移远期下的预期到期赔付代理；不是已证明的物理期望",
+    "tenor_limitation": "未来20日方差预测替代30—75日剩余期限方差，且交易10日后平仓；期限与风险溢价假设均须披露",
+    "gate": "观察日毛净权利金超过模型价差价值加压力往返费用滑点；开盘压力可得净信用额仍需满足预定信用下限",
+    "UNCONDITIONAL": "相同信息覆盖，只要求预计权利金覆盖压力费用，不用模型定价门",
+    "common_coverage": "四政策均须有两条保存方差预测和合格的五日尾部训练分布"
+  },
+  "tail_training": {
+    "window": "最近两个日历年内的候选入场原点，五日标签已成熟",
+    "minimum_rows": 252,
+    "nearest_neighbors": 126,
+    "features": [
+      "log_iv",
+      "log_iv_rv20",
+      "trend20"
+    ],
+    "standardization": "只用当时训练均值和样本标准差，标准化截断[-3,3]，欧氏距离，按原点先后解同距",
+    "target": "每组从入场开盘到五个交易日后开盘的压力净损益/事前最大损失金额",
+    "ES95": "最近邻最差ceil(5%*126)个损益比的平均损失，非独立126次事件；同时记录5%分位",
+    "ES_zero": "取零为下限；最坏损失5%预算始终独立约束数量，不因历史尾部为零放大最坏损失",
+    "update": "每交易日重算，保留训练和邻居原点；方差模型复用原2,722条合格逐期预测，不算新的拟合"
+  },
+  "risk": {
+    "one_position_only": true,
+    "initial_terminal_loss_including_fees_fraction": 0.05,
+    "entry_five_day_ES95_fraction": 0.025,
+    "entry_drawdown_headroom_fraction": 0.5,
+    "holding_sessions": 10,
+    "exit": "第10个后续交易日开盘；不加仓摊平，不因当天另一合约信号替换在仓腿",
+    "planned_exit_expiry_buffer_calendar_days": 5,
+    "size": "09:00冻结整数张数，实际开盘若预算、信用下限或过渡现金不符整组不成交，不按有利价格加张",
+    "capacity": "张数不超过两腿观察日成交量及持仓量最小值的1%",
+    "daily_bound": "已有仓位每日以昨日权益、价差剩余最坏损失和距90%峰值空间复核；必要时开盘只减仓",
+    "daily_bound_is_not_ES": "持有中按整个有保护支付上界管理，入场ES估计不冒充在仓每一天的精确条件ES",
+    "margin": "全持有期保留1.2倍max(价差宽度保证金,认沽单腿保证金)；不预先享受组合申报减免",
+    "leg_order": "先买保护再卖短腿；退出先买平短腿再卖保护；逐腿检查现金不为负",
+    "drawdown": "收盘回撤达到10%后下一可成交开盘退出，终止本轮新增；不是保证回撤上限"
+  },
+  "costs": {
+    "fee_per_contract_per_side": 5.0,
+    "tick": 0.0001,
+    "BASE": "每腿每侧不利max(0.0002,报价0.5%)，再按报价单位不利取整",
+    "STRESS": "每腿每侧不利max(0.0005,报价1%)，再按报价单位不利取整",
+    "cash_interest": 0.0,
+    "annual_sessions": 252
+  },
+  "missing_and_expiry": {
+    "future_missing_not_an_entry_filter": true,
+    "missing_open": "当日不成交，退出等待；已出现无法确定估值/平仓则账户留为不完整，不据此晋升",
+    "missing_close": "优先当日有效结算价标记并记录；再用前次金额连续值且账户不完整，次日请求退出",
+    "expiry_failure": "计划在到期前退出；若未能退出到期则账户不完整并停止收益晋升，不伪造现金结算替代实物交割",
+    "right_censor": "末端候选保留；期末持仓记录市值及压力清算成本储备，不把回测截止提前告知策略"
+  },
+  "evaluation": {
+    "primary_increment": "MACRO-STRESS相对PRICE-STRESS的完整账户日收益",
+    "bootstrap": {
+      "block_sessions": 20,
+      "draws": 2000,
+      "seed": 2026092502
+    },
+    "periods": [
+      "2021-2023",
+      "2024-END"
+    ],
+    "all_rolling_two_calendar_years": true,
+    "shadow_monitor": "固定五日相位的成熟预测，60次窗口中低于预测5%分位的次数触及Binomial(60,.05)上尾1%才告警；只记录，不事后更改启停",
+    "option_premium_not_profit": true,
+    "max_cycle_concentration": true,
+    "all_cash_sharpe": null,
+    "independent_validation": false,
+    "promotion": "三项目标和完整数据账户只是历史候选门；不能据已反复研究的历史声明实盘或独立验证完成"
+  },
+  "new_downloads": 0,
+  "orders_authorized": false,
+  "parameter_search": false
+}

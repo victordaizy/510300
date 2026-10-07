@@ -1,0 +1,48 @@
+{
+  "study": "510300_POINT_C06_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T06:19:55.185840+08:00",
+  "linked_question": "E02单市场字段增量的C06固定实现",
+  "single_change": "原八项固定周期截距岭回归增加close_volume_overhead60一项；目标与训练成员不变。",
+  "hypothesis": "历史成交分布位于当前价格上方的程度，可能补充原动量/回撤/波动摘要对继续收益的解释。",
+  "feature_definition": {
+    "window": 60,
+    "atr_window": 20,
+    "price_coordinate": "各日原收盘/高/低，加截至各自当日已除息现金累计量；前向平移，不用未来分红。",
+    "bins": "当前完整收盘ac[t]为锚，宽度为当日已知ATR20[t]；[ac+ATR,ac+2ATR)与[ac+2ATR,ac+3ATR)两格合计。",
+    "numerator": "包含当前日的最近完整60日中，调整收盘落于这两格的原成交份额总量。",
+    "denominator": "同60日原成交份额总量；每一日必须为有限正数。",
+    "missing": "缺成交份额、不足完整60日或当前ATR<=0均NO_VIEW；无上方观测时为真实0。",
+    "meaning": "日收盘成交量分布代理，不是真实价位逐笔成交、持有人筹码或实际卖单。"
+  },
+  "fixed_training": {
+    "last_mature_cycles": 20,
+    "minimum_cycles": 10,
+    "minimum_rows": 100,
+    "each_cycle_total_weight": 1.0,
+    "ridge_alpha": 1.0,
+    "feature_clip": 5.0
+  },
+  "model_clock": "保留原142月首和自然周期成熟日；实际买入首次收盘固定版本；两次负预测确认。",
+  "source_admission": "只复用原已核对单位与纠正价格的冻结日线，历史仍是开发材料，不增新行情。",
+  "prediction_gate": "同自然原点原收益单位、周期等权MSE；两时期原预测全部配对且MSE严格改善，入场整年块重抽5000次/seed51030074的改进95%下界都>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "原完整有序训练输入及9项、标签、周期权重相同则复用；失败也缓存，不重复尝试。",
+  "economic_gate_if_prediction_passes": "单独冻结应用阶段后，按原20万元/252日全日历/BASE与STRESS、两个时期，净CAGR和净夏普均高于A，实际净pB>1、平均周期收益>0、回撤<=10%；频率是软目标。",
+  "no_rescue": "不因失败换60/20窗口、分箱、价格坐标、方向、正则化、确认次数、标签或跨期门。",
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "orders_authorized": false,
+  "minute_data_used": false,
+  "goal_achieved": false
+}

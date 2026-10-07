@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-01T23:17:49.320723+08:00",
+  "role": "OFFICIAL_CALENDAR_COVERAGE_COMPANION_ONLY",
+  "problem": "旧覆盖分母来自信号行，信号与登记同步漏掉空仓日可绕过完整性判断。新检查先按官方交易日和固定候选产生完整网格。",
+  "historical_missing_dates_found": false,
+  "regression_demonstrated_with_synthetic_data": true,
+  "commands": {
+    "inspect": "research/point_forward_calendar_check_v1.py",
+    "advance": "research/point_forward_calendar_check_v1.py --advance"
+  },
+  "advance_semantics": "调用原观察器接纳新的完整日线并保存真实生成时间，随后强制核对官方日历。不改变原信号规则，不改写既有登记。",
+  "necessary_tests_passed": 9,
+  "program_sha256": "221e457a7048572f17245afb1939f74320720c22d4cbaaf2708890b34ad0d481",
+  "test_sha256": "72b9ee62b56c0872e50edd6b0bdaeaecb6bd94663aad300668e1fc82bf904dfa",
+  "calendar_valid_through": "2026-12-31",
+  "full_coverage_is_financial_validation": false,
+  "descriptive_review_schedule": "每个自然季度最后一个官方交易日，展示整段累计记录和全部现金日；不得首达阈值即宣告通过。",
+  "independent_account_acceptance_schedule": "NOT_PREDECLARED_NO_ADMISSIBLE_PRIMARY_CANDIDATE",
+  "new_strategy_accounts": 0,
+  "model_fits": 0,
+  "parameter_search": 0,
+  "orders_authorized": false
+}

@@ -1,0 +1,44 @@
+{
+  "at": "2026-09-28T17:53:07.844999+08:00",
+  "study_id": "510300_FACTOR96_RAPID_STRUCTURE_V1",
+  "classification": "EXPLORATORY_RAPID_SCREEN_NOT_ACCEPTANCE",
+  "previous_goal_turn": "PROGRESS_104_ACCOUNTS_COMPLETED_AND_NEGATIVE_DIRECTIONS_STOPPED",
+  "previous_round": "510300_FACTOR96_RAPID_CAPITAL_PROXY_V1",
+  "user_priority": "仍只交易510300，换收益机制；先简单检验可行性，有效果才深入；无需交付包。",
+  "hypotheses": {
+    "IF_HHI": "各当日在市IF合约OI占比平方和。按近月名义到期剩余日数分5日桶，只与此前两日历年同桶比较，至少40日，检验HIGH>=70%和LOW<=30%两个方向。另存近月份额，未预设集中一定是多头或空头。",
+    "ETF_MIGRATION_PROXY": "固定三只现成上海沪深300ETF：510300周度份额增幅，减去三只份额差按当周原始收盘价估值后的资金量/前周份额按当周价估值的规模。仅为部分产品周度迁移代理；不冒充完整同指数日频NAV体系。此前两日历年至少52个周观测，HIGH>=70%与LOW<=30%。"
+  },
+  "novelty_and_exclusions": {
+    "IF": "研究OI在合约间的分布，非旧总OI四象限、基差/期限曲线水平或强制抛售耗竭状态；不重跑或救援那些冻结失败。H02/H04的严格分红与持有成本资料不足，本轮不运行。",
+    "ETF": "研究单产品相对同篮子部分产品的份额差，非旧五条总申赎二元规则；G04原卡完整体系仍未验证。固定三只用于现成资料代理，不依结果更换ETF池。"
+  },
+  "expiry_rule": "仅由合约代码年月按第三个周五计算名义到期日，不使用未来最后出现日期。若当日在市任一合约名义到期已过，或非4只合约，则本日缺失。名义日仅用于季节性分组，遇假期不猜实际顺延日期。",
+  "official_references": [
+    "https://www.cffex.com.cn/cn/hs300.html",
+    "https://www.sse.com.cn/market/funddata/volumn/etfvolumn/"
+  ],
+  "source_clock": "无法证明历史逐条首次发布时刻；统一假设T统计在T+1收盘可用，T+2开盘执行。该保守时滞是探索假设，不证明历史真实可得。ETF仅在新周观测的可用日产生一次信号，不前填成每日申赎。",
+  "signals": "两个方向均要求信号当日ETF过去5日总收益>0。PRICE_CONTROL在相同可用日和历史数量门下仅使用该价格条件；BUY_HOLD_50为背景基准，不沿用候选风险停止。",
+  "same_day_information": "分位阈值不包含本次观测；ETF周度差及IF字段均整体延迟一个交易日后才能触发。",
+  "groups": {
+    "IF_HHI": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "ETF_MIGRATION_PROXY": [
+      "2022-02-07",
+      "2023-12-31"
+    ]
+  },
+  "end": "2025-12-31",
+  "sample_reason": "IF采用与上一批一致的2017-2025；周度ETF只从2021开始，至少一年预热，固定2022-02-07至2025年，保留匹配区间基准与两段结果。不得跨区间直接比较两类夏普。",
+  "execution": "复用上一批固定10个开盘间隔、20万/2万、BASE/STRESS成本、现金日、分红、整手与T+1账本；最大仓位50%，ES和10%回撤终止合同不变；现金收益0、年化242日。",
+  "planned_account_scenarios": 32,
+  "new_direction_candidates": 4,
+  "next_stage_filter": "20万STRESS夏普>=0.8、CAGR>=5%、回撤<=10%、入场>=20、两固定子期收益为正，且夏普和CAGR都高于匹配PRICE_CONTROL。只筛选值得深化者，不是最终验收。",
+  "final_goal": "成本后夏普>=1.2、同时报告并检验CAGR>=10%及回撤<=10%，正式达标还需独立验证。",
+  "no_rescue": "不依本轮结果改方向、窗口、阈值、持有期、成本或期间；失败立即结束本次简单用法。",
+  "orders_authorized": false,
+  "delivery_package_required": false
+}

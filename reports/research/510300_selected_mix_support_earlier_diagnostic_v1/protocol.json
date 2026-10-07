@@ -1,0 +1,44 @@
+{
+  "study_id": "510300_SELECTED_MIX_SUPPORT_EARLIER_DIAGNOSTIC_V1",
+  "at": "2026-09-25T14:15:18.873051+08:00",
+  "primary": "SUPPORT_ENVELOPE",
+  "question": "单项外推限制相对不限制外推的两年日更系统，是否在既定2015-2019环境也有同向改善。",
+  "period": [
+    "2015-01-05",
+    "2019-12-31"
+  ],
+  "period_source": "原项目早期诊断固定为2015-01-05至2019-12-31，不根据本轮走势挑选边界。",
+  "evidence": "该段历史曾用于旧研究，不是独立留出；只检验反例，不拼接到2020年起主账户，不据它选择新的规则。",
+  "unchanged_rule": "完全沿用支持范围实验的两年日更记录、八项范围、原系数、价格退出、全部组合层和末端尾部预算。",
+  "account_initialization": "两个末端账户各在2015-01-05以20万元现金开始。原2013参考节点保留原始开始日，原2020主账户节点统一改在本诊断起点开始。",
+  "clock": "全量保存模型中仅选择当日记录，成熟退出索引严格早于当日；已保存范围仅取当日训练成员。五日风险分布按同一已冻结函数在每个历史原点重建，不能借用2020年后的估计。",
+  "terminal": "2019-12-31按正常收盘结算，保留实际未平仓份额，不使用原旧诊断的人工终点开盘平仓。",
+  "primary_comparator": "UNCHANGED_DAILY",
+  "capital": 200000,
+  "annual_days": 242,
+  "targets": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "tail_contract": {
+    "planned_net_rr_minimum": null,
+    "conditional_five_day_ES95_fraction": 0.025,
+    "single_gap_stress_return": -0.1,
+    "gap_stress_loss_budget_fraction": 0.05,
+    "maximum_position_fraction": 0.5,
+    "drawdown_trigger": 0.1,
+    "drawdown_reserve": "以已有收盘权益峰值计算距90%峰值剩余空间，单次10%假设冲击至多消耗其一半；平仓成本计入。",
+    "stop": "收盘回撤达到10%后下一可卖开盘清仓且本轮不恢复；这不是保证最大回撤，跌停与T+1可延迟。"
+  },
+  "new_full_accounts": 4,
+  "new_internal_accounts": 44,
+  "new_reference_accounts": 0,
+  "reference_replays_included_in_internal_count": true,
+  "new_coefficient_fits": 0,
+  "new_parameter_grid": 0,
+  "statistics": "同日完整账户收益差，20日区块2000次，种子20261005；两段的增量分开披露。",
+  "new_market_collection": false,
+  "orders_authorized": false,
+  "goal_achieved": false
+}

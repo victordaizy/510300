@@ -1,0 +1,180 @@
+{
+  "study": "510300_POINT_N04_SOURCE_INTAKE_V1_0_1",
+  "completed_at": "2026-10-02T10:56:01.229889+08:00",
+  "status": "NOT_ADMITTED_N04_COMPLETE_INFORMATION_BLOCK_SOURCE_GATE_FAILED",
+  "decision": "机构重仓代理未绑定/认证；旧申赎和单期指数权重不能替代，末3交易日的完整事前时钟也未绑定。",
+  "source_findings": {
+    "quarter_fact_rows": 56,
+    "old_share_flow_usable_rows": 55,
+    "old_declared_clock_matches": 55,
+    "old_unusable_periods": [
+      "2013Q2"
+    ],
+    "quarter_fact_schema_role": "原表是份额申赎，不含股票持仓/机构身份；原PDF内容是否另有持仓不由此判断。",
+    "legacy_calendar_rows": 4035,
+    "legacy_calendar_min": "2010-01-04",
+    "legacy_calendar_max": "2026-08-14",
+    "legacy_calendar_source": [
+      "SINA_KLC_TD_SH_VIA_AKSHARE"
+    ],
+    "legacy_calendar_retrieved_at": [
+      "2026-08-29T05:57:05.449695+08:00"
+    ],
+    "legacy_calendar_historical_first_delivery": "NOT_ESTABLISHED",
+    "current_2026_calendar_rows": 242,
+    "current_2026_calendar_source_status": "PASS",
+    "current_2026_calendar_retrieved_at": "2026-08-18T22:01:13.048491+08:00",
+    "current_2026_calendar_limit": "2026全年日历不证明2014—2025事前版本，也不定义机构代理。",
+    "original_natural_rows": 1507,
+    "declared_old_report_coverage_rows": 1507,
+    "legacy_calendar_contains_original_rows": 1478,
+    "current_2026_calendar_contains_original_rows": 114,
+    "future_declared_report_reads": 0,
+    "top10_rows": 10,
+    "top10_weight_dates": [
+      "2026-08-12"
+    ],
+    "top10_receipts": [
+      "2026-08-13T00:46:59.287968+08:00"
+    ],
+    "top10_index_codes": [
+      "000300"
+    ],
+    "top10_role": "单期指数前十权重，不是机构重仓股票来源，不向历史回填。",
+    "historical_index_weight_admission": {
+      "status": "BLOCKED_NO_VERSION_PROVEN_PIT_CSI300_WEIGHTS",
+      "structural_gate_pass": true,
+      "version_or_as_of_provenance_gate_pass": false,
+      "snapshot_count_all": 120
+    },
+    "institution_proxy_contract_bound": false,
+    "admitted_institution_proxy_contracts": 0,
+    "full_N04_fields": "NOT_COMPUTED",
+    "full_N04_original_member_support": "NOT_COMPUTED",
+    "prediction_models_registered": 0,
+    "old_contracts": [
+      {
+        "study": "510300_calendar_liquidity_timing_v1",
+        "terminal": "COMPLETED_PRIMARY_TARGET_NOT_MET",
+        "capital_cny": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "cutoff": "2026-08-14",
+        "features": [
+          "weekday_mon",
+          "weekday_tue",
+          "weekday_wed",
+          "weekday_thu",
+          "weekday_fri",
+          "month_phase_sin",
+          "month_phase_cos",
+          "year_phase_sin",
+          "year_phase_cos",
+          "month_ordinal_scaled",
+          "remaining_calendar_days_scaled",
+          "month_first3",
+          "month_last5_calendar",
+          "quarter_first3",
+          "quarter_last5_calendar",
+          "reopen_gap_log",
+          "post_break_first3",
+          "month_edge"
+        ],
+        "source_clock": "EXECUTION_DAY_09_00_ASIA_SHANGHAI",
+        "historical_calendar_first_delivery_proven": false,
+        "saved_primary_metrics": [
+          {
+            "cost": "BASE",
+            "model": "K1_PRIMARY_MONTH_START3",
+            "annualized_return": 0.01463366841027158,
+            "net_sharpe": 0.23885952763520418,
+            "max_drawdown": -0.2560262623989524
+          },
+          {
+            "cost": "STRESS",
+            "model": "K1_PRIMARY_MONTH_START3",
+            "annualized_return": -0.002196457160317741,
+            "net_sharpe": 0.005231207975848414,
+            "max_drawdown": -0.31839311726049563
+          }
+        ]
+      },
+      {
+        "study": "510300_original_quarterly_flow_policy_v1",
+        "terminal": "COMPLETED_PRIMARY_TARGET_NOT_MET",
+        "capital_cny": 200000.0,
+        "annual_days": 242,
+        "evaluation_start": "2020-01-02",
+        "cutoff": "2026-08-14",
+        "features": {
+          "M1_PRICE_FLOW": [
+            "mom60",
+            "sma120",
+            "vol60",
+            "net_units_ratio",
+            "net_units_change",
+            "gross_activity_ratio"
+          ],
+          "M2_PRICE_ONLY": [
+            "mom60",
+            "sma120",
+            "vol60"
+          ],
+          "M3_FLOW_ONLY": [
+            "net_units_ratio",
+            "net_units_change",
+            "gross_activity_ratio"
+          ]
+        },
+        "source_clock": "已公布季报及报送日期之后下一实际交易日",
+        "historical_calendar_first_delivery_proven": null,
+        "saved_primary_metrics": [
+          {
+            "cost": "BASE",
+            "model": "M1_PRICE_FLOW",
+            "annualized_return": -0.015081408626448023,
+            "net_sharpe": -0.013532100451895386,
+            "max_drawdown": -0.4811005120770873
+          },
+          {
+            "cost": "STRESS",
+            "model": "M1_PRICE_FLOW",
+            "annualized_return": -0.016246257525725318,
+            "net_sharpe": -0.020844615493622216,
+            "max_drawdown": -0.4829530334616323
+          }
+        ]
+      }
+    ],
+    "selective_old_source_identities": [
+      {
+        "manifest": "510300_calendar_liquidity_timing_v1",
+        "path": "research/calendar_liquidity_timing_v1.py",
+        "matches": true
+      },
+      {
+        "manifest": "510300_original_quarterly_flow_policy_v1",
+        "path": "research/original_quarterly_flow_policy_v1.py",
+        "matches": true
+      },
+      {
+        "manifest": "510300_original_quarterly_flow_policy_v1",
+        "path": "reports/research/510300_original_fund_subscription_reports_v1/quarterly_share_flow_facts_v1_1.parquet",
+        "matches": true
+      },
+      {
+        "manifest": "510300_original_quarterly_flow_policy_v1",
+        "path": "data/reference/a_share_hs_trading_calendar_2010_2026_v1.parquet",
+        "matches": true
+      }
+    ]
+  },
+  "frozen_sources_unchanged": 38,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "new_market_bars": 0,
+  "financial_metrics": "NOT_COMPUTED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

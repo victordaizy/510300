@@ -1,0 +1,41 @@
+{
+  "at": "2026-09-27T15:55:16.194459+08:00",
+  "study_id": "510300_FACTOR96_ISSUANCE_CATALOGUE_V1",
+  "phase": "CATALOGUE_ONLY_BEFORE_NEW_DOCUMENT_FIELDS_OR_RETURNS",
+  "purpose": "补充M06发行和配股的原公告目录，检查类别检索遗漏；不能由该目录直接构成完整事件日历。",
+  "period": [
+    "2015-01-01",
+    "2025-12-31"
+  ],
+  "companies": 658,
+  "groups": 329,
+  "queries": {
+    "categories": {
+      "keyword": "",
+      "category": "category_pg_szsh;category_zf_szsh"
+    },
+    "issuance_title": {
+      "keyword": "发行",
+      "category": ""
+    },
+    "rights_title": {
+      "keyword": "配股",
+      "category": ""
+    }
+  },
+  "universe": "2015至2025每日点时沪深300成员的完整历史并集，仅用于收集范围；后纳入公司不能提前作为当时成员。",
+  "prior_count_explanation": "此前2192个解禁目录目标涉及526个有匹配公告的发行人，不能把它误当全部历史成员；本轮从完整成员表重新取并集。",
+  "grouping": "股票代码排序后每两家公司一组；事前27=21+6的混合交易所实例及完整文档集合一致支持过滤。",
+  "paging": "每页30，叶窗口最多1500条；首屏总量更高时按日历中点递归分割，不按公告内容或收益选择范围。每个叶窗口须总量稳定、无重复且全部收齐。",
+  "transport": "3并发，单请求连接10秒读取25秒，每次请求后0.35秒；仅传输异常和5xx最多两次，403/429停止新请求，来源错误保留。",
+  "definition_boundary": "类别与标题三路并集只保证已请求过滤器的接收完整，不保证经济发行事件全集；债券、IPO、辅助意见、更正、终止及未知全部分开保留。",
+  "free_float_boundary": "普通流通股、总股本和分级靠档后的调整股本都不自动等于M01/M06自由流通量；当前2024年规则不能后填2015年方法与时点。",
+  "clock": "目录时间、PDF署期、经济发行/缴款/上市日和本次下载时钟需要区分；此阶段只保存目录时间，不宣称首次历史HTTP可得。",
+  "new_accounts": 0,
+  "new_models": 0,
+  "new_returns_loaded": false,
+  "external_review": "NOT_PERFORMED",
+  "goal_status": "active",
+  "goal_achieved": false,
+  "orders_authorized": false
+}

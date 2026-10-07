@@ -1,0 +1,174 @@
+{
+  "study_id": "510300_HISTORICAL_INDEX_MARGIN_CONTRACT_V1",
+  "recorded_at": "2026-10-01T21:56:53.691293+08:00",
+  "previous_goal_turn_classification": "PROGRESS_FROZEN_INDEX_STATE_INCREMENT_RESOLVED",
+  "question": "融资保证金调整为何发生，改变新增还是存量合同，实际融资活动和指数价格是否按同一方向变化？",
+  "research_mode": "HISTORICAL_ONLY",
+  "events": [
+    {
+      "event_id": "R2015",
+      "label": "2015提高",
+      "announcement": "2015-11-13",
+      "effective": "2015-11-23",
+      "effective_first_session": "2015-11-23",
+      "old_margin": 0.5,
+      "new_margin": 1.0,
+      "existing_contracts": "存量及展期沿用原条件，无本次规则强制追加或平仓要求",
+      "reason": "融资交易及规模快速回升，逆周期控制新增杠杆",
+      "source_ids": [
+        "rule_2015",
+        "reason_2015"
+      ]
+    },
+    {
+      "event_id": "R2023",
+      "label": "2023降低",
+      "announcement": "2023-08-27",
+      "effective": "2023-09-08收市后",
+      "effective_first_session": "2023-09-11",
+      "old_margin": 1.0,
+      "new_margin": 0.8,
+      "existing_contracts": "券商可依约下调存量保证金要求，非自动或全体统一兑现",
+      "reason": "促进融资业务功能并支持合理交易需求",
+      "source_ids": [
+        "rule_2023",
+        "reason_2023"
+      ]
+    },
+    {
+      "event_id": "R2026",
+      "label": "2026提高",
+      "announcement": "2026-01-14",
+      "effective": "2026-01-19",
+      "effective_first_session": "2026-01-19",
+      "old_margin": 0.8,
+      "new_margin": 1.0,
+      "existing_contracts": "存量及展期沿用原条件，无本次规则统一强制降仓要求",
+      "reason": "融资交易活跃、流动性相对充裕，逆周期降低新增杠杆",
+      "source_ids": [
+        "rule_2026",
+        "reason_2026"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "rule_2015",
+      "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20151113_4012108.shtml",
+      "publication_date": "2015-11-13",
+      "required": [
+        "100%",
+        "2015年11月23日",
+        "展期"
+      ]
+    },
+    {
+      "id": "reason_2015",
+      "url": "https://www.csrc.gov.cn/csrc/c100029/c1000218/content.shtml",
+      "publication_date": "2015-11-13",
+      "required": [
+        "1.14万亿元",
+        "9041亿元",
+        "追加保证金",
+        "预先缴款"
+      ]
+    },
+    {
+      "id": "rule_2023",
+      "url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/repeal/rules/c/c_20250616_10805180.shtml",
+      "publication_date": "2023-08-27",
+      "required": [
+        "80%",
+        "收市后",
+        "可用余额",
+        "尚未了结"
+      ]
+    },
+    {
+      "id": "reason_2023",
+      "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20230827_5725661.shtml",
+      "publication_date": "2023-08-27",
+      "required": [
+        "125万元",
+        "约定",
+        "存",
+        "80%"
+      ]
+    },
+    {
+      "id": "rule_2026",
+      "url": "https://www.sse.com.cn/lawandrules/sselawsrules2025/trade/specific/margin/c/c_20260114_10805174.shtml",
+      "publication_date": "2026-01-14",
+      "required": [
+        "100%",
+        "2026年1月19日",
+        "展期"
+      ],
+      "local": "reports/research/510300_participant_identity_clock_v1/raw/margin_rule_20260114.html"
+    },
+    {
+      "id": "reason_2026",
+      "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/c/c_20260114_10805178.shtml",
+      "publication_date": "2026-01-14",
+      "required": [
+        "80%",
+        "100%",
+        "相对充裕",
+        "新开"
+      ],
+      "local": "reports/research/510300_participant_identity_clock_v1/raw/margin_reason_20260114.html"
+    }
+  ],
+  "sample_selection": "由原2026年案例追溯同一最低融资保证金比例的2015提高、2023降低、2026提高三个已确认调整。公告与实施各一锚点，共三条政策链，不声称穷尽所有融资监管措施。",
+  "novelty": "不是重做融资收缩/偿还量过滤器；比较公告与预先已知的生效日、新旧合同适用范围、机械融资容量与实际买入/偿还的区别。",
+  "duplicate_evidence": [
+    "research/factor96_margin_repair_v1.py",
+    "reports/research/510300_historical_collateral_relief_cases_v1/result.json",
+    "reports/research/510300_participant_identity_clock_v1/研究结论.md",
+    "reports/research/510300_daily_supply_test_v1/研究结论.md"
+  ],
+  "return_windows_sessions": [
+    5,
+    20
+  ],
+  "primary_horizon": 5,
+  "entry_clock": "公告仅有日期，按日期结束后的下一交易日开盘；实施日早已公告，按首个适用新规则的交易日开盘。2023年9月8日收市后生效，首个适用交易日为9月11日。",
+  "entry_quantity": 10000,
+  "entry_quantity_rule": "所有事件固定10000份，数量不按实现开盘价决定；没有行情过滤器。只是事件收益测量，不是完整账户、融资交易或实际成交证明。",
+  "exit_clock": "入场后第5或第20交易日开盘，保持原固定期限，不优化。",
+  "costs": {
+    "commission_each_side": 0.0004,
+    "slippage_each_side": 0.001,
+    "minimum_commission_cny": 5.0,
+    "tick": 0.001
+  },
+  "dividends": "入场日及以后至退出前的权益登记日产生应收；退出时未到账单列应收，不当成已经可用现金，不重投资。",
+  "financing_windows": "分别对每个锚点取前5日与从锚点开始5日；需要前一期余额以计算余额差。后5日只解释已发生传导，不用作同次入场信号。",
+  "financing_scope": "统一比较沪市汇总；2015/2023复用已验证文件的沪市列，2026定向请求1月官方汇总。沪市不等于两市或沪深300成分融资。",
+  "implied_repayment": "融资买入额减融资余额变化；包括直接还款、卖券还款、强平及权益调整，不能识别纯强平。",
+  "missing_data": "若2026官方汇总不可得则保留缺失，不用新闻估数填日线。最多一次初始请求和一次相同参数技术重试。",
+  "source_snapshot_semantics": "今日回取的历史官方档案；保存原始文件及来源。公告日期不冒充精确首次分钟，统计日不冒充历史公开日。",
+  "independent_validation": false,
+  "historical_prices_previously_seen": true,
+  "new_strategy_accounts": 0,
+  "parameter_grids": 0,
+  "no_parameter_rescue": true,
+  "causal_effect_identified": false,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "files": {
+    "market": {
+      "path": "reports/research/510300_macro_dynamic_reframe_v1/inputs/market.parquet",
+      "sha256": "d2fc3d36f28806ee98c4cd54a752fcc25066e8b544e9d8c93caa2de9e2b86b68"
+    },
+    "margin": {
+      "path": "reports/research/510300_factor96_crowding_overlay_v1_0_1/inputs/margin.parquet",
+      "sha256": "6b63f48629cb5404383fa97000702c52209dd68fd434cc4a8f813ed2526ef7e1"
+    },
+    "dividends": {
+      "path": "data/reference/510300_dividends.csv",
+      "sha256": "a96afe27e62bdd7d60485c2ebb44f2ff7e5010dca1f5cae5dc2441e53b7ae06d"
+    }
+  },
+  "stop": "完成三条政策链的原因、合同范围、融资量与固定回报比较；仅靠同向不新增账户，不把六锚点当六个独立事件。"
+}

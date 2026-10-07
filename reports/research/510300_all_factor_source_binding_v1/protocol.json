@@ -1,0 +1,67 @@
+{
+  "study_id": "510300_ALL_FACTOR_SOURCE_BINDING_V1",
+  "registered_at": "2026-10-06T13:17:21.980973+08:00",
+  "registration": "TECH.R251",
+  "decision": "TECH.R252",
+  "purpose": "将全部30原案例的估值/盈利/主线实际覆盖、版本限制和未来真实官方输入分开；不把解释分当预测。",
+  "sources": [
+    {
+      "key": "cases",
+      "path": "reports/research/510300_all_factor_joint_scorecard_v1/results/全部30历史案例_联合解释分与覆盖.parquet",
+      "sha256": "2cafd6a4b2cdab2425cc17360302df0e93d12807949952a5caf33f3fd41f49ac"
+    },
+    {
+      "key": "daily",
+      "path": "reports/research/510300_macro_technical_first_passage_v1_clock_adapter/results/全部3488当时已知技术与宏观_未知保留.parquet",
+      "sha256": "12bc155a37c4c6b54f9cf85597b5b02024ac3a90fe2ec91774685cbeec7329ae"
+    },
+    {
+      "key": "valuation",
+      "path": "reports/research/510300_historical_index_valuation_repricing_v1/daily_valuation.parquet",
+      "sha256": "34cf75956a0898045ce3c27fb718fcf6cd1a7a43aae37186a7f2b8aeb2e2faf5"
+    },
+    {
+      "key": "valuation_definition",
+      "path": "reports/research/510300_historical_index_valuation_repricing_v1/definition_evidence.json",
+      "sha256": "415dc102edc4c7c46a577d7f828e4d388e55f4e8e59b7cc87e32b4d14ed3bfe4"
+    },
+    {
+      "key": "earnings",
+      "path": "reports/research/510300_historical_index_earnings_population_v1/aggregates.parquet",
+      "sha256": "ad1c2310223ef89a2db9534990e6e8d6fae69d34e4abed28227b899b745f3020"
+    },
+    {
+      "key": "earnings_result",
+      "path": "reports/research/510300_historical_index_earnings_population_v1/result.json",
+      "sha256": "aa294055e4c0cb4da5cbe7fc652305b7e0bb587ff2658873119c0c7aa6ad2a64"
+    },
+    {
+      "key": "mainline",
+      "path": "reports/research/510300_broker_mainline_source_preflight_v1/summary.json",
+      "sha256": "46aa2c77d377db100f50c134ec2a4399e51deb1197d4f5a7aa607aa3330f846e"
+    },
+    {
+      "key": "industry_builder",
+      "path": "scripts/collect_a_share_hs_concentrated_low_risk_trend_v1_1_inputs.py",
+      "sha256": "8cd553555bd545da8cf71f76b1769202ffcb0b53e10e77ece2a94f26b0f358fe"
+    }
+  ],
+  "code_sha256": "1c50c7ccdfabb78c3dab91181187f941d5e0f7b480c40256b99f6519dd65c0a7",
+  "single_quote_request": {
+    "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf",
+    "params": {
+      "indexCode": "000300",
+      "startDate": "20260930",
+      "endDate": "20260930"
+    }
+  },
+  "single_current_factsheet_request": "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300factsheet.pdf",
+  "network_attempts": "各一个本机请求，失败保留，不历史批量查询或换源重试。网页工具先前仅作定位。",
+  "historical_binding": "估值仅上一实际交易日且原旧可得上界不晚于点位；只是当前版本解释。盈利只选当时最新完整报告期，后更新明确排除预测；行业生成时间戳不认证原公布。",
+  "current_binding": "当前简表明确原统计日与指标标签；实际取得时间为使用上界，不回填9月30日或30历史案例。API原peg仅同日同值核对，不能把P/PE叫真实盈利。",
+  "raw_history_role": "DEVELOPMENT_RETROSPECTIVE_CONTEXT_NOT_PIT_PREDICTIVE",
+  "historical_model_admission": "NOT_ADMITTED",
+  "new_models": 0,
+  "new_accounts": 0,
+  "goal_achieved": false
+}

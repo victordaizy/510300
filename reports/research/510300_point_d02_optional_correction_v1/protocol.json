@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-02T21:47:52.398540+08:00",
+  "study": "510300_POINT_D02_OPTIONAL_CORRECTION_V1",
+  "protocol_decision": "TECH.R136",
+  "result_decision": "TECH.R137",
+  "candidate_configurations": 1,
+  "fields": [
+    "negative_gap_absorption",
+    "signed_overnight_gap"
+  ],
+  "hypothesis": "原严格负隔夜缺口被当日日内正经济log收益吸收的比例及原有符号缺口，在两项均有定义时能否补充原八项周期内继续价值。",
+  "field": "0.001整数报价/现金单位严格核验，deltaCO=open_units+cash_units−prev_units；rCO=log1p(deltaCO/prev_units)，rOC=log1p((close_units−open_units)/(open_units+cash_units))。固定negative_gap_absorption=max(rOC,0)/abs(rCO)仅deltaCO<0，signed_overnight_gap=rCO。保留大于1，真0有效，不压单分。",
+  "clock": "原raw开收盘及当日已除息现金，前收盘等于上一实际收盘；rCO+rOC=原total_log，total_simple与前向wealth身份一致，首个市场点区间未知。完整收盘后可知，下一合法开盘执行；未使用未来现金/行情或回溯复权。原T完整收盘15:05可用，下一合法开盘应用；字段形成不读取收益目标，拟合只复用已成熟原目标。",
+  "different_function": "原TECH.R94仅裁决两列直接追加的全原成员支持，0收益模型拟合；另可选两系数函数保留全部原成员和原缺口值/吸收NaN，完整输入才活动、联合不完整精确沿用核心。不重开HIGH/LOW、gap_recovery、DAILY_01或PCA吸收率旧用途；不是新物理信息或独立证据。",
+  "original_members": "原1507状态及142月115可用27未知、全部成熟训练成员/原标签/周期总权重1；最近20/至少10周期100行、原入场锁定与核心尺度/截距保持。",
+  "fit": "仅原negative_gap_absorption与signed_overnight_gap两列。原gap有符号：联合已知时严格负；吸收比例非负、真0及大于1均合法，不先log/截断原比例或给分母epsilon。正/零隔夜的吸收NaN及仍已知原gap各自保持，不将两列强制同时NaN或填0。两项完整原训练行按原周期权重标准化clip±5再中心化，其余行修正不活动。全部原行/目标/每周期总权重1、原八项和入场锁定保持。设计与原目标减固定核心预测分别周期内去均值，beta=(Dx.T W Dx+I2)^(-1)Dx.T W Dy，alpha1、新截距0；联合不完整精确返回原核心，原核心未知双方未知。不加缺失指示或条件子样本。",
+  "missing": "源NaN/非有限/非正价格或负现金在纯字段中NO_VIEW；实际原快照闸门拒绝此类异常，不补值。有限有效报价/现金不在0.001网格直接拒绝，不四舍五入修复。严格负隔夜内平/负日内的吸收真0保留；正/零隔夜阶段外吸收NO_VIEW，缺口列仍已知，但两列联合不完整，不填0/epsilon、延续前值或删成员。",
+  "prediction_gate": "完整原配对、周期等权原收益MSE两期均严格改善，入场年块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "economic_gate": "预测门过后另冻结20万元252日BASE/STRESS双期完整账户：净CAGR/净夏普均高于A、实际净pB>1、标准净期望>0、最大回撤<=10%、次数软目标。",
+  "no_rescue": "不改严格负缺口整数边界/当日现金经济log分解/原比例/有符号gap/真0与大于1/原部分未知；不改窗口、维度、成员/目标/方向/alpha/时期/成本/双期门，不加缺失指示/条件子样本，不重跑HIGH/LOW、gap_recovery、DAILY_01或移植PCA失败。",
+  "old_R94_direct_two_field_support_gate_passed": false,
+  "complete_D02_all_member_field_admission": false,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "physical_first_vintage_verified": false,
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "new_return_labels": 0,
+  "new_market_requests": 0,
+  "overfit_removed": false,
+  "goal_achieved": false,
+  "orders_authorized": false
+}

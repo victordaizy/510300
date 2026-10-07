@@ -1,0 +1,94 @@
+{
+  "study_id": "510300_MULTIDIM_LOAN_SURPRISE_SCORE_V1",
+  "frozen_at": "2026-10-02T00:11:55.782523+08:00",
+  "previous_turn_classification": "PROGRESS_FINANCING_SCALE_INTENSITY_DECOMPOSITION",
+  "question": "同一金融数据公布中的贷款预期偏差，是否在订单、资金、融资、指数量价及M2偏差之外，改善其后五日收益的联合历史评分？",
+  "hypothesis": "M2变化同时包含多种资产负债表渠道；贷款净增相对公布前调查的偏差可能补充增长及政策反应信息，作用可能随指数状态不同。贷款净增不等于真实需求或新发放额，不预设正偏差必然利好。",
+  "source_universe": "完整保留原104个月选择表；只解析原先已经选中的Bualuang报告同一中国日历页。截至2025年实际公布的此类报告52份，最早统计月2020年12月。其他来源及缺失月份保留未准入，不新增检索择取不同预测。",
+  "provider_reason": "该来源有可直接对应的人民币贷款项目、统计月份、单月或YTD标记、Survey与Actual列。先固定统一表格来源，再做收益计算；这不是完整市场共识或独立验证。",
+  "expectation": "匹配New Yuan Loans CNY或New Loans CNY，当月月份必须一致，Survey为数值，Actual为--。报告日期严格早于金融数据公布日期；同一已选日历页无唯一合格行则缺失。单位b为十亿元人民币，乘10转亿元。",
+  "actual": "复用既有官方原文贷款账本，单月预期优先当月直接披露，否则用当时已经公布的累计端点作差；YTD预期只匹配相同年初至当月。当前和以前公告的舍入界及表达式全部保留，不用后来修订年表。",
+  "new_feature": "先算同区间贷款实际减事前调查，扣去两者显示舍入误差合计的半宽；剩余有符号最小幅度除以上一统计月已公布人民币贷款余额，再乘10000。落在显示精度范围内记0，来源缺失仍缺失。此基点用于统一规模，不是贷款增速。",
+  "scope_break": "保留2023年统计范围扩展及累计差混合版本标志。不将相对调查偏差称为真实需求冲击，也不把舍入界当作修订误差上限。",
+  "information_clock": "决策在金融统计公开日23:59:59；状态及五日标签复用官方纠正后的原月度输入，资金和融资时钟不变。每次公布一条样本，不将同一月值向后复制成每日独立事件。",
+  "features_control": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期"
+  ],
+  "features_joint": [
+    "订单水平",
+    "订单月度变化",
+    "资金利率与政策利率差",
+    "融资五日净变化",
+    "融资买入活跃度",
+    "指数趋势强度",
+    "短长波动比",
+    "成交活跃度",
+    "M2公布相对事前预期",
+    "贷款预期偏差超出显示精度的余额基点"
+  ],
+  "model": {
+    "max_depth": 2,
+    "min_samples_leaf": 6,
+    "random_state": 20261001
+  },
+  "training": {
+    "lookback_sessions": 504,
+    "minimum_mature_events": 12,
+    "label_availability": "退出开盘不晚于当前决策截止"
+  },
+  "comparison": "同一合格事件、同一成熟训练池和同一树复杂度：九变量原状态与M2对照、增加贷款偏差的十变量树、十变量岭回归alpha10、同池历史均值。只比较这一次，不加深树、不换阈值。",
+  "score": "当次模型预测相对训练池拟合值的中位百分位，0至100，不是上涨概率；五个固定20分档全部保留。",
+  "opportunity": "分数>=80且预测净收益>0，前一机会退出之前不新增，固定10000份、公布日后的次开盘进入、5个开盘间隔后退出；原压力佣金和滑点标签原样沿用。",
+  "primary_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "earlier_context": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "account_admission": "主要期联合高分机会净均值为正，且新增字段至少改变一个主要期预测时，才另行固定完整账户；否则停止该表达。报告误差和与对照的差异，不把高分数或正均值单独称为目标完成。",
+  "new_parameter_searches": 0,
+  "new_source_downloads": 0,
+  "new_accounts_in_this_stage": 0,
+  "old_research": [
+    "八项状态加M2的月度树已完成但无M2增量",
+    "三项价格加M1-M2预期差的旧岭回归已拒绝",
+    "社融政府债构成加资金条件的旧近邻账户已拒绝",
+    "贷款及社融预期的三病例此前仅作构成说明"
+  ],
+  "selection_history": "多个历史结果与价格已经被研究，本轮是新增已选原报告字段的开发比较，不能称独立验证；原有失败规则、资金缺失和前瞻暂停不改动。",
+  "inputs": [
+    {
+      "path": "reports/research/510300_money_consensus_increment_v2/inputs/104个月共识选择.csv",
+      "sha256": "a54366fe043f66ebc0d365a1f8125d238e21670546816efc301a6fdbae296d79"
+    },
+    {
+      "path": "reports/research/510300_money_consensus_increment_v2/sources/selected_numeric_sources.json",
+      "sha256": "d11c33923e3318bf22c99a1d4bd55d66465302387e39704fcbaa6860c57b7355"
+    },
+    {
+      "path": "reports/research/510300_macro_transmission_context_v4/inputs/loan_originals.json",
+      "sha256": "d551a271a249b127c4107c7dec27848804cdfd14b1fd4b4412fbb5fab548a65c"
+    },
+    {
+      "path": "reports/research/510300_credit_recency_structure_v23/inputs/originals.json",
+      "sha256": "d551a271a249b127c4107c7dec27848804cdfd14b1fd4b4412fbb5fab548a65c"
+    },
+    {
+      "path": "reports/research/510300_multidim_financing_composition_v1/data_correction/monthly_score/月度事件联合状态及标签.parquet",
+      "sha256": "fd1a8790e68f3705523f4225a2dd68442df9d291a9dc52c9759bc79f12aeb4dd"
+    }
+  ],
+  "goal_achieved": false,
+  "orders_authorized": false,
+  "current_view": "NO_VIEW"
+}

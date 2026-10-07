@@ -1,0 +1,99 @@
+{
+  "study_id": "510300_FACTOR96_CROSSBORDER_ABSORPTION_V1",
+  "at": "2026-09-27T13:18:56.027601+08:00",
+  "primary": "FULL",
+  "new_candidates": 1,
+  "periods": {
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "policies": [
+    "PRICE_COMMON",
+    "POSITIVE",
+    "FULL",
+    "OVERREACTION"
+  ],
+  "extra_delay_policies": [
+    "POSITIVE",
+    "FULL"
+  ],
+  "expected_accounts": 48,
+  "hypothesis": "海外正信息已出现，但A股完整首日正涨幅仍比此前模型预计低一个残差标准差，余下吸收可能延续。",
+  "counterevidence": "ASHR溢价、汇率与非同步时钟可造成回归残差；低反应不必延续，亦可能当地信息更弱。",
+  "foreign_asset_choice": "ASHR同样跟踪沪深300；选择基于底层对应，不在FXI/MCHI/KWEB中比较绩效择优。",
+  "us_return": "之前A股开盘前至当日开盘前新完成的所有美国日线之现金分配总收益连乘，转对数；无新增美国时段则缺失，不填零。",
+  "us_clock": "每个美国交易日纽约17:00视为可得，按America/New_York处理夏令时；只读取当日中国09:20以前完成的值。",
+  "fx_clock": "官方当日09:15中间价，09:20模型可用；两相邻A股日均须有当日发布，取对数比；它是中间价控制量而非可交易外汇收盘价。",
+  "model": {
+    "method": "OLS_WITH_INTERCEPT",
+    "predictors": [
+      "ashr_log_return",
+      "fx_log_return",
+      "prior_a_log_return"
+    ],
+    "window_calendar_years": 2,
+    "minimum_training_rows": 252,
+    "update": "EVERY_TRADING_DAY_BEFORE_OPEN",
+    "training_last": "严格早于当日，完整首日标签已成熟",
+    "response": "log((510300收盘+当日除息现金)/前收盘)",
+    "sigma": "训练残差平方和除以n-4后开方",
+    "regularization_or_search": false
+  },
+  "entry": "FULL=model_known且首日总收益>0且ASHR区间总收益>0且实际首日收益<预测-1sigma；16:00确认，下一A股日开盘。",
+  "controls": {
+    "PRICE_COMMON": "相同来源和模型覆盖，只要求A股首日总收益>0",
+    "POSITIVE": "再要求ASHR区间总收益>0，不要求残差",
+    "OVERREACTION": "同正信息、正A股首日，但反应>预测+1sigma；竞争解释对照，不能替换失败主方案"
+  },
+  "exit": "收盘财富价严格低于冻结首日财富最低价，或入场后5个开盘间隔，或共同账户风险触发，下一可成交开盘退出。",
+  "event_overlap": "每次完整首日代表一个新观察；持仓期不加仓，忽略同期新入场观察。所有来源合格和不合格日均保留。",
+  "extra_delay": "整体事件和残差额外等待1个A股日，最新收盘仍不低于首日低点；当天风险估计不回退。不能晋升延迟对照。",
+  "account": "510300/人民币现金；现金利率0，100份整手，T+1，方向涨跌停、最低5元佣金、滑点向不利方向取整，分红权益与期末退出成本准备。",
+  "risk": "复用冻结两年成熟5日ES95每日估计、50%最高目标、2.5%ES预算、10%跳空下5%损失预算、剩余回撤空间折半及10%回撤停机。",
+  "acceptance": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "both_capitals_stress_required": true
+  },
+  "bootstrap": {
+    "primary": "FULL_MINUS_POSITIVE",
+    "secondary": "FULL_MINUS_PRICE_COMMON",
+    "period": "MAIN",
+    "capital": 200000,
+    "cost": "STRESS",
+    "block": 20,
+    "draws": 4000,
+    "seed": 20260930
+  },
+  "selection": "新候选库第5个固定主问题，历史在旧研究中已观察；对照与延迟不是独立新候选。",
+  "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY",
+  "forward_observations": 0,
+  "stop": "固定主方案失败则保存并停止；不改1sigma、方向、模型窗口、观察时钟或退出，不将表现较好对照晋升。",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "goal_status": "active"
+}

@@ -1,41 +1,7 @@
-# 仓库目录导航
+# 仓库阅读导航
 
-| 目录或文件 | 内容 | 主要存放位置 |
-|---|---|---|
-| `config/` | 研究参数、冻结协议、权限与清单 | Git |
-| `research/` | 各项研究实现 | Git |
-| `scripts/` | 采集、分析、运行和历史交付入口 | Git |
-| `src/`、`backtest/`、`market_data/` | 公共模块与既有依赖 | Git |
-| `tests/` | 原研究测试与新增还原工具测试 | Git |
-| `docs/` | 研究说明、决策记录与仓库维护指南 | Git |
-| `reports/`、`paper/` | 历史报告、结果、回执和证据 | 可读报告在 Git；批量证据在 Release |
-| `data/` | 行情、原始来源、特征、冻结数据和账本 | Release，按原路径还原 |
-| `deliverables/`、`review_packages/` | 历史审阅 ZIP、展开材料和交付说明 | Release，按原路径还原 |
-| `catalog/` | 全部源文件、附件和研究目录索引 | Git |
-| `tools/repository/` | 标准库下载还原与摘要验证工具 | Git |
+[项目状态](PROJECT_STATE.md)、[研究决策](RESEARCH_DECISIONS.md)、[日周线状态](PROJECT_STATE_TECHNICAL_LINE.md)和[日周线研究决策](RESEARCH_DECISIONS_TECHNICAL_LINE.md)保存长期事实。当前具体新增目录和报告见 [本轮更新](UPDATE_20261006.md)。
 
-## 阅读顺序
+本轮只上传新代码、文档和主要结果，原始数据全集、逐日账本全集和历史大包留在本地；省略范围在 [范围说明](UPLOAD_SCOPE.md) 和 [直接引用记录](../catalog/STATUS_REFERENCES_VERIFICATION.json) 中明示。研究复算仍需要协议指定的本地来源，未在此次上传中重跑研究。
 
-1. 阅读根目录 `README.md`，确认快照版本和文件范围。
-2. 通过 `catalog/studies.csv` 找到具体研究目录及报告入口；本轮更新入口是 `docs/UPDATE_20260917.md`，近期汇总是 `reports/research/510300_sharpe_1_2_latest_research.json`；根目录 `RESEARCH_STATUS.md` 保留较早的历史状态。
-3. 按具体报告阅读协议、权限、来源、结果与反证；同一研究存在多个版本时，逐一核对编号与时间，不把旧摘要当成新结果。
-4. 如果报告引用的文件通过 Release 保存，使用还原工具按文件或目录前缀下载。
-5. 需要完整复核时，下载全部附件，再执行 `verify --all`。
-
-## 文件索引的读法
-
-`catalog/files-*.csv` 中的 `path` 是相对原项目根目录的路径；`storage=git` 表示原文件直接在主仓库中，`storage=release` 表示使用 `assets` 列所列附件还原。`sha256` 及 `bytes` 描述完整原文件，不是其分片；附件摘要另见 `catalog/assets.json`。
-
-已有文档中可能包含来源电脑的绝对路径或当时的外部链接。它们属于冻结内容，因此没有批量改写。查阅时可根据路径中 `New project 8` 后的相对路径在文件索引中定位；还原工具将材料写到当前仓库根目录。
-
-## 原始大包
-
-大于单个附件容量目标的原包被切为 `.bin` 分片。分片不是独立 ZIP，不应分别解压。还原工具按索引顺序拼接，并验证原始 ZIP 的 SHA-256，然后恢复原来的中文或英文文件名。
-
-## 当前检查的实际范围
-
-CI 检查所有原始 Git 文件的大小和摘要、附件映射结构，以及还原工具的关键行为。它不下载全部历史数据、不运行研究模型，也不把结构检查称为安全审计、科学有效性结论或外部 GPT 审阅。
-
-本次独立回读本轮新附件内的 33,403 个原文件，核对 ZIP CRC、成员集合、大小、SHA-256 和原包分片重组摘要。结果见 `catalog/SAVED_ASSETS_VERIFICATION.json`；历史附件的既有回读结果保存在 `catalog/history/snapshot-2026-09-09/`，并在发布时重新核对复用附件的远端摘要。
-
-还原后的Release材料由 `.gitignore` 中依据索引生成的规则管理。222,395条Release路径全部受到忽略规则覆盖，10,033条原始Git路径没有被误忽略。后续更新发布索引后，可运行 `python tools/repository/update_ignore_rules.py` 重新生成并用Git检查这些规则。
+[累计文件索引](../catalog/README.md)包含已有历史版本及本轮Git文件；旧Release和标签保留原版本。当前目标未实现，TECH.R268拒绝，研究状态和未知项按原件保留。

@@ -1,0 +1,51 @@
+{
+  "study": "510300_POINT_B01_EXIT_PREDICTION_V1",
+  "frozen_at": "2026-10-02T10:18:40.674104+08:00",
+  "candidate_configurations": 1,
+  "hypothesis": "既有五日均线偏离及波动标准化相对原八项是否提供继续自然持仓收益的条件增量。",
+  "information_role": "EXISTING_MA5_BASELINE_TWO_FIELDS_NEW_CONDITIONAL_USE_NOT_NEW_PHYSICAL_SOURCE",
+  "single_change": "原八项同时加入原B01卡raw和标准化两列，共10项；不按效果选版本。",
+  "feature_definition": {
+    "fields": [
+      "ma5_deviation",
+      "ma5_deviation_rv20"
+    ],
+    "P": "原close/previous_close和当日已除息现金前向累乘财富W，初始1。",
+    "raw": "W[t]/mean(W[t-4..t])-1，五完整财富点含当日，跨四差分，有符号不截负。",
+    "rv20": "r=原total_log=log1p(total_simple)，r[t-19..t]20完整经济日收益样本std，ddof1含当日不年化；完整21财富点。",
+    "normalized": "raw/(rv20*sqrt5)，sqrt5保持原卡。",
+    "missing": "真实raw0保留0；缺少5/21财富点、20收益或rv20为0则相应字段/完整块NO_VIEW，不补0或删原行。",
+    "application": "两列各自沿原周期等权标准化/clip5线性加入；无交互、阈值、压分、替换原八项或新增入场规则。"
+  },
+  "fixed_training": {
+    "last_mature_cycles": 20,
+    "minimum_cycles": 10,
+    "minimum_rows": 100,
+    "each_cycle_total_weight": 1.0,
+    "ridge_alpha": 1.0,
+    "feature_clip": 5.0
+  },
+  "unchanged": "原经济标签、全部成熟成员、周期截距、新周期截距等均值、原入场固定版本及两负确认。",
+  "source_clock": "完整当日收盘后可知，全部历史至2026-09-30仍开发校准；不使用分钟数据或新增行情。",
+  "prediction_gate": "同自然原点原收益单位、周期等权MSE；两时期原预测全部配对且MSE严格改善，入场整年块5000次/seed51030082的改进95%下界都>0。",
+  "evaluation_periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "fit_cache": "完整有序10项、标签、成员、周期权重和设置相同才复用，失败缓存不重复尝试。",
+  "economic_gate_if_prediction_passes": "另冻结应用；原20万元252日全日历/BASE及STRESS两时期，新净CAGR和夏普均高于A、实际净pB>1/净平均周期>0/回撤<=10%，频率软目标。",
+  "old_failures": "旧R2、均值反弹辅助、锚定分钟反转、多尺度趋势和压力5原用途及所有技术冻结失败保留。",
+  "no_rescue": "失败不改5/20窗口、坐标、sqrt5、方向、维度、交互、模型、标签、成员、门、时期或成本，不补跑失败账户。",
+  "trial_counting": "一个配置，完整不同成熟输入各一次候选/原对照；复用月份、测试及费用档不是独立试验。",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

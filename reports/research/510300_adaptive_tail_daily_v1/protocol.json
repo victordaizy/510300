@@ -1,0 +1,63 @@
+{
+  "at": "2026-09-25T22:17:34.066332+08:00",
+  "study_id": "510300_ADAPTIVE_TAIL_DAILY_V1",
+  "primary": "ADAPTIVE_TWO_YEAR",
+  "question": "专家的风险估计优劣会变时，只根据当前两年内成熟预测误差调整权重，是否比原模型及固定各半更准确。",
+  "economic_mechanism": "历史经验分布保留长期尾部场景，尺度调整可响应当前波动；预测错误决定风险模型权重，不用随后账户利润反选。",
+  "experts": {
+    "BASELINE": "同原两年动量条件经验五日含分红收益分布，至少60行，否则同窗全部样本。",
+    "VOL20_FILTERED": "同样本以历史原点与当前原点已知20日波动之比调整log(1+r5)，沿用原5%分位数与尾部均值。"
+  },
+  "strict_two_year_training": "每日T取[T-2日历年,T)。内层验证原点S只取最近一年固定五交易日相位，S+6<T；在S的每个专家重新仅用原点>=T-2年且退出索引<S的标签。没有引用当年历史模型的更早训练资料。",
+  "feature_warmup": "沿用各原点已收盘的20日动量和波动特征；短特征预热不当作额外风险标签。真实账户峰值不因训练窗口移动而重置。",
+  "daily_weight": "内层至少40个已成熟非重叠五日验证观察。w_FHS=exp(-mean_FZ0_FHS)/(exp(-mean_FZ0_HS)+exp(-mean_FZ0_FHS))。温度固定为1，不扫描。",
+  "combination": "对两专家的VaR与ES预测分别做同一凸组合。它是预测组合，不能称为两完整分布的精确混合分位数。",
+  "fallback": "内层不足40个成熟有效观察，或任何内层预测不满足FZ0负ES定义，当天权重固定各半；保存全部内层记录，不删除预测失败日。当前专家资料非法则整次运行报错，不能跳日。",
+  "controls": [
+    "BASELINE",
+    "VOL20_FILTERED",
+    "FIXED_HALF"
+  ],
+  "primary_comparators": [
+    "BASELINE",
+    "FIXED_HALF"
+  ],
+  "periods": {
+    "earlier": [
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    "main": [
+      "2020-01-02",
+      "2026-09-16"
+    ]
+  },
+  "evaluation": "复用原评分日期、标签、固定五日相位与完整区间；当期之外才成熟的标签不计入前区间。逐日预测全部保存。",
+  "continuation_gate": "主候选对BASELINE及FIXED_HALF在两个评价区间共四项FZ0均值差95%区间上界均<0，四项平均分位数损失差均<=0，主候选各区间VaR实际跌破率<=10%。全部通过才另立账户协议，失败新账户NOT_RUN。",
+  "statistics": "配对循环区块自助法，每块4个非重叠五日观察，2000次；种子20260925。差值为候选减对照，越低越好；未校正项目级反复研究。",
+  "mechanism_source": "https://public.econ.duke.edu/~ap172/Patton_Ziegel_Chen_JoE_2019.pdf",
+  "source_scope": "论文支持VaR与ES联合评分；本轮软权重、嵌套窗口和门槛是事前固定的研究设计，不是论文已证明适用于510300的结论。",
+  "deduplication": "旧prequential_one_day_tail_discovery_v1是单日持有优势预测的百分位、均值和投票；本轮是两个五日VaR/ES专家按成熟联合评分调整权重。旧downside_reference_pair组合策略仓位，本轮不改信号或仓位。",
+  "selection_history": "本轮在已经看到固定尺度法前期改善而近期无确认后提出。历史区间已反复研究，本结果属于开发证据，不能改称独立验证。",
+  "unchanged": [
+    "全部原价格与分红资料",
+    "两年训练合同",
+    "20日特征窗口",
+    "5%经验尾部估计",
+    "账户尾部预算",
+    "交易成本与T+1规则"
+  ],
+  "parameter_search": 0,
+  "new_regression_fits": 0,
+  "planned_new_accounts_before_gate": 0,
+  "checks": {
+    "expired_and_unmatured_labels_do_not_change_forecasts_or_weights": true,
+    "future_volatility_does_not_change_forecasts_or_weights": true,
+    "constant_volatility_equalizes_experts_and_half_weight": true,
+    "weight_direction_and_numerical_stability": true,
+    "three_dates_reproduce_both_saved_experts": true,
+    "nested_training_and_validation_maturity_order": true
+  },
+  "goal_achieved": false,
+  "orders_authorized": false
+}

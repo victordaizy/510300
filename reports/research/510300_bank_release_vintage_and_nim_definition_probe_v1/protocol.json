@@ -1,0 +1,110 @@
+{
+  "study_id": "510300_BANK_RELEASE_VINTAGE_AND_NIM_DEFINITION_PROBE_V1",
+  "experiment_id": "E31",
+  "registered_at": "2026-10-02T15:05:53.720708+08:00",
+  "previous_goal_turn_classification": "PROGRESS_E29_SOURCE_BREAKS_AND_E30_TWO_FIXED_QUARTER_CAUSE_IDENTITIES_COMPLETED",
+  "question": "E31只核未解决的原季度版本与净息差计算期间：绑定现有官方方法/发布链，有限查2025Q1/Q2及已存Q3发布正文或当期附件版本，判断原公开值、后来更新表与精度差；定义须实际官方说明，不从净利润累计推息差期间。不重试已知403/失败URL、不扩大为31季度面板或新模型。只有取得真实不同的版本/方法证据才继续来源阶段；不能拿当前年度表倒填、按后来收益改期间/字段或因少量季度可读宣布完整原训练池准入。该提案未注册/采集/计算；原完整模型及目标不改。",
+  "hypotheses": [
+    "原季度独立发布正文可能保留当期舍入数值与日期，但不证明当前年度附件当时原版。",
+    "监管方法原件可能给出净息差计算期间；公司或媒体定义不直接代替行业统计定义。"
+  ],
+  "evidence_scope": "2025前三季度原发布/附件版本及官方净息差计算定义；仅缺口来源问题，不是缩小原整体策略验收范围。",
+  "budget": {
+    "directory_queries_max": 2,
+    "new_unique_direct_source_urls_max": 10,
+    "parallel_workers_max": 2,
+    "connect_timeout_seconds": 10,
+    "read_timeout_seconds": 25,
+    "total_download_bytes_max": 16777216,
+    "retry_known_failures": false
+  },
+  "allowed_primary_source_hosts": [
+    "nfra.gov.cn",
+    "cbirc.gov.cn",
+    "pbc.gov.cn"
+  ],
+  "primary_source_rule": "银行监管统计定义优先NFRA/CBIRC；PBOC方法仅明确同一监管指标口径才支持，不将泛称金融/公司口径转移。媒体仅定位，不能准入数值/定义。",
+  "known_failed_urls_do_not_retry": [
+    "https://big5.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1233335&itemId=915",
+    "https://www.nfra.gov.cn/chinese/OFFICE/PDF/1221429.pdf"
+  ],
+  "reused_source_routes": "原保存官方Script.js的apiUrl_cdn与getCDN、ItemDetail.js的docId接口；无需重新下载脚本。",
+  "clock_rule": "经济统计期、正文显示publishDate、docEditdate、当前附件时间与当前下载收件分别保存；不声称首版/首次收件或精确首次公开时刻。",
+  "admission_limit": "少量季度只回答本有限版本/方法问题，不能宣布原完整31季度/全部成熟成员支持。未注册特征或模型，不重开旧失败。",
+  "stop_conditions": [
+    "2查询/最多10新URL或固定下载超时后结束，已知失败URL不重试。",
+    "没有官方同口径定义则净息差期间继续未知。",
+    "当前年度附件不回填、缺口不记0或移除原成熟成员；仅有同值不能证明首版。"
+  ],
+  "parents": [
+    {
+      "path": "reports/research/510300_bank_current_vintage_ratio_cause_identity_v1/next_experiment.json",
+      "sha256": "554584a31fa7d873c18eefb3e41a06267bb34b0dc51d974b1df48b36a30ebb47"
+    },
+    {
+      "path": "reports/research/510300_bank_current_vintage_ratio_cause_identity_v1/result.json",
+      "sha256": "9d72a9d5c8e83aa7d3b0f4731d86744c82456b19ff93ff717754b1da0822577e"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/protocol.json",
+      "sha256": "563cef6ec8045597afdcef3d3898448230f445f606271c6c706404a133bf9705"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/result.json",
+      "sha256": "92eb9edaca2338879687777ecefd36fa66daf8031e8162f3887188afa0e51530"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/source_gate.json",
+      "sha256": "8779825c2b3a5e130f3699c141866eddd2781205fcad74adf01013fea134e985"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/字段定义与已证实断点.json",
+      "sha256": "ca9a16411fd0e2d0cdcd0c3cb6a67c88e7f6336f603e22911ff9a93acc60598d"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/发布正文与年度滚动表时钟.json",
+      "sha256": "d3151e35c65bd4dea4371eec784a2e9b09ed52cb74c06660ac1c81fce19f36f0"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/request_ledger.json",
+      "sha256": "57da8bc4bdf56947838448e476122711aa43e790c43f5a2546bf47c540e1df07"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/官方正文_data_docId=1233335.json",
+      "sha256": "c5c3c37a0410c3ff8df00af3dd38f384ab9a971e0d05849e071bcb3438516fcb"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/官方正文_data_docId=1208453.json",
+      "sha256": "f2156fba16e71f94f24acc1178ee40e504b15e22d444b3857b36d57523278551"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/原表九个拟议字段单元格与格式.json",
+      "sha256": "0cadc7b1df6828297665562b178610efe657cb85d2eb51ba56d4058e04ef71ac"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/9a20b3d34d24444bbdd77a210675a95c.xls",
+      "sha256": "207e58f1e78a59c2452391966e974121691c959bc90347aebbb62e4a61f3254e"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/Script.js",
+      "sha256": "a02779ea0d39ea55a88b79a96f5af8da22a990058c2586649bffa639f72af7e9"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/ItemDetail.js",
+      "sha256": "722c21d828ae65a632275b3c2d4f02b2f4ea8cf2daf520645806901d52c3dae4"
+    },
+    {
+      "path": "reports/research/510300_bank_industry_constraint_source_probe_v1/原研究权限与账户口径快照.json",
+      "sha256": "17335e874287f72c727895967ad58a4eae110f3bcc51af844a35f8639cdcf6dc"
+    }
+  ],
+  "new_fits": 0,
+  "new_training_labels": 0,
+  "new_full_accounts": 0,
+  "source_code_edits": 0,
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "current_view": "NO_VIEW",
+  "position": "UNSET"
+}

@@ -1,0 +1,19 @@
+{
+  "study": "510300_POINT_D02_INFORMATION_INTAKE_V1",
+  "frozen_at": "2026-10-02T13:43:03.415744+08:00",
+  "purpose": "收益拟合前检验固定D02两列直接追加原八项的完整成员支持，不读取未来收益标签。",
+  "registered_definition": "gap=rCO；当gap<0时abs负缺口中被当日正rOC抵消的比例=max(rOC,0)/abs(gap)，同时保留gap规模。",
+  "field_binding": "0.001整数报价/现金单位严格核验，deltaCO=open_units+cash_units−prev_units；rCO=log1p(deltaCO/prev_units)，rOC=log1p((close_units−open_units)/(open_units+cash_units))。固定negative_gap_absorption=max(rOC,0)/abs(rCO)仅deltaCO<0，signed_overnight_gap=rCO。保留大于1，真0有效，不压单分。",
+  "source_clock": "原raw开收盘及当日已除息现金，前收盘等于上一实际收盘；rCO+rOC=原total_log，total_simple与前向wealth身份一致，首个市场点区间未知。完整收盘后可知，下一合法开盘执行；未使用未来现金/行情或回溯复权。",
+  "missing_rule": "源NaN/非有限/非正价格或负现金在纯字段中NO_VIEW；实际原快照闸门拒绝此类异常，不补值。有限有效报价/现金不在0.001网格直接拒绝，不四舍五入修复。严格负隔夜内平/负日内的吸收真0保留；正/零隔夜阶段外吸收NO_VIEW，缺口列仍已知，但两列联合不完整，不填0/epsilon、延续前值或删成员。",
+  "support_gate": "全部1507原自然成员及115原可用月的全部原训练成员两列有限才接纳；142月中27原未知保留。不读取原未来收益target，不建立条件负缺口子样本。",
+  "no_rescue": "不恢复旧HIGH/LOW、DAILY_01、gap_recovery或PCA失败，不按结果更改负缺口边界、现金分解、整数单位、吸收截断、字段维度、缺失/成员/标签/岭/权重/入场锁定/确认、预测/账户门或时期成本；支持未过即结束固定直接增量。",
+  "fixed_operationalizations": 1,
+  "empirical_strategy_configurations": 0,
+  "new_model_fits": 0,
+  "new_return_labels": 0,
+  "new_strategy_accounts": 0,
+  "history_role": "DEVELOPMENT_CALIBRATION",
+  "independent_validation": "NOT_ESTABLISHED",
+  "goal_achieved": false
+}

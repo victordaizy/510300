@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-02T17:37:39.641730+08:00",
+  "study": "510300_POINT_P03_ENTRY_ATR_EXIT_PREDICTION_V1",
+  "technical_decision": "TECH.R113",
+  "candidate_configurations": 1,
+  "hypothesis": "固定入场前真实波幅尺度的当前回撤是否增加原八项继续价值信息。",
+  "features": [
+    "log_holding_days",
+    "cycle_return",
+    "cycle_drawdown",
+    "entry_mode",
+    "mom5",
+    "mom20",
+    "sma120",
+    "vol20",
+    "drawdown_in_frozen_entry_atr"
+  ],
+  "added_field": "drawdown_in_frozen_entry_atr",
+  "formula": "沿旧wilder_atr(raw_high,raw_low,raw_close,14)：TR=max(H-L,abs(H-prevClose),abs(L-prevClose))；首完整14值均值初始化，递推(13*ATR_prev+TR)/14。a_entry=ATR14[entry_index-1]/raw_open[entry_index]；f_t=原cycle_drawdown_t/a_entry。a固定到退出。",
+  "scope": "P03回撤尺度组件，非完整卡认证；不重新使用旧高点时间方向或改变实际入场及预算。",
+  "training": "原最近20完整成熟周期、至少10周期100行、周期等权、alpha1/clip5、周期固定截距及训练周期截距等均值。",
+  "prediction_clock": "实际入场首收盘锁定最近可用原月度版本，保持原8项、目标、全部成员及成熟钟。",
+  "prediction_gate": "两固定时期原可用预测完整配对、周期等权原收益MSE严格改善及入场年份块5000次seed51030099改进95%下界均>0。",
+  "periods": [
+    [
+      "2015_2019",
+      "2015-01-05",
+      "2019-12-31"
+    ],
+    [
+      "2020_2026",
+      "2020-01-02",
+      "2026-09-30"
+    ]
+  ],
+  "new_labels": 0,
+  "economic_gate": "通过后另冻结原20万元252日BASE/STRESS两时期账户；净CAGR与净夏普均高于A，实际净pB>1、标准净期望>0、最大回撤<=10%。次数为软目标。",
+  "no_rescue": "不变ATR14、公式、方向、窗口、阈值、目标、权重、正则化、成员、费用或筛子期营救。",
+  "independent_validation": "NOT_ESTABLISHED",
+  "global_DSR_PBO": "NOT_COMPUTED",
+  "goal_achieved": false
+}

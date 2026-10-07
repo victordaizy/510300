@@ -1,0 +1,111 @@
+{
+  "at": "2026-09-26T03:26:21.935435+08:00",
+  "study_id": "510300_FUNDING_REPURCHASE_DEMAND_DAILY_V1",
+  "primary": "PRICE_FUNDING_AND_REPURCHASE",
+  "question": "实际买入已经发生且被明确披露后，这项信息能否改善相同价格状态和资金意外下的未来五日分布及510300完整账户？",
+  "mechanism_hypothesis": "企业已披露的资本承接可能与其他卖压的持续性不同；披露也可能滞后于买入结束或反映价格下跌后的被动反应，方向由固定历史条件分布估计。",
+  "feature": {
+    "name": "confirmed_repurchase_intensity20",
+    "source_protocol": "reports/research/510300_corporate_repurchase_disclosed_demand_v1/protocol.json",
+    "meaning": "过去20个决策日可确认的正向披露增量/股票此前20日成交额，再乘前一期保存的指数权重并求和。",
+    "unknown": "未识别金额或身份仍未知；无新增已确认披露不是实际回购为零。",
+    "clock": "公告已发布日结束后，最早下一交易日09:00使用；不回填至回购实际发生日。",
+    "fixed_transform": "直接使用已冻结的强度，不搜索窗口、方向、分位阈值或公司子集。"
+  },
+  "funding": "只读复用每个决策日两年窗内重建的FDR007日历模型残差；不使用旧窗参数、不新增资金回归。它不代表NFCI或中性利率差。",
+  "models": {
+    "HISTORY": [],
+    "PRICE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60"
+    ],
+    "PRICE_AND_FUNDING": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation"
+    ],
+    "PRICE_AND_REPURCHASE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "confirmed_repurchase_intensity20"
+    ],
+    "PRICE_FUNDING_AND_REPURCHASE": [
+      "pressure5",
+      "trend20",
+      "log_rv5_rv60",
+      "funding_innovation",
+      "confirmed_repurchase_intensity20"
+    ]
+  },
+  "traded_models": [
+    "PRICE",
+    "PRICE_AND_FUNDING",
+    "PRICE_AND_REPURCHASE",
+    "PRICE_FUNDING_AND_REPURCHASE"
+  ],
+  "training": "最近两个日历年的共同成熟原点，五日退出开盘严格早于当前日期；至少252个原点；训练均值与样本标准差标准化后截断5，固定126近邻，同距以原点编号排序；HISTORY为同池分布。",
+  "account": "四模型各BASE/STRESS，共8个新完整账户；复用固定每日库存引擎、仅五日价格弱势时允许增仓。没有复用覆盖期不同的旧价格账户。",
+  "capital": 200000,
+  "assets": [
+    "510300.SH",
+    "CASH_CNY"
+  ],
+  "period": [
+    "2020-01-02",
+    "2026-09-24"
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "cash_and_risk_free_rate": 0,
+  "risk": {
+    "maximum_position": 0.5,
+    "five_day_ES95_budget": 0.025,
+    "gap_return": -0.1,
+    "gap_budget": 0.05,
+    "drawdown_reserve_fraction": 0.5,
+    "drawdown_stop": 0.1,
+    "execution": "09:00决策，开盘只可缩量；T+1、100份、现金股息分账、费用、末端退出储备沿用原规则。"
+  },
+  "targets": {
+    "stress_sharpe": 1.2,
+    "stress_cagr": 0.1,
+    "max_drawdown": 0.1
+  },
+  "comparisons": "主模型相对三个对照均报告完整账户配对收益差，20日循环区块2000次seed2026092603；同一算法另列从首个共同预测日至最后预测后五个交易日的固定可用期诊断，不替代全期目标。",
+  "availability": "资料缺失或训练不足均保留NO_VIEW。全期保留对应现金日，不把没有实际运行信息的2020-2023写成策略平稳期。",
+  "calendar_year_diagnostics": "逐年公布共同预测日与完整账户；不足126个预测日的年份标记证据不足，不宣称跨状态稳定。",
+  "development_gate": "主STRESS全期三目标均过、相对三个对照配对差95%下界均正、至少两个日历年各126个预测日且各自增量均正，才列开发候选；缺独立验证仍不表示总目标完成。",
+  "monitor": "固定每5日一相位的成熟预测，最近60条q05跌穿率超过15%仅记警报；不足60条为NOT_ASSESSABLE，不把零警报当稳定。",
+  "new_parameter_grid": 0,
+  "new_funding_regression_fits": 0,
+  "new_accounts": 8,
+  "historical_prices_previously_researched": true,
+  "historical_first_delivery_authenticated": false,
+  "new_independent_forward_observations": 0,
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "source_coverage": {
+    "common_dates": 453,
+    "first": "2024-10-09T00:00:00",
+    "last": "2026-08-20T00:00:00"
+  },
+  "implementation_checks": {
+    "future_and_expired_labels_do_not_change_prediction": true,
+    "all_models_share_mature_training_pool": true,
+    "checked_models": 5
+  }
+}

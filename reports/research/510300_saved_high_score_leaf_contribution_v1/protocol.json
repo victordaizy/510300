@@ -1,0 +1,92 @@
+{
+  "study_id": "510300_SAVED_HIGH_SCORE_LEAF_CONTRIBUTION_V1",
+  "experiment_id": "E23",
+  "recorded_at": "2026-10-02T13:15:04.036157+08:00",
+  "status": "REGISTERED_SAVED_MODEL_EXPLANATION_NO_REFIT",
+  "question": "在已经下跌的状态下，原树的正收益预期来自哪些训练成员，是否被少数月份/重叠行情支撑？",
+  "reason": "E22主期9机会在信号前20日均已跌1.519519%，先涨后无收益叙述不成立；需查看实际保存的正预测来源。",
+  "scope": "只原纠错8/10树的全部70自然高分事件，主期各9、较早各26；不增加事件或只选亏损例子。",
+  "membership": "使用E21已保存树的float32分支，逐当日原成熟训练池推入叶；必须复算保存节点样本数/均值和当日原预测，exit_idx<=decision_idx不变。",
+  "outputs": {
+    "path": "当前输入的全部决策节点、变量、阈值、左右分支和叶",
+    "leaf_distribution": "原叶成员全部保留，均值、中位数、正负个数、最大正值及其正收益贡献占比",
+    "all_months": "按成员原信号日的日历月，保存每月全部成员数、净标签和、正标签和、负标签和；不是冲击因果归属",
+    "concentration": "单个日历月正标签和占全叶正标签和的最大份额；超过50%仅表示算术多数，不是新的交易门槛",
+    "overlap": "按每标签[entry_idx=idx+1,exit_idx=idx+6)区间列出相交连通组数；相交组不是独立经济事件或独立样本量"
+  },
+  "interpretation": "分别报告主期每个实例和早期原对照，不由叶收益为正、月份集中或样本中位数直接证明未来效果/因果；所有解释来自当时已成熟标签。",
+  "anti_rescue": "不删大涨月份/成员，不改目标为中位数，不重加权/重拟合，不改窗口、模型、分数或持有；原高分和失败不变。",
+  "new_source_acquisitions": 0,
+  "new_labels": 0,
+  "new_fits": 0,
+  "new_full_accounts": 0,
+  "parameter_grids": 0,
+  "source_code_edits": 0,
+  "current_view": "NO_VIEW",
+  "position": "UNSET",
+  "orders_authorized": false,
+  "new_prospective_forecasts_enabled": false,
+  "goal_achieved": false,
+  "parents": [
+    {
+      "path": "reports/research/510300_fixed_score_price_response_timing_v1/protocol.json",
+      "bytes": 5976,
+      "sha256": "a06d229525be5e1bc3c1e8b99c8472b8a7d91566d76cf42cae11943a8fe391be"
+    },
+    {
+      "path": "reports/research/510300_fixed_score_price_response_timing_v1/result.json",
+      "bytes": 42784,
+      "sha256": "b6e0e0dab6bcf1fa53941ae1f86838c54136579a3b421c2c252c2fe3e1200595"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/protocol.json",
+      "bytes": 7791,
+      "sha256": "e7ac9363d11abc118d07b444536e23e4602c33e6e445d6442dae23868c5de523"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/result.json",
+      "bytes": 15001,
+      "sha256": "355b2b53c040c37e808ed8180b4f7184b0d4ee86dda6fa934f72d3fc92fc47ed"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错八变量历史输入及原标签.parquet",
+      "bytes": 1874361,
+      "sha256": "c6be6dcf35dbff5f162980115de43acc498a15c0bd116b0f003d009c7ec712e7"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错十变量历史输入及原标签.parquet",
+      "bytes": 1904058,
+      "sha256": "0ccb9e91f03abc5d6ab543cb0c0551cc900ce3738327fb263dbe597c0b12dad0"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量每日联合评分.csv",
+      "bytes": 182577,
+      "sha256": "554a2ec51bd1844409fe396167f4dd8ee381796912253481478c3dcec6ce9a68"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错10变量每日联合评分.csv",
+      "bytes": 347445,
+      "sha256": "98f1b3b31e5b57a79a208e4ad7cbbfdf2558e7112eb30766a3ccd04ede55257d"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错8变量保存模型.json",
+      "bytes": 2930015,
+      "sha256": "aa7969d4b8ed15b8e5e6c931b2174bdcb4b2182166f77cf4c285e653cee93bd7"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/纠错10变量保存模型.json",
+      "bytes": 3201590,
+      "sha256": "bb052910870474d944686e661a1aca7ff0968b2e69b447b0f1c3f2cc77086629"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/共同成熟训练池.json",
+      "bytes": 8002821,
+      "sha256": "2edb4d5dc05c51cc64ca2c53be66af971af33ce44c88aa67cd2ddf702734eb32"
+    },
+    {
+      "path": "reports/research/510300_daily_score_financing_input_correction_v1/固定高分不重叠机会.csv",
+      "bytes": 20681,
+      "sha256": "5921de9ca46c64dd6c89fa93a971c647f34666ef3de94a1fdb17c531476d6ceb"
+    }
+  ]
+}

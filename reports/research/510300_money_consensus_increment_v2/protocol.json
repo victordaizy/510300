@@ -1,0 +1,54 @@
+{
+  "study_id": "510300_MONEY_CONSENSUS_INCREMENT_V2",
+  "frozen_at": "2026-09-21T22:58:37.902843+08:00",
+  "scope": "补齐来源后，同口径事件的A价格基准与B增加剪刀差预期差的历史增量；C/D缺资金时点保持NOT_RUN。不是完成四组共同样本检验。",
+  "source_priority": "Bualuang、OCBC、NBG原五日检索、NBG自然周报依次填缺；选择在新收益计算前完成，记录全部来源扩展历史。",
+  "source_counts_before_returns": {
+    "total": 77,
+    "old": 60,
+    "new": 17
+  },
+  "parent_protocol": "evidence/parent_protocol.json，模型、五交易日标签、36训练加24评价、成本及门槛不变",
+  "clock": "公布后第一个完整交易日收盘观察，下一交易日开盘进入，第五交易日预定收盘结束；日期精度不足按公布日23:59:59。",
+  "features_A": [
+    "price_pre20_return",
+    "initial_response",
+    "price_log_sigma20"
+  ],
+  "features_B": [
+    "price_pre20_return",
+    "initial_response",
+    "price_log_sigma20",
+    "spread_surprise_proxy_pp"
+  ],
+  "fund_status": "目前没有足量事件对应的五日份额变化及历史公开上界证据；公众号/原报告新线索没有自动转成完整变量。",
+  "maturity": "训练退出时刻严格早于当前观察时刻，重叠入场至退出区间按事件群计算；行情截止以后标签保留PENDING_MARKET_DATA。",
+  "regime": "M1旧口径和2025新口径分开；原M2数字人民币口径标记保留，不增加结果驱动的分组。",
+  "minimum": {
+    "train_clusters": 36,
+    "evaluation_clusters": 24
+  },
+  "ridge": "训练内均值/总体标准差标准化；平均MSE加1倍斜率平方和，截距不罚；扩展训练，无参数搜索。",
+  "bootstrap": {
+    "cluster_block_length": 4,
+    "draws": 10000,
+    "seed": 5103005,
+    "type": "不循环的连续移动块，有放回抽块后截断到原样本数",
+    "one_sided_lower_quantile": 0.1
+  },
+  "MSE_gate": "B相对A的平方误差改善均值>0、90%单侧下界>0、评价前后两半均>0，三条件都报告。",
+  "entry_gate_after_MSE_only": "如MSE门通过，B预测须高于以观察日收盘估计的20万满预算压力往返成本；单笔收益用实际次日开盘及固定第五日收盘扣费用估算，至少12群、均值下界>0、单一正贡献<=30%。这不是主D账户。",
+  "capital": {
+    "main": 200000,
+    "comparison": 20000
+  },
+  "commission": 0.0002,
+  "minimum_commission": 5,
+  "lot": 100,
+  "stress_slippage": 0.001,
+  "dividend": "标签包含入场之后除息、退出之前或当日除息所获得的现金权利，不再投资；入场日除息不享有。无账户现金到账或登记日模拟，未把应收现金当作已可花现金。",
+  "independent_forward_events": 0,
+  "all_returns_historical_development": true,
+  "exits_and_accounts": "只有D主门通过才可主账户及固定/回撤退出比较；当前C/D未准入，相关阶段保持NOT_RUN。",
+  "no_rescue": "看到本轮结果后不改窗口、方向、来源优先级、ridge、成本或样本门。失败不改名为独立未见样本。"
+}

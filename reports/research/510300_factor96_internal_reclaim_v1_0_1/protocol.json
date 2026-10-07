@@ -1,0 +1,74 @@
+{
+  "study_id": "510300_FACTOR96_INTERNAL_RECLAIM_V1_0_1",
+  "at": "2026-09-27T12:49:31.161131+08:00",
+  "primary": "FULL",
+  "new_candidates": 1,
+  "implementation_correction": "仅将官方全日停牌且无公司行为的未观测当日价映射为已知前收盘平值；原V1运行及失败保留，不改任何策略参数。",
+  "periods": {
+    "EARLY": [
+      "2017-01-03",
+      "2020-12-31"
+    ],
+    "MAIN": [
+      "2021-01-04",
+      "2025-12-31"
+    ]
+  },
+  "capital": [
+    200000,
+    20000
+  ],
+  "costs": {
+    "BASE": {
+      "commission": 0.0002,
+      "minimum": 5.0,
+      "slippage": 0.0005
+    },
+    "STRESS": {
+      "commission": 0.0004,
+      "minimum": 5.0,
+      "slippage": 0.001
+    }
+  },
+  "annual_days": 242,
+  "member_low": "原始最低价加可解释现金分红/股数转换形成财富低价；前20个A股交易日最低值不含当前；要求21个连续有效低价和收益记录。",
+  "missing": "只承认官方全日停牌的零收益；其他缺失/未解释公司行为不填零。计算坐标中的中性缺口不通过完整窗口门。",
+  "member_identity": "两次测试日均为当时成员，且两个低价窗口完整；共同可比数至少294/300，两日各自覆盖也必须>=98%。同一批股票同一分母比较。",
+  "clock": "当日成员日线保守18:00可用；两日延迟确认首个20日新低；全部条件当时已知，下一交易日开盘执行。",
+  "first_test": "a为严格跌破此前20日财富低点；a+1及a+2低价均严格高于a时，a+2收盘才确认。",
+  "second_test": "a+3至a+10中出现严格破此前20日低点，a仍为前20日最低，且与a低价距离严格小于0.5ATR[a-1]；同a仅认领一次二测，未结束事件不重叠。",
+  "reclaim": "二測日b冻结L0=min低[b-20:b-1]；首次财富收盘>L0确认，可为b当日；最多观察至b+10，未收复事件保留。",
+  "internal_divergence": "在二测b固定同成员新低比例；b严格小于a才为真，收复时不重新挑一个更好的内部日期。",
+  "B02": "记录二测成交额/首次低点前后各2日已结束窗口均额、两日回报与CLV，不额外筛选。",
+  "policies": [
+    "PRICE_ALL",
+    "PRICE_COMMON",
+    "FULL"
+  ],
+  "price_control": "PRICE_ALL只用相同价格事件；PRICE_COMMON还要求同样内部数据覆盖。主增量FULL减PRICE_COMMON，不混入缺失筛选收益。",
+  "exit": "财富收盘<L0-0.5ATR[b-1]、5个开盘间隔到期或公共风险退出；冻结止损不移动。",
+  "extra_delay": "额外延迟1交易日同时延迟事件和内部状态，并要求最新财富收盘仍>L0；仅FULL/PRICE_COMMON，不事后替换主时钟。",
+  "account": "沿用100份、0.001价位、T+1、方向涨跌停、最低费用、分红权益、期末压力成本准备及每天完整现金账户。",
+  "risk": "复用已冻结两年成熟五日ES95，每日估计；最大目标50%、2.5%ES预算、5%跳空预算、回撤空间折半、10%回撤停机不恢复。",
+  "acceptance": {
+    "net_sharpe": 1.2,
+    "cagr": 0.1,
+    "max_drawdown": 0.1,
+    "both_capitals_stress_required": true
+  },
+  "bootstrap": {
+    "comparison": "FULL_MINUS_PRICE_COMMON",
+    "period": "MAIN",
+    "capital": 200000,
+    "cost": "STRESS",
+    "block": 20,
+    "draws": 4000,
+    "seed": 20260929
+  },
+  "selection": "候选库累计第4项；旧价格/广度研究已失败，不能因换组合清除选择偏差。",
+  "independent_validation": "NOT_ESTABLISHED_ALREADY_OBSERVED_HISTORY",
+  "stop": "固定主方案失败就保留；不改同成员门、观察窗、阈值、退出或对照晋升。",
+  "orders_authorized": false,
+  "goal_achieved": false,
+  "goal_status": "active"
+}

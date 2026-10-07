@@ -1,0 +1,58 @@
+{
+  "study_id": "510300_PRIVATE_MANAGER_EXPLORATORY_TRAINING_V1",
+  "user_override": "不用那么严格，直接进入训练；继续只做510300的20万元、净夏普1.5、回撤10%目标",
+  "role": "直接训练既有扩样资料，旧24训练/24评价数量门不用于阻拦本轮；保持旧研究记录",
+  "capital_cny": 200000,
+  "asset": "510300.SH",
+  "cash_asset": "CASH_CNY",
+  "long_only": true,
+  "max_gross_exposure": 1.0,
+  "target_net_sharpe": 1.5,
+  "target_max_drawdown_magnitude": 0.10,
+  "annual_days": 242,
+  "cash_and_risk_free_daily_return": 0.0,
+  "horizon_sessions": 20,
+  "clock": "采用已保存来源公开日期的23:59:59上界，严格下一交易日09:00判断并以09:30开盘成交。价格特征来自此前最近已收盘日。",
+  "training": "扩展窗口，12个成熟事件开始；标签结束日15:00必须早于当前09:00决策，所有标准化只用当前训练集",
+  "min_train": 12,
+  "ridge_alpha_on_sum_squared_loss": 10.0,
+  "constant_feature_rule": "训练总体标准差低于1e-12的变量系数固定为0，不借未来样本确定尺度",
+  "features": {
+    "price": ["prior_return20", "logvol20"],
+    "intent": ["intent"],
+    "space": ["headroom", "intent_headroom"]
+  },
+  "feature_definition": "prior_return20=此前收盘总回报财富/20交易日前财富-1；logvol20=此前20个日总回报样本标准差*sqrt(242)的对数；intent=(计划指数-100)/100；headroom=1-同期调查仓位/100；intent_headroom为二者乘积",
+  "models": {
+    "A_PRICE": {"cohort": "ALL", "groups": ["price"]},
+    "B_INTENT": {"cohort": "ALL", "groups": ["price", "intent"]},
+    "AC_SPACE_MATCH": {"cohort": "SPACE", "groups": ["price"]},
+    "C_INTENT_SPACE": {"cohort": "SPACE", "groups": ["price", "intent", "space"]}
+  },
+  "comparison": "B相对A及其成熟训练均值，C相对AC及其成熟训练均值；报告全部/前半/后半，不选择最漂亮子期",
+  "account": {
+    "commission_per_side": 0.0002,
+    "minimum_commission_cny": 5.0,
+    "slippage_per_side": {"BASE": 0.0005, "STRESS": 0.001},
+    "lot_size": 100,
+    "t_plus_one": true,
+    "vol_target_annual": 0.10,
+    "min_mature_prequential_errors": 6,
+    "prediction_error_multiplier": 1.0,
+    "position": "min(1,10%/过去20日年化波动)，前收盘确定整手数量，开盘仅可因预算不足向下减少",
+    "exit": "第20个交易日收盘卖出；若账户收盘回撤8%，次开盘符合T+1时清仓并永久停止至期末；不承诺10%实盘上限",
+    "same_calendar": "四个模型全部月份组首次可预测日到保存行情末日，全日历包含现金日；已持仓时跳过新事件",
+    "price_fill_assumption": "原价乘单边滑点，不额外建模最小价位取整、涨跌停或成交量约束；小资金探索估计，不是成交保证"
+  },
+  "policies": {
+    "NET_POSITIVE_DIAGNOSTIC": {"prediction_error_multiplier": 0.0, "min_mature_prequential_errors": 0, "role": "仅要求预测超过压力往返费用的经济基准，不称作高置信度方案"},
+    "ERROR_BUFFER_PRIMARY": {"prediction_error_multiplier": 1.0, "min_mature_prequential_errors": 6, "role": "主方案，预测还须超过至少6个已成熟逐期预测误差的RMSE；并非已校准胜率"}
+  },
+  "source_flag": "2022-08计划指数104按原文保留，同时保留分项占比不自洽标记；不将调查意向当真实资金流",
+  "no_post_result_threshold_search": true,
+  "no_parameter_grid": true,
+  "historical_prices_already_seen": true,
+  "historical_source_first_versions_authenticated": false,
+  "true_forward_events": 0,
+  "orders_authorized": false
+}
