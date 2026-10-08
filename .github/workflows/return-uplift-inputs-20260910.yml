@@ -1,0 +1,71 @@
+name: 增收研究输入提取（不运行策略）
+
+on:
+  push:
+    branches: [codex/return-uplift-research-20260910]
+    paths: [.github/workflows/return-uplift-inputs-20260910.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  export-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - name: 获取指定原始快照
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: e5433a24e6aecc2e3333ac12e050fbb84f9169ce
+          persist-credentials: false
+      - name: 仅还原本次研究必要输入并核验摘要
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess, tarfile
+          from pathlib import Path
+          from tools.repository.snapshot import load_index, restore, sha256
+          root = Path.cwd()
+          prefixes = [
+              'data/reference/510300_dividends.csv',
+              'reports/research/510300_adaptive_allocation_v1/features.parquet',
+              'reports/research/510300_continuous_reference_min_variance_v1/',
+              'reports/research/510300_entry_vintage_exit_v1/',
+              'reports/research/510300_learned_cycle_exit_v1/',
+              'reports/research/510300_rearmed_session_exit_v1/',
+              'reports/research/510300_panic_learned_equal_blend_v1/',
+              'reports/research/510300_within_cycle_exit_v1/',
+              'reports/research/510300_vintage_reference_risk_v1/',
+          ]
+          summary, rows, assets = load_index(root)
+          selected = [r for r in rows if r['storage'] == 'release' and any(r['path'].startswith(p) for p in prefixes)]
+          needed = sorted({a for r in selected for a in r['assets']})
+          assert sum(r['bytes'] for r in selected) < 250_000_000, '所选文件超过本次输入范围'
+          assert sum(assets[a]['bytes'] for a in needed) < 3_000_000_000, '所需附件超过本次范围'
+          print(json.dumps({'selected_files': len(selected), 'selected_bytes': sum(r['bytes'] for r in selected), 'assets': needed}, ensure_ascii=False), flush=True)
+          receipt = restore(root, prefixes)
+          checked = [{'path': r['path'], 'bytes': r['bytes'], 'sha256': sha256(root / r['path'])} for r in selected]
+          assert all(x['sha256'] == r['sha256'] for x, r in zip(checked, selected))
+          manifest = {'source_commit': 'e5433a24e6aecc2e3333ac12e050fbb84f9169ce', 'purpose': 'USER_AUTHORIZED_RESEARCH_INPUT_COPY_ONLY', 'new_models': 0, 'new_backtests': 0, 'receipt': receipt, 'files': checked}
+          (root / 'input_export_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
+          tracked = subprocess.check_output(['git', 'ls-files', '-z']).decode('utf-8').split('\0')
+          members = sorted(set(p for p in tracked if p) | {r['path'] for r in selected} | {'input_export_manifest.json'})
+          target = root / 'research-input-bundle.tar.gz'
+          with tarfile.open(target, 'w:gz') as out:
+              for p in members:
+                  path = root / p
+                  assert path.is_file() and not path.is_symlink()
+                  out.add(path, arcname=p, recursive=False)
+          print(json.dumps({'artifact_file': target.name, 'bytes': target.stat().st_size, 'sha256': sha256(target), 'members': len(members)}, ensure_ascii=False), flush=True)
+          PY
+      - name: 保存已核验输入
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: return-uplift-research-inputs-20260910
+          path: |
+            research-input-bundle.tar.gz
+            input_export_manifest.json
+          if-no-files-found: error
+          retention-days: 7
