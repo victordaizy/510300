@@ -1,0 +1,45 @@
+name: 年化10研究只读ETF输入
+on:
+  push:
+    branches: [codex/annual10-sharpe12-20260910]
+    paths: [.github/workflows/annual10-flow-inputs.yml]
+permissions:
+  contents: read
+jobs:
+  restore-inputs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: e5433a24e6aecc2e3333ac12e050fbb84f9169ce
+          persist-credentials: false
+      - name: 核验并提取原仓库三项资料
+        run: |
+          python - <<'PY'
+          import json, zipfile
+          from pathlib import Path
+          from tools.repository.snapshot import load_index, restore, sha256
+          root=Path.cwd()
+          paths=['data/raw/fund/510300_nav_daily_raw.parquet','data/raw/flow/510300_fund_share_daily_tushare.parquet','data/raw/flow/510300_margin_detail_daily_tushare.parquet']
+          _, rows, assets=load_index(root)
+          selected=[r for r in rows if r['path'] in paths]
+          assert len(selected)==3
+          assert sum(r['bytes'] for r in selected)<500000
+          needed={a for r in selected for a in r['assets']}
+          assert sum(assets[a]['bytes'] for a in needed)<500000000
+          restore(root,paths)
+          manifest={'source_commit':'e5433a24e6aecc2e3333ac12e050fbb84f9169ce','files':selected}
+          with zipfile.ZipFile('etf_flow_inputs.zip','w',zipfile.ZIP_DEFLATED) as out:
+              for r in selected:
+                  assert sha256(root/r['path'])==r['sha256']
+                  out.write(root/r['path'],r['path'])
+              out.writestr('flow_inputs_manifest.json',json.dumps(manifest,ensure_ascii=False,indent=2))
+          print('RESTORED_AND_VERIFIED',len(selected),'NEW_BACKTESTS',0)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annual10-etf-flow-inputs
+          path: etf_flow_inputs.zip
+          retention-days: 7
+          if-no-files-found: error

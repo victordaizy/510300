@@ -1,0 +1,94 @@
+name: 保存已完成的七组研究表格
+on:
+  push:
+    branches: [codex/annual10-sharpe12-20260910]
+    paths: [.github/workflows/annual10-publish-completed-results.yml]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish-completed-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONUTF8: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13.5'
+      - name: 安装同一计算版本
+        run: >-
+          python -m pip install numpy==2.3.5 pandas==2.2.3 scipy==1.17.0
+          scikit-learn==1.8.0 pyarrow==25.0.1 joblib==1.5.3 threadpoolctl==3.6.0
+      - name: 取得已成功的固定六组结果
+        run: gh run download 34465032366 --repo victordaizy/510300 --name annual10-complete-reproduced-evidence --dir "$RUNNER_TEMP/annual10_input"
+      - name: 核验来源并重算第七组与总表，不新增候选
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import os,tarfile,hashlib,shutil,subprocess,sys,json
+          import numpy as np
+          repo=Path.cwd();temp=Path(os.environ['RUNNER_TEMP'])
+          archive=temp/'annual10_input/510300_annual10_complete_evidence.tar.gz'
+          with archive.open('rb') as f:assert hashlib.file_digest(f,'sha256').hexdigest()=='c8bf4f2bf7d399619826d7b136b30f05f69709d4a0852d337e0a802a3431d4429'
+          with tarfile.open(archive) as t:t.extractall(temp/'annual10_publish_replay',filter='data')
+          work=temp/'annual10_publish_replay/workspace'
+          for rel in ['tools/research/annual10_consensus_complement_20260910.py','tools/research/annual10_consolidate_20260910.py','docs/510300_ANNUAL10_CONSENSUS_COMPLEMENT_20260910.md']:
+              (work/rel).parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(repo/rel,work/rel)
+          for script in ['annual10_consensus_complement_20260910.py','annual10_consolidate_20260910.py']:
+              subprocess.run([sys.executable,str(work/'tools/research'/script)],cwd=work,check=True)
+          seven='research_runs/annual10_consensus_complement_20260910/'
+          total='research_runs/annual10_consolidated_20260910/'
+          result=json.loads((work/total/'result.json').read_text(encoding='utf-8'))
+          assert result['policy_scenario_accounts']==1812 and not result['main_base_point_met']
+          assert result['account_paths_checked']==2014
+          assert np.isclose(result['best_cagr_among_main_sharpe12']['annualized_return'],0.0781504112342634,atol=1e-12,rtol=1e-10)
+          assert np.isclose(result['highest_main_cagr']['annualized_return'],0.10170551721390963,atol=1e-12,rtol=1e-10)
+          paths=[total+n for n in ['all_metrics_1812.csv','adjudications_453.csv','phase_summary.csv','result.json']]
+          paths +=[seven+n for n in ['metrics.csv','checks.csv','original_replays.csv','result.json','protocol.json']]
+          for rel in paths:
+              dst=repo/rel;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(work/rel,dst)
+          receipt={'status':'VERIFIED_TABLE_PUBLICATION','trigger_commit':os.environ['GITHUB_SHA'],'source_six_stage_run':34465032366,'source_archive_sha256':'c8bf4f2bf7d399619826d7b136b30f05f69709d4a0852d337e0a802a3431d4429','policies':453,'policy_accounts':1812,'accounting_checks':2014,'new_candidate_designs_in_publication':0,'main_base_joint_target_met':False,'live_trading_authorized':False,'files':[{'path':p,'sha256':hashlib.sha256((repo/p).read_bytes()).hexdigest(),'bytes':(repo/p).stat().st_size} for p in paths]}
+          receipt_path=total+'publication_receipt.json'
+          (repo/receipt_path).write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
+          paths.append(receipt_path)
+          (temp/'annual10_publish_paths.json').write_text(json.dumps(paths),encoding='utf-8')
+          PY
+      - name: 仅提交本分支的指定研究结果，不合并main
+        run: |
+          gh auth setup-git
+          git fetch origin codex/annual10-sharpe12-20260910
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python - <<'PY'
+          import json,os,subprocess
+          from pathlib import Path
+          paths=json.loads((Path(os.environ['RUNNER_TEMP'])/'annual10_publish_paths.json').read_text())
+          assert all(p.startswith(('research_runs/annual10_consolidated_20260910/','research_runs/annual10_consensus_complement_20260910/')) for p in paths)
+          subprocess.run(['git','add','-f','--',*paths],check=True)
+          actual=subprocess.check_output(['git','diff','--cached','--name-only','-z']).decode().strip('\0').split('\0')
+          assert set(actual)==set(paths)
+          subprocess.run(['git','commit','-m','research: save all 1812 scenario results and explicit unmet joint-target verdict'],check=True)
+          subprocess.run(['git','push','origin','HEAD:refs/heads/codex/annual10-sharpe12-20260910'],check=True)
+          PY
+      - name: 保存精确发布文件供交付核对
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annual10-published-tables-and-protocols
+          path: |
+            research_runs/annual10_consolidated_20260910/
+            research_runs/annual10_consensus_complement_20260910/
+            docs/510300_ANNUAL10_CONSENSUS_COMPLEMENT_20260910.md
+            tools/research/annual10_consensus_complement_20260910.py
+            tools/research/annual10_consolidate_20260910.py
+          retention-days: 90
+          if-no-files-found: error

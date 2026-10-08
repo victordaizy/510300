@@ -1,0 +1,150 @@
+name: 年化10与夏普1.2研究完整复现
+
+on:
+  push:
+    branches: [codex/annual10-sharpe12-20260910]
+    paths: [.github/workflows/annual10-full-reproduction.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONUTF8: '1'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - name: 取得已完成研究的固定代码
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: 1b14608cc0e7da4589a876e4a16fc9eb73b9776d
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13.5'
+      - name: 安装固定计算环境
+        run: >-
+          python -m pip install numpy==2.3.5 pandas==2.2.3 scipy==1.17.0
+          scikit-learn==1.8.0 pyarrow==25.0.1 joblib==1.5.3
+          threadpoolctl==3.6.0 pytest==9.1.1
+      - name: 还原并核验原资料，建立只读输入清单
+        run: |
+          python - <<'PY'
+          import json, subprocess, shutil
+          from pathlib import Path
+          from tools.repository.snapshot import load_index, restore, sha256, verify
+          root=Path.cwd()
+          prefixes=[
+            'data/reference/510300_dividends.csv',
+            'reports/research/510300_adaptive_allocation_v1/features.parquet',
+            'reports/research/510300_continuous_reference_min_variance_v1/',
+            'reports/research/510300_entry_vintage_exit_v1/',
+            'reports/research/510300_learned_cycle_exit_v1/',
+            'reports/research/510300_rearmed_session_exit_v1/',
+            'reports/research/510300_panic_learned_equal_blend_v1/',
+            'reports/research/510300_within_cycle_exit_v1/',
+            'reports/research/510300_vintage_reference_risk_v1/',
+            'reports/research/510300_trend_noise_reference_blend_v1/',
+            'reports/research/510300_monotone_episode_budget_v1/',
+            'data/raw/fund/510300_nav_daily_raw.parquet',
+            'data/raw/flow/510300_fund_share_daily_tushare.parquet',
+            'data/raw/flow/510300_margin_detail_daily_tushare.parquet']
+          summary,rows,assets=load_index(root)
+          selected=[r for r in rows if r['storage']=='release' and any(r['path'].startswith(p) for p in prefixes)]
+          assert len(selected)==494
+          needed={a for r in selected for a in r['assets']}
+          assert sum(assets[a]['bytes'] for a in needed)<3000000000
+          print(json.dumps(verify(root),ensure_ascii=False))
+          restore(root,prefixes)
+          flow=[r for r in rows if r['path'].startswith('data/raw/') and any(r['path']==p for p in prefixes[-3:])]
+          assert len(flow)==3
+          (root/'flow_inputs_manifest.json').write_text(json.dumps({'source_commit':'e5433a24e6aecc2e3333ac12e050fbb84f9169ce','files':flow},ensure_ascii=False,indent=2),encoding='utf-8')
+          run=root/'research_runs/annual10_sharpe12_20260910'
+          expected=json.loads((run/'result.json').read_text(encoding='utf-8'))
+          (root/'expected_annual10_result.json').write_text(json.dumps(expected,ensure_ascii=False,indent=2),encoding='utf-8')
+          for item in expected['code_files']:
+              assert sha256(root/item['path'])==item['sha256'],item['path']
+          tracked=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          inputs=sorted({p for p in tracked if p and not p.startswith('research_runs/annual10_sharpe12_20260910/')}|{r['path'] for r in selected}|{'flow_inputs_manifest.json'})
+          inputs=[p for p in inputs if Path(p).suffix.lower() not in {'.ttf','.otf','.woff','.woff2'}]
+          (run/'reproduction_inputs.json').write_text(json.dumps({'source_commit':'1b14608cc0e7da4589a876e4a16fc9eb73b9776d','files':[{'path':p,'bytes':(root/p).stat().st_size,'sha256':sha256(root/p)} for p in inputs]},ensure_ascii=False,indent=2),encoding='utf-8')
+          (run/'requirements-reproduce.txt').write_text('numpy==2.3.5\npandas==2.2.3\nscipy==1.17.0\nscikit-learn==1.8.0\npyarrow==25.0.1\njoblib==1.5.3\nthreadpoolctl==3.6.0\npytest==9.1.1\n',encoding='utf-8')
+          print('PINNED_INPUTS_READY',len(selected),len(inputs))
+          PY
+      - name: 完整重做六阶段，不新增候选或修改参数
+        run: |
+          python - <<'PY'
+          import json, subprocess,sys
+          from pathlib import Path
+          from tools.research.annual10_reproduce import invoke,scenarios
+          root=Path.cwd()
+          run=root/'research_runs/annual10_sharpe12_20260910'
+          invoke(root,'annual10_capital_20260910.py')
+          scenarios(root,'annual10_residual_20260910.py')
+          for phase in ['episode_value','daily_opportunity']:
+              script=f'annual10_{phase}_20260910.py'
+              invoke(root,script,'prepare')
+              invoke(root,script,'fit')
+              if phase=='daily_opportunity':
+                  p=run/phase/'training_records.json'
+                  d=json.loads(p.read_text(encoding='utf-8'))
+                  d['completed_model_fits']=d['actual_fits']
+                  d['reproduction_note']='Uninterrupted replay; count alias only; no prediction or policy changes.'
+                  p.write_text(json.dumps(d,ensure_ascii=False,indent=2),encoding='utf-8')
+              scenarios(root,script)
+          invoke(root,'annual10_etf_flow_20260910.py','prepare')
+          for horizon in ['5','20']:invoke(root,'annual10_etf_flow_20260910.py','fit',horizon)
+          scenarios(root,'annual10_etf_flow_20260910.py')
+          scenarios(root,'annual10_winning_budget_20260910.py')
+          invoke(root,'annual10_validate_20260910.py')
+          for phase in ['capital','residual','episode_value','daily_opportunity','etf_flow','winning_budget']:
+              invoke(root,'annual10_validate_20260910.py','accounts',phase)
+          subprocess.run([sys.executable,'-m','pytest','-q',*[f'tests/{name}' for name in ['test_event_clock_account_v1.py','test_two_policy_min_variance_v1.py','test_monotone_episode_budget_v1.py','test_trend_noise_reference_blend_v1.py','test_rearmed_cycle_exit_account_v1.py']]],check=True)
+          invoke(root,'annual10_summarize_20260910.py')
+          PY
+      - name: 复算与原保存结论比较，打包完整工作区
+        run: |
+          python - <<'PY'
+          import json,tarfile,hashlib,platform
+          from pathlib import Path
+          import numpy as np,pandas as pd
+          from tools.repository.snapshot import sha256
+          root=Path.cwd();run=root/'research_runs/annual10_sharpe12_20260910'
+          old=json.loads((root/'expected_annual10_result.json').read_text(encoding='utf-8'))
+          new=json.loads((run/'result.json').read_text(encoding='utf-8'))
+          for key in ['registered_policies','policy_scenario_accounts','distinct_four_scenario_nav_versions','main_base_point_met','main_both_costs_met','all_four_scenarios_met','independent_account_checks','completed_saved_predictive_models']:
+              assert old[key]==new[key],key
+          for key in ['best_main_cagr_with_sharpe12','highest_main_cagr']:
+              assert old[key]['model']==new[key]['model']
+              for metric in ['annualized_return','net_sharpe','max_drawdown','mean_exposure','trade_count']:
+                  assert np.isclose(old[key][metric],new[key][metric],atol=1e-10,rtol=1e-8),(key,metric)
+          receipt={'status':'REPRODUCED_SIX_STAGES_FROM_PINNED_INPUTS','source_code_commit':'1b14608cc0e7da4589a876e4a16fc9eb73b9776d','policy_accounts':new['policy_scenario_accounts'],'reference_accounts':new['reference_accounts'],'joint_target_met':new['main_base_point_met'],'same_selected_metrics':True,'new_strategy_candidates':0,'independent_market_evidence_added':False,'live_trading_authorized':False,'python':platform.python_version(),'numpy':np.__version__,'pandas':pd.__version__}
+          (run/'ci_reproduction_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
+          inputs=json.loads((run/'reproduction_inputs.json').read_text(encoding='utf-8'))['files']
+          members={row['path'] for row in inputs}
+          members|={str(p.relative_to(root)) for p in run.rglob('*') if p.is_file()}
+          members|={'tools/research/annual10_reproduce.py','expected_annual10_result.json'}
+          members={p for p in members if not p.endswith(('.ttf','.otf','.woff','.woff2','.pyc')) and '__pycache__' not in p}
+          manifest=[{'path':p,'bytes':(root/p).stat().st_size,'sha256':sha256(root/p)} for p in sorted(members)]
+          (root/'annual10_full_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          members.add('annual10_full_manifest.json')
+          with tarfile.open(root/'510300_annual10_complete_evidence.tar.gz','w:gz') as out:
+              for p in sorted(members):out.add(root/p,arcname='workspace/'+p,recursive=False)
+          print(json.dumps({'receipt':receipt,'archive_bytes':(root/'510300_annual10_complete_evidence.tar.gz').stat().st_size,'archive_sha256':sha256(root/'510300_annual10_complete_evidence.tar.gz'),'members':len(members)},ensure_ascii=False,indent=2))
+          PY
+      - name: 保存本次完整复现成果
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: annual10-complete-reproduced-evidence
+          path: |
+            510300_annual10_complete_evidence.tar.gz
+            research_runs/annual10_sharpe12_20260910/README.md
+            research_runs/annual10_sharpe12_20260910/all_metrics.csv
+            research_runs/annual10_sharpe12_20260910/result.json
+            research_runs/annual10_sharpe12_20260910/ci_reproduction_receipt.json
+          retention-days: 90
+          if-no-files-found: error
