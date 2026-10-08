@@ -1,0 +1,66 @@
+name: Multifactor frozen source retrieval 20261008
+on:
+  push:
+    branches: [codex/rsrs-research-v1]
+    paths: ['.github/workflows/multifactor-inputs-20261008.yml']
+permissions:
+  contents: read
+jobs:
+  source-retrieval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Restore exact existing source views without recomputing historical data
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, hashlib
+          from tools.repository.snapshot import load_index, restore
+          root=Path.cwd()
+          paths=[
+            'reports/research/510300_all_factor_macro_earnings_joint_v1/results/全部3488共同源视图_不足保留.parquet',
+            'reports/research/510300_pbc_report_text_source_reconciliation_v2_1/全部3488原点_最新公布两章节变化与未知.parquet'
+          ]
+          _,rows,assets=load_index(root)
+          lookup={r['path']:r for r in rows}
+          selected=[lookup[p] for p in paths]
+          needed={a for r in selected for a in r['assets']}
+          size=sum(assets[a]['bytes'] for a in needed)
+          print('BOUNDED_SOURCE_BYTES',size,flush=True)
+          assert size<=2*1024**3, 'Stop before exceeding source download budget'
+          restore(root,paths)
+          out=root/'multifactor_sources';out.mkdir()
+          manifest=[]
+          for i,p in enumerate(paths):
+            raw=(root/p).read_bytes();sha=hashlib.sha256(raw).hexdigest()
+            assert sha==lookup[p]['sha256']
+            name=f'source_{i}.parquet';(out/name).write_bytes(raw)
+            manifest.append({'original_path':p,'local_name':name,'bytes':len(raw),'sha256':sha})
+          (out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('ORIGINAL_BYTES_VERIFIED',len(manifest),flush=True)
+          PY
+      - name: Export readable CSV representations
+        run: |
+          python -m pip install pandas==2.2.3 pyarrow==19.0.1
+          python - <<'PY'
+          import pandas as pd
+          from pathlib import Path
+          for p in Path('multifactor_sources').glob('*.parquet'):
+              df=pd.read_parquet(p)
+              df.to_csv(p.with_suffix('.csv'),index=False,encoding='utf-8-sig')
+              print(p.name,df.shape,df.columns.tolist(),flush=True)
+          PY
+      - name: Save verified sources only; no trading or model execution
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multifactor-frozen-sources-20261008
+          path: multifactor_sources/
+          retention-days: 30
+          if-no-files-found: error
