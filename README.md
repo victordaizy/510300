@@ -2,26 +2,20 @@
 
 [![仓库完整性检查](https://github.com/victordaizy/510300/actions/workflows/repository-checks.yml/badge.svg)](https://github.com/victordaizy/510300/actions/workflows/repository-checks.yml)
 
-最新研究材料截至2026年10月6日，按用户在10月7日明确选择的范围上传：**新研究代码、文档和主要结果，排除历史大包**。本轮纳入 5,579 个代码、文档和结果文件，原文件合计 157.13 MiB；没有新增数据压缩包或 Release 附件。逐文件变化见 [变化索引](catalog/changes-20261006.csv)。
+本版上传已盘点的完整510300关联研究资料：**363,126个原文件、51.308 GiB原始材料**。研究代码、文档及主要结果保留在Git中；完整数据、详细结果、历史版本与研究审阅包通过Release附件保存。文件路径、字节数、SHA-256及附件位置均见[累计索引](catalog/README.md)。
 
-[项目状态](docs/PROJECT_STATE.md) · [研究决策](docs/RESEARCH_DECISIONS.md) · [日周线状态](docs/PROJECT_STATE_TECHNICAL_LINE.md) · [日周线决策](docs/RESEARCH_DECISIONS_TECHNICAL_LINE.md) · [本轮更新](docs/UPDATE_20261006.md)
+[项目状态](docs/PROJECT_STATE.md) · [研究决策](docs/RESEARCH_DECISIONS.md) · [日周线状态](docs/PROJECT_STATE_TECHNICAL_LINE.md) · [日周线决策](docs/RESEARCH_DECISIONS_TECHNICAL_LINE.md) · [完整资料更新](docs/UPDATE_20261007_FULL.md)
 
-## 本轮内容
+## 完整数据与代码
 
-日周线量价点位、具体上涨与失败案例、宏观与全因素、盈利联合评分、央行经济描述与政策指引双文本阶段实验。包括研究实现、测试代码、冻结协议、结论、主要比较结果、图和模型记录；来源未知、研究失败及被拒绝方向按原文保留。
+本轮在10月6日的代码、文档和主要结果版本上补齐125,123个原文件，新增113个附件、20.308 GiB压缩或分片数据，复用63个既有附件。范围包括行情、量价点位、宏观与全因素、成分及财报来源、训练与账户明细、解析失败及研究拒绝记录、历史原始包。没有复制整套来源目录：直接从原件逐批生成、上传、核对、清理。本轮临时附件硬上限512 MiB，全部临时目录与状态文件上限1 GiB。
 
-主要结果 CSV 新增 390 个；当前状态见 [原始研究状态](reports/research/510300_daily_weekly_goal_continuation_20261001/state.json)，最新完整结论见 [TECH.R268研究结论](reports/research/510300_pbc_report_phase_account_v1/央行双文本与量价阶段_完整研究结论.md)。
+克隆得到Git文件和完整索引；GitHub的Code ZIP只包含Git文件。完整原始数据在[本版Release](https://github.com/victordaizy/510300/releases/tag/snapshot-2026-10-07-full)及索引所引用的历史Release中，可用[还原工具](tools/repository/snapshot.py)恢复原始相对路径，并验证每个源文件的SHA-256。建议先按研究目录或数据前缀还原：[使用说明](docs/REPOSITORY_GUIDE.md)。
 
-## 当前研究结论
+## 研究状态
 
-正式目标为20万元完整账户、扣费后净年化≥10%、净夏普≥1.5、最大回撤≤10%，另须净pB、净期望和独立验证。**目标尚未实现，当前research_blocked。** 最新TECH.R268固定央行双文本×量价阶段账户四场景均拒绝：较早压力年化−1.2850%、夏普−0.527740；近期压力年化−0.0444%、夏普−0.014740。原A近期年化3.9908%、夏普1.216910也未满足目标。上传不改变这些结论。
+日周线正式目标为20万元完整账户扣费后净年化≥10%、净夏普≥1.5、最大回撤≤10%，另须净pB、净期望和独立验证。**目前目标尚未实现，原研究状态仍为research_blocked。** 最新TECH.R268固定双文本×量价阶段账户四场景均拒绝；上传与材料完整性检查不改变研究结论，也未重跑金融研究。
 
-## 上传范围与使用
+来源盘点于2026-10-06固定，随后按文件稳定读取保存原始版本；本轮完整发布补齐这份固定资料范围，不宣称整个目录在同一瞬间冻结。可用来源缺失和未计算状态按原件保留，详见[来源引用记录](catalog/STATUS_REFERENCES_VERIFICATION.json)。
 
-本轮没有上传新的历史数据全量副本、财报/PDF原件全集、详细训练和逐日账本全集、完整审阅ZIP及重复状态备份；这些原件仍保存在本地。研究代码复算仍需要其冻结协议指定的本地输入，不能宣称仅克隆仓库即可完整重跑所有研究。具体遗漏引用在 [引用与范围记录](catalog/STATUS_REFERENCES_VERIFICATION.json) 中明示。
-
-已有9月17日及更早版本保持原内容，累计索引继续引用其 63 个历史附件；本轮没有为它们新增本地副本。GitHub的Code ZIP包含本轮提交的代码、文档和主要结果。已有历史Release材料可以按原还原工具与索引另行获取；`restore --all`只覆盖索引中的已发布历史材料和本轮Git文件，不包含本轮明确省略的原始数据。
-
-本次仅归档已有研究，不重跑拟合、回测、行情下载或交易。必需检查只验证Git文件字节、累计索引、忽略规则和还原工具，不构成独立金融验证。
-
-[目录导航](docs/REPOSITORY_GUIDE.md) · [文件索引](catalog/README.md) · [上传范围](docs/UPLOAD_SCOPE.md) · [贡献规范](CONTRIBUTING.md) · [协作约定](AGENTS.md) · [变更记录](CHANGELOG.md)
+[上传范围](docs/UPLOAD_SCOPE.md) · [研究目录](catalog/studies.csv) · [完整文件变化](catalog/changes-20261007-full.csv) · [贡献规范](CONTRIBUTING.md) · [协作约定](AGENTS.md) · [变更记录](CHANGELOG.md)

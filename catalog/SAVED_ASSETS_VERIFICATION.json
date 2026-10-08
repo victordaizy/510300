@@ -1,40 +1,17 @@
 {
-  "status": "PASS_ALL_NEW_RELEASE_SOURCE_BYTES_RECOMPUTATION",
-  "file_count": 33403,
-  "bytes": 2380585032,
-  "job_count": 5,
-  "seconds": 11.2,
-  "scope": "对本次生成的ZIP逐成员读取，验证ZIP CRC、成员集合、原文件大小及SHA-256；原包分片顺序拼接摘要验证。不是安全审计，也不重跑研究。",
-  "jobs": [
-    {
-      "receipt": "bundle-001.json",
-      "files": 9821,
-      "bytes": 536821792,
-      "status": "PASS_SAVED_BYTES_RECOMPUTATION"
-    },
-    {
-      "receipt": "bundle-002.json",
-      "files": 8030,
-      "bytes": 536308812,
-      "status": "PASS_SAVED_BYTES_RECOMPUTATION"
-    },
-    {
-      "receipt": "bundle-003.json",
-      "files": 5939,
-      "bytes": 536597630,
-      "status": "PASS_SAVED_BYTES_RECOMPUTATION"
-    },
-    {
-      "receipt": "bundle-004.json",
-      "files": 9612,
-      "bytes": 376931169,
-      "status": "PASS_SAVED_BYTES_RECOMPUTATION"
-    },
-    {
-      "receipt": "original-001.json",
-      "files": 1,
-      "bytes": 393925629,
-      "status": "PASS_SAVED_BYTES_RECOMPUTATION"
-    }
-  ]
+  "status": "PASS_ALL_NEW_SOURCE_BYTES_AND_GENERATED_ZIP_MEMBERS_AND_REMOTE_ASSET_DIGESTS",
+  "new_assets": 113,
+  "new_source_files": 125123,
+  "new_source_bytes": 29441388470,
+  "new_asset_bytes": 21805408555,
+  "checks": [
+    "原件完整SHA-256与既有冻结清单一致",
+    "每个新ZIP成员回读CRC及原件SHA-256",
+    "大型原件完整SHA-256及每片附件SHA-256",
+    "每个远端附件状态、大小与SHA-256",
+    "核对后立即清理单批临时附件"
+  ],
+  "legacy_assets": 63,
+  "legacy_member_bytes_not_redownloaded_in_this_task": true,
+  "research_execution_performed": false
 }
