@@ -4,9 +4,11 @@ from __future__ import annotations
 import bisect
 import csv
 import json
+import os
 import subprocess
 import sys
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -18,6 +20,35 @@ def escape(path: str) -> str:
     for char in ('[',']','*','?'):
         path=path.replace(char,'\\'+char)
     return path
+
+
+def check_paths(paths: list[str]) -> set[str]:
+    """分组调用只读Git检查，汇总全部路径的实际匹配结果。"""
+    if not paths:
+        return set()
+    workers = min(4, os.cpu_count() or 1, len(paths))
+    chunk_size = (len(paths) + workers - 1) // workers
+    chunks = [paths[start:start + chunk_size] for start in range(0, len(paths), chunk_size)]
+    command = ['git', '-c', 'core.quotepath=false', 'check-ignore', '--no-index', '--stdin', '-z']
+
+    def check_chunk(chunk: list[str]) -> set[str]:
+        checked = subprocess.run(
+            command,
+            cwd=ROOT,
+            input=('\0'.join(chunk) + '\0').encode('utf-8'),
+            capture_output=True,
+            check=False,
+        )
+        if checked.returncode not in {0, 1}:
+            raise RuntimeError(checked.stderr.decode('utf-8', errors='replace'))
+        return {path for path in checked.stdout.decode('utf-8').split('\0') if path}
+
+    print(json.dumps({'阶段': 'Git路径并行核对', '路径数': len(paths), '任务数': len(chunks)}, ensure_ascii=False), flush=True)
+    matched = set()
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        for result in executor.map(check_chunk, chunks):
+            matched.update(result)
+    return matched
 
 
 def main() -> None:
@@ -73,16 +104,9 @@ def main() -> None:
     original=path.read_text(encoding='utf-8').split(MARKER)[0].rstrip()
     path.write_text(original+'\n\n'+MARKER+'\n'+'\n'.join(patterns)+'\n',encoding='utf-8',newline='\n')
     release_paths={r['path'] for r in rows if r['storage']=='release'}
-    command=['git','-c','core.quotepath=false','check-ignore','--no-index','--stdin','-z']
-    checked=subprocess.run(command,cwd=ROOT,input=('\0'.join(sorted(release_paths))+'\0').encode('utf-8'),capture_output=True,check=False)
-    if checked.returncode not in {0,1}:
-        raise RuntimeError(checked.stderr.decode('utf-8',errors='replace'))
-    matched=set(checked.stdout.decode('utf-8').rstrip('\0').split('\0'))
+    matched=check_paths(sorted(release_paths))
     missing=sorted(release_paths-matched)
-    git_checked=subprocess.run(command,cwd=ROOT,input=('\0'.join(git_paths)+'\0').encode('utf-8'),capture_output=True,check=False)
-    if git_checked.returncode not in {0,1}:
-        raise RuntimeError(git_checked.stderr.decode('utf-8',errors='replace'))
-    accidentally_ignored=[p for p in git_checked.stdout.decode('utf-8').split('\0') if p]
+    accidentally_ignored=sorted(check_paths(git_paths))
     result={'status':'PASS_RELEASE_RESTORE_IGNORE_COVERAGE' if not missing and not accidentally_ignored else 'FAILED','generated_patterns':len(patterns),'release_paths_checked':len(release_paths),'git_paths_checked':len(git_paths),'release_paths_not_ignored':missing,'git_paths_accidentally_ignored':accidentally_ignored}
     (ROOT/'catalog/IGNORE_RULES_VERIFICATION.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(result,ensure_ascii=False),flush=True)

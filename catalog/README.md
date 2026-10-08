@@ -1,8 +1,8 @@
-# 文件索引
+# 完整文件索引
 
-本轮只新增代码、文档与主要结果。累计索引保留已发布历史材料，不代表本轮完整原始数据全集。
+当前索引覆盖固定范围内全部510300研究代码、数据、明细、历史版本及审阅包。
 
-[摘要](snapshot.json) · [本轮变化](changes-20261006.csv) · [上传范围](UPLOAD_SCOPE_20261007.json) · [来源引用](STATUS_REFERENCES_VERIFICATION.json) · [研究目录](studies.csv) · [历史附件](assets.json)
+[摘要](snapshot.json) · [本轮变化](changes-20261007-full.csv) · [范围](FULL_UPLOAD_SCOPE_20261007.json) · [来源引用](STATUS_REFERENCES_VERIFICATION.json) · [研究目录](studies.csv) · [附件映射](assets.json)
 
 - [files-001.csv](files-001.csv)：10,000个原文件。
 - [files-002.csv](files-002.csv)：10,000个原文件。
@@ -27,6 +27,19 @@
 - [files-021.csv](files-021.csv)：10,000个原文件。
 - [files-022.csv](files-022.csv)：10,000个原文件。
 - [files-023.csv](files-023.csv)：10,000个原文件。
-- [files-024.csv](files-024.csv)：8,003个原文件。
+- [files-024.csv](files-024.csv)：10,000个原文件。
+- [files-025.csv](files-025.csv)：10,000个原文件。
+- [files-026.csv](files-026.csv)：10,000个原文件。
+- [files-027.csv](files-027.csv)：10,000个原文件。
+- [files-028.csv](files-028.csv)：10,000个原文件。
+- [files-029.csv](files-029.csv)：10,000个原文件。
+- [files-030.csv](files-030.csv)：10,000个原文件。
+- [files-031.csv](files-031.csv)：10,000个原文件。
+- [files-032.csv](files-032.csv)：10,000个原文件。
+- [files-033.csv](files-033.csv)：10,000个原文件。
+- [files-034.csv](files-034.csv)：10,000个原文件。
+- [files-035.csv](files-035.csv)：10,000个原文件。
+- [files-036.csv](files-036.csv)：10,000个原文件。
+- [files-037.csv](files-037.csv)：3,126个原文件。
 
-原路径、字节数、SHA-256、Git/Release位置及附件映射由CSV保存；索引本身摘要见snapshot.json。未发布的新原始数据不在本轮累计索引内。
+CSV记录原路径、字节数、SHA-256、Git/Release位置及附件名称；索引自身摘要保存在snapshot.json。既有附件继续使用原Release地址。

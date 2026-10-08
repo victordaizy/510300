@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+from contextlib import contextmanager
 import hashlib
 import json
 import os
@@ -156,7 +157,7 @@ def write_verified(root: Path, row: dict, readers, overwrite: bool = False) -> b
             partial.unlink()
 
 
-def restore(root: Path, prefixes: list[str], overwrite: bool = False) -> dict:
+def restore(root: Path, prefixes: list[str], overwrite: bool = False, keep_downloads: bool = False) -> dict:
     _, rows, assets = load_index(root)
     selected = [row for row in rows if row["storage"] == "release" and (not prefixes or any(row["path"].startswith(p) for p in prefixes))]
     if not selected:
@@ -164,28 +165,45 @@ def restore(root: Path, prefixes: list[str], overwrite: bool = False) -> dict:
     needed = sorted({name for row in selected for name in row["assets"]})
     cache = root / ".release-downloads"
     cache.mkdir(exist_ok=True)
-    downloads = {name: download(assets[name], cache) for name in needed}
+
+    def discard(path: Path) -> None:
+        if not keep_downloads and path.exists() and path.resolve().is_relative_to(cache.resolve()):
+            path.unlink()
+
+    @contextmanager
+    def chunk_reader(name: str):
+        path = download(assets[name], cache)
+        try:
+            with path.open("rb") as handle:
+                yield handle
+        finally:
+            discard(path)
+
     completed = 0
     bundles: dict[str, list[dict]] = {}
     for row in selected:
         if len(row["assets"]) == 1 and assets[row["assets"][0]]["kind"] == "zip":
             bundles.setdefault(row["assets"][0], []).append(row)
         else:
-            readers = [(lambda path=downloads[name]: path.open("rb")) for name in row["assets"]]
+            readers = [lambda name=name: chunk_reader(name) for name in row["assets"]]
             completed += write_verified(root, row, readers, overwrite)
     for name, members in bundles.items():
-        with zipfile.ZipFile(downloads[name]) as archive:
-            names = archive.namelist()
-            if len(set(names)) != len(names):
-                raise ValueError(f"附件中有重复成员：{name}")
-            for member in names:
-                safe_path(root, member)
-            for row in members:
-                if archive.getinfo(row["path"]).file_size != row["bytes"]:
-                    raise ValueError(f"ZIP成员大小不符：{row['path']}")
-                completed += write_verified(root, row, [lambda path=row["path"]: archive.open(path)], overwrite)
-        print(f"已还原附件：{name}", flush=True)
-    return {"状态": "通过", "匹配文件数": len(selected), "新还原文件数": completed, "附件数": len(needed)}
+        path = download(assets[name], cache)
+        try:
+            with zipfile.ZipFile(path) as archive:
+                names = archive.namelist()
+                if len(set(names)) != len(names):
+                    raise ValueError(f"附件中有重复成员：{name}")
+                for member in names:
+                    safe_path(root, member)
+                for row in members:
+                    if archive.getinfo(row["path"]).file_size != row["bytes"]:
+                        raise ValueError(f"ZIP成员大小不符：{row['path']}")
+                    completed += write_verified(root, row, [lambda relative=row["path"]: archive.open(relative)], overwrite)
+        finally:
+            discard(path)
+        print(f"已还原附件并处理下载缓存：{name}", flush=True)
+    return {"状态": "通过", "匹配文件数": len(selected), "新还原文件数": completed, "附件数": len(needed), "保留下载缓存": keep_downloads}
 
 
 def main() -> None:
@@ -199,9 +217,10 @@ def main() -> None:
     choice.add_argument("--all", action="store_true", help="还原全部Release材料")
     choice.add_argument("--only", action="append", help="只还原指定相对路径前缀，可重复使用")
     restoring.add_argument("--overwrite", action="store_true", help="明确允许覆盖与快照不同的本地目标文件")
+    restoring.add_argument("--keep-downloads", action="store_true", help="明确保留用完的Release下载缓存；默认立即清理")
     args = parser.parse_args()
     try:
-        result = verify(args.root, not args.all) if args.command == "verify" else restore(args.root, args.only or [], args.overwrite)
+        result = verify(args.root, not args.all) if args.command == "verify" else restore(args.root, args.only or [], args.overwrite, args.keep_downloads)
     except Exception as exc:
         print(f"处理失败：{exc}", file=sys.stderr)
         raise SystemExit(1)
