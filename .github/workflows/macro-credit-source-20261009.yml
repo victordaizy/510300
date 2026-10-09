@@ -1,0 +1,69 @@
+name: Macro credit source retrieval 20261009
+on:
+  push:
+    branches: [codex/rsrs-research-v1]
+    paths: ['.github/workflows/macro-credit-source-20261009.yml']
+permissions:
+  contents: read
+jobs:
+  retrieve-credit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Restore only fixed credit source
+        run: |
+          python - <<'PY'
+          import json, hashlib, zipfile
+          from pathlib import Path
+          from tools.repository.snapshot import load_index, restore
+          root=Path.cwd()
+          paths=['data/raw/macro/china_credit_spread_3y_daily.parquet','reports/data_quality/china_credit_spread_3y_status.json','config/macro_02_credit_spread_trend_v1.yaml','reports/backtest/macro_02_credit_spread_trend_v1.md']
+          _, rows, assets=load_index(root)
+          indexed={r['path']:r for r in rows}
+          chosen=[indexed[p] for p in paths]
+          needed={name for r in chosen if r['storage']=='release' for name in r['assets']}
+          total=sum(assets[name]['bytes'] for name in needed)
+          assert total<=1024**3, ('Download budget exceeded',total)
+          print('CREDIT_INPUTS',json.dumps(chosen,ensure_ascii=False),flush=True)
+          release_paths=[r['path'] for r in chosen if r['storage']=='release']
+          if release_paths: print(restore(root,release_paths),flush=True)
+          out=root/'credit_source_artifacts';out.mkdir()
+          manifest=[]
+          with zipfile.ZipFile(out/'source_files.zip','w',zipfile.ZIP_DEFLATED) as z:
+            for item in chosen:
+              p=root/item['path'];raw=p.read_bytes();digest=hashlib.sha256(raw).hexdigest()
+              assert digest==item['sha256'] and len(raw)==item['bytes']
+              z.write(p,item['path']);manifest.append({'path':item['path'],'bytes':len(raw),'sha256':digest})
+          (out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Produce lossless portable CSV
+        run: |
+          python -m pip install pandas==2.2.3 pyarrow==19.0.1
+          python - <<'PY'
+          import pandas as pd, hashlib,json
+          from pathlib import Path
+          p=Path('data/raw/macro/china_credit_spread_3y_daily.parquet')
+          d=pd.read_parquet(p)
+          q=Path('credit_source_artifacts/credit_curve.csv')
+          d.to_csv(q,index=False,float_format='%.17g')
+          pd.DataFrame({'column':d.columns,'dtype':[str(x) for x in d.dtypes]}).to_csv('credit_source_artifacts/schema.csv',index=False)
+          print('CREDIT_DATA',len(d),d.columns.tolist(),flush=True)
+          print(d.head().to_string(),flush=True)
+          Path('credit_source_artifacts/csv_manifest.json').write_text(json.dumps({'path':str(q),'bytes':q.stat().st_size,'sha256':hashlib.sha256(q.read_bytes()).hexdigest()},indent=2))
+          PY
+      - name: Preserve source and manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macro-credit-source-20261009
+          path: credit_source_artifacts/
+          retention-days: 30
+          if-no-files-found: error
