@@ -1,0 +1,76 @@
+name: RSRS verified data replay
+on:
+  push:
+    branches: [codex/rsrs-research-v1]
+    paths: ['.github/workflows/rsrs-data-replay.yml', 'research/rsrs/run_research.py']
+permissions:
+  contents: read
+jobs:
+  rsrs-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Restore only frozen account inputs and controls
+        run: |
+          python - <<'PY'
+          import hashlib, json, zipfile
+          from pathlib import Path
+          from tools.repository.snapshot import load_index, restore
+          root = Path.cwd()
+          current = 'reports/research/510300_point_current_observation_20261001/inputs/candidate_prices.parquet'
+          weight = 'reports/research/510300_point_weight_information_diagnostic_v1/inputs/'
+          control = 'reports/research/510300_point_second_weight_comparison_v1/inputs/controls/'
+          paths = [current] + [weight + s for s in ['dividends.csv','risks.parquet','parent_signals.parquet','earlier_signals.parquet']]
+          for period in ['2015_2019','2020_2026']:
+              for cost in ['BASE','STRESS']:
+                  for name in ['daily','orders','trades']:
+                      paths.append(f'{control}{period}/{cost}/A_SAVED_WEIGHT/{name}.parquet')
+          _, rows, assets = load_index(root)
+          by_path = {r['path']: r for r in rows}
+          assert all(p in by_path for p in paths), 'Frozen input missing from catalog'
+          chosen = [by_path[p] for p in paths]
+          needed = sorted({a for r in chosen for a in r['assets']})
+          print('REPLAY_INPUT_MANIFEST', json.dumps(chosen, ensure_ascii=False), flush=True)
+          print('ASSET_DOWNLOAD_BYTES', sum(assets[a]['bytes'] for a in needed), flush=True)
+          assert sum(assets[a]['bytes'] for a in needed) <= 4*1024**3, 'Download budget exceeded'
+          print(restore(root, paths), flush=True)
+          out = root/'rsrs_artifacts'
+          out.mkdir(exist_ok=True)
+          manifest = []
+          for p in paths:
+              raw = (root/p).read_bytes()
+              digest = hashlib.sha256(raw).hexdigest()
+              assert digest == by_path[p]['sha256']
+              manifest.append({'path':p,'bytes':len(raw),'sha256':digest})
+          (out/'source_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+          with zipfile.ZipFile(out/'replay_inputs.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for p in paths:
+                  z.write(root/p,p)
+              for p in (root/'research').rglob('*.py'):
+                  z.write(p,p.relative_to(root).as_posix())
+              for p in ['requirements.txt','requirements-snapshot.txt','config/510300_high_return_sharpe_goal_v1.json','tests/rsrs/test_rsrs.py']:
+                  if (root/p).exists(): z.write(root/p,p)
+          print('FROZEN_INPUTS_RESTORED_AND_HASH_VERIFIED', len(paths), flush=True)
+          PY
+      - name: Install research dependencies
+        run: python -m pip install numpy==2.2.6 pandas==2.2.3 pyarrow==19.0.1 scipy==1.15.3 scikit-learn==1.6.1 threadpoolctl==3.6.0
+      - name: Execute available RSRS tests and research
+        run: |
+          python -m unittest discover -s tests/rsrs -v
+          if [ -f research/rsrs/run_research.py ]; then python research/rsrs/run_research.py; fi
+      - name: Preserve inputs and all experiment results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rsrs-replay-results
+          path: rsrs_artifacts/
+          retention-days: 30
+          if-no-files-found: warn

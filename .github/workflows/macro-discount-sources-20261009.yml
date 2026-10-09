@@ -1,0 +1,60 @@
+name: Macro discount source audit 20261009
+on:
+  push:
+    branches: [codex/rsrs-research-v1]
+    paths: ['.github/workflows/macro-discount-sources-20261009.yml']
+permissions:
+  contents: read
+jobs:
+  macro-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Install fixed representation dependencies
+        run: python -m pip install numpy==2.2.6 pandas==2.2.3 pyarrow==19.0.1
+      - name: Restore and verify only two original sources
+        run: |
+          python - <<'PY'
+          import json, hashlib, shutil
+          from pathlib import Path
+          import pandas as pd
+          from tools.repository.snapshot import load_index, restore
+          root = Path.cwd()
+          paths = ['data/raw/macro/china_government_bond_yields_daily.parquet', 'data/raw/valuation/000300_valuation_daily_raw.parquet']
+          _, rows, assets = load_index(root)
+          lookup = {r['path']:r for r in rows}
+          assert all(p in lookup for p in paths), 'Original source missing in catalog'
+          chosen = [lookup[p] for p in paths]
+          needed = {a for r in chosen for a in r['assets']}
+          budget = sum(assets[a]['bytes'] for a in needed)
+          print('DOWNLOAD_BYTES', budget, flush=True)
+          assert budget <= 4*1024**3, 'Bounded download budget exceeded'
+          restore_paths = [r['path'] for r in chosen if r['storage']=='release']
+          if restore_paths: print(restore(root, restore_paths), flush=True)
+          out = root/'macro_discount_sources';out.mkdir(exist_ok=False)
+          receipt=[]
+          for i,row in enumerate(chosen):
+              raw=root/row['path']; digest=hashlib.sha256(raw.read_bytes()).hexdigest()
+              assert digest==row['sha256'] and raw.stat().st_size==row['bytes']
+              dest=out/f'source_{i}.parquet';shutil.copyfile(raw,dest)
+              frame=pd.read_parquet(raw); frame.to_csv(out/f'source_{i}.csv',index=False)
+              receipt.append({'original_path':row['path'],'local_name':dest.name,'sha256':digest,'bytes':raw.stat().st_size,'rows':len(frame),'columns':list(frame.columns),'dtypes':{c:str(frame[c].dtype) for c in frame}})
+              print('SOURCE_SCHEMA',json.dumps(receipt[-1],ensure_ascii=False),flush=True)
+          (out/'manifest.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Preserve source bytes and schema
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macro-discount-sources-20261009
+          path: macro_discount_sources/
+          retention-days: 30
+          if-no-files-found: error

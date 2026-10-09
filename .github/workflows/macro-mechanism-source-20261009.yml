@@ -1,0 +1,67 @@
+name: Macro mechanism source retrieval 20261009
+on:
+  push:
+    branches: [codex/rsrs-research-v1]
+    paths: ['.github/workflows/macro-mechanism-source-20261009.yml']
+permissions:
+  contents: read
+jobs:
+  source-retrieval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Install table reader
+        run: python -m pip install pandas==2.2.3 pyarrow==19.0.1
+      - name: Restore exact archived sources and preserve identities
+        run: |
+          python - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          import pandas as pd
+          from tools.repository.snapshot import load_index, restore
+          root=Path.cwd()
+          paths=[
+          'data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/csi300_earnings_yield_release_ledger.parquet',
+          'data/curated/510300_stress_transmission_hazard_v2_mft_feature_execution_v1/china_10y_yield_release_ledger.parquet',
+          'reports/research/510300_rmb_loan_composition_completion_v1/released_loan_composition.parquet',
+          'reports/research/510300_household_bank_balance_source_v1/released_household_bank_balance.parquet',
+          'reports/research/510300_tsf_government_composition_source_v1/results/released_composition.parquet',
+          'reports/research/510300_manufacturing_price_transmission_source_v1/released_manufacturing_price_transmission.parquet',
+          'reports/research/510300_housing_collateral_monthly_source_v1/released_housing_breadth.parquet',
+          'reports/research/510300_macro_2026_source_coverage_intake_v1_clock_adapter/results/完整3488资金源派生_仅扩已有日历不拟合.parquet'
+          ]
+          _,rows,assets=load_index(root)
+          lookup={r['path']:r for r in rows}
+          out=root/'macro_mechanism_sources';out.mkdir()
+          selected=[p for p in paths if p in lookup]
+          missing=[p for p in paths if p not in lookup]
+          needed=sorted({a for p in selected for a in lookup[p]['assets']})
+          budget=sum(assets[a]['bytes'] for a in needed)
+          print('DOWNLOAD_BYTES',budget,'MISSING',missing,flush=True)
+          assert budget<=2*1024**3,'Bounded source retrieval budget exceeded'
+          print(restore(root,selected),flush=True)
+          manifest=[]
+          for j,p in enumerate(selected):
+              data=(root/p).read_bytes(); digest=hashlib.sha256(data).hexdigest()
+              assert digest==lookup[p]['sha256']
+              name=f'source_{j}.parquet';(out/name).write_bytes(data)
+              frame=pd.read_parquet(root/p)
+              frame.to_csv(out/f'source_{j}.csv',index=False,encoding='utf-8',float_format='%.17g')
+              manifest.append({'path':p,'local_name':name,'bytes':len(data),'sha256':digest,'rows':len(frame),'columns':frame.columns.tolist()})
+          (out/'manifest.json').write_text(json.dumps({'sources':manifest,'missing':missing,'download_bytes':budget,'source_vintage_certified':False},ensure_ascii=False,indent=2),encoding='utf-8')
+          print('SOURCE_FILES',len(manifest),flush=True)
+          PY
+      - name: Preserve source artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: macro-mechanism-sources-20261009
+          path: macro_mechanism_sources/
+          retention-days: 30
+          if-no-files-found: warn
