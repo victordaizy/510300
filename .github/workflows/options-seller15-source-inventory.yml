@@ -1,0 +1,46 @@
+name: options-seller15-source-inventory
+on:
+  push:
+    branches: [codex/options-seller15-20261017]
+    paths: [.github/workflows/options-seller15-source-inventory.yml]
+permissions:
+  contents: read
+jobs:
+  source-inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 核对目录并盘点期权源文件
+        run: |
+          python - <<'PY'
+          import sys,json,csv,subprocess,shutil,hashlib
+          from pathlib import Path
+          sys.path.insert(0,str(Path.cwd()))
+          from tools.repository.snapshot import load_index
+          root=Path.cwd(); out=root/'options_source_inventory'; out.mkdir(exist_ok=False)
+          summary,rows,assets=load_index(root)
+          selected=[r for r in rows if ('option' in r['path'].lower() or '期权' in r['path'])]
+          (out/'option_index.json').write_text(json.dumps(selected,ensure_ascii=False,indent=2),encoding='utf-8')
+          names={a for r in selected for a in r['assets']}
+          (out/'relevant_assets.json').write_text(json.dumps([assets[a] for a in sorted(names)],ensure_ascii=False,indent=2),encoding='utf-8')
+          tracked=subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          code=[]
+          for p in tracked:
+            src=root/p
+            if ('option' in p.lower() or '期权' in p) and src.is_file() and src.suffix in ['.py','.yaml','.toml','.json','.md'] and src.stat().st_size<300000 and not p.startswith('catalog/'):
+              target=out/'tracked'/p; target.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(src,target); code.append(p)
+          data=[r for r in selected if r['path'].startswith('data/')]
+          (out/'receipt.json').write_text(json.dumps({'source_commit':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'indexed_option_files':len(selected),'data_file_count':len(data),'copied_code':code,'option_backtests':0,'orders':0},ensure_ascii=False,indent=2),encoding='utf-8')
+          print('INDEXED_OPTIONS',len(selected),'DATA',len(data),'CODE',len(code))
+          for r in data[:160]: print(r['path'],r['bytes'],r['assets'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: options-seller15-source-inventory
+          path: options_source_inventory/
+          retention-days: 14
+          if-no-files-found: error
