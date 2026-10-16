@@ -1,0 +1,26 @@
+name: options-seller15-parquet-runtime
+on:
+  push:
+    branches: [codex/options-seller15-20261017]
+    paths: [.github/workflows/options-seller15-parquet-runtime.yml]
+permissions:
+  contents: read
+jobs:
+  prepare-reader:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: 下载固定版本公开Parquet读取依赖
+        run: |
+          mkdir runtime_wheels
+          python -m pip download --only-binary=:all: --no-deps pyarrow==21.0.0 --dest runtime_wheels
+          sha256sum runtime_wheels/* > runtime_wheels/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: options-seller15-pyarrow-reader
+          path: runtime_wheels/
+          retention-days: 7
+          if-no-files-found: error
