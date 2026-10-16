@@ -1,0 +1,42 @@
+name: options-seller15-restore
+on:
+  push:
+    branches: [codex/options-seller15-20261017]
+    paths: [.github/workflows/options-seller15-restore.yml]
+permissions:
+  contents: read
+jobs:
+  restore-options:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: 按原目录哈希恢复既有文件
+        run: |
+          python tools/repository/snapshot.py restore --only reports/research/510300_option_credit_spread_router_daily_v1/
+          python - <<'PY'
+          import sys,json,hashlib,shutil,subprocess
+          from pathlib import Path
+          sys.path.insert(0,str(Path.cwd()))
+          from tools.repository.snapshot import load_index,sha256
+          root=Path.cwd();summary,rows,assets=load_index(root)
+          prefix='reports/research/510300_option_credit_spread_router_daily_v1/'
+          selected=[r for r in rows if r['path'].startswith(prefix)]
+          receipts=[]
+          for r in selected:
+            p=root/r['path']; assert p.is_file() and p.stat().st_size==r['bytes'] and sha256(p)==r['sha256'],r['path']
+            receipts.append({'path':r['path'],'bytes':r['bytes'],'sha256':r['sha256']})
+          out=root/'options_restored';out.mkdir(exist_ok=False)
+          shutil.copytree(root/prefix,out/'prior_router')
+          (out/'restoration_receipt.json').write_text(json.dumps({'commit':subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),'source_files':receipts,'count':len(receipts),'new_option_backtests':0,'orders':0},ensure_ascii=False,indent=2),encoding='utf-8')
+          print('RESTORED_AND_SHA256_VERIFIED',len(receipts))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: options-seller15-restored-data
+          path: options_restored/
+          retention-days: 14
+          if-no-files-found: error
